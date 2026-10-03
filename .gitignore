@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Loader links are created locally by the harness.
+.claude/skills
+.cursor/skills

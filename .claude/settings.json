@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --offline --no-project python \"${CLAUDE_PROJECT_DIR}/.agents/scripts/gw/questions.py\" --hook claude-code",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --offline --no-project python \"${CLAUDE_PROJECT_DIR}/.agents/scripts/gw/questions.py\" --hook claude-code",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

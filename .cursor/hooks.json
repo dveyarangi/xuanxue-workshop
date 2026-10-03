@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      { "command": "uv run --offline --no-project python .agents/scripts/gw/questions.py --hook cursor" }
+    ],
+    "preCompact": [
+      { "command": "uv run --offline --no-project python .agents/scripts/gw/questions.py --hook cursor" }
+    ]
+  }
+}
