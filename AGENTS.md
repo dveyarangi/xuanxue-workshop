@@ -169,8 +169,13 @@ when recording shared contracts or coordinated work.
 **L4** The harness scripts require Python 3.12 or later and only the standard library.
 In this workspace, run them with uv run --offline --no-project python.
 
-**L6** README.md describes the project as a product for its users. Keep agent setup,
-harness installation, maintenance commands, and installation reports out of it.
+**L6** README.md is the product entry point for contributors and project agents. Direct
+an arriving agent to the canonical collaboration skill. README and installation
+issues point to the skill rather than duplicating its working instructions.
+Keep harness installation commands, maintenance commands and installation reports
+out of it.
+
+**L7** debug=on
 </installed>
 
 ## Straw dogs

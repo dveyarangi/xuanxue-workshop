@@ -113,6 +113,14 @@ the repair policy. Move each subtree it reports ready for `done/` with `move_doc
 of the subtree in one invocation, into `docs/questions/done/`.
 </installed>
 
+<installed by="local">
+**L8** For maintenance of Workshop's project or boundary records, invoke the /reconcile
+skill at .agents/skills/reconcile/SKILL.md before the final report. Include its
+boundary comparisons, record changes, issue links and unresolved evidence in
+that report. Check its declaration and installed bindings with the existing
+mechanisms.py --check and inject_rules.py --check commands.
+</installed>
+
 ## Finish
 
 - **F1** Run the checks in the project's verification set that the scope touched.

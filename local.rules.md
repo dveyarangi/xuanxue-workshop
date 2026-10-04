@@ -4,6 +4,8 @@
 |---|---|
 | `AGENTS.md` | `## Project-local` |
 | `.agents/skills/verify/SKILL.md` | `## The verification set` |
+| `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
+| `.agents/skills/reconcile/SKILL.md` | `## Project context` |
 
 ## L1 — project purpose and current state
 
@@ -51,11 +53,23 @@ In this workspace, run them with uv run --offline --no-project python.
 ## L6 — audience of the project README
 
 - **target** `AGENTS.md`
-- **authority** the user, 2026-10-03
+- **authority** the user, 2026-10-04, repository-link onboarding clarification
 
 <rule>
-README.md describes the project as a product for its users. Keep agent setup,
-harness installation, maintenance commands, and installation reports out of it.
+README.md is the product entry point for contributors and project agents. Direct
+an arriving agent to the canonical collaboration skill. README and installation
+issues point to the skill rather than duplicating its working instructions.
+Keep harness installation commands, maintenance commands and installation reports
+out of it.
+</rule>
+
+## L7 — question debug mode
+
+- **target** `AGENTS.md`
+- **authority** the user, 2026-10-04
+
+<rule>
+debug=on
 </rule>
 
 ## L5 — verification set
@@ -77,4 +91,33 @@ There is no application toolchain, typechecker, or application test suite in thi
 repository yet. For documentation changes, verify claims against PRODUCT.md and
 the affected projects' authoritative sources, and verify referenced paths exist.
 When changing records, run the owning mechanism's validator for those records.
+</rule>
+
+## L8 — boundary reconciliation during maintenance
+
+- **target** `.agents/skills/maintain/SKILL.md`
+- **authority** the user, 2026-10-04, reconciliation and cleanup agreement
+
+<rule>
+For maintenance of Workshop's project or boundary records, invoke the /reconcile
+skill at .agents/skills/reconcile/SKILL.md before the final report. Include its
+boundary comparisons, record changes, issue links and unresolved evidence in
+that report. Check its declaration and installed bindings with the existing
+mechanisms.py --check and inject_rules.py --check commands.
+</rule>
+
+## L9 — reconciliation sources
+
+- **target** `.agents/skills/reconcile/SKILL.md`
+- **authority** the user, 2026-10-04, references instead of repeated project facts
+
+<rule>
+Read these repository-relative sources:
+- Project repositories: README.md, Repository map.
+- Observed boundaries and source revisions: docs/current-system.md.
+- Accepted targets and consumers: docs/boundaries.md.
+- Planned changes: docs/migration-changes.md.
+- Scope limits: docs/stage-1.md.
+- Ownership, routing, autonomy and acceptance: docs/agent-contract.md.
+- Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
 </rule>
