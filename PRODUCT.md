@@ -6,6 +6,10 @@ Enable developers and their coding agents to work across the school's software p
 
 ## Goals
 
+These are intended product capabilities. The accepted [first-stage goal](docs/stage-1.md)
+defines which outcomes are required for initial migration and agent integration;
+it does not commit the first stage to implementing every capability below.
+
 ### 1. Define responsibility boundaries
 
 For every shared capability, identify its providing project, consumers, data owner, and accountable person. Specify who approves changes, releases them, and handles failures. Allow contributors to work across projects without transferring ownership implicitly.

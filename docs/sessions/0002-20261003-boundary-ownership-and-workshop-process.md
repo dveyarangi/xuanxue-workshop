@@ -1,5 +1,8 @@
 # Boundary ownership and Workshop process
 
+Historical session snapshot. For current scope use the [first-stage goal](../stage-1.md);
+open questions below describe the state at conclusion, not the present frontier.
+
 Session concluded 2026-10-03. Resume the question store from session
 `s-1003-5060`; its last position is q-0002.0007. This record supersedes the earlier
 session's undecided provider ownership and no-commits workspace snapshot.
@@ -14,7 +17,7 @@ session's undecided provider ownership and no-commits workspace snapshot.
 - Investigated and visualized both projects' frontend/backend calls. The initial
   investigation underrepresented Cabinet's existing capabilities and Daychi's
   active local reminder delivery; the later investigation corrected these points.
-- Recorded the user's accepted provider assignments in [architecture](../architecture.md):
+- Recorded the user's accepted provider assignments, now in [boundary contracts](../boundaries.md):
   schedule, users, and reminders move to Cabinet backend; Daychi videos and other
   recordings stay in Daychi for now. Ownership is decided; migration is not implemented.
 - Captured the user's Workshop process sketch: maintained boundary contracts,
@@ -35,7 +38,7 @@ while retaining its content backend?
 Cabinet already implements recurring classes, dated lessons, user authentication,
 per-user reminder preferences, and scheduler-driven inbox/browser push delivery.
 Reuse this behavior when preparing the migration contract. Evidence and concrete
-differences are in [architecture](../architecture.md) and the
+differences are now in [current-system evidence](../current-system.md) and the
 [migration question](../questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md).
 
 The unresolved integration choices are public schedule access and date-window
@@ -71,8 +74,11 @@ was changed during the architecture work.
 Installed rule blocks validated successfully, and question-store checks passed
 after the ownership closure. Automatic host hook execution is still unverified;
 manual window/placement calls work. Existing installation follow-ups are recorded
-in [delivery status](../tickets/README.md), including Windows loader symlinks and
-the source-ref publication limitation. Do not infer hook execution from hook-file presence.
+here: Windows loader symlinks were pending, and source verification used the local
+harness repository `D:/Dev/AI/agents` at
+`ebde4abf94bb3a1f56ac706cee30edeb8211c850`. At that verification the remote source
+did not contain the ref. This records the historical limitation, not its current
+availability. Do not infer hook execution from hook-file presence.
 
 [Rule failures](../rule-failures.md) records the omitted question branching and
 insufficient capability investigation, with proposed clarifications that have not

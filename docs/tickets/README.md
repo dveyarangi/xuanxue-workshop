@@ -1,26 +1,27 @@
 # Delivery status
 
-**Last updated:** 2026-10-03
+**Last updated:** 2026-10-04
 
-**Completed step:** harness installed at `ad971a4` and updated to `ebde4ab`,
-including question IDs advancing by one; project-local rules and hook wiring
-installed; all installation gates passed with `arrived: true`. Windows
-loader symlinks remain to be created; the exact commands were provided in the
-installation chat. Host execution of hooks has not been observed in a new session.
+The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
+migration changes and Workshop responsibility have separate homes. Confirmed adoption by both project agents
+is outstanding; see the [agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
 
-The `ebde4ab` copy was verified against the committed local harness source at
-`D:/Dev/AI/agents` (full ref `ebde4abf94bb3a1f56ac706cee30edeb8211c850`).
-The GitHub source did not contain that ref at verification time; checking from
-the default remote source requires its publication.
+Queue responsibility follows the [agent interaction contract](../agent-contract.md).
+The existing harness path is `docs/tickets/`, with the user's
+requested folder spelling being clarified. The contract-contribution proposals
+in [migration changes](../migration-changes.md#proposed-contribution-breakdown)
+have not been issued or dispatched and do not yet cover the entire first stage.
 
-**Current work:** architecture alignment established provider ownership in
-[architecture](../architecture.md): schedule, users, and reminders move to Cabinet;
-Daychi content stays in Daychi. Workshop process and migration contracts remain
-open in the [question store](../questions/). Resume from the
-[latest session](../sessions/0002-20261003-boundary-ownership-and-workshop-process.md).
-No application implementation or next delivery cycle has been authorized.
+## Legacy horizon binding
 
-**Next cycle needs a nod** where the entry file's `next-cycle` switch says `ask`.
+The record below predates that separation and anchors the accepted temporary
+content-admission contract. It is not a Workshop inception task or active migration
+assignment. Its proper tracker destination remains in the
+[tracker question](../questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md).
+
+## Queue
 
 | Ticket | Status | Type | Outcome |
 |---|---|---|---|
+| [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md) | Ready | HITL | Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement. |
+| [daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md) | Blocked (horizon) | HITL | Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend. |

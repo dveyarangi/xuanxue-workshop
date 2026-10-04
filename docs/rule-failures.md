@@ -1,5 +1,23 @@
 # Rule failures
 
+## 2026-10-04 — Alignment stopped after answering a clarification
+
+Status: amendment refused as redundant; execution corrected by resuming alignment.
+
+Rule in play: [align, What to do](../.agents/skills/align/SKILL.md) requires walking
+the decision tree one question at a time. The user repeatedly asked the assistant
+to continue after replies ended at recording or explaining the current decision.
+The assistant treated a clarification as the end of the ongoing alignment.
+
+Proposed amendment: "After answering a clarification during an active alignment,
+continue with the next substantive unresolved decision in the same reply unless
+the person pauses or ends the session."
+
+Disposition: refused as a duplicate of the existing alignment obligation and the
+user's explicit continuation instructions. No additional mechanism is needed;
+the failure was execution. The assistant resumed with the unresolved guest-reminder
+decision rather than requesting another instruction to continue.
+
 ## 2026-10-03 — Question placement without capturing unresolved decisions
 
 Status: records repaired; rule clarification proposed, not installed.

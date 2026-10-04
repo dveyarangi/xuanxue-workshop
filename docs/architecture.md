@@ -1,63 +1,65 @@
-# Architecture
+# Workshop architecture
 
-Workshop maintains cross-domain boundary contracts and coordinates changes to them.
-Project implementation architecture stays in the owning repositories. This document
-distinguishes accepted responsibility from currently implemented integration.
+Workshop coordinates boundary agreements and changes across the school's projects.
+Its customers are the contributors and coding agents working under separate human
+operators. The [first-stage goal](stage-1.md) defines the present delivery scope.
 
-## Accepted responsibility boundaries
+## Responsibility
 
-Decision: the user, 2026-10-03, during the architecture discussion.
+Workshop owns the cross-project agreement: which module provides a capability,
+which modules consume it, who owns the data, and what behavior must agree across
+the boundary. Each project owns its internal architecture, executable interfaces,
+implementation, and release process. A shared agreement does not transfer that
+ownership or authorize Workshop to change a sibling project.
 
-| Capability | Target provider | Consumers |
-|---|---|---|
-| Schedule | Cabinet backend | Cabinet frontend and Daychi clients |
-| Users | Cabinet backend | Cabinet frontend, Daychi clients, and Daychi content access integration |
-| Reminders | Cabinet backend | Cabinet frontend and Daychi clients |
-| Daychi content: videos and other recordings | Daychi backend | Daychi clients |
+Cabinet's contribution must cover its existing frontend dependencies as well as
+the provider contract for Daychi. Daychi's contribution must cover its consumers
+and retained content backend. Workshop reconciles the two contributions; source
+inspection, accepted promises, executed checks, and deployed support remain
+distinct kinds of evidence.
 
-The user explicitly keeps Daychi content in Daychi for now. No content consolidation
-or removal of Cabinet's existing material, recording, or exam features was decided.
-The move of schedule, users, and reminders is accepted ownership direction, not a
-claim that migration is implemented or deployed.
+## Contracts and state
 
-## Contract surfaces
+The [current system](current-system.md) records observed structure and interface
+behavior with source revisions. The [initial target contracts](boundaries.md)
+hold accepted boundary decisions. [Migration changes](migration-changes.md)
+describe the delta and proposed contributions, with responsibility assigned to
+each project. These serve different purposes: an accepted target never proves
+that a provider or consumer has implemented it.
 
-Daychi will consume Cabinet's schedule, user, and reminder capabilities. Its content
-backend remains a distinct provider. Moving users to Cabinet requires defining how
-Daychi content access recognizes Cabinet identity and access changes.
+Executable schemas remain in their owning projects. Workshop must refer to those
+definitions when recording an agreement; the exact publication and verification
+arrangement is still open. Cabinet already shares route definitions between its
+API and web client, so coordination must account for that existing authority.
 
-Workshop owns the agreement at these boundaries. It does not duplicate the internal
-architecture of either project. The schema authority, executable checks, rollout,
-and tracker mechanisms are still being worked out in the question store.
+## Work and feedback
 
-## Existing capabilities and migration gaps
+The [agent interaction contract](agent-contract.md) is the sole authored home for
+assignment routing, reporting, record-update responsibility and acknowledgement.
+It records the accepted Issues exchange and the remaining open decisions. Architecture
+and project onboarding refer to that contract rather than defining another protocol.
 
-Inspection of local source on 2026-10-03 found:
+The repository README is the product entry point for an arriving project agent.
+It links to addressed work and the [/collaborate skill](../skills/collaborate/SKILL.md)
+under the [entry and first-assignment contract](agent-contract.md#entry-and-first-assignment).
+The shared tracker holds the concrete installation work.
 
-- Cabinet already models recurring classes and dated lessons and provides an
-  authenticated student schedule through `GET /api/me/lessons`. Its existing
-  contract returns a limited upcoming list, whereas Daychi has public schedule
-  loading and a fourteen-day calendar. See [student routes](../../xuanxue-cabinet/shared/src/my-lessons-routes.ts)
-  and [schedule loading](../../daychi/apps/practice-app/src/features/schedule/load.ts).
-- Cabinet already owns user records and login/session handling. Its current guard
-  reads a session cookie; Daychi's protected API reads its own bearer credentials.
-  See [Cabinet guard](../../xuanxue-cabinet/api/src/auth/auth.guard.ts) and
-  [Daychi access composition](../../daychi/practice_api/daychee_app.py).
-- Cabinet already schedules lesson reminders, writes inbox notices, and sends
-  browser push. It has class-level selection and per-user reminder timing. See
-  [reminder service](../../xuanxue-cabinet/api/src/lessons/lesson-reminder.service.ts)
-  and [preferences contract](../../xuanxue-cabinet/shared/src/lesson-notifications.ts).
-- Daychi's active client flow uses local OS notifications and disables its older
-  server reminder registration before enabling them. Its choices include individual
-  dates, recurring selections, and skipped dates. See [local reminders](../../daychi/apps/practice-app/src/features/schedule/local-reminders.ts)
-  and [attendance model](../../daychi/apps/practice-app/src/features/schedule/attendance.ts).
+The [/reconcile skill](../.agents/skills/reconcile/SKILL.md), invoked by the
+/maintain skill, compares project evidence with these records and derives the
+short boundary summaries supplied to project agents. Its project context is
+installed from local rules. Reconciliation does not implement project changes
+or substitute for the separate startup review and acceptance of assignments.
 
-These differences require a migration contract; moving ownership does not itself
-decide native delivery, offline behavior, public access, identifier mapping, or the
-replacement of existing credentials. Source inspection does not verify live deployment.
+There is no mandatory bilateral PR approval ceremony: the user rejected it as
+too cumbersome on 2026-10-03.
 
-## Open questions
+The selected publication and return address, and its verified readiness, are in
+the [agent contract](agent-contract.md#workshop-address). Publication and access
+from each operator's environment are dependencies of working agent integration.
 
-The [question store](questions/) holds contract maintenance, migration, change
-coordination, tracker ownership, onboarding, and operational obligations. No new
-implementation or deployment is authorized by this architecture record alone.
+## Deferred decisions
+
+- [Contract maintenance and verification](questions/q-0002.0002-how-should-workshop-maintain-and-verify-boundary-contracts.md): schema references and evidence required for a shared promise.
+- [Tracker access and claims](questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md): operator access, claims, and handling of the legacy horizon record.
+- [Agent adoption](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md): instructions and demonstrable integration under each operator.
+- [Operational obligations](questions/q-0002.0006-what-visibility-and-error-monitoring-obligations-should-workshop-enforce.md): distinguish what initial coordination requires from the broader product goals.

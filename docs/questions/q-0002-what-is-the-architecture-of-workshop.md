@@ -1,92 +1,64 @@
 # q-0002 What is the architecture of Workshop?
 
 - **state** open
-- **lean** Cabinet ownership of schedule, users, and reminders is accepted; Daychi retains content. Workshop contract, tracker, onboarding, operations, and migration mechanisms remain open.
-- **struck** 0, last 2026-10-03T10:43Z
+- **lean** First-stage scope, role-separated agent contract, Workshop tracker and recipient labels are accepted. Reconciliation is installed locally and both installation issues updated and labelled. Startup review, source publication, verified agent adoption and remaining application contracts are open.
+- **struck** 1, last 2026-10-03T22:53Z
 
-## Direction and evidence
+## Current decision context
 
-The user rejected a mandatory agreement PR approved by both project owners as too
-cumbersome for the current projects (2026-10-03). Their alternative is an idea to
-evaluate: a client-domain agent requests an API change through a Workshop ticket;
-a backend-domain agent publishes a change and requests consumer migration through
-a ticket. The specific flow has not been accepted as architecture.
+The [first-stage goal](../stage-1.md) is accepted. [Workshop architecture](../architecture.md)
+owns coordination responsibility; [initial boundary contracts](../boundaries.md)
+own the application agreements; [current-system evidence](../current-system.md)
+and [migration changes](../migration-changes.md) distinguish facts from required work.
 
-Inspection of the current local checkouts found:
+The open child questions hold contract maintenance, report-back and record updates,
+tracker addresses and claims, agent adoption, operational obligations, and the
+remaining migration contracts. Contribution proposals are unapproved and do not
+cover the whole adoption process.
 
-- Cabinet's api and web share typed route contracts, checked by TypeScript and
-  route-registration e2e tests. See [ADR-0148](../../../xuanxue-cabinet/docs/adr/0148-api-route-map-in-shared.md)
-  and [the route map](../../../xuanxue-cabinet/shared/src/api-routes.ts).
-- Cabinet's agent completes and merges its own green PR to staging; production
-  release requires the owner's instruction. See [CLAUDE.md, process 1a](../../../xuanxue-cabinet/CLAUDE.md).
-  A new cross-project approval ceremony would add to this existing workflow.
-- Cabinet's shared package is private, and its response version header identifies
-  a build commit. These do not establish a separately published API compatibility
-  version. See [the package](../../../xuanxue-cabinet/shared/package.json) and
-  [the version header](../../../xuanxue-cabinet/api/src/common/app-version-header.ts).
-- Daychi's mobile schedule, access, and wiki calls currently target its own
-  services. See [schedule loading](../../../daychi/apps/practice-app/src/features/schedule/load.ts),
-  [access calls](../../../daychi/apps/practice-app/src/features/access/session.ts),
-  and [the schedule API](../../../daychi/practice_api/schedule_app.py).
-  A domain can therefore be part of a repository; the repository name alone
-  does not identify the responsible client or backend.
+## Discussion evidence, 2026-10-03
 
-## Earlier candidate architecture
+The user rejected mandatory agreement PRs approved by both project owners as too
+cumbersome. A lightweight candidate was a consumer request to a provider, followed
+by implementation/availability evidence and a consumer result. Provider-led changes
+would identify compatibility and affected consumers. These mechanics were proposed,
+not accepted. The latest completion requirement adds explicit Workshop record updates.
 
-Historical proposal: the accepted provider assignments now live in
-[architecture](../architecture.md). The generic domain directory below does not
-override the decision to move schedule, users, and reminders to Cabinet.
+Cabinet already shares executable route definitions between API and web. Its
+private shared package and build-commit response header do not establish a published
+cross-project compatibility version. Its own staging and production workflow must
+be accounted for before adding coordination approvals. The source investigation is
+preserved in the [session evidence](../sessions/0002-20261003-boundary-ownership-and-workshop-process.md).
 
-Workshop holds a directory of domains and their interface sources, requests between
-domains, and change announcements linked to consumer migration work. Interface
-definitions and implementation checks remain with the providing project.
+The earlier generic domain-directory proposal underrepresented existing Cabinet
+capabilities. The user instead assigned target providers after comparison with the
+applications. The accepted assignments live in the boundary contract, not in this
+argument. Workshop's purpose also includes durable onboarding, maintained agreements
+and operational visibility; the broader product goals do not all become initial
+migration work.
 
-A client request names the target domain, missing behavior, affected interface,
-and what would unblock the caller. The provider responds on that request with
-the implementation reference and its availability. The consumer verifies its use
-before the request is considered fulfilled.
+## Documentation maintenance, 2026-10-04
 
-A provider-led change announces what changed, its exact revision, compatibility,
-and where it is available. Migration tickets are created for consumers that have
-work to do. For a breaking change, announce the candidate while the existing
-behavior is still supported; consumer migration precedes retiring that behavior.
+Scope: PRODUCT.md, README.md and the project documents under docs/. The user's
+cleanup request authorized separating responsibilities and removing stale proposals
+from current claims. The pass applied maintain A1 and E1: source observations,
+accepted targets, migration deltas, Workshop coordination and horizon evidence now
+have separate homes. Historical sessions retain dated facts; goal selection moved
+to done after the accepted goal was recorded. No application changes were made.
 
-Use exact source revisions as initial references. A version reference alone does
-not imply a deployed endpoint. Agents discover work addressed to their domain when
-starting or resuming a task; notification and scheduling machinery remain undecided.
+Verification: question and ticket validators, installed-rule check, mechanism
+check, and remote-source harness check passed; two valid straw-dog bindings remain.
+All 88 inspected internal links and 21 source references resolved, including source
+paths at their stated Git revisions. Whitespace checks passed. The question check's
+similarity hint between initial migration and consolidation was reviewed: they
+remain separate because consolidation is explicitly outside initial scope.
+Straw-dog guesses were ordinary refresh behavior, proposed acceptance wording, and
+the already-bound horizon; no additional temporary contract was identified.
 
-Still to resolve: where shared tickets are authoritative across separate clones,
-how domain addresses and claim ownership work, and how published interface changes
-and consumer adoption are recorded. This proposal does not choose those mechanisms.
-
-## User process sketch, 2026-10-03
-
-Workshop should extract responsibility boundaries, identify duplication, and reuse
-APIs where appropriate. It should hold and maintain the boundary contracts, while
-each project's internal architecture stays local. Agents should install the relevant
-rules in their own environment, document their boundaries locally, and coordinate
-boundary work through Workshop's tracker. Workshop should enforce visibility and
-error monitoring through addressed project work. Project agents should periodically
-check for tickets addressed to them.
-
-This direction supersedes the earlier candidate's implication that a directory of
-interface sources alone is sufficient. The division between Workshop's authoritative
-agreement and executable schemas in provider repositories remains an open decision.
-
-The assistant suggested consultation on boundary-related work, tickets when promises
-or cross-domain work change, compatibility and migration evidence, verified onboarding,
-defined polling occasions, and stable domain ownership with a human fallback. These
-are recommendations, not accepted decisions.
-
-The six child questions now hold the unresolved decisions about ownership and reuse,
-contract maintenance and checks, change coordination, tracker storage and responsibility,
-agent onboarding and discovery, and operational obligations. They were reconstructed
-on 2026-10-03 after the user pointed out that the discussion had not been branched.
-
-## Provider ownership decided, 2026-10-03
-
-The user assigned schedule, users, and reminders to Cabinet backend and retained
-Daychi videos and other recordings in Daychi. The assistant's earlier four-domain
-proposal described the existing repositories too superficially and did not account
-for Cabinet's implemented schedule, user, and reminder capabilities. The decision
-is recorded in [architecture](../architecture.md); migration is tracked separately.
+Open: local ticket-folder spelling and the legacy horizon record's destination
+belong to the tracker question. Agent reporting and Workshop acknowledgement belong
+to the coordination question. Source inspection and these documentation checks do
+not confirm deployments, agent adoption, or host loader operation. The harness
+check still reports unresolved Claude/Cursor loader links; adoption must verify
+the actual host used by each operator. No core maintenance marks were written:
+the dueness check listed built-ins maintained upstream and no local mechanisms.
