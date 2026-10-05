@@ -153,3 +153,31 @@ Only offer to create an ADR when all three are true:
 If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
 
 </supporting-info>
+
+<installed by="reconcile">
+**RC1** State shared boundary guarantees and observable acceptance outcomes. Leave
+executable interfaces and internal mechanisms to the owning projects. Inspect
+implementation details to verify the guarantees; bring them to alignment when
+they reveal an unresolved cross-project obligation or require changing accepted
+ownership, behavior, compatibility or scope.
+
+**RC2** Implementation assignments sharing a boundary must prescribe the same fully
+specified contract through one accessible immutable reference. Resolve every
+applicable contract-shape dimension in .agents/skills/reconcile/CONTRACT-SHAPE.md
+before issuing implementation work; leave no recipient choice that can change
+interoperability or a shared data guarantee. Project ownership preserves the
+authored home of executable definitions and internal implementation freedom,
+not independently chosen boundary shapes. An incomplete shared contract blocks
+implementation-issue publication, including Planned issues. Evidence or design
+requests may gather missing input but cannot stand in for compatible implementation
+assignments. Verify the issued result against this invariant.
+</installed>
+
+<installed by="local">
+**L10** When a proposal combines an accepted decision with unresolved consequences,
+cite and hold the accepted decision fixed; ask only about the unresolved
+consequence. An open migration detail does not reopen its governing decision.
+
+**L11** For Workshop boundary alignment, reconciliation and assignments, apply the
+scope-of-authority contract in docs/agent-contract.md#boundary-scope-and-product-language.
+</installed>

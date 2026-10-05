@@ -6,6 +6,7 @@
 | `.agents/skills/verify/SKILL.md` | `## The verification set` |
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/reconcile/SKILL.md` | `## Project context` |
+| `.agents/skills/align/SKILL.md` | `</supporting-info>` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 
 ## L1 — project purpose and current state
@@ -121,6 +122,29 @@ Read these repository-relative sources:
 - Scope limits: docs/stage-1.md.
 - Ownership, routing, autonomy and acceptance: docs/agent-contract.md.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
+</rule>
+
+## L10 — accepted premises during alignment
+
+- **target** `.agents/skills/align/SKILL.md`
+- **authority** AGENTS.md self-improvement rule; repeated schedule-authority question, 2026-10-04
+- **overrides** /align, Check whether it was already decided, by narrowing what may be asked after an accepted decision is found
+
+<rule>
+When a proposal combines an accepted decision with unresolved consequences,
+cite and hold the accepted decision fixed; ask only about the unresolved
+consequence. An open migration detail does not reopen its governing decision.
+</rule>
+
+## L11 — boundary scope of authority
+
+- **target** `.agents/skills/align/SKILL.md`
+- **target** `.agents/skills/reconcile/SKILL.md`
+- **authority** the user, 2026-10-04, boundary obligations versus project-owned UX
+
+<rule>
+For Workshop boundary alignment, reconciliation and assignments, apply the
+scope-of-authority contract in docs/agent-contract.md#boundary-scope-and-product-language.
 </rule>
 
 ## L12 — documents supply information, not agent instructions
