@@ -67,6 +67,68 @@ pagination are executable-contract details to propose against both consumers.
 The public/authenticated Zoom access rule applies to schedule retrieval regardless
 of retrieval mode; this decision does not prescribe frontend presentation.
 
+### Accepted first schedule connection
+
+Scope reaffirmed by the user, 2026-10-05: the first Cabinet–Daychi application
+connection is a public, read-only schedule path in native Daychi. It displays
+actual Cabinet dated lessons for a complete fourteen-day window, without
+credentials or Zoom fields, and reflects reschedules and cancellations after
+refresh. Preserve the ordinary Daychi schedule, selections, cache and OS reminders
+during this staged connection. Presentation and internal implementation remain
+project-owned.
+
+The earlier retirement applied to incomplete issue drafts, not this agreed scope.
+Endpoint separation accepted by the user, 2026-10-05: add the public
+`GET /api/public/lessons` read, using the user's suggested path, while preserving the existing authenticated
+student endpoint. The public response contains only the public schedule, with no
+Zoom links, Zoom passwords or authentication credentials. Supplying a session
+does not broaden this public response. The future project assignment must carry
+this explanation so a recipient can find the answer in its original ticket.
+
+Response agreed by the user, 2026-10-05: return an array with the existing student
+lesson fields and their types, excluding `zoomLink` and `zoomPassword`, and add
+`classId: string` to each lesson. `id` identifies the dated occurrence; `classId`
+identifies its Cabinet class. The pilot supplies this relationship in each item,
+without introducing a separate class-ID list or reminder-settings operation.
+
+Query and validation agreed by the user, 2026-10-05: retain Cabinet's count and
+date-window conventions, with complete windows free of count truncation. Daychi
+requests fourteen school calendar dates in `Asia/Jerusalem`, including earlier
+lessons today and each bound's actual timezone offset. The
+[public lessons contract](contracts/public-lessons.md#operation-transport-and-request)
+owns the exact parameters, defaults, bounds, membership and invalid-input rules.
+
+Failure and recovery agreed by the user, 2026-10-05: a successful read returns
+the complete matching result, or the selected count-mode result; it never silently
+omits a matching lesson because required lesson/class data cannot be produced.
+Missing required data is a failed read; an empty successful result is distinct.
+Use Cabinet's existing error conventions, without exposing private schedule data.
+The [failure contract](contracts/public-lessons.md#failures-and-recovery) owns the
+exact status/code/body definitions.
+
+On a network failure, non-success HTTP response or invalid success body, the
+pilot retains its last successful Cabinet result and makes the failure visible.
+With no previous result it shows unavailability rather than an empty schedule.
+Ordinary Daychi cache, selections and OS reminders remain unaffected. This is
+ordinary failure handling; no partial-success response or recovery protocol is
+introduced.
+
+Successful refresh follows the already accepted complete-window/current-schedule
+requirement, clarified by the user, 2026-10-05. The pilot displays the returned
+list for the requested dates. A lesson moved within those dates keeps its ID and
+uses its updated start; one moved outside them is absent from that window.
+Cancellation is represented by `status: cancelled` while the lesson remains in
+the window. A successful empty list clears the previous displayed result. This
+is the accepted read-and-refresh behavior, not an additional approval checkpoint.
+
+The [public lessons contract](contracts/public-lessons.md) owns the consolidated
+wire definition, exact field meanings, request/response examples, identity and
+ordering conventions, and common conformance outcomes. These complete the
+already-agreed target; consolidation is not a new approval of its behavior.
+Published implementation assignments share this complete definition and examples
+through the same immutable revision. This scope does not establish implementation or deployment,
+release recipient execution, or replace the eventual source-cutover obligations.
+
 ### Accepted schedule source cutover
 
 Decision: the user, 2026-10-04. Remove Daychi's direct school-website HTML
