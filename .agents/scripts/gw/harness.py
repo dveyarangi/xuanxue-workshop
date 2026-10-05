@@ -8,7 +8,7 @@ The source is always the repository, cloned whole and without a checkout into a 
 directory and read through git, so what a recipient receives is what a commit holds and never a
 working tree. What ships is every file under the core directory at the ref plus the entry file and
 the host stub, transformed in memory before a byte is written: the origin's own local blocks
-removed, every straw-dog wrapper and every TODO's ticket binding sheared with its content kept, the
+removed, every straw-dog wrapper and every TODO's question binding sheared with its content kept, the
 entry file's announce line stamped `<repository>@<ref>, <date>`, and the result held to the leak
 rule the origin's check applies. That line is the recipient's only revision record; a check clones
 the announced ref again and compares. Every refusal writes nothing. A loader link the platform
@@ -42,6 +42,7 @@ from docs_corpus import (  # noqa: E402
     ENTRY_FILE,
     RETIRED_TAG,
     SCRIPTS,
+    TODO_QUESTION,
     UnreadableCode,
     announced,
     corpus,
@@ -50,7 +51,7 @@ from docs_corpus import (  # noqa: E402
     without_code,
 )
 from mechanisms import PAINTED_DOORS, TESTS  # noqa: E402
-from straw_dogs import TAG, TICKET_PATH  # noqa: E402
+from straw_dogs import TAG  # noqa: E402
 
 CORE = ".agents/"
 HOST_STUB = "CLAUDE.md"
@@ -416,6 +417,27 @@ def without_local_blocks(path: str, text: str) -> str:
     return text
 
 
+def without_recipients_blocks(target: Path, path: str, text: str, shipped: dict[str, str]) -> str:
+    """What a recipient's installer put in a core file is not an edit in core: the local block
+    leaves, and so does the block of every mechanism of the recipient's own — one whose rules
+    file stands in the tree and was never shipped. A block no rules file owns stays, and reads
+    as the edit it is."""
+    text = without_local_blocks(path, text)
+    owners = {opening.group(1) for opening in inject_rules.INSTALLED_OPENING.finditer(without_code(text))}
+    try:
+        for slug in sorted(owners):
+            rules = f"{inject_rules.MECHANISMS}/{slug}/{slug}.rules.md"
+            if rules in shipped or not (target / rules).is_file():
+                continue
+            found = inject_rules.locate(text, slug)
+            if found.text is None:
+                raise inject_rules.Refused(f"the block of {slug} opens and never closes")
+            text = inject_rules.without_block(text, found)
+    except inject_rules.Refused as refusal:
+        raise Refused(f"{path}: {refusal}") from refusal
+    return text
+
+
 def sheared(path: str, text: str) -> str:
     """Every straw-dog wrapper off, its content kept: a recipient gets the rule and never a
     condition it could not observe. A tag alone on its line takes the line; an inline tag leaves
@@ -439,13 +461,12 @@ def sheared(path: str, text: str) -> str:
 
 
 def todo_bindings_sheared(text: str) -> str:
-    """A TODO's ticket path is its binding, the code form of a straw dog's `ticket=`; the words
-    stay and the path goes, so the recipient reads a note and never a path it cannot resolve."""
+    """A TODO's question id is its binding, the code form of a straw dog's `question=`; the words
+    stay and the id goes, so the recipient reads a note and never an id its store does not hold."""
     lines = []
     for line in text.splitlines(keepends=True):
-        if re.match(r"^\s*#\s*TODO\b", line) and TICKET_PATH.search(line):
-            line = re.sub(r"\s*" + TICKET_PATH.pattern, "", line, count=1)
-        lines.append(line)
+        named = TODO_QUESTION.match(line)
+        lines.append(named.group(1).rstrip() + line[named.end(2) :] if named else line)
     return "".join(lines)
 
 
@@ -574,7 +595,7 @@ def _refuse_unless_updatable(
         report.notes.append("the tree announced no ref: nothing is deleted, every core file is replaced")
         return None
     previous = Shipment.earlier(source, announced_ref)
-    edited = [path for path in previous.files if _differs(target, path, previous.files[path])]
+    edited = [path for path in previous.files if _differs(target, path, previous.files)]
     if edited and not overwrite:
         raise Refused(
             f"update: {edited[0]} differs from {announced_ref.announced} as installed — an edit in core; "
@@ -595,18 +616,19 @@ def _announced_ref(target: Path, source: Source, required: bool) -> Ref | None:
     return source.resolve(told.ref)
 
 
-def _differs(target: Path, path: str, shipped_text: str) -> bool:
-    """Whether the recipient's copy is what the ref shipped, its own local block and its own
-    repository line set aside and line endings normalised — the injector's and R2's rule for
+def _differs(target: Path, path: str, shipped: dict[str, str]) -> bool:
+    """Whether the recipient's copy is what the ref shipped, the blocks its own installer put
+    there and its own repository line set aside and line endings normalised — the injector's and R2's rule for
     comparing what was installed. Both sides lose the line, so a check or an update run from
     another `--from` reads no edit in core."""
     copy = target / path
     if not copy.is_file():
         return True
     text = _read(copy)
+    shipped_text = shipped[path]
     if path.endswith(".md"):
         try:
-            text = without_local_blocks(path, text)
+            text = without_recipients_blocks(target, path, text, shipped)
         except Refused:
             return True
         text = without_repository_line(path, text)
@@ -621,8 +643,9 @@ def _normalised(text: str) -> str:
 # --- copy, links, inject ---------------------------------------------------------------------
 
 
-def _holds(target: Path, path: str, text: str) -> bool:
-    """Whether the copy already holds exactly what ships, its own local block set aside: such a
+def _holds(target: Path, path: str, shipped: dict[str, str]) -> bool:
+    """Whether the copy already holds exactly what ships, the blocks its own installer put there
+    set aside: such a
     file is left alone and not reported written, so an update's report names only what changed."""
     copy = target / path
     if not copy.is_file():
@@ -630,10 +653,10 @@ def _holds(target: Path, path: str, text: str) -> bool:
     current = _read(copy)
     if path.endswith(".md"):
         try:
-            current = without_local_blocks(path, current)
+            current = without_recipients_blocks(target, path, current, shipped)
         except Refused:
             return False
-    return current == text
+    return current == shipped[path]
 
 
 def _write(target: Path, shipment: Shipment, previous: Shipment | None, report: Report) -> None:
@@ -642,7 +665,7 @@ def _write(target: Path, shipment: Shipment, previous: Shipment | None, report: 
     planned = list(shipment.files.items())
     done: list[str] = []
     for path, text in planned:
-        if _holds(target, path, text):
+        if _holds(target, path, shipment.files):
             continue
         try:
             _write_text(target / path, text)
@@ -694,7 +717,7 @@ def _link_plan(target: Path) -> dict[str, str]:
         if _is_junction(path):
             raise Refused(f"link: {link} is a junction, which nothing sees through; remove it, a symlink goes there")
         if path.is_symlink():
-            plan[link] = "keep" if _resolves_to(path, skills) else "repoint"
+            plan[link] = "keep" if _resolves_to(path, skills) or _written_to(path, skills) else "repoint"
         elif not os.path.lexists(path):
             plan[link] = "make"
         else:
@@ -704,22 +727,31 @@ def _link_plan(target: Path) -> dict[str, str]:
 
 def _make_links(target: Path, plan: dict[str, str], report: Report) -> None:
     """A symlink, or the exact command for the person: the platform's refusal is the one step of an
-    install that may be left to a hand, and it does not stop the rest."""
+    install that may be left to a hand, and it does not stop the rest. A link being repointed is
+    removed only once its replacement exists: one the platform will not replace stays standing."""
     for link, action in plan.items():
         path = target / link
         if action == "keep":
             report.links.append({"link": link, "state": "kept"})
             continue
-        if action == "repoint":
-            _remove_link(path)
+        made = path.with_name(f"{path.name}.gw-new") if action == "repoint" else path
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
-            os.symlink(LINK_TARGET.replace("/", os.sep), path, target_is_directory=True)
+            os.symlink(LINK_TARGET.replace("/", os.sep), made, target_is_directory=True)
         except OSError as failure:
-            report.links.append({"link": link, "state": "pending", "error": str(failure)})
-            report.pending.append(_link_command(path))
+            pending = {"link": link, "state": "pending", "error": str(failure)}
+            if action == "repoint":
+                pending |= {"stands": True, "was": _link_text(path)}
+            report.links.append(pending)
+            report.pending.append(_link_command(path, replacing=action == "repoint"))
             continue
-        report.links.append({"link": link, "state": "made" if action == "make" else "repointed"})
+        if action == "repoint":
+            was = _link_text(path)
+            _remove_link(path)
+            os.replace(made, path)
+            report.links.append({"link": link, "state": "repointed", "was": was})
+            continue
+        report.links.append({"link": link, "state": "made"})
     if report.pending:
         report.notes.append("run the pending command(s) once in an elevated prompt, then `harness.py . --check`")
     # TODO: this note assumes tracked
@@ -736,10 +768,19 @@ def _remove_link(path: Path) -> None:
         os.rmdir(path)
 
 
-def _link_command(path: Path) -> str:
+def _link_text(path: Path) -> str | None:
+    try:
+        return os.readlink(path)
+    except OSError:
+        return None
+
+
+def _link_command(path: Path, replacing: bool = False) -> str:
     if os.name == "nt":
-        return f'mklink /D "{path}" "{LINK_TARGET.replace("/", os.sep)}"'
-    return f'ln -s {LINK_TARGET} "{path}"'
+        make = f'mklink /D "{path}" "{LINK_TARGET.replace("/", os.sep)}"'
+        return f'rmdir "{path}" && {make}' if replacing else make
+    make = f'ln -s {LINK_TARGET} "{path}"'
+    return f'rm "{path}" && {make}' if replacing else make
 
 
 def _inject(target: Path, report: Report) -> None:
@@ -787,7 +828,7 @@ def _gate(target: Path, shipment: Shipment, report: Report) -> None:
 
 
 def _ref_gate(target: Path, shipment: Shipment) -> dict:
-    differing = [path for path in shipment.files if _differs(target, path, shipment.files[path])]
+    differing = [path for path in shipment.files if _differs(target, path, shipment.files)]
     own = sorted(name for name in corpus(target) if name.startswith(CORE) and name not in shipment.files)
     return {"passed": not differing, "ref": shipment.ref.announced, "differs": differing, "own": own}
 
@@ -829,6 +870,16 @@ def _resolves_to(link: Path, skills: Path) -> bool:
         return link.resolve() == skills and link.is_dir()
     except OSError:
         return False
+
+
+def _written_to(link: Path, skills: Path) -> bool:
+    """Whether the link's own text names the skills directory, asked without following it: a
+    process that cannot see through a link, as inside a sandbox, still reads where it points."""
+    text = _link_text(link)
+    if text is None:
+        return False
+    pointed = os.path.normpath(os.path.join(link.parent.resolve(), text.removeprefix("\\\\?\\")))
+    return os.path.normcase(pointed) == os.path.normcase(str(skills))
 
 
 def _is_junction(path: Path) -> bool:

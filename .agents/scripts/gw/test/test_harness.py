@@ -50,7 +50,7 @@ ENTRY = (
     "# Entry contract\n\n"
     "Entry contract: v3, 2026-09-01.\n\n"
     "Open your first reply with the line above.\n\n"
-    f'<straw-dog until="the sweep is a mechanism" ticket="{TICKET}">\n'
+    '<straw-dog question="q-0002">\n'
     f"{WRAPPED_RULE}\n"
     "</straw-dog>\n\n"
     "## Project-local\n\n"
@@ -67,7 +67,7 @@ SAMPLE_DOC = (
     "## Moments\n\n"
     "| moment | instructed by | kind, and why |\n|---|---|---|\n"
     f"| keeping | `{KEEPER}` | |\n"
-    f'| sweeping | — | <straw-dog until="somebody sweeps" ticket="{TICKET}">not yet</straw-dog> |\n\n'
+    '| sweeping | — | <straw-dog question="q-0002">not yet</straw-dog> |\n\n'
     "## Install adds, uninstall removes\n\n"
     f"| part | where |\n|---|---|\n| instruction file | `{KEEPER}` |\n\n"
     "## Relies on, and does not own\n\n"
@@ -276,19 +276,19 @@ class TwoTrees(RepositoryCase):
 
 class TheShear(unittest.TestCase):
     def test_a_block_wrapper_leaves_with_its_lines_and_the_rule_stays(self) -> None:
-        text = "# A\n\n<straw-dog until=\"x\" ticket=\"docs/tickets/t.md\">\nThe rule.\n</straw-dog>\n\n## B\n"
+        text = "# A\n\n<straw-dog question=\"q-0001\">\nThe rule.\n</straw-dog>\n\n## B\n"
 
         self.assertEqual("# A\n\nThe rule.\n\n## B\n", harness.sheared("a.md", text))
 
     def test_an_inline_wrapper_in_a_table_cell_leaves_the_row_a_row(self) -> None:
-        text = '| sweeping | — | <straw-dog until="x" ticket="docs/tickets/t.md">not yet</straw-dog> |\n'
+        text = '| sweeping | — | <straw-dog question="q-0001">not yet</straw-dog> |\n'
 
         self.assertEqual("| sweeping | — | not yet |\n", harness.sheared("a.md", text))
 
     def test_nested_wrappers_all_leave_and_the_content_is_joined_as_written(self) -> None:
         text = (
-            '<straw-dog until="outer" ticket="docs/tickets/t.md">\n'
-            'Outer says <straw-dog until="inner" ticket="docs/tickets/u.md">inner</straw-dog> too.\n'
+            '<straw-dog question="q-0001">\n'
+            'Outer says <straw-dog question="q-0001.0001">inner</straw-dog> too.\n'
             "</straw-dog>\n"
         )
 
@@ -296,21 +296,21 @@ class TheShear(unittest.TestCase):
 
     def test_a_wrapper_drawn_in_a_fence_or_a_code_span_is_left_alone(self) -> None:
         text = (
-            "Write `<straw-dog until=\"c\" ticket=\"p\">` around it.\n\n"
-            "```md\n<straw-dog until=\"x\" ticket=\"y\">rule</straw-dog>\n```\n"
+            "Write `<straw-dog question=\"q-N\">` around it.\n\n"
+            "```md\n<straw-dog question=\"q-0001\">rule</straw-dog>\n```\n"
         )
 
         self.assertEqual(text, harness.sheared("a.md", text))
 
     def test_an_unbalanced_wrapper_refuses_naming_the_file(self) -> None:
         with self.assertRaises(harness.Refused) as refused:
-            harness.sheared("a.md", '<straw-dog until="x" ticket="docs/tickets/t.md">\nRule.\n')
+            harness.sheared("a.md", '<straw-dog question="q-0001">\nRule.\n')
 
         self.assertIn("a.md", str(refused.exception))
         self.assertIn("never closes", str(refused.exception))
 
     def test_a_todo_loses_its_binding_and_keeps_its_words(self) -> None:
-        code = "x = 1\n# TODO docs/tickets/01-0002-sweep.md: the shear strips\n# this on install.\n"
+        code = "x = 1\n# TODO q-0002: the shear strips\n# this on install.\n"
 
         self.assertEqual("x = 1\n# TODO: the shear strips\n# this on install.\n", harness.todo_bindings_sheared(code))
 
@@ -340,6 +340,58 @@ class TheStamp(unittest.TestCase):
             harness.stamped("# Something else\n", ref)
 
         self.assertIn("not the harness", str(refused.exception))
+
+
+class TheLinks(unittest.TestCase):
+    """The link step against a platform that refuses a symlink, which is refused here by hand so
+    the case proves the same thing on a machine that would have made one."""
+
+    def setUp(self) -> None:
+        workspace = tempfile.TemporaryDirectory()
+        self.addCleanup(workspace.cleanup)
+        self.target = Path(workspace.name).resolve()
+        (self.target / harness.SKILLS).mkdir(parents=True)
+        self.link = self.target / ".claude/skills"
+        self.report = harness.Report(target=".", mode="update", repository="")
+
+        def refuse(*arguments: object, **options: object) -> None:
+            raise OSError("a required privilege is not held")
+
+        self.symlink = os.symlink
+        os.symlink = refuse
+        self.addCleanup(setattr, os, "symlink", self.symlink)
+
+    def test_a_link_the_platform_will_not_replace_is_left_standing(self) -> None:
+        # A directory stands in for the link: what is proved is that nothing is removed.
+        self.link.mkdir(parents=True)
+
+        harness._make_links(self.target, {".claude/skills": "repoint"}, self.report)
+
+        self.assertTrue(os.path.lexists(self.link))
+        self.assertEqual("pending", self.report.links[0]["state"])
+        self.assertTrue(self.report.links[0]["stands"])
+        self.assertFalse(os.path.lexists(self.link.with_name("skills.gw-new")))
+
+    def test_a_refused_repoint_hands_over_a_command_that_removes_before_it_makes(self) -> None:
+        self.link.mkdir(parents=True)
+
+        harness._make_links(self.target, {".claude/skills": "repoint"}, self.report)
+
+        command = self.report.pending[0]
+        self.assertLess(command.index("rmdir" if os.name == "nt" else "rm "), command.index("mklink" if os.name == "nt" else "ln -s"))
+
+    def test_a_link_written_to_the_skills_is_kept_by_a_process_that_cannot_see_through_it(self) -> None:
+        os.symlink = self.symlink
+        if not platform_makes_symlinks():
+            self.skipTest("this platform refuses to create a symlink; a link to keep cannot be made")
+        for link in harness.LINKS:
+            (self.target / link).parent.mkdir(parents=True, exist_ok=True)
+            self.symlink(harness.LINK_TARGET.replace("/", os.sep), self.target / link, target_is_directory=True)
+        resolves = harness._resolves_to
+        harness._resolves_to = lambda link, skills: False
+        self.addCleanup(setattr, harness, "_resolves_to", resolves)
+
+        self.assertEqual({link: "keep" for link in harness.LINKS}, harness._link_plan(self.target))
 
 
 class TheRepositoryLine(unittest.TestCase):
@@ -489,7 +541,7 @@ class ARefusal(TwoTrees):
         self.write(
             KEEPER,
             "# Keeper\n\n"
-            f'<straw-dog until="x" ticket="{TICKET}">\nSee [the sweep](../../../{TICKET}).\n</straw-dog>\n',
+            f'<straw-dog question="q-0002">\nSee [the sweep](../../../{TICKET}).\n</straw-dog>\n',
         )
         self.commit("a leak")
 
@@ -678,6 +730,32 @@ class AnUpdate(TwoTrees):
 
         self.assertEqual([".agents/skills/theirs/SKILL.md"], report["own"])
         self.assertTrue((self.target / ".agents/skills/theirs/SKILL.md").is_file())
+
+    def test_a_block_the_recipients_own_mechanism_installed_is_not_an_edit_in_core(self) -> None:
+        self.write_target(
+            ".agents/mechanisms/theirs/theirs.rules.md",
+            f"# theirs — the recipient's own rules\n\n| target | anchor |\n|---|---|\n| `{KEEPER}` | `# Keeper` |\n\n"
+            f"## T1 — theirs\n\n- **target** `{KEEPER}`\n- **authority** the user, 2026-10-05\n\n<rule>\nTheir rule.\n</rule>\n",
+        )
+        inject_rules.install(self.target, inject_rules.read_rules_file(self.target, "theirs"), overwrite=False)
+        self.assertIn('<installed by="theirs">', self.target_text(KEEPER))
+
+        _, checked = self.run_harness("--check")
+        self.assertTrue(checked["gates"]["ref"]["passed"], checked["gates"]["ref"])
+
+        _, report = self.run_harness("--update")
+
+        self.assertEqual([], report["replaced"])
+        self.assertNotIn(KEEPER, report["written"])
+        self.assertIn('<installed by="theirs">', self.target_text(KEEPER))
+        self.assertTrue(report["gates"]["ref"]["passed"], report["gates"]["ref"])
+
+    def test_a_block_whose_owner_has_no_rules_file_is_an_edit_in_core(self) -> None:
+        self.write_target(KEEPER, self.target_text(KEEPER) + '\n<installed by="nobody">\n**N1** A rule.\n</installed>\n')
+
+        _, checked = self.run_harness("--check")
+
+        self.assertEqual([KEEPER], checked["gates"]["ref"]["differs"])
 
     def test_with_no_announced_ref_overwrite_replaces_every_core_file_and_deletes_nothing(self) -> None:
         entry = self.target / "AGENTS.md"

@@ -21,9 +21,15 @@ MOMENTS = (
     "| moment | instructed by | kind, and why |\n"
     "|---|---|---|\n"
     f"| doing the thing | `{INSTRUCTION}` | |\n"
-    '| sweeping afterwards | — | <straw-dog until="somebody sweeps" '
-    'ticket="docs/tickets/01-0002-sweep.md">not yet</straw-dog> |\n'
+    '| sweeping afterwards | — | <straw-dog question="q-0002">not yet</straw-dog> |\n'
 )
+SWEEPING = "Who sweeps afterwards?"
+
+
+def question(identity: str, words: str, state: str = "open", **parts: str) -> str:
+    """An entry of the question store, as a `not yet` binds to one."""
+    bullets = [f"- **state** {state}", *(f"- **{name}** {value}" for name, value in parts.items())]
+    return "\n".join([f"# {identity} {words}", "", *bullets]) + "\n"
 PARTS = (
     "| part | where |\n"
     "|---|---|\n"
@@ -47,6 +53,7 @@ class Declared(RepositoryCase):
         self.write(".agents/scripts/docs_corpus.py", "# shared\n")
         self.write("docs/tickets/01-0002-sweep.md", "# Sweep\n")
         self.write("docs/tickets/01-0001-sample.md", "# Sample\n")
+        self.write("docs/questions/q-0002-who-sweeps-afterwards.md", question("q-0002", SWEEPING))
         self.write(DOC, self.doc())
 
     def doc(self, **replaced: str) -> str:
@@ -106,8 +113,7 @@ class AWellFormedDeclaration(Declared):
         self.assertEqual(1, len(declared.relied_on))
         self.assertIsNone(declared.rules)
         not_yet = declared.moments[1]
-        self.assertEqual(("not yet", "somebody sweeps", "docs/tickets/01-0002-sweep.md"),
-                         (not_yet.kind, not_yet.why, not_yet.referent))
+        self.assertEqual(("not yet", SWEEPING, "q-0002"), (not_yet.kind, not_yet.why, not_yet.referent))
 
 
 class ANamedPart(Declared):
@@ -140,26 +146,19 @@ class ANamedPart(Declared):
 
 
 class ANotYetReferent(Declared):
-    def moments_naming(self, ticket: str) -> str:
+    def moments_binding(self, identity: str, body: str = "not yet") -> str:
         return (
             "| moment | instructed by | kind, and why |\n|---|---|---|\n"
-            f'| sweeping | — | <straw-dog until="somebody sweeps" ticket="{ticket}">not yet</straw-dog> |\n'
+            f'| sweeping | — | <straw-dog question="{identity}">{body}</straw-dog> |\n'
         )
 
-    def test_saying_why_in_the_body_is_reported_since_the_reason_belongs_in_until(self) -> None:
-        self.write(
-            DOC,
-            self.doc(
-                moments="| moment | instructed by | kind, and why |\n|---|---|---|\n"
-                '| sweeping | — | <straw-dog until="somebody sweeps" '
-                'ticket="docs/tickets/01-0002-sweep.md">not yet — nobody sweeps</straw-dog> |\n'
-            ),
-        )
+    def test_saying_why_in_the_body_is_reported_since_the_reason_is_its_question(self) -> None:
+        self.write(DOC, self.doc(moments=self.moments_binding("q-0002", "not yet — nobody sweeps")))
 
         problems = self.problems()
 
         self.assertEqual(1, len(problems))
-        self.assertIn("`until`", problems[0])
+        self.assertIn("the question it is bound to", problems[0])
         self.assertIn("sweeping", problems[0])
 
     def test_a_wrapper_around_another_kind_is_read_for_its_body(self) -> None:
@@ -167,7 +166,7 @@ class ANotYetReferent(Declared):
             DOC,
             self.doc(
                 moments="| moment | instructed by | kind, and why |\n|---|---|---|\n"
-                '| archiving | — | <straw-dog until="it moves" ticket="docs/tickets/01-0002-sweep.md">'
+                '| archiving | — | <straw-dog question="q-0002">'
                 f"elsewhere — `{INSTRUCTION}` owns it for now</straw-dog> |\n"
             ),
         )
@@ -178,15 +177,46 @@ class ANotYetReferent(Declared):
         row = checked.declarations[0].moments[0]
         self.assertEqual(("elsewhere", INSTRUCTION), (row.kind, row.referent))
 
-    def test_may_not_be_an_archived_ticket_since_closed_work_fills_no_gap(self) -> None:
-        self.write("docs/tickets/done/01-0001-sample.md", "# Sample, closed\n")
-        self.write(DOC, self.doc(moments=self.moments_naming("docs/tickets/done/01-0001-sample.md")))
+    def test_may_not_wait_on_a_question_whose_answer_has_landed_since_the_gap_is_filled(self) -> None:
+        self.write("docs/architecture.md", "# Architecture\n\n## Sweeping\n\nSwept.\n")
+        self.write(
+            "docs/questions/q-0003-who-sweeps-now.md",
+            question("q-0003", "Who sweeps now?", "closed:decided", answer="[sweeping](../architecture.md#sweeping)"),
+        )
+        self.write(DOC, self.doc(moments=self.moments_binding("q-0003")))
 
         problems = self.problems()
 
         self.assertEqual(1, len(problems))
-        self.assertIn("docs/tickets/done/01-0001-sample.md", problems[0])
-        self.assertIn("archived", problems[0])
+        self.assertIn("q-0003", problems[0])
+        self.assertIn("due", problems[0])
+
+    def test_a_question_decided_in_the_work_that_owns_it_still_holds_the_gap(self) -> None:
+        self.write(
+            "docs/questions/q-0003-who-sweeps-now.md",
+            question(
+                "q-0003",
+                "Who sweeps now?",
+                "closed:decided",
+                owner="[01-0002](../tickets/01-0002-sweep.md)",
+                answer="[the sweep](../tickets/01-0002-sweep.md)",
+            ),
+        )
+        self.write(DOC, self.doc(moments=self.moments_binding("q-0003")))
+
+        self.assertEqual([], self.problems())
+
+    def test_a_superseded_question_is_reported_with_the_one_to_rebind_to(self) -> None:
+        self.write(
+            "docs/questions/q-0003-who-sweeps-now.md",
+            question("q-0003", "Who sweeps now?", "closed:superseded", answer="q-0002"),
+        )
+        self.write(DOC, self.doc(moments=self.moments_binding("q-0003")))
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems))
+        self.assertIn("rebind it to q-0002", problems[0])
 
 
 class TheInstruction(Declared):
@@ -226,7 +256,7 @@ class AMomentsRow(Declared):
         header = "| moment | instructed by | kind, and why |\n|---|---|---|\n"
         return header + "".join(rows)
 
-    def test_saying_not_yet_must_name_a_ticket(self) -> None:
+    def test_saying_not_yet_must_name_a_question(self) -> None:
         self.write(
             DOC,
             self.doc(moments=self.moments("| sweeping | — | not yet — nobody sweeps yet |\n")),
@@ -238,21 +268,12 @@ class AMomentsRow(Declared):
         self.assertIn("unbound", problems[0])
         self.assertIn("sweeping", problems[0])
 
-    def test_saying_not_yet_must_name_a_ticket_that_exists(self) -> None:
-        self.write(
-            DOC,
-            self.doc(
-                moments=self.moments(
-                    '| sweeping | — | <straw-dog until="somebody sweeps" '
-                    'ticket="docs/tickets/01-0009-absent.md">not yet</straw-dog> |\n'
-                )
-            ),
-        )
+    def test_saying_not_yet_must_name_a_question_the_store_holds(self) -> None:
+        self.write(DOC, self.doc(moments=self.moments('| sweeping | — | <straw-dog question="q-0099">not yet</straw-dog> |\n')))
 
         problems = self.problems()
 
-        self.assertEqual(1, len(problems))
-        self.assertIn("docs/tickets/01-0009-absent.md", problems[0])
+        self.assertTrue(any("q-0099" in problem and "no entry" in problem for problem in problems), problems)
 
     def test_saying_embedded_names_the_body_the_instruction_sits_in(self) -> None:
         sitting_here = f"| archiving | — | embedded — another mechanism's rule, here until installed, `{INSTRUCTION}` |\n"
@@ -297,15 +318,7 @@ class AMomentsRow(Declared):
         self.assertIn("someday", problems[0])
 
     def test_declaring_a_kind_without_saying_why_is_reported(self) -> None:
-        self.write(
-            DOC,
-            self.doc(
-                moments=self.moments(
-                    '| sweeping | — | <straw-dog ticket="docs/tickets/01-0002-sweep.md">'
-                    "not yet</straw-dog> |\n"
-                )
-            ),
-        )
+        self.write(DOC, self.doc(moments=self.moments("| sweeping | — | unowned by design |\n")))
 
         problems = self.problems()
 
@@ -553,10 +566,7 @@ class TheIndex(Declared):
 
 STRAY = ".agents/skills/stray/SKILL.md"
 FRONTMATTER = "---\nname: stray\ndescription: a skill nothing names\n---\n\n"
-CLAIMING = (
-    '<straw-dog until="someone declares it" ticket="docs/tickets/01-0002-sweep.md">'
-    "Mechanism: not yet</straw-dog>\n\n# Stray\n"
-)
+CLAIMING = '<straw-dog question="q-0002">Mechanism: not yet</straw-dog>\n\n# Stray\n'
 
 
 class TheReversePass(Declared):
@@ -578,7 +588,7 @@ class TheReversePass(Declared):
 
         self.assertEqual([], checked.diagnostics)
         stray = next(skill for skill in checked.skills if skill.directory == ".agents/skills/stray/")
-        self.assertEqual(([], "not yet", "someone declares it", "docs/tickets/01-0002-sweep.md"),
+        self.assertEqual(([], "not yet", SWEEPING, "q-0002"),
                          (stray.named_by, stray.claim.kind, stray.claim.why, stray.claim.referent))
         sample = next(skill for skill in checked.skills if skill.directory == ".agents/skills/sample/")
         self.assertEqual(([SLUG], None), (sample.named_by, sample.claim))
@@ -698,7 +708,7 @@ class CoreStandsAlone(Declared):
     def test_a_citation_inside_a_straw_dog_is_a_leak_and_its_binding_is_not(self) -> None:
         self.write(
             CITING,
-            f'# Notes\n\n<straw-dog until="x" ticket="docs/tickets/01-0002-sweep.md">\n'
+            f'# Notes\n\n<straw-dog question="q-0002">\n'
             f"See [it](../../../{DOCUMENT}).\n</straw-dog>\n",
         )
 
@@ -727,11 +737,13 @@ class CoreStandsAlone(Declared):
         self.assertEqual([], self.problems())
         self.assertEqual([], self.cites_from(CITING))
 
-    def test_a_todo_naming_its_ticket_in_code_is_a_binding(self) -> None:
-        self.write(".agents/scripts/later.py", "# TODO docs/tickets/01-0002-sweep.md: the shear strips this\nX = 1\n")
-
+    def test_a_todo_binds_its_question_and_a_ticket_path_in_one_is_a_leak(self) -> None:
+        self.write(".agents/scripts/later.py", "# TODO q-0002: the shear strips this\nX = 1\n")
         self.assertEqual([], self.problems())
-        self.assertEqual([], self.cites_from(".agents/scripts/later.py"))
+
+        self.write(".agents/scripts/later.py", "# TODO docs/tickets/01-0002-sweep.md: bound the old way\nX = 1\n")
+
+        self.assertEqual([(".agents/scripts/later.py", 1, "docs/tickets/01-0002-sweep.md")], self.leaks())
 
     def test_a_string_literal_in_code_naming_a_document_fails(self) -> None:
         self.write(".agents/scripts/later.py", f'# a note\nNAME = "{DOCUMENT}"\n')

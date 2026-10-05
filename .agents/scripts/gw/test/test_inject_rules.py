@@ -504,7 +504,7 @@ class Refusing(RepositoryCase):
     def test_a_body_holding_a_straw_dog_tag_refuses(self) -> None:
         wrapped = rules_file().replace(
             "Move story out",
-            '<straw-dog until="01-0002 is done" ticket="docs/tickets/01-0002-sweep.md">\nMove story out',
+            '<straw-dog question="q-0002">\nMove story out',
         ).replace("into its evidence.", "into its evidence.\n</straw-dog>")
         self.write(RULES, wrapped)
 
@@ -513,7 +513,7 @@ class Refusing(RepositoryCase):
     def test_a_section_wrapped_in_a_straw_dog_installs_the_rule_and_not_the_tag(self) -> None:
         marked = rules_file().replace(
             "## R2 — story leaves the doc",
-            '<straw-dog until="01-0002 is done" ticket="docs/tickets/01-0002-sweep.md">\n'
+            '<straw-dog question="q-0002">\n'
             "## R2 — story leaves the doc",
         ).replace("</rule>\n", "</rule>\n</straw-dog>\n", 2)
         self.write(RULES, marked)

@@ -10,7 +10,7 @@ so what a recipient holds is what a commit holds. The manifest is everything und
 directory plus the entry file, the host stub and the license; the project's local file is never
 in it, which is what lets a redeploy overwrite core's content and nothing of the project's. What ships is
 transformed before a byte is written: the origin's local blocks removed, every straw-dog wrapper
-and every `TODO`'s ticket binding sheared with the content kept, the announce line stamped, and
+and every `TODO`'s question binding sheared with the content kept, the announce line stamped, and
 the whole held to the leak rule the origin's check applies.
 
 **The announce line is the revision.** A recipient's entry file reads
@@ -29,13 +29,17 @@ constant and reads its default there, an install stamps a recipient's copy with 
 run actually read — a URL verbatim, a path resolved absolute — and a fork edits the line once and
 everything it installs names the fork. Both lines are the recipient's own facts living in core
 files, so both are set aside when a copy is compared: a check or an update run from another
-`--from` reads no edit in core. A stamped source is never a citation either, which the citation
+`--from` reads no edit in core. So is every block the recipient's own installer put in a core
+file: its local block, and the block of a mechanism of its own, one whose rules file stands in
+the tree and never shipped. A block no rules file owns is an edit. A stamped source is never a citation either, which the citation
 reader settles for every reader of it, so a clone kept under a `docs/` directory does not make a
 recipient fail its own shape check.
 
 **Every refusal writes nothing**, and the loader links are the one step a person may finish by
 hand: where the platform refuses to create a symlink, the run finishes everything else and ends
 with the exact elevated command. Nothing is substituted for a link; a junction is refused by name.
+A link that stands is removed only once its replacement exists, and one written to the skills
+directory is kept even by a process that cannot see through it.
 
 **The gate is the check, and it takes seconds.** Arrival and any later day's question are one
 function: the copy against the ref, the injector's check, the shape check — the target's own

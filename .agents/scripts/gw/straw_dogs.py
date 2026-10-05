@@ -1,4 +1,5 @@
-"""The straw dogs — what serves until a named ticket replaces it — and the one edit that retires one.
+"""The straw dogs — provisional text bound to the question whose answer will rewrite it — and the
+one edit that retires one.
 
     uv run --offline --no-project python .agents/scripts/gw/straw_dogs.py PATH [PATH ...]
     uv run --offline --no-project python .agents/scripts/gw/straw_dogs.py --guess PATH [PATH ...]
@@ -6,13 +7,13 @@
         --remove FILE:LINE --expect sha256:...
 
 Reading a scope reports every operative `<straw-dog>` block in it — and, in code, every `TODO`
-naming its ticket — as JSON, with the condition and owning ticket as written and a diagnostic for
-anything a maintainer must look at. Guessing reports where a straw dog probably stands unwrapped,
-from the words a sentence carries; a guess is for a person to judge and never fails the run.
-Removing takes out one block a maintainer has already judged obsolete.
+naming its question — as JSON, with the question it is bound to, whether it is due, and a
+diagnostic for anything a maintainer must look at. Guessing reports where a straw dog probably
+stands unwrapped, from the words a sentence carries; a guess is for a person to judge and never
+fails the run. Removing takes out one block a maintainer has already judged obsolete.
 
-This tool never decides that a condition holds — it does not interpret an `until` phrase, and it
-certainly does not execute one. Judgement is `/maintain`'s; the entry contract owns the syntax.
+Whether a straw dog is due is the question store's to say; how its text is rewritten is
+`/maintain`'s judgement. The entry contract owns the syntax.
 """
 
 from __future__ import annotations
@@ -21,24 +22,34 @@ import hashlib
 import json
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from docs_corpus import INSTALLED_CLOSING, INSTALLED_OPENING, without_code  # noqa: E402  (path set just above)
+import questions  # noqa: E402  (path set just above)
+from docs_corpus import (  # noqa: E402  (path set just above)
+    ATTRIBUTE,
+    INSTALLED_CLOSING,
+    INSTALLED_OPENING,
+    TODO_QUESTION,
+    without_code,
+)
 
 TAG = re.compile(r"<straw-dog\b[^<>]*>|</straw-dog\s*>|<straw-dog\b|</straw-dog\b", re.S)
 # The tag was `<temporary>` until 2026-09-08. One written from habit would be no straw dog at all —
 # the defect this tool exists to end, produced by its own rename — so the old name is a diagnostic.
 _RETIRED = re.compile(r"</?temporary\b")
-_ATTRIBUTE = re.compile(r'\b(until|ticket)\s*=\s*"([^"]*)"', re.S)
 _USAGE = "usage: straw_dogs.py PATH [PATH ...] | --guess PATH [PATH ...] | --remove FILE:LINE --expect HASH"
 
-# In code the marking is a comment line beginning with TODO; one naming its ticket is a straw dog,
-# one naming none is a guess. A sentence merely mentioning the word is neither.
+# In code the marking is a comment line beginning with TODO; one naming its question is a straw
+# dog, one naming none is a guess. A sentence merely mentioning the word is neither.
 _TODO = re.compile(r"^\s*#\s*TODO\b")
+# How a straw dog was bound before it bound to a question: a ticket's path, and on a tag a
+# condition beside it. Read so the listing can say what to write instead, and so the install can
+# shear one a tree still holds.
 TICKET_PATH = re.compile(r"docs/tickets/[\w./-]+\.md")
+_OLD_ATTRIBUTE = re.compile(r'\b(until|ticket)\s*=\s*"([^"]*)"', re.S)
 # The record folders the harness itself imposes: provisional by status, or history, never a
 # surface read as truth, so never guessed over. A project's own folders are its own to judge.
 _WORKING_RECORDS = ("docs/tickets/", "docs/rfc/", "docs/spec/", "docs/sessions/")
@@ -57,30 +68,32 @@ class Refused(Exception):
 
 @dataclass(frozen=True)
 class StrawDog:
-    """One operative straw dog, as written.
+    """One operative straw dog, as written, and whether the question it waits on has said it is due.
 
-    `until` and `ticket` are the author's words, not a verdict: an unresolved condition stays
-    unresolved here. `fingerprint` covers the whole file's bytes, so a removal can prove it is
-    acting on the reading it was shown.
+    `question` is the id it is bound to; `until` and `ticket` are an old binding's words, kept so
+    the listing can say what replaces them. `fingerprint` covers the whole file's bytes, so a
+    removal can prove it is acting on the reading it was shown.
     """
 
     path: str
     opens: int
     closes: int
+    question: str | None
     until: str | None
     ticket: str | None
     depth: int
     contains: int
     fingerprint: str
     span: tuple[int, int]
+    due: bool = False
 
     def as_record(self) -> dict:
         return {
             "path": self.path,
             "opens": self.opens,
             "closes": self.closes,
-            "until": self.until,
-            "ticket": self.ticket,
+            "question": self.question,
+            "due": self.due,
             "depth": self.depth,
             "contains": self.contains,
             "fingerprint": self.fingerprint,
@@ -209,7 +222,28 @@ def survey(root: Path, paths: list[str]) -> Surveyed:
         found, notes = _straw_dogs_in(root, name, text)
         statements += found
         diagnostics += notes
-    return Surveyed(scanned, statements, diagnostics)
+    judged, unbound = _against_the_store(root, statements)
+    return Surveyed(scanned, judged, diagnostics + unbound)
+
+
+def _against_the_store(root: Path, statements: list[StrawDog]) -> tuple[list[StrawDog], list[Diagnostic]]:
+    """Each straw dog marked due as its question says, and what the store cannot stand behind: an
+    id it does not hold, and one merged or superseded, whose straw dogs follow the successor."""
+    if not any(statement.question for statement in statements):
+        return statements, []
+    index = questions.read_store(root).index
+    judged: list[StrawDog] = []
+    problems: list[Diagnostic] = []
+    for statement in statements:
+        read = index.get(statement.question) if statement.question else None
+        if statement.question and read is None:
+            problems.append(Diagnostic(statement.path, statement.opens, f"unknown question: no entry holds {statement.question}"))
+        elif read is not None and read.points_to:
+            standing = questions.successor(index, read)
+            then = f"rebind to {standing.identity}" if standing else f"{statement.question} was {read.kind}, and no question stands in its place"
+            problems.append(Diagnostic(statement.path, statement.opens, then))
+        judged.append(replace(statement, due=read is not None and questions.due(root, read)))
+    return judged, problems
 
 
 def guess(root: Path, paths: list[str]) -> Guessed:
@@ -233,7 +267,7 @@ def _candidates_in(root: Path, name: str, text: str) -> list[Candidate]:
         return [
             Candidate(name, number, "TODO", line.strip())
             for number, line in enumerate(text.splitlines(), start=1)
-            if _TODO.search(line) and not TICKET_PATH.search(line)
+            if _TODO.search(line) and not TICKET_PATH.search(line) and not TODO_QUESTION.match(line)
         ]
     # What is already wrapped says what it is; what sits in an installed block is not this file's
     # to edit, so a candidate there could not be acted on in place. Both are blanked, positions kept.
@@ -300,27 +334,30 @@ def remove_straw_dog(root: Path, path: str, line: int, expect: str) -> None:
 
 
 def _straw_dogs_in(root: Path, name: str, text: str) -> tuple[list[StrawDog], list[Diagnostic]]:
-    """One record's straw dogs: tags in a document, TODOs naming their ticket in code."""
+    """One record's straw dogs: tags in a document, TODOs naming their question in code."""
     if name.endswith(".py"):
         return _todos_in(root, name, text)
     return _tags_in(root, name, text)
 
 
 def _todos_in(root: Path, name: str, text: str) -> tuple[list[StrawDog], list[Diagnostic]]:
-    """A TODO that names its ticket is a straw dog; the ticket is its condition, so no `until`."""
+    """A TODO that names its question first is a straw dog bound to it; one that names a ticket's
+    path is a straw dog bound the old way."""
     fingerprint = _fingerprint(root / name)
     found = []
     offset = 0
     for number, line in enumerate(text.splitlines(keepends=True), start=1):
-        named = TICKET_PATH.search(line) if _TODO.search(line) else None
-        if named:
+        question = TODO_QUESTION.match(line)
+        ticket = TICKET_PATH.search(line) if _TODO.search(line) and question is None else None
+        if question or ticket:
             found.append(
                 StrawDog(
                     path=name,
                     opens=number,
                     closes=number,
-                    until="the ticket is done",
-                    ticket=named.group(0),
+                    question=question.group(2) if question else None,
+                    until=None,
+                    ticket=ticket.group(0) if ticket else None,
                     depth=0,
                     contains=0,
                     fingerprint=fingerprint,
@@ -328,7 +365,7 @@ def _todos_in(root: Path, name: str, text: str) -> tuple[list[StrawDog], list[Di
                 )
             )
         offset += len(line)
-    return found, _attribute_problems(root, found)
+    return found, _attribute_problems(found)
 
 
 def _tags_in(root: Path, name: str, text: str) -> tuple[list[StrawDog], list[Diagnostic]]:
@@ -360,7 +397,7 @@ def _tags_in(root: Path, name: str, text: str) -> tuple[list[StrawDog], list[Dia
         if not old.group(0).startswith("</")
     ]
     statements = _nested(name, text, fingerprint, sorted(spans))
-    return statements, diagnostics + _attribute_problems(root, statements)
+    return statements, diagnostics + _attribute_problems(statements)
 
 
 def _nested(
@@ -369,7 +406,7 @@ def _nested(
     """Turn raw spans into straw dogs that know their depth and how many children they hold."""
     statements = []
     for start, end, written in spans:
-        attributes = dict(_ATTRIBUTE.findall(written))
+        attributes = dict(ATTRIBUTE.findall(written)) | dict(_OLD_ATTRIBUTE.findall(written))
         parents = [other for other in spans if _holds(other, (start, end))]
         children = [other for other in spans if _holds((start, end), other)]
         direct = [child for child in children if not any(_holds(kin, child) for kin in children)]
@@ -378,6 +415,7 @@ def _nested(
                 path=name,
                 opens=_line_of(text, start),
                 closes=_line_of(text, end - 1),
+                question=attributes.get("question"),
                 until=attributes.get("until"),
                 ticket=attributes.get("ticket"),
                 depth=len(parents),
@@ -394,17 +432,23 @@ def _holds(outer, inner) -> bool:
     return outer[0] < inner[0] and inner[1] <= outer[1]
 
 
-def _attribute_problems(root: Path, statements: list[StrawDog]) -> list[Diagnostic]:
-    """An expiry nobody owns, or one nobody can test, is a finding — never a silent pass."""
+def _attribute_problems(statements: list[StrawDog]) -> list[Diagnostic]:
+    """A straw dog bound to no question, or bound the old way, is a finding — never a silent pass.
+    Whether the store holds the question is the survey's to ask."""
     problems = []
     for statement in statements:
-        if statement.until is None:
-            problems.append(Diagnostic(statement.path, statement.opens, "no condition"))
-        if statement.ticket is None:
-            problems.append(Diagnostic(statement.path, statement.opens, "unbound"))
-        elif not (root / statement.ticket).is_file():
-            problems.append(Diagnostic(statement.path, statement.opens, "unknown owner"))
+        if statement.until is not None or statement.ticket is not None:
+            problems.append(Diagnostic(statement.path, statement.opens, _OLD_BINDING))
+        elif statement.question is None:
+            problems.append(Diagnostic(statement.path, statement.opens, "unbound: no question=\"q-N\""))
     return problems
+
+
+# What a tree updated past the change meets in its own straw dogs, and what to write instead.
+_OLD_BINDING = (
+    "old binding: a straw dog binds to the question whose answer will rewrite its text — "
+    "<straw-dog question=\"q-N\">, or in code # TODO q-N — never to a ticket or a condition"
+)
 
 
 def _records_in(root: Path, paths: list[str]) -> list[str]:

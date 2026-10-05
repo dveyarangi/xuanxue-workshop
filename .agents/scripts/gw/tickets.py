@@ -4,7 +4,8 @@
 
 The shape is the ticket format shelf's, `TICKET-FORMAT.md`, under *The record*: the header's
 fields and their order, the sections a stage admits, the acceptance boxes, and the pairing of an
-RFC with the ticket that shares its basename. This script rules on form alone. Whether a ticket
+RFC with the ticket that shares its basename. The question store is read for one thing: that a
+ticket's `Answers` links an entry the ticket owns. This script rules on form alone. Whether a ticket
 should have been written, whether its status is true, whether an outcome is any good, are
 judgments it records and never makes.
 
@@ -24,6 +25,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import questions  # noqa: E402  (path set above)
 from docs_corpus import cited_record, citations, corpus, target_of  # noqa: E402  (path set above)
 
 TICKETS = "docs/tickets"
@@ -31,17 +33,19 @@ RFCS = "docs/rfc"
 QUEUE = "docs/tickets/README.md"
 STATUSES = ("Done", "In progress", "Ready", "Partial", "Planned", "Blocked")
 TYPES = ("HITL", "AFK")
-ORDERED = ("Status", "Type", "Plan", "Depends on", "Blocks", "Outcome")
-REQUIRED = ("Status", "Type", "Outcome")
+ORDERED = ("Status", "Type", "Plan", "Depends on", "Blocks", "Answers", "Outcome")
+REQUIRED = ("Status", "Type", "Answers", "Outcome")
 RETIRED = ("Kind", "Legacy id", "RFC", "Parent PRD", "User stories addressed")
 NAMED_SECTIONS = (
     "Parent",
     "What to build",
-    "Open issues",
     "Acceptance criteria",
     "Out of scope",
     "Parent scope addressed",
 )
+# A ticket's open questions are entries of the store under its `Answers` question, each holding
+# its own argument, so a section listing them is a second home (the user, 2026-10-03).
+RETIRED_SECTIONS = ("Open issues",)
 REQUIRED_SECTIONS = ("What to build", "Acceptance criteria")
 _USAGE = "usage: tickets.py --check"
 _BULLET = re.compile(r"^- \*\*([^*]+?):\*\* ?(.*)$")
@@ -147,6 +151,7 @@ def main(argv: list[str], root: Path | None = None) -> int:
 def check(root: Path) -> Checked:
     """Every live ticket against the shape, and every RFC against the ticket it is paired with."""
     names = corpus(root)
+    entries = {read.record: read for read in questions.read_store(root).index.values()}
     records: list[Ticket] = []
     diagnostics: list[Diagnostic] = []
     skipped: list[Skipped] = []
@@ -156,7 +161,7 @@ def check(root: Path) -> Checked:
             skipped.append(read)
             continue
         records.append(read)
-        diagnostics += _problems(root, read, names)
+        diagnostics += _problems(root, read, names) + _answers_problems(root, read, entries)
     diagnostics += _pairing_problems(names)
     return Checked(records, diagnostics, skipped)
 
@@ -378,6 +383,31 @@ def _link_problems(root: Path, read: Ticket) -> list[Diagnostic]:
     return notes
 
 
+def _answers_problems(root: Path, read: Ticket, entries: dict[str, "questions.Entry"]) -> list[Diagnostic]:
+    """`Answers` links one entry of the store, and that entry's owner is this ticket — the question
+    the ticket's goal answers, which its open questions sit under (the user, 2026-10-03). A
+    missing field is the required fields' to report, and a link that resolves nowhere the links'."""
+    answers = next((found for found in read.header if found.name == "Answers"), None)
+    if answers is None:
+        return []
+    written = citations(answers.value)
+    if len(written) != 1:
+        return [Diagnostic(read.record, answers.line, "Answers names one entry of the store by one link")]
+    aimed = cited_record(root, read.record, target_of(written[0]))
+    if aimed is None or not (root / aimed).exists():
+        return []
+    entry = entries.get(aimed)
+    if entry is None:
+        return [Diagnostic(read.record, answers.line, f"Answers links {written[0]}, which is not an entry of the store")]
+    owner = entry.parts.get("owner")
+    owned = citations(owner.value) if owner else []
+    if not owned or cited_record(root, entry.record, target_of(owned[0])) != read.record:
+        return [
+            Diagnostic(read.record, answers.line, f"Answers links {entry.identity}, whose owner is not this ticket")
+        ]
+    return []
+
+
 def _titled(section: Section, name: str) -> bool:
     """Whether a section is the named one — exactly, or with the shelf's provisional suffix."""
     return section.title == name or section.title.startswith(f"{name} ")
@@ -390,6 +420,16 @@ def _section_problems(read: Ticket) -> list[Diagnostic]:
     for name in REQUIRED_SECTIONS:
         if not any(_titled(section, name) for section in read.sections):
             notes.append(Diagnostic(read.record, last_line, f"no {name} section"))
+    for section in read.sections:
+        if any(_titled(section, name) for name in RETIRED_SECTIONS):
+            notes.append(
+                Diagnostic(
+                    read.record,
+                    section.line,
+                    f"`{section.title}` is retired: a ticket's open questions are entries of the store "
+                    "under its Answers question, drawn by `questions.py --tree`",
+                )
+            )
     if read.shaped:
         unnamed = [
             section
@@ -401,7 +441,7 @@ def _section_problems(read: Ticket) -> list[Diagnostic]:
                 Diagnostic(
                     read.record,
                     extra.line,
-                    f"`{extra.title}` is a second section outside the six the shaped form admits; "
+                    f"`{extra.title}` is a second section outside the five the shaped form admits; "
                     "one narrative section is the most a shaped ticket carries",
                 )
             )

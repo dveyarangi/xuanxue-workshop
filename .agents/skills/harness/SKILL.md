@@ -14,7 +14,8 @@ Repository: https://github.com/dveyarangi/goodwolf-harness.git
 That is the only authored home of it. The script reads its default `--from` there, an install
 stamps a recipient's copy with the source the run actually read, and a fork edits the line once
 and everything it installs names the fork. A check or an update from another `--from` sets the
-line aside rather than reading an edit in core, as it does the local block.
+line aside rather than reading an edit in core, as it does the local block and the block of any
+mechanism of the tree's own.
 
 Run the script from any clone of the harness, or from the tree's own copy once it has one:
 
@@ -31,7 +32,7 @@ a branch, a tag or a commit. To try a ref before it is pushed, pass a local clon
 ## What a run does
 
 Copies every file under `.agents/` plus `AGENTS.md` and `CLAUDE.md`, and the source's root
-`LICENSE` as `.agents/LICENSE`, with the origin's local blocks removed and every straw-dog wrapper sheared so the rule stays and the condition does not;
+`LICENSE` as `.agents/LICENSE`, with the origin's local blocks removed and every straw-dog wrapper and `TODO` binding sheared so the rule stays and the question it waits on, which only this tree holds, does not;
 stamps the entry file's announce line `<repository>@<ref>, <date>`, which is the tree's only
 revision record and what every session there announces; makes the loader links; installs every
 mechanism's rules and then the project's local file last; and runs the gate — the copy compared

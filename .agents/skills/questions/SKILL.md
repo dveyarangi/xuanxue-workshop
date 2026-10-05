@@ -39,9 +39,9 @@ after a call says what it takes.
 
 `open` leaves the session where it stands: to stand on the new question, call `at` on the id it
 printed. A refused call writes nothing and says why; fix it and call again in the same turn. Under
-`debug=on` the reply opens, after the announce line when there is one, with Q1's table — the
-questions the turn stood on as `at` and `close` printed them, a move mid-turn included — never
-the call itself.
+`debug=on` the reply opens, after the announce line when there is one, with Q1's table — a row
+for each question the turn stood on, opened or closed, as the calls printed them, a move mid-turn
+included; a row for a process; a row for an uncharted ask; a row for banter — never the call itself.
 
 Free text goes in single quotes, which neither bash nor PowerShell expands; a text holding an
 apostrophe goes in double quotes, with no backtick or `$` inside.
@@ -51,8 +51,9 @@ apostrophe goes in double quotes, with no backtick or `$` inside.
 **Look it up first.** Every question a message raises is looked for before anything is opened, in
 *the docs*: the architecture, ADRs, the glossary, the mechanism docs, the code, and the decisions
 landed in live tickets, where a decision sits until it reaches its home. Found, point to it and
-open nothing; a settled question is not reopened without new evidence against its answer. There
-is no need to search `done/`: a decided entry links to what holds its answer.
+open nothing; a settled question is not reopened without new evidence against its answer. An
+answer that leaves part unsettled is found only in part: the rest is a raised question of its
+own. There is no need to search `done/`: a decided entry links to what holds its answer.
 
 **Who settles what is not found.** A decision that is not load-bearing, settle in the turn and
 report it, as `repair=report` does. A load-bearing one is the person's: settled in the turn, it
@@ -63,11 +64,26 @@ load-bearing.
 for?* — or open that question when none is held. Open *how to build X?* under it once X is
 accepted; the ticket's plan answers it. A trivial request is settled by doing it.
 
-**Where to open it.** A message that answers nothing near the current question opens what that
-question cannot be answered without deciding, or what the method's plan expects here. When
-answering it narrows the current question and answering the current one contributes to it, open it
-`--between` the current question's parent and the current question; when only the first holds,
-open it beside, under the same parent, and `depend <current> --on <new>`.
+**Where to open it.** Under the lowest question that contains it, whatever the session stands
+on. One that bears on the current question — what that question cannot be answered without
+deciding, or what the method's plan expects here — is opened `--between` the current question's
+parent and the current question when answering it narrows the current one and answering the
+current one contributes to it; when only the first holds, beside it, under the same parent, with
+`depend <current> --on <new>`.
+
+**A missing parent.** When only a far question contains the message and two or more of its
+children resemble it, the question those children jointly serve is missing. Size it by the
+children, never by the message. Test it: would you look under it for this question? `open` it
+under the far one, `move` each child you would look for under it, leave a child you doubt where
+it is, call `at` on it, and say in the reply which moved and which you left. Neither the number
+of children moved nor a second parent that would sit inside or around this one is a reason to
+ask. Ask only when two parents would each take the same children. Then the turn is uncharted,
+and the ask names each parent you weighed and the children it would take.
+
+**Uncharted.** The reply does the work asked and puts the question's home to the user: the
+question the message is one case of, never the message restated, the homes you weighed, and the
+one you would choose. The row repeats in every reply until the user answers; then open it where
+they said.
 
 ## Closing
 
@@ -84,7 +100,10 @@ is made irrelevant, or one is replaced. **Do** `close` with its kind and pointer
 The answer is never the deliberation itself. `suspect` every open child and dependent whose
 assumption the answer changes; call `at` on the parent first if the closed question was current.
 A `close` that finishes a subtree moves it to `docs/questions/done/` itself and says so; a closed
-question with an open, deferred or suspect child stays live until that child closes.
+question with an open, deferred or suspect child stays live until that child closes. Closing
+against a decision that has not reached its home yet, `assign` the record holding it first if
+the question has no owner: the straw dogs waiting on it come due once no link of its answer
+cites its owner's record.
 
 ## Branching
 
@@ -136,7 +155,8 @@ Every part but **state** is optional, and a closed entry must carry its **answer
 `q-NNNN`, a child its parent's id and one more position, `q-0090.0003`, the next after its
 siblings. A
 re-parent renames the moved question and everything under it — files, links, relations, session
-lines and bare ids under `docs/` — so an id seen earlier may be gone: draw the window again. *part
+lines, bare ids under `docs/` and every straw dog's binding — so an id seen earlier may be gone:
+draw the window again. *part
 of* is the line the check holds the id against.
 
 **The sessions file** — one row of `docs/questions/sessions` per session:

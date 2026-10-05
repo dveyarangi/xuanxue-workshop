@@ -91,6 +91,7 @@ applying the spec's ownership decision)*.
 | part | where | owner |
 |---|---|---|
 | the method's vocabulary | `.agents/glossary.md` | nobody removable |
+| a `not yet`'s question and whether it is due, read by the check | `.agents/scripts/gw/questions.py` | `questions` |
 
 ## What it produces, and who reads it
 

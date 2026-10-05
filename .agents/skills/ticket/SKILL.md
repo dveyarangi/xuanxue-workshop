@@ -112,8 +112,11 @@ in `docs/tickets/done/` — reference it there.
 
 Write each file to [The record](./TICKET-FORMAT.md#the-record) — the header,
 its fields, the sections the stage admits, and the citation conventions. A
-freshly minted slice is incepted: it needs `Status`, `Type`, `Outcome`,
-`What to build` and `Acceptance criteria`, and may host whatever else it has.
+freshly minted slice is incepted: it needs `Status`, `Type`, `Answers`,
+`Outcome`, `What to build` and `Acceptance criteria`, and may host whatever
+else it has. `Answers` links the question the slice's goal answers: open it in
+the store under the parent ticket's question when the store holds none, and
+`assign` it to the slice.
 Each child carries a one-line pointer to the parent's recorded `/impact`
 assessment.
 
@@ -126,13 +129,14 @@ implementation tickets for that outcome.
 
 - **At minting:** `Outcome`, `What to build`, and `Acceptance criteria`
   describe the alignment exit: the decision is landed in its durable home and
-  the feature is unblocked. Hold the decision tree — evidence, alternatives,
-  and open questions — in the ticket.
+  the feature is unblocked. The decision tree's open questions are entries of
+  the store under the ticket's `Answers` question, each holding its own
+  evidence and alternatives in its body.
 - **Question promotion:** an open question in `docs/questions/` that becomes
-  work is assigned to the ticket with `assigns`, and its deliberation moves into
-  the ticket.
+  work is assigned to the ticket with `assign`; its argument stays in the entry.
 - **During alignment:** follow [/align](../align/SKILL.md)'s inline
-  resolution rule; the ticket is the live working document.
+  resolution rule; the ticket is the live working document for its decisions,
+  the store for its open questions.
 - **At resolution:** land decisions in their durable homes, close each question
   they answer with a pointer to that home (or open a new one for
   separately-scoped residue), and rewrite the same ticket in place to feature

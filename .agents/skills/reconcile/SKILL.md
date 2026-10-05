@@ -58,4 +58,13 @@ record edits and issue bodies as local review artifacts. Identify them as propos
 - Scope limits: docs/stage-1.md.
 - Ownership, routing, autonomy and acceptance: docs/agent-contract.md.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
+
+**L13** Use /ticket and its /impact pass to shape remaining reconciliation work into
+local tickets for the coordinating project's outcomes. Obtain breakdown approval
+before minting. Slice by outcome, not automatically by finding or recipient.
+Published project issues may be ticket outputs; their publication does not
+establish that the recipient's work is complete. Verify the ticket's own outcome:
+a published handoff and a working integration have different completion criteria.
+Continue existing assignments covering the same action. Routine factual corrections
+and follow-up within an existing assignment need no additional local ticket.
 </installed>

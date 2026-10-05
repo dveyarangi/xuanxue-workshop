@@ -58,23 +58,23 @@ a manifest — and each entry belongs at its authored home, wrapped there if pro
 
 - **target** `.agents/skills/align/SKILL.md`
 - **target** `.agents/skills/mechanism/SKILL.md`
-- **authority** the user, 2026-09-20
+- **authority** the user, 2026-09-20; the binding a question, 2026-10-04
 
 <rule>
 Land a mechanism's rule in AGENTS.md only as an installed block from its rules file. While the
-mechanism is undeclared, write the rule by hand and wrap it as a straw dog on the inception
-ticket as you write it.
+mechanism is undeclared, write the rule by hand and wrap it as a straw dog bound to the question
+of what the mechanism owns, as you write it.
 </rule>
 
 ## R6 — a skill is claimed or listed
 
 - **target** `.agents/skills/skill-up/SKILL.md`
 - **target** `.agents/skills/mechanism/SKILL.md`
-- **authority** the user, 2026-09-08
+- **authority** the user, 2026-09-08; the binding a question, 2026-10-04
 
 <rule>
 A skill is a mechanism's one instruction file, or says so on its first body line: `Mechanism:`
-then `not yet`, wrapped as a straw dog bound to the ticket that declares its mechanism, or
+then `not yet`, wrapped as a straw dog bound to the question of what the skill owns, or
 `unowned by design` with its reason. Write the line as you add the skill; no list holds it.
 </rule>
 

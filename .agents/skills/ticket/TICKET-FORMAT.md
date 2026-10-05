@@ -78,13 +78,13 @@ never content *(the user, 2026-09-08)*.
   everything else; older fields in them are left, and a live record carries
   none.
 - **The stage** is read from the `Plan` bullet. *Incepted*, before its plan
-  exists, a ticket hosts chunks: routed inputs, ideas, open questions, any
-  section. *Shaped*, once its plan exists, it keeps only what is actual. A
-  resolved decision lands in its durable home with its provenance and
-  rewrites `What to build` in place; `Open issues` holds only what is
-  unresolved; the session record holds the align. A checked box with its date
-  is the whole verification record — no delivery log, no verification
-  narrative.
+  exists, a ticket hosts chunks: routed inputs, ideas, any section; its open
+  questions are entries of the store under its `Answers` question, each
+  holding its own argument. *Shaped*, once its plan exists, it keeps only what
+  is actual. A resolved decision lands in its durable home with its provenance
+  and rewrites `What to build` in place; the session record holds the align. A
+  checked box with its date is the whole verification record — no delivery
+  log, no verification narrative.
 
 ### The header
 
@@ -101,6 +101,7 @@ continuation. Known fields in this order, a one-off field anywhere before
 - **Plan:** [{title} RFC](../rfc/{basename}.md) — what it selected
 - **Depends on:** [{title}](./RR-NNNN-slug.md) ({what it supplies})
 - **Blocks:** [{title}](./RR-NNNN-slug.md) — {why}
+- **Answers:** [q-NNNN](../questions/q-NNNN-{slug}.md)
 - **Outcome:** {the delivered change, one sentence}
 ```
 
@@ -111,6 +112,7 @@ continuation. Known fields in this order, a one-off field anywhere before
 | `Plan` | exactly when an RFC with the ticket's basename exists under `docs/rfc/` or its `done/` | its link resolves to that RFC | plus one clause on what it selected |
 | `Depends on` | optional | every link resolves | blockers, each with a parenthetical naming what it supplies — not a bare link |
 | `Blocks` | optional | every link resolves | only when the blocking relation is itself an argument; carries its `— why` |
+| `Answers` | required | one link to an entry of the question store, live or in `done/`, whose `owner` is this ticket | the question the ticket's goal answers — its *what for*; its open questions sit under that entry, and a child ticket's question under its parent's |
 | one-off fields | optional | every link resolves | `Trigger`, `Related`, `Owning decision` and the like, when the ticket carries that fact |
 | `Outcome` | required, last | one sentence | observable behavior, never code shape |
 
@@ -129,8 +131,9 @@ continuation. Known fields in this order, a one-off field anywhere before
 - `What to build` — **required**. End-to-end behavior, not a file-by-file
   plan. Each constraint carries its reason. Rewritten in place as decisions
   land.
-- `Open issues` — the unresolved decisions and HITL forks, one bullet each,
-  saying why it cannot be answered yet. Nothing resolved stays here.
+- No `Open issues` section: a ticket's unresolved decisions and HITL forks are
+  entries of the question store under its `Answers` question, each holding its
+  own argument. A reader draws them with `questions.py --tree <its Answers id>`.
 - `Acceptance criteria` — **required**. Checkboxes, each observably true when
   done; one names `/verify`. Provisional criteria say so in the heading, after
   a dash, and are firmed in place at the align.
@@ -141,7 +144,7 @@ continuation. Known fields in this order, a one-off field anywhere before
   from it yet.
 
 An incepted ticket may hold any section besides the two required. A shaped
-ticket holds the six named above and at most one narrative, nothing else;
+ticket holds the five named above and at most one narrative, nothing else;
 its `Acceptance criteria` holds checkbox lines, their continuations and blank
 lines, nothing else.
 

@@ -18,7 +18,13 @@ core's substrate, beneath whatever method a tree runs.
 
 **The turn.** Before drafting, the agent reads the window — the path from the root to its session's
 current question, the children along it, the root's other open questions, the other roots, the
-other sessions — and calls the script with where the message lands, one call per event, each
+other sessions — and says what the turn is: on a question, placed on the lowest one that contains
+the message and never on one that only resembles it, nor on a far one that holds it only as it
+holds everything beneath it, where the parent is missing and is opened; a process, the agent carrying out what it
+knows how to do, which is placed nowhere; uncharted, a question whose home the person settles; or
+banter, a message that asks nothing of the work, answered by a reply that writes and settles
+nothing.
+What it places it writes by calling the script, one call per event, each
 validated and written whole; the script gives a new question its id, nested under its parent's,
 and a re-parent renames the subtree that moves, so an id always says where its question sits. The
 window prints position,
@@ -73,15 +79,17 @@ roles, is an open question of the store.
 | drawing the window | `.agents/scripts/gw/questions.py` | |
 | registering a session and delivering its window through a host's hook | `.agents/scripts/gw/questions.py` | |
 | writing entries and the position from a call | `.agents/scripts/gw/questions.py` | |
+| writing a question's argument, the body after its parts, by hand | `.agents/skills/questions/SKILL.md` | |
 | checking the store | `.agents/scripts/gw/questions.py` | |
 | reading where the work stands when a session wakes | `.agents/skills/recall/SKILL.md` | |
 | writing the session's leans and ending it | `.agents/skills/conclude/SKILL.md` | |
-| archiving a wholly closed subtree | `.agents/skills/maintain/SKILL.md` | |
+| archiving the subtree a closure finishes | `.agents/scripts/gw/questions.py` | |
+| sweeping a wholly closed subtree a closure left behind | `.agents/skills/maintain/SKILL.md` | |
 | installing this mechanism into a tree, with the rest of core | `.agents/scripts/gw/harness.py` | |
 | judging a message outside the agent | — | not yet |
 | detecting a shape that hides children | — | not yet |
-| holding the tickets' open issues as entries | — | not yet |
-| holding the straw dogs as entries | — | not yet |
+| holding a ticket's open questions under the question it answers | `.agents/skills/ticket/SKILL.md` | |
+| saying which straw dogs are due, and carrying their bindings through a rename | `.agents/scripts/gw/questions.py` | |
 | carrying the hook wiring into a recipient tree | — | not yet |
 | removing this mechanism from a tree | — | not yet |
 
@@ -116,7 +124,8 @@ roles, is an open question of the store.
 - **The sessions file** — read by the script for every window and wake, so each session sees where
   the others stand.
 - **The window** — read by the agent before every message, from the host's hook or the rule.
-- **The wake's read** — read by the agent at session start, from the hook or `/recall`.
+- **The wake's read** — read by the agent at session start, from the hook or `/recall`; it names
+  the straw dogs due, whose text `/maintain` rewrites.
 - **The fingerprint of each session's last window**, outside the tree — read by the script alone,
   to tell whether anything moved; a compaction clears it.
 - **The hook's answers** — read by the host, which places them in the agent's context.
@@ -128,7 +137,7 @@ Nothing else; the tree is rendered on request and never committed.
 
 ## Not yet at the shape
 
-**Six `not yet` rows**, each bound to a ticket that exists.
+**Four `not yet` rows**, each bound to an open question.
 
 **The sessions file** is one file in the working tree, and that is how sessions see each other;
 sessions that do not share the directory do not see each other.

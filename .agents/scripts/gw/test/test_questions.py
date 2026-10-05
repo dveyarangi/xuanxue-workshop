@@ -619,8 +619,8 @@ class Rendered(Store):
         q-0011 Is height depth?                          pruned
         q-0012 (in done/)
 
-    Its children keep the flat ids every store held before an id said where it sits (`.0020`'s
-    decision 6): they still read, and a call that opens or renames under them gives nested ones.
+    Its children keep the flat ids every store held before an id said where it sits (the user,
+    2026-10-03): they still read, and a call that opens or renames under them gives nested ones.
     """
 
     def seed(self) -> None:
@@ -848,6 +848,23 @@ class TheWake(Rendered):
         suspect = self.section(text, "suspect, to re-read:")
         self.assertIn("q-0008", suspect)
         self.assertIn("q-0013", suspect)
+
+    def test_lists_the_straw_dogs_whose_question_is_due_wherever_they_stand(self) -> None:
+        self.write("AGENTS.md", '# Entry\n\n<straw-dog question="q-0005">Held.</straw-dog>\n')
+        self.write(".agents/skills/keeper/SKILL.md", '<straw-dog question="q-0010">Open still.</straw-dog>\n\n```md\n<straw-dog question="q-0011">Sample.</straw-dog>\n```\n')
+        self.write(".agents/scripts/keeper.py", "x = 1\n# TODO q-0011: pruned since.\n")
+
+        _, text = self.said("--wake")
+
+        due = self.section(text, "straw dogs due, their text to re-read:").strip().splitlines()
+        self.assertEqual(
+            [
+                ".agents/scripts/keeper.py:2 → q-0011 [closed:pruned] Is height depth?",
+                "AGENTS.md:3 → q-0005 [closed:decided] Is the id a path?",
+            ],
+            [line.strip() for line in due],
+        )
+        self.assertLess(text.index("deferred, to re-check"), text.index("straw dogs due"))
 
     def test_a_new_session_is_given_the_roots_to_place_itself_among(self) -> None:
         _, text = self.said("--wake")
@@ -1135,7 +1152,7 @@ class TheCalls(Declared):
 
 class Renaming(Declared):
     """A re-parent renames the subtree that moves, so every id keeps saying where its question
-    sits (`.0020`'s decision 6): files, links, relations, session lines and bare ids follow."""
+    sits (the user, 2026-10-03): files, links, relations, session lines and bare ids follow."""
 
     def stems(self, folder: str = STORE) -> set[str]:
         return {path.stem for path in (self.root / folder).glob("q-*.md")}
@@ -1247,10 +1264,105 @@ class Renaming(Declared):
         self.assertIn("no entry holds q-0007", str(refused.exception))
         self.assertEqual(untouched, self.snapshot())
 
+    def test_a_straw_dogs_binding_in_core_and_in_code_follows_and_an_example_keeps_its_id(self) -> None:
+        self.called("open", "Who runs the mover?", "--under", "q-0007")
+        skill = (
+            '<straw-dog question="q-0007">Held for now.</straw-dog>\n\n'
+            'Write `<straw-dog question="q-0007">` around it; q-0007 is an example here.\n\n'
+            '```md\n<straw-dog question="q-0007">Sample.</straw-dog>\n```\n'
+        )
+        self.write(".agents/skills/keeper/SKILL.md", skill)
+        self.write("AGENTS.md", '<straw-dog question="q-0007.0001">Rule.</straw-dog>\n')
+        self.write(".agents/scripts/keeper.py", '# TODO q-0007: the move.\n# TODO q-00070: no id of ours.\nNAME = "q-0007"\n')
+
+        self.called("move", "q-0007", "--under", "q-0002")
+
+        self.assertEqual(
+            skill.replace('question="q-0007">Held', 'question="q-0002.0001">Held', 1),
+            self.read(".agents/skills/keeper/SKILL.md"),
+        )
+        self.assertEqual('<straw-dog question="q-0002.0001.0001">Rule.</straw-dog>\n', self.read("AGENTS.md"))
+        self.assertEqual(
+            '# TODO q-0002.0001: the move.\n# TODO q-00070: no id of ours.\nNAME = "q-0007"\n',
+            self.read(".agents/scripts/keeper.py"),
+        )
+
+
+class Dueness(Store):
+    """A straw dog is due when the answer its text waited on has landed, or its question no longer
+    stands; a merge or a supersession hands it to the successor instead (the user, 2026-10-03 and
+    2026-10-04)."""
+
+    WORK = "[01-0002](../tickets/01-0002-sweep.md)"
+
+    def seed(self) -> None:
+        super().seed()
+        self.write("docs/tickets/01-0002-sweep.md", "# Sweep\n\n## Decisions\n\n1. Swept.\n")
+        self.write("docs/architecture.md", "# Architecture\n\n## Sweeping\n\nSwept.\n")
+
+    def read_entry(self, parts: dict[str, str]) -> questions.Entry:
+        name = self.place("q-0002-is-it-swept", "Is it swept?", parts)
+        return questions.read_store(self.root).index["q-0002"] if name else None
+
+    def is_due(self, parts: dict[str, str]) -> bool:
+        return questions.due(self.root, self.read_entry(parts))
+
+    def test_a_decision_still_in_the_work_that_owns_it_is_not_due(self) -> None:
+        self.assertFalse(
+            self.is_due({"state": "closed:decided", "owner": self.WORK, "answer": "[decision 1](../tickets/01-0002-sweep.md#decisions)"})
+        )
+
+    def test_a_decision_landed_in_its_home_is_due(self) -> None:
+        self.assertTrue(
+            self.is_due({"state": "closed:decided", "owner": self.WORK, "answer": "[sweeping](../architecture.md#sweeping)"})
+        )
+
+    def test_an_answer_still_citing_the_work_beside_its_home_is_not_due(self) -> None:
+        answer = "[sweeping](../architecture.md#sweeping), [decision 1](../tickets/01-0002-sweep.md#decisions)"
+        self.assertFalse(self.is_due({"state": "closed:decided", "owner": self.WORK, "answer": answer}))
+
+    def test_a_decision_with_no_owner_is_due_wherever_it_points(self) -> None:
+        self.assertTrue(self.is_due({"state": "closed:decided", "answer": "[decision 1](../tickets/01-0002-sweep.md#decisions)"}))
+
+    def test_an_archived_entry_reads_its_links_from_where_it_now_stands(self) -> None:
+        self.place(
+            "q-0003-was-it-swept",
+            "Was it swept?",
+            {"state": "closed:decided", "owner": "[01-0002](../../tickets/01-0002-sweep.md)", "answer": "[sweeping](../../architecture.md#sweeping)"},
+            folder=f"{STORE}/done",
+        )
+        self.assertTrue(questions.due(self.root, questions.read_store(self.root).index["q-0003"]))
+
+    def test_a_question_no_longer_standing_is_due(self) -> None:
+        for kind in ("moot", "pruned"):
+            with self.subTest(kind=kind):
+                self.assertTrue(self.is_due({"state": f"closed:{kind}", "owner": self.WORK, "answer": "overtaken"}))
+
+    def test_an_open_suspect_deferred_merged_or_superseded_question_is_never_due(self) -> None:
+        for state, answer in (
+            ("open", None),
+            ("closed:decided, suspect", "[sweeping](../architecture.md#sweeping)"),
+            ("closed:deferred", "until it rains, meanwhile sweep"),
+            ("closed:merged", "q-0001"),
+            ("closed:superseded", "q-0001"),
+        ):
+            with self.subTest(state=state):
+                parts = {"state": state} | ({"answer": answer} if answer else {})
+                self.assertFalse(self.is_due(parts))
+
+    def test_a_supersession_hands_its_straw_dogs_to_the_end_of_the_chain(self) -> None:
+        self.place("q-0002-is-it-swept", "Is it swept?", {"state": "closed:superseded", "answer": "q-0003"})
+        self.place("q-0003-is-it-swept-clean", "Is it swept clean?", {"state": "closed:merged", "answer": "q-0004"})
+        self.place("q-0004-is-the-floor-clean", "Is the floor clean?", {"state": "open"})
+        index = questions.read_store(self.root).index
+
+        self.assertEqual("q-0004", questions.successor(index, index["q-0002"]).identity)
+        self.assertIsNone(questions.successor(index, index["q-0004"]))
+
 
 class TheBody(Declared):
     """An entry holds its own argument after its parts, written by hand and kept by every call as
-    it found it (`.0020`'s decision 3)."""
+    it found it (the user, 2026-10-03)."""
 
     BODY = "The argument, with `code` and\n\n- **lean** a line shaped like a part.\n"
 
@@ -1728,7 +1840,10 @@ class TheHook(Hooked):
         self.assertIn("current: q-0004", self.context(first))
         self.assertEqual("UserPromptSubmit", json.loads(first)["hookSpecificOutput"]["hookEventName"])
         self.assertIn("window unchanged since your last one", self.context(second))
-        self.assertIn("place this message with `questions.py at q-0004 --session s-alpha`", self.context(second))
+        self.assertIn("s-alpha at q-0004; say what this turn is", self.context(second))
+        self.assertIn("`questions.py at q-N --session s-alpha` on the one that contains the message", self.context(second))
+        self.assertIn("a process, no call", self.context(second))
+        self.assertNotIn("questions.py at q-0004", self.context(second))
         self.assertNotIn("path (root to current):", self.context(second))
 
     def test_a_moved_position_or_a_changed_entry_draws_the_window_again(self) -> None:

@@ -198,8 +198,9 @@ class CitationForms(RepositoryCase):
         )
 
 
-class StrawDogOwners(RepositoryCase):
-    """The `ticket=` binding of an operative straw dog is a citation too."""
+class StrawDogBindings(RepositoryCase):
+    """A straw dog binds a question by its id, which does not move when a record does: a move
+    repairs citations and leaves every binding as written."""
 
     def setUp(self) -> None:
         super().setUp()
@@ -208,22 +209,18 @@ class StrawDogOwners(RepositoryCase):
     def close_the_ticket(self) -> None:
         move_doc.perform(self.root, [(TICKET, CLOSED)])
 
-    def test_an_operative_binding_follows_the_ticket_it_names(self) -> None:
-        self.write(
-            "docs/process.md",
+    def test_a_binding_stays_as_written_when_the_work_that_answers_it_closes(self) -> None:
+        process = (
             "# Process\n\n"
+            '<straw-dog question="q-0010.0040">\nPreliminary.\n</straw-dog>\n\n'
             '<straw-dog until="/plan is installed" ticket="docs/tickets/01-0010.0040-install-plan.md">\n'
-            "Preliminary.\n</straw-dog>\n",
+            "Bound the old way.\n</straw-dog>\n"
         )
+        self.write("docs/process.md", process)
 
         self.close_the_ticket()
 
-        self.assertEqual(
-            "# Process\n\n"
-            '<straw-dog until="/plan is installed" ticket="docs/tickets/done/01-0010.0040-install-plan.md">\n'
-            "Preliminary.\n</straw-dog>\n",
-            self.read("docs/process.md"),
-        )
+        self.assertEqual(process, self.read("docs/process.md"))
 
     def test_an_illustration_of_the_binding_syntax_follows_nothing(self) -> None:
         entry = "AGENTS.md"

@@ -44,7 +44,7 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | P8 — a closed ticket leaves the queue | the user, 2026-09-09 |
 | P9 — a ticket is named by a link, or by a slug and its state | the user, 2026-09-21; the slug in the link text, 2026-09-26 |
 | P10 — an align on a ticket opens with what the ticket is | the user, 2026-09-27 |
-| P11 — the ticket is swept for consistency when the align ends | `/align`'s own text, moved here 2026-09-29 by 01-0011.0100 decision 15 |
+| P11 — the ticket is swept for consistency when the align ends | `/align`'s own text, moved here 2026-09-29 |
 | the record's shape — one header form, `Type` required, `Kind` gone, `Outcome` one sentence, the stage read from the plan, the sections a stage admits | the user, 2026-09-08 |
 | the status vocabulary, numbering and one basename per work item | with the selected skills, 2026-09-06 |
 | check-only, and nothing retires this | the user, 2026-09-08 |
@@ -66,7 +66,6 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | closing a finished ticket with its RFC | `.agents/skills/maintain/SKILL.md` | |
 | repairing the citations a close breaks | `.agents/scripts/gw/move_doc.py` | |
 | checking live records against the shape | `.agents/scripts/gw/tickets.py` | |
-| listing finished records not yet moved | — | not yet |
 | rendering the queue from the tickets | — | not yet |
 | ordering the queue and writing its pacing prose | — | not yet |
 | promoting an open question of the store into a ticket | `.agents/skills/ticket/SKILL.md` | |
@@ -123,8 +122,8 @@ Nothing else; no index of its own. The register of tickets is the queue, which i
 
 ## Not yet at the shape
 
-**Four `not yet` rows**, each naming a ticket that exists: the archive listing, the derived
-queue, the pacer, the installer.
+**Three `not yet` rows**, each bound to an open question: the derived queue, the pacer, the
+installer.
 
 **The queue's table is still a copy.** The shelf's queue section instructs the copy inside a
 straw dog, and the maintainer does not read the queue at all.
@@ -142,16 +141,10 @@ done, which never arrives. This section states that so nobody re-investigates it
 
 ## What would show it working, graded by someone who did not build it
 
-Two graders, two questions, pre-registered at the align that declared this mechanism and its
-`/plan`.
+One grader, pre-registered at the align that declared this mechanism and its `/plan`; a second,
+the session that would have landed an archive listing, went with the listing.
 
 **The session that declares `/plan`**
 grades the pairing rule and the `Plan` bullet: did they hold against `/plan`'s own record shape,
 or did this doc claim of an RFC what `/plan`'s declaration had to take back? A pairing check that
 had to be moved out of `tickets.py` is this doc having claimed too much.
-
-**The session that lands the archive listing**
-grades the record declaration as the first reader that was written for: was the shelf's *The
-record* enough to read eligibility from — the boxes, the `/verify` box, the folder — or did the
-shape have to be amended to make the listing possible? A shape amended by its first reader was
-declared for the wrong reader.

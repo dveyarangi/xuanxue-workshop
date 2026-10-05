@@ -125,13 +125,15 @@ When the plan under review is a ticket, record each resolution the moment it lan
 
 <installed by="mechanism-shape">
 **R5** Land a mechanism's rule in AGENTS.md only as an installed block from its rules file. While the
-mechanism is undeclared, write the rule by hand and wrap it as a straw dog on the inception
-ticket as you write it.
+mechanism is undeclared, write the rule by hand and wrap it as a straw dog bound to the question
+of what the mechanism owns, as you write it.
 </installed>
 
 <installed by="ticket">
 **P7** Land a resolved decision in its durable home with its provenance, and rewrite the ticket in
-place to what is now true; list under `Open issues` only what stays unresolved.
+place to what is now true; close the question it answers against that home — against the ticket's
+decision while it has not landed, after assigning the question to the ticket if it has no owner —
+and when a decision lands, repoint every entry closed against it there.
 
 **P10** Open an align on a ticket by saying what the ticket is: what it builds and the problem it answers,
 in plain words, each of its terms explained, before the necessity gate or any question.

@@ -22,7 +22,7 @@ Your goal is to find out the actual state of the project and the current and/or 
 
 <installed by="questions">
 **Q2** Start from the wake's read — the one the host's session-start hook put in your context, or
-`questions.py --wake`. Report where the other sessions stand, what is suspect, and which
-deferrals may now be due; take this session's position from the person or estimate it, and
-place it with `at`. Re-rank nothing another running session is on; then read the queue as this skill says.
+`questions.py --wake`. Report where the other sessions stand, what is suspect, which deferrals
+may now be due, and which straw dogs are due; take this session's position from the person or
+estimate it, and place it with `at`. Re-rank nothing another running session is on; then read the queue as this skill says.
 </installed>

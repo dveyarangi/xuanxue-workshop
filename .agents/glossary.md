@@ -20,7 +20,7 @@ A part of how the work gets done — the development method and its machinery �
 A mechanism's own instruction file, invocable and identified by its purpose and conditions of use. A skill may also host rules installed into it by mechanisms that do not own it.
 
 **Straw dog**:
-Text or code a live ticket will change, wrapped in a `<straw-dog>` bound to that ticket at the moment it is written. Unwrapped, it is drift the enumerator cannot see. What no ticket would change is a claim.
+Text or code an open question's answer will change, wrapped in a `<straw-dog>` bound to that question at the moment it is written. Not a question itself: provisional text that waits on one. Unwrapped, it is drift the enumerator cannot see. What no open question would change is a claim.
 _Avoid_: temporary statement, temporary, placeholder, stub, interim, hack.
 
 **Rules file**:
@@ -58,7 +58,7 @@ The row a maintenance writes when it has re-checked a mechanism at a level: the 
 _Avoid_: timestamp, last-checked, checkpoint.
 
 **Due**:
-Said of a mechanism at a level when what governs it has moved since its mark, or it has none — *never maintained*. Derived at every look, never stored.
+Said of a mechanism at a level when what governs it has moved since its mark, or it has none — *never maintained*; and of a straw dog when the answer its question waited on has landed, or the question no longer stands. Derived at every look, never stored.
 _Avoid_: stale, dirty, pending.
 
 **Evidence**:
@@ -101,6 +101,12 @@ _Avoid_: version, cut, ship, distribution.
 A tree that received core by install. Its entry file's announce line names the repository and the ref it came from, `<repository>@<ref>`; the one tree whose line carries no `@` is core's own repository, the origin, and is never installed into.
 _Avoid_: instance as a name for the tree, consumer.
 
+**Host**:
+The program that runs an agent's session and reads the tree for it — Claude Code, Codex, Cursor.
+
+**Loader link**:
+A link from the place a host looks for skills to `.agents/skills`, so every host reads the one copy.
+
 **Painted door**:
 A path under `docs/` that a mechanism declares as where its records live — the directory, or the one file that is a record — and thereby reserves in every recipient: core may name it, and a record written there makes it. Some arrive with content, where the owning mechanism declares what the record says before anything has happened in it; the rest come into being when the first record is written. A particular record inside one is a document, not a painted door.
 _Avoid_: place, path convention.
@@ -136,6 +142,13 @@ The execution of a single skill. It has an input state, an immediate purpose, an
 
 **Turn**:
 One agent reply, from the user's message to the reply's end. A turn holds at most one execution step; a step may span turns.
+
+**Uncharted**:
+A question whose home in the question store the agent cannot settle, put to the person until they say where it belongs. A question the agent can word and place is opened, not uncharted; work the agent knows how to do is a process, not a question.
+
+**Banter**:
+A message that asks nothing of the work — no question about the project, nothing to do or decide — answered by a reply that writes nothing and settles nothing. A message the agent doubts is not banter.
+_Avoid_: unplaced, nowhere, new as names for this.
 
 **Archived record**:
 A historical account retained after its active role ends, with its disposition explicit. Current work should be understandable from maintained sources without requiring that record; historical investigation and mechanical maintenance may still reach it.

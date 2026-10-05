@@ -24,9 +24,9 @@ The code should read as a story. Make sure the main process appears first in
 the file, where possible, and main boundaries' implementation reads through
 entities, interfaces and submethods used as nouns, adjectives and verbs.
 
-Mark code a live ticket will change with a comment line beginning `TODO` that
-names the ticket, per the entry file's straw-dog rule, and say so in the
-docstring.
+Mark code an open question's answer will change with a comment line beginning
+`TODO` that names the question, per the entry file's straw-dog rule, and say so
+in the docstring.
 
 Make sure the errors follow error rules.
 

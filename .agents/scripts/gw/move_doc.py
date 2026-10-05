@@ -27,7 +27,6 @@ from docs_corpus import (  # noqa: E402  (path set just above)
     corpus,
     target_of,
     with_citations_retargeted,
-    with_owner_bindings_retargeted,
     without_code,
 )
 
@@ -331,18 +330,16 @@ def _reads_as_utf8(path: Path) -> bool:
 
 def _redepthed(root: Path, text: str, source: str, destination: str, mapping: dict[str, str]) -> str:
     """The moved record's own references, re-aimed from its new home at every target's final home."""
-    reaimed = with_citations_retargeted(
+    return with_citations_retargeted(
         text, lambda written: _reaimed(root, written, source, destination, mapping, redepth=True)
     )
-    return with_owner_bindings_retargeted(reaimed, mapping.get)
 
 
 def _reaimed_throughout(root: Path, text: str, citer: str, mapping: dict[str, str]) -> str:
     """A staying record's references to any moved record, re-aimed; everything else as written."""
-    reaimed = with_citations_retargeted(
+    return with_citations_retargeted(
         text, lambda written: _reaimed(root, written, citer, citer, mapping, redepth=False)
     )
-    return with_owner_bindings_retargeted(reaimed, mapping.get)
 
 
 def _reaimed(

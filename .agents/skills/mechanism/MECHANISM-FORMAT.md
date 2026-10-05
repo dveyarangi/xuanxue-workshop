@@ -146,7 +146,7 @@ implementation changed.
   below and found by the slug; the doc never names it, since it is the instance's and a recipient
   does not have it. Which ticket declared the mechanism is the evidence's first paragraph *(the
   user, 2026-09-09)*: the one check that read such a bullet is replaced by the rule that a
-  `not yet` row may not name an archived ticket, which needs no field.
+  `not yet` row may not wait on a question already answered, which needs no field.
 
 ## Moments
 
@@ -165,12 +165,13 @@ A row carries an instruction or an absence, never both and never neither.
 A `not yet` row is a straw dog *(the user, 2026-09-20)*:
 
 ```md
-| ordering the queue | — | <straw-dog until="the pacer owns it" ticket="docs/tickets/01-0020-pacer.md">not yet</straw-dog> |
+| ordering the queue | — | <straw-dog question="q-N">not yet</straw-dog> |
 ```
 
-Body: the kind alone; the reason is `until`, the referent is `ticket` — a live, unarchived
-ticket, never the one declaring the mechanism. Unwrapped is unbound. The shear strips the
-wrapper, so no ticket path ships. The lister reports the row; this check rules on the gap.
+Body: the kind alone; the referent is the question, and its words are the reason. A row
+waiting on a question that is due, merged or superseded is a diagnostic. Unwrapped is unbound.
+The shear strips the wrapper, so no id of this tree ships. The lister reports the row; this
+check rules on the gap.
 
 ## The two tables
 
@@ -206,15 +207,15 @@ Three fields:
 
 - **what a record is** — one file, one directory, or one row of a file that holds many.
 - **tier** — when it is read.
-- **what removes an entry** — the condition; `kept by design` where nothing does; or `not yet` as
-  a markdown link to its ticket.
+- **what removes an entry** — the condition; `kept by design` where nothing does; or `not yet`,
+  a straw dog bound to the question it waits on.
 
 A record declared without all three is a diagnostic, and so is a mechanism that writes records and
 declares none.
 
 Neither diagnostic is emitted yet: finding a mechanism that owes a record declaration needs
-`record-bearing` to be a declared field, which that ticket promotes. Until then the two sentences
-above are a rule with no check behind them.
+`record-bearing` to be a declared field, which it is not. Until then the two sentences above are a
+rule with no check behind them.
 
 ## Parsing
 
@@ -233,7 +234,7 @@ A skill no declaration names says so itself, on the first body line of its `SKIL
 the frontmatter:
 
 ```md
-<straw-dog until="01-0017 declares the align mechanism" ticket="docs/tickets/01-0017-io-graph-coherent.md">Mechanism: not yet</straw-dog>
+<straw-dog question="q-N">Mechanism: not yet</straw-dog>
 ```
 
 `Mechanism:` then the moments grammar, `not yet` or `unowned by design` only. The line is a

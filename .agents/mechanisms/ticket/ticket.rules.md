@@ -75,11 +75,13 @@ moves to `docs/rfc/done/` with the ticket.
 ## P7 — a resolved decision leaves the ticket for its durable home
 
 - **target** `.agents/skills/align/SKILL.md`
-- **authority** the user, 2026-09-08
+- **authority** the user, 2026-09-08; against the store, 2026-10-03; the owner first, 2026-10-04
 
 <rule>
 Land a resolved decision in its durable home with its provenance, and rewrite the ticket in
-place to what is now true; list under `Open issues` only what stays unresolved.
+place to what is now true; close the question it answers against that home — against the ticket's
+decision while it has not landed, after assigning the question to the ticket if it has no owner —
+and when a decision lands, repoint every entry closed against it there.
 </rule>
 
 ## P10 — an align on a ticket opens with what the ticket is
@@ -95,7 +97,7 @@ in plain words, each of its terms explained, before the necessity gate or any qu
 ## P11 — the ticket is swept for consistency when the align ends
 
 - **target** `.agents/skills/align/SKILL.md`
-- **authority** `/align`'s own text, moved here by 01-0011.0100 decision 15 at 01-0011.0100.0010's plan, 2026-09-29
+- **authority** `/align`'s own text, moved here 2026-09-29
 
 <rule>
 Sweep the ticket for internal consistency at the end: an early section may still assert what a

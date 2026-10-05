@@ -11,6 +11,7 @@ from repository import RepositoryCase
 
 import tickets
 
+STORE = "docs/questions"
 LIVE = "docs/tickets/01-0002-live.md"
 PLANNED = "docs/tickets/01-0003-planned.md"
 RFC = "docs/rfc/01-0003-planned.md"
@@ -42,15 +43,43 @@ SHAPED = (
 
 
 class Records(RepositoryCase):
-    """A tree with one incepted ticket, one shaped ticket and its RFC, all conforming."""
+    """A tree with one incepted ticket, one shaped ticket and its RFC, all conforming.
+
+    Every live ticket names the question it answers (the user, 2026-10-03), so a ticket written
+    here without an `Answers` line is given one, and a store entry it owns, as it is written; a
+    test of the field itself writes the ticket raw.
+    """
 
     def setUp(self) -> None:
         super().setUp()
+        self.questions: dict[str, str] = {}
         self.write("docs/tickets/README.md", "# Delivery status\n\n**Last updated:** never\n")
         self.write("docs/tickets/01-0001-earlier.md", ticket(INCEPTED))
         self.write(LIVE, ticket(INCEPTED))
         self.write(PLANNED, ticket(SHAPED))
         self.write(RFC, "# A ticket — implementation plan\n")
+
+    def write(self, name: str, text: str):
+        if name.startswith("docs/tickets/0") and "**Outcome:**" in text and "**Answers:**" not in text:
+            text = self.answered(name, text)
+        return super().write(name, text)
+
+    def write_raw(self, name: str, text: str):
+        return super().write(name, text)
+
+    def answered(self, name: str, text: str) -> str:
+        """The ticket with an `Answers` line before its Outcome, naming an entry it owns."""
+        if name not in self.questions:
+            identity = f"q-{len(self.questions) + 1:04d}"
+            self.questions[name] = f"{identity}-what-is-it-for.md"
+            super().write(
+                f"{STORE}/{self.questions[name]}",
+                f"# {identity} What is it for?\n\n- **state** open\n"
+                f"- **owner** [it](../tickets/{name.rsplit('/', 1)[1]})\n",
+            )
+        bullet = "- " if "- **Outcome:**" in text else ""
+        line = f"{bullet}**Answers:** [{self.questions[name][:6]}](../questions/{self.questions[name]})\n"
+        return text.replace(f"{bullet}**Outcome:**", line + f"{bullet}**Outcome:**", 1)
 
     def checked(self):
         return tickets.check(self.root)
@@ -254,7 +283,7 @@ class TheSections(Records):
         self.write(
             PLANNED,
             ticket(SHAPED, sections="## Parent\n\nThe spec.\n\n## Why this exists\n\nBecause.\n\n"
-                   "## What to build\n\nThe thing.\n\n## Open issues\n\n- One.\n\n"
+                   "## What to build\n\nThe thing.\n\n"
                    "## Acceptance criteria\n\n- [ ] `/verify` run.\n\n## Out of scope\n\nThe rest.\n\n"
                    "## Parent scope addressed\n\nStories 1, 2.\n"),
         )
@@ -290,7 +319,7 @@ class TheSections(Records):
 
         self.assertEqual(1, len(problems))
         self.assertIn("Firmed at the align.", problems[0])
-        self.assertEqual([(PLANNED, 14)], self.problem_lines())
+        self.assertEqual([(PLANNED, 15)], self.problem_lines(), "the header's Answers line counts")
 
     def test_an_incepted_ticket_may_hold_prose_among_its_criteria(self) -> None:
         self.write(
@@ -300,6 +329,55 @@ class TheSections(Records):
         )
 
         self.assertEqual([], self.problems())
+
+
+class TheQuestionItAnswers(Records):
+    """A ticket names the question its goal answers by one link to a store entry it owns, and its
+    open questions live under that entry, never in a section of its own (the user,
+    2026-10-03)."""
+
+    def raw(self, answers: str | None, sections: str | None = None) -> None:
+        header = INCEPTED if answers is None else INCEPTED.replace(
+            "- **Outcome:**", f"- **Answers:** {answers}\n- **Outcome:**"
+        )
+        self.write_raw(LIVE, ticket(header) if sections is None else ticket(header, sections))
+
+    def test_a_ticket_without_one_is_reported(self) -> None:
+        self.raw(None)
+
+        self.assertEqual(["the header has no Answers bullet"], self.problems())
+
+    def test_a_link_that_resolves_to_nothing_is_reported_once(self) -> None:
+        self.raw("[q-0009](../questions/q-0009-gone.md)")
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems), problems)
+        self.assertIn("does not resolve", problems[0])
+
+    def test_a_link_to_a_file_that_is_not_an_entry_is_reported(self) -> None:
+        self.raw("[earlier](./01-0001-earlier.md)")
+
+        self.assertEqual(["Answers links ./01-0001-earlier.md, which is not an entry of the store"], self.problems())
+
+    def test_an_entry_owned_by_another_record_is_reported(self) -> None:
+        theirs = self.questions["docs/tickets/01-0001-earlier.md"]
+        self.raw(f"[q-0001](../questions/{theirs})")
+
+        self.assertEqual(["Answers links q-0001, whose owner is not this ticket"], self.problems())
+
+    def test_an_open_issues_section_is_reported_at_either_stage(self) -> None:
+        sections = (
+            "## What to build\n\nThe thing.\n\n## Open issues\n\n- One.\n\n"
+            "## Acceptance criteria\n\n- [ ] `/verify` has been run.\n"
+        )
+        self.write(LIVE, ticket(INCEPTED, sections))
+        self.write(PLANNED, ticket(SHAPED, sections))
+
+        problems = self.problems()
+
+        self.assertEqual(2, len(problems), problems)
+        self.assertTrue(all("Open issues" in problem for problem in problems), problems)
 
 
 class Pairing(Records):

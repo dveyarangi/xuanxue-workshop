@@ -63,7 +63,9 @@ Mechanism: not yet
   absent from the architecture docs — land the decision in the docs first
   (`/align` when needed), then reference it from the RFC. What fails the entry
   file's load-bearing counter-test belongs in code and its comments, however
-  closely an architecture sentence already describes it.
+  closely an architecture sentence already describes it. Write each sentence
+  landed there as its invariant and its pointer: the reasons stay with the
+  decision that holds them, and what a mechanism or a script owns stays there.
 
 - Describe the implementation stages; allocate them according to `/tdd`
   rules. Look at stages to make sure each of them keeps the tests green; in
