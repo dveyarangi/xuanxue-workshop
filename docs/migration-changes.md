@@ -2,7 +2,7 @@
 
 Derived from the [accepted target](boundaries.md) and [current source evidence](current-system.md).
 The [first-stage goal](stage-1.md) limits this work. This document describes the
-required delta and proposed assignments; it does not authorize sibling implementation.
+required delta and contribution assignments; it does not authorize sibling implementation.
 
 ## Changes derived from accepted contracts
 
@@ -13,12 +13,15 @@ alignment. It is not a claim that these changes are implemented or deployed.
 
 | Accepted contract | Cabinet contribution | Daychi contribution | Decisions still needed |
 |---|---|---|---|
-| [Schedule access](boundaries.md#accepted-schedule-access) | Provide public schedule responses without Zoom details and authenticated responses with them. | Consume Cabinet's schedule with the agreed access behavior. | Date window, identifier mapping and disposition of the existing HTML fallback. |
-| [Cabinet credentials](boundaries.md#accepted-content-admission) | Support Cabinet-issued bearer credentials for native clients while retaining web cookies and authoritative validation. | Obtain and present Cabinet credentials to the target APIs. | Authentication standard, acquisition, lifecycle and transition of existing users/credentials. |
+| [Schedule access](boundaries.md#accepted-schedule-access), [retrieval modes](boundaries.md#accepted-schedule-retrieval-modes) and [source cutover](boundaries.md#accepted-schedule-source-cutover) | Provide public/authenticated schedule access and query-selected count/date-window modes; preserve Cabinet web count behavior and guarantee complete supported windows. | Consume Cabinet schedule with the agreed access behavior and fourteen-day coverage; remove the school-HTML source when Cabinet integration is verified. | Exact query/response schema, shared identifier fields and cutover verification evidence. |
+| [Cabinet credentials](boundaries.md#accepted-content-admission) and [provisional acquisition](boundaries.md#provisional-native-credential-acquisition) | Support native bearer issuance and the provisional Cabinet-owned browser/code-and-PKCE handoff while retaining web cookies and authoritative validation. | Consume the provisional handoff and present Cabinet credentials to the target APIs. | Final acquisition contract, token format and remaining lifecycle; gateway work is deferred and Cabinet web access is preserved. |
+| [Sign-out scope](boundaries.md#accepted-sign-out-scope) | Preserve other clients' signed-in state when one client signs out. | End authenticated use in the current installation and apply the accepted unsynced-edit discard. | Executable logout contract and verification; account-wide sign-out is not required by ordinary sign-out. |
 | [Content admission](boundaries.md#accepted-content-admission) | Provide a narrow authoritative admission check. | Replace independent content admission with the accepted call to Cabinet and distinguish refusal from temporary failure. | Executable check schema, caller trust, verification and any cache bound; removal follows the target contract's consolidation binding. |
-| [Reminder selections](boundaries.md#accepted-reminder-selections) | Support one-off dates and regular subscriptions in one account selection exposed to both clients. | Read and change the Cabinet-owned selection and migrate current local choices. | Lead times and migration rules. |
-| [Daychi reminder delivery](boundaries.md#accepted-daychi-reminder-delivery) | Expose authoritative schedule and account selections for client refresh. | Adapt the existing refresh flow to Cabinet and reconcile local OS reminders. | Stale-data behavior and verification; no new background refresh capability. |
-| [Removal of per-date skips](boundaries.md#accepted-removal-of-per-date-skips) | Keep per-date skip exceptions out of the target shared reminder contract. | Remove the option and its related behavior; include the accepted user rationale in the ticket text and propose treatment of saved exceptions. | Disposition of already saved exceptions. |
+| [Reminder selections](boundaries.md#accepted-reminder-selections) | Extend the existing class-ID selection with one-off lesson selections that follow the same occurrence through rescheduling; expose shared account selections to both clients. | Pull account data on sign-in; read and change the shared selection, preserving one-off selection identity when a lesson moves. | Identifier encoding, executable synchronization contract and verification. |
+| [Offline reminder editing](boundaries.md#accepted-offline-reminder-editing) | Reconcile choices independently; latest edit wins for the same choice, including removals; retain Cabinet's stored value on equal update times. | Allow offline selection changes and preserve pending edits through refreshes, failures and retries; discard unsynced selection and lead-time edits on explicit sign-out and prevent cross-account replay. | Clock handling, pending-edit tracking, removal retention and verification. |
+| [Reminder lead times](boundaries.md#accepted-reminder-lead-times) | Support the agreed options and reconcile the setting independently of selections, latest edited value winning; retain Cabinet's stored value on equal update times. | Honor the shared setting, including 120 minutes and school default; allow offline changes and preserve pending edits. | Clock handling and executable synchronization checks. |
+| [Daychi reminder delivery](boundaries.md#accepted-daychi-reminder-delivery) | Expose authoritative schedule and account selections for client refresh; retain existing delivery without cross-client deduplication. | Adapt existing refresh and local OS reminders; retain cached schedule and active reminders after refresh failure and preserve pending edits. Presentation belongs to Daychi; cross-client duplicates are allowed. | Verification; no new background refresh capability. |
+| [Removal of per-date skips](boundaries.md#accepted-removal-of-per-date-skips) | Keep per-date skip exceptions out of the target shared reminder contract. | Remove the option and its related behavior; include the accepted user rationale in the ticket text. | Assignment scope is held by the migration question. |
 
 Native server push was rejected by the user as excessive for this scope on
 2026-10-04. It is not a required project change.
@@ -28,43 +31,37 @@ Native server push was rejected by the user as excessive for this scope on
 Compare the [current source inventory](current-system.md) with the target before
 selecting changes. The remaining decisions are:
 
-- Required schedule window and response fields; identifier mapping between Daychi
-  series/occurrences and Cabinet classes/lessons; treatment of the native HTML fallback.
-- Credential acquisition and lifecycle, association of existing users/access grants,
-  and the admission-check request, response and failure contract.
-- Mapping of local selections to account selections without losing existing use
-  without sign-in; lead-time differences and disposition of saved skipped dates.
-- Stale-data and multi-client notification behavior while preserving existing
-  refresh and delivery facilities. Do not add a background-refresh project.
+- Executable count/date-window contract: interval boundaries, supported bounds,
+  validation and complete-result semantics; response fields and identifier mapping
+  between Daychi clients and Cabinet classes/lessons; verification evidence for
+  the accepted school-HTML source removal at Cabinet cutover.
+- Finalization of the [provisional credential-acquisition
+  contract](boundaries.md#provisional-native-credential-acquisition), token format
+  and lifecycle, preservation of Cabinet web access, and the admission-check
+  request, response and failure contract. Gateway work is deferred; ordinary
+  sign-out affects only the current installation.
+- Ongoing reconciliation of new local edits and account changes. Initial migration
+  scope is held by the [migration question](questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md#initial-usage-and-ongoing-synchronization--2026-10-04).
+- Verification of accepted failed-refresh and independent-delivery behavior,
+  preserving existing refresh and delivery facilities. Cross-client duplicates
+  are allowed. Do not add a background-refresh project.
 
-## Information needed from project agents
+## Boundary evidence
 
-Before drafting implementation tickets, request evidence for each relevant
-boundary. This is a proposed investigation brief, not a ticket breakdown.
+Workshop's [completed comparison](reconciliation-20261004.md#boundary-comparison)
+and [current source inventory](current-system.md) already identify the relevant
+provider/consumer modules, source revisions, executable definitions, compatibility
+gaps and existing checks. Subsequent accepted decisions are held by the boundary
+record and migration question. Broad source-inventory requests duplicate that work.
 
-Each contribution should identify:
-
-- The capability and concrete provider/consumer modules, with source references
-  and the inspected revision.
-- Existing requests, responses, identifiers, time semantics, access rules,
-  errors, and relevant compatibility checks.
-- Required consumer behavior that the existing provider contract cannot satisfy.
-- Proposed contract additions or adaptations, with alternatives and decisions
-  requiring agreement explicitly marked.
-- Constraints from existing credentials, saved preferences, supported clients,
-  compatibility, and deployment that could change the target contract. Detailed
-  migration design follows contract agreement.
-- Existing checks and proposed checks for each target promise, distinguishing
-  source inspection, executed checks, and deployment evidence.
-
-Cabinet's contribution covers its backend promises and existing frontend
-dependencies. Daychi's contribution covers its frontend requirements, retained
-content backend, and existing user preferences and credentials. These contributions
-must converge on one agreement for each shared boundary.
+Source inspection, executed checks and deployed evidence remain distinct. Remote
+freshness and some runtime/deployment proof remain unverified. Those are specific
+limits, not evidence that the full boundary investigation is outstanding.
 
 ## Review scenarios
 
-Use these scenarios to expose missing decisions before implementation planning:
+These scenarios describe the agreed boundary outcomes and remaining verification
+questions; they are information for scoping work, not agent workflow instructions:
 
 - An unauthenticated caller can receive the schedule without Zoom connection
   details; the schedule with those details requires authentication.
@@ -72,10 +69,24 @@ Use these scenarios to expose missing decisions before implementation planning:
   Daychi content under the agreed permission policy.
 - Access is revoked or credentials expire; each consumer applies the agreed
   outcome and recovery behavior.
-- An existing recurring selection with a skipped date migrates with the agreed
-  identifiers and reminder timing.
-- A user has both clients installed; notification delivery follows the agreed
-  policy, including offline behavior and duplicate prevention.
+- Daychi loads Cabinet selections on sign-in; subsequent changes from either
+  client reconcile according to the agreed synchronization policy.
+- Explicit sign-out discards unsynced reminder and lead-time edits. Signing in
+  again does not replay them into either the original or a different account;
+  Cabinet's already-accepted state remains. Connection failures preserve pending
+  edits under the accepted rule.
+- Sign out of one Daychi installation while the same account is signed in to
+  Cabinet and another Daychi installation: authenticated use ends in the calling
+  installation, and the other clients remain signed in.
+- A failed refresh retains cached schedule and active reminders and preserves
+  pending edits. A successful refresh
+  reconciles received cancellations and transfers.
+- Verified Cabinet schedule integration permits removal of the native school-HTML
+  source. The accepted access, window completeness, identity and failed-refresh
+  behavior hold through cutover; HTML cannot replace Cabinet data afterward.
+- A user has both clients enabled; both may notify for the same lesson. Verify
+  that delivery consumes the shared selections and lead time; cross-client
+  deduplication is not an acceptance requirement.
 - Cabinet's existing frontend keeps working throughout the agreed API transition;
   a failed rollout has a defined recovery path.
 
@@ -84,157 +95,73 @@ already passes them.
 
 ## Proposed contribution breakdown
 
-These are later contract-contribution proposals. The first outgoing assignments
-are instruction-installation requests under the
-[Workshop rules](agent-contract.md#workshop-rules); this proposal does not issue them.
+This heading is retained for existing links. The older broad contribution proposal
+was promoted into two Planned issues on 2026-10-05. The user then challenged their
+scope as repeating Workshop's completed investigation. The earlier statement of
+breakdown approval was the assistant's mistaken interpretation. At the user's
+request on 2026-10-05, both were withdrawn and closed as `not_planned`. Readback
+confirmed closure and the withdrawal notices; no recipient action is required.
 
-This earlier three-part proposal covers contract contributions only. It is not
-an approved breakdown of the whole first stage: agent adoption and the return
-path for results must also be covered before a stage-wide breakdown is accepted.
-No ticket IDs or issue addresses have been allocated to these proposals.
+### cabinet-contract-contribution — Withdrawn, created in error
 
-Assignment routing and the return path follow the
-[agent interaction contract](agent-contract.md). Each issued assignment must identify the
-responsible project, accountable contributor, dependencies, expected evidence,
-and where to return it. Issuing work does not establish adoption or authorize
-Workshop to perform the project changes.
+[cabinet-contract-contribution #3](https://github.com/dveyarangi/xuanxue-workshop/issues/3)
+is addressed to the Cabinet project agent under its operator, with label
+`project:cabinet`. Its posted scope requests an API inventory and proposals. That
+inventory overlaps Workshop's completed work; the issue's existence does not
+establish a remaining need for it.
 
-### cabinet-contract-contribution — Proposed
+### daychi-contract-contribution — Withdrawn, created in error
 
-Intended contributor: Cabinet project agent under its operator. Destination: GitHub
-Issue. Interaction: AFK. Independent of the Daychi contribution, after Workshop
-instructions and a return address are available.
+[daychi-contract-contribution #4](https://github.com/dveyarangi/xuanxue-workshop/issues/4)
+is addressed to the Daychi project agent under its operator, with label
+`project:daychi`. Its posted scope requests a client/content inventory and proposals.
+That inventory overlaps Workshop's completed work. Its body contains the user's
+skip-removal rationale. No implementation or execution release occurred.
 
-Outcome: Workshop can identify Cabinet's existing API promises, frontend
-dependencies, and proposed support for Daychi from a source-grounded contribution.
+### agreed-target-seam-contracts — Unissued proposal
 
-Cover Cabinet backend to Cabinet frontend across the API surface consumed by the
-frontend, marking the subset shared with Daychi. Cover Cabinet's provider side of
-schedule, identity, access, and reminders for Daychi clients and retained content.
-Reference the typed route map and its provider, consumer, and route-registration
-checks. Describe existing promises separately from proposed extensions; identify
-decisions for human review rather than accepting them within this contribution.
+The older third proposal described dependent Workshop alignment after those
+contributions. No local ticket or issue was minted for it. Workshop's comparison
+and subsequent alignment already advanced that outcome; it is not an instruction
+to wait for repeated project investigations.
 
-Completion evidence:
+The [failure trace](rule-failures.md#2026-10-05--completed-reconciliation-reissued-as-project-investigation)
+records the work-selection mistake. Actual remaining project changes are described
+by the accepted-contract delta above; unresolved decisions and verification limits
+retain their own records. The whole first stage is not an approved delivery breakdown.
 
-- Each relevant caller-to-provider path names modules, data ownership, source
-  revision, contract definitions, and existing verification instruments.
-- Cabinet web dependencies and shared versus Cabinet-specific promises are explicit.
-- Proposed Daychi support states constraints, gaps, alternatives where needed,
-  and checks; source evidence is distinguishable from runtime evidence.
-- The contribution passes the /verify skill against this scope without application changes.
+## Impact assessment of the contribution split — refreshed 2026-10-05
 
-Parent scope: Cabinet web seam; Cabinet's provider side of both Daychi seams.
-
-### daychi-contract-contribution — Proposed
-
-Intended contributor: Daychi project agent under its operator. Destination: GitHub
-Issue. Interaction: AFK. Independent of the Cabinet contribution, after Workshop
-instructions and a return address are available.
-
-Outcome: Workshop can identify Daychi's consumer requirements and retained content
-promises from a source-grounded contribution.
-
-Cover client to schedule provider, client authentication and content access, and
-preferences through notification delivery. Cover Daychi backend to its clients
-for retained content and Daychi's side of Cabinet identity recognition. Describe
-the public calendar and native HTML fallback, identifier and saved-choice
-semantics, local notification behavior, and credential/access requirements.
-Propose required promises without selecting unresolved cross-project policy.
-
-Apply the accepted [one-off and recurring reminders](boundaries.md#accepted-reminder-selections).
-Identify the provider additions and client adaptations needed to support both
-without requiring a person to unsubscribe after a one-off lesson date.
-
-When this proposed assignment becomes a ticket for the Daychi agent, include
-the user's [reason for removing per-date skips](boundaries.md#accepted-removal-of-per-date-skips)
-in the ticket text, not only a removal instruction or a link. Explain why the
-feature lacks a useful user trigger and why dismissing a single notification
-makes the additional action unnecessary. Account for UI, reminder and personal
-selection behavior, and propose a disposition for existing saved exceptions.
-
-Completion evidence:
-
-- Every relevant consumer requirement has a concrete user scenario and source
-  references with the inspected revision.
-- Retained content requests and their authentication/access dependencies are explicit.
-- The ticket includes the accepted rationale for removing per-date skips;
-  the contribution respects removal and proposes handling of saved exceptions.
-- Required schedule windows, identity semantics, preference semantics, delivery,
-  and failure behavior distinguish existing behavior from target proposals.
-- Each proposed promise identifies existing or required checks; the contribution
-  passes the /verify skill against this scope without application changes.
-
-Parent scope: Daychi consumer side of Cabinet API; content API and trust boundary.
-
-### agreed-target-seam-contracts — Proposed
-
-Intended contributor: Workshop agent, with the user deciding unresolved contracts.
-Destination: local Workshop inception queue. Interaction: HITL. Dependencies:
-both contributions above.
-
-Outcome: Each target seam has one agreed description connecting provider promises,
-consumer requirements, ownership, and verification obligations.
-
-Reconcile the contributions against the review scenarios. Keep common Cabinet API
-promises in one account and consumer-specific requirements explicit. Resolve
-contradictions with the user and land accepted decisions in architecture or the
-owning contract description. Reference executable definitions in their projects;
-do not duplicate their schema authority. Record implementation and transition
-consequences separately from accepted promises.
-
-Completion evidence:
-
-- All four target connections have provider and consumer agreement recorded with
-  decision provenance, data ownership, and accountable project responsibilities.
-- Shared Cabinet API promises and consumer-specific requirements are unambiguous.
-- Review scenarios have agreed outcomes and verification obligations; existing
-  verification, proposed checks, and deployment evidence are distinguishable.
-- Load-bearing decisions for these seams are resolved or explicitly deferred by
-  the user with a condition and an interim contract.
-- The accepted description passes the /verify skill; implementation consequences are
-  traceable without claiming that the target is deployed.
-
-Parent scope: one coherent target architecture spanning all four connections.
-
-## Impact assessment of the proposed split
+The first refresh defended the split by project, without checking completed work.
+The user rejected the resulting broad investigation scope. This corrected account
+supersedes that recommendation; the posted issues are withdrawn and closed,
+with their cancelled briefs retained as historical records.
 
 ### Impact
 
-The split changes the boundary description and prepares addressed documentation
-work for two project agents and Workshop. It covers both sides of Cabinet's API,
-Daychi content, and the identity/access relationship. The first two contributions
-can be independently verified; their proposals need reconciliation before they
-become shared promises. No sibling implementation is changed by this pass.
+The posted issues changed coordination records and requested project investigation
+already substantially completed by Workshop. No sibling implementation changed.
+The accepted-contract delta still identifies real migration changes, independently
+of these mistaken assignments.
 
 ### Hidden edges
 
-Cabinet's existing route map, web caller, and registered-route e2e guard already
-share executable definitions. A second schema would introduce disagreement.
-The student schedule query differs from Cabinet's general lesson query: a date
-window supported by one route cannot be inferred for the other. Daychi's native
-HTML fallback and local notifications constrain authority and delivery decisions.
-The user accepted common content and a live Daychi-to-Cabinet admission check
-with a consolidation straw dog after this draft split was prepared. Contributions
-must respect that decision and resolve the remaining credential/check contract.
-Claims about deployed support require runtime evidence.
-The Workshop tracker is selected in the agent contract. Recipient access and
-cross-clone claims remain open; local ticket creation cannot establish dispatch
-or adoption by itself.
+Old proposal prose was treated as workflow authority, while implementation
+ownership was mistaken for investigation ownership. Tracker duplicate searches
+could not find completed work held in local source-analysis records. Some narrow
+runtime/deployment proof and executable design choices remain open; that does not
+make the broad inventory outstanding. Latest accepted contracts remain local.
 
 ### Leave alone
 
-Accepted provider assignments, sibling application code, releases, deployments,
-and existing Cabinet-only workflows. Tracker, onboarding, and operational machinery
-remain with their existing questions. The detailed migration plan follows the
-accepted target contracts.
+Accepted provider assignments and boundary behavior; sibling application code,
+releases, deployments, Cabinet-only workflows and project UX; deferred gateway
+and backend consolidation; existing refresh facilities and installation/readiness
+assignments. No duplicate local tickets or new legacy migration program exists.
 
 ### Recommendation
 
-For the contract-description portion, retain the proposed two independent project
-contributions and one dependent HITL reconciliation. This does not cover the entire
-[first-stage completion condition](stage-1.md#completion). Splitting by API feature would scatter the same frontend and
-identity dependencies across several assignments. Combining both projects into
-one contribution would obscure responsibility. At this architecture resolution,
-each contribution spans complete consumer/provider paths and can be checked
-without implementing the target behavior.
+Rethink the assignment scope. The existing comparison and accepted decisions are
+the basis for identifying specific remaining changes and unavailable proof. A new
+post-impact breakdown has not been accepted or issued. Publication and execution
+dependencies remain distinct, and the local delivery queue is unchanged.

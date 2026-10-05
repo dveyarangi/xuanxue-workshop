@@ -1,5 +1,59 @@
 # Harness evidence
 
+## Workshop update — 2026-10-04
+
+Authorized by the user: "we shold install the update". Installed from a fresh
+clone at `95535afbb840257752256e2d09433d2b4eb7c468`, upstream entry contract v25.
+Workshop now announces `goodwolf-harness@95535af, 2026-10-04`.
+
+The current source's installer ran with `--update --overwrite --at` at that
+commit. A pre-update snapshot and raw update/check reports are retained outside
+this repository at
+`D:/Dev/workspaces/taichi_workspace/.local/harness-update-ecea07b6bbfb4823ab73157780eac4ab/`.
+The snapshot was moved out of the repository after the injector correctly
+reported its duplicate installed blocks as orphans. The next check has none.
+
+Workshop's local rules, reconciliation declaration and skill, and delivery-status
+file are byte-identical to the snapshot. RC1's rules file gained only its agreed
+question wrapper; its installed copies were regenerated. Four existing straw-dog
+bindings were migrated to questions without changing their bodies: startup
+adoption to q-0002.0005, retained Daychi backend and temporary admission check to
+q-0002.0009, and provisional native acquisition to q-0002.0010. The deferred
+consolidation question does not make its two straw dogs due.
+
+Verification:
+
+- Injector: six rules files, expected blocks present, no orphans or diagnostics.
+- Mechanism shape: no diagnostics or core/instance leaks.
+- Question store: no diagnostics; the two existing similarity suggestions remain.
+- Straw-dog listing over entry, core, docs and local rules: five question-bound
+  statements, none due, no diagnostics.
+- `git -c core.safecrlf=false diff --check`: passed.
+- Full harness gate: `arrived: false`. Injector and shape passed; ref comparison
+  differs only at `.agents/skills/align/SKILL.md`. The new `_differs` still removes
+  only local blocks. An in-memory comparison removing the injector-validated
+  reconcile block too matches the upstream shipped text exactly. The gate was
+  not amended or bypassed.
+
+Windows refused creation of both loader symlinks. The installer reports these
+commands for the operator to run in an elevated Command Prompt:
+
+```bat
+mklink /D "D:\Dev\workspaces\taichi_workspace\xuanxue-workshop\.claude\skills" "..\.agents\skills"
+mklink /D "D:\Dev\workspaces\taichi_workspace\xuanxue-workshop\.cursor\skills" "..\.agents\skills"
+```
+
+Then re-run `uv run --offline --no-project python .agents/scripts/gw/harness.py . --check`.
+At installation, loader links did not resolve. No commit or push was performed.
+
+## Loader links verified — 2026-10-05
+
+The user reported repairing the links. A fresh `harness.py . --check` confirms
+both `.claude/skills` and `.cursor/skills` resolve to `.agents/skills`. Injector
+and shape still pass; the ref comparison still differs only at /align because
+of the independently validated reconcile injection. Thus `arrived` remains
+false for that known comparison limitation, with no pending loader repair.
+
 ## Workshop update — 2026-10-05
 
 Authorized by the user: "lets update the harness to new version". Installed from

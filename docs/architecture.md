@@ -12,11 +12,19 @@ the boundary. Each project owns its internal architecture, executable interfaces
 implementation, and release process. A shared agreement does not transfer that
 ownership or authorize Workshop to change a sibling project.
 
-Cabinet's contribution must cover its existing frontend dependencies as well as
-the provider contract for Daychi. Daychi's contribution must cover its consumers
-and retained content backend. Workshop reconciles the two contributions; source
-inspection, accepted promises, executed checks, and deployed support remain
-distinct kinds of evidence.
+Executable definitions have an owning project, while their externally observable
+shape is one shared contract. Project-specific implementation does not create
+separate data formats, parameters or guarantees for the same boundary version.
+
+The [scope-of-authority contract](agent-contract.md#boundary-scope-and-product-language)
+owns the distinction between shared boundary obligations and project-owned UX,
+including separate product-language recommendations.
+
+Workshop's boundary comparison covers Cabinet's existing frontend dependencies,
+its provider contract for Daychi, Daychi's consumers and its retained content backend.
+Project ownership of design and implementation does not transfer that comparison
+to project agents. Source inspection, accepted promises, executed checks and
+deployed support are distinct kinds of evidence.
 
 ## Contracts and state
 
@@ -31,6 +39,11 @@ Executable schemas remain in their owning projects. Workshop must refer to those
 definitions when recording an agreement; the exact publication and verification
 arrangement is still open. Cabinet already shares route definitions between its
 API and web client, so coordination must account for that existing authority.
+
+The [accepted scope clarification](agent-contract.md#boundary-scope-and-product-language)
+requires one accessible immutable contract reference and common conformance cases
+in coordinated implementation assignments. Readiness depends on completing the
+shared shape; proposal ownership alone supplies no compatible baseline.
 
 ## Work and feedback
 
@@ -63,3 +76,4 @@ from each operator's environment are dependencies of working agent integration.
 - [Tracker access and claims](questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md): operator access, claims, and handling of the legacy horizon record.
 - [Agent adoption](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md): instructions and demonstrable integration under each operator.
 - [Operational obligations](questions/q-0002.0006-what-visibility-and-error-monitoring-obligations-should-workshop-enforce.md): distinguish what initial coordination requires from the broader product goals.
+- [Gateway](boundaries.md#accepted-gateway-deferral): deferred by the user, 2026-10-05, until project contributions demonstrate a requirement that the accepted direct connections cannot satisfy. Native sign-in remains provisional.

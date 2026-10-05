@@ -17,6 +17,12 @@ Apply the recipient label defined by the agent contract.
 - **Recipient and outcome:** who must act and the observable result.
 - **Expected / observed:** governing contract, source revisions and evidence;
   distinguish confirmed facts from missing evidence.
+- **Shared contract and conformance, for implementation:** one accessible immutable
+  contract reference shared by the provider and every affected consumer; exact
+  operations, parameters, formats, meanings and applicable data guarantees;
+  common examples and expected conformance outcomes. Recipient-specific action
+  is separate from this shared definition. Applicable dimensions are listed in
+  [the contract-shape reference](../../.agents/skills/reconcile/CONTRACT-SHAPE.md).
 - **Impact and required changes:** affected providers and consumers, requested
   action, scope and dependencies.
 - **BOUNDARY_SUMMARY**, when supplying or updating project instructions: use the

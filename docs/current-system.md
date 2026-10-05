@@ -6,6 +6,12 @@ Cabinet's general boundary inspection used revision
 2026-10-04 at `628314472aa2752ebb2bbe9ab75ac3dea9791719`. Daychi was inspected at
 `5f9ba442e04cd5dfa70527b9e670b491c491888c`. Project-agent confirmation is outstanding.
 
+The [first substantive reconciliation](reconciliation-20261004.md) rechecked both
+clean local checkouts on 2026-10-04. Cabinet's remote `main` matches `62831447`.
+The connected GitHub account receives 404 for Daychi's repository; its remote
+revision and running deployment are unverified. General Cabinet seam evidence
+below was also rechecked at `62831447`.
+
 ## Cabinet
 
 Cabinet has a React/Vite web client, NestJS API, shared TypeScript contracts, and
@@ -26,6 +32,9 @@ Cabinet models recurring classes and dated lessons. Its
 is authenticated and returns upcoming lessons with optional Zoom information.
 The request accepts a count limit (default 10, maximum 50), not a date window.
 A date filter on a different API cannot be inferred for this endpoint.
+`MyLessonDto` returns the lesson ID but no `classId`, whereas recurring reminder
+scope uses `classIds`. The inspected mapper confirms that omission; a shared
+lesson-to-class identity must be agreed before Daychi can map subscriptions.
 
 The [reminder settings API](https://github.com/gregoryKot/xuanxue-cabinet/blob/628314472aa2752ebb2bbe9ab75ac3dea9791719/shared/src/notifications-routes.ts)
 reads lesson notification preferences and updates scope and lead time through
@@ -33,6 +42,22 @@ reads lesson notification preferences and updates scope and lead time through
 `PUT /me/notifications/lessons/reminder-minutes`. Scope is all classes or selected
 `classIds`; lead time is 15/30/60/120 minutes or the school default. It does not
 represent one-off lesson-date selections.
+This class scope also filters cancellation, recording and class-linked material
+notices; adapting reminder selections must preserve those Cabinet web obligations.
+
+Cabinet frontend reference rechecked on 2026-10-04 at `62831447`:
+`web/src/notifications/LessonScopeClassList.tsx` and `lessonScopeEdit.ts` edit
+selection by class ID; `useLessonScope.ts` reads the shared account settings and
+writes the full class scope, applying the server's saved response. Scope and
+lead-time responses update their own parts to avoid overwriting an independent
+in-flight change. The current types expose class scope and lead time, not one-off
+lesson selection or offline per-choice synchronization.
+
+`web/src/student/StudentLessonsScreen.tsx` identifies cards by lesson ID and
+renders received lesson data. `api/src/lessons/lessons.service.ts` updates the
+same lesson ID when `startsAt` changes; `lesson-reminder-plan.ts` uses the current
+`startsAt`, filters by selected class and emits the lesson ID. These support the
+identity reference, but do not establish an existing one-off reminder feature.
 
 The scheduler runs every minute. The
 [reminder service](https://github.com/gregoryKot/xuanxue-cabinet/blob/628314472aa2752ebb2bbe9ab75ac3dea9791719/api/src/lessons/lesson-reminder.service.ts)
@@ -56,6 +81,14 @@ The native [schedule loader](https://github.com/sleontenko/daychi/blob/5f9ba442e
 races its own API with the school's public HTML source. Web loading cannot use that
 HTML fallback because of browser restrictions. The calendar covers fourteen days.
 
+Its decoder requires a snapshot envelope with revision, fetch/expiry timestamps,
+school source URL, `Asia/Jerusalem`, `weekly_template`, and exception-verification
+status. Occurrences use series/date IDs, `starts_at` and `ends_at`. Cabinet's
+upcoming array is not directly compatible with that decoder. Daychi also applies
+bundled timing corrections in `schedule/zoom.ts`; the migration must account for
+those corrections rather than silently applying school-HTML corrections to
+Cabinet's dated lessons.
+
 The [active schedule flow](https://github.com/sleontenko/daychi/blob/5f9ba442e04cd5dfa70527b9e670b491c491888c/apps/practice-app/src/features/schedule/use-schedule.ts)
 stores choices and preferences on the device, loads on startup and foreground
 return, and refreshes every five minutes while active. Its
@@ -69,6 +102,13 @@ plans OS notifications from the loaded schedule and choices, cancelling and
 rescheduling when those inputs change. The active flow retires the older server
 reminder registration before enabling local delivery. Legacy push-panel code is
 not evidence of an active native server-push flow.
+
+On startup the active flow restores cached schedule and reconciles reminders
+before its first refresh. A failed refresh marks the UI offline and retains the
+loaded data. This is the observed starting point for the
+[accepted stale-data behavior](boundaries.md#accepted-daychi-reminder-delivery),
+not a guarantee that cancellations reach an offline device or verification that
+the Cabinet integration satisfies the target.
 
 Schedule choices and local reminders are already usable without signing in:
 the [app layout](https://github.com/sleontenko/daychi/blob/5f9ba442e04cd5dfa70527b9e670b491c491888c/apps/practice-app/src/app/_layout.tsx)

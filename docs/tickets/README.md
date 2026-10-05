@@ -1,6 +1,6 @@
 # Delivery status
 
-**Last updated:** 2026-10-04
+**Last updated:** 2026-10-05
 
 The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
 migration changes and Workshop responsibility have separate homes. Confirmed adoption by both project agents
@@ -8,9 +8,14 @@ is outstanding; see the [agent-adoption question](../questions/q-0002.0005-how-s
 
 Queue responsibility follows the [agent interaction contract](../agent-contract.md).
 The existing harness path is `docs/tickets/`, with the user's
-requested folder spelling being clarified. The contract-contribution proposals
-in [migration changes](../migration-changes.md#proposed-contribution-breakdown)
-have not been issued or dispatched and do not yet cover the entire first stage.
+requested folder spelling being clarified. The broad contract contributions
+were withdrawn and closed as not planned on 2026-10-05 because they repeated
+completed Workshop investigation:
+[cabinet-contract-contribution #3](https://github.com/dveyarangi/xuanxue-workshop/issues/3)
+and [daychi-contract-contribution #4](https://github.com/dveyarangi/xuanxue-workshop/issues/4).
+Their [parent scope and corrected impact](../migration-changes.md#proposed-contribution-breakdown)
+record the work-selection error. Neither remains an active assignment. The next
+Workshop outcome breakdown has not been approved or minted; the local queue is unchanged.
 
 ## Legacy horizon binding
 

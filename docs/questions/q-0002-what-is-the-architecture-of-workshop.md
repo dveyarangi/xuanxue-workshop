@@ -2,7 +2,7 @@
 
 - **state** open
 - **lean** First-stage scope, role-separated agent contract, Workshop tracker and recipient labels are accepted. Reconciliation is installed locally and both installation issues updated and labelled. Startup review, source publication, verified agent adoption and remaining application contracts are open.
-- **struck** 1, last 2026-10-03T22:53Z
+- **struck** 2, last 2026-10-04T21:06Z
 
 ## Current decision context
 
