@@ -11,9 +11,15 @@ owns the accepted agreements and rationale. It feeds future project tickets;
 implementation details and the contribution breakdown still require their own
 alignment. It is not a claim that these changes are implemented or deployed.
 
+The public schedule pilot has verified staging and production providers. The
+[2026-10-06 environment evidence](current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
+owns its concrete origin, runtime and existing fixture controls. Native Daychi
+integration, the provider required-data correction and broader source cutover
+remain separate outcomes. Deployment does not establish full provider conformance.
+
 | Accepted contract | Cabinet contribution | Daychi contribution | Decisions still needed |
 |---|---|---|---|
-| [Schedule access](boundaries.md#accepted-schedule-access), [retrieval modes](boundaries.md#accepted-schedule-retrieval-modes) and [source cutover](boundaries.md#accepted-schedule-source-cutover) | Provide public/authenticated schedule access and query-selected count/date-window modes; preserve Cabinet web count behavior and guarantee complete supported windows. | Consume Cabinet schedule with the agreed access behavior and fourteen-day coverage; remove the school-HTML source when Cabinet integration is verified. | Exact query/response schema, shared identifier fields and cutover verification evidence. |
+| [Schedule access](boundaries.md#accepted-schedule-access), [retrieval modes](boundaries.md#accepted-schedule-retrieval-modes) and [source cutover](boundaries.md#accepted-schedule-source-cutover) | Public pilot route is deployed; correct required-data enforcement and preserve protected Cabinet web behavior. Broader authenticated retrieval remains migration work. | Implement and verify the native public pilot against its fixed contract; remove the school-HTML source at the later verified Cabinet cutover. | Public pilot schema/identities are fixed. Provider correction and native proof remain; broader authenticated retrieval and cutover compatibility remain separate. |
 | [Cabinet credentials](boundaries.md#accepted-content-admission) and [provisional acquisition](boundaries.md#provisional-native-credential-acquisition) | Support native bearer issuance and the provisional Cabinet-owned browser/code-and-PKCE handoff while retaining web cookies and authoritative validation. | Consume the provisional handoff and present Cabinet credentials to the target APIs. | Final acquisition contract, token format and remaining lifecycle; gateway work is deferred and Cabinet web access is preserved. |
 | [Sign-out scope](boundaries.md#accepted-sign-out-scope) | Preserve other clients' signed-in state when one client signs out. | End authenticated use in the current installation and apply the accepted unsynced-edit discard. | Executable logout contract and verification; account-wide sign-out is not required by ordinary sign-out. |
 | [Content admission](boundaries.md#accepted-content-admission) | Provide a narrow authoritative admission check. | Replace independent content admission with the accepted call to Cabinet and distinguish refusal from temporary failure. | Executable check schema, caller trust, verification and any cache bound; removal follows the target contract's consolidation binding. |
@@ -31,10 +37,10 @@ Native server push was rejected by the user as excessive for this scope on
 Compare the [current source inventory](current-system.md) with the target before
 selecting changes. The remaining decisions are:
 
-- Executable count/date-window contract: interval boundaries, supported bounds,
-  validation and complete-result semantics; response fields and identifier mapping
-  between Daychi clients and Cabinet classes/lessons; verification evidence for
-  the accepted school-HTML source removal at Cabinet cutover.
+- The [public pilot contract](contracts/public-lessons.md) settles its query,
+  projection, identities and refresh/error semantics. The broader authenticated
+  schedule and account/reminder migration still needs executable compatibility
+  definitions and verification for the accepted school-HTML source removal at cutover.
 - Finalization of the [provisional credential-acquisition
   contract](boundaries.md#provisional-native-credential-acquisition), token format
   and lifecycle, preservation of Cabinet web access, and the admission-check
@@ -95,73 +101,16 @@ already passes them.
 
 ## Proposed contribution breakdown
 
-This heading is retained for existing links. The older broad contribution proposal
-was promoted into two Planned issues on 2026-10-05. The user then challenged their
-scope as repeating Workshop's completed investigation. The earlier statement of
-breakdown approval was the assistant's mistaken interpretation. At the user's
-request on 2026-10-05, both were withdrawn and closed as `not_planned`. Readback
-confirmed closure and the withdrawal notices; no recipient action is required.
+The earlier broad investigation pair was withdrawn as duplicate work. Its
+[disposition and corrected impact](reconciliation-20261004.md#withdrawn-contribution-proposal--2026-10-05)
+are historical evidence. It creates no recipient obligation.
 
-### cabinet-contract-contribution — Withdrawn, created in error
-
-[cabinet-contract-contribution #3](https://github.com/dveyarangi/xuanxue-workshop/issues/3)
-is addressed to the Cabinet project agent under its operator, with label
-`project:cabinet`. Its posted scope requests an API inventory and proposals. That
-inventory overlaps Workshop's completed work; the issue's existence does not
-establish a remaining need for it.
-
-### daychi-contract-contribution — Withdrawn, created in error
-
-[daychi-contract-contribution #4](https://github.com/dveyarangi/xuanxue-workshop/issues/4)
-is addressed to the Daychi project agent under its operator, with label
-`project:daychi`. Its posted scope requests a client/content inventory and proposals.
-That inventory overlaps Workshop's completed work. Its body contains the user's
-skip-removal rationale. No implementation or execution release occurred.
-
-### agreed-target-seam-contracts — Unissued proposal
-
-The older third proposal described dependent Workshop alignment after those
-contributions. No local ticket or issue was minted for it. Workshop's comparison
-and subsequent alignment already advanced that outcome; it is not an instruction
-to wait for repeated project investigations.
-
-The [failure trace](rule-failures.md#2026-10-05--completed-reconciliation-reissued-as-project-investigation)
-records the work-selection mistake. Actual remaining project changes are described
-by the accepted-contract delta above; unresolved decisions and verification limits
-retain their own records. The whole first stage is not an approved delivery breakdown.
+The accepted public pilot is tracked by
+[cabinet-daychi-public-schedule-connection](tickets/01-0007-cabinet-daychi-public-schedule-connection.md).
+Its provider and consumer use the same published contract. Broader migration
+changes above retain their unresolved decisions and require separately authorized scope.
 
 ## Impact assessment of the contribution split — refreshed 2026-10-05
 
-The first refresh defended the split by project, without checking completed work.
-The user rejected the resulting broad investigation scope. This corrected account
-supersedes that recommendation; the posted issues are withdrawn and closed,
-with their cancelled briefs retained as historical records.
-
-### Impact
-
-The posted issues changed coordination records and requested project investigation
-already substantially completed by Workshop. No sibling implementation changed.
-The accepted-contract delta still identifies real migration changes, independently
-of these mistaken assignments.
-
-### Hidden edges
-
-Old proposal prose was treated as workflow authority, while implementation
-ownership was mistaken for investigation ownership. Tracker duplicate searches
-could not find completed work held in local source-analysis records. Some narrow
-runtime/deployment proof and executable design choices remain open; that does not
-make the broad inventory outstanding. Latest accepted contracts remain local.
-
-### Leave alone
-
-Accepted provider assignments and boundary behavior; sibling application code,
-releases, deployments, Cabinet-only workflows and project UX; deferred gateway
-and backend consolidation; existing refresh facilities and installation/readiness
-assignments. No duplicate local tickets or new legacy migration program exists.
-
-### Recommendation
-
-Rethink the assignment scope. The existing comparison and accepted decisions are
-the basis for identifying specific remaining changes and unavailable proof. A new
-post-impact breakdown has not been accepted or issued. Publication and execution
-dependencies remain distinct, and the local delivery queue is unchanged.
+See the [historical assessment](reconciliation-20261004.md#withdrawn-contribution-proposal--2026-10-05).
+The current accepted-contract delta is the table above.

@@ -80,7 +80,7 @@ Remaining questions:
 
 - [q-0002.0002 — How should Workshop maintain and verify boundary contracts?](../questions/q-0002.0002-how-should-workshop-maintain-and-verify-boundary-contracts.md): RC2 is installed, but the next substantive output and independent grading remain.
 - [q-0002.0002.0002 — Which Workshop outcomes should the remaining reconciliation pass deliver?](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md): first slice and breakdown remain unapproved.
-- [q-0002.0007.0005 — What is the exact public-schedule contract for the Cabinet–Daychi pilot?](../questions/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md): unresolved candidate definitions, only relevant if selected again.
+- [q-0002.0007.0005 — What is the exact public-schedule contract for the Cabinet–Daychi pilot?](../questions/done/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md): unresolved candidate definitions, only relevant if selected again.
 - [q-0002.0005 — How should agents adopt Workshop rules and discover addressed work?](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md): readiness, durable adoption and the existing ticket-format repair remain.
 
 Application authentication, synchronization and other accepted target gaps keep

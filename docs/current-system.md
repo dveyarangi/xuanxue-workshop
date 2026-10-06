@@ -1,18 +1,103 @@
 # Current application structure and boundary evidence
 
-Source inventory, not a claim about live deployments or completed integration.
+Source inventory with separately scoped live checks below; not a claim of completed integration.
 Cabinet's general boundary inspection used revision
 `27f3e7bf50ac0a1e1f981519b7009fc2a19e7042`; reminder behavior was rechecked on
 2026-10-04 at `628314472aa2752ebb2bbe9ab75ac3dea9791719`. Daychi was inspected at
-`5f9ba442e04cd5dfa70527b9e670b491c491888c`. Project-agent confirmation is outstanding.
+`5f9ba442e04cd5dfa70527b9e670b491c491888c`. The dated inspection and access history
+is retained in the [reconciliation report](reconciliation-20261004.md).
+General Cabinet seam evidence below was also rechecked at `62831447` on 2026-10-04;
+newer source, installation and scoped deployment evidence follows.
 
-The [first substantive reconciliation](reconciliation-20261004.md) rechecked both
-clean local checkouts on 2026-10-04. Cabinet's remote `main` matches `62831447`.
-The connected GitHub account receives 404 for Daychi's repository; its remote
-revision and running deployment are unverified. General Cabinet seam evidence
-below was also rechecked at `62831447`.
+On 2026-10-06, assignment timelines supplied newer Cabinet evidence:
+[PR 561](https://github.com/gregoryKot/xuanxue-cabinet/pull/561) retained the
+collaboration installation from Workshop `e209d27` in Cabinet commit `130fb09`;
+[PR 562](https://github.com/gregoryKot/xuanxue-cabinet/pull/562) added the public
+lessons route and merged as `fc2dee20d64d91122a58e57709c378c5fc91bae7`, the directly
+read remote `main`. All 19 checks succeeded on each PR's final head. This does
+not refresh every older seam inspection or establish running deployment.
+The [assignment review](reconciliation-20261004.md#cabinet-assignment-review--2026-10-06)
+records the retained installation, public-route behavior and remaining contract
+gaps. Direct Cabinet reports now exist in both original assignments. Cabinet's
+collaboration installation is [accepted and issue 1 closed](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155).
+Provider conformance, native integration and Workshop source publication remain
+incomplete; they are separate from the accepted installation.
+
+## Cabinet public-schedule environments — checked 2026-10-06
+
+Cabinet's
+[runbook](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/docs/RUNBOOK.md#2-деплой)
+identifies staging as `https://staging.xuanxue.su` from `main`, and production as
+`https://xuanxue.su` from `release`.
+
+Workshop repeated anonymous read-only HTTPS checks on 2026-10-06 at 07:09 UTC
+(10:09 in `Asia/Jerusalem`) after Cabinet's deployment report. These results
+supersede the earlier production `27f3e7b`/404 observation:
+
+| Environment | API origin | Observed deployment | Public lessons result |
+|---|---|---|---|
+| Staging; native pilot test environment | `https://staging.xuanxue.su` | `/api/health`: 200, `mongo: up`, `commit: fc2dee2` | Fourteen-date window: 200 bare array, 63 distinct lessons; `limit=0`: 400 `invalid_input`; protected `/api/me/lessons` without a session: 401 |
+| Production | `https://xuanxue.su` | `/api/health`: 200, `mongo: up`, `commit: fc2dee2`; `release` and tag `prod-20261006-0630` identify full commit `fc2dee20d64d91122a58e57709c378c5fc91bae7` | Same window: 200 bare array, 67 distinct lessons; `limit=0`: 400 `invalid_input`; protected `/api/me/lessons` without a session: 401 |
+
+The [accepted production promise](boundaries.md#accepted-first-schedule-connection)
+records the same public API at the production origin. Cabinet's
+[production report](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6010762378)
+and successful [release workflow](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37424107719)
+agree with the live revision. The workflow's backup and promotion jobs succeeded.
+
+The same-origin `/api` routing is confirmed by these responses. The configured
+origin excludes `/api`; the operation already supplies `/api/public/lessons`.
+An anonymous staging request for
+`from=2026-10-06T00:00:00+03:00` and `to=2026-10-20T00:00:00+03:00`, with the
+offsets URL encoded, returned 63 staging rows and 67 production rows, all
+scheduled, with distinct IDs, ascending starts and the allowlisted field set.
+Neither response contained a `zoom` substring. The earlier staging sample also
+checked required types/enums. These samples do not
+establish full conformance, the malformed-source guarantee, session-bearing
+projection, controlled changes, or reachability from an actual native device.
+The [public lessons contract](contracts/public-lessons.md) remains the wire
+authority. Its identity scope is one data environment; production and staging
+IDs/data are not interchangeable.
+
+### Existing controls for the native test
+
+Cabinet already supplies the fixture operations. At `fc2dee2`,
+[PlanningScreen](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/web/src/planning/PlanningScreen.tsx)
+opens `/planning/new` through **Занятия → Разовое занятие**, and opens the
+lesson editor at `/planning/{lessonId}`. The create form selects an existing
+class, start, duration and topic. The existing editor changes start time and
+offers **Отменить занятие** with confirmation; its restore action is
+**Вернуть в расписание**. Date/time fields use the operator browser's local
+timezone, converted to UTC by
+[formatDate](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/web/src/lib/formatDate.ts).
+
+The corresponding authenticated
+[lesson operations](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/api/src/lessons/lessons.controller.ts)
+are `POST /api/lessons` (existing `classId`, `startsAt`, optional duration/topic),
+`PATCH /api/lessons/{id}` with `startsAt` for a move, and the same PATCH with
+`status: cancelled` for cancellation. The controller permits teacher, assistant
+and admin roles. The service changes the same occurrence ID. This is inspected
+source behavior, not an authenticated staging UI or mutation test.
+
+The joint test can use a dedicated one-off staging lesson, refresh Daychi,
+move that same lesson within and outside the selected window, and cancel it
+inside the window. Cabinet's authorized operator owns those writes; Daychi
+remains read-only. Available operator access, the actual fixture/class
+IDs, timing and the observed native refresh results require coordination or
+execution evidence. No live lesson, credential or deployment was changed by
+this check. Cabinet's operator performed the reported production promotion;
+Workshop verified its public result.
 
 ## Cabinet
+
+At `fc2dee2`, Cabinet additionally supplies anonymous `GET /api/public/lessons`
+for public schedule readers, with Daychi native as its intended new consumer.
+Its Cabinet-owned [executable definitions](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/shared/src/public-lessons.ts)
+implement the fixed [public wire contract](contracts/public-lessons.md).
+The route uses count or complete bounded-window selection and an explicit public
+projection; the protected `/api/me/lessons` route remains separate. Deployment
+is verified above; malformed required-data handling remains a conformance defect
+under [issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6011347777).
 
 Cabinet has a React/Vite web client, NestJS API, shared TypeScript contracts, and
 MongoDB persistence. The API serves the web application and `/api` on the same
@@ -34,7 +119,8 @@ The request accepts a count limit (default 10, maximum 50), not a date window.
 A date filter on a different API cannot be inferred for this endpoint.
 `MyLessonDto` returns the lesson ID but no `classId`, whereas recurring reminder
 scope uses `classIds`. The inspected mapper confirms that omission; a shared
-lesson-to-class identity must be agreed before Daychi can map subscriptions.
+lesson-to-class mapping for the broader shared subscription migration remains
+unverified. The additive public pilot supplies `classId` under its fixed contract.
 
 The [reminder settings API](https://github.com/gregoryKot/xuanxue-cabinet/blob/628314472aa2752ebb2bbe9ab75ac3dea9791719/shared/src/notifications-routes.ts)
 reads lesson notification preferences and updates scope and lead time through
@@ -132,13 +218,17 @@ Cabinet's existing materials model does not establish compatibility with this wi
 
 ## Observed seams and limits
 
-Cabinet web consumes Cabinet's API. Daychi clients consume Daychi's API and, for
-the native public schedule fallback, school HTML. No deployed Cabinet-to-Daychi
-integration was established by this inspection. The cross-project connections in
-the [target](boundaries.md) are accepted direction with unresolved details.
+Cabinet web consumes Cabinet's protected API. Cabinet now also exposes the public
+dated-schedule route on staging and production; Cabinet owns its data and fixture
+writes. Daychi's inspected ordinary clients still consume Daychi's API and, for
+the native schedule fallback, school HTML. Actual native consumption of the new
+Cabinet public route is not verified. Other cross-project connections in the
+[target](boundaries.md) retain their recorded migration state.
 
-The project contributions must confirm complete interface inventories, source
-revisions, compatibility constraints, and existing checks. Running configurations,
-installed client versions, production datasets and deployment acceptance have not
-been verified. Current-state updates require new evidence; accepting a target or
-closing an implementation issue alone is insufficient.
+Workshop source inspection establishes interface inventories and existing checks;
+project contributions supply changes and evidence that inspection cannot establish.
+The scoped public-schedule checks above establish both Cabinet runtime revisions
+and staging/production public-route availability. Other running configurations, installed client
+versions, production datasets and deployment acceptance have not been verified.
+Current-state updates require new evidence; accepting a target or closing an
+implementation issue alone is insufficient.

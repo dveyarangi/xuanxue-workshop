@@ -4,6 +4,7 @@
 - **Type:** HITL
 - **Responsible projects:** Cabinet provides the target backend; Daychi owns consumer compatibility and source exports; Workshop coordinates the boundary agreement.
 - **Start condition:** The user authorizes a separate consolidation initiative after its data, compatibility, and rollout assessment.
+- **Answers:** [q-0002.0009](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)
 - **Outcome:** Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend.
 
 ## Parent
@@ -34,16 +35,6 @@ joining its request-serving process.
 The bound admission check expires when Cabinet serves Daychi content and unified admission is
 available to every supported client. Reaching that condition requires removing the inter-backend
 admission call and its configuration, even if other service-retirement work remains in this record.
-
-## Open issues
-
-- The working catalog and databases are outside this checkout; inventory, duplicates, size,
-  stable identities, and source/version integrity require owner-provided evidence.
-- Cabinet's existing materials model does not cover the wiki contract; decide how the content
-  module preserves search, categories, graph, annotations, and existing Cabinet workflows.
-- Define supported-client compatibility, credential transition, writes during cutover, and
-  rollback before application or production changes.
-- Name accountable human contributors and the destination of every remaining service obligation.
 
 ## Acceptance criteria — provisional alignment exit
 

@@ -35,10 +35,11 @@ describe the delta and proposed contributions, with responsibility assigned to
 each project. These serve different purposes: an accepted target never proves
 that a provider or consumer has implemented it.
 
-Executable schemas remain in their owning projects. Workshop must refer to those
-definitions when recording an agreement; the exact publication and verification
-arrangement is still open. Cabinet already shares route definitions between its
-API and web client, so coordination must account for that existing authority.
+Executable schemas remain in their owning projects. The first public schedule
+pilot has a published [shared contract and conformance cases](contracts/public-lessons.md);
+its Cabinet-owned definitions and deployed evidence are referenced in
+[current-system](current-system.md#cabinet). Publication and verification for the
+remaining authentication and account/reminder boundaries retain their open questions.
 
 The [accepted scope clarification](agent-contract.md#boundary-scope-and-product-language)
 requires one accessible immutable contract reference and common conformance cases
@@ -57,11 +58,19 @@ It links to addressed work and the [/collaborate skill](../skills/collaborate/SK
 under the [entry and first-assignment contract](agent-contract.md#entry-and-first-assignment).
 The shared tracker holds the concrete installation work.
 
-The [/reconcile skill](../.agents/skills/reconcile/SKILL.md), invoked by the
-/maintain skill, compares project evidence with these records and derives the
-short boundary summaries supplied to project agents. Its project context is
-installed from local rules. Reconciliation does not implement project changes
-or substitute for the separate startup review and acceptance of assignments.
+The [coordination mechanism](../.agents/mechanisms/coordinate/coordinate.md)
+owns the shared outcome and its clarity, consistency and completeness criteria.
+Scoped analysis supplies evidence, reconciliation gives differences a disposition,
+and issuing derives recipient assignments from one contract and ownership model.
+Ongoing assignment review returns blockers, questions, changed dependencies and
+completion evidence to the relevant stage. Stage boundaries add no approval.
+
+Observed facts remain in the current-system record; accepted promises remain in
+their contracts; remaining work stays in its owning ticket or existing issue.
+Evidence stays at its source with scoped conclusions and links in these records.
+The existing work record carries resumption state; no per-stage report or separate
+acknowledgement ledger is required. Complete recipient context and compatibility
+checks are necessary coordination work, not removable process overhead.
 
 There is no mandatory bilateral PR approval ceremony: the user rejected it as
 too cumbersome on 2026-10-03.

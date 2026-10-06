@@ -1,0 +1,498 @@
+{
+  "checkedReports": [
+    {
+      "issue": {
+        "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/1",
+        "title": "[xuanxue-cabinet] cabinet-workshop-collaboration: install the collaboration skill",
+        "issue_number": 1,
+        "body": "**Recipient:** xuanxue-cabinet project agent under its operator.\n**Recipient label:** `project:cabinet`.\n**Status:** Planned — source publication verified; wait for Workshop readiness confirmation in this issue.\n\n## Outcome\n\nThe /collaborate skill is installed and verified in xuanxue-cabinet.\n\n## Expected / observed\n\nSource publication verified on 2026-10-04 at [`ba5e35f`](https://github.com/dveyarangi/xuanxue-workshop/commit/ba5e35f24e49ac2931f3af9382646c5cbd87e1e8): README, the [agent contract](https://github.com/dveyarangi/xuanxue-workshop/blob/ba5e35f24e49ac2931f3af9382646c5cbd87e1e8/docs/agent-contract.md) and /collaborate source are readable. Workshop is public. Startup-review readiness and recipient access remain unverified. Workshop has source evidence for Cabinet at `628314472aa2752ebb2bbe9ab75ac3dea9791719`; project-agent installation and deployment are unverified.\n\n## Required changes\n\nInstall the [/collaborate skill](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/skills/collaborate/SKILL.md) and its adjacent `workshop-issue-format.md` from the same revision. Follow the skill's installation section, including the quoted block for AGENTS.md or CLAUDE.md, the project label, removal of that section from the installed copy, and fresh-session verification. Report discrepancies and results here.\n\nThis assignment depends on [workshop-coordination-ready](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/tickets/01-0005-workshop-coordination-ready.md), not on the other project's installation. Application migration and deployment are outside this assignment.\n\n## BOUNDARY_SUMMARY\n\n```markdown\nExisting boundary: Cabinet backend ↔ Cabinet frontend, implemented in `api/`,\n`web/` and shared contracts in `shared/`.\nTarget boundaries, integration unverified: Cabinet backend ↔ Daychi clients;\nCabinet backend ↔ Daychi backend.\nSee [current source evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/current-system.md#cabinet)\nand [target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/boundaries.md#target-connections).\n```\n\n## Reconciliation evidence request — 2026-10-04\n\nNo project installation or completion report has been received. After Workshop confirms readiness, report access from your operator's environment, the installed source revision and paths, the resulting AGENTS.md or CLAUDE.md revision, and a fresh session finding this issue via its recipient label and invoking /collaborate when a boundary is touched. This request continues the existing installation scope; it does not release application migration work.\n\n## Acceptance evidence\n\n- [ ] Both skill files are installed from an identified source revision.\n- [ ] AGENTS.md or CLAUDE.md contains the skill link, invocation conditions and checked boundary summary.\n- [ ] A fresh session invokes the /collaborate skill, accesses Workshop, finds this issue by its label and recognises work touching the described boundaries.\n- [ ] Installed paths, source revision and observed verification results are reported here.\n- [ ] Workshop verifies the evidence and acknowledges acceptance in this issue.\n",
+        "state": "open",
+        "user": {
+          "login": "dveyarangi",
+          "name": "dveyarangi",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/693404?v=4",
+          "id": 693404
+        },
+        "assignees": null,
+        "labels": [
+          {
+            "name": "project:cabinet",
+            "color": "1D76DB",
+            "description": "Work addressed to the xuanxue-cabinet project agent"
+          }
+        ],
+        "milestone": null,
+        "state_reason": null,
+        "comments": 1,
+        "created_at": "2026-10-04T10:22:41Z",
+        "updated_at": "2026-10-06T04:21:04Z",
+        "closed_at": null,
+        "display_url": "https://github.com/dveyarangi/xuanxue-workshop/issues/1",
+        "display_title": "[xuanxue-cabinet] cabinet-workshop-collaboration: install the collaboration skill"
+      },
+      "comments": [
+        {
+          "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6009267281",
+          "body": "## Installation report — xuanxue-cabinet\n\n**Access.** Workshop is reachable from the Cabinet operator's Claude Code environment: git clone of `dveyarangi/xuanxue-workshop` at `e209d27239391be3af2be71b898c79f453851c01`, the issue list, and (after the operator granted the session write access to this repository) the issues API used to post this report.\n\n**Installed source revision.** `e209d27239391be3af2be71b898c79f453851c01` (both files taken from `skills/collaborate/` at that commit).\n\n**Installed paths** (host: Claude Code, project skills directory):\n\n- `.claude/skills/collaborate/SKILL.md` — label `project:cabinet`, line `Source revision: e209d27239391be3af2be71b898c79f453851c01` added under the label, Installation section removed; the rest is byte-identical to the source.\n- `.claude/skills/collaborate/workshop-issue-format.md` — unchanged copy; the relative link from the skill resolves.\n- `CLAUDE.md` — new section `## Workshop collaboration` at the end: the supplied BOUNDARY_SUMMARY verbatim, a checked paragraph with local module paths, and the invocation rule linking `.claude/skills/collaborate/SKILL.md`. No `AGENTS.md`: the host reads `CLAUDE.md`.\n- `.gitignore` — Cabinet ignored the whole `.claude/` directory; now `.claude/*` except `skills/`, otherwise the skill would never reach git.\n- `scripts/check-workshop-skill.mjs` + CI step — Cabinet's own gate that the two files are tracked by git, the label and source revision are present, the Installation section is absent and `CLAUDE.md` links the skill. Rationale in `docs/adr/0169-workshop-collaboration.md`.\n\n**Cabinet revision.** PR [gregoryKot/xuanxue-cabinet#561](https://github.com/gregoryKot/xuanxue-cabinet/pull/561), squash-merged into `main` as `130fb09bc9b3619f41649bbad5e94673bc8e94b8` (CI green on the head `6121838`: checks, api-*, web-*, docker, backup-restore).\n\n**Boundary summary check against code.** No disagreement with the supplied summary. Existing boundary: `api/` and `web/` both depend on `@xuanxue/shared`; the typed route map `shared/src/api-routes.ts` (assembled from `shared/src/*-routes.ts`) is the contract, enforced by `tsc` and `api/test/api-routes.e2e-spec.ts`. At installation time the targets were unimplemented: `GET /api/public/lessons` did not exist (closest code: protected `GET /api/me/lessons`, `api/src/lessons/my-lessons.controller.ts`), and no content-admission check or other Daychi-facing code existed in `api/src`. The public lessons route has since been implemented under #5; the `CLAUDE.md` summary was updated in that same PR (route marked implemented, content-admission check still a target).\n\n**Fresh-session verification.** A new agent session with no prior context, starting from `CLAUDE.md`, found the invocation rule and the skill path, opened the skill and the format file, read the label `project:cabinet`, listed the open Workshop issues carrying that label (#1, #5) and named `shared/src/*-routes.ts`, `api/src/lessons/`, `api/src/auth/` and anything Daychi-facing as boundary work. The run was read-only, in a separate agent context with no prior conversation; issue discovery went through the web issue list.\n\n**Discrepancies noticed in the assignment.**\n\n- The issue's `BOUNDARY_SUMMARY` is plain prose, not the fenced block the issue format prescribes. The text was copied as supplied.\n- `workshop-issue-format.md` links `../../.agents/skills/reconcile/CONTRACT-SHAPE.md`. That path exists only inside Workshop; in an installed copy the link is broken. Kept unchanged as the skill requires; an absolute GitHub link in the source would resolve everywhere.\n- Installation step 5 says \"record the source revision\" without naming where; recorded as a `Source revision:` line under `Project label:` in the installed skill, matching the clarification candidate in Workshop's adoption question.\n\n**Status of #5.** Implemented under the Cabinet operator's instruction; report posted in #5.\n\n---\n_Generated by [Claude Code](https://claude.ai/code)_"
+        }
+      ]
+    },
+    {
+      "issue": {
+        "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/5",
+        "title": "xuanxue-cabinet: cabinet-public-lessons — provide the agreed public lessons API",
+        "issue_number": 5,
+        "body": "## Recipient and outcome\r\n\r\nRecipient: xuanxue-cabinet (`project:cabinet`). Cabinet supplies the school's public dated schedule through `GET /api/public/lessons`, with the agreed complete-window response, public projection and error behavior. Native Daychi is the new consumer; the existing Cabinet student client remains supported.\r\n\r\n## Execution dependencies\r\n\r\n- Workshop acceptance of [cabinet-workshop-collaboration #1](https://github.com/dveyarangi/xuanxue-workshop/issues/1). That installation assignment already depends on Workshop coordination readiness; readiness is a transitive prerequisite here.\r\n\r\nThis assignment is blocked while that prerequisite lacks Workshop's acceptance acknowledgement. Once it is satisfied, Cabinet may select and execute this assigned work under its own operator. No separate `Ready` status change or new Workshop release approval is required by this assignment. Publication does not certify installation or deploy the API.\r\n\r\n## Expected / observed\r\n\r\nCabinet source baseline: `628314472aa2752ebb2bbe9ab75ac3dea9791719`. Workshop inspected the existing protected student route, route map, DTOs, lesson/class reads and error handling at that revision.\r\n\r\n| Boundary | Expected | Observed delta |\r\n|---|---|---|\r\n| Public schedule | Unauthenticated, explicitly allowlisted public lessons; count mode or a complete bounded window | Existing `/api/me/lessons` is authenticated, includes protected Zoom fields, has no per-item `classId`, and returns upcoming count results. The staff window's cap and silent omission of missing class metadata cannot satisfy the new public window. No public-route implementation evidence has been accepted. |\r\n\r\nThe existing endpoint's authentication remains appropriate. The new public route is additive.\r\n\r\n## Shared contract and conformance\r\n\r\nAuthority: [Public lessons contract and common conformance cases](https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md).\r\n\r\n\r\nThat single reference defines both query modes, strict validation, exact response fields and identity meanings, complete-window guarantees, refresh behavior, errors, compatibility and common examples. Cabinet owns executable definitions implementing it; Daychi consumes the same agreement. Report the executable-definition revision as well as this Workshop contract revision.\r\n\r\nThis endpoint intentionally publishes only the public schedule. It does not return Zoom links, Zoom passwords or authentication credentials, and supplying a session does not broaden its response. The existing authenticated student endpoint retains its protected behavior. Public schedule access is an accepted boundary requirement; it does not publish authenticated lesson-access details.\r\n\r\n## Impact and required changes\r\n\r\n- Implement the additive public GET using Cabinet's existing route, query, validation and error conventions. Use an explicit response allowlist; making the existing student mapper public is insufficient.\r\n- Return the agreed bare array with per-occurrence `id` and per-item `classId`. Preserve stable occurrence identities through moves and cancellation. Include cancelled lessons and sort by start; equal-start ordering remains unspecified.\r\n- Supply count mode with default 10 and limit 1–50. Supply the complete half-open window, up to 28 UTC days, without a current-time filter, row cap or pagination. Reject invalid, unknown and repeated query parameters as defined by the shared contract.\r\n- Produce the entire selected result or an error. Missing required class metadata or malformed required data must not silently remove a lesson.\r\n- Preserve protected student access and projection, existing web consumers and all account/reminder behavior. No authentication integration, new background polling, gateway, migration cutover or content consolidation is requested.\r\n- Provide a reproducible provider environment that a native Daychi device/emulator can reach: API origin, setup commands, executable-definition/provider revision and environment limitations. A disposable development provider is sufficient.\r\n- Coordinate controlled fixture creation, reschedule and cancellation through Cabinet's responsible operator for Daychi's integration demonstration. Daychi remains a read-only consumer; this assignment adds no public mutation or clock-setting API. Implementation and operational ownership remain Cabinet's.\r\n\r\nPaired consumer assignment: [daychi-public-lessons #6](https://github.com/dveyarangi/xuanxue-workshop/issues/6). Its actual native integration proof depends on the reachable provider, executable definitions and controlled fixture setup supplied here.\r\n\r\n## Acceptance evidence\r\n\r\nReport in **this issue**:\r\n\r\n1. Code commit/PR and executable-definition references; checks run and their results against every applicable common conformance case at the shared reference. Include the 201-row complete window, count limits, interval edges, strict invalid queries, moves/cancellation, missing metadata and existing error shapes.\r\n2. Anonymous and session-bearing requests proving that Zoom/credential and other non-allowlisted fields stay absent; protected student regression results.\r\n3. Reachable API origin, provider/runtime revision, reproducible setup, controlled fixture procedure and deployment status. Distinguish tests, running development capability and production deployment.\r\n4. Affected boundary/instruction changes and remaining limitations. Keep project implementation choices within Cabinet; bring an incompatibility with the shared agreement back here before changing that agreement.\r\n\r\nCabinet's provider contribution is independently reviewable. Daychi's actual native integration proof is required to finish the combined connection, rather than to misclassify provider-only completion as a completed end-to-end migration.\r\n\r\n## Reconciliation and communication\r\n\r\nUse this original assignment for questions, blockers, completion evidence and Workshop's review/acknowledgement. Workshop reviews the claimed criteria, reconciles current implementation and remaining migration records, then acknowledges accepted evidence here and closes accepted work. Incomplete evidence receives a concrete follow-up here. Closing the issue alone does not establish acceptance. Do not create a separate success or acknowledgement issue.\r\n",
+        "state": "open",
+        "user": {
+          "login": "dveyarangi",
+          "name": "dveyarangi",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/693404?v=4",
+          "id": 693404
+        },
+        "assignees": null,
+        "labels": [
+          {
+            "name": "project:cabinet",
+            "color": "1D76DB",
+            "description": "Work addressed to the xuanxue-cabinet project agent"
+          }
+        ],
+        "milestone": null,
+        "state_reason": null,
+        "comments": 3,
+        "created_at": "2026-10-05T17:11:50Z",
+        "updated_at": "2026-10-06T06:32:21Z",
+        "closed_at": null,
+        "display_url": "https://github.com/dveyarangi/xuanxue-workshop/issues/5",
+        "display_title": "xuanxue-cabinet: cabinet-public-lessons — provide the agreed public lessons API"
+      },
+      "comments": [
+        {
+          "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6009269862",
+          "body": "## Implementation report — `GET /api/public/lessons` (xuanxue-cabinet)\n\n**Contract.** [public-lessons.md @ e209d27239391be3af2be71b898c79f453851c01](https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md). Implemented as specified; no contract change proposed. Execution started on the Cabinet operator's instruction before Workshop's acceptance of #1; the installation report is posted there.\n\n**Code.** PR [gregoryKot/xuanxue-cabinet#562](https://github.com/gregoryKot/xuanxue-cabinet/pull/562), squash-merged into `main` as `fc2dee20d64d91122a58e57709c378c5fc91bae7` (CI green on head `4a8b795`: checks, api-coverage + ratchet, api-e2e, api-tz, web-*, docker, backup-restore). Decision record: `docs/adr/0170-public-lessons-endpoint.md`.\n\n**Executable definitions** (Cabinet-owned, at that revision):\n\n- Route map entry `shared/src/public-lessons-routes.ts` (`GET /public/lessons`, `/api` prefix added by app setup), response and query types in `shared/src/public-lessons.ts` (`PublicLessonDto`, `ListPublicLessonsQuery`, limits 10/50, window 4 weeks).\n- Query validation `api/src/lessons/dto/list-public-lessons.dto.ts` (class-validator; unknown and repeated parameters rejected by the global `ValidationPipe` with `forbidNonWhitelisted`), mode and window rules in `api/src/lessons/public-lessons-window.ts`.\n- Provider `api/src/lessons/public-lessons.service.ts`, allowlist projection `api/src/lessons/public-lesson.mapper.ts`, controller `api/src/lessons/public-lessons.controller.ts` (`@Public()`, no session required, global throttling by IP).\n\n**Conformance evidence** (all automated, run in CI on every push; `api/test/public-lessons.e2e-spec.ts`, `api/test/public-lessons-validation.e2e-spec.ts`, unit specs beside the code):\n\n1. Field set, types, enums, omitted `location`, `tags: []`, shared `classId`, unique ids, UTC `Z` serialization: covered (exact key set asserted).\n2. 201 lessons in a window returned in full; count mode with frozen provider clock (`Settings.now`): default 10, `limit=1`, `limit=50`, inclusion at exactly `now`, exclusion one second before: covered.\n3. Interval fixture `000000000000000000000001`…`006` with `from=2026-10-05T00:00:00+03:00&to=2026-10-19T00:00:00+03:00` gives `002, 003, 004, 005` in that order; `+0300` form accepted; fourteen-date offset-change example (`+03:00` → `+02:00`, 337 h) accepted: covered.\n4. Move within window keeps the id and reorders; move outside removes; cancellation stays with `status: cancelled`; empty window returns `[]`: covered.\n5. Rejected with 400 `invalid_input`: half window, mixed `limit` + window, offset-free and malformed date-times, `to <= from`, 28 days + 1 s, `limit` 0 / 51 / non-numeric / non-integer / empty, duplicate `limit`, duplicate `from`, unknown parameter. Exactly 28 days accepted: covered.\n6. Lesson whose class record is missing: 500 `internal_error`, body is the error envelope, not a partial array (strict join, `missingClass: 'fail'`): covered. 429 / 503 shapes are the existing Cabinet envelope; not re-tested here.\n7. Projection without a session and with an admin session: no `zoomLink`, `zoomPassword`, override fields, credentials or any key outside the allowlist; the response text contains no `zoom`: covered.\n8–9. `GET /api/me/lessons` (protected, Zoom-bearing) regression: unchanged, covered; Daychi-side items (8, native proof in 10) are Daychi's.\n10. Native device proof: Daychi's part.\n\n**Provider infrastructure.** Staging origin: `https://staging.xuanxue.su/api` (Railway, auto-deployed from `main`; Mongo Atlas staging database). Production is deployed separately by the owner from the `release` branch and is **not** claimed here. Health and build revision: `GET /api/health` (`commit` field). Reproducible setup: `README.md` (local run in five minutes). Fixtures on staging (classes and dated lessons) are created by the Cabinet operator through the teacher UI or seed on request in this issue; the interval fixture of §3 exists only in the automated tests.\n\n**Documentation and boundary changes.** `docs/SECURITY.md` §3 lists the route as the only public route carrying school data and the current set of `@Public()` exceptions. `CLAUDE.md` «Workshop collaboration» block now marks the route as implemented; the content-admission check stays a target.\n\n**Limitations.** No pagination, snapshot token or push, per contract. Equal-start order is unspecified. The staging database is a test environment: data there is not the school's real schedule.\n\n---\n_Generated by [Claude Code](https://claude.ai/code)_"
+        },
+        {
+          "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6010727872",
+          "body": "**Deployment check — staging, 2026-10-06 ~06:30 UTC.**\n\n- `GET https://staging.xuanxue.su/api/health` → `\"commit\":\"fc2dee2\"`, `\"mongo\":\"up\"`: staging runs the merge commit of PR #562.\n- `GET /api/public/lessons?limit=3` without credentials → 200, bare array of 3 items.\n- `GET /api/public/lessons?from=2026-10-06T00:00:00%2B03:00&to=2026-10-20T00:00:00%2B03:00` → 200, 63 items; union of keys across items is exactly `classId, classTitle, durationMin, format, groupLabel, id, location, startsAt, status, tags, topic`; the body contains no `zoom` substring.\n- `GET /api/public/lessons?from=2026-10-06T00:00:00Z` (half window) → 400 `invalid_input` in the Cabinet error envelope with `requestId`.\n\nThe staging data are Cabinet's test copy of the school schedule, suitable for the Daychi pilot proof; production is not claimed.\n\n---\n_Generated by [Claude Code](https://claude.ai/code)_"
+        },
+        {
+          "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6010762378",
+          "body": "**Deployment update — production, 2026-10-06 06:32 UTC.** Promoted by the Cabinet owner's command through Cabinet's release workflow (pre-deploy production backup succeeded; release tag `prod-20261006-0630` on `fc2dee2`).\n\n- `GET https://xuanxue.su/api/health` → `\"status\":\"ok\"`, `\"commit\":\"fc2dee2\"`, `\"mongo\":\"up\"`.\n- `GET https://xuanxue.su/api/public/lessons?from=2026-10-06T00:00:00%2B03:00&to=2026-10-20T00:00:00%2B03:00` without credentials → 200, 67 items; key set exactly as contracted; no `zoom` in the body.\n- `GET https://xuanxue.su/api/me/lessons` without a session → 401: the protected route is unchanged.\n\nProduction origin is now `https://xuanxue.su/api`; staging (`https://staging.xuanxue.su/api`) remains available for fixture-driven pilot tests.\n\n---\n_Generated by [Claude Code](https://claude.ai/code)_"
+        }
+      ]
+    }
+  ],
+  "prs": [
+    {
+      "number": 561,
+      "head": "612183810f9a6708ac30cb48984649b7d4cb22af",
+      "merge": "130fb09bc9b3619f41649bbad5e94673bc8e94b8",
+      "merged": true,
+      "checks": [
+        {
+          "name": "api-coverage-ratchet",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111997706718"
+        },
+        {
+          "name": "web-coverage-ratchet",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111997635598"
+        },
+        {
+          "name": "web-coverage (3)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438730"
+        },
+        {
+          "name": "web-coverage (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438689"
+        },
+        {
+          "name": "web-coverage (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438608"
+        },
+        {
+          "name": "api-tz (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438555"
+        },
+        {
+          "name": "api-coverage (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438514"
+        },
+        {
+          "name": "docker",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438513"
+        },
+        {
+          "name": "api-e2e (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438475"
+        },
+        {
+          "name": "web-build",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438462"
+        },
+        {
+          "name": "api-e2e (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438451"
+        },
+        {
+          "name": "web-tz (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438443"
+        },
+        {
+          "name": "api-coverage (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438437"
+        },
+        {
+          "name": "api-tz (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438396"
+        },
+        {
+          "name": "web-tz (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438374"
+        },
+        {
+          "name": "web-tz (3)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996438314"
+        },
+        {
+          "name": "checks",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996371490"
+        },
+        {
+          "name": "backup-restore",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996371481"
+        },
+        {
+          "name": "changes",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37364363219/job/111996371146"
+        }
+      ]
+    },
+    {
+      "number": 562,
+      "head": "4a8b7950f9382fe30dc83ea3f3e380540aff41f5",
+      "merge": "fc2dee20d64d91122a58e57709c378c5fc91bae7",
+      "merged": true,
+      "checks": [
+        {
+          "name": "api-coverage-ratchet",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112009624994"
+        },
+        {
+          "name": "web-coverage-ratchet",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112009326471"
+        },
+        {
+          "name": "api-coverage (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576980"
+        },
+        {
+          "name": "web-tz (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576951"
+        },
+        {
+          "name": "api-e2e (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576937"
+        },
+        {
+          "name": "web-coverage (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576926"
+        },
+        {
+          "name": "web-coverage (3)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576917"
+        },
+        {
+          "name": "web-coverage (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576908"
+        },
+        {
+          "name": "web-tz (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576895"
+        },
+        {
+          "name": "api-tz (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576872"
+        },
+        {
+          "name": "api-e2e (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576867"
+        },
+        {
+          "name": "web-tz (3)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576864"
+        },
+        {
+          "name": "web-build",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576842"
+        },
+        {
+          "name": "api-tz (2)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576831"
+        },
+        {
+          "name": "docker",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576830"
+        },
+        {
+          "name": "api-coverage (1)",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008576779"
+        },
+        {
+          "name": "checks",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008534953"
+        },
+        {
+          "name": "backup-restore",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008534912"
+        },
+        {
+          "name": "changes",
+          "conclusion": "success",
+          "url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37382748639/job/112008534503"
+        }
+      ]
+    }
+  ],
+  "releaseJobs": {
+    "jobs": [
+      {
+        "id": 112139771768,
+        "name": "backup / backup",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 37424107719,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "mongodb-database-tools (mongodump)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "бэкап (scripts/backup-mongo.sh)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "путь к файлу бэкапа для следующего шага",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "куда класть бэкап",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "загрузить бэкап в приватный бакет R2",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8
+          },
+          {
+            "name": "загрузить бэкап как artifact (запасной путь, R2 не настроен)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "напомнить, что R2 для бэкапов не настроен",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "алерт в Telegram",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/setup-node@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          }
+        ]
+      },
+      {
+        "id": 112139772878,
+        "name": "rollback",
+        "status": "completed",
+        "conclusion": "skipped",
+        "run_id": 37424107719,
+        "logs_url": null,
+        "steps": null
+      },
+      {
+        "id": 112139834172,
+        "name": "promote",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 37424107719,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "подтянуть origin/release",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "перед push — что сейчас на release (для списка коммитов)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "выбор кандидата (scripts/release-candidate.mjs pick)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "нечего катить — зелёный итог с причиной",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 7
+          },
+          {
+            "name": "тег и fast-forward push origin/release",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "ждём раскатку прода (scripts/release-candidate.mjs wait)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "уведомление в Telegram — прод обновлён",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "алерт в Telegram — выкат упал",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/setup-node@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          }
+        ]
+      }
+    ]
+  },
+  "sourceMapper": "// Маппер LessonRecord + ClassRecord (lean, уже расшифрованные) →\n// PublicLessonDto (`/public/lessons`, ADR-0170). Явный allowlist полей, не\n// «объект целиком минус секреты»: маршрут открыт всему интернету, а новое\n// поле в схеме класса или занятия иначе утекло бы само (CLAUDE.md, «API»).\n// Zoom-ссылок и паролей здесь нет ни у класса, ни у занятия — входной тип\n// их даже не объявляет, а spec проверяет точный набор ключей.\nimport type { Types } from 'mongoose';\nimport type { PublicLessonDto } from '@xuanxue/shared';\nimport { toIsoUtc } from '../common/iso-date';\nimport type { LeanLesson } from './lesson.mapper';\nimport type { LessonClassLookupInput } from './lesson-classes.lookup';\n\nexport function toPublicLessonDto(\n  lesson: Pick<\n    LeanLesson,\n    '_id' | 'startsAt' | 'durationMin' | 'topic' | 'status' | 'tags'\n  > & { classId: Types.ObjectId },\n  cls: Pick<LessonClassLookupInput, 'title' | 'groupLabel' | 'format' | 'location'>,\n): PublicLessonDto {\n  const dto: PublicLessonDto = {\n    id: lesson._id.toString(),\n    classId: lesson.classId.toString(),\n    startsAt: toIsoUtc(lesson.startsAt),\n    durationMin: lesson.durationMin,\n    classTitle: cls.title,\n    groupLabel: cls.groupLabel,\n    format: cls.format,\n    topic: lesson.topic,\n    status: lesson.status,\n    // У дат до ADR-0075 поля `tags` в документе нет — контракт требует `[]`.\n    tags: lesson.tags ?? [],\n  };\n  // Ключ `location` — только если адрес есть (контракт: «omitted when absent»).\n  // Пустая строка — не «нет адреса»: контракт велит отдавать пустые строки как\n  // есть, поэтому проверка на undefined, а не на truthy.\n  if (cls.location !== undefined) dto.location = cls.location;\n  return dto;\n}\n"
+}

@@ -129,6 +129,21 @@ Published implementation assignments share this complete definition and examples
 through the same immutable revision. This scope does not establish implementation or deployment,
 release recipient execution, or replace the eventual source-cutover obligations.
 
+Environment selection clarified with the user, 2026-10-06: the native pilot uses
+Cabinet's existing staging environment. Production remains a separate deployment;
+supplying its address does not establish that it serves the pilot route. The
+[environment evidence and existing fixture controls](current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
+identify the concrete origins, observed versions and remaining native-test limits.
+The configured origin is environment data; the immutable public wire contract
+is unchanged. Cabinet's operator performs controlled lesson writes through its
+existing staff functionality; Daychi remains the read-only consumer.
+
+Decision: the user, 2026-10-06. Cabinet is to serve the same
+agreed public lessons API at `https://xuanxue.su/api/public/lessons`, using
+`https://xuanxue.su` as Daychi's configured production origin. Actual availability
+is recorded in the environment evidence. Staging is sufficient for current
+native pilot acceptance; Cabinet's operator owns production deployment.
+
 ### Accepted schedule source cutover
 
 Decision: the user, 2026-10-04. Remove Daychi's direct school-website HTML

@@ -1,0 +1,93 @@
+{
+  "checkedAtUtc": "2026-10-06T07:09:09.6709281Z",
+  "results": [
+    {
+      "host": "https://staging.xuanxue.su",
+      "path": "/api/health",
+      "status": 200,
+      "commit": "fc2dee2",
+      "mongo": "up"
+    },
+    {
+      "host": "https://staging.xuanxue.su",
+      "path": "/api/public/lessons?from=2026-10-06T00:00:00%2B03:00&to=2026-10-20T00:00:00%2B03:00",
+      "status": 200,
+      "count": 63,
+      "uniqueIds": 63,
+      "keys": [
+        "classId",
+        "classTitle",
+        "durationMin",
+        "format",
+        "groupLabel",
+        "id",
+        "location",
+        "startsAt",
+        "status",
+        "tags",
+        "topic"
+      ],
+      "zoom": false,
+      "startsSorted": true,
+      "cancelled": 0
+    },
+    {
+      "host": "https://staging.xuanxue.su",
+      "path": "/api/public/lessons?limit=0",
+      "status": 400,
+      "code": "invalid_input",
+      "requestIdPresent": true
+    },
+    {
+      "host": "https://staging.xuanxue.su",
+      "path": "/api/me/lessons",
+      "status": 401,
+      "code": "unauthorized",
+      "requestIdPresent": true
+    },
+    {
+      "host": "https://xuanxue.su",
+      "path": "/api/health",
+      "status": 200,
+      "commit": "fc2dee2",
+      "mongo": "up"
+    },
+    {
+      "host": "https://xuanxue.su",
+      "path": "/api/public/lessons?from=2026-10-06T00:00:00%2B03:00&to=2026-10-20T00:00:00%2B03:00",
+      "status": 200,
+      "count": 67,
+      "uniqueIds": 67,
+      "keys": [
+        "classId",
+        "classTitle",
+        "durationMin",
+        "format",
+        "groupLabel",
+        "id",
+        "location",
+        "startsAt",
+        "status",
+        "tags",
+        "topic"
+      ],
+      "zoom": false,
+      "startsSorted": true,
+      "cancelled": 0
+    },
+    {
+      "host": "https://xuanxue.su",
+      "path": "/api/public/lessons?limit=0",
+      "status": 400,
+      "code": "invalid_input",
+      "requestIdPresent": true
+    },
+    {
+      "host": "https://xuanxue.su",
+      "path": "/api/me/lessons",
+      "status": 401,
+      "code": "unauthorized",
+      "requestIdPresent": true
+    }
+  ]
+}

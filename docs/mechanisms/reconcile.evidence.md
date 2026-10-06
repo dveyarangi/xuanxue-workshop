@@ -1,5 +1,15 @@
 # Boundary reconciliation evidence
 
+## Stage extraction — 2026-10-06
+
+The approved [coordination-loop](../tickets/done/01-0004-coordination-loop.md) retains
+comparison and all dispositions here, moves observation to analyse and assignment
+production to issue, and gives coordinate ownership of shared validation and RC1/RC2.
+The old contract-shape path remains a compatibility pointer. Historical sections
+below describe their original ownership, not the current invocation path.
+[Coordination evidence](coordinate.evidence.md) holds the preservation mapping,
+independent grading and local verification.
+
 ## Shared-contract shape invariant — 2026-10-05
 
 The user rejected independent choices of externally observable contract shape,
@@ -20,7 +30,7 @@ The current pilot drafts were the prior affected corpus: two bodies requested
 recipient implementation with important shared definitions left for a later
 handoff. Both now explicitly block implementation publication. Their missing
 values are held in
-[q-0002.0007.0005 — What is the exact public-schedule contract for the Cabinet–Daychi pilot?](../questions/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md).
+[q-0002.0007.0005 — What is the exact public-schedule contract for the Cabinet–Daychi pilot?](../questions/done/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md).
 This applies the gate to a real incomplete pair; it supplies no completed contract
 or claim of working interoperability. The proposal remains unapproved and unminted.
 
@@ -191,7 +201,7 @@ Verification of this amendment:
   verified HEAD core. The rule remains installed as the user instructed; the
   integrity-comparison limitation is recorded for separate harness work.
 
-## Outstanding evidence and publication
+## Outstanding evidence and publication — snapshot 2026-10-04
 
 The separate Workshop startup-review skill and both project agents' installations
 remain unverified. Host loader links for Claude and Cursor are absent; host skill
@@ -212,3 +222,33 @@ and applied their recipient labels. Readback confirmed that both bodies match th
 approved files and both assignments remain open and Planned, awaiting publication
 and Workshop readiness. This does not complete the readiness ticket or the
 first-stage goal.
+
+## Issue-review follow-through — 2026-10-05
+
+The user directed adding the agreed review, action and session-continuation steps
+to reconciliation. The Workshop-specific instruction is authored once in
+[local rule L14](../../local.rules.md#l14--issue-review-action-and-return-to-work)
+and installed into the reconciliation skill's local block. It reads relevant
+original-issue conversations at collection/resumption, handles problems and
+evidence gaps, routes shared decisions through alignment, reconciles verified
+results before acknowledgement/closure, and reports updated state before returning
+to authorized work. It preserves queue order and publication/next-cycle checkpoints.
+
+The accepted evidence standard permits inspection of complete recipient evidence
+without repeating installation in the recipient operator's environment. The issue
+conversation holds review history; unchanged last Workshop messages receive no
+repeat response. No additional local acknowledgement record was introduced.
+The operator reads the installed rule and this evidence when grading the amendment.
+
+Verification: before installation, the rule checker rejected the missing L14 body
+as the one drifted local block. After installation, all 23 blocks across six rule
+files pass. Mechanism and question checks have no diagnostics; the question check
+retains the two existing scope-similarity suggestions. The full harness check at
+`5871845` passes its reference, injector and shape gates, with both host skill links
+resolving. Whitespace checks pass. The ticket checker retains its four existing
+format findings across the readiness and deferred consolidation records: missing
+Answers headers and retired Open issues sections. No format repair was made.
+
+These checks establish installation and compatibility, not executed GitHub response
+behavior. No remote issue was changed, and no commit or push was made. The separate
+session-entry review skill and startup invocation remain unfinished.

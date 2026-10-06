@@ -15,8 +15,8 @@ responsibilities and acceptance conditions are documented below. This document
 is an information source; agent procedures live in their instruction files.
 Structure for collaboration issues in Workshop's tracker and reports within them belongs to
 [workshop-issue-format.md](../skills/collaborate/workshop-issue-format.md), installed
-beside the /collaborate skill and referenced by the
-[/reconcile skill](../.agents/skills/reconcile/SKILL.md). Internal project
+beside the /collaborate skill and used by the
+[/issue skill](../.agents/skills/issue/SKILL.md). Internal project
 work and issues follow their own project rules.
 
 ## Accepted obligations
@@ -65,9 +65,13 @@ Implementation assignments share an accessible immutable contract reference and
 common conformance examples/outcomes. An incomplete shared shape is unresolved
 coordination, even when the assignments are Planned. Separate project proposals
 do not establish a compatible implementation assignment. The
-[reconciliation contract-shape reference](../.agents/skills/reconcile/CONTRACT-SHAPE.md)
-holds the dimensions used to assess completeness; its instruction is owned by the
-reconciliation mechanism.
+[coordinator's contract-shape reference](../.agents/skills/coordinate/CONTRACT-SHAPE.md)
+holds the dimensions used to assess completeness. The
+[coordination mechanism](../.agents/mechanisms/coordinate/coordinate.md) owns shared
+validation across analysis, reconciliation, issuing and ongoing review; each stage
+owns its production and checks. Independent implementations satisfying their
+recipient briefs must agree on shared shapes and guarantees. Full recipient
+context remains mandatory while process steps are kept proportional to the work.
 
 ## Workshop address
 
@@ -77,21 +81,17 @@ This repository publishes the canonical contract and hosts the
 [single inter-agent issue tracker](https://github.com/dveyarangi/xuanxue-workshop/issues).
 The canonical document path within that repository is `docs/agent-contract.md`.
 
-Rechecked on 2026-10-04: the repository is public and the connected GitHub account
-has admin access. Published `master` is `ba5e35f24e49ac2931f3af9382646c5cbd87e1e8`;
-README, this contract and the /collaborate skill are readable at that revision.
-Both installation issues remain open and Planned, without project replies.
-Workshop startup-review readiness and access from each operator's environment
-remain unverified; source publication alone does not release the assignments.
-
-On 2026-10-05 the user supplied a Workshop-directed Cabinet installation dry run;
-the [adoption evidence](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#cabinet-installation-dry-run--reported-by-the-user-2026-10-05)
-records successful reported checkout access and instruction/discovery checks.
-The temporary installation is intended for rollback and has not been reported in
-the original issue or accepted. Durable project adoption and Workshop readiness
-remain unverified.
+Repository access, installed source revisions and assignment acceptance are
+evidenced in the [current-state record](current-system.md) and
+[adoption question](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
+The [reconciliation report](reconciliation-20261004.md#cabinet-assignment-review--2026-10-06)
+owns the dated installation, access and publication history. Source publication
+alone does not establish recipient adoption or release an unsatisfied dependency.
 
 ## Entry and first assignment
+
+The [onboarding agreement](onboarding.md#access-and-communication) owns participant
+access and the original-issue communication requirement when another project joins.
 
 The operator gives the project agent the Workshop repository link. README points
 to installation assignments and the /collaborate skill, which owns installation
@@ -109,10 +109,19 @@ confirmed onboarding.
 Clarified by the user, 2026-10-05: Workshop may post subsequent assignments as
 Planned before readiness and onboarding are confirmed. Their execution waits for
 those dependencies and the identified contract baseline; posting is not release.
-Posting does not establish adoption. The two broad contribution requests posted
-on this interpretation were subsequently challenged as duplicate investigation
-and withdrawn on 2026-10-05. Their closure does not change the publication/release
-distinction or establish adoption.
+Posting does not establish adoption.
+
+Clarified with the user, 2026-10-05: application assignments depend directly on
+their recipient's accepted installation; Workshop readiness is already a
+prerequisite of those installation assignments. Dependencies distinguish starting
+work from integration proof and completion. Daychi can develop against the agreed
+public schedule contract after its accepted installation, while actual connection
+proof needs Cabinet's conforming reachable provider and controlled fixture setup.
+Eligibility follows satisfied assignment conditions and the recipient operator's
+authority; Planned/Ready wording adds no separate release approval. Workshop
+reviews changed prerequisite evidence and communicates resulting action in
+affected original issues. The [issue format](../skills/collaborate/workshop-issue-format.md#dependencies)
+owns dependency fields and interpretation.
 
 ### Boundary summary in project instructions
 
@@ -189,6 +198,27 @@ An acknowledgement means Workshop has checked the result and reconciled its
 records. An accepted target, a project completion report, or a closed GitHub issue
 alone does not establish the deployed state of a boundary.
 
+Clarified by the user, 2026-10-05: the original issue's conversation and closure
+hold the review history; there is no separate local acknowledgement ledger.
+An unchanged conversation whose last message is Workshop's needs no repeated
+response. A new project report requires review, including when the project agent
+has closed the issue before Workshop acceptance.
+
+Accepted by the user, 2026-10-05: startup review discovers pending issue
+conversations; boundary reconciliation uses the relevant discussions and returned
+evidence when beginning or resuming its comparison. A boundary-affecting result
+feeds Workshop's record reconciliation before acceptance acknowledgement. Responses
+and acceptance remain in the original issue. The dedicated Workshop review skill
+supplies session-entry discovery; shared review obligations also apply when
+reconciliation begins or resumes.
+
+Accepted by the user, 2026-10-05: Workshop can accept complete, inspectable project
+evidence against an assignment's criteria without repeating the installation in
+the recipient operator's environment. Artifact and check evidence must support
+the claimed outcome; a bare completion claim is insufficient. Checks are repeated
+when necessary to resolve a gap or contradiction. This does not transfer recipient
+installation or release ownership to Workshop.
+
 ## Contract evolution
 
 Accepted by the user, 2026-10-04. A project can work autonomously within the active
@@ -209,10 +239,15 @@ or make prior Workshop approval a gate for introducing a coexisting version.
 ## Adoption and implementation
 
 <straw-dog question="q-0002.0005">
-The dedicated startup skill is an accepted requirement; it has not been implemented
-or wired into startup by this contract edit. Its implementation must preserve this
-single source for the role rules. It must run as part of Workshop startup alongside
-its existing session-entry obligations.
+The dedicated /review-assignments skill and its after-recall entry binding are
+installed locally. Coordination and direct reconciliation enter the same review;
+an active pass reuses completed review while its relevant evidence remains unchanged.
+The [review evidence](mechanisms/review-assignments.evidence.md) records passing
+structural gates, observed fresh-session invocation and actual Cabinet result
+handling. [Coordination evidence](mechanisms/coordinate.evidence.md) supplies bounded
+independent instruction grading; published readiness and recipient-host proof remain incomplete.
+Cabinet installation issue 1 is accepted/closed; Daychi installation retains its
+readiness dependency.
 </straw-dog>
 
 The [adoption question](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md)

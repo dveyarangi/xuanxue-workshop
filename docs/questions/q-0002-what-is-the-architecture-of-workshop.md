@@ -1,8 +1,8 @@
 # q-0002 What is the architecture of Workshop?
 
 - **state** open
-- **lean** First-stage scope, role-separated agent contract, Workshop tracker and recipient labels are accepted. Reconciliation is installed locally and both installation issues updated and labelled. Startup review, source publication, verified agent adoption and remaining application contracts are open.
-- **struck** 2, last 2026-10-04T21:06Z
+- **lean** Public pilot contract e209d27 and paired assignments are published. Cabinet installation is accepted; its public provider is deployed on staging and production with a required-data conformance correction outstanding. Workshop review invokes after recall; grading/publication, Daychi adoption, native proof and broader application contracts remain open.
+- **struck** 4, last 2026-10-06T11:11Z
 
 ## Current decision context
 
@@ -13,8 +13,11 @@ and [migration changes](../migration-changes.md) distinguish facts from required
 
 The open child questions hold contract maintenance, report-back and record updates,
 tracker addresses and claims, agent adoption, operational obligations, and the
-remaining migration contracts. Contribution proposals are unapproved and do not
-cover the whole adoption process.
+remaining migration contracts. The [public schedule connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+has an accepted contract and published provider/consumer assignments. Cabinet
+installation is accepted; provider conformance, Daychi adoption and native proof
+remain incomplete. The [current-state record](../current-system.md) owns the
+observed capability and deployment, separately from the accepted targets.
 
 ## Discussion evidence, 2026-10-03
 

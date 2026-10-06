@@ -1,6 +1,6 @@
 # Delivery status
 
-**Last updated:** 2026-10-05
+**Last updated:** 2026-10-06
 
 The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
 migration changes and Workshop responsibility have separate homes. Confirmed adoption by both project agents
@@ -15,7 +15,8 @@ completed Workshop investigation:
 and [daychi-contract-contribution #4](https://github.com/dveyarangi/xuanxue-workshop/issues/4).
 Their [parent scope and corrected impact](../migration-changes.md#proposed-contribution-breakdown)
 record the work-selection error. Neither remains an active assignment. The next
-Workshop outcome breakdown has not been approved or minted; the local queue is unchanged.
+Workshop outcome breakdown was approved on 2026-10-05: one public schedule connection
+with two recipient contributions. It follows readiness in the local queue.
 
 ## Legacy horizon binding
 
@@ -28,5 +29,6 @@ assignment. Its proper tracker destination remains in the
 
 | Ticket | Status | Type | Outcome |
 |---|---|---|---|
-| [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md) | Ready | HITL | Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement. |
+| [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md) | In progress | HITL | Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement. |
+| [cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md) | Planned | HITL | A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence. |
 | [daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md) | Blocked (horizon) | HITL | Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend. |

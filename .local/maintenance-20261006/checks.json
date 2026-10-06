@@ -1,0 +1,1023 @@
+{
+  "harness.py . --check": {
+    "exit_code": 0,
+    "result": {
+      "target": ".",
+      "mode": "check",
+      "repository": "https://github.com/dveyarangi/goodwolf-harness.git",
+      "ref": {
+        "repository": "goodwolf-harness",
+        "commit": "5871845e4a8fface57bf6a9fa9c8e82c5ab61d71",
+        "announced": "5871845",
+        "date": "2026-10-05"
+      },
+      "written": [],
+      "replaced": [],
+      "deleted": [],
+      "own": [],
+      "links": [],
+      "pending": [],
+      "injected": [],
+      "gates": {
+        "ref": {
+          "passed": true,
+          "ref": "5871845",
+          "differs": [],
+          "own": [
+            ".agents/mechanisms/reconcile/reconcile.md",
+            ".agents/mechanisms/reconcile/reconcile.rules.md",
+            ".agents/mechanisms/review-assignments/review-assignments.md",
+            ".agents/mechanisms/review-assignments/review-assignments.rules.md",
+            ".agents/skills/reconcile/CONTRACT-SHAPE.md",
+            ".agents/skills/reconcile/SKILL.md",
+            ".agents/skills/review-assignments/SKILL.md"
+          ]
+        },
+        "injector": {
+          "passed": true,
+          "exit": 0,
+          "said": [
+            "  \"orphans\": [],",
+            "  \"diagnostics\": []",
+            "}"
+          ]
+        },
+        "shape": {
+          "passed": true,
+          "exit": 0,
+          "said": [
+            "  },",
+            "  \"diagnostics\": []",
+            "}"
+          ]
+        }
+      },
+      "links_resolve": {
+        ".claude/skills": true,
+        ".cursor/skills": true
+      },
+      "notes": [
+        "whether a host reads the loader link is not observable from inside a tree"
+      ],
+      "refusals": [],
+      "arrived": true
+    }
+  },
+  "inject_rules.py --check": {
+    "exit_code": 0,
+    "result": {
+      "rules files": 7,
+      "blocks": [
+        {
+          "slug": "maintain",
+          "target": ".agents/skills/mechanism/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "mechanism-shape",
+          "target": ".agents/skills/maintain/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "mechanism-shape",
+          "target": ".agents/skills/mechanism/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "mechanism-shape",
+          "target": ".agents/skills/align/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "mechanism-shape",
+          "target": ".agents/skills/skill-up/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "mechanism-shape",
+          "target": "AGENTS.md",
+          "state": "present"
+        },
+        {
+          "slug": "mechanism-shape",
+          "target": ".agents/skills/verify/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "questions",
+          "target": "AGENTS.md",
+          "state": "present"
+        },
+        {
+          "slug": "questions",
+          "target": ".agents/skills/recall/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "questions",
+          "target": ".agents/skills/conclude/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "questions",
+          "target": ".agents/skills/maintain/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "reconcile",
+          "target": ".agents/skills/reconcile/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "reconcile",
+          "target": ".agents/skills/align/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "review-assignments",
+          "target": ".agents/skills/maintain/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "ticket",
+          "target": ".agents/skills/maintain/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "ticket",
+          "target": ".agents/skills/plan/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "ticket",
+          "target": ".agents/skills/align/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "ticket",
+          "target": "AGENTS.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": "AGENTS.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": ".agents/skills/verify/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": ".agents/skills/maintain/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": ".agents/skills/reconcile/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": ".agents/skills/review-assignments/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": ".agents/skills/align/SKILL.md",
+          "state": "present"
+        },
+        {
+          "slug": "local",
+          "target": ".agents/skills/mechanism/SKILL.md",
+          "state": "present"
+        }
+      ],
+      "orphans": [],
+      "diagnostics": []
+    }
+  },
+  "tickets.py --check": {
+    "exit_code": 0,
+    "result": {
+      "records": [
+        {
+          "record": "docs/tickets/01-0005-workshop-coordination-ready.md",
+          "stage": "shaped",
+          "fields": {
+            "Status": "In progress",
+            "Type": "HITL",
+            "Plan": "[Workshop coordination ready RFC](../rfc/01-0005-workshop-coordination-ready.md) — one review skill after recall, sharing the installed feedback rule with reconciliation",
+            "Responsible contributor": "Workshop agent under its operator",
+            "Answers": "[q-0002.0005.0002](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)",
+            "Outcome": "Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement."
+          },
+          "sections": [
+            "Parent",
+            "What to build",
+            "Acceptance criteria",
+            "Out of scope",
+            "Parent scope addressed"
+          ]
+        },
+        {
+          "record": "docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md",
+          "stage": "incepted",
+          "fields": {
+            "Status": "Planned",
+            "Type": "HITL",
+            "Depends on": "[workshop-coordination-ready](./01-0005-workshop-coordination-ready.md) (verified Workshop coordination and review capability)",
+            "Answers": "[q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)",
+            "Outcome": "A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence."
+          },
+          "sections": [
+            "Parent",
+            "What to build",
+            "Acceptance criteria",
+            "Out of scope"
+          ]
+        },
+        {
+          "record": "docs/tickets/01-0010-daychi-backend-capabilities-in-cabinet.md",
+          "stage": "incepted",
+          "fields": {
+            "Status": "Blocked (horizon)",
+            "Type": "HITL",
+            "Responsible projects": "Cabinet provides the target backend; Daychi owns consumer compatibility and source exports; Workshop coordinates the boundary agreement.",
+            "Start condition": "The user authorizes a separate consolidation initiative after its data, compatibility, and rollout assessment.",
+            "Answers": "[q-0002.0009](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)",
+            "Outcome": "Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend."
+          },
+          "sections": [
+            "Parent",
+            "What to build",
+            "Acceptance criteria — provisional alignment exit",
+            "Out of scope"
+          ]
+        }
+      ],
+      "diagnostics": [],
+      "skipped": []
+    }
+  },
+  "questions.py --check": {
+    "exit_code": 0,
+    "result": {
+      "store": "present",
+      "entries": 26,
+      "diagnostics": [],
+      "findings": [
+        {
+          "record": "docs/questions/q-0002.0009-should-cabinet-serve-daychi-content.md",
+          "line": 1,
+          "finding": "q-0002.0007 and q-0002.0009 may be one question: both ask about cabinet, content, daychi"
+        },
+        {
+          "record": "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+          "line": 1,
+          "finding": "q-0002.0008.0001 and q-0002.0010 may be one question: both ask about cabinet, clients, daychi"
+        }
+      ],
+      "skipped": []
+    }
+  },
+  "mechanisms.py --check": {
+    "exit_code": 0,
+    "declarations": 7,
+    "diagnostics": [],
+    "core_leaks": [],
+    "raw_output": "mechanisms.json"
+  },
+  "local-reference-audit": {
+    "files": 117,
+    "links": 489,
+    "missing": [],
+    "anchor_candidates": [],
+    "non_companion_install_links": [],
+    "published_contract_unchanged": true
+  },
+  "sourceLinks": [
+    {
+      "key": "dveyarangi/xuanxue-workshop@e209d27239391be3af2be71b898c79f453851c01",
+      "revision": "e209d27239391be3af2be71b898c79f453851c01",
+      "truncated": false,
+      "checked": 1,
+      "missing": []
+    },
+    {
+      "key": "gregoryKot/xuanxue-cabinet@fc2dee20d64d91122a58e57709c378c5fc91bae7",
+      "revision": "fc2dee20d64d91122a58e57709c378c5fc91bae7",
+      "truncated": false,
+      "checked": 6,
+      "missing": []
+    },
+    {
+      "key": "gregoryKot/xuanxue-cabinet@27f3e7bf50ac0a1e1f981519b7009fc2a19e7042",
+      "revision": "27f3e7bf50ac0a1e1f981519b7009fc2a19e7042",
+      "truncated": false,
+      "checked": 8,
+      "missing": []
+    },
+    {
+      "key": "gregoryKot/xuanxue-cabinet@628314472aa2752ebb2bbe9ab75ac3dea9791719",
+      "revision": "628314472aa2752ebb2bbe9ab75ac3dea9791719",
+      "truncated": false,
+      "checked": 4,
+      "missing": []
+    },
+    {
+      "key": "sleontenko/daychi@5f9ba442e04cd5dfa70527b9e670b491c491888c",
+      "error": "Remote tree unavailable: GitHub API 404. Ten paths confirmed in local pinned Git object."
+    },
+    {
+      "key": "gregoryKot/xuanxue-cabinet@130fb09bc9b3619f41649bbad5e94673bc8e94b8",
+      "revision": "130fb09bc9b3619f41649bbad5e94673bc8e94b8",
+      "truncated": false,
+      "checked": 1,
+      "missing": []
+    },
+    {
+      "key": "dveyarangi/xuanxue-workshop@HEAD",
+      "revision": "e209d27239391be3af2be71b898c79f453851c01",
+      "truncated": false,
+      "checked": 5,
+      "missing": [
+        "docs/onboarding.md"
+      ]
+    }
+  ],
+  "guessCandidates": {
+    "scanned": [
+      ".agents/README.md",
+      ".agents/glossary.md",
+      ".agents/mechanisms/harness/harness.md",
+      ".agents/mechanisms/maintain/maintain.md",
+      ".agents/mechanisms/maintain/maintain.rules.md",
+      ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+      ".agents/mechanisms/mechanism-shape/mechanism-shape.rules.md",
+      ".agents/mechanisms/questions/questions.md",
+      ".agents/mechanisms/questions/questions.rules.md",
+      ".agents/mechanisms/reconcile/reconcile.md",
+      ".agents/mechanisms/reconcile/reconcile.rules.md",
+      ".agents/mechanisms/review-assignments/review-assignments.md",
+      ".agents/mechanisms/review-assignments/review-assignments.rules.md",
+      ".agents/mechanisms/ticket/ticket.md",
+      ".agents/mechanisms/ticket/ticket.rules.md",
+      ".agents/scripts/gw/docs_corpus.py",
+      ".agents/scripts/gw/harness.py",
+      ".agents/scripts/gw/inject_rules.py",
+      ".agents/scripts/gw/maintain.py",
+      ".agents/scripts/gw/mechanisms.py",
+      ".agents/scripts/gw/move_doc.py",
+      ".agents/scripts/gw/questions.py",
+      ".agents/scripts/gw/straw_dogs.py",
+      ".agents/scripts/gw/test/repository.py",
+      ".agents/scripts/gw/test/test_citations.py",
+      ".agents/scripts/gw/test/test_command_line.py",
+      ".agents/scripts/gw/test/test_failure_contract.py",
+      ".agents/scripts/gw/test/test_harness.py",
+      ".agents/scripts/gw/test/test_inject_rules.py",
+      ".agents/scripts/gw/test/test_maintain.py",
+      ".agents/scripts/gw/test/test_mechanisms.py",
+      ".agents/scripts/gw/test/test_paired_close.py",
+      ".agents/scripts/gw/test/test_questions.py",
+      ".agents/scripts/gw/test/test_refusals.py",
+      ".agents/scripts/gw/test/test_repository.py",
+      ".agents/scripts/gw/test/test_straw_dogs.py",
+      ".agents/scripts/gw/test/test_tickets.py",
+      ".agents/scripts/gw/tickets.py",
+      ".agents/skills/advise/SKILL.md",
+      ".agents/skills/align/ADR-FORMAT.md",
+      ".agents/skills/align/ARCH-FORMAT.md",
+      ".agents/skills/align/EDGE-FORMAT.md",
+      ".agents/skills/align/GLOSSARY-FORMAT.md",
+      ".agents/skills/align/SKILL.md",
+      ".agents/skills/celebrate/SKILL.md",
+      ".agents/skills/commit/SKILL.md",
+      ".agents/skills/conclude/SKILL.md",
+      ".agents/skills/discover/EVIDENCE.md",
+      ".agents/skills/discover/SKILL.md",
+      ".agents/skills/dream/SKILL.md",
+      ".agents/skills/edge/SKILL.md",
+      ".agents/skills/harness/SKILL.md",
+      ".agents/skills/impact/SKILL.md",
+      ".agents/skills/implement/SKILL.md",
+      ".agents/skills/improve-comments/SKILL.md",
+      ".agents/skills/maintain/MARKS-FORMAT.md",
+      ".agents/skills/maintain/SKILL.md",
+      ".agents/skills/mechanism/MECHANISM-FORMAT.md",
+      ".agents/skills/mechanism/SKILL.md",
+      ".agents/skills/plan/SKILL.md",
+      ".agents/skills/questions/SKILL.md",
+      ".agents/skills/recall/SKILL.md",
+      ".agents/skills/reconcile/CONTRACT-SHAPE.md",
+      ".agents/skills/reconcile/SKILL.md",
+      ".agents/skills/review-architecture/REFERENCE.md",
+      ".agents/skills/review-architecture/SKILL.md",
+      ".agents/skills/review-assignments/SKILL.md",
+      ".agents/skills/setup-devops/SKILL.md",
+      ".agents/skills/skill-up/SKILL.md",
+      ".agents/skills/spec/SKILL.md",
+      ".agents/skills/tdd/SKILL.md",
+      ".agents/skills/tdd/deep-modules.md",
+      ".agents/skills/tdd/interface-design.md",
+      ".agents/skills/tdd/mocking.md",
+      ".agents/skills/tdd/refactoring.md",
+      ".agents/skills/tdd/tests.md",
+      ".agents/skills/ticket/QUEUE-ARRIVAL.md",
+      ".agents/skills/ticket/SKILL.md",
+      ".agents/skills/ticket/TICKET-FORMAT.md",
+      ".agents/skills/verify/SKILL.md",
+      "AGENTS.md",
+      "README.md",
+      "docs/agent-contract.md",
+      "docs/architecture.md",
+      "docs/boundaries.md",
+      "docs/contracts/public-lessons.md",
+      "docs/current-system.md",
+      "docs/horizon.md",
+      "docs/mechanisms/harness.evidence.md",
+      "docs/mechanisms/mechanism-shape.evidence.md",
+      "docs/mechanisms/reconcile.evidence.md",
+      "docs/mechanisms/review-assignments.evidence.md",
+      "docs/mechanisms/ticket.evidence.md",
+      "docs/migration-changes.md",
+      "docs/onboarding.md",
+      "docs/questions/done/q-0001-what-should-workshop-deliver-first.md",
+      "docs/questions/done/q-0002.0001-which-capabilities-should-be-shared-and-who-owns-their-boundaries.md",
+      "docs/questions/done/q-0002.0003-how-should-boundary-changes-and-consumer-migrations-be-coordinated.md",
+      "docs/questions/done/q-0002.0005.0001-how-should-workshop-review-and-acknowledge-assignments-at-startup.md",
+      "docs/questions/done/q-0002.0007.0001-can-daychi-users-set-reminders-without-signing-in.md",
+      "docs/questions/done/q-0002.0007.0002.0001-what-happens-to-unsynced-reminder-edits-when-a-user-signs-out-or-switches-accounts.md",
+      "docs/questions/done/q-0002.0007.0003-what-identity-should-a-one-off-reminder-follow-when-a-lesson-moves.md",
+      "docs/questions/done/q-0002.0007.0004-should-daychi-retain-the-school-html-schedule-source-after-switching-to-cabinet.md",
+      "docs/questions/done/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md",
+      "docs/questions/q-0002-what-is-the-architecture-of-workshop.md",
+      "docs/questions/q-0002.0002-how-should-workshop-maintain-and-verify-boundary-contracts.md",
+      "docs/questions/q-0002.0002.0001-how-should-reconciliation-surface-incomplete-project-logic-without-assuming-implementation-ownership.md",
+      "docs/questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md",
+      "docs/questions/q-0002.0002.0003-how-should-workshop-validate-issue-briefs-at-creation-and-after-edits.md",
+      "docs/questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md",
+      "docs/questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md",
+      "docs/questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md",
+      "docs/questions/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md",
+      "docs/questions/q-0002.0006-what-visibility-and-error-monitoring-obligations-should-workshop-enforce.md",
+      "docs/questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md",
+      "docs/questions/q-0002.0007.0002-how-should-daychi-reconcile-local-edits-with-cabinet-account-state.md",
+      "docs/questions/q-0002.0008-where-should-authentication-and-access-checks-live.md",
+      "docs/questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md",
+      "docs/questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md",
+      "docs/questions/q-0002.0009-should-cabinet-serve-daychi-content.md",
+      "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+      "docs/reconciliation-20261004.md",
+      "docs/rule-failures.md",
+      "docs/stage-1.md",
+      "local.rules.md",
+      "skills/collaborate/SKILL.md",
+      "skills/collaborate/workshop-issue-format.md"
+    ],
+    "candidates": [
+      {
+        "path": ".agents/README.md",
+        "line": 13,
+        "word": "until",
+        "text": "A fresh clone has no links until the harness's update runs in it."
+      },
+      {
+        "path": ".agents/glossary.md",
+        "line": 24,
+        "word": "placeholder",
+        "text": "_Avoid_: temporary statement, temporary, placeholder, stub, interim, hack."
+      },
+      {
+        "path": ".agents/glossary.md",
+        "line": 53,
+        "word": "until",
+        "text": "What a mechanism writes and keeps under a declared format, live until archived: a ticket, an RFC, a session record, the marks. An entry is one row of a record that holds many."
+      },
+      {
+        "path": ".agents/glossary.md",
+        "line": 147,
+        "word": "until",
+        "text": "A question whose home in the question store the agent cannot settle, put to the person until they say where it belongs. A question the agent can word and place is opened, not uncharted; work the agent knows how to do is a process, not a question."
+      },
+      {
+        "path": ".agents/glossary.md",
+        "line": 212,
+        "word": "until",
+        "text": "Resolving differences between independently evolved states against their origins and governing agreements, retaining unresolved differences until they have a disposition."
+      },
+      {
+        "path": ".agents/mechanisms/harness/harness.md",
+        "line": 21,
+        "word": "until",
+        "text": "as an edit in every recipient installed before it, until it updates. What the announced ref"
+      },
+      {
+        "path": ".agents/mechanisms/harness/harness.md",
+        "line": 128,
+        "word": "until",
+        "text": "the tree's by construction. Until then a copy is the only way core reaches a tree, and the copy"
+      },
+      {
+        "path": ".agents/mechanisms/harness/harness.md",
+        "line": 133,
+        "word": "by hand",
+        "text": "**The user, in a tree that took the harness by hand** at a version its entry file still announces"
+      },
+      {
+        "path": ".agents/mechanisms/maintain/maintain.md",
+        "line": 40,
+        "word": "by hand",
+        "text": "One rule sits in the body by hand inside a straw dog: a spec's agreements before archiving it,"
+      },
+      {
+        "path": ".agents/mechanisms/maintain/maintain.md",
+        "line": 66,
+        "word": "by hand",
+        "text": "| P4 | drafted into the process document 2026-09-05 as a spec rule; held here by hand for `/spec`, undeclared |"
+      },
+      {
+        "path": ".agents/mechanisms/maintain/maintain.md",
+        "line": 146,
+        "word": "by hand",
+        "text": "**One rule held by hand.** P4 is `/spec`'s, and `/spec` is undeclared, so the body carries it"
+      },
+      {
+        "path": ".agents/mechanisms/maintain/maintain.md",
+        "line": 154,
+        "word": "until",
+        "text": "leaving a pass no judgment to apply. Until then this is the judgment half and the scripts are its"
+      },
+      {
+        "path": ".agents/mechanisms/maintain/maintain.md",
+        "line": 165,
+        "word": "until",
+        "text": "hand-fixed until the check went quiet reads identically to success."
+      },
+      {
+        "path": ".agents/mechanisms/maintain/maintain.rules.md",
+        "line": 18,
+        "word": "by hand",
+        "text": "written into `/maintain` by hand."
+      },
+      {
+        "path": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+        "line": 109,
+        "word": "nothing runs",
+        "text": "- **`--index`'s render** — read on request by someone asking what is declared. **Nothing runs it"
+      },
+      {
+        "path": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+        "line": 138,
+        "word": "nothing runs",
+        "text": "**Nothing runs the check unasked.** It runs when a person types it, or when the project's"
+      },
+      {
+        "path": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+        "line": 159,
+        "word": "until",
+        "text": "a second home for what the code already says. Until then, declaration is the only way the claim"
+      },
+      {
+        "path": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+        "line": 169,
+        "word": "until",
+        "text": "A declaration hand-fixed until the check went quiet is this mechanism failing, and reads"
+      },
+      {
+        "path": ".agents/mechanisms/mechanism-shape/mechanism-shape.rules.md",
+        "line": 65,
+        "word": "by hand",
+        "text": "mechanism is undeclared, write the rule by hand and wrap it as a straw dog bound to the question"
+      },
+      {
+        "path": ".agents/mechanisms/questions/questions.md",
+        "line": 14,
+        "word": "until",
+        "text": "of*, a decomposition, and *depends on*, cannot be asked until — and a closure by recorded kind."
+      },
+      {
+        "path": ".agents/mechanisms/questions/questions.md",
+        "line": 78,
+        "word": "by hand",
+        "text": "| re-parenting, merging or pruning by hand | `.agents/skills/questions/SKILL.md` | |"
+      },
+      {
+        "path": ".agents/mechanisms/questions/questions.md",
+        "line": 82,
+        "word": "by hand",
+        "text": "| writing a question's argument, the body after its parts, by hand | `.agents/skills/questions/SKILL.md` | |"
+      },
+      {
+        "path": ".agents/mechanisms/questions/questions.md",
+        "line": 145,
+        "word": "by hand",
+        "text": "**The store's paths** are painted doors held by hand in the shape check."
+      },
+      {
+        "path": ".agents/mechanisms/questions/questions.rules.md",
+        "line": 37,
+        "word": "until",
+        "text": "in every reply until answered."
+      },
+      {
+        "path": ".agents/mechanisms/ticket/ticket.md",
+        "line": 22,
+        "word": "until",
+        "text": "**A ticket holds what is actual at its stage** *(the user, 2026-09-08)*. Until its plan exists it"
+      },
+      {
+        "path": ".agents/mechanisms/ticket/ticket.md",
+        "line": 30,
+        "word": "by hand",
+        "text": "The queue's table is still a copy of the ticket headers, amended by hand at every mint, flip and"
+      },
+      {
+        "path": ".agents/mechanisms/ticket/ticket.md",
+        "line": 111,
+        "word": "until",
+        "text": "until the queue is derived from the tickets."
+      },
+      {
+        "path": ".agents/mechanisms/ticket/ticket.md",
+        "line": 121,
+        "word": "by hand",
+        "text": "Nothing else; no index of its own. The register of tickets is the queue, which is still copied by hand rather than derived."
+      },
+      {
+        "path": ".agents/scripts/gw/harness.py",
+        "line": 547,
+        "word": "TODO",
+        "text": "# TODO: a failed rev-parse is"
+      },
+      {
+        "path": ".agents/scripts/gw/harness.py",
+        "line": 757,
+        "word": "TODO",
+        "text": "# TODO: this note assumes tracked"
+      },
+      {
+        "path": ".agents/scripts/gw/maintain.py",
+        "line": 38,
+        "word": "TODO",
+        "text": "# TODO: a third trigger — a mechanism's records changed"
+      },
+      {
+        "path": ".agents/scripts/gw/maintain.py",
+        "line": 223,
+        "word": "TODO",
+        "text": "# TODO: recipient-own-mechanisms, unminted,"
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 55,
+        "word": "TODO",
+        "text": "# TODO: the ticket mechanism's records and the shape's evidence are declared in"
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 60,
+        "word": "TODO",
+        "text": "# TODO: the question store's entries and sessions file are declared in the"
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 66,
+        "word": "TODO",
+        "text": "# TODO: the maintain mechanism's marks, declared in its skill's prose until each"
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 69,
+        "word": "TODO",
+        "text": "# TODO: the glossary's, which goes with the glossary mechanism's declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 71,
+        "word": "TODO",
+        "text": "# TODO: the practice's, which go with its declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 74,
+        "word": "TODO",
+        "text": "# TODO: /plan's, which go with its declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 77,
+        "word": "TODO",
+        "text": "# TODO: /spec's, which goes with its declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 79,
+        "word": "TODO",
+        "text": "# TODO: /conclude's, which goes with its declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 81,
+        "word": "TODO",
+        "text": "# TODO: /dream's, which goes with its declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 83,
+        "word": "TODO",
+        "text": "# TODO: /setup-devops's, which goes with its declaration."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 85,
+        "word": "TODO",
+        "text": "# TODO: /edge's record."
+      },
+      {
+        "path": ".agents/scripts/gw/mechanisms.py",
+        "line": 87,
+        "word": "TODO",
+        "text": "# TODO: the register."
+      },
+      {
+        "path": ".agents/scripts/gw/questions.py",
+        "line": 669,
+        "word": "TODO",
+        "text": "# TODO: one sessions file in the working tree"
+      },
+      {
+        "path": ".agents/skills/align/SKILL.md",
+        "line": 14,
+        "word": "until",
+        "text": "Interview me relentlessly about every aspect of current work until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer. If there are alternatives, show pros/cons/tradeoffs between them."
+      },
+      {
+        "path": ".agents/skills/discover/EVIDENCE.md",
+        "line": 91,
+        "word": "until",
+        "text": "- **\"Pass 2 never reads the repository.\"** Lived until 2026-09-26. The first pass asked what"
+      },
+      {
+        "path": ".agents/skills/impact/SKILL.md",
+        "line": 14,
+        "word": "until",
+        "text": "Do not just search mentions. Follow semantic dependencies until the picture"
+      },
+      {
+        "path": ".agents/skills/implement/SKILL.md",
+        "line": 44,
+        "word": "until",
+        "text": "Read `commit` from `AGENTS.md`. Do not commit until that switch allows it."
+      },
+      {
+        "path": ".agents/skills/maintain/MARKS-FORMAT.md",
+        "line": 15,
+        "word": "until",
+        "text": "- Read by `--check` at every pass; a malformed row fails the check and refuses every mark until it"
+      },
+      {
+        "path": ".agents/skills/maintain/SKILL.md",
+        "line": 72,
+        "word": "by hand",
+        "text": "One rule of `/spec`'s, held here by hand until that mechanism is declared and installs it:"
+      },
+      {
+        "path": ".agents/skills/mechanism/MECHANISM-FORMAT.md",
+        "line": 22,
+        "word": "nothing reads",
+        "text": "put here was put here to be read, and nothing reads it, so the check reports it."
+      },
+      {
+        "path": ".agents/skills/mechanism/MECHANISM-FORMAT.md",
+        "line": 91,
+        "word": "until",
+        "text": "leaves the target byte-identical; a differing block refuses until the caller says overwrite,"
+      },
+      {
+        "path": ".agents/skills/mechanism/MECHANISM-FORMAT.md",
+        "line": 217,
+        "word": "until",
+        "text": "`record-bearing` to be a declared field, which it is not. Until then the two sentences above are a"
+      },
+      {
+        "path": ".agents/skills/plan/SKILL.md",
+        "line": 114,
+        "word": "until",
+        "text": "- Repeat validation using this skill until no load-bearing ambiguity,"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 3,
+        "word": "by hand",
+        "text": "description: See where the work stands among the open questions, or re-parent, merge or prune questions by hand. Read mid-turn for the store's other calls, and before closing, branching or dropping a question."
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 34,
+        "word": "until",
+        "text": "| `depend q-A --on q-B` · `undepend q-A --on q-B` | q-A cannot be asked until q-B is answered, or no longer waits; a cycle is refused |"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 53,
+        "word": "until",
+        "text": "landed in live tickets, where a decision sits until it reaches its home. Found, point to it and"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 85,
+        "word": "until",
+        "text": "one you would choose. The row repeats in every reply until the user answers; then open it where"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 103,
+        "word": "until",
+        "text": "question with an open, deferred or suspect child stays live until that child closes. Closing"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 113,
+        "word": "until",
+        "text": "No answer lands on the parent until its children close or are deferred with a default. How a kind"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 149,
+        "word": "by hand",
+        "text": "evidence, what was refuted — written by hand with the edit tools, never by the script, which keeps"
+      },
+      {
+        "path": ".agents/skills/questions/SKILL.md",
+        "line": 153,
+        "word": "by hand",
+        "text": "`<n>, last <YYYY-MM-DDTHH:MMZ>`, in UTC, written by the script alone, never by hand. The state is"
+      },
+      {
+        "path": ".agents/skills/recall/SKILL.md",
+        "line": 13,
+        "word": "until",
+        "text": "- Read the architecture and the open questions for the decisions and items that bear on it; look up a question's resolution or state wherever it lives — most pending items are at least referenced in existing documentation. Be thorough about the item in flight: follow its references until they converge, rather than reading each doc in isolation."
+      },
+      {
+        "path": ".agents/skills/ticket/SKILL.md",
+        "line": 71,
+        "word": "until",
+        "text": "run `/impact` again until the split is what you will present."
+      },
+      {
+        "path": ".agents/skills/ticket/SKILL.md",
+        "line": 96,
+        "word": "until",
+        "text": "do not mint until the user approves this presentation. That approval is what"
+      },
+      {
+        "path": ".agents/skills/ticket/SKILL.md",
+        "line": 102,
+        "word": "until",
+        "text": "Iterate until the user approves the breakdown (or `auto` applies)."
+      },
+      {
+        "path": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 73,
+        "word": "until",
+        "text": "- **A record** is one ticket file under `docs/tickets/`, live until paired"
+      },
+      {
+        "path": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 162,
+        "word": "until",
+        "text": "- Every ticket includes a `/verify` criterion. A ticket is not Done until"
+      },
+      {
+        "path": ".agents/skills/verify/SKILL.md",
+        "line": 92,
+        "word": "until",
+        "text": "recommended resolution and the decision needed. Do not amend until that"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 216,
+        "word": "until",
+        "text": "whose answer will rewrite it, or in code a `TODO` naming `q-N` first. Treat *not yet*, *until*,"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 217,
+        "word": "for now",
+        "text": "*once it exists*, *for now*, *untested* in your own text as the same signal: find the question, or"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 222,
+        "word": "until",
+        "text": "Follow a straw dog like any other rule until it is due, as the listing and the wake report; then"
+      },
+      {
+        "path": "docs/architecture.md",
+        "line": 80,
+        "word": "until",
+        "text": "- [Gateway](boundaries.md#accepted-gateway-deferral): deferred by the user, 2026-10-05, until project contributions demonstrate a requirement that the accepted direct connections cannot satisfy. Native sign-in remains provisional."
+      },
+      {
+        "path": "docs/boundaries.md",
+        "line": 246,
+        "word": "until",
+        "text": "cannot change a local reminder until the client receives the update. The existing"
+      },
+      {
+        "path": "docs/boundaries.md",
+        "line": 326,
+        "word": "until",
+        "text": "Decision: the user, 2026-10-05. A shared gateway is deferred until project"
+      },
+      {
+        "path": "docs/mechanisms/reconcile.evidence.md",
+        "line": 161,
+        "word": "placeholder",
+        "text": "targets inspected, 134 resolve and one is the documented installation placeholder"
+      },
+      {
+        "path": "docs/questions/done/q-0002.0005.0001-how-should-workshop-review-and-acknowledge-assignments-at-startup.md",
+        "line": 23,
+        "word": "no dedicated assignment-review skill exists",
+        "text": "invokes the question-store hook; no dedicated assignment-review skill exists."
+      },
+      {
+        "path": "docs/questions/done/q-0002.0005.0001-how-should-workshop-review-and-acknowledge-assignments-at-startup.md",
+        "line": 85,
+        "word": "no additional acknowledgement ledger exists",
+        "text": "followed by already-authorized work. No additional acknowledgement ledger exists."
+      },
+      {
+        "path": "docs/questions/q-0002.0002.0001-how-should-reconciliation-surface-incomplete-project-logic-without-assuming-implementation-ownership.md",
+        "line": 75,
+        "word": "by hand",
+        "text": "instruction is authored in a scope contract or copied by hand into a skill."
+      },
+      {
+        "path": "docs/questions/q-0002.0009-should-cabinet-serve-daychi-content.md",
+        "line": 6,
+        "word": "until",
+        "text": "- **answer** until the user authorizes a separate backend-consolidation initiative, meanwhile Daychi retains its content backend; postponement agreed by the user, 2026-10-04"
+      },
+      {
+        "path": "docs/questions/q-0002.0009-should-cabinet-serve-daychi-content.md",
+        "line": 7,
+        "word": "until",
+        "text": "- **lean** Impact: consolidation is a substantial load-bearing change, not a base-URL swap. Content scope includes 4 protected and 4 conditional public read routes, 2 admin import/status routes, two reading clients, stable IDs and versioned source-bound imports. Authentication unification is an existing dependency, not all incremental content work. Recommendation: narrow to staged content convergence, preserve old client contracts and rollback; defer full Daychi service retirement until every remaining responsibility is accounted for. Consolidation is not accepted."
+      },
+      {
+        "path": "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+        "line": 5,
+        "word": "until",
+        "text": "- **answer** until project contributions demonstrate a concrete client or deployment requirement that accepted direct connections cannot satisfy, meanwhile use the accepted direct connections and retain provisional native acquisition; [gateway deferral](../boundaries.md#accepted-gateway-deferral) — the user, 2026-10-05"
+      },
+      {
+        "path": "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+        "line": 6,
+        "word": "until",
+        "text": "- **lean** Deferred by the user, 2026-10-05, until project contributions demonstrate a client or deployment requirement that accepted direct connections cannot satisfy. Cabinet authority remains fixed; native acquisition stays provisional and its gateway-bound straw dog is not due. Authentication standardization can proceed without a gateway initiative."
+      },
+      {
+        "path": "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+        "line": 39,
+        "word": "until",
+        "text": "Accepted by the user, 2026-10-05: keep a shared gateway deferred until the project"
+      },
+      {
+        "path": "docs/reconciliation-20261004.md",
+        "line": 329,
+        "word": "until",
+        "text": "connection ticket stays incomplete until actual integration and record"
+      },
+      {
+        "path": "docs/reconciliation-20261004.md",
+        "line": 746,
+        "word": "until",
+        "text": "| Workshop ↔ project agent instructions | Workshop / Cabinet and Daychi agents under separate operators | Published skill, labelled discovery, complete summary and demonstrated invocation/reporting. | Workshop `ba5e35f`; issue bodies/comments read back; local Cabinet `CLAUDE.md`, Daychi root and app instructions inspected. No confirmed installed /collaborate baseline found. | Source is published and public, contrary to the readiness record. No project report demonstrates installation, access or invocation. Missing baseline is onboarding uncertainty, not an instruction regression. | Correct publication facts and reuse issues 1 and 2. Keep Planned until Workshop readiness is confirmed; request installation/access evidence in the original issues. |"
+      },
+      {
+        "path": "skills/collaborate/SKILL.md",
+        "line": 26,
+        "word": "placeholder",
+        "text": "placeholder in this file with the label from the issue."
+      }
+    ]
+  },
+  "issueReadback": [
+    {
+      "n": 2,
+      "state": "open",
+      "bodyMatches": true
+    },
+    {
+      "n": 5,
+      "state": "open",
+      "bodyMatches": true
+    }
+  ]
+}

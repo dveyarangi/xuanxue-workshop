@@ -1,5 +1,119 @@
 # Rule failures
 
+## 2026-10-06 — Direct reconciliation lost its review entry
+
+Status: repaired and independently graded.
+
+The accepted [exchange contract](agent-contract.md#exchange-through-github-issues)
+requires relevant issue review when reconciliation begins or resumes. The loop
+extraction preserved review on coordinator entry but omitted its direct-reconcile
+binding. Structural checks passed because they checked declared targets, not
+whether an accepted invocation occasion had been omitted.
+
+Amendment: existing review rule RA2 now says "At coordination or reconciliation
+entry or resumption" and is installed in both skills. Its active/current-review
+exception prevents repeated work. RA1 now checks direct entry explicitly.
+[Maintenance evidence](mechanisms/coordinate.evidence.md#maintenance--2026-10-06)
+records the direct, reused and changed-evidence cases and their independent grade.
+
+## 2026-10-06 — Investigation history published in a live assignment
+
+Status: closed; issue and records repaired, and creation/edit-time coverage landed
+in the [issue skill](../.agents/skills/issue/SKILL.md#validate-and-maintain), 2026-10-06.
+
+Struck again, 2026-10-06, in the onboarding contract: the assistant appended
+Cabinet installation reports, acceptance and closure history to a document that
+owns general access and source requirements. The case-specific disposition and
+evidence belong to the reconciliation report. Removed the story from onboarding,
+preserved the accepted case disposition in that report and retargeted its incoming
+links. This repeats the purpose/home failure below; it does not extend the open
+issue-brief validation question into a new onboarding mechanism.
+
+Struck again in the wider 2026-10-06 maintenance scope: the general agent
+contract retained installation chronology, and migration-changes retained the
+withdrawn investigation proposal and its correction story. Replaced them with
+pointers to dated evidence and preserved the moved facts in the reconciliation
+report. The existing editorial-gate question remains the amendment's home.
+
+The subsequent mechanism audit found that the earlier redundant-rule diagnosis
+was too broad. The local ticket's actual-content and consistency rules depend on
+stage/alignment; the external issue format and routine edit path have no explicit
+final editorial gate. Improvement is held by
+[q-0002.0002.0003 — How should Workshop validate issue briefs at creation and after edits?](questions/done/q-0002.0002.0003-how-should-workshop-validate-issue-briefs-at-creation-and-after-edits.md).
+The historical diagnosis and proposed amendment below record what was said before
+that audit; no new rule is installed by this correction.
+
+Rules in play: [/maintain A1 and E1](../.agents/skills/maintain/SKILL.md) require
+coherent records and one home per fact. [Publication preparation, now owned by /issue](../.agents/skills/issue/SKILL.md#derive-and-draft)
+requires a current comparison and remaining recipient action; the pass report
+owns stage and resumption history. The assistant updated Daychi issue 6 with a
+misspelled-host/DNS anecdote, conversational decision attribution and commentary
+about correcting its previous request. The factual update was checked, but the
+issue was not reviewed as a standalone current work brief.
+
+Proposed amendment: "Maintain an issued brief around its current outcome,
+contract, prerequisites and evidence; keep investigation and revision history
+in the owning pass report." An additional rule is declined because this repeats
+the existing record-purpose and publication requirements and the user's explicit
+correction. Execution repair: rewrite the live environment/test section, preserve
+all contract and acceptance obligations, clean the coordinating ticket and related
+records, and read back the issue. The correction history remains in the
+[pass report](reconciliation-20261004.md#environment-and-fixture-follow-up--2026-10-06).
+
+## 2026-10-06 — Empty comments mistaken for absence of a report
+
+Status: amendment landed locally; binding, mechanism and harness checks pass.
+
+Rules in play: [review discovery](../.agents/skills/review-assignments/SKILL.md#discover-pending-work)
+required discussion and closure context, and [L14](../local.rules.md#l14--issue-review-action-and-return-to-work)
+required reviewing project reports. The review read direct comments, found none,
+and asked the user for a comment URL. Cabinet's installation report was already
+linked from issue 1's timeline to PR 561. The discovery wording also excluded
+pull requests without distinguishing assignment selection from report evidence.
+
+Amendment shown before writing: read the full paginated timeline and follow
+relevant PR, commit and issue references to their reports, artifacts and checks.
+Empty comments do not prove no report; a mention does not prove completion;
+inaccessible references remain explicit uncertainty. L14 owns this shared rule
+and installs it into review and reconciliation. Primary assignment discovery
+excludes PRs while report inspection includes referenced PRs.
+
+The [real-corpus replay](mechanisms/review-assignments.evidence.md#timeline-discovery-and-cabinet-replay--2026-10-06)
+found reports for both Cabinet assignments and detected changed PR/CI evidence
+on reread. Structural checks verify installation, not semantic review quality.
+
+## 2026-10-05 — Assignment status obscured execution dependencies
+
+Status: amendment landed locally; harness, declaration and binding checks pass.
+
+Struck again, 2026-10-06: the review treated coordinator readiness and record
+publication as extra acceptance criteria for Cabinet's verified installation.
+Readiness was an execution prerequisite; the installed review rule already
+permits acknowledgement confirming that no shared boundary changed. The review
+added an unnecessary hold instead of applying those distinctions. Correction:
+accept/close the complete installation, return its prerequisite effect to issue 5,
+and retain coordinator readiness and provider conformance in their own scopes.
+The landed dependency and acknowledgement wording below covers this failure;
+no additional approval rule or mechanism amendment is needed.
+
+Rules in play: the [issue format](../skills/collaborate/workshop-issue-format.md)
+required linked dependencies, and [collaboration discovery](../skills/collaborate/SKILL.md#check-addressed-work)
+required reading them. The drafts nevertheless repeated readiness as a separate
+application gate, used Planned without a satisfaction condition, and left the
+Cabinet prerequisite insufficiently linked in Daychi's assignment. The user
+asked who would remember to set work Ready. Draft repairs alone left future issue
+creation and dependency-change handling ambiguous.
+
+Amendment shown before writing: link direct prerequisites, distinguish starting,
+integration and completion, identify satisfaction evidence and acceptance owner,
+and derive eligibility without an extra Ready approval. The format owns these
+conditions. Collaboration discovery points there; local review rule L14 requires
+reassessment of affected assignments when prerequisite evidence changes.
+
+The installation-before-development and provider-before-native-proof cases have
+different blocked stages and share the need for explicit dependency conditions.
+No new issue state, acknowledgement ledger or background monitor was introduced.
+
 ## 2026-10-05 — Implementation briefs deferred the shared contract definition
 
 Status: amendment landed locally and bindings verified; the pilot contract itself
@@ -33,7 +147,7 @@ and reviews the issue set together. Its contract-shape reference covers the
 applicable dimensions without adding unagreed guarantees. The shared issue format
 requires the common reference and conformance outcomes. Both pilot drafts are
 marked incomplete and not issuable; their missing values belong to
-[q-0002.0007.0005 — What is the exact public-schedule contract for the Cabinet–Daychi pilot?](questions/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md).
+[q-0002.0007.0005 — What is the exact public-schedule contract for the Cabinet–Daychi pilot?](questions/done/q-0002.0007.0005-what-is-the-exact-public-schedule-contract-for-the-cabinet-daychi-pilot.md).
 
 Verification: the pre-install rule check rejected both outdated blocks; after
 regeneration the injector, mechanism and full harness checks pass. Nine isolated
@@ -43,6 +157,19 @@ restoration. These check installation, not automatic semantic completeness.
 holds the output-grading cases and limits. No commit, push or sibling edit occurred.
 
 ## 2026-10-05 — Completed reconciliation reissued as project investigation
+
+Struck again, 2026-10-06: the proposed Cabinet follow-up asked for provider setup
+and fixture instructions before reading the existing runbook, deployment probes
+and lesson-management controls. The user supplied host addresses and required
+Workshop to derive what its own source inspection could establish. The explicit
+[Collection rule, now owned by /analyse](../.agents/skills/analyse/SKILL.md#analyse-a-projects-relevant-behavior)
+already makes collection the working agent's responsibility and limits evidence
+requests to specific gaps it cannot establish. The earlier proposed amendment
+below already covers this repeat; no additional rule is needed. Execution
+correction: inspect and record the live staging provider and existing controls,
+update the Daychi assignment, and retain only operator-specific coordination and
+unperformed native-test evidence as unknowns. These checks do not settle the
+separate required-data validation finding.
 
 Status: document/instruction separation and staged reconciliation amendment
 landed locally after the user's clarification. At the user's request on 2026-10-05,
@@ -252,6 +379,38 @@ application contract changes in this correction.
 
 Status: local clarification installed in /align; accepted application decisions unchanged.
 
+Struck again, 2026-10-05: while resuming reconciliation, the assistant treated
+retirement of incomplete implementation drafts as revocation of the agreed public
+schedule connection and asked the user to select it again. The user corrected
+that inference. L10 and the entry prohibition on reopening accepted decisions
+were already operative; there was no new evidence against the scope. The records
+now distinguish retained scope from retired drafts, and work continues on the
+unresolved shared contract. The installed amendment below remains applicable;
+no duplicate rule is added.
+
+Struck again, 2026-10-05: after recording the complete-window read and refresh
+scope, the assistant presented ordinary successful reload as a fresh decision.
+The user pointed out it was already decided. This follows from the accepted
+current-schedule result and reschedule/cancellation behavior; no new contrary
+evidence was found. L10 and the existing prohibition on reopening decisions
+already cover the case. Proposed wording, "Do not ask approval for consequences
+entailed by accepted behavior," is refused as redundant with those instructions.
+Execution correction: remove successful refresh from the unresolved list, record
+its derivation against the accepted scope, and continue shared conformance work.
+
+Struck again, 2026-10-05: the assistant turned consolidation of the accepted
+contract and source-derived details into a blanket reapproval checkpoint. The
+user requested another planning pass instead. The pass also found draft wording
+requiring Workshop alignment for every shared version change, contradicting the
+accepted compatible-coexistence autonomy in the agent contract. No published
+agreement or application code was changed. The consolidation was corrected,
+its evolution clause restored to the existing agreement, and participant/result
+review paths checked. Proposed amendment, "Consolidation does not reopen its
+accepted inputs or add authority," is refused as redundant with L10 and the
+scope/evolution constraints already read. Execution correction: land the fixed
+definition, remove the false reapproval gate and present only the actual local
+breakdown/publication checkpoints.
+
 Rules in play: [AGENTS.md](../AGENTS.md) says not to reopen an accepted decision
 without new evidence. [/align, Check whether it was already decided](../.agents/skills/align/SKILL.md)
 requires finding and citing existing decisions before treating a question as open.
@@ -280,6 +439,21 @@ unresolved behavior; installation checks do not prove that future behavior.
 ## 2026-10-04 — Alignment stopped after answering a clarification
 
 Status: amendment refused as redundant; execution corrected by resuming alignment.
+
+Struck again, 2026-10-06: after the user requested conclusion and commit, the
+assistant stopped for another confirmation of the connected Workshop bundle.
+The user reiterated the commit instruction. Existing explicit authorization takes
+precedence over a skill's default clarification guidance; no additional approval
+rule is needed. Execution correction: commit the prepared work and its dependencies.
+
+Struck again, 2026-10-05: the assistant ended several replies after recording a
+decision or installing the reconciliation feedback step, without continuing the
+already-authorized readiness work or reaching a genuine human checkpoint. The
+user asked why replies stopped after three sentences. The same rejected amendment
+below applies; no second entry or duplicate rule was added. Execution correction:
+continue the current readiness ticket through planning, implementation and checks,
+with short progress updates between actions. This does not grant commit, push,
+repair or next-cycle permission.
 
 Rule in play: [align, What to do](../.agents/skills/align/SKILL.md) requires walking
 the decision tree one question at a time. The user repeatedly asked the assistant

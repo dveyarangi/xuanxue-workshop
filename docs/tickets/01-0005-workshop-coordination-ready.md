@@ -1,8 +1,10 @@
 # Workshop coordination ready
 
-- **Status:** Ready
+- **Status:** In progress
 - **Type:** HITL
+- **Plan:** [Workshop coordination ready RFC](../rfc/01-0005-workshop-coordination-ready.md) — one review skill after recall, sharing the installed feedback rule with reconciliation
 - **Responsible contributor:** Workshop agent under its operator
+- **Answers:** [q-0002.0005.0002](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
 - **Outcome:** Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement.
 
 ## Parent
@@ -15,7 +17,9 @@ Cabinet and Daychi installations are separate issues in the Workshop GitHub trac
 This work supplies readiness for
 [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
 and [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).
-Both are created as Planned, awaiting this prerequisite; they are not local ticket copies.
+Daychi's installation retains its readiness dependency. Cabinet's completed
+installation is [accepted](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155);
+this coordinator outcome remains incomplete. They are not local ticket copies.
 
 The [recorded impact](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#impact)
 traces the startup, publication, issue-review and independent-operator dependencies.
@@ -25,7 +29,6 @@ traces the startup, publication, issue-review and independent-operator dependenc
 Deliver the dedicated Workshop startup-review skill and its durable invocation
 wiring, retaining the existing recall obligation. The skill applies the Workshop
 section of the canonical agent contract rather than carrying another authored copy.
-Follow the mechanism and skill authoring rules for its implementation.
 
 Make the published repository entry sufficient for an arriving project agent to
 find its installation issue and load the /collaborate skill it references.
@@ -44,19 +47,15 @@ records, acknowledge the result and close completed assignments. Verification
 must reject unsupported completion claims and must not infer deployment from
 GitHub issue state. Repeated startup review must not repeat completed responses.
 
+The [exchange contract](../agent-contract.md#exchange-through-github-issues) also
+owns review history, the startup/reconciliation connection and the accepted
+evidence standard. The outcome fulfils that contract through the installed review
+instruction and its shared bindings.
+
 Publish the README, canonical contract and the Workshop readiness evidence before
 releasing the two project installation assignments for execution. Obtain the
 existing per-change commit and push approvals at the publication step. Workshop
 does not perform the sibling installations itself.
-
-## Open issues
-
-- Establish the startup invocation in the actual Workshop host and verify it;
-  the existence of a skill file alone does not show that a session reads it.
-- Establish a durable acknowledgement reference so repeat reviews can distinguish
-  an already-accepted result from a later substantive report on the same issue.
-- Publication and each recipient's access to the private repository must be
-  demonstrated before their installation can proceed.
 
 ## Acceptance criteria
 
@@ -67,10 +66,12 @@ does not perform the sibling installations itself.
 - [ ] Each installation assignment supplies its project-specific boundary summary
   and requires installation, local-code reconciliation and verification of the
   instruction entry point under the agent contract.
-- [ ] A dedicated skill is invoked at Workshop session startup, preserving recall,
+- [x] A dedicated skill is invoked at Workshop session startup, preserving recall,
   and uses the canonical Workshop rules without duplicating their authority.
 - [ ] Review finds relevant issued work and replies, including completion reports
   on closed issues; repeating a review does not duplicate completed responses.
+- [ ] Beginning or resuming reconciliation incorporates relevant issue discussions
+  and returned project evidence before deriving remaining changes or assignments.
 - [ ] Representative issue evidence demonstrates the obstacle, incomplete-result,
   verified-result and already-closed-result paths against the accepted contract.
 - [ ] Verified results lead to the necessary record updates, acknowledgement and
