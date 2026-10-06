@@ -2,40 +2,21 @@
 
 | target | anchor |
 |---|---|
-| `.agents/skills/reconcile/SKILL.md` | `## Project context` |
-| `.agents/skills/align/SKILL.md` | `</supporting-info>` |
+| `.agents/skills/coordinate/SKILL.md` | `## Project context` |
+| `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
+| `.agents/skills/issue/SKILL.md` | `## Project context` |
 
-<straw-dog question="q-0002.0002.0001">
-## RC1 — boundary guarantees and project design
+## RC3 — compare and resolve shared differences
 
-- **target** `.agents/skills/reconcile/SKILL.md`
-- **target** `.agents/skills/align/SKILL.md`
-- **authority** the user, 2026-10-04, boundary rule ownership and instruction placement
-
-<rule>
-State shared boundary guarantees and observable acceptance outcomes. Leave
-executable interfaces and internal mechanisms to the owning projects. Inspect
-implementation details to verify the guarantees; bring them to alignment when
-they reveal an unresolved cross-project obligation or require changing accepted
-ownership, behavior, compatibility or scope.
-</rule>
-</straw-dog>
-
-## RC2 — one prescribed shared contract in implementation assignments
-
-- **target** `.agents/skills/reconcile/SKILL.md`
-- **target** `.agents/skills/align/SKILL.md`
-- **authority** the user, 2026-10-05, contract-shape agreement as the primary issue-output invariant
+- **target** `.agents/skills/coordinate/SKILL.md`
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **target** `.agents/skills/issue/SKILL.md`
+- **authority** the user, 2026-10-06, approved coordination loop
 
 <rule>
-Implementation assignments sharing a boundary must prescribe the same fully
-specified contract through one accessible immutable reference. Resolve every
-applicable contract-shape dimension in .agents/skills/reconcile/CONTRACT-SHAPE.md
-before issuing implementation work; leave no recipient choice that can change
-interoperability or a shared data guarantee. Project ownership preserves the
-authored home of executable definitions and internal implementation freedom,
-not independently chosen boundary shapes. An incomplete shared contract blocks
-implementation-issue publication, including Planned issues. Evidence or design
-requests may gather missing input but cannot stand in for compatible implementation
-assignments. Verify the issued result against this invariant.
+For a suspected difference between project behavior, requirements or participant
+interpretations, use /reconcile at .agents/skills/reconcile/SKILL.md. Supply scoped
+evidence and the governing agreement; incorporate its disposition into the same
+pass. An unresolved shared decision goes to /align, not into implementation
+instructions as a choice for each recipient.
 </rule>

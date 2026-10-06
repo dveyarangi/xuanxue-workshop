@@ -42,8 +42,10 @@ project's own tracker and rules.
    > before work affecting any boundary described above, and whenever coordinating
    > across projects or communicating with Workshop.
 
-5. Record the source revision and remove this Installation section from the
-   installed copy. Preserve the distributable source in Workshop.
+5. Add `Source revision: <full source commit>` immediately below the Project label
+   line in the installed skill, using the commit supplied by the installation issue
+   for both files. Remove this Installation section from the installed copy.
+   Preserve the distributable source in Workshop.
 6. Verify in a fresh session that the agent invokes the skill, accesses Workshop,
    finds its addressed issues, and recognises boundary-related work from its
    project instructions. Verify the installed format link resolves. Report in
@@ -55,6 +57,7 @@ In [Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues), fin
 issues carrying your project label. Read relevant assignments, discussions and
 dependencies, including follow-up on reported results. Follow your project's
 operator instructions when choosing and executing work.
+Determine eligible work using the [issue format's dependency conditions](workshop-issue-format.md#dependencies).
 
 When an assignment supplies `BOUNDARY_SUMMARY`, use its marked content to update
 the summary in the collaboration block of `AGENTS.md` or `CLAUDE.md`, checking it

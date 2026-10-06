@@ -154,23 +154,30 @@ If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](
 
 </supporting-info>
 
-<installed by="reconcile">
-**RC1** State shared boundary guarantees and observable acceptance outcomes. Leave
-executable interfaces and internal mechanisms to the owning projects. Inspect
-implementation details to verify the guarantees; bring them to alignment when
-they reveal an unresolved cross-project obligation or require changing accepted
-ownership, behavior, compatibility or scope.
+<installed by="coordinate">
+**RC1** For cross-project work, state shared boundary guarantees and observable acceptance
+outcomes. Projects own executable definitions and internal mechanisms; the shared
+contract fixes their externally observable shape. Inspect implementation details to verify guarantees; bring them to
+alignment when they reveal an unresolved shared obligation or require changing
+accepted ownership, behavior, compatibility or scope.
 
-**RC2** Implementation assignments sharing a boundary must prescribe the same fully
-specified contract through one accessible immutable reference. Resolve every
-applicable contract-shape dimension in .agents/skills/reconcile/CONTRACT-SHAPE.md
-before issuing implementation work; leave no recipient choice that can change
-interoperability or a shared data guarantee. Project ownership preserves the
-authored home of executable definitions and internal implementation freedom,
-not independently chosen boundary shapes. An incomplete shared contract blocks
-implementation-issue publication, including Planned issues. Evidence or design
-requests may gather missing input but cannot stand in for compatible implementation
-assignments. Verify the issued result against this invariant.
+**RC2** Cross-project implementation assignments prescribe one fully specified contract
+through an accessible immutable authority and common conformance cases. Apply
+.agents/skills/coordinate/CONTRACT-SHAPE.md to every applicable dimension, with a
+reason for inapplicability. Leave no recipient choice that can change shared
+formats, parameters, meanings, guarantees or interoperability. Internal designs
+may differ. Each recipient's brief and cited authority must suffice without
+Workshop session context; compatible implementations must follow from the briefs.
+An incomplete shared shape blocks implementation publication, including Planned
+issues. Design/evidence requests cannot substitute for this gate.
+
+**CQ1** For cross-project work, apply .agents/skills/coordinate/VALIDATION.md during
+inception and validation. Establish clarity for the next reader, consistency
+with governing agreements and related work, and completeness of scoped obligations.
+Derive recipient tasks from the same contract and ownership; assess individual
+understanding and set-wide coverage. Revalidate affected meanings after edits.
+Reduce process steps, never context required for compatible implementations.
+Reuse valid evidence; stage changes add no approval.
 </installed>
 
 <installed by="local">

@@ -3,9 +3,13 @@
 | target | anchor |
 |---|---|
 | `AGENTS.md` | `## Project-local` |
+| `.agents/skills/coordinate/SKILL.md` | `## Project context` |
+| `.agents/skills/analyse/SKILL.md` | `## Project context` |
+| `.agents/skills/issue/SKILL.md` | `## Project context` |
 | `.agents/skills/verify/SKILL.md` | `## The verification set` |
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/reconcile/SKILL.md` | `## Project context` |
+| `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 
@@ -101,20 +105,24 @@ When changing records, run the owning mechanism's validator for those records.
 - **authority** the user, 2026-10-04, reconciliation and cleanup agreement
 
 <rule>
-For maintenance of Workshop's project or boundary records, invoke the /reconcile
-skill at .agents/skills/reconcile/SKILL.md before the final report. Include its
-boundary comparisons, record changes, issue links and unresolved evidence in
-that report. Check its declaration and installed bindings with the existing
-mechanisms.py --check and inject_rules.py --check commands.
+For maintenance of Workshop's project or boundary records, enter /coordinate at
+.agents/skills/coordinate/SKILL.md with the affected scope and existing evidence.
+Reuse the current pass and issue review. Include changed facts, dispositions and
+remaining work in the existing report. Check declarations and installed bindings
+with mechanisms.py --check and inject_rules.py --check.
 </rule>
 
 ## L9 — reconciliation sources
 
 - **target** `.agents/skills/reconcile/SKILL.md`
+- **target** `.agents/skills/coordinate/SKILL.md`
+- **target** `.agents/skills/analyse/SKILL.md`
+- **target** `.agents/skills/issue/SKILL.md`
+- **target** `.agents/skills/review-assignments/SKILL.md`
 - **authority** the user, 2026-10-04, references instead of repeated project facts
 
 <rule>
-Read these repository-relative sources:
+Use the sources relevant to the current scope:
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.
 - Accepted targets and consumers: docs/boundaries.md.
@@ -140,6 +148,9 @@ consequence. An open migration detail does not reopen its governing decision.
 
 - **target** `.agents/skills/align/SKILL.md`
 - **target** `.agents/skills/reconcile/SKILL.md`
+- **target** `.agents/skills/coordinate/SKILL.md`
+- **target** `.agents/skills/analyse/SKILL.md`
+- **target** `.agents/skills/issue/SKILL.md`
 - **authority** the user, 2026-10-04, boundary obligations versus project-owned UX
 
 <rule>
@@ -162,11 +173,12 @@ the result; they do not prescribe the agent's workflow or authorize action.
 
 ## L13 — reconciliation assignments use the approved breakdown
 
+- **target** `.agents/skills/coordinate/SKILL.md`
 - **target** `.agents/skills/reconcile/SKILL.md`
 - **authority** the user, 2026-10-05, local reconciliation outcomes and published project issues; preserved from local ticket/P12 during the harness update
 
 <rule>
-Use /ticket and its /impact pass to shape remaining reconciliation work into
+Use /ticket and its /impact pass to shape remaining cross-project work into
 local tickets for the coordinating project's outcomes. Obtain breakdown approval
 before minting. Slice by outcome, not automatically by finding or recipient.
 Published project issues may be ticket outputs; their publication does not
@@ -174,4 +186,73 @@ establish that the recipient's work is complete. Verify the ticket's own outcome
 a published handoff and a working integration have different completion criteria.
 Continue existing assignments covering the same action. Routine factual corrections
 and follow-up within an existing assignment need no additional local ticket.
+</rule>
+
+## L14 — issue review, action and return to work
+
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports
+
+<rule>
+Review relevant assignments and discussions in Workshop GitHub Issues, including
+unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
+review of the same issue. An unchanged conversation whose last message is Workshop's
+needs no repeated response; the original issue holds the review history.
+
+Read each issue's full timeline across all pages, including mentions and
+cross-references, alongside its body, comments and closure events. Follow relevant
+links to pull requests, commits and other issues; read their reports and inspect
+the referenced artifacts and check results. An empty comments list does not
+establish absence of a report; a mention alone does not establish completion.
+Report inaccessible referenced evidence explicitly.
+
+Act on the findings in the original issue. Investigate problems and request missing
+work or evidence there. Bring unresolved shared decisions to /align and return the
+agreed outcome to the issue. Accept complete, inspectable evidence against the
+assignment's criteria; repeat checks when needed to resolve gaps or contradictions.
+A bare completion claim or closed issue is insufficient.
+
+For a verified complete result, reconcile affected Workshop records before
+acknowledgement and closure. Observe commit and push approvals when publishing
+record changes. The acknowledgement references the resulting record revision or
+confirms that no boundary changed. Preserve the distinction between accepted
+contracts, implementation evidence and deployed behavior.
+
+After accepting a prerequisite or reviewing changed prerequisite evidence,
+reassess affected dependent assignments using the dependency conditions in
+skills/collaborate/workshop-issue-format.md. Communicate changed eligibility or
+required action in the affected original issues. An unchanged dependent
+conversation does not make changed prerequisite evidence irrelevant; unchanged
+conditions require no repeated response.
+
+After handling the findings, report what changed, what remains blocked or undecided,
+and where the existing queue stands. Preserve its order. Resume already-authorized
+work; use /align when a decision is needed and retain the next-cycle checkpoint.
+If nothing new requires action, continue the agreed work.
+</rule>
+
+## L15 — review assignments after session recovery
+
+- **target** `AGENTS.md`
+- **authority** the user, 2026-10-05, accepted wake, recall, review and continuation sequence
+
+<rule>
+After /recall at session entry, use /review-assignments at
+.agents/skills/review-assignments/SKILL.md to review pending cross-project work
+and follow through on its findings before resuming the agreed work. Preserve the
+original issue as the communication channel and the existing decision, publication
+and next-cycle checkpoints.
+</rule>
+
+## L16 — strict shared obligations with a lightweight process
+
+- **target** `AGENTS.md`
+- **authority** the user, 2026-10-06, coordination scope and necessary recipient context
+
+<rule>
+Workshop coordinates shared obligations and compatibility between autonomous
+projects. Be strict about interfaces and light on process. Local work proceeds
+under the project's own authority; changes to shared promises require coordination.
+Complete recipient context is necessary work: independently implemented ends must
+agree on every shared shape and guarantee. Remove steps that protect no obligation.
 </rule>

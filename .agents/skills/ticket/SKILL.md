@@ -20,6 +20,32 @@ The shape of a ticket — its name, its folders, its header and sections, what
 finishes it and what removes it — is [TICKET-FORMAT.md](./TICKET-FORMAT.md)'s,
 under *The record*. Read it before writing one, and restate none of it here.
 
+<installed by="coordinate">
+**RC1** For cross-project work, state shared boundary guarantees and observable acceptance
+outcomes. Projects own executable definitions and internal mechanisms; the shared
+contract fixes their externally observable shape. Inspect implementation details to verify guarantees; bring them to
+alignment when they reveal an unresolved shared obligation or require changing
+accepted ownership, behavior, compatibility or scope.
+
+**RC2** Cross-project implementation assignments prescribe one fully specified contract
+through an accessible immutable authority and common conformance cases. Apply
+.agents/skills/coordinate/CONTRACT-SHAPE.md to every applicable dimension, with a
+reason for inapplicability. Leave no recipient choice that can change shared
+formats, parameters, meanings, guarantees or interoperability. Internal designs
+may differ. Each recipient's brief and cited authority must suffice without
+Workshop session context; compatible implementations must follow from the briefs.
+An incomplete shared shape blocks implementation publication, including Planned
+issues. Design/evidence requests cannot substitute for this gate.
+
+**CQ1** For cross-project work, apply .agents/skills/coordinate/VALIDATION.md during
+inception and validation. Establish clarity for the next reader, consistency
+with governing agreements and related work, and completeness of scoped obligations.
+Derive recipient tasks from the same contract and ownership; assess individual
+understanding and set-wide coverage. Revalidate affected meanings after edits.
+Reduce process steps, never context required for compatible implementations.
+Reuse valid evidence; stage changes add no approval.
+</installed>
+
 ## Process
 
 ### 1. Locate the parent

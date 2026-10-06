@@ -1,45 +1,45 @@
 ---
-name: reconcile
+name: coordinate
 description: >-
-  Use to compare project evidence with shared agreements, resolve boundary or
-  standard-adoption differences, and determine remaining coordinated work.
+  Use to carry a cross-project change, shared standard, changed project evidence
+  or assignment finding through coordinated work and acceptance.
 ---
 
-# Reconcile shared obligations
+# Coordinate cross-project work
 
-Compare scoped observations, accepted agreements, installed summaries and current
-assignment evidence. Account for completed work and decisions before identifying
-the remaining difference. Preserve accepted promises when code disagrees.
+Own the shared outcome under the configured responsibility and autonomy contract.
+Identify the scope, affected projects, governing agreements, current evidence and
+existing assignments. Distinguish a proposed change, accepted promise, observed
+implementation, checked deployment and accepted result.
 
-For each relevant boundary or standard, retain in its existing work record:
-`boundary | provider/consumers or affected projects | promise | evidence/revision |
-delta and consequence | disposition/assignment`.
-Compare shared meanings, not only local feature lists. Record mismatched or
-unresolved dimensions with the finding.
+## Continue the loop
 
-## Resolve the difference
+Enter the stage selected by the installed routing rules. Reuse an active pass and
+completed analysis; refresh only evidence affected by a relevant change. A finding
+returned by a stage continues the same pass, not another invocation of its entry
+review. Resolve conflicting obligations with the decision owner.
 
-Give each finding a disposition:
-- No remaining difference: retain sufficient evidence; no assignment.
-- Factual record drift: correct its owning record; no project change.
-- Implementation deviation: specify the owner correction under the same contract.
-- Unresolved shared choice: use /align; incorporate the accepted decision.
-- Accepted amendment or migration: state old/new obligations, affected consumers,
-  compatibility and transition/retirement conditions.
-- Missing evidence: retain uncertainty and obtain only proof unavailable through
-  source investigation; absence of proof is not a defect.
-- Unimplemented or deferred target: retain state and dependencies without
-  silently starting deferred work.
+Keep the agreed outcome visible across recipient handoffs. Published instructions
+do not establish implementation or integration. Finish against the outcome's own
+acceptance criteria; otherwise identify the remaining owner action or decision.
+Do not introduce a stage approval or infer authorization from a status label.
 
-Complete and agree the shared shape before implementation publication. A missing
-definition is not permission for each recipient to choose it. Amendments use
-accepted revisions and do not redefine earlier acceptance retroactively.
-Accepted decisions update their owning records.
+For an explicit preview, return proposed edits and drafts without changing project
+records or the tracker. A preview can be graded without releasing recipient work.
 
-Return dispositions, record changes and remaining owner actions to the existing
-pass. Keep the coordinating outcome distinct from recipient actions: one outcome
-can produce several issues or no external issue. Use the installed routing rules
-for missing observations and addressed work; unresolved choices return to /align.
+## Outputs
+
+Update the existing home of each changed fact: observed state, accepted agreement,
+remaining work or addressed assignment. Evidence stays at its source; records
+carry the scoped conclusion, revision and link. Do not copy issue conversations
+or verification transcripts into several records.
+
+Use the existing owning work record, within its format, for scope, evidence
+baseline, pending action and resumption. Inline work needs no separate pass report.
+A ticket holds a verifiable outcome; an issue holds its recipient's current work.
+No per-stage report, acknowledgement ledger, dependency-status register or
+per-recipient local ticket is required. Report the outcome and remaining work
+with links to their homes.
 
 ## Project context
 
@@ -74,6 +74,14 @@ Reuse valid evidence; stage changes add no approval.
 .agents/skills/analyse/SKILL.md for the affected repository and scope. Reuse facts
 whose basis remains valid. Return the observation to the existing work; do not
 ask recipients to investigate what accessible sources can establish.
+</installed>
+
+<installed by="reconcile">
+**RC3** For a suspected difference between project behavior, requirements or participant
+interpretations, use /reconcile at .agents/skills/reconcile/SKILL.md. Supply scoped
+evidence and the governing agreement; incorporate its disposition into the same
+pass. An unresolved shared decision goes to /align, not into implementation
+instructions as a choice for each recipient.
 </installed>
 
 <installed by="issue">

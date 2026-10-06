@@ -22,9 +22,11 @@ Apply the recipient label defined by the agent contract.
   operations, parameters, formats, meanings and applicable data guarantees;
   common examples and expected conformance outcomes. Recipient-specific action
   is separate from this shared definition. Applicable dimensions are listed in
-  [the contract-shape reference](../../.agents/skills/reconcile/CONTRACT-SHAPE.md).
+  [the coordinator-owned contract-shape reference](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/.agents/skills/reconcile/CONTRACT-SHAPE.md).
 - **Impact and required changes:** affected providers and consumers, requested
   action, scope and dependencies.
+- **Execution dependencies:** direct prerequisite issues, the work each blocks,
+  and its satisfaction evidence and acceptance responsibility; see below.
 - **BOUNDARY_SUMMARY**, when supplying or updating project instructions: use the
   block below. Describe what changed outside that block.
 - **Acceptance evidence:** checks and results required to establish the outcome,
@@ -33,6 +35,34 @@ Apply the recipient label defined by the agent contract.
 For migration coordination, include old and new contract definitions, compatibility
 evidence, known consumers and readiness. For an evidence request, identify the
 missing proof and the question it must resolve; do not present uncertainty as a defect.
+
+## Installation assignments
+
+Include the participating GitHub accounts, the owner of their Workshop access
+grants and access confirmation under the
+[onboarding agreement](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/onboarding.md#access-and-communication).
+List missing access as a prerequisite; distinguish repository membership from
+the recipient environment's ability to read and report in the original issue.
+Reference the collaboration skill's Installation section for the installation
+procedure rather than reproducing it.
+Supply immutable links to the skill and its companion format at the same published
+commit, identified by its full SHA. That commit is the installed source revision.
+
+## Dependencies
+
+Link direct prerequisite issues. Keep transitive prerequisites in their owning
+assignments unless they impose a separate condition on this work. State whether
+each prerequisite blocks starting, integration proof or completion, what evidence
+satisfies it, and who accepts that evidence when acceptance is required.
+Distinguish work possible against an agreed contract from work requiring a
+reachable provider.
+
+Eligibility follows those conditions and the recipient's operator authority.
+Planned or Ready text summarizes eligibility; it creates no additional release
+approval. State any genuinely required release approval as an explicit condition
+with its responsible owner. A closed prerequisite alone is not acceptance where
+the assignment requires acknowledgement. Reassess linked prerequisites when
+choosing work or reviewing changed evidence.
 
 ## Boundary summary block
 

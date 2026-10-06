@@ -201,6 +201,18 @@ out of it.
 instructions belong only to entry files, skills and their authored rules files,
 never under `docs/`. Documented decisions, contracts and requirements constrain
 the result; they do not prescribe the agent's workflow or authorize action.
+
+**L15** After /recall at session entry, use /review-assignments at
+.agents/skills/review-assignments/SKILL.md to review pending cross-project work
+and follow through on its findings before resuming the agreed work. Preserve the
+original issue as the communication channel and the existing decision, publication
+and next-cycle checkpoints.
+
+**L16** Workshop coordinates shared obligations and compatibility between autonomous
+projects. Be strict about interfaces and light on process. Local work proceeds
+under the project's own authority; changes to shared promises require coordination.
+Complete recipient context is necessary work: independently implemented ends must
+agree on every shared shape and guarantee. Remove steps that protect no obligation.
 </installed>
 
 ## Straw dogs

@@ -113,12 +113,30 @@ the repair policy. Move each subtree it reports ready for `done/` with `move_doc
 of the subtree in one invocation, into `docs/questions/done/`.
 </installed>
 
+<installed by="review-assignments">
+**RA1** When maintaining cross-project assignment review, recheck the review-assignments
+instruction, declaration, project context and entry bindings with mechanisms.py
+--check and inject_rules.py --check. Confirm that entry recovery precedes review
+and that direct reconciliation enters the same review without repeating an active pass.
+Retain fresh-session invocation and operator grading as separate evidence;
+structural checks do not establish them.
+</installed>
+
+<installed by="coordinate">
+**CQ3** When maintaining coordination, recheck the coordinate, analyse, reconcile, issue
+and review-assignments declarations and installed rules with mechanisms.py --check
+and inject_rules.py --check. Check live links, shared validation/contract
+references and recipient access to their published forms. Recheck affected outputs
+against their shared criteria; clean structural checks alone do not prove quality.
+Use existing records and evidence, not another per-stage maintenance report.
+</installed>
+
 <installed by="local">
-**L8** For maintenance of Workshop's project or boundary records, invoke the /reconcile
-skill at .agents/skills/reconcile/SKILL.md before the final report. Include its
-boundary comparisons, record changes, issue links and unresolved evidence in
-that report. Check its declaration and installed bindings with the existing
-mechanisms.py --check and inject_rules.py --check commands.
+**L8** For maintenance of Workshop's project or boundary records, enter /coordinate at
+.agents/skills/coordinate/SKILL.md with the affected scope and existing evidence.
+Reuse the current pass and issue review. Include changed facts, dispositions and
+remaining work in the existing report. Check declarations and installed bindings
+with mechanisms.py --check and inject_rules.py --check.
 </installed>
 
 ## Finish
