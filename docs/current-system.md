@@ -93,11 +93,25 @@ Workshop verified its public result.
 At `fc2dee2`, Cabinet additionally supplies anonymous `GET /api/public/lessons`
 for public schedule readers, with Daychi native as its intended new consumer.
 Its Cabinet-owned [executable definitions](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/shared/src/public-lessons.ts)
-implement the fixed [public wire contract](contracts/public-lessons.md).
+implement the original public wire shape at
+[Workshop e209d27](https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md).
 The route uses count or complete bounded-window selection and an explicit public
 projection; the protected `/api/me/lessons` route remains separate. Deployment
 is verified above; malformed required-data handling remains a conformance defect
 under [issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6011347777).
+
+The user replaced the not-yet-used public pilot's all-or-error guarantee on
+2026-10-07. The [amended contract](contracts/public-lessons.md) requires valid-only
+best-effort rows and error-level logs for omitted corrupt occurrences, without a
+version selector or public completeness metadata. The pinned projection findings
+remain invalid emitted data; allowing omission does not authorize malformed rows.
+Amended implementation/deployment and native recovery evidence remain unverified.
+Cabinet's existing error reporting uses a developer journal and Telegram:
+[ADR-0053](https://github.com/gregoryKot/xuanxue-cabinet/blob/af2dcc7542cef7f5f18edc9ab075965310cc453e/docs/adr/0053-server-errors-alert-admin-in-telegram.md)
+and [ADR-0132](https://github.com/gregoryKot/xuanxue-cabinet/blob/af2dcc7542cef7f5f18edc9ab075965310cc453e/docs/adr/0132-app-errors-journal-for-developer.md).
+Sentry was rejected there. The inspected reporting path is called
+by the HTTP-500 filter, so it does not establish reporting for handled omissions
+in HTTP 200. Such omissions need their own explicit error-log path.
 
 Cabinet has a React/Vite web client, NestJS API, shared TypeScript contracts, and
 MongoDB persistence. The API serves the web application and `/api` on the same

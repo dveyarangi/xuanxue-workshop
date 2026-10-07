@@ -98,11 +98,14 @@ lessons today and each bound's actual timezone offset. The
 [public lessons contract](contracts/public-lessons.md#operation-transport-and-request)
 owns the exact parameters, defaults, bounds, membership and invalid-input rules.
 
-Failure and recovery agreed by the user, 2026-10-05: a successful read returns
-the complete matching result, or the selected count-mode result; it never silently
-omits a matching lesson because required lesson/class data cannot be produced.
-Missing required data is a failed read; an empty successful result is distinct.
-Use Cabinet's existing error conventions, without exposing private schedule data.
+Failure and recovery amended by the user, 2026-10-07: public pilot reads return
+valid available lessons while omitting individual malformed records with
+error-level operator logs. Availability of the remaining schedule takes priority
+over complete delivery. The prior public pilot contract is not yet used, so its
+guarantee is replaced directly without a version selector or completeness metadata.
+The client cannot distinguish an omitted invalid record from an absent record.
+Failed retrieval or unreliable processing of the selected set still fails the
+read using Cabinet's error conventions, without exposing private schedule data.
 The [failure contract](contracts/public-lessons.md#failures-and-recovery) owns the
 exact status/code/body definitions.
 
@@ -110,16 +113,19 @@ On a network failure, non-success HTTP response or invalid success body, the
 pilot retains its last successful Cabinet result and makes the failure visible.
 With no previous result it shows unavailability rather than an empty schedule.
 Ordinary Daychi cache, selections and OS reminders remain unaffected. This is
-ordinary failure handling; no partial-success response or recovery protocol is
-introduced.
+ordinary failure handling. A valid best-effort result is a successful read,
+not a failed refresh; it needs no new completeness or warning state.
 
 Successful refresh follows the already accepted complete-window/current-schedule
 requirement, clarified by the user, 2026-10-05. The pilot displays the returned
 list for the requested dates. A lesson moved within those dates keeps its ID and
 uses its updated start; one moved outside them is absent from that window.
 Cancellation is represented by `status: cancelled` while the lesson remains in
-the window. A successful empty list clears the previous displayed result. This
-is the accepted read-and-refresh behavior, not an additional approval checkpoint.
+the window. A successful empty list clears the previous displayed result,
+including when all selected rows were invalid; it means no valid rows available
+and does not prove the source contains no lessons. Repairing records restores
+them on a later successful read. This pilot display does not infer reminder or
+account mutation from absent rows.
 
 The [public lessons contract](contracts/public-lessons.md) owns the consolidated
 wire definition, exact field meanings, request/response examples, identity and

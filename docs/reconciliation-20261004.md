@@ -1,5 +1,34 @@
 # Boundary reconciliation — 2026-10-04
 
+## Public best-effort amendment — 2026-10-07
+
+The user changed the [public pilot agreement](boundaries.md#accepted-first-schedule-connection):
+return valid lessons, omit malformed individual records and log each omission at
+error severity. The prior public contract is not yet used, so the same operation
+is amended directly. No version, completeness header, envelope or client warning
+state is added. The [public contract](contracts/public-lessons.md) owns exact
+selection, output, empty-result, logging, whole-read-error and recovery cases.
+
+The earlier pinned mapper counterexamples below remain evidence of invalid
+emitted public data. The remedy now omits/logs those rows rather than failing
+the whole read; operational database/class-read/code failures remain errors.
+Old deployed healthy samples do not prove the amended handling. Cabinet's existing
+HTTP-500 reporting path does not automatically see a handled omission in HTTP 200.
+The contract requires its explicit error log without choosing or installing an
+external collector. Cabinet's ADR-0053/0132 currently use Telegram and a developer
+journal and reject Sentry; any collector change belongs to its own observability
+decision, not this public response amendment.
+
+Daychi's replacement assignment and Cabinet's superseding comment passed fresh
+independent recipient reading against one fixed authority. The user authorized
+scoped commit/push and original-issue updates on 2026-10-07. The
+[Daychi assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/6) and
+[Cabinet amendment/review conversation](https://github.com/dveyarangi/xuanxue-workshop/issues/5)
+carry the exact published contract and current recipient obligations.
+Provider/client implementation,
+Daychi installation acceptance and native proof remain separate outstanding work.
+Dated sections below retain their original acceptance basis.
+
 The [2026-10-06 maintenance report](maintenance-20261006.md) holds the latest
 scope, boundary dispositions and resumption point. Dated sections below retain
 their inspection and publication history; older pending/availability statements

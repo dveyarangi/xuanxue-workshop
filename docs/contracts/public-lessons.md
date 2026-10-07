@@ -3,8 +3,11 @@
 Consolidated 2026-10-05 from the user's accepted
 [first schedule connection](../boundaries.md#accepted-first-schedule-connection).
 This is the maintained target definition and common conformance reference.
-It preserves the accepted agreement; consolidation does not require voting on it
-again. Current implementation/deployment evidence belongs in
+Amended by the user, 2026-10-07: the not-yet-used public pilot is a
+best-effort read of valid schedule records. Individual malformed records are
+omitted and logged at error severity; they do not fail the remaining result.
+There is no version selector or public completeness metadata.
+Current implementation/deployment evidence belongs in
 [current-system](../current-system.md), separately from these promises.
 
 Cabinet source baseline: `628314472aa2752ebb2bbe9ab75ac3dea9791719`;
@@ -22,8 +25,8 @@ evidenced boundary records. Cabinet authors executable route, query and response
 definitions; internal provider/client implementation and presentation remain with
 their respective projects.
 
-The pilot displays Cabinet's complete dated schedule for fourteen school calendar
-dates and reflects moves and cancellations on refresh. It preserves ordinary
+The pilot displays Cabinet's valid dated schedule records for fourteen school
+calendar dates and reflects moves and cancellations on refresh. It preserves ordinary
 Daychi schedule, cache, selections and OS reminders and the protected Cabinet
 student route. Source cutover, accounts, authentication integration, shared
 reminder preferences, native push, new background polling, gateway and backend
@@ -48,7 +51,7 @@ consolidation are outside this slice.
 | Retrieval mode | Query | Meaning |
 |---|---|---|
 | Count | Neither `from` nor `to`; optional `limit` | Upcoming lessons with `startsAt >=` provider current time, at most the selected limit. Default 10. |
-| Complete window | Both `from` and `to`; no `limit` | All dated lessons with `from <= startsAt < to`; no current-time filter, row cap or pagination. |
+| Window | Both `from` and `to`; no `limit` | Select all dated lessons with `from <= startsAt < to`; return those with valid public projections, without a current-time filter, row cap or pagination. |
 
 `limit` is a numeric query value converting to an integer 1–50, following Cabinet's
 existing numeric transformation and integer validation. Empty, nonnumeric,
@@ -74,6 +77,31 @@ HTTP 200 with a bare array. Each item has exactly this public projection, using
 the accepted Cabinet student fields plus `classId`. No field below is nullable;
 only `location` is optional and omitted when absent. Empty strings and empty
 arrays retain their ordinary values rather than meaning a missing item.
+
+The existing operation and bare array are amended directly: no version query,
+response envelope, completeness header or omitted-record list is added. The user
+confirmed on 2026-10-07 that the previous public pilot contract is not in use.
+
+Window mode projects all query-selected candidates. Count mode selects the first
+requested number of candidates in start order before projection, then omits
+invalid candidates without backfilling; fewer than the limit can be returned.
+Missing class metadata or an invalid public lesson/class value omits the affected
+occurrence, including all selected occurrences depending on an invalid shared
+class. Allowed empty strings, optional absent `location` and missing legacy tags
+producing `[]` are valid and cause no omission. No malformed public item is emitted.
+Coverage is scoped to query-selected rows; this adds no collection-wide corruption
+scan of records whose stored start cannot match the selection predicate.
+
+Each omitted occurrence produces an error-level operator log with its reason,
+lesson ID and class ID where available, and request ID when available. Logs
+contain no Zoom/authentication secrets or raw private source records. This signal
+must be emitted in the omission path even though the HTTP request succeeds; it
+cannot depend on the HTTP-500 exception handler. Logging tool, diagnostic sink
+and internal implementation remain Cabinet's. Connecting an external error
+collector is outside this amendment; no Sentry integration is claimed or required.
+Unexpected code faults, failed lesson/class retrieval or inability to process
+the selection reliably still fail the request; only identified invalid record
+data is omitted.
 
 | Field | JSON type | Meaning |
 |---|---|---|
@@ -111,19 +139,28 @@ protected behavior. This explanation belongs in the original Cabinet assignment.
 
 ## State, refresh and effects
 
-Each request retrieves Cabinet's current matching lessons; each successful
-complete-window result becomes the pilot's displayed result for those dates.
+Each request retrieves Cabinet's current matching valid lessons; each valid
+window result becomes the pilot's displayed list for those dates. This is a
+best-effort view: omitted corrupt records cannot be distinguished by the consumer
+from absent records. The API supplies no completeness signal and Daychi needs
+no new partial-result state or warning. Absence is not authoritative proof of
+cancellation or deletion; returned `status: cancelled` remains explicit.
+No pilot read changes ordinary reminders, selections or the ordinary cache.
 A move within the window updates the same occurrence. A move outside it removes
 that occurrence from the displayed window. A cancellation remains represented
 by its status while its current start remains in the window. HTTP 200 `[]` clears
-the previous displayed list. These are already accepted refresh semantics.
+the previous displayed list, including when all selected candidates were invalid.
+An empty response means no valid public rows were available for this read, not
+proof that the underlying source contains no lessons. A later successful read
+shows repaired records again with their existing identities.
 
 Consistency follows ordinary Cabinet current-state reads. The accepted array
 shape has no snapshot envelope or revision token, so the caller cannot request a
 frozen revision across separate reads. This contract adds no transaction,
 delta/tombstone stream or push requirement. A later successful refresh receives
-later data. Missing required metadata must still fail the request rather than
-silently omit a lesson. The existing provider queries lessons and classes
+later data. Missing/invalid individual records are omitted and logged as defined
+above; no public completeness guarantee is made. The existing provider queries
+lessons and classes
 separately; implementing the agreed data guarantees remains Cabinet's task.
 
 GET changes no account, lesson, class or reminder state. Repeating the read is
@@ -147,14 +184,17 @@ API-origin errors use Cabinet's existing `ApiErrorBody`:
 | Condition | HTTP/code |
 |---|---|
 | Invalid query | 400 / `invalid_input` |
-| Missing/malformed required source data or unexpected provider failure | 500 / `internal_error` |
+| Unexpected provider failure, including failed retrieval or unreliable processing of the selected set | 500 / `internal_error` |
 | Explicit service unavailability | 503 / `not_available` |
 | Existing throttle refusal | 429 / `rate_limited` |
 
-No partial array is returned on failed production of the selected result. Network
+Individual invalid records do not fail the selected result; operator logs carry
+the omissions. A genuine whole-read failure returns an error, never a partial
+success body. Network
 failures and intermediary failures may have no Cabinet JSON error body. Daychi
 treats any non-200 response, failed transport, or malformed success array/item as
-a failed refresh; HTTP 200 `[]` alone means an empty successful result. It retains
+a failed refresh; HTTP 200 `[]` is a valid successful result even if all
+selected candidates were omitted. It retains
 the prior successful Cabinet result and exposes failure. With no prior result it
 shows unavailable. These failures do not alter ordinary Daychi state.
 
@@ -210,6 +250,12 @@ the initial expected sequence is `002`, `003`, `004`, `005`. Move `003` to
 old time is absent. Move it to `2026-10-20T15:00:00Z`: it is absent from the window.
 Cancel `005`: it remains in the response with the same ID and cancelled status.
 
+If only `003` has a missing required duration, the same request returns `002`,
+`004`, `005` with HTTP 200 and logs the omitted `003` as an error. Repairing `003`
+restores all four. If all four are invalid, the result is `[]` with omission error
+logs; if no candidate matches, it is `[]` without omission logs. No response
+metadata distinguishes these two empty results.
+
 Offset-change example: the fourteen school dates beginning `2024-10-20` use
 `from=2024-10-20T00:00:00+03:00` and `to=2024-11-03T00:00:00+02:00`.
 Those bounds normalize to `2024-10-19T21:00:00Z` and `2024-11-02T22:00:00Z`:
@@ -235,13 +281,24 @@ Both recipients use these cases; internal test tools remain project-owned.
 5. Reject half windows, mixed modes, malformed or offset-free date-times,
    nonpositive span, more than 28 UTC days, invalid limits, duplicate query keys
    and unsupported parameters. Exactly 28 days is supported.
-6. Fail on missing required class metadata or malformed required lesson data;
-   never silently omit an occurrence. Check existing 400/429/500/503 error shapes
-   where emitted and failed transport/malformed success without an API error body.
+6. Mixed valid/invalid lesson or class data returns HTTP 200 containing exactly
+   the valid rows, with an error log for each omitted occurrence. Cover missing
+   duration, invalid format, missing class and all affected occurrences of a bad
+   shared class; assert reason, available IDs/request ID and absence of secrets.
+   All-invalid selection returns `[]` with error logs; a genuinely empty selection
+   returns `[]` without omission logs. Valid empty strings, optional absent location
+   and missing legacy tags remain valid. Count limit 2 with an invalid first
+   candidate and two later valid candidates returns only the second, without refill.
+   Genuine lesson/class read failure or unexpected code fault returns 500
+   `internal_error`, not 200. Check existing 400/429/503 error shapes where emitted
+   and failed transport/malformed success without an API error body.
 7. Prove public projection with no session and with a session: class- and
    occurrence-level Zoom data remain absent, alongside credentials and other
    non-allowlisted fields. The public route requires no login.
-8. Prove failed refresh retains the previous pilot result and an initial failure
+8. Prove a mixed result replaces the displayed list with exactly its valid rows,
+   all-invalid `[]` clears it, and repairing source data restores the same IDs
+   after refresh. No completeness state or older-row merge is required.
+   Prove failed refresh retains the previous pilot result and an initial failure
    shows unavailable. Ordinary Daychi cache, selections and OS reminders remain
    unaffected by successful and failed pilot reads.
 9. Verify existing Cabinet protected student access/projection and ordinary
@@ -250,13 +307,23 @@ Both recipients use these cases; internal test tools remain project-owned.
     provider, showing dated data, a reschedule/cancellation after refresh, failure
     retention and recovery. Fixture-only UI is insufficient. Record contract,
     provider/client commit references, API origin, platform/runtime, steps,
-    observed results and deployment status. A disposable development provider is
+    observed results and deployment status. Include a controlled mixed-source
+    result and repair/recovery in disposable development/test data. Corruption
+    fixtures do not belong in production. A disposable development provider is
     sufficient for integration proof; do not claim production deployment from it.
 
 ## Revision, publication and compatibility
 
 This maintained record and its common examples define one shared agreement.
 Both project assignments cite the exact same commit-bound GitHub file URL.
+The user confirmed that the previously published public pilot is not yet used,
+and authorized direct replacement of its all-or-error guarantee. The route,
+query and response field set remain the same; no coexisting version or legacy
+retirement work is introduced. Cabinet's amendment comment replaces the original
+issue's whole-result-failure instructions; Daychi's issue body adopts this same
+best-effort agreement. Deployment at the old source revision does not establish
+conformance to the amended behavior. This does not change protected Cabinet
+web contracts or ordinary Daychi schedule/reminder contracts.
 A branch/HEAD link or an unpublished local review artifact is not the
 implementation authority. The authored executable definitions land in
 Cabinet and implement that fixed agreement; Daychi consumes it without an

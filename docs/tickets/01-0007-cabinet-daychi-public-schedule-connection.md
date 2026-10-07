@@ -30,8 +30,10 @@ Publication can precede execution eligibility and does not finish this outcome.
 The [2026-10-06 environment check](../current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
 identifies `https://staging.xuanxue.su` as the native test provider and links its
 runtime evidence and existing staff fixture controls. The latest check also
-confirms the public route on production at `fc2dee2`. Required-data validation
-and actual native refresh evidence are outstanding; fixture writes belong to
+confirms the original public route on production at `fc2dee2`. The user amended
+the not-yet-used pilot on 2026-10-07: omit corrupt rows with error-level logs,
+without adding a version selector or completeness metadata. Valid-only omission,
+explicit log evidence and actual native refresh proof are outstanding; fixture writes belong to
 Cabinet's authorized operator.
 
 Review contribution evidence in the original assignments, reconcile current
@@ -53,11 +55,14 @@ remains under Cabinet's operator.
   and [daychi-public-lessons #6](https://github.com/dveyarangi/xuanxue-workshop/issues/6)
   share [contract revision e209d27](https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md).
 - [ ] Cabinet's public provider and protected-route regression evidence satisfies
-  the shared agreement; reviewed evidence identifies reachable setup/runtime and deployment limits.
+  the amended shared agreement, including valid-only rows, error logs for omitted
+  corrupt occurrences and genuine whole-read errors; reviewed evidence identifies
+  reachable setup/runtime and deployment limits.
 - [ ] Daychi's pilot satisfies the consumer cases and preserves ordinary schedule,
   cache, selections, access credentials and OS reminders.
 - [ ] Actual native-to-provider evidence demonstrates dated results, controlled
-  reschedule/cancellation, failed-refresh retention and recovery, with reproducible
+  reschedule/cancellation, mixed valid/invalid reads, repair recovery and
+  failed-refresh retention, with reproducible
   environment and revision references; mock-only results are insufficient.
 - [ ] Workshop reviews each contribution, records verified capability and remaining
   migration scope, publishes reconciled records and acknowledges accepted evidence
