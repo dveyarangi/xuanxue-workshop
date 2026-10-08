@@ -20,8 +20,50 @@ The [assignment review](reconciliation-20261004.md#cabinet-assignment-review--20
 records the retained installation, public-route behavior and remaining contract
 gaps. Direct Cabinet reports now exist in both original assignments. Cabinet's
 collaboration installation is [accepted and issue 1 closed](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155).
-Provider conformance, native integration and Workshop source publication remain
-incomplete; they are separate from the accepted installation.
+The newer provider review below supersedes the public-row conformance gap.
+Native integration and broader Workshop source publication remain incomplete.
+
+## Assignment evidence — reviewed 2026-10-08
+
+Cabinet's [provider report](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6052693441)
+identifies [PR 570](https://github.com/gregoryKot/xuanxue-cabinet/pull/570), merged as
+`868a4edb09926a950b78e8daa3ce495c6e8e256e`. Workshop inspected the public mapper,
+service, controller, shared lookup and field/omission checks. Invalid selected
+occurrences are omitted with error logs containing cause and available IDs;
+count limits precede validation without refill, windows remain uncapped, and
+read/code failures propagate. Protected student missing-class behavior is retained.
+The executable definition cites Workshop `4aec5f8`.
+
+The merge [CI run](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044)
+passed. Logs confirm executed omission, public/query and protected-student HTTP
+suites and mapper/service/timezone checks. Disposable HTTP fixtures cover mixed
+corruption, shared bad class, missing class, repair recovery, all-invalid and
+truly empty selections, count without refill, omission logs and genuine read
+failure. Unchanged earlier query/identity/exposure evidence remains applicable.
+No remaining provider deviation was found in this assignment's scope. Provider
+acknowledgement awaits publication of these records; actual native proof remains
+in issue 6.
+
+Read-only HTTPS checks on 2026-10-08 at approximately 05:14 UTC found staging
+`https://staging.xuanxue.su/api/health` reporting `868a4ed`, `mongo: up`, and
+production `https://xuanxue.su/api/health` reporting `fc2dee2`, `mongo: up`.
+The staging window from `2026-10-08T00:00:00+03:00` to
+`2026-10-22T00:00:00+03:00` returned 63 rows with the public field set and no Zoom
+substring. Corruption/logging proof comes from disposable CI data; no live data
+was corrupted. The amended provider is verified on staging; production retains
+the earlier implementation. The dated environment checks below remain historical.
+
+Daychi's [installation report](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6043001309)
+and [PR 7](https://github.com/sleontenko/daychi/pull/7) expose retained instructions
+at `6fd2657b9dd66fe8a85947fc62f492280978856b`. Both installed files match Workshop
+`e209d27` exactly after the reported label, source-revision, Installation removal
+and immutable companion-link adaptations. AGENTS.md has the existing/target
+boundary summary and invocation rule. The accessible verification record reports
+matching host hashes and fresh-session invocation/discovery; the original report
+demonstrates authenticated return. PR 7 remains open. These findings establish
+installation evidence, not a merge, application integration or release; the
+[original acceptance](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501)
+and completed closure satisfy issue 6's installation dependency.
 
 ## Cabinet public-schedule environments — checked 2026-10-06
 
@@ -97,21 +139,23 @@ implement the original public wire shape at
 [Workshop e209d27](https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md).
 The route uses count or complete bounded-window selection and an explicit public
 projection; the protected `/api/me/lessons` route remains separate. Deployment
-is verified above; malformed required-data handling remains a conformance defect
-under [issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6011347777).
+is verified above. The malformed-data defect at this older revision is superseded
+by the `868a4ed` review above; production still uses this older implementation.
 
 The user replaced the not-yet-used public pilot's all-or-error guarantee on
 2026-10-07. The [amended contract](contracts/public-lessons.md) requires valid-only
 best-effort rows and error-level logs for omitted corrupt occurrences, without a
 version selector or public completeness metadata. The pinned projection findings
 remain invalid emitted data; allowing omission does not authorize malformed rows.
-Amended implementation/deployment and native recovery evidence remain unverified.
+Amended implementation and staging availability are verified above; amended
+production deployment and actual native recovery evidence remain outstanding.
 Cabinet's existing error reporting uses a developer journal and Telegram:
 [ADR-0053](https://github.com/gregoryKot/xuanxue-cabinet/blob/af2dcc7542cef7f5f18edc9ab075965310cc453e/docs/adr/0053-server-errors-alert-admin-in-telegram.md)
 and [ADR-0132](https://github.com/gregoryKot/xuanxue-cabinet/blob/af2dcc7542cef7f5f18edc9ab075965310cc453e/docs/adr/0132-app-errors-journal-for-developer.md).
 Sentry was rejected there. The inspected reporting path is called
 by the HTTP-500 filter, so it does not establish reporting for handled omissions
-in HTTP 200. Such omissions need their own explicit error-log path.
+in HTTP 200. The `868a4ed` public service supplies that explicit error-log path;
+no new alert-delivery guarantee is inferred.
 
 Cabinet has a React/Vite web client, NestJS API, shared TypeScript contracts, and
 MongoDB persistence. The API serves the web application and `/api` on the same

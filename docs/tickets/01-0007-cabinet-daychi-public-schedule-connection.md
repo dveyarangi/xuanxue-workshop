@@ -32,9 +32,11 @@ identifies `https://staging.xuanxue.su` as the native test provider and links it
 runtime evidence and existing staff fixture controls. The latest check also
 confirms the original public route on production at `fc2dee2`. The user amended
 the not-yet-used pilot on 2026-10-07: omit corrupt rows with error-level logs,
-without adding a version selector or completeness metadata. Valid-only omission,
-explicit log evidence and actual native refresh proof are outstanding; fixture writes belong to
-Cabinet's authorized operator.
+without adding a version selector or completeness metadata. Valid-only omission and
+explicit logs are verified in the scoped 2026-10-08 provider review below. Actual
+native refresh proof remains outstanding; fixture writes belong to Cabinet's
+authorized operator. Daychi's installation is accepted in issue 2; issue 6 now
+has its satisfied development prerequisite recorded.
 
 Review contribution evidence in the original assignments, reconcile current
 boundary and remaining migration records, then publish those records before
@@ -54,10 +56,13 @@ remains under Cabinet's operator.
   [cabinet-public-lessons #5](https://github.com/dveyarangi/xuanxue-workshop/issues/5)
   and [daychi-public-lessons #6](https://github.com/dveyarangi/xuanxue-workshop/issues/6)
   share [contract revision e209d27](https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md).
-- [ ] Cabinet's public provider and protected-route regression evidence satisfies
+- [x] 2026-10-08: Cabinet's public provider and protected-route regression evidence satisfies
   the amended shared agreement, including valid-only rows, error logs for omitted
   corrupt occurrences and genuine whole-read errors; reviewed evidence identifies
   reachable setup/runtime and deployment limits.
+  [Scoped review](../current-system.md#assignment-evidence--reviewed-2026-10-08):
+  PR 570 / `868a4ed`, successful merge CI and staging runtime verified;
+  production retains `fc2dee2`. Acknowledgement awaits record publication.
 - [ ] Daychi's pilot satisfies the consumer cases and preserves ordinary schedule,
   cache, selections, access credentials and OS reminders.
 - [ ] Actual native-to-provider evidence demonstrates dated results, controlled
