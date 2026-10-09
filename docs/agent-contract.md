@@ -1,8 +1,7 @@
 # Workshop and project-agent contract
 
 Contract for responsibility boundaries between Workshop, Cabinet and Daychi agents.
-Accepted by the user, 2026-10-04, including the role separation, startup review,
-reporting channels and installation-first order below.
+Accepted by the user on 2026-10-04, with clarifications through 2026-10-08 incorporated.
 
 This document owns role responsibilities and shared guarantees. The
 [/collaborate skill](../skills/collaborate/SKILL.md) is the single
@@ -98,29 +97,24 @@ to installation assignments and the /collaborate skill, which owns installation
 and communication. Installation issues point to the same skill. This entry route belongs to Workshop,
 not to the installation ticket's outcome.
 
-The first assignment requests installation of a local collaboration skill, its
-invocation conditions, and the durable instruction that makes the project agent
-use it. It references the /collaborate skill below. The agent implements the
-local integration under its own operator and reports the installation evidence
-in that same issue. The installation outcome is a collaboration skill installed
-and verified in the recipient project. Subsequent application work follows
-confirmed onboarding.
+The first assignment's outcome is collaboration installed and verified in the
+recipient project under its operator. Installation is a separately reviewable outcome;
+its acceptance and Workshop's internal coordination readiness do not gate application
+implementation. Recipient operators own authorization of their local work against
+an accessible settled shared contract. Posting does not establish adoption.
 
-Clarified by the user, 2026-10-05: Workshop may post subsequent assignments as
-Planned before readiness and onboarding are confirmed. Their execution waits for
-those dependencies and the identified contract baseline; posting is not release.
-Posting does not establish adoption.
-
-Clarified with the user, 2026-10-05: application assignments depend directly on
-their recipient's accepted installation; Workshop readiness is already a
-prerequisite of those installation assignments. Dependencies distinguish starting
-work from integration proof and completion. Daychi can develop against the agreed
-public schedule contract after its accepted installation, while actual connection
-proof needs Cabinet's conforming reachable provider and controlled fixture setup.
-Eligibility follows satisfied assignment conditions and the recipient operator's
-authority; Planned/Ready wording adds no separate release approval. Workshop
-reviews changed prerequisite evidence and communicates resulting action in
-affected original issues. The [issue format](../skills/collaborate/workshop-issue-format.md#dependencies)
+Dependencies distinguish starting work from integration proof and completion.
+Work against an agreed contract and proof requiring a conforming reachable
+provider have different prerequisites.
+Eligibility follows the actual conditions for each activity and the recipient
+operator's authority; Planned/Ready wording adds no separate release approval.
+Workshop dependency review assesses both necessity and fulfillment from source,
+executed checks, runtime and operator evidence. Documents record shared obligations;
+document claims, status and acknowledgements alone do not prove operational readiness.
+Dependencies protect specific obligations, such as a reachable conforming provider
+and controlled fixtures for actual native proof. Changed conditions are reflected
+in the affected original issue; shared promise changes retain coordination.
+The [issue format](../skills/collaborate/workshop-issue-format.md#dependencies)
 owns dependency fields and interpretation.
 
 ### Boundary summary in project instructions
@@ -158,8 +152,9 @@ responsibilities and required outcomes, not agent instructions.
 Workshop is accountable for addressed assignments, startup review, resolution of
 reported assignment problems, evidence verification, reconciled records and
 acceptance acknowledgement. Initial recipient assignments concern verified local
-collaboration installation. Subsequent execution depends on confirmed onboarding;
-Planned posting may precede it.
+collaboration installation. That installation and Workshop readiness do not gate
+application implementation under the recipient operator against an accessible
+settled shared contract.
 
 The intended startup-review capability covers assignments and replies, including
 completion reports in already-closed issues. GitHub state alone is not acceptance
@@ -246,8 +241,8 @@ The [review evidence](mechanisms/review-assignments.evidence.md) records passing
 structural gates, observed fresh-session invocation and actual Cabinet result
 handling. [Coordination evidence](mechanisms/coordinate.evidence.md) supplies bounded
 independent instruction grading; published readiness and recipient-host proof remain incomplete.
-Cabinet installation issue 1 is accepted/closed; Daychi installation retains its
-readiness dependency.
+Cabinet installation issue 1 and Daychi installation issue 2 are accepted/closed;
+their evidence does not introduce an additional native implementation gate.
 </straw-dog>
 
 The [adoption question](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md)

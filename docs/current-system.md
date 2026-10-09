@@ -65,6 +65,150 @@ installation evidence, not a merge, application integration or release; the
 [original acceptance](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501)
 and completed closure satisfy issue 6's installation dependency.
 
+## Assignment and native-profile recheck — 2026-10-10
+
+Fresh remote heads are Cabinet
+`fee65f3b8004d4ecac6c2d3da668cf966be0d0f5` and Daychi
+`0a3c824c1586eb7b3ca16ca0b3a365539076b025`. Compared with the 2026-10-08 baseline,
+Cabinet's inspected auth guard/controller, browser token/renewal and public lesson
+paths have no changed files. Its account mapper now includes a new required web
+self-profile field. Daychi's comparison contains the published collaboration
+installation and wiki changes, but no changes to the inspected native access,
+intent or app-configuration paths and no published public-pilot client. These
+source comparisons establish neither current deployment nor native runtime behavior.
+
+At that exact Cabinet head, [MeDto](https://github.com/gregoryKot/xuanxue-cabinet/blob/fee65f3b8004d4ecac6c2d3da668cf966be0d0f5/shared/src/me.ts#L95)
+requires `homeHiddenTiles: HomeTileKey[]`.
+[The shared keys and normalization](https://github.com/gregoryKot/xuanxue-cabinet/blob/fee65f3b8004d4ecac6c2d3da668cf966be0d0f5/shared/src/home-tiles.ts)
+define `nextLesson`, `notice`, `exams`, `payment`, `grading`, `events` in that
+canonical order, remove duplicates/unknown stored keys and map absent stored
+data to `[]`. [toMeDto](https://github.com/gregoryKot/xuanxue-cabinet/blob/fee65f3b8004d4ecac6c2d3da668cf966be0d0f5/api/src/auth/user.mapper.ts)
+returns this normalized field. This is a source fact, not a new native UI or
+mutation requirement. The accepted native contract's full-current-web parity
+obligation remains fixed. Both independent recipient readers found the field
+missing from the fixed native definition/example and N01 inputs. The user accepted
+its addition on 2026-10-10; the
+[native contract](contracts/native-account-session.md#accepted-web-self-profile-parity)
+now defines that read-only parity field and its common cases. The
+[native ticket](tickets/01-0008-native-cabinet-account-session.md#recipient-revalidation--2026-10-10)
+owns affected revalidation and publication. This reconciles the accepted definition,
+not provider/client implementation. The 2026-10-09 profile baseline below
+does not establish the current complete field set.
+
+## Native account-session source — 2026-10-08
+
+This scoped read used Cabinet main
+`868a4edb09926a950b78e8daa3ce495c6e8e256e` and Daychi main
+`e1ab559c8d5db3dbd7db95aa7400941381ada12a`. Compared with the native ticket's
+earlier `fc2dee2` / `5f9ba44` evidence, the inspected authentication/access paths
+have no intervening changes. The newer revisions do not establish native support.
+
+Cabinet's
+[guard](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/api/src/auth/auth.guard.ts)
+still accepts a browser cookie, checks the current account and rejects blocked
+accounts. Its browser credential expires 90 days after issuance and is reissued
+when its age is strictly greater than seven days:
+[token](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/api/src/auth/session-token.ts),
+[renewal](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/api/src/auth/session-renewal.ts).
+The inspected auth controller exposes browser login/profile/logout, with logout
+clearing the cookie; it supplies neither native code exchange nor grant revocation.
+The guard's mutation CSRF check also applies to public routes unless explicitly
+skipped. Native form/Bearer operations therefore need deliberate channel handling.
+[Browser return targets](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/web/src/auth/returnTo.ts)
+are internal paths in tab session storage; native authorization must preserve that
+restriction rather than turn login into an arbitrary redirect service.
+
+Daychi's
+[access session](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/features/access/session.ts)
+stores its own backend's opaque credential in SecureStore, restores it through
+that backend and protects against stale responses. Its current logout waits for
+the backend before clearing storage. Neither operation implements Cabinet native
+account access. The
+[native intent handler](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/app/+native-intent.tsx)
+handles invitation links, and
+[app configuration](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/app.json)
+registers `quietpractice` with existing iOS/Android identity
+`ai.mypraxis.quietpractice`. The package already has browser, linking, crypto and
+secure-storage libraries; no Cabinet-specific callback/store/profile flow was
+found in the inspected paths.
+
+The [native account-session profile](contracts/native-account-session.md) is an
+accepted addition to those boundaries; acceptance does not establish deployed
+capability. This dated source inspection did not itself approve native lifetime
+or renewal policy; the profile owns the user's subsequent accepted decisions.
+No authenticated mutation, token issuance, sibling edit or native runtime check
+was performed by this source inspection.
+
+## Native consumer needs — 2026-10-09
+
+A fresh GitHub read confirmed Daychi main remains
+`e1ab559c8d5db3dbd7db95aa7400941381ada12a`. The local checkout is the older
+`5f9ba442e04cd5dfa70527b9e670b491c491888c`; the inspected access/session and
+access-screen sources agree with the freshly fetched main files. This is source
+evidence, not a new native/runtime verification.
+
+The [session client](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/features/access/session.ts)
+receives its own backend's opaque `token`, stores it in SecureStore and sends
+`Authorization: Bearer ...`. Restoration checks `/api/access/session`;
+[the server](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/practice_api/daychee_app.py)
+returns `{ "active": true }`, not an account profile. Native consumers use that
+credential for `/api/wiki/*` catalog/material reads and `/api/access/zoom`.
+Public schedule reads and ordinary local selection/reminders do not require it.
+
+The [access screen](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/features/access/access-screen.tsx)
+offers a request/invitation flow and "Выйти на этом телефоне". The inspected
+screen, settings and session paths have no Cabinet account picker, account
+profile or in-place account-switching story. They do not establish a need for
+email, phone, roles or per-material permissions in a Cabinet token/profile.
+Names and Telegram entered in an access request are request data, not claims
+required by these authenticated content readers.
+
+The accepted target differs from this current implementation:
+[content admission](boundaries.md#accepted-content-admission) uses a Cabinet-issued
+bearer presented to Cabinet and Daychi, with authoritative admission checked by
+Cabinet. Its server-to-server check remains unsettled. The accepted native account-session
+profile defines acquisition and lifecycle while preserving the existing content
+credential; its `account:read` scope alone does not complete unified content access.
+
+Browser interaction was checked against
+[RFC 8252 section 8.6](https://www.rfc-editor.org/rfc/rfc8252#section-8.6):
+automatic authorization without interaction is discouraged when native client
+identity cannot be assured, even after previous approval of a client ID. The
+accepted custom scheme and PKCE bind an exchange to its initiator; they do not
+prove that initiator is the genuine Daychi application. Merging authorization
+interaction into fresh browser sign-in was a UX proposal. The user subsequently
+accepted [automatic continuation](contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
+and the [client-impersonation risk](contracts/native-account-session.md#accepted-risk--native-client-impersonation)
+on 2026-10-09, removing the extra Cabinet confirmation. This is a recorded
+decision, not changed provider behavior or a claim of compliance with that RFC
+recommendation.
+
+## Cabinet web self-profile — 2026-10-09
+
+A fresh GitHub branch read found Cabinet main at
+`1ad7fb7e93a1440fa59330481eba4f2f0c0eb025`, newer than the 2026-10-08 native
+source baseline. This check inspected self-profile sources at that exact revision;
+it does not refresh every earlier auth/runtime observation.
+
+The [web AuthProvider](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/web/src/auth/AuthProvider.tsx)
+reads `GET /auth/me` as
+[MeDto](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/shared/src/me.ts).
+Its fields are `id`, `name`, `roles`, `status`, `telegramLinked`, `botChatActive`,
+`hasEmail`, optional `email`, `googleLinked`, optional `pendingEmail`, `noTelegram`,
+`needsProfile`, `studentMode` and `canUseStudentMode`.
+The [mapper](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/api/src/auth/user.mapper.ts)
+omits absent emails and uses effective roles, empty in student mode. The
+[guard](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/api/src/auth/auth.guard.ts)
+checks the current account and refuses a blocked account before successful profile
+read. Telegram/Google raw identity IDs and a phone field are absent from MeDto.
+
+The user required the full web profile for native Daychi on 2026-10-09. This
+requirement lives in
+[accepted web self-profile parity](contracts/native-account-session.md#accepted-web-self-profile-parity);
+the earlier consumer-needs observation is not a reason to narrow that payload.
+The user subsequently excluded phone on 2026-10-09, matching the checked web shape.
+No profile mutation, sibling edit or new native proof was performed.
+
 ## Cabinet public-schedule environments — checked 2026-10-06
 
 Cabinet's

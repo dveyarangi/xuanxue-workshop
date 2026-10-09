@@ -28,13 +28,15 @@ claim that migration is implemented or deployed.
 | Boundary | Provider | Consumer | Responsibility and unresolved contract |
 |---|---|---|---|
 | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
-| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. Apply accepted schedule access and count/date-window retrieval modes. Resolve the executable schemas, stable identifiers, credential lifecycle and synchronization details. |
-| Cabinet admission check for Daychi content | Cabinet backend | Daychi backend | Apply the admission and credential-transport contract below. Check schema, renewal, and verification require agreement. |
+| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Protected schedule and account/reminder synchronization details remain unresolved. |
+| Cabinet admission check for Daychi content | Cabinet backend | Daychi backend | Apply the admission and credential-transport contract below. The server-to-server check schema, caller trust and integration verification require agreement. Native account renewal is defined in the separate accepted profile. |
 | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
 
 The admission contract below owns the third row's failure behavior, removal
-condition, and consolidation-ticket binding. Credential format and the executable
-check contract remain open.
+condition, and consolidation-ticket binding. The
+[native account-session profile](contracts/native-account-session.md) defines
+native acquisition, bearer lifecycle and account access. The executable content
+admission-check contract remains open; native account access does not complete it.
 
 The first two rows share one provider. Identify the promises common to both
 consumers and the requirements specific to Cabinet web or Daychi clients; do not
@@ -310,12 +312,16 @@ uses a Cabinet-issued bearer credential, presented to Cabinet and Daychi in
 admission check. Cabinet owns credential issuance and authoritative validation;
 Daychi does not establish a separate account or session authority.
 
-Credential format, renewal, the admission-check request/response, and verification remain open in the
+The [native account-session profile](contracts/native-account-session.md) defines
+the accepted native credential, exact renewal wire and common conformance cases.
+Publication, implementation and native proof remain outstanding. The separate
+content-admission check's request/response, caller trust and integration verification
+remain open in the
 [credential question](questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md).
 The user requested a separate
 [standardization question](questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md)
-on 2026-10-04; the provisional acquisition decision below does not select a token format
-or settle the remaining lifecycle and admission protocol.
+on 2026-10-04; the accepted native profile does not establish full OIDC adoption
+or settle the separate admission protocol.
 The current Cabinet cookie and Daychi bearer implementations are source evidence,
 not deployed support for this target cross-project contract.
 
@@ -325,7 +331,17 @@ Decision: the user, 2026-10-05. Explicit sign-out ends authenticated use in the
 current client installation. Other Cabinet and Daychi clients remain signed in;
 ordinary sign-out does not terminate every session of the account. The accepted
 discard of that installation's unsynced reminder and lead-time edits still
-applies; Cabinet's already-accepted account state remains.
+applies; Cabinet's already-accepted account state remains. The user accepted native
+local exit and network/storage failure behavior on 2026-10-08; its authoritative
+home is [local sign-out policy](contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy).
+
+### Accepted native credential lifetime and renewal
+
+Native account credential lifetime and renewal were accepted by the
+user on 2026-10-08. Their authoritative definition is
+[accepted credential lifetime and renewal](contracts/native-account-session.md#accepted-credential-lifetime-and-renewal);
+the full native wire profile was accepted by the user on 2026-10-09.
+Implementation and native proof remain pending.
 
 ### Accepted gateway deferral
 
@@ -334,22 +350,18 @@ contributions demonstrate a concrete client or deployment requirement that the
 accepted direct connections cannot satisfy. Daychi clients reach Cabinet for
 schedule and account/reminder state, and Daychi's retained backend for content.
 Cabinet retains account, issuance and admission authority. The native sign-in
-handoff below remains provisional; gateway deferral does not finalize the
-authentication standard or authorize gateway implementation.
+method below was reaffirmed for native-session delivery on 2026-10-08. Gateway
+deferral is separate from the accepted native wire profile and does not authorize
+gateway implementation.
 
-### Provisional native credential acquisition
+### Accepted native credential acquisition
 
 Decision: the user, 2026-10-04, accepted the shared Cabinet sign-in handoff for
 the initial migration, as a straw dog pending the
 [gateway question](questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md).
-The provisional text is bound to the gateway question whose answer will rewrite
-it. A delivery ticket may own work answering that question; the binding stays
-with the question.
-
-<straw-dog question="q-0002.0010">
-Native Daychi uses Cabinet-owned sign-in through an external browser, with OAuth
-2.0 authorization code and PKCE to obtain a Cabinet-issued bearer credential.
-Cabinet owns sign-in and issuance; Daychi consumes the secure handoff. Cabinet web
-access is preserved. This contract does not select the bearer token format,
-credential lifecycle, admission-check schema or product presentation.
-</straw-dog>
+That provisional disposition records the initial agreement. On 2026-10-08 the
+user reaffirmed the existing browser/code-and-PKCE method and corrected a repeated
+approval request. Its operative home is
+[accepted native credential acquisition](contracts/native-account-session.md#accepted-native-credential-acquisition).
+The method and full native wire profile are accepted; the separate admission-check
+schema remains unresolved. Gateway deferral remains unchanged.

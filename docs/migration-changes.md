@@ -22,8 +22,8 @@ production retains `fc2dee2`. Provider acknowledgement awaits record publication
 | Accepted contract | Cabinet contribution | Daychi contribution | Decisions still needed |
 |---|---|---|---|
 | [Schedule access](boundaries.md#accepted-schedule-access), [retrieval modes](boundaries.md#accepted-schedule-retrieval-modes) and [source cutover](boundaries.md#accepted-schedule-source-cutover) | Valid public rows, omission logs and protected-route regressions are verified at `868a4ed` on staging; amended production deployment is not established. Broader authenticated retrieval remains migration work. | Implement and verify the native public pilot against its fixed contract; remove the school-HTML source at the later verified Cabinet cutover. | Public pilot schema/identities are fixed; valid best-effort rows carry no completeness metadata. Provider acknowledgement awaits record publication; native proof, broader authenticated retrieval and cutover compatibility remain separate. |
-| [Cabinet credentials](boundaries.md#accepted-content-admission) and [provisional acquisition](boundaries.md#provisional-native-credential-acquisition) | Support native bearer issuance and the provisional Cabinet-owned browser/code-and-PKCE handoff while retaining web cookies and authoritative validation. | Consume the provisional handoff and present Cabinet credentials to the target APIs. | Final acquisition contract, token format and remaining lifecycle; gateway work is deferred and Cabinet web access is preserved. |
-| [Sign-out scope](boundaries.md#accepted-sign-out-scope) | Preserve other clients' signed-in state when one client signs out. | End authenticated use in the current installation and apply the accepted unsynced-edit discard. | Executable logout contract and verification; account-wide sign-out is not required by ordinary sign-out. |
+| [Native account-session profile](contracts/native-account-session.md) | Implement the accepted native bearer issuance, browser/code-and-PKCE handoff, full web self-profile and grant lifecycle while retaining web cookies. | Implement the accepted handoff, restoration, renewal and account read. Existing content access remains in this slice. | The complete native profile was accepted on 2026-10-09; publication, implementation and actual native proof remain outstanding. Separate content-admission integration and gateway work retain their existing scope. |
+| [Sign-out scope](boundaries.md#accepted-sign-out-scope) | Revoke the calling native grant and all its credentials while preserving other grants and web sessions. | End authenticated use in the current installation through the accepted local-exit and best-effort revocation policy; apply the accepted unsynced-edit discard. | Native logout wire and behavior are accepted in the account-session profile; implementation and verification remain outstanding. Account-wide sign-out is not required by ordinary sign-out. |
 | [Content admission](boundaries.md#accepted-content-admission) | Provide a narrow authoritative admission check. | Replace independent content admission with the accepted call to Cabinet and distinguish refusal from temporary failure. | Executable check schema, caller trust, verification and any cache bound; removal follows the target contract's consolidation binding. |
 | [Reminder selections](boundaries.md#accepted-reminder-selections) | Extend the existing class-ID selection with one-off lesson selections that follow the same occurrence through rescheduling; expose shared account selections to both clients. | Pull account data on sign-in; read and change the shared selection, preserving one-off selection identity when a lesson moves. | Identifier encoding, executable synchronization contract and verification. |
 | [Offline reminder editing](boundaries.md#accepted-offline-reminder-editing) | Reconcile choices independently; latest edit wins for the same choice, including removals; retain Cabinet's stored value on equal update times. | Allow offline selection changes and preserve pending edits through refreshes, failures and retries; discard unsynced selection and lead-time edits on explicit sign-out and prevent cross-account replay. | Clock handling, pending-edit tracking, removal retention and verification. |
@@ -43,11 +43,12 @@ selecting changes. The remaining decisions are:
   projection, identities and refresh/error semantics. The broader authenticated
   schedule and account/reminder migration still needs executable compatibility
   definitions and verification for the accepted school-HTML source removal at cutover.
-- Finalization of the [provisional credential-acquisition
-  contract](boundaries.md#provisional-native-credential-acquisition), token format
-  and lifecycle, preservation of Cabinet web access, and the admission-check
-  request, response and failure contract. Gateway work is deferred; ordinary
-  sign-out affects only the current installation.
+- The [native account-session profile](contracts/native-account-session.md) settles
+  acquisition, token transport, lifecycle and native sign-out. Its publication,
+  implementation and actual native proof remain outstanding. The separate
+  content-admission check still needs its request, response, caller trust and
+  failure contract. Gateway work is deferred; ordinary sign-out affects only
+  the current installation.
 - Ongoing reconciliation of new local edits and account changes. Initial migration
   scope is held by the [migration question](questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md#initial-usage-and-ongoing-synchronization--2026-10-04).
 - Verification of accepted failed-refresh and independent-delivery behavior,
