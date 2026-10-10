@@ -10,7 +10,8 @@ The links belong to each clone and are never committed. Both are required: Claud
 read only their own directory; Codex reads `.agents/skills` natively and needs none. `/harness`
 makes them, or hands the person the exact elevated command where the platform refuses to create
 one; a junction is never a substitute, since nothing sees through it.
-A fresh clone has no links until the harness's update runs in it.
+A fresh clone has no links until `python .agents/scripts/gw/harness.py . --links` runs in it,
+which needs no source and no network.
 
 ## Mechanical support
 

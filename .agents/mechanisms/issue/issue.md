@@ -2,6 +2,7 @@
 
 - **instruction** `.agents/skills/issue/SKILL.md`
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 

@@ -158,7 +158,7 @@ of that skill reaches it as an installed block from its rules file.
 6. **Name what would show it working, graded by someone who did not build it.**
    Pre-register it so a later session can answer without asking what was meant.
 
-Absence is not clearance: a clean run means nothing was caught, never that the tree
+**Absence is not clearance**: a clean run means nothing was caught, never that the tree
 obeys.
 
 <installed by="maintain">

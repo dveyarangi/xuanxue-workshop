@@ -2,12 +2,15 @@
 
 - **instruction** `.agents/skills/maintain/SKILL.md` — the pass: scope, the four things, straw dogs, archiving, finish
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 
 `/maintain` holds four things in agreement, per documentation-and-implementation pair a project
-has: docs are derived work of the meta-rules and take their format; docs and their implementation
-agree, both ways; live records are derived work of their declared format; every fact has one home.
+has: docs are derived work of the meta-rules and take their format; a record and the thing it is
+of agree, repaired in the direction its kind gives — the thing to a record of *what must always
+hold*, a record of *what exists* regenerated from the thing; live records are derived work of
+their declared format; **every fact has one home**.
 Its occasion is **drift** — a governing side that moved with no landing behind it, or a sum of
 clean landings that no longer agrees. Agreement over a landed slice is verification's, at
 `/verify`, and this mechanism does not repeat it.
@@ -122,21 +125,21 @@ repair-and-report, recording the cause in the evidence.
 
 ## What it produces, and who reads it
 
-- **The pass's report** — read by the person who asked for the pass, and by `/conclude` when
+- **The pass's report** — *what happened* — read by the person who asked for the pass, and by `/conclude` when
   the session is recorded.
-- **Repaired files** — read by whoever reads them next; the report names each repair and the
+- **Repaired files** — *its format's* — read by whoever reads them next; the report names each repair and the
   rule it restored.
-- **Moved records** — read through their repaired citations; the mover reports what it
+- **Moved records** — *its format's* — read through their repaired citations; the mover reports what it
   rewrote and what it could not.
-- **A retired straw dog's replacement sentence** — read where the block was.
-- **The listing script's guesses** — read by the maintainer at T3 over a declared scope, and by
+- **A retired straw dog's replacement sentence** — *what must always hold* — read where the block was.
+- **The listing script's guesses** — *what exists* — read by the maintainer at T3 over a declared scope, and by
   `/verify` over the files a slice touched; never by a check, since a guess is judged and never
   fails a run.
-- **The rules file** — one rule, M1, targeting `/mechanism`'s *Incept*, read by the installer
+- **The rules file** — *what must always hold* — one rule, M1, targeting `/mechanism`'s *Incept*, read by the installer
   alone and installed there as this mechanism's block.
-- **The marks**, `docs/mechanisms/maintenance.md` — read by the clock at every pass. The
+- **The marks**, `docs/mechanisms/maintenance.md` — *what exists* — read by the clock at every pass. The
   instance's record: a recipient keeps its own, and the origin's never ships.
-- **The clock's report** — read by `/maintain` at the start of every pass, and by `/verify`
+- **The clock's report** — *what exists* — read by `/maintain` at the start of every pass, and by `/verify`
   through the verification set, where only an unreadable mark or surface fails it.
 
 Nothing else; no index.

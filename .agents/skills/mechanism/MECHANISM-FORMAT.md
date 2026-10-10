@@ -104,6 +104,7 @@ local rule where every mechanism's block precedes it.
 
 - **instruction** `<path>` — what it holds
 - **state** always on
+- **kind** what must always hold
 
 ## How it works
 
@@ -130,6 +131,14 @@ at a stated moment, another mechanism, a script — or the section says why nobo
 reader is, and whether they are enough, is judgment and never the check's; that the question was
 answered at all is not.
 
+**An output listed by a bullet names its kind**, after its name, before its reader:
+`- **<output>** — *<kind>* — <who reads it>`. The kind is one of the four kinds of record —
+*what it intends to become*, *what must always hold*, *what exists*, *what happened* — or
+*its format's*, for an output that is a record of another mechanism and takes the kind that
+format declares. A record whose kind moves with its state names the first and the rule after
+it: *what it intends to become, what happened once closed*. A bullet with no kind, or another,
+is a diagnostic; the section's prose and nested bullets name no output.
+
 **The title line names the job, not the procedure.** What the mechanism is for and holds true,
 never the steps its script runs — a declaration written beside its implementation takes the
 script's verbs, and a reader then cannot tell what the mechanism would still own if the
@@ -142,6 +151,9 @@ implementation changed.
 - **state** — `always on` or `installed`, and nothing else. `always on` means nothing can install
   or uninstall it, so it has no lifecycle scripts and that absence is a property. It is what tells
   a reader which way to read the parts table.
+- **kind** — `what must always hold`, and nothing else: the doc is the record its instruction is
+  repaired to. This format is the kind's authored home; the bullet is the kind where an agent
+  editing the doc meets it, and the check holds the two equal.
 - There is no evidence bullet. The evidence is a record declared under [Records](#the-evidence-is-a-record-of-the-shape)
   below and found by the slug; the doc never names it, since it is the instance's and a recipient
   does not have it. Which ticket declared the mechanism is the evidence's first paragraph *(the

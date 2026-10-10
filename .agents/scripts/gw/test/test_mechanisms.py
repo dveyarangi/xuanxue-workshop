@@ -63,6 +63,7 @@ class Declared(RepositoryCase):
                 f"# {SLUG} — one line saying what it is\n\n"
                 f"- **instruction** `{INSTRUCTION}` — the act\n"
                 "- **state** always on\n"
+                "- **kind** what must always hold\n"
             ),
             "moments": MOMENTS,
             "parts": PARTS,
@@ -89,6 +90,8 @@ class Declared(RepositoryCase):
         """A header bending only the bullet under test; the rest stays well-formed."""
         if "**state**" not in bullets:
             bullets += "- **state** always on\n"
+        if "**kind**" not in bullets:
+            bullets += "- **kind** what must always hold\n"
         return f"# {SLUG} — one line saying what it is\n\n{bullets}"
 
     def checked(self):
@@ -391,6 +394,24 @@ class TheHeader(Declared):
             self.assertEqual(1, len(problems))
             self.assertIn("occasionally on", problems[0])
 
+    def test_carries_the_doc_s_kind_so_an_agent_editing_it_meets_the_kind_in_context(self) -> None:
+        with self.subTest(kind="missing"):
+            self.write(DOC, self.doc().replace("- **kind** what must always hold\n", ""))
+
+            problems = self.problems()
+
+            self.assertEqual(1, len(problems))
+            self.assertIn("names no kind", problems[0])
+
+        with self.subTest(kind="another"):
+            self.write(DOC, self.doc().replace("- **kind** what must always hold", "- **kind** what exists"))
+
+            problems = self.problems()
+
+            self.assertEqual(1, len(problems))
+            self.assertIn("what exists", problems[0])
+            self.assertIn("what must always hold", problems[0])
+
 
 class TheRulesFile(Declared):
     def test_is_found_by_its_name_rather_than_by_a_bullet_declaring_it(self) -> None:
@@ -434,6 +455,49 @@ class TheDoc(Declared):
 
         self.assertEqual(1, len(problems))
         self.assertIn("produces", problems[0])
+
+    def test_names_the_kind_of_each_output_it_lists(self) -> None:
+        produces = "## What it produces, and who reads it\n\n{bullets}\nNothing else is emitted.\n"
+        admitted = (
+            "- **The report** — *what exists* — read by whoever ran it.\n"
+            "- **The rules file**, `sample.rules.md` — *what must always hold* — read by the installer.\n"
+            "- **The entries** — *what it intends to become, what happened once closed* — read by all.\n"
+            "- **The evidence** — *what happened* — read at amend time.\n"
+            "- **Repaired files** — *its format's* — read by whoever reads them next,\n"
+            "  the report naming each repair.\n"
+        )
+        with self.subTest(outputs="each kind admitted"):
+            self.write(DOC, self.doc(produces=produces.format(bullets=admitted)))
+
+            self.assertEqual([], self.problems())
+
+        with self.subTest(outputs="one with no kind"):
+            self.write(DOC, self.doc(produces=produces.format(bullets="- **The report** — read by whoever ran it.\n")))
+
+            problems = self.problems()
+
+            self.assertEqual(1, len(problems))
+            self.assertIn("'The report' names no kind", problems[0])
+
+        with self.subTest(outputs="one with a kind the format does not admit"):
+            self.write(DOC, self.doc(produces=produces.format(bullets="- **The report** — *ephemeral* — read by whoever ran it.\n")))
+
+            problems = self.problems()
+
+            self.assertEqual(1, len(problems))
+            self.assertIn("'The report' names a kind the format does not admit", problems[0])
+            self.assertIn("ephemeral", problems[0])
+
+    def test_reads_only_bullets_so_prose_beside_them_names_no_output(self) -> None:
+        prose = (
+            "## What it produces, and who reads it\n\n"
+            "- **The report** — *what exists* — read by whoever ran it.\n"
+            "  - **a nested note** — no kind, and not an output of its own\n\n"
+            "The declaration, read by whoever amends this — **not** a bullet.\n"
+        )
+        self.write(DOC, self.doc(produces=prose))
+
+        self.assertEqual([], self.problems())
 
     def test_must_carry_a_moments_table(self) -> None:
         self.write(DOC, self.doc(moments="Every moment here is instructed.\n"))

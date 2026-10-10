@@ -2,6 +2,7 @@
 
 - **instruction** `.agents/skills/mechanism/SKILL.md` — the shape: membership, the three homes, moments, injection, records, incept, amend and retire
 - **state** always on
+- **kind** what must always hold
 
 ## How it works
 
@@ -95,22 +96,22 @@ applying the spec's ownership decision)*.
 
 ## What it produces, and who reads it
 
-- **This declaration** — read by whoever amends a mechanism or debugs one, and parsed by the check
+- **This declaration** — *what must always hold* — read by whoever amends a mechanism or debugs one, and parsed by the check
   on every `/verify`.
-- **The evidence**, one file per mechanism under `docs/mechanisms/`, named by the slug — read at amend time,
+- **The evidence**, one file per mechanism under `docs/mechanisms/`, named by the slug — *what happened* — read at amend time,
   by whoever is about to change this doc and needs to know what was already refuted. Never read
   during ordinary work, which is why it lives outside `.agents/` and is excluded from re-checks.
-- **`--check`'s report** — read by `/verify` through the verification set, and by anyone who runs
+- **`--check`'s report** — *what exists* — read by `/verify` through the verification set, and by anyone who runs
   it. Its exit status is what the set consumes; its JSON is for the person reading a failure.
   Its `core cites` key lists every path under `docs/` a core file names and where it stands —
   a painted door, skipped inside an instance-owned block, or a leak — read by whoever ports
   core: an exclusion nobody can see is the review the check replaces, so all three are shown
   and never a total.
-- **`--index`'s render** — read on request by someone asking what is declared. **Nothing runs it
+- **`--index`'s render** — *what exists* — read on request by someone asking what is declared. **Nothing runs it
   unasked**, and nothing consumes its output: it exists so the register never becomes a file, and
   a register nobody asks for is a register nobody needed.
 
-- **Its rules file** — `mechanism-shape.rules.md`, read by the installer alone, and by whoever
+- **Its rules file** — *what must always hold* — `mechanism-shape.rules.md`, read by the installer alone, and by whoever
   amends a rule of the shape that other skills read. Its block is installed in `/maintain`, in
   `/align`, in this mechanism's own skill, which reads R1 and R4 at incept and R5 when a rule
   is written, and — R7, the local file — in the entry file, where every session reads where a
@@ -120,12 +121,13 @@ applying the spec's ownership decision)*.
   no body restates a rule, so installation is the only path such a rule has into its owner's body.
   The alternative — authored in the owner, installed elsewhere — puts one rule in two files and
   leaves the check nothing to compare the authored copy against.
-- **The installer's `--check` report** — read by `/verify` through the verification set, and by
+- **The installer's `--check` report** — *what exists* — read by `/verify` through the verification set, and by
   anyone who runs it. Its exit status is what the set consumes; a block absent, drifted or
   owned by nothing is what it fails on, and a local block that is not last in its file, or an
   override naming a rule that is not installed where the override is.
 
-- **A skill's claim** — the `Mechanism:` line a skill no declaration names opens with, a straw
+- **A skill's claim** — *what it intends to become, what must always hold once unowned by design* —
+  the `Mechanism:` line a skill no declaration names opens with, a straw
   dog at its authored home. Written by whoever adds the skill, through R6; read by `--check` on
   every `/verify` for the reverse pass. Not a record of this mechanism: it is the skill's own
   line, and no file lists them *(the user, 2026-09-20)*.

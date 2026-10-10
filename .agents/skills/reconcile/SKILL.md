@@ -97,9 +97,14 @@ questions and changed dependencies matter before completion reports arrive.
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.
 - Accepted targets and consumers: docs/boundaries.md.
-- Planned changes: docs/migration-changes.md.
+- Remaining changes: docs/migration-changes.md, Changes derived from accepted contracts;
+  follow each row's cited agreement in docs/boundaries.md.
+- Current work and order: docs/tickets/README.md, Queue; the active ticket's
+  Outcome, Acceptance criteria and dependencies.
 - Scope limits: docs/stage-1.md.
-- Ownership, routing, autonomy and acceptance: docs/agent-contract.md.
+- Ownership, tracker discovery and acceptance: docs/agent-contract.md,
+  Accepted obligations and Entry and first assignment; use the original issues
+  returned by assignment review. Autonomy switches: AGENTS.md, Project-local.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
 
 **L11** For Workshop boundary alignment, reconciliation and assignments, apply the

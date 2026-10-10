@@ -49,7 +49,7 @@ The store's other calls are made whenever the turn's own work settles, opens or 
 Only the working agent calls, never a helper. Under `debug=on`, head the reply with a one-cell
 table holding a row for each, in order, the first over `|---|`: `| ↳ **q-N** · <its question as
 the window writes it> |` for the question the turn ends on, `| + **q-N** · <question> |` for one
-opened in it, `| ✓ **q-N** · <question> (<kind>: <its answer>) |` for one closed in it, the
+opened in it — one the turn opened and ends on gets the `+` row alone — `| ✓ **q-N** · <question> (<kind>: <its answer>) |` for one closed in it, the
 question alone for one it left open, `| ▶ **<process>** · <its scope> |` for a process,
 `| ? **uncharted** · <the question> |` for an ask, `| ~ **banter** |` for banter. For any other
 call, a closure, a branching or a drop, read the questions skill.

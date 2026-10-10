@@ -1,7 +1,8 @@
 # harness — a project that is not the origin holds core whole, at the ref it announces, and can take a later one
 
-- **instruction** `.agents/skills/harness/SKILL.md` — the commands, each refusal and what the person does, the first install's last step
+- **instruction** `.agents/skills/harness/SKILL.md` — the four commands, install, update, check and the per-clone links, each refusal and what the person does, the first install's last step
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 
@@ -100,19 +101,19 @@ would otherwise fail the shape check for the same absence the report already nam
 
 ## What it produces, and who reads it
 
-- **The recipient's core** — read by its every session, through the loader links its hosts
+- **The recipient's core** — *what exists* — read by its every session, through the loader links its hosts
   follow.
-- **The stamped announce line** — announced by the recipient's first reply; read by `--check` and
+- **The stamped announce line** — *what exists* — announced by the recipient's first reply; read by `--check` and
   `--update` to know what was installed, and by the shape check to know it stands in a recipient.
-- **The report** — read by whoever ran the script, and by the recipient's `/verify` where its
+- **The report** — *what exists* — read by whoever ran the script, and by the recipient's `/verify` where its
   verification set names the check. Its `pending` lines are read by the person who runs them.
-- **A fresh tree's delivery status** — read by the first session's `/recall`, which runs before
+- **A fresh tree's delivery status** — *what it intends to become* — read by the first session's `/recall`, which runs before
   anything has been written into the queue; worded by the `ticket` mechanism, placed here, and the
   instance's from its first line.
-- **The stamped repository line** — read by the script whenever a run is given no `--from`,
+- **The stamped repository line** — *what must always hold* — read by the script whenever a run is given no `--from`,
   including the recipient's own copy at its own `--check`; and by a person or a fork asking where
   this tree's core comes from, or pointing it somewhere else.
-- **The pending command** — read by a person, once, in an elevated prompt.
+- **The pending command** — *what exists* — read by a person, once, in an elevated prompt.
 
 No record. The two stamped lines are the tree's, and nothing else is kept.
 

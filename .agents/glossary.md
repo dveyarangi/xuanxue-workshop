@@ -38,11 +38,11 @@ _Avoid_: component, piece, asset.
 An occasion at which a person acts on a mechanism. Each is either instructed, or carries a stated kind of absence. If nobody acts, it is not a moment.
 
 **Doc**:
-The record of why a mechanism's instruction is what it is — the documentation of a mechanism. Never the same file as the instruction.
+The record of why a mechanism's instruction is what it is — the documentation of a mechanism. Never the same file as the instruction. Of the kind *what must always hold*.
 _Avoid_: manual, reference, spec as a name for this.
 
 **Documentation**:
-The role a doc plays for an implementation: what it must do and why. A mechanism's doc for its skill and scripts; a project's architecture for its code.
+The role a doc plays for an implementation: what it must do and why. A mechanism's doc for its skill and scripts; a project's architecture for its code. A role, not a kind: documentation is of the kind *what must always hold*, and a disagreement with its implementation is repaired at the implementation.
 _Avoid_: spec, manual.
 
 **Implementation**:
@@ -50,11 +50,11 @@ What a documentation describes and must agree with: a mechanism's instruction fi
 _Avoid_: source; product as a synonym.
 
 **Record**:
-What a mechanism writes and keeps under a declared format, live until archived: a ticket, an RFC, a session record, the marks. An entry is one row of a record that holds many.
+What a mechanism writes and keeps under a declared format, live until archived: a ticket, an RFC, a session record, the marks. An entry is one row of a record that holds many. Being a record says under what format a thing is written, a second axis beside its kind: the kind is the format's to declare.
 _Avoid_: log.
 
 **Mark**:
-The row a maintenance writes when it has re-checked a mechanism at a level: the fingerprint of what it checked against, the date, and the outcome. Only the maintenance that finished the re-check writes one; no edit to a doc is a mark.
+The row a maintenance writes when it has re-checked a mechanism at a level: the fingerprint of what it checked against, the date, and the outcome. Only the maintenance that finished the re-check writes one; no edit to a doc is a mark. Of the kind *what exists*.
 _Avoid_: timestamp, last-checked, checkpoint.
 
 **Due**:
@@ -62,11 +62,11 @@ Said of a mechanism at a level when what governs it has moved since its mark, or
 _Avoid_: stale, dirty, pending.
 
 **Evidence**:
-The record of why a doc is what it is: what was tried, what was refuted, what it cost, what it used to be. One per mechanism. Evolution belongs here; provenance does not.
+The record of why a doc is what it is: what was tried, what was refuted, what it cost, what it used to be. One per mechanism. Evolution belongs here; provenance does not. Of the kind *what happened*.
 _Avoid_: sidecar, notes, history, appendix. *Sidecar* describes a file's position, never its contents.
 
 **Provenance**:
-Who decided a rule and when, carried inline on the rule itself. It is not evidence and does not move to the evidence file: attribution at the moment of reading is what makes a rule challengeable.
+Who decided a rule and when, carried inline on the rule itself. It is not evidence and does not move to the evidence file: attribution at the moment of reading is what makes a rule challengeable. A part of a rule, of no kind of its own.
 
 **Authority**:
 Who may establish, amend or waive a rule. Stated on the rule, inline, as its provenance; the repair policy says what a maintainer may do with the rest. Separate from delivery tier and from evidence of effectiveness.
@@ -76,7 +76,7 @@ _Avoid_: strict rule, working rule, rule strength.
 How a thing reaches a session — forced into context, asked for, or reachable only by someone who already knows it exists. Reachability, never importance or read-frequency.
 
 **Index**:
-A compact list of a register's records, derived from them on request rather than kept beside them. Enough per record to decide whether to open it, and never a second home for what the record already says.
+A compact list of a register's records, derived from them on request rather than kept beside them. Enough per record to decide whether to open it, and never a second home for what the record already says. Of the kind *what exists*.
 _Avoid_: digest, summary, table of contents.
 
 **Core**:
@@ -120,7 +120,7 @@ An unresolved problem, question or risk that needs a disposition. It is unresolv
 _Avoid_: issue as a generic name for every development document.
 
 **Spec**:
-A change-scoped definition of intended capability, scope and governing behavior from which delivery work can be derived. Its enduring agreements belong in maintained governing documents; its eventual historical status does not itself establish that the change was delivered.
+A change-scoped definition of intended capability, scope and governing behavior from which delivery work can be derived. Its enduring agreements belong in maintained governing documents; its eventual historical status does not itself establish that the change was delivered. Of the kind *what it intends to become*.
 
 **Architecture**:
 The maintained description of system responsibilities, load-bearing seams and governing constraints, with the status of current and agreed target behavior explicit.
@@ -151,10 +151,10 @@ A message that asks nothing of the work — no question about the project, nothi
 _Avoid_: unplaced, nowhere, new as names for this.
 
 **Archived record**:
-A historical account retained after its active role ends, with its disposition explicit. Current work should be understandable from maintained sources without requiring that record; historical investigation and mechanical maintenance may still reach it.
+A historical account retained after its active role ends, with its disposition explicit; of the kind *what happened*. Current work should be understandable from maintained sources without requiring that record; historical investigation and mechanical maintenance may still reach it.
 
 **Ticket**:
-A tracked unit of work with an intended outcome and observable completion criteria. It may own unresolved decisions before implementation is ready.
+A tracked unit of work with an intended outcome and observable completion criteria. It may own unresolved decisions before implementation is ready. Of the kind *what it intends to become*: spent when its criteria hold.
 
 **Ticket stage**:
 What a ticket holds, read from whether it has a plan. Incepted — no plan yet — it hosts chunks: routed inputs, ideas, open questions. Shaped — its plan exists — it keeps only what is actual: the work, its criteria, and what is still open. A resolved decision lives in its durable home and in the session record, not in the ticket.
@@ -164,7 +164,7 @@ _Avoid_: dossier, decision log, history as names for a ticket's contents.
 A ticket whose progress requires a human decision or interaction. Its scope may still be undecomposed, but HITL does not itself specify size or maturity; investigation can reveal a need for a spec and multiple delivery tickets.
 
 **RFC**:
-An implementation proposal or agreed plan for an owning ticket, grounded in the governing architecture and contracts. Its existence alone does not mean its proposal has been accepted.
+An implementation proposal or agreed plan for an owning ticket, grounded in the governing architecture and contracts. Its existence alone does not mean its proposal has been accepted. Of the kind *what it intends to become*.
 
 **Shape**:
 Whatever is currently under consideration, held between an idea and a thing: it has taken enough form to have a context and a structure, and is not yet exhausted by any one realization. A concept, contract, invariant, behavior, rule, method or artifact can each be held as a shape.
@@ -182,13 +182,38 @@ A boundary across which a producer supplies behavior, information or an artifact
 **Load-bearing seam — proposed definition**:
 A seam across distinct responsibilities whose contract determines a promised outcome, authority, data meaning or integrity, compatibility, or recovery beyond either side's implementation-local choices. A change that appears valid at one end can invalidate the other end or their shared guarantee.
 
+**Kind of statement**:
+What a written sentence of the method is, told apart by one test each: an **instruction** says what to do — a rule, with a moment and an outcome; a **principle** says what to prefer when it is unclear what to do; an **invariant** says what must hold; a **definition** says what a word means; a **classification** says where a thing goes when it is unclear what it is. A sentence is of one kind; the kinds a reply may mark are principle, classification and the footing a claim rests on.
+
 **Principle**:
-A reason a rule exists, read at tier 1 and applied by judgement. It names no occasion and no outcome, so it never fires and is never a rule failure: a principle that "did not fire" is a rule missing. Its home is the entry file's general section, a mechanism's doc, or this glossary; in an instruction file it appears only as the pointer behind a rule.
+What to prefer when it is unclear what to do: a preference under uncertainty, written as *prefer A over B* and applied by judgement. It names no occasion and no outcome, so it never fires and is never a rule failure: a principle that "did not fire" is a rule missing. Its home is the entry file's general section, a mechanism's doc, or this glossary, and it carries a name there — the bold lead of its sentence — by which it is cited; in an instruction file it appears only as the pointer behind a rule.
 _Avoid_: rule, guideline as its name.
 
 **Rule**:
 An instruction with a moment — the occasion, in the words a person would use for it — and an outcome that can be checked afterwards. Its home is a rules file, installed at the tier its moment reads, citing the principle behind it. A judge's invocation is a rule; what the judge judges by is a principle.
 _Avoid_: principle, for an instruction that has no moment.
+
+**Invariant**:
+What must hold of a thing at all times, written in a record of the kind *what must always hold*. Its violation is a defect repaired at the thing, never a rule failure; it is not a preference and is not marked as a principle.
+
+**Definition**:
+What a word means, held by a glossary — this one for the method, the project's for its domain. A definition authorizes no machinery and is marked in a reply only as the footing a claim rests on.
+
+**Classification**:
+A sort with a claim of completeness and a test that says where a thing goes when it is unclear what it is. One an agent applies by judgement carries a name by which a reply cites it — *kind of record*, *kind of statement*, *kind of turn*, *kind of moment*, *tier*; one a script reads is an enum in its format and needs none.
+
+**Kind of record**:
+What a record is by its source of truth, on two axes: which side is right when the record and the thing it is about disagree — the record, the thing, or neither — and whether the record's authority expires once the thing reaches it. Four kinds: **what it intends to become** — the record, until reached; the thing moves toward it and the person refines it, and it is spent when the thing matches it; **what must always hold** — the record, standing; the thing is repaired to it, and it changes only by decision; **what exists** — the thing; the record is regenerated from it and never edited by hand; **what happened** — neither, the referent being past; never repaired. The test between the first two, both written before the thing obeys them: the first expires when reached, the second keeps governing. A format declares the kind of its records once, as their authored home, and every record an agent edits carries it visibly on itself — the mark at the thing — so the agent meets it in context before adding what the kind refuses; a document without a format carries it on itself alone, and a record only a script writes carries none.
+
+**Whiteboard**:
+The body of the question a task stands on, where everything bearing on the task is written until enough has gathered to see its form; then sorted into records of their kinds. It is of no kind, maintenance does not hold it, and a ticket is minted from it, never before it.
+_Avoid_: draft as a record type, scratch, notes.
+
+**Kind of turn**:
+What a turn is, said before its reply is drafted: on a question, a new question, a process, uncharted, or banter. The classification is Q1's, in the questions mechanism's rules file.
+
+**Kind of moment**:
+What a mechanism's moment carries: instructed by another mechanism, instructed from the wrong home, unowned by design, or not yet. The classification is the mechanism format's.
 
 **Meta-rule**:
 A rule governing how other rules or mechanisms are created, changed, checked or maintained.

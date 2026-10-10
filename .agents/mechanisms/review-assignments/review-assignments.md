@@ -2,6 +2,7 @@
 
 - **instruction** `.agents/skills/review-assignments/SKILL.md`
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 
@@ -13,9 +14,12 @@ pass at the affected stage; an in-progress review is reused rather than restarte
 The original issue conversation holds review history and acceptance evidence.
 Discovery follows timeline references to reports and artifacts, including reports
 held in other repositories. Direct comments are only one evidence surface.
-Changed prerequisite evidence also affects dependent assignments, even when
-their own conversations have not changed. The shared issue format owns dependency
-conditions; local review obligations bind reassessment to evidence handling.
+Dependency review tests necessity as well as fulfillment against current source,
+checks, runtime and operator evidence. Changed facts affect dependent assignments
+even when their own conversations have not changed. The shared issue format owns
+activity conditions; local review obligations bind reassessment and original-issue
+correction to evidence handling. Document claims and acknowledgements describe
+decisions and reviews but do not establish operational readiness.
 
 ## Moments
 
@@ -25,7 +29,7 @@ conditions; local review obligations bind reassessment to evidence handling.
 | routing a blocker or changed obligation back into coordination | `.agents/skills/coordinate/SKILL.md` | |
 | handling a project report or incoming request | `.agents/skills/review-assignments/SKILL.md` | |
 | reading reports and artifacts linked through an issue's timeline | `.agents/skills/review-assignments/SKILL.md` | |
-| reassessing dependent assignments after prerequisite evidence changes | `.agents/skills/review-assignments/SKILL.md` | |
+| reassessing dependency necessity and fulfillment from observed conditions | `.agents/skills/review-assignments/SKILL.md` | |
 | reviewing relevant discussions when reconciliation begins or resumes | `.agents/skills/review-assignments/SKILL.md` | |
 | supplying project context and entry invocation | `.agents/skills/mechanism/SKILL.md` | |
 | installing or retracting the bindings | `.agents/scripts/gw/inject_rules.py` | |
@@ -87,10 +91,12 @@ An issue with no direct comments but a linked pull-request report or referenced
 commit must produce an artifact-based review. An incidental mention must not
 produce acceptance; an inaccessible reference must remain explicitly pending.
 Acceptance follows required record reconciliation and references its result.
-For prerequisite acceptance, the operator checks that dependent work is
-reassessed without an invented Ready approval. A closed unaccepted prerequisite
-must remain unsatisfied; provider-dependent integration must remain blocked even
-when client development is eligible. An unchanged prerequisite produces no
-duplicate response.
+The operator grades a case where a settled accessible contract and operator
+authority permit implementation while an installation acknowledgement is absent:
+review removes the administrative hold from the original issue. A case without
+a reachable conforming provider still cannot complete actual integration proof.
+Changed runtime or operator evidence triggers reassessment even when the last
+issue message is the coordinator's. A proposed shared promise change still returns
+to alignment. Unchanged evidence produces no duplicate response.
 The structural checks reject a missing instruction or a missing or altered
 installed context or entry binding. These checks do not grade semantic decisions.

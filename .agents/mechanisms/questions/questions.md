@@ -2,6 +2,7 @@
 
 - **instruction** `.agents/skills/questions/SKILL.md` — the formats, the calls, and closing, branching and dropping
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 
@@ -26,7 +27,9 @@ banter, a message that asks nothing of the work, answered by a reply that writes
 nothing.
 What it places it writes by calling the script, one call per event, each
 validated and written whole; the script gives a new question its id, nested under its parent's,
-and a re-parent renames the subtree that moves, so an id always says where its question sits. The
+and a re-parent renames the subtree that moves, so an id always says where its question sits; a
+reword gives an open question new words under the id it has, since the same question means the
+same answers and never the same wording. The
 window prints position,
 never relevance: the one judgement of the turn is the agent's. The rule placing a message is
 installed at tier 1, since its occasion is every turn.
@@ -45,16 +48,16 @@ is drawn only when the session's position or an entry moved, and whole again aft
 
 **Principles**, behind the rules and never installed:
 
-- Depth is the instrument against breadth: when a question's open children outgrow what the window
-  can show, find the question they jointly serve and insert it above them.
-- A skipped question is found by impasse or by the method's plan, never by walking presuppositions
-  upward.
-- Decide at the level asked; go down to look, and return.
-- Descend or hold is a value question: resolve the higher question first only when its answer could
-  flip this one and is cheaper to get than the flip would cost; otherwise decide under it, record
-  the dependency, and the answer is born suspect.
-- The same question means the same answers, never the same wording.
-- A question is held when answering it is worth its cost, when someone can say what one might have
+- **Depth is the instrument against breadth**: when a question's open children outgrow what the
+  window can show, find the question they jointly serve and insert it above them.
+- **A skipped question is found by impasse**, or by the method's plan, never by walking
+  presuppositions upward.
+- **Decide at the level asked**; go down to look, and return.
+- **Descend or hold is a value question**: resolve the higher question first only when its answer
+  could flip this one and is cheaper to get than the flip would cost; otherwise decide under it,
+  record the dependency, and the answer is born suspect.
+- **The same question means the same answers**, never the same wording.
+- **A question is held when it is worth its cost**, when someone can say what one might have
   thought instead, and when a clairvoyant could answer it without judgement.
 
 **Three levels**, each usable without the next: the store, where the agent judges and nobody watches
@@ -119,19 +122,19 @@ roles, is an open question of the store.
 
 ## What it produces, and who reads it
 
-- **The entries** — read by the script at every window, wake, declaration and check, and by a
+- **The entries** — *what it intends to become, what happened once closed* — read by the script at every window, wake, declaration and check, and by a
   person through `--tree`.
-- **The sessions file** — read by the script for every window and wake, so each session sees where
+- **The sessions file** — *what exists* — read by the script for every window and wake, so each session sees where
   the others stand.
-- **The window** — read by the agent before every message, from the host's hook or the rule.
-- **The wake's read** — read by the agent at session start, from the hook or `/recall`; it names
+- **The window** — *what exists* — read by the agent before every message, from the host's hook or the rule.
+- **The wake's read** — *what exists* — read by the agent at session start, from the hook or `/recall`; it names
   the straw dogs due, whose text `/maintain` rewrites.
-- **The fingerprint of each session's last window**, outside the tree — read by the script alone,
+- **The fingerprint of each session's last window**, outside the tree — *what exists* — read by the script alone,
   to tell whether anything moved; a compaction clears it.
-- **The hook's answers** — read by the host, which places them in the agent's context.
-- **The check's report** — read by `/maintain` at its pass and by `/verify` through the
+- **The hook's answers** — *what exists* — read by the host, which places them in the agent's context.
+- **The check's report** — *what exists* — read by `/maintain` at its pass and by `/verify` through the
   verification set.
-- **The rules file** — read by the installer alone.
+- **The rules file** — *what must always hold* — read by the installer alone.
 
 Nothing else; the tree is rendered on request and never committed.
 

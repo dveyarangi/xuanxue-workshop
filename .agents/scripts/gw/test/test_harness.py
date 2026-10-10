@@ -62,7 +62,8 @@ ENTRY = (
 SAMPLE_DOC = (
     "# sample — one line saying what it is\n\n"
     f"- **instruction** `{KEEPER}` — the act\n"
-    "- **state** installed\n\n"
+    "- **state** installed\n"
+    "- **kind** what must always hold\n\n"
     "## How it works\n\nProse nothing parses.\n\n"
     "## Moments\n\n"
     "| moment | instructed by | kind, and why |\n|---|---|---|\n"
@@ -165,10 +166,38 @@ class HeldSource(harness.Source):
         return self.history.commits[ref.commit].get(path)
 
 
-def plain_target_git(target: Path, *arguments: str) -> str | None:
+def plain_target_git(target: Path, *arguments: str) -> subprocess.CompletedProcess:
     """What Git says of a plain folder that is the top of its own work tree, with no origin and
     no setting of its own."""
-    return str(target) if arguments == ("rev-parse", "--show-toplevel") else None
+    if arguments == ("rev-parse", "--show-toplevel"):
+        return subprocess.CompletedProcess(arguments, 0, str(target), "")
+    return subprocess.CompletedProcess(arguments, 1, "", "")
+
+
+DUBIOUS_OWNERSHIP = (
+    "fatal: detected dubious ownership in repository at '{target}'\n"
+    "'{target}/.git' is owned by:\n\t'S-1-5-21-1008'\nbut the current user is:\n\t'S-1-5-21-1001'\n"
+    "To add an exception for this directory, call:\n\n"
+    "\tgit config --global --add safe.directory {target}\n"
+)
+
+
+def git_refusing_ownership(target: Path, *arguments: str) -> subprocess.CompletedProcess:
+    """Git's refusal as issue 1 recorded it, word for word: the suite's Git predates the
+    ownership check, so the refusal is proved against the message Git prints where it has one."""
+    return subprocess.CompletedProcess(arguments, 128, "", DUBIOUS_OWNERSHIP.format(target=target.as_posix()))
+
+
+def git_checks_ownership() -> bool:
+    """Whether this machine's Git refuses a repository owned by another identity, asked by Git's
+    own test knob; a Git older than 2.35.2 has no such check and the knob does nothing."""
+    with tempfile.TemporaryDirectory() as workspace:
+        subprocess.run(["git", "init", "--quiet", workspace], capture_output=True)
+        asked = subprocess.run(
+            ["git", "-C", workspace, "rev-parse", "--show-toplevel"],
+            capture_output=True, encoding="utf-8", env={**os.environ, "GIT_TEST_ASSUME_DIFFERENT_OWNER": "1"},
+        )
+        return asked.returncode != 0 and "dubious ownership" in asked.stderr
 
 
 def checks_in_process(target: Path, arguments: list[str]) -> subprocess.CompletedProcess:
@@ -194,7 +223,7 @@ class TwoTrees(RepositoryCase):
         if not self._proves_a_process():
             self.history = History()
             self._patch(harness, "Source", lambda repository: HeldSource(repository, self.history))
-            self._patch(harness, "_git_in", plain_target_git)
+            self._patch(harness, "_git_said", plain_target_git)
             self._patch(harness, "_python", checks_in_process)
         self.seed_source()
         self.target = self.another_repository()
@@ -471,8 +500,9 @@ class ARefusal(TwoTrees):
 
         self.assertEqual(1, status)
         self.assertEqual(1, len(report["refusals"]), report)
+        self.last_refusal = report["refusals"][0]
         for word in said:
-            self.assertIn(word, report["refusals"][0])
+            self.assertIn(word, self.last_refusal)
         self.assertEqual(before, self.target_snapshot())
 
     # The two refusals Git decides are asked of the target before anything is read from the
@@ -483,8 +513,74 @@ class ARefusal(TwoTrees):
         inside = self.target / "inside"
         inside.mkdir()
 
-        with self.assertRaisesRegex(harness.Refused, "target:.*top level"):
+        with self.assertRaisesRegex(harness.Refused, f"target:.*top level.*{self.target.name}"):
             harness._work_tree_root(inside, harness.Source(str(self.source)))
+
+    def plain_folder(self, *holding: str) -> Path:
+        """A folder inside no repository, holding the named files; the case's own, cleaned up."""
+        workspace = tempfile.TemporaryDirectory()
+        self.addCleanup(workspace.cleanup)
+        folder = Path(workspace.name).resolve()
+        for name in holding:
+            (folder / name).write_text("theirs\n", encoding="utf-8")
+        return folder
+
+    def run_harness_at(self, folder: Path, *operands: str) -> tuple[int, dict]:
+        said = io.StringIO()
+        with contextlib.redirect_stdout(said):
+            status = harness.main([str(folder), *operands, "--from", str(self.source)])
+        return status, json.loads(said.getvalue())
+
+    @proves_a_process
+    def test_a_folder_with_files_of_its_own_that_is_no_repository_is_refused_with_the_step(self) -> None:
+        folder = self.plain_folder("notes.txt")
+
+        status, report = self.run_harness_at(folder, "--install")
+
+        self.assertEqual(1, status)
+        self.assertEqual(1, len(report["refusals"]), report)
+        self.assertIn("not a git repository", report["refusals"][0])
+        self.assertIn("git init", report["refusals"][0])
+        self.assertEqual(["notes.txt"], [path.name for path in folder.iterdir()])
+
+    @proves_a_process
+    def test_an_empty_folder_is_initialised_and_the_install_arrives(self) -> None:
+        folder = self.plain_folder()
+
+        status, report = self.run_harness_at(folder, "--install")
+
+        self.assertEqual([], report["refusals"])
+        self.assertTrue((folder / ".git").is_dir())
+        self.assertTrue(any("git init" in note for note in report["notes"]), report["notes"])
+        for name, gate in report["gates"].items():
+            self.assertTrue(gate["passed"], (name, gate))
+        self.assertTrue(report["arrived"])
+
+    @proves_a_process
+    def test_the_link_step_initialises_nothing_in_an_empty_folder(self) -> None:
+        folder = self.plain_folder()
+        said = io.StringIO()
+        with contextlib.redirect_stdout(said):
+            status = harness.main([str(folder), "--links"])
+        report = json.loads(said.getvalue())
+
+        self.assertEqual(1, status)
+        self.assertIn("not a git repository", report["refusals"][0])
+        self.assertFalse((folder / ".git").exists())
+
+    def test_a_target_git_refuses_for_dubious_ownership_is_refused_with_gits_own_command(self) -> None:
+        self._patch(harness, "_git_said", git_refusing_ownership)
+
+        self.assert_refused(("--install",), "target:", "dubious ownership", f"safe.directory {self.target.as_posix()}")
+        self.assertNotIn("top level", self.last_refusal)
+
+    @proves_a_process
+    def test_gits_own_ownership_check_is_what_the_refusal_reads(self) -> None:
+        if not git_checks_ownership():
+            self.skipTest("this Git predates the ownership check; the refusal is proved against its message")
+        self._patch(os, "environ", {**os.environ, "GIT_TEST_ASSUME_DIFFERENT_OWNER": "1"})
+
+        self.assert_refused(("--install",), "target:", "dubious ownership", "safe.directory")
 
     @proves_a_process
     def test_the_source_itself_by_its_remote(self) -> None:
@@ -1019,6 +1115,105 @@ class TheCommandLine(unittest.TestCase):
     def test_overwrite_belongs_to_update_and_at_never_to_check(self) -> None:
         self.assertEqual(2, self.run_main("x", "--install", "--overwrite"))
         self.assertEqual(2, self.run_main("x", "--check", "--at", "v1"))
+
+    def test_links_takes_no_source_no_ref_and_no_overwrite(self) -> None:
+        self.assertEqual(2, self.run_main("x", "--links", "--from", "y"))
+        self.assertEqual(2, self.run_main("x", "--links", "--at", "v1"))
+        self.assertEqual(2, self.run_main("x", "--links", "--overwrite"))
+
+
+class TheLinkStep(TwoTrees):
+    """`--links` in a tree that holds core: the per-clone step, with no source and no network."""
+
+    def run_links(self) -> tuple[int, dict]:
+        said = io.StringIO()
+        with contextlib.redirect_stdout(said):
+            status = harness.main([str(self.target), "--links"])
+        return status, json.loads(said.getvalue())
+
+    def test_a_tree_without_core_is_refused_before_anything_is_written(self) -> None:
+        before = self.target_snapshot()
+
+        status, report = self.run_links()
+
+        self.assertEqual(1, status)
+        self.assertEqual(1, len(report["refusals"]), report)
+        self.assertIn("links:", report["refusals"][0])
+        self.assertIn("--install first", report["refusals"][0])
+        self.assertEqual(before, self.target_snapshot())
+
+    def test_opens_no_source_and_reports_the_links_without_a_verdict(self) -> None:
+        self.run_harness("--install")
+
+        def never(repository: str) -> None:
+            raise AssertionError(f"--links opened a source: {repository}")
+
+        self._patch(harness, "Source", never)
+
+        status, report = self.run_links()
+
+        self.assertNotIn("arrived", report)
+        self.assertNotIn("gates", report)
+        self.assertNotIn("ref", report)
+        self.assertEqual("links", report["mode"])
+        if platform_makes_symlinks():
+            self.assertEqual(0, status)
+            self.assertEqual(["kept", "kept"], [link["state"] for link in report["links"]])
+            self.assertEqual({".claude/skills": True, ".cursor/skills": True}, report["links_resolve"])
+        else:
+            self.assertEqual(1, status)
+            self.assertEqual(["pending", "pending"], [link["state"] for link in report["links"]])
+            self.assertEqual(2, len(report["pending"]))
+            self.assertIn("mklink /D" if os.name == "nt" else "ln -s", report["pending"][0])
+
+    def test_the_pending_note_sends_the_person_to_the_step_and_nothing_names_core_symlinks(self) -> None:
+        _, report = self.run_harness("--install")
+
+        self.assertFalse(any("core.symlinks" in note for note in report["notes"]), report["notes"])
+        if not platform_makes_symlinks():
+            self.assertTrue(any("--links" in note for note in report["notes"]), report["notes"])
+            self.assertFalse(any("--check" in note for note in report["notes"]), report["notes"])
+
+    @proves_a_process
+    def test_whatever_plans_a_link_names_it_in_the_clones_exclude_file_once(self) -> None:
+        self.run_harness("--install")
+        _, report = self.run_links()
+
+        self.assertEqual(list(harness.LINKS), report["excluded"])
+        for link in harness.LINKS:
+            ignored = subprocess.run(["git", "-C", str(self.target), "check-ignore", "-q", link], capture_output=True)
+            self.assertEqual(0, ignored.returncode, link)
+        exclude = (self.target / ".git" / "info" / "exclude").read_text(encoding="utf-8")
+        for link in harness.LINKS:
+            self.assertEqual(1, exclude.splitlines().count(link), exclude)
+
+    @proves_a_process
+    def test_a_pending_link_is_excluded_before_it_exists(self) -> None:
+        def refuse(*arguments: object, **options: object) -> None:
+            raise OSError("a required privilege is not held")
+
+        self._patch(os, "symlink", refuse)
+
+        _, report = self.run_harness("--install")
+
+        self.assertEqual(["pending", "pending"], [link["state"] for link in report["links"]])
+        self.assertEqual(list(harness.LINKS), report["excluded"])
+
+    def test_a_fresh_clone_of_a_recipient_gets_its_links_from_the_step(self) -> None:
+        self.run_harness("--install")
+        for link in harness.LINKS:
+            path = self.target / link
+            if path.is_symlink():
+                harness._remove_link(path)
+        self.assertFalse(any((self.target / link).is_symlink() for link in harness.LINKS))
+
+        status, report = self.run_links()
+
+        if platform_makes_symlinks():
+            self.assertEqual(["made", "made"], [link["state"] for link in report["links"]])
+            self.assertTrue(all(report["links_resolve"].values()))
+        else:
+            self.assertEqual(["pending", "pending"], [link["state"] for link in report["links"]])
 
 
 if __name__ == "__main__":

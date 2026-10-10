@@ -1288,6 +1288,56 @@ class Renaming(Declared):
         )
 
 
+class Rewording(Declared):
+    """A question's words follow the discussion and its id stays (the user, 2026-10-05): the same
+    question means the same answers, never the same wording."""
+
+    def test_the_title_and_the_file_take_the_new_words_and_everything_else_is_kept(self) -> None:
+        self.called("lean", "q-0007", "the closer")
+        before = self.entry_text("q-0007-who-moves-a-subtree")
+
+        said = self.called("reword", "q-0007", "Who carries a finished subtree away?")
+
+        self.assertIn("reworded q-0007 Who carries a finished subtree away?", said)
+        self.assertFalse((self.root / STORE / "q-0007-who-moves-a-subtree.md").exists())
+        self.assertEqual(
+            before.replace("# q-0007 Who moves a subtree?", "# q-0007 Who carries a finished subtree away?"),
+            self.entry_text("q-0007-who-carries-a-finished-subtree-away"),
+        )
+        self.assertEqual("q-0007", self.part("q-0013-does-the-mover-repair-links", "part of"))
+
+    def test_every_link_to_the_entry_follows_and_bare_ids_and_sessions_are_left_as_they_were(self) -> None:
+        self.write("docs/notes.md", "See [q-0007](questions/q-0007-who-moves-a-subtree.md) and q-0007.\n")
+        sessions = self.read(SESSIONS)
+
+        self.called("reword", "q-0007", "Who carries a finished subtree away?")
+
+        self.assertEqual(
+            "See [q-0007](questions/q-0007-who-carries-a-finished-subtree-away.md) and q-0007.\n",
+            self.read("docs/notes.md"),
+        )
+        self.assertEqual(sessions, self.read(SESSIONS))
+        self.assertEqual([], [told for told in self.run_check()[1]["diagnostics"] if "slug" in told["problem"]])
+
+    def test_words_that_leave_the_file_name_as_it_is_rewrite_the_title_alone(self) -> None:
+        self.called("reword", "q-0007", "Who moves a subtree!")
+
+        self.assertTrue(self.entry_text("q-0007-who-moves-a-subtree").startswith("# q-0007 Who moves a subtree!\n"))
+
+    def test_the_session_standing_on_it_stays_there(self) -> None:
+        self.called("reword", "q-0004", "Which parts may an entry leave out?")
+
+        self.assertIn(" q-0004 ", self.own_line())
+        self.assertIn("Which parts may an entry leave out?", self.said("--window", "--session", "s-alpha", "--full")[1])
+
+    def test_a_closed_question_keeps_the_words_it_was_answered_under(self) -> None:
+        self.assertRefused("is closed", "reword", "q-0005", "Is the id a route?")
+
+    def test_the_same_words_and_no_words_are_refused(self) -> None:
+        self.assertRefused("already reads", "reword", "q-0007", "Who moves a subtree?")
+        self.assertRefused("no words", "reword", "q-0007", "  ")
+
+
 class Dueness(Store):
     """A straw dog is due when the answer its text waited on has landed, or its question no longer
     stands; a merge or a supersession hands it to the successor instead (the user, 2026-10-03 and
@@ -1975,7 +2025,7 @@ class TheAgentsOwnWindow(Hooked):
         status, said = self.said("go", "q-0010", "--session", "s-alpha")
 
         self.assertEqual(2, status)
-        self.assertIn("at, open, move, depend, undepend, close", said)
+        self.assertIn("at, open, move, reword, depend, undepend, close", said)
 
 
 class AFirstWake(RepositoryCase):

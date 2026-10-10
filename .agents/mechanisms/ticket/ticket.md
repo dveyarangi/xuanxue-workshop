@@ -2,6 +2,7 @@
 
 - **instruction** `.agents/skills/ticket/SKILL.md` — the act: sizing, slicing, impacting the split, presenting the breakdown, minting
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 
@@ -104,17 +105,17 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 
 ## What it produces, and who reads it
 
-- **The tickets** — read by `/plan` for what to build, by `/implement` for the same, by `/verify`
+- **The tickets** — *what it intends to become* — read by `/plan` for what to build, by `/implement` for the same, by `/verify`
   for the criteria, by `/maintain` for whether each is finished, and through citations from every
   record that cites work by its slug.
-- **The queue's table** — read at wake by whoever resumes, as the entry file routes them; a copy
+- **The queue's table** — *what exists* — read at wake by whoever resumes, as the entry file routes them; a copy
   until the queue is derived from the tickets.
-- **The maintainer's report** — read by `/verify` through the verification set and by `/maintain`
+- **The maintainer's report** — *what exists* — read by `/verify` through the verification set and by `/maintain`
   under P5. Its exit status is what the set consumes; its JSON is for the person reading a
   failure. It writes nothing.
-- **The mover's report** — read by the maintainer who ran it: what moved, what was repaired, what
+- **The mover's report** — *what happened* — read by the maintainer who ran it: what moved, what was repaired, what
   it could not rewrite.
-- **The rules file** — read by the installer alone, and by whoever amends a rule of this mechanism
+- **The rules file** — *what must always hold* — read by the installer alone, and by whoever amends a rule of this mechanism
   that another skill reads. Its blocks sit in `/maintain`, `/plan`, `/align` and the entry file's
   general rules.
 

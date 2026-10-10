@@ -31,6 +31,7 @@ after a call says what it takes.
 | `open '<question>'` · `--under q-P` | a new open question, a root or under q-P; prints the id it was given |
 | `open '<question>' --between q-U q-L` | a new question under q-U, with q-L moved under it and renamed; q-L must be part of q-U |
 | `move q-K --under q-P` · `move q-K --to-root` | a new parent, q-K and everything under it renamed; a cycle is refused |
+| `reword q-N '<question>'` | an open question's new words; its id, parts and body stay, and its file takes the words |
 | `depend q-A --on q-B` · `undepend q-A --on q-B` | q-A cannot be asked until q-B is answered, or no longer waits; a cycle is refused |
 | `close q-N <kind> '<pointer>'` | the closure, below |
 | `suspect q-N` · `clear q-N` | the suspect flag |
@@ -70,6 +71,12 @@ deciding, or what the method's plan expects here — is opened `--between` the c
 parent and the current question when answering it narrows the current one and answering the
 current one contributes to it; when only the first holds, beside it, under the same parent, with
 `depend <current> --on <new>`.
+
+**Outgrown words.** When the discussion on a question has moved past its words — it took in a
+related topic, or found what it was really asking — `reword` it in the turn that notices, as often
+as that happens: the id stays, so nothing bound to it moves. A closed question is never reworded.
+Reword when everything under the question still belongs under the new words; open a parent when
+the old question stays a distinct part of the wider one.
 
 **A missing parent.** When only a far question contains the message and two or more of its
 children resemble it, the question those children jointly serve is missing. Size it by the
@@ -156,7 +163,7 @@ Every part but **state** is optional, and a closed entry must carry its **answer
 siblings. A
 re-parent renames the moved question and everything under it — files, links, relations, session
 lines, bare ids under `docs/` and every straw dog's binding — so an id seen earlier may be gone:
-draw the window again. *part
+draw the window again. A reword changes the words and the file's name, never the id. *part
 of* is the line the check holds the id against.
 
 **The sessions file** — one row of `docs/questions/sessions` per session:

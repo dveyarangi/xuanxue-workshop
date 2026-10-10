@@ -66,11 +66,12 @@ QUEUE_ARRIVAL = f"{SKILLS}/ticket/QUEUE-ARRIVAL.md"
 DELIVERY_STATUS = "docs/tickets/README.md"
 ARRIVAL_STATE = re.compile(r"^```delivery-status[ \t]*\r?\n(?P<said>.*?)^```", re.M | re.S)
 REPOSITORY = re.compile(r"^Repository: (?P<url>\S+)[ \t]*(?:\r?\n|\Z)", re.M)
-MODES = ("--install", "--update", "--check")
+MODES = ("--install", "--update", "--check", "--links")
 _USAGE = (
     "usage: harness.py <target> --install [--from REPOSITORY] [--at REF]\n"
     "       harness.py <target> --update [--overwrite] [--from REPOSITORY] [--at REF]\n"
-    "       harness.py <target> --check [--from REPOSITORY]"
+    "       harness.py <target> --check [--from REPOSITORY]\n"
+    "       harness.py <target> --links"
 )
 
 
@@ -111,13 +112,19 @@ class Report:
     pending: list[str] = field(default_factory=list)
     injected: list[dict] = field(default_factory=list)
     gates: dict = field(default_factory=dict)
+    excluded: list[str] = field(default_factory=list)
     links_resolve: dict = field(default_factory=dict)
     notes: list[str] = field(default_factory=list)
     refusals: list[str] = field(default_factory=list)
     arrived: bool = False
 
     def as_record(self) -> dict:
-        return dict(self.__dict__)
+        record = dict(self.__dict__)
+        if self.mode == "links":
+            # No gate ran: a verdict printed false would read as an install that failed.
+            for verdict in ("arrived", "gates", "ref"):
+                del record[verdict]
+        return record
 
 
 def main(argv: list[str]) -> int:
@@ -128,18 +135,38 @@ def main(argv: list[str]) -> int:
     target, mode, overwrite, repository, ref = parsed
     report = Report(target, mode[2:], repository or "")
     try:
-        if repository is None:
-            repository = report.repository = home()
-        with Source(repository) as source:
-            run(Path(target), mode, overwrite, source, ref, report)
+        if mode == "--links":
+            link(Path(target), report)
+        else:
+            if repository is None:
+                repository = report.repository = home()
+            with Source(repository) as source:
+                run(Path(target), mode, overwrite, source, ref, report)
     except Refused as refusal:
         report.refusals.append(str(refusal))
     print(json.dumps(report.as_record(), indent=2))
+    if mode == "--links":
+        return 0 if not report.pending and not report.refusals else 1
     return 0 if report.arrived else 1
+
+
+def link(target: Path, report: Report) -> None:
+    """The per-clone step: a clone of a tree that holds core has no loader links until this makes
+    them, from the tree's own copy, with no source and no network. The links are the install's
+    link step run alone; a pending one is the same accepted state, and the exit says it is left."""
+    target = _work_tree_root(target, source=None)
+    if not (target / SKILLS).is_dir():
+        raise Refused(f"links: {target} holds no {SKILLS} — --install first")
+    plan = _link_plan(target)
+    _make_links(target, plan, report)
+    _exclude_links(target, plan, report)
+    report.links_resolve = _links_resolve(target)
 
 
 def run(target: Path, mode: str, overwrite: bool, source: Source, ref: str | None, report: Report) -> None:
     """The sequence: refuse what cannot be satisfied, copy, stamp, link, inject, then the gate."""
+    if mode == "--install":
+        _initialise_if_empty(target.resolve(), report)
     target = _work_tree_root(target, source)
     if mode == "--check":
         wanted = _announced_ref(target, source, required=True)
@@ -159,6 +186,7 @@ def run(target: Path, mode: str, overwrite: bool, source: Source, ref: str | Non
     _write(target, shipment, previous, report)
     _write_delivery_status(target, shipment, report)
     _make_links(target, plan, report)
+    _exclude_links(target, plan, report)
     _inject(target, report)
     _gate(target, shipment, report)
 
@@ -197,6 +225,8 @@ def _parsed(argv: list[str]) -> tuple[str, str, bool, str | None, str | None] | 
     if overwrite and mode != "--update":
         return None
     if ref is not None and mode == "--check":
+        return None
+    if mode == "--links" and (repository is not None or ref is not None):
         return None
     return words[0], mode, overwrite, repository, ref
 
@@ -537,21 +567,61 @@ def _whole_line_if_alone(text: str, start: int, end: int) -> tuple[int, int]:
 # --- the target ------------------------------------------------------------------------------
 
 
-def _work_tree_root(target: Path, source: Source) -> Path:
+def _work_tree_root(target: Path, source: Source | None) -> Path:
     """One installation is one tree: the target is the top level of a git work tree, and never
-    the repository core comes from."""
+    the repository core comes from. The link step names no source and copies nothing, so it
+    asks only the first."""
     if not target.is_dir():
         raise Refused(f"target: {target} is not a directory")
     target = target.resolve()
-    top = _git_in(target, "rev-parse", "--show-toplevel")
-    # TODO: a failed rev-parse is
-    # read here as a wrong shape, Git's dubious-ownership refusal included.
-    if top is None or Path(top).resolve() != target:
+    asked = _git_said(target, "rev-parse", "--show-toplevel")
+    if asked.returncode != 0 and "dubious ownership" in asked.stderr:
+        raise Refused(
+            f"target: Git refuses {target} for dubious ownership — run "
+            f"`{_safe_directory_command(asked.stderr, target)}`, then run again"
+        )
+    if asked.returncode != 0 and "not a git repository" in asked.stderr:
+        raise Refused(
+            f"target: {target} is not a git repository; run git init there, or install at the root you mean, "
+            "then run again"
+        )
+    top = asked.stdout.strip() if asked.returncode == 0 else None
+    if top is None:
         raise Refused(f"target: {target} is not the top level of a git work tree; a workspace of several is refused")
-    origin = _git_in(target, "remote", "get-url", "origin")
+    if Path(top).resolve() != target:
+        raise Refused(
+            f"target: {target} is not the top level of a git work tree; {Path(top).resolve()} is — install there, "
+            "or a workspace of several is refused"
+        )
+    origin = _git_in(target, "remote", "get-url", "origin") if source is not None else None
     if origin is not None and _same_repository(origin, source.repository):
         raise Refused(f"target: {target} is the source itself; the origin is never installed into")
     return target
+
+
+def _initialise_if_empty(target: Path, report: Report) -> None:
+    """An install into an empty folder inside no repository makes the repository first: the root
+    is not in question there, and the person asked for an install. A folder holding anything is
+    left for the work-tree check to refuse with the step, since where the root goes is then the
+    person's decision. The init is the run's one write outside the manifest, so it is reported."""
+    if not target.is_dir() or any(target.iterdir()):
+        return
+    asked = _git_said(target, "rev-parse", "--show-toplevel")
+    if asked.returncode == 0 or "not a git repository" not in asked.stderr:
+        return
+    made = _git_said(target, "init", "--quiet")
+    if made.returncode != 0:
+        raise Refused(f"target: git init in {target} failed — {made.stderr.strip()}")
+    report.notes.append(f"git init: {target} was not a repository and is now one")
+
+
+def _safe_directory_command(git_said: str, target: Path) -> str:
+    """Git's own command to trust the directory, as it printed it; composed only where Git's
+    message does not carry it."""
+    for line in git_said.splitlines():
+        if line.strip().startswith("git config --global --add safe.directory"):
+            return line.strip()
+    return f"git config --global --add safe.directory {target.as_posix()}"
 
 
 def _same_repository(one: str, other: str) -> bool:
@@ -753,11 +823,27 @@ def _make_links(target: Path, plan: dict[str, str], report: Report) -> None:
             continue
         report.links.append({"link": link, "state": "made"})
     if report.pending:
-        report.notes.append("run the pending command(s) once in an elevated prompt, then `harness.py . --check`")
-    # TODO: this note assumes tracked
-    # links; untracked since 2026-09-26, a clone gets them from the link step, and the note goes.
-    if _git_in(target, "config", "--get", "core.symlinks") == "false":
-        report.notes.append("core.symlinks is false in the target: a fresh clone checks the links out as text")
+        report.notes.append(
+            "run the pending command(s) once in an elevated prompt, then `harness.py . --links`, which reports whether each resolves"
+        )
+
+
+def _exclude_links(target: Path, plan: dict[str, str], report: Report) -> None:
+    """Every planned link is named in the clone's exclude file, the pending ones too, so the
+    person's later command makes a link `git add -A` never stages. The links are never committed;
+    the origin's ignore file does not ship, and the exclude file is the clone's as the links are.
+    Git names the file, since a work tree made by `git worktree` keeps its `.git` elsewhere."""
+    named = _git_in(target, "rev-parse", "--git-path", "info/exclude")
+    if named is None:
+        report.notes.append("git named no exclude file: the links may show as untracked")
+        return
+    exclude = target / named if not Path(named).is_absolute() else Path(named)
+    present = _read(exclude).splitlines() if exclude.is_file() else []
+    missing = [link for link in plan if link not in present]
+    if missing:
+        text = "".join(f"{line}\n" for line in present + missing)
+        _write_text(exclude, text)
+    report.excluded = list(plan)
 
 
 def _remove_link(path: Path) -> None:
@@ -860,8 +946,13 @@ def _last_lines(text: str | None, keep: int = 3) -> list[str]:
 # --- helpers ---------------------------------------------------------------------------------
 
 
+def _git_said(target: Path, *arguments: str) -> subprocess.CompletedProcess:
+    """Git's whole answer: a refusal names its cause on stderr, and one caller reads it."""
+    return subprocess.run(["git", "-C", str(target), *arguments], capture_output=True, encoding="utf-8")
+
+
 def _git_in(target: Path, *arguments: str) -> str | None:
-    done = subprocess.run(["git", "-C", str(target), *arguments], capture_output=True, encoding="utf-8")
+    done = _git_said(target, *arguments)
     return done.stdout.strip() if done.returncode == 0 else None
 
 

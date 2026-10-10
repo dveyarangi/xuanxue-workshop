@@ -95,6 +95,12 @@ CLAIM_KINDS = ("not yet", "unowned by design")
 GRADING = "## What would show it working"
 PRODUCES = "## What it produces, and who reads it"
 STATES = ("always on", "installed")
+# A record's kind by its source of truth, as the method's glossary sorts them. An output that is
+# another mechanism's record takes that format's kind, so the produces section may say only that.
+RECORD_KINDS = ("what it intends to become", "what must always hold", "what exists", "what happened")
+OUTPUT_KINDS = (*RECORD_KINDS, "its format's")
+# A doc is the record of why an instruction is what it is: the instruction is repaired to it.
+DOC_KIND = "what must always hold"
 MOMENTS_TABLE = "## Moments"
 PARTS_TABLE = "## Install adds, uninstall removes"
 RELIED_ON_TABLE = "## Relies on, and does not own"
@@ -150,6 +156,7 @@ class Declaration:
     doc: str
     instruction: str | None
     state: str | None
+    kind: str | None
     rules: str | None
     moments: list[Moment]
     parts: list[Part]
@@ -407,6 +414,8 @@ def _problems(
         notes.append(
             Diagnostic(declared.slug, "the doc does not say what it produces, or who reads it")
         )
+    else:
+        notes += _output_problems(declared.slug, text)
     malformed = _table_problems(declared.slug, text)
     notes += [note for group in malformed.values() for note in group]
     notes += _header_problems(root, declared)
@@ -455,6 +464,7 @@ def _declaration(root: Path, directory: Path, text: str, held: dict[str, questio
         doc=citing,
         instruction=bullets.get("instruction"),
         state=bullets.get("state"),
+        kind=bullets.get("kind"),
         rules=_rules_file(root, directory),
         moments=[_moment(row, held) for row in _rows(text, "## Moments")],
         parts=[_part(row) for row in _rows(text, "## Install adds, uninstall removes")],
@@ -463,10 +473,12 @@ def _declaration(root: Path, directory: Path, text: str, held: dict[str, questio
 
 
 def _header_problems(root: Path, declared: Declaration) -> list[Diagnostic]:
-    """The bullets a declaration stands on: its instruction, the state it is in, its rules file."""
+    """The bullets a declaration stands on: its instruction, the state it is in, its kind, its
+    rules file."""
     return (
         _instruction_problems(root, declared)
         + _state_problems(declared)
+        + _kind_problems(declared)
         + _directory_problems(root, declared)
     )
 
@@ -488,6 +500,63 @@ def _state_problems(declared: Declaration) -> list[Diagnostic]:
         return []
     said = declared.state or "nothing"
     return [Diagnostic(declared.slug, f"the state is {said}, not one of {' or '.join(STATES)}")]
+
+
+def _kind_problems(declared: Declaration) -> list[Diagnostic]:
+    """A doc carries its kind on itself, so the agent editing it meets the kind in context before
+    adding what the kind refuses (the user, 2026-10-08); the format is the kind's authored home,
+    and this holds the two equal."""
+    if declared.kind == DOC_KIND:
+        return []
+    if declared.kind is None:
+        return [Diagnostic(declared.slug, f"the doc names no kind: its header says `- **kind** {DOC_KIND}`")]
+    return [Diagnostic(declared.slug, f"the doc's kind is {declared.kind}, and a doc is {DOC_KIND}")]
+
+
+def _output_problems(slug: str, text: str) -> list[Diagnostic]:
+    """Each output the produces section lists, and whether it names a kind the format admits.
+
+    An output is a top-level `- **name**` line of the section; its prose and nested bullets are
+    read by people and name nothing the check holds.
+    """
+    admitted = ", ".join(OUTPUT_KINDS)
+    notes = []
+    for output, kind in _outputs(text):
+        if kind is None:
+            notes.append(
+                Diagnostic(slug, f"'{output}' names no kind: write `— *<kind>* —` after its name, one of {admitted}")
+            )
+        elif not _admitted(kind):
+            notes.append(
+                Diagnostic(slug, f"'{output}' names a kind the format does not admit, '{kind}': one of {admitted}")
+            )
+    return notes
+
+
+def _outputs(text: str) -> list[tuple[str, str | None]]:
+    """The produces section's outputs, each with the kind written after its name, or none.
+
+    The kind is the italic between the first two dashes after the name, so a path or a comma
+    beside the name is allowed and an italic later in the reader's prose is never taken for it.
+    """
+    lines = text.splitlines()
+    found = []
+    for line in lines[lines.index(PRODUCES) + 1 :]:
+        if line.startswith("## "):
+            break
+        if not line.startswith("- **"):
+            continue
+        name, _, rest = line[4:].partition("**")
+        segments = rest.split(" — ")
+        written = segments[1].strip() if len(segments) > 1 else ""
+        kind = written[1:].partition("*")[0].strip() if written.startswith("*") else None
+        found.append((name.strip(), kind))
+    return found
+
+
+def _admitted(kind: str) -> bool:
+    """One of the format's kinds, or a first one followed by the rule that moves it on."""
+    return any(kind == each or kind.startswith(f"{each},") for each in OUTPUT_KINDS)
 
 
 def _directory_problems(root: Path, declared: Declaration) -> list[Diagnostic]:

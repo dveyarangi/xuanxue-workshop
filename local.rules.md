@@ -127,9 +127,14 @@ Use the sources relevant to the current scope:
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.
 - Accepted targets and consumers: docs/boundaries.md.
-- Planned changes: docs/migration-changes.md.
+- Remaining changes: docs/migration-changes.md, Changes derived from accepted contracts;
+  follow each row's cited agreement in docs/boundaries.md.
+- Current work and order: docs/tickets/README.md, Queue; the active ticket's
+  Outcome, Acceptance criteria and dependencies.
 - Scope limits: docs/stage-1.md.
-- Ownership, routing, autonomy and acceptance: docs/agent-contract.md.
+- Ownership, tracker discovery and acceptance: docs/agent-contract.md,
+  Accepted obligations and Entry and first assignment; use the original issues
+  returned by assignment review. Autonomy switches: AGENTS.md, Project-local.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
 </rule>
 
@@ -192,13 +197,13 @@ and follow-up within an existing assignment need no additional local ticket.
 ## L14 — issue review, action and return to work
 
 - **target** `.agents/skills/review-assignments/SKILL.md`
-- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports
+- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports; 2026-10-08, reassess dependencies from ground truth and remove readiness and installation-acceptance gates
 
 <rule>
 Review relevant assignments and discussions in Workshop GitHub Issues, including
 unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
-review of the same issue. An unchanged conversation whose last message is Workshop's
-needs no repeated response; the original issue holds the review history.
+review of the same issue. An unchanged conversation and unchanged relevant evidence
+need no repeated response; the original issue holds the review history.
 
 Read each issue's full timeline across all pages, including mentions and
 cross-references, alongside its body, comments and closure events. Follow relevant
@@ -219,12 +224,19 @@ record changes. The acknowledgement references the resulting record revision or
 confirms that no boundary changed. Preserve the distinction between accepted
 contracts, implementation evidence and deployed behavior.
 
-After accepting a prerequisite or reviewing changed prerequisite evidence,
-reassess affected dependent assignments using the dependency conditions in
-skills/collaborate/workshop-issue-format.md. Communicate changed eligibility or
-required action in the affected original issues. An unchanged dependent
-conversation does not make changed prerequisite evidence irrelevant; unchanged
-conditions require no repeated response.
+Reassess each dependency's necessity and fulfillment from current source,
+executed checks, runtime and operator evidence. A document, ticket status or
+acknowledgement alone does not establish either. Use the dependency conditions in
+skills/collaborate/workshop-issue-format.md; update the original issue to remove
+ceremonial or unsupported holds and retain only dependencies tied to a specific
+activity and observable condition. Changes to shared promises return to /align.
+Workshop readiness and collaboration-installation acceptance do not gate recipient
+implementation under its operator against an accessible settled shared contract.
+
+After accepting a prerequisite or reviewing changed relevant evidence, reassess
+affected dependent assignments and communicate changed eligibility or required
+action in their original issues. An unchanged dependent conversation does not make
+changed evidence irrelevant; unchanged conditions require no repeated response.
 
 After handling the findings, report what changed, what remains blocked or undecided,
 and where the existing queue stands. Preserve its order. Resume already-authorized

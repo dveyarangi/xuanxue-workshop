@@ -73,7 +73,7 @@ KINDS = ("decided", "pruned", "merged", "deferred", "moot", "superseded")
 _USAGE = (
     "usage: questions.py --check | --window --session <tag> | --wake [--session <tag>] "
     "| --end --session <tag> | --tree [<q-id>] | <event> ... --session <tag>, the events "
-    "at, open, move, depend, undepend, close, suspect, clear, lean, assign"
+    "at, open, move, reword, depend, undepend, close, suspect, clear, lean, assign"
 )
 # How many times an `open` takes the next free id again when another session took the one it drew.
 OPEN_ATTEMPTS = 3
@@ -1406,7 +1406,7 @@ class Clause:
 
 # A record named by its id, `01-0011.0100` of a ticket's file name, is labelled by that id alone.
 _RECORD_ID = re.compile(r"^\d{2}-\d{4}(?:\.\d{4})*")
-EVENTS = ("at", "open", "move", "depend", "undepend", "close", "suspect", "clear", "lean", "assign")
+EVENTS = ("at", "open", "move", "reword", "depend", "undepend", "close", "suspect", "clear", "lean", "assign")
 
 
 def _called(root: Path, argv: list[str], today: date, now: datetime) -> int:
@@ -1424,6 +1424,8 @@ def _called(root: Path, argv: list[str], today: date, now: datetime) -> int:
         print(f"opened {identity}")
     for old, new in written.renamed.items():
         print(f"renamed {old} → {new}")
+    for identity in written.reworded:
+        print(f"reworded {identity} {read_store(root).index[identity].question}")
     if written.archived:
         print(f"moved {', '.join(written.archived)} to done/")
     if written.session is not None:
@@ -1458,7 +1460,7 @@ def _clause(said: argparse.Namespace) -> Clause:
         return Clause(f"{said.event}s", said.question, other=said.on)
     if said.event == "close":
         return Clause("closes", said.question, other=said.kind, text=said.pointer)
-    if said.event in ("lean", "assign"):
+    if said.event in ("lean", "assign", "reword"):
         return Clause(f"{said.event}s", said.question, text=said.text)
     return Clause({"at": "at", "suspect": "suspects", "clear": "clears"}[said.event], said.question)
 
@@ -1489,6 +1491,7 @@ def _calls() -> argparse.ArgumentParser:
     to = moving.add_mutually_exclusive_group(required=True)
     to.add_argument("--under", type=_question_id)
     to.add_argument("--to-root", action="store_true")
+    of_question("reword", "give an open question new words; its id stays").add_argument("text")
     for name, does in (("depend", "a question waits on another"), ("undepend", "it waits no more")):
         of_question(name, does).add_argument("--on", required=True, type=_question_id)
     closing = of_question("close", "close a question by a kind, with its pointer")
@@ -1509,13 +1512,14 @@ def _question_id(given: str) -> str:
 
 @dataclass
 class Written:
-    """What one declaration wrote, in the order it was written, the ids it opened, and each id a
-    re-parent renamed, with the one it took."""
+    """What one declaration wrote, in the order it was written, the ids it opened, each id a
+    re-parent renamed, with the one it took, and the ids whose questions it reworded."""
 
     entries: list[str]
     session: Session | None
     opened: list[str]
     renamed: dict[str, str] = field(default_factory=dict)
+    reworded: list[str] = field(default_factory=list)
     archived: list[str] = field(default_factory=list)
     archive_refused: str | None = None
 
@@ -1576,7 +1580,7 @@ def _declared(
         between()
     draft.recheck(seen)
     written = draft.write()
-    if draft.renames:
+    if draft.moves:
         written = _carry_renames(root, draft.moves, draft.renames, written)
         held = _renamed_session(held, draft.renames)
     moved = _moved(held, position, today)
@@ -1588,7 +1592,7 @@ def _declared(
     opened = [identity for identity in draft.changed if identity in draft.new]
     closed = [draft.renames.get(clause.question or "", clause.question or "") for clause in clauses if clause.verb == "closes"]
     archived, refused = _archive_finished(root, closed, written) if closed else ([], None)
-    return Written(written, moved, opened, dict(draft.renames), archived, refused)
+    return Written(written, moved, opened, dict(draft.renames), list(draft.reworded), archived, refused)
 
 
 def _archive_finished(root: Path, closed: list[str], written: list[str]) -> tuple[list[str], str | None]:
@@ -1634,7 +1638,8 @@ def _carry_renames(
     except move_doc.CloseInterrupted as stopped:
         raise WriteInterrupted(written, "the renamed entries' move", stopped) from stopped
     landed = dict(moves)
-    _rewrite_ids(root, renames)
+    if renames:
+        _rewrite_ids(root, renames)
     return [landed.get(record, record) for record in written]
 
 
@@ -1722,6 +1727,8 @@ class _Draft:
         # sits on disk until the rename moves it.
         self.renames: dict[str, str] = {}
         self.origin: dict[str, str] = {}
+        # The ids whose questions were reworded: the id stays, and only the file's name may move.
+        self.reworded: list[str] = []
 
     @property
     def moves(self) -> list[tuple[str, str]]:
@@ -1778,6 +1785,27 @@ class _Draft:
             if moving in _ancestry(self.index, clause.other):
                 raise Refused(f"`move {moving.identity} --under {clause.other}` makes a cycle in part of")
         self._seat(moving, clause.other)
+
+    def _rewords(self, clause: Clause) -> None:
+        """An open question takes new words and keeps its id, its parts and its body (the user,
+        2026-10-05): the same question means the same answers, never the same wording. The file
+        is named by the words, so it moves when they change its slug, and the mover repairs every
+        link to it. A closed question keeps the words it was answered under."""
+        read = self._existing(clause.question or "")
+        identity = read.identity or ""
+        words = " ".join((clause.text or "").split())
+        if not words:
+            raise Refused(f"`reword {identity}` gives no words")
+        if not read.open:
+            state = read.parts["state"].value
+            raise Refused(f"`reword {identity}`: {identity} is {state}; it keeps the words it was answered under")
+        if words == read.question:
+            raise Refused(f"`reword {identity}`: it already reads so")
+        record = posixpath.join(posixpath.dirname(read.record), f"{identity}-{_fitted_slug(self.root, identity, words)}.md")
+        if record != read.record and identity not in self.new:
+            self.origin.setdefault(identity, read.record)
+        self.reworded.append(identity)
+        self._put(Entry(record, identity, words, read.parts, read.body))
 
     def _seat(self, read: Entry, parent: str | None) -> None:
         """Give a question its parent, renaming it and everything under it so each id says where
@@ -1932,7 +1960,8 @@ class _Draft:
         still free — under any slug, since another session names its question in its own words;
         then the mover has no reason to refuse the renamed entries' move."""
         for identity in self.changed:
-            if (identity in self.new or identity in self.origin) and _files_holding(self.root, identity):
+            taking = identity in self.new or (identity in self.origin and identity not in self.reworded)
+            if taking and _files_holding(self.root, identity):
                 raise Taken(f"{identity} was written by another session since this call read the store")
             if identity in self.new:
                 continue

@@ -23,11 +23,18 @@ Run the script from any clone of the harness, or from the tree's own copy once i
 python <clone>/.agents/scripts/gw/harness.py <target> --install [--from REPOSITORY] [--at REF]
 python <target>/.agents/scripts/gw/harness.py <target> --update [--overwrite] [--from REPOSITORY] [--at REF]
 python <target>/.agents/scripts/gw/harness.py . --check [--from REPOSITORY]
+python <target>/.agents/scripts/gw/harness.py . --links
 ```
 
 `--from` defaults to the harness's own repository; `--at` to its default branch's head, and takes
 a branch, a tag or a commit. To try a ref before it is pushed, pass a local clone's path as
 `--from`: its committed `HEAD` is then the ref. The target is the top level of a git work tree.
+
+`--links` is the per-clone step: the loader links are never committed, so a fresh clone of a
+project that holds core runs it once, from the clone's own copy, with no source and no network.
+It makes or repairs both links, names them in the clone's `.git/info/exclude`, and reports whether
+each resolves; where the platform refuses, it prints the elevated commands and exits non-zero
+until they have been run.
 
 ## What a run does
 
@@ -48,7 +55,16 @@ Every refusal writes nothing and names its step.
 
 - **A link the platform refused to create** is not a refusal: everything else landed, and the
   report's `pending` lines are the exact commands. Present them to the person verbatim, to run
-  once in an elevated prompt, then run `--check`.
+  once in an elevated prompt, then run `--links`, which confirms each resolves without a source.
+- **A folder that is not a Git repository**: empty, the install runs `git init` there first and
+  says so in its notes — every script of core reads a tree through Git, so a target is a
+  repository. Holding files of its own, it is refused with the step: where the root goes is the
+  person's decision, so they run `git init` there, or install at the root they mean.
+- **A subfolder of a repository**: refused naming the top level. Install there; one installation
+  is one tree.
+- **Git refuses the target for dubious ownership**: the `.git` directory is owned by another
+  identity than the one running — a sandbox and a shell often differ. The refusal carries Git's
+  own `safe.directory` command; the person runs it once, then the install runs again.
 - **A `<project-local>` block in the entry file**: its content is the project's and the file is
   overwritten. Move each fact into `local.rules.md` as a rule, delete the block, run again.
 - **A core file that differs from the announced ref**: an edit made in core. Keep it out of core

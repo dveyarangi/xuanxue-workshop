@@ -3,6 +3,7 @@ name: coordinate
 description: >-
   Use to carry a cross-project change, shared standard, changed project evidence
   or assignment finding through coordinated work and acceptance.
+  Use to propose further cross-project work from recorded remaining changes and dependencies.
 ---
 
 # Coordinate cross-project work
@@ -12,20 +13,54 @@ Identify the scope, affected projects, governing agreements, current evidence an
 existing assignments. Distinguish a proposed change, accepted promise, observed
 implementation, checked deployment and accepted result.
 
-## Continue the loop
+## Continue and resume
 
-Enter the stage selected by the installed routing rules. Reuse an active pass and
-completed analysis; refresh only evidence affected by a relevant change. A finding
-returned by a stage continues the same pass, not another invocation of its entry
-review. Resolve conflicting obligations with the decision owner.
+At entry or resumption, recover the pending action and its condition from the
+existing owning work record and original assignments. Apply the installed entry
+review rule RA2. With unchanged circumstances, retain the selected step or wait.
+If no next action is recorded, or the user requests reconsideration or relevant
+evidence changes, select the next action below. A stage result returns to this
+same pass at the affected action.
 
-Keep the agreed outcome visible across recipient handoffs. Published instructions
-do not establish implementation or integration. Finish against the outcome's own
-acceptance criteria; otherwise identify the remaining owner action or decision.
-Do not introduce a stage approval or infer authorization from a status label.
+Keep the agreed outcome visible across recipient handoffs. Assess completion
+against its own acceptance criteria. A status label grants no execution authority.
 
 For an explicit preview, return proposed edits and drafts without changing project
 records or the tracker. A preview can be graded without releasing recipient work.
+
+## Select the next action
+
+Consider further work on the occasions above and when the current outcome
+completes or waits on an external event.
+
+Read the active ticket's Outcome, Acceptance criteria and dependencies, its place
+in the queue and the current stage's scope through the source bindings in Project
+context. For work outside that ticket, start from the bound accepted-contract
+delta. Check the candidate against its cited agreement, source/runtime evidence
+and existing assignments. Historical breakdowns do not establish the current queue.
+
+### Actions and resumption
+
+Use this navigation table to select a step from the recorded remainder. Linked
+skills define execution; their installed rules below supply the routing contract.
+
+| Established from the sources | Next action and route | Resume when / continue with |
+|---|---|---|
+| Relevant evidence is missing or changed | [/analyse](../analyse/SKILL.md): establish the scoped fact and its limits (AN1). | Observation available: compare it with the governing agreement. |
+| Observed behavior differs from the agreement | [/reconcile](../reconcile/SKILL.md): determine the discrepancy and remaining owner action (RC3). | Disposition recorded: continue its resulting action. |
+| The shared agreement leaves an unresolved choice | [/align](../align/SKILL.md): present the choice, constraints and recommendation (RC3). | Decision recorded in its authoritative home: reassess affected work. |
+| A required outcome has no covering work | [/ticket](../ticket/SKILL.md), through [/impact](../impact/SKILL.md): prepare the breakdown (project decomposition rule). | Required breakdown approval obtained: create the approved work. |
+| An agreed recipient action needs an assignment | [/issue](../issue/SKILL.md): prepare or update the assignment (IS1). | Publication conditions satisfied: publish within authority, then follow the original assignment. |
+| An existing assignment covers the action | [/review-assignments](../review-assignments/SKILL.md): handle its blockers, questions and results in the original issue (RA2). | Findings handled: continue authorized work; later findings return to the affected action. |
+| A required external result is unavailable | Identify the exact evidence or event, its provider and the action it blocks in the existing work record. | That evidence or event arrives: verify the condition and resume the blocked action. |
+
+A next-step proposal names the originating acceptance criterion or delta item,
+the evidenced remainder, its existing assignment or absence, the selected action
+and its direct dependencies. Assess preparation, publication, implementation and
+integration proof against their own dependency conditions; continue available
+authorized actions while another action waits. Apply the entry
+autonomy settings and the original assignment's execution conditions. Present
+the prepared choice when a user decision is required.
 
 ## Outputs
 
@@ -105,9 +140,14 @@ questions and changed dependencies matter before completion reports arrive.
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.
 - Accepted targets and consumers: docs/boundaries.md.
-- Planned changes: docs/migration-changes.md.
+- Remaining changes: docs/migration-changes.md, Changes derived from accepted contracts;
+  follow each row's cited agreement in docs/boundaries.md.
+- Current work and order: docs/tickets/README.md, Queue; the active ticket's
+  Outcome, Acceptance criteria and dependencies.
 - Scope limits: docs/stage-1.md.
-- Ownership, routing, autonomy and acceptance: docs/agent-contract.md.
+- Ownership, tracker discovery and acceptance: docs/agent-contract.md,
+  Accepted obligations and Entry and first assignment; use the original issues
+  returned by assignment review. Autonomy switches: AGENTS.md, Project-local.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
 
 **L11** For Workshop boundary alignment, reconciliation and assignments, apply the

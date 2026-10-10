@@ -12,8 +12,9 @@ One pass over a declared scope. The scope decides which rules apply.
 
 ## Hold
 
-- **A1** Hold four things in agreement: docs to the meta-rules and their format; docs to their
-  implementation, both ways; live records to their declared format; every fact to one home.
+- **A1** Hold four things in agreement: docs to the meta-rules and their format; a record to the
+  thing it is of, by its kind — one of *what must always hold* repairs the thing, one of *what
+  exists* is regenerated from it; live records to their declared format; every fact to one home.
 - **A2** Maintain drift only: a governing side that moved with no landing behind it, or clean
   landings that no longer agree. A landed slice is verified, not maintained.
 - **A3** When a governing side moves, re-check what it governs, upper link first: the mechanism
@@ -113,15 +114,6 @@ the repair policy. Move each subtree it reports ready for `done/` with `move_doc
 of the subtree in one invocation, into `docs/questions/done/`.
 </installed>
 
-<installed by="review-assignments">
-**RA1** When maintaining cross-project assignment review, recheck the review-assignments
-instruction, declaration, project context and entry bindings with mechanisms.py
---check and inject_rules.py --check. Confirm that entry recovery precedes review
-and that direct reconciliation enters the same review without repeating an active pass.
-Retain fresh-session invocation and operator grading as separate evidence;
-structural checks do not establish them.
-</installed>
-
 <installed by="coordinate">
 **CQ3** When maintaining coordination, recheck the coordinate, analyse, reconcile, issue
 and review-assignments declarations and installed rules with mechanisms.py --check
@@ -129,6 +121,15 @@ and inject_rules.py --check. Check live links, shared validation/contract
 references and recipient access to their published forms. Recheck affected outputs
 against their shared criteria; clean structural checks alone do not prove quality.
 Use existing records and evidence, not another per-stage maintenance report.
+</installed>
+
+<installed by="review-assignments">
+**RA1** When maintaining cross-project assignment review, recheck the review-assignments
+instruction, declaration, project context and entry bindings with mechanisms.py
+--check and inject_rules.py --check. Confirm that entry recovery precedes review
+and that direct reconciliation enters the same review without repeating an active pass.
+Retain fresh-session invocation and operator grading as separate evidence;
+structural checks do not establish them.
 </installed>
 
 <installed by="local">

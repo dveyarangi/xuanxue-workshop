@@ -2,6 +2,7 @@
 
 - **instruction** `.agents/skills/coordinate/SKILL.md`
 - **state** installed
+- **kind** what must always hold
 
 ## How it works
 
@@ -9,6 +10,14 @@ The coordinator carries an approved shared outcome from scoped evidence to
 addressed work and verified results. It owns routing, resumption and the shared
 clarity, consistency and completeness criteria. Stage mechanisms own production
 and concrete checks. The user accepted this separation on 2026-10-06.
+
+Further-work proposals start from the active outcome's criteria and the project's
+recorded remaining changes, checked against agreements, evidence and existing
+assignments. The installed project bindings identify those sources; the existing
+stage routes define the available actions. The action/resumption table is a
+navigation summary with direct links to those owners, as requested by the user;
+it does not redefine their execution rules. A proposal does not change execution authority or
+make a historical breakdown the current queue.
 
 Strictness applies to shared obligations and sufficient recipient context.
 Independent implementations satisfying their respective briefs must agree on
@@ -20,6 +29,7 @@ session. Common contract dimensions and recipient-specific action stay distinct.
 | moment | instructed by | kind, and why |
 |---|---|---|
 | starting or resuming coordinated work | `.agents/skills/coordinate/SKILL.md` |  |
+| choosing further work on a direction request, dependency change, completion or external wait | `.agents/skills/coordinate/SKILL.md` |  |
 | validating the handoff and the delivered outcome | `.agents/skills/coordinate/SKILL.md` |  |
 | collecting scoped observations | | elsewhere — `.agents/skills/analyse/SKILL.md` — analyse owns this stage |
 | resolving evidence against accepted promises | | elsewhere — `.agents/skills/reconcile/SKILL.md` — reconcile owns this stage |
@@ -75,6 +85,12 @@ Conflicting meanings and jointly omitted obligations must fail; different intern
 designs may pass. A separate standard-adoption case must not acquire unnecessary
 integration gates. Interruption, changed evidence, partial publication, an issue
 blocker and an unchanged review must resume without duplicate work or approvals.
+
+A reader given the current outcome, queue, remaining-change sources and assignment
+evidence must trace a proposed next action to a specific criterion or delta item
+and its owning stage. Historical proposals cannot create accepted work, and an
+integration dependency cannot silently block unrelated contract preparation.
+The proposal must retain the applicable decision and publication authority.
 
 The declaration and installation checkers must reject missing instructions and
 missing or changed installed rules, and accept restored fixtures. Maintenance uses
