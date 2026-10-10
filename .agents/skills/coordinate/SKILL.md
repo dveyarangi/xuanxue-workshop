@@ -121,4 +121,9 @@ establish that the recipient's work is complete. Verify the ticket's own outcome
 a published handoff and a working integration have different completion criteria.
 Continue existing assignments covering the same action. Routine factual corrections
 and follow-up within an existing assignment need no additional local ticket.
+
+**L18** Replace the reporting requirement in /coordinate's Outputs section with:
+At a handoff or pause, explicitly state the current stage, the next concrete
+action, who performs it, and any condition required to proceed. Link to the
+existing owning work record.
 </installed>

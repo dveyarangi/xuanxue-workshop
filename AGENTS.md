@@ -213,6 +213,12 @@ projects. Be strict about interfaces and light on process. Local work proceeds
 under the project's own authority; changes to shared promises require coordination.
 Complete recipient context is necessary work: independently implemented ends must
 agree on every shared shape and guarantee. Remove steps that protect no obligation.
+
+**L17** Override the conclude-only push restriction in AGENTS.md Autonomy/push and
+.agents/skills/conclude/SKILL.md. Keep push=ask separate from commit approval.
+When publication is required to continue authorized work, state the GitHub action
+and request permission for the prepared, reviewed commit at that point; do not
+defer the request or hide the pending action until session end.
 </installed>
 
 ## Straw dogs

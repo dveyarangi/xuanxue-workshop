@@ -21,3 +21,11 @@ Session files live under `docs/sessions/`, named `NNNN-<YYYYMMDD>-<name>` with a
 `questions.py lean q-N '<line>' --session <tag>` — and nothing else: placements and closures were written as they
 happened. As the conclude's last act, run `questions.py --end --session <tag>`.
 </installed>
+
+<installed by="local">
+**L17** Override the conclude-only push restriction in AGENTS.md Autonomy/push and
+.agents/skills/conclude/SKILL.md. Keep push=ask separate from commit approval.
+When publication is required to continue authorized work, state the GitHub action
+and request permission for the prepared, reviewed commit at that point; do not
+defer the request or hide the pending action until session end.
+</installed>

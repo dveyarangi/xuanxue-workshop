@@ -3,6 +3,7 @@
 | target | anchor |
 |---|---|
 | `AGENTS.md` | `## Project-local` |
+| `.agents/skills/conclude/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/coordinate/SKILL.md` | `## Project context` |
 | `.agents/skills/analyse/SKILL.md` | `## Project context` |
 | `.agents/skills/issue/SKILL.md` | `## Project context` |
@@ -255,4 +256,30 @@ projects. Be strict about interfaces and light on process. Local work proceeds
 under the project's own authority; changes to shared promises require coordination.
 Complete recipient context is necessary work: independently implemented ends must
 agree on every shared shape and guarantee. Remove steps that protect no obligation.
+</rule>
+
+## L17 — publication approval when delivery needs it
+
+- **target** `AGENTS.md`
+- **target** `.agents/skills/conclude/SKILL.md`
+- **authority** the user, 2026-10-10, native publication and pipeline repair request
+
+<rule>
+Override the conclude-only push restriction in AGENTS.md Autonomy/push and
+.agents/skills/conclude/SKILL.md. Keep push=ask separate from commit approval.
+When publication is required to continue authorized work, state the GitHub action
+and request permission for the prepared, reviewed commit at that point; do not
+defer the request or hide the pending action until session end.
+</rule>
+
+## L18 — visible coordination stage and next action
+
+- **target** `.agents/skills/coordinate/SKILL.md`
+- **authority** the user, 2026-10-10, accepted stage-reporting amendment in English
+
+<rule>
+Replace the reporting requirement in /coordinate's Outputs section with:
+At a handoff or pause, explicitly state the current stage, the next concrete
+action, who performs it, and any condition required to proceed. Link to the
+existing owning work record.
 </rule>
