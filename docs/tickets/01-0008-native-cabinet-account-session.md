@@ -1,6 +1,6 @@
 # Native Cabinet account session
 
-- **Status:** In progress (implementation preparation)
+- **Status:** In progress (recipient implementation)
 - **Type:** HITL
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
 - **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
@@ -42,15 +42,17 @@ The user accepted the current web `homeHiddenTiles` field on 2026-10-10.
 Its required normalized value and N01 parity fixtures are defined in the same
 native profile; no home-tile UI or preference editing/synchronization is added.
 
-The two recipient briefs are prepared locally against that accepted authority.
-Implementation publication still needs one accessible immutable full Workshop
-revision in both briefs. Cabinet and Daychi implement and release under their own
+The two recipient assignments are published against accepted Workshop revision
+`b8ab296e2713580eb4b91155b0c333ea758a74ce`:
+[cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
+and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
+Cabinet and Daychi implement and release under their own
 operators; Workshop verifies the joint outcome. Acceptance of this contract is
 not provider/client implementation, deployment or native proof.
 
 ## Acceptance criteria — delivery
 
-- [ ] Both recipient assignments cite the same accessible immutable accepted
+- [x] Both recipient assignments cite the same accessible immutable accepted
   contract and common conformance cases, with their original issue channels recorded.
 - [ ] Cabinet implements issuance, account read, renewal, revocation, errors and
   web compatibility; provider evidence covers its N01–N17 obligations.
@@ -362,6 +364,19 @@ claimed by these document checks.
 The recipient pair is ready for an accessible immutable authority and direct
 original-issue links. No auth assignment has been issued; the same existing
 delivery criteria retain publication, implementation and joint native proof.
+
+## Recipient publication — 2026-10-10
+
+The user authorized sending the prepared commit and publishing both assignments.
+Revision `b8ab296e2713580eb4b91155b0c333ea758a74ce` is available in GitHub;
+the retrieved contract blob matches the committed file. Cabinet and Daychi source
+heads remain `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5` and
+`0a3c824c1586eb7b3ca16ca0b3a365539076b025`, so the recipient readings remain
+applicable. The published bodies match the reviewed briefs with pinned references
+and direct issue links; both recipient labels and open states were read back.
+The provider and client implementations, release and joint native proof remain
+with their respective operators and these original issues. Publishing does not
+complete this ticket or establish native runtime conformance.
 
 ## Out of scope
 

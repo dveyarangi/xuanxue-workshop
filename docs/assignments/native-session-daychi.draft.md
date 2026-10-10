@@ -1,6 +1,6 @@
 # Daychi: native Cabinet account session
 
-**Draft — not issued.** Recipient label: `project:daychi`.
+**Published as [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8), 2026-10-10.** Recipient label: `project:daychi`.
 Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
 The full native account-session protocol was accepted by the user on 2026-10-09,
 including automatic browser continuation, full web self-profile parity without
@@ -8,9 +8,10 @@ phone, lifecycle/recovery and the documented native client-impersonation risk.
 Implementation and joint native proof remain pending.
 The user accepted the `homeHiddenTiles` self-profile addition on 2026-10-10;
 its field definition and N01 cases belong to that same shared profile.
-Before publication, replace
-the local authority link with the accepted document and common cases at one accessible full Workshop
-commit SHA, shared with the Cabinet assignment; no placeholder is a release authority.
+The published assignment pins the accepted document and common cases to Workshop
+`b8ab296e2713580eb4b91155b0c333ea758a74ce`, shared with
+[cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7).
+The original issue holds the current recipient assignment and its reports.
 
 ## Recipient and outcome
 
@@ -83,8 +84,8 @@ pilot completion or live-provider deployment gates that implementation.
 Actual joint proof needs the conforming Cabinet provider at a reachable configured
 origin, its deployed revision, a controlled account and Daychi's actual native
 development/release build with the registered callback; Expo Go is insufficient.
-Cabinet's original provider assignment supplies provider/fixture evidence; replace
-this descriptive reference with its direct issue link when the pair is published.
+[Cabinet's provider assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
+supplies provider/fixture evidence.
 Cabinet's operator owns its fixtures/release; Daychi's owns its build/device/release.
 Workshop accepts integration evidence. Source/fixture/runtime conditions are checked
 from current facts, not issue state or an administrative readiness comment.

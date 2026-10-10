@@ -1,6 +1,6 @@
 # Cabinet: native account-session provider
 
-**Draft — not issued.** Recipient label: `project:cabinet`.
+**Published as [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7), 2026-10-10.** Recipient label: `project:cabinet`.
 Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
 The full native account-session protocol was accepted by the user on 2026-10-09,
 including automatic browser continuation, full web self-profile parity without
@@ -8,9 +8,10 @@ phone, lifecycle/recovery and the documented native client-impersonation risk.
 Implementation and joint native proof remain pending.
 The user accepted the `homeHiddenTiles` self-profile addition on 2026-10-10;
 its field definition and N01 cases belong to that same shared profile.
-Before publication, replace
-the local authority link with the accepted document and common cases at one accessible full Workshop
-commit SHA, shared with the Daychi assignment; no placeholder is a release authority.
+The published assignment pins the accepted document and common cases to Workshop
+`b8ab296e2713580eb4b91155b0c333ea758a74ce`, shared with
+[daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
+The original issue holds the current recipient assignment and its reports.
 
 ## Recipient and outcome
 

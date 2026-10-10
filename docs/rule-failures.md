@@ -440,6 +440,22 @@ unresolved behavior; installation checks do not prove that future behavior.
 
 Status: amendment refused as redundant; execution corrected by resuming alignment.
 
+Struck again, 2026-10-10: clarification about the reviewed native-session tasks
+and their next step led to explanatory replies without a clear pipeline stage
+and concrete next action. The user corrected the initial diagnosis: repeated
+verification is acceptable; settled questions must not return without changes
+that make them relevant. The entry contract, L10 and coordinate continuation
+already preserve accepted decisions and the selected step. No additional generic
+continuation or anti-rechecking reminder is proposed. The user accepted the stronger
+report sentence in English. L18 in local.rules.md overrides coordinate's reporting
+requirement and is installed there: stage, next action, actor and any condition
+for proceeding are explicit at a handoff or pause.
+The user authorized the prepared publication; commit b8ab296 and
+native issues 7/8 were published and read back. The distinct conclude-only push
+restriction is repaired by L17 in local.rules.md, installed into AGENTS.md and
+/conclude with push=ask retained. Its diagnosis and behavioral cases are recorded in
+[the pipeline question](questions/done/q-0002.0002.0005-how-should-the-delivery-pipeline-make-its-current-stage-and-next-action-clear-without-reopening-settled-decisions.md).
+
 Struck again, 2026-10-06: after the user requested conclusion and commit, the
 assistant stopped for another confirmation of the connected Workshop bundle.
 The user reiterated the commit instruction. Existing explicit authorization takes

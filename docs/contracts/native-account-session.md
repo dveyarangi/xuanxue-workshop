@@ -9,8 +9,11 @@ without phone and automatic browser continuation remain binding, including the
 documented client-impersonation risk. No account-switching workflow is added.
 Prepared within
 [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
-The complete profile is the accepted local authority; an accessible immutable
-publication reference and recipient implementation evidence are still pending.
+The complete profile is published at Workshop
+`b8ab296e2713580eb4b91155b0c333ea758a74ce`, the common authority cited by
+[cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
+and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
+Recipient implementation evidence and joint native proof remain pending.
 The [existing agreements](../boundaries.md#accepted-content-admission) fix Cabinet
 account ownership, separate Daychi content access and installation-scoped sign-out.
 [Scoped source evidence](../current-system.md#native-account-session-source--2026-10-08)
