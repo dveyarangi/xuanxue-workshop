@@ -6,9 +6,11 @@
 A mechanism is checked at two levels. At `rules` its doc is due when the meta-rules moved since
 its mark; at `output` its records are due when its own doc, rules file or skill moved since its
 mark. A mark is the fingerprint of what a maintenance checked, written by `--mark` when the
-maintenance finishes and by nothing else: no edit to a doc counts as a re-check. Dueness is
-derived at every look and never stored. The marks' format is `/maintain`'s, in the format shelf
-beside its skill, `MARKS-FORMAT.md`.
+maintenance finishes and by nothing else: no edit to a doc counts as a re-check. It keeps each
+file's fingerprint too, so a level falling due names the files that moved, were added or went,
+and the re-check reads those (the user, 2026-10-11). Dueness is derived at every look and never
+stored. The marks' format is `/maintain`'s, in the format shelf beside its skill,
+`MARKS-FORMAT.md`.
 
 `--check` never fails on a due mechanism — being due is the news, not a defect — only on marks it
 cannot read or a surface it cannot fingerprint. In a recipient the built-in mechanisms are
@@ -21,7 +23,7 @@ import hashlib
 import json
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
@@ -45,9 +47,11 @@ WHY_MOVED = {
     "rules": "the meta-rules moved since its mark",
     "output": "its doc, rules file or skill moved since its mark",
 }
+WHY_UNNAMED = "it moved since a mark that named no files"
 WHY_BUILT_IN = "a recipient's built-in mechanisms came with core, maintained where core is made"
 OUTCOMES = ("amended", "nothing to change")
 COLUMNS = ("mechanism", "level", "fingerprint", "date", "outcome")
+FILE_COLUMNS = ("mechanism", "level", "file", "fingerprint")
 _FINGERPRINT = re.compile(r"^[0-9a-f]{64}$")
 _USAGE = "usage: maintain.py --check | --mark <mechanism> <level> <outcome>"
 
@@ -69,10 +73,17 @@ class Mark:
     fingerprint: str
     date: str
     outcome: str
+    files: dict[str, str] = field(default_factory=dict)
+    """Each file it was checked against and that file's fingerprint; none in a mark written before
+    a mark kept its files."""
 
     @property
     def row(self) -> str:
         return f"| {self.mechanism} | {self.level} | {self.fingerprint} | {self.date} | {self.outcome} |"
+
+    @property
+    def file_rows(self) -> list[str]:
+        return [f"| {self.mechanism} | {self.level} | {name} | {each} |" for name, each in sorted(self.files.items())]
 
     def as_record(self) -> dict:
         return dict(zip(COLUMNS, (self.mechanism, self.level, self.fingerprint, self.date, self.outcome)))
@@ -80,15 +91,26 @@ class Mark:
 
 @dataclass(frozen=True)
 class Standing:
-    """Where one mechanism stands at one level: due, current, or never maintained, and why."""
+    """Where one mechanism stands at one level: due, current, or never maintained, and why; when
+    due, the files that moved, were added or went since its mark."""
 
     mechanism: str
     level: str
     state: str
     why: str | None
+    moved: list[str] = field(default_factory=list)
+    added: list[str] = field(default_factory=list)
+    gone: list[str] = field(default_factory=list)
 
     def as_record(self) -> dict:
-        return {"mechanism": self.mechanism, "level": self.level, "state": self.state, "why": self.why}
+        changed = {"moved": self.moved, "added": self.added, "gone": self.gone}
+        return {
+            "mechanism": self.mechanism,
+            "level": self.level,
+            "state": self.state,
+            "why": self.why,
+            **{name: files for name, files in changed.items() if files},
+        }
 
 
 @dataclass(frozen=True)
@@ -148,10 +170,10 @@ def mark(root: Path, mechanism: str, level: str, outcome: str, today: date) -> d
         if unreadable:
             raise Refused(f"the marks do not read — {unreadable[0]}; repair them before marking over them")
         marked = _markable(root, declared, mechanism, level, outcome)
-        fingerprint = _fingerprint(root, _surface(root, declared, marked, level))
+        texts = _authored_surface(root, _surface(root, declared, marked, level))
     except (Refused, Unreadable) as refusal:
         return {"refusals": [str(refusal)]}
-    written = Mark(mechanism, level, fingerprint, today.isoformat(), outcome)
+    written = Mark(mechanism, level, _fingerprint(texts), today.isoformat(), outcome, _file_fingerprints(texts))
     _write_marks(root, _kept(held_marks, _clocked(root, declared), written) + [written])
     return {"marked": written.row}
 
@@ -176,11 +198,11 @@ def _standings(
     for mechanism in clocked:
         for level in LEVELS:
             try:
-                fingerprint = _fingerprint(root, _surface(root, declared, mechanism, level))
+                texts = _authored_surface(root, _surface(root, declared, mechanism, level))
             except Unreadable as reason:
                 unreadable.append(str(reason))
                 continue
-            standings.append(_standing(mechanism.slug, level, marks.get((mechanism.slug, level)), fingerprint))
+            standings.append(_standing(mechanism.slug, level, marks.get((mechanism.slug, level)), texts))
     return standings, list(dict.fromkeys(unreadable))
 
 
@@ -201,12 +223,25 @@ def _markable(root: Path, declared: list[Declaration], mechanism: str, level: st
     return clocked[mechanism]
 
 
-def _standing(mechanism: str, level: str, held: Mark | None, fingerprint: str) -> Standing:
+def _standing(mechanism: str, level: str, held: Mark | None, texts: dict[str, str]) -> Standing:
+    """The whole surface's fingerprint alone decides current or due, so a mark written before marks
+    kept their files reads as it always did; the files kept say what changed."""
     if held is None:
         return Standing(mechanism, level, NEVER, "no mark")
-    if held.fingerprint != fingerprint:
-        return Standing(mechanism, level, DUE, WHY_MOVED[level])
-    return Standing(mechanism, level, CURRENT, None)
+    if held.fingerprint == _fingerprint(texts):
+        return Standing(mechanism, level, CURRENT, None)
+    if not held.files:
+        return Standing(mechanism, level, DUE, WHY_UNNAMED)
+    now = _file_fingerprints(texts)
+    return Standing(
+        mechanism,
+        level,
+        DUE,
+        WHY_MOVED[level],
+        moved=sorted(name for name in now.keys() & held.files.keys() if now[name] != held.files[name]),
+        added=sorted(now.keys() - held.files.keys()),
+        gone=sorted(held.files.keys() - now.keys()),
+    )
 
 
 def _clocked(root: Path, declared: list[Declaration]) -> list[Declaration]:
@@ -254,14 +289,23 @@ def _skill_files(root: Path, mechanism: Declaration) -> list[str]:
     ]
 
 
-def _fingerprint(root: Path, surface: list[str]) -> str:
+def _authored_surface(root: Path, surface: list[str]) -> dict[str, str]:
+    """Each file of a surface as its author wrote it, in the surface's order."""
+    return {name: _authored(name, _text(root, name)) for name in surface}
+
+
+def _fingerprint(texts: dict[str, str]) -> str:
     """What a surface says, independent of the line endings a checkout gives it and of the rules
     other mechanisms installed into it."""
     digest = hashlib.sha256()
-    for name in surface:
-        text = _authored(name, _text(root, name))
+    for name, text in texts.items():
         digest.update(name.encode("utf-8") + b"\0" + text.encode("utf-8") + b"\0")
     return digest.hexdigest()
+
+
+def _file_fingerprints(texts: dict[str, str]) -> dict[str, str]:
+    """What each file of a surface says, read as the whole surface's fingerprint reads it."""
+    return {name: hashlib.sha256(text.encode("utf-8")).hexdigest() for name, text in texts.items()}
 
 
 def _text(root: Path, name: str) -> str:
@@ -299,20 +343,59 @@ def _read_marks(root: Path) -> tuple[list[Mark], list[str]]:
     path = root / MARKS
     if not path.is_file():
         return [], []
-    lines = path.read_text(encoding="utf-8").splitlines()
-    table = [(number, line) for number, line in enumerate(lines, 1) if line.startswith("|")]
-    if not table or _cells(table[0][1]) != list(COLUMNS):
-        at = table[0][0] if table else 1
+    tables = _tables(path.read_text(encoding="utf-8").splitlines())
+    if not tables or _cells(tables[0][0][1]) != list(COLUMNS):
+        at = tables[0][0][0] if tables else 1
         return [], [f"{MARKS}:{at}: the table's header is not | {' | '.join(COLUMNS)} |"]
     marks: list[Mark] = []
     problems: list[str] = []
-    for number, line in table[2:]:
+    for number, line in tables[0][2:]:
         read, problem = _row(_cells(line), {(held.mechanism, held.level) for held in marks})
         if problem:
             problems.append(f"{MARKS}:{number}: {problem}")
         else:
             marks.append(read)
+    if len(tables) > 1:
+        problems += _read_files(tables[1], {(held.mechanism, held.level): held for held in marks})
+    if len(tables) > 2:
+        problems.append(f"{MARKS}:{tables[2][0][0]}: a third table; the marks hold two")
     return marks, problems
+
+
+def _tables(lines: list[str]) -> list[list[tuple[int, str]]]:
+    """Each run of lines opening `|`, with its line numbers: the marks, then the files they kept."""
+    tables: list[list[tuple[int, str]]] = []
+    for number, line in enumerate(lines, 1):
+        if not line.startswith("|"):
+            continue
+        if tables and tables[-1][-1][0] == number - 1:
+            tables[-1].append((number, line))
+        else:
+            tables.append([(number, line)])
+    return tables
+
+
+def _read_files(table: list[tuple[int, str]], marks: dict[tuple[str, str], Mark]) -> list[str]:
+    """Each file a mark kept, filled into that mark; every row that does not read is a problem."""
+    if _cells(table[0][1]) != list(FILE_COLUMNS):
+        return [f"{MARKS}:{table[0][0]}: the files' header is not | {' | '.join(FILE_COLUMNS)} |"]
+    problems: list[str] = []
+    for number, line in table[2:]:
+        cells = _cells(line)
+        if len(cells) != len(FILE_COLUMNS):
+            problems.append(f"{MARKS}:{number}: a file row holds {len(cells)} cells, not {len(FILE_COLUMNS)}")
+            continue
+        mechanism, level, name, fingerprint = cells
+        held = marks.get((mechanism, level))
+        if held is None:
+            problems.append(f"{MARKS}:{number}: a file kept for {mechanism} at {level}, which has no mark")
+        elif not _FINGERPRINT.match(fingerprint):
+            problems.append(f"{MARKS}:{number}: {fingerprint} is not a fingerprint — 64 lowercase hex")
+        elif name in held.files:
+            problems.append(f"{MARKS}:{number}: {name} is kept twice for {mechanism} at {level}")
+        else:
+            held.files[name] = fingerprint
+    return problems
 
 
 def _row(cells: list[str], seen: set[tuple[str, str]]) -> tuple[Mark | None, str | None]:
@@ -345,18 +428,24 @@ def _is_date(written: str) -> bool:
 
 def _write_marks(root: Path, marks: list[Mark]) -> None:
     ordered = sorted(marks, key=lambda held: (held.mechanism, LEVELS.index(held.level)))
-    header = "| " + " | ".join(COLUMNS) + " |\n" + "|" + "---|" * len(COLUMNS) + "\n"
+    kept = [row for held in ordered for row in held.file_rows]
     text = (
         "# Maintenance marks\n\n"
-        "One row per mechanism per level, written by `maintain.py --mark` when a maintenance\n"
-        "finishes; the format is `/maintain`'s, in `.agents/skills/maintain/MARKS-FORMAT.md`.\n\n"
-        + header
+        "One row per mechanism per level, then each file that level was checked against, written by\n"
+        "`maintain.py --mark` when a maintenance finishes; the format is `/maintain`'s, in\n"
+        "`.agents/skills/maintain/MARKS-FORMAT.md`.\n\n"
+        + _header(COLUMNS)
         + "".join(held.row + "\n" for held in ordered)
+        + ("\n" + _header(FILE_COLUMNS) + "".join(row + "\n" for row in kept) if kept else "")
     )
     path = root / MARKS
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as handle:
         handle.write(text)
+
+
+def _header(columns: tuple[str, ...]) -> str:
+    return "| " + " | ".join(columns) + " |\n" + "|" + "---|" * len(columns) + "\n"
 
 
 if __name__ == "__main__":

@@ -5,16 +5,18 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+import os
 import tempfile
 import unittest
 from datetime import date, datetime, timedelta, timezone
 from unittest import mock
 
-from repository import RepositoryCase
+from repository import RepositoryCase, folder_listing
 
 import questions
 
 STORE = "docs/questions"
+DESKTOP_ID = "CLAUDE_CODE_HOST_SESSION_ID"
 
 
 def remember_windows_in_the_case(case: unittest.TestCase) -> None:
@@ -26,8 +28,16 @@ def remember_windows_in_the_case(case: unittest.TestCase) -> None:
     case.addCleanup(patcher.stop)
 
 
-def entry(identity: str, question: str, parts: dict[str, str]) -> str:
-    """An entry in the store's format: the title line, then one bullet per part, in order given."""
+OPEN_KIND = "what it intends to become"
+CLOSED_KIND = "what happened"
+
+
+def entry(identity: str, question: str, parts: dict[str, str], marked: bool = True) -> str:
+    """An entry in the store's format: the title line, then one bullet per part, in order given —
+    opening, unless a test says otherwise, with the mark its state calls for."""
+    state = parts.get("state", "")
+    if marked and "record of" not in parts and state:
+        parts = {"record of": OPEN_KIND if state.startswith("open") else CLOSED_KIND, **parts}
     bullets = [f"- **{name}** {value}" for name, value in parts.items()]
     return "\n".join([f"# {identity} {question}", "", *bullets]) + "\n"
 
@@ -84,7 +94,7 @@ class AMalformedEntry(Store):
         self.assertIn(fragment, problems[0])
 
     def test_without_a_title_line_naming_its_id(self) -> None:
-        self.assertReported("A bad one?\n\n- **state** open\n", "title")
+        self.assertReported(f"A bad one?\n\n- **record of** {OPEN_KIND}\n- **state** open\n", "title")
 
     def test_without_a_state(self) -> None:
         self.assertReported(entry("q-0003", "A bad one?", {"lean": "none"}), "no state")
@@ -121,6 +131,25 @@ class AMalformedEntry(Store):
         )
 
         self.assertEqual([], self.problems())
+
+    def test_carrying_no_mark(self) -> None:
+        self.assertReported(entry("q-0003", "A bad one?", {"state": "open"}, marked=False), "names no kind")
+
+    def test_marked_with_the_kind_another_state_calls_for(self) -> None:
+        with self.subTest(state="open"):
+            self.assertReported(
+                entry("q-0003", "A bad one?", {"record of": CLOSED_KIND, "state": "open"}), "an open entry"
+            )
+        with self.subTest(state="closed"):
+            self.assertReported(
+                entry("q-0003", "A bad one?", {"record of": OPEN_KIND, "state": "closed:moot", "answer": "gone"}),
+                "a closed entry",
+            )
+
+    def test_carrying_the_mark_under_its_former_name(self) -> None:
+        self.assertReported(
+            entry("q-0003", "A bad one?", {"kind": OPEN_KIND, "state": "open"}, marked=False), "`- **kind**`"
+        )
 
     def test_a_strike_without_its_last_time(self) -> None:
         self.assertReported(entry("q-0003", "A bad one?", {"state": "open", "struck": "2"}), "last <YYYY-MM-DDTHH:MMZ>")
@@ -411,7 +440,7 @@ class TheSessions(Store):
         self.write(SESSIONS, "s-alpha running 2026-09-29 q-0001.0001 q-0001\ns-beta ended 2026-09-01 q-0001\n")
 
     def checked(self):
-        return questions.check(self.root, today=TODAY)
+        return questions.check(self.root)
 
     def findings(self) -> list[str]:
         return [note.finding for note in self.checked().findings]
@@ -457,15 +486,24 @@ class TheSessions(Store):
         self.assertEqual(1, len(stranded), stranded)
         self.assertIn("closed", stranded[0])
 
-    def test_a_running_session_silent_for_over_a_week_is_a_finding(self) -> None:
-        self.write(SESSIONS, "s-alpha running 2026-09-21 q-0001.0001\ns-beta running 2026-09-23 q-0001\n")
+    def test_a_line_carries_the_time_it_was_written_to_the_minute(self) -> None:
+        self.write(SESSIONS, "s-alpha running 2026-09-29T11:30Z q-0001.0001\ns-beta ended 2026-09-01 q-0001\n")
+        self.assertEqual([], self.problems())
 
-        found = self.findings()
+    def test_a_time_out_of_the_form_is_reported(self) -> None:
+        self.write(SESSIONS, "s-alpha running 2026-09-29T7:30Z q-0001.0001\n")
+        self.assertReported("line 1")
 
-        self.assertEqual(1, len(found), found)
-        self.assertIn("s-alpha", found[0])
+    def test_a_running_session_long_silent_is_no_finding_the_next_wake_ends_it(self) -> None:
+        self.write(SESSIONS, "s-alpha running 2026-09-01 q-0001.0001\n")
+        self.assertEqual([], self.findings())
 
     def test_findings_leave_the_exit_status_at_zero(self) -> None:
+        self.place(
+            "q-0001.0001-what-an-entry-holds",
+            "What an entry holds?",
+            {"part of": "q-0001", "state": "closed:moot", "answer": "gone"},
+        )
         self.write(SESSIONS, "s-alpha running 2000-01-01 q-0001.0001\n")
 
         said = io.StringIO()
@@ -473,12 +511,12 @@ class TheSessions(Store):
             status = questions.main(["--check"], root=self.root, today=TODAY)
 
         self.assertEqual(0, status)
-        self.assertEqual(1, len(json.loads(said.getvalue())["findings"]))
+        self.assertTrue(json.loads(said.getvalue())["findings"])
 
 
 class LikelyTwins(Store):
     def findings(self) -> list[str]:
-        return [note.finding for note in questions.check(self.root, today=TODAY).findings]
+        return [note.finding for note in questions.check(self.root).findings]
 
     def test_two_live_titles_sharing_most_of_their_words_are_a_finding(self) -> None:
         self.place("q-0003-which-package-manager-do-we-use", "Which package manager do we use?", {"state": "open"})
@@ -519,7 +557,7 @@ class ReadyForDone(Store):
     def ready(self) -> list[str]:
         return [
             note.finding
-            for note in questions.check(self.root, today=TODAY).findings
+            for note in questions.check(self.root).findings
             if "done/" in note.finding
         ]
 
@@ -661,8 +699,8 @@ class Rendered(Store):
         )
         self.write(
             SESSIONS,
-            "s-alpha running 2026-09-29 q-0004 q-0002,q-0001\n"
-            "s-beta running 2026-09-28 q-0010\n"
+            "s-alpha running 2026-09-29T11:30Z q-0004 q-0002,q-0001\n"
+            "s-beta running 2026-09-29T11:00Z q-0010\n"
             "s-gamma ended 2026-09-20 q-0003\n",
         )
 
@@ -738,7 +776,7 @@ class TheWindow(Rendered):
 
         self.assertIn("recently attached: q-0002, q-0001", text)
         others = self.section(text, "other running sessions:")
-        self.assertIn("s-beta at q-0010 (last wrote 2026-09-28)", others)
+        self.assertIn("s-beta at q-0010 (last wrote 2026-09-29T11:00Z)", others)
         self.assertNotIn("s-gamma", others)
         self.assertNotIn("s-alpha", others)
         self.assertNotIn("next free id", text, "the script draws ids, so the agent is not handed one")
@@ -821,7 +859,7 @@ class TheWake(Rendered):
 
         tag = self.registered_tag(text)
         self.assertEqual(0, status)
-        self.assertEqual(before + f"{tag} running 2026-09-29 -\n", self.read(SESSIONS))
+        self.assertEqual(before + f"{tag} running 2026-09-29T12:00Z -\n", self.read(SESSIONS))
         self.assertIn("registered now", text.splitlines()[0])
 
     def test_two_wakes_register_two_sessions(self) -> None:
@@ -835,8 +873,8 @@ class TheWake(Rendered):
         _, text = self.said("--wake")
 
         sessions = self.section(text, "sessions:")
-        self.assertIn("s-alpha running, last wrote 2026-09-29, at q-0004", sessions)
-        self.assertIn("s-gamma ended, last wrote 2026-09-20, at q-0003", sessions)
+        self.assertIn("s-alpha running, last wrote 2026-09-29T11:30Z, at q-0004", sessions)
+        self.assertIn("s-gamma ended, last wrote 2026-09-20T00:00Z, at q-0003", sessions)
         self.assertLess(text.index("sessions:"), text.index("deferred"))
 
     def test_lists_every_deferral_with_its_condition_and_every_suspect_entry(self) -> None:
@@ -897,8 +935,8 @@ class TheEnd(Rendered):
 
         self.assertEqual(0, status)
         self.assertEqual(
-            "s-alpha ended 2026-09-29 q-0004 q-0002,q-0001\n"
-            "s-beta running 2026-09-28 q-0010\n"
+            "s-alpha ended 2026-09-29T12:00Z q-0004 q-0002,q-0001\n"
+            "s-beta running 2026-09-29T11:00Z q-0010\n"
             "s-gamma ended 2026-09-20 q-0003\n",
             self.read(SESSIONS),
         )
@@ -908,7 +946,7 @@ class TheEnd(Rendered):
 
         _, text = self.said("--wake")
 
-        self.assertIn("s-alpha ended, last wrote 2026-09-29, at q-0004", self.section(text, "sessions:"))
+        self.assertIn("s-alpha ended, last wrote 2026-09-29T12:00Z, at q-0004", self.section(text, "sessions:"))
 
     def test_a_session_nobody_registered_is_refused_and_nothing_is_written(self) -> None:
         untouched = self.snapshot()
@@ -1018,7 +1056,7 @@ class TheCalls(Declared):
     def test_at_places_the_session(self) -> None:
         self.called("at", "q-0010")
 
-        self.assertEqual("s-alpha running 2026-09-29 q-0010 q-0004,q-0002,q-0001", self.own_line())
+        self.assertEqual("s-alpha running 2026-09-29T12:00Z q-0010 q-0004,q-0002,q-0001", self.own_line())
 
     def test_at_prints_the_question_it_landed_on_and_the_one_it_left(self) -> None:
         said = self.called("at", "q-0010")
@@ -1038,11 +1076,11 @@ class TheCalls(Declared):
 
         self.assertIn("opened q-0004.0001", said)
         self.assertEqual(
-            "# q-0004.0001 Is the owner optional?\n\n- **part of** q-0004\n- **state** open\n"
-            "- **struck** 0, last 2026-09-29T12:00Z\n",
+            "# q-0004.0001 Is the owner optional?\n\n- **record of** what it intends to become\n"
+            "- **part of** q-0004\n- **state** open\n- **struck** 0, last 2026-09-29T12:00Z\n",
             self.read(f"{STORE}/q-0004.0001-is-the-owner-optional.md"),
         )
-        self.assertEqual("s-alpha running 2026-09-29 q-0004 q-0002,q-0001", self.own_line())
+        self.assertEqual("s-alpha running 2026-09-29T11:30Z q-0004 q-0002,q-0001", self.own_line())
 
     def test_open_takes_the_position_after_every_child_live_or_in_done(self) -> None:
         self.called("open", "Is the owner optional?", "--under", "q-0004")
@@ -1104,6 +1142,24 @@ class TheCalls(Declared):
 
         self.assertEqual("closed:decided", self.part("q-0007-who-moves-a-subtree", "state"))
         self.assertEqual("[the record](../record.md) — the user, 2026-09-29", self.part("q-0007-who-moves-a-subtree", "answer"))
+
+    def test_close_turns_the_mark_to_what_happened(self) -> None:
+        self.assertEqual(OPEN_KIND, self.part("q-0007-who-moves-a-subtree", "record of"))
+
+        self.called("close", "q-0007", "decided", "[the record](../record.md) — the user, 2026-09-29")
+
+        self.assertEqual(CLOSED_KIND, self.part("q-0007-who-moves-a-subtree", "record of"))
+
+    def test_any_rewrite_writes_the_mark_an_entry_carried_none_of_first(self) -> None:
+        self.write(
+            f"{STORE}/q-0007-who-moves-a-subtree.md",
+            entry("q-0007", "Who moves a subtree?", {"part of": "q-0003", "state": "open"}, marked=False),
+        )
+
+        self.called("lean", "q-0007", "the mover")
+
+        self.assertTrue(self.entry_text("q-0007-who-moves-a-subtree").splitlines()[2].startswith("- **record of** "))
+        self.assertEqual(OPEN_KIND, self.part("q-0007-who-moves-a-subtree", "record of"))
 
     def test_suspect_and_clear(self) -> None:
         self.called("suspect", "q-0007")
@@ -1205,15 +1261,15 @@ class Renaming(Declared):
         self.called("depend", "q-0004", "--on", "q-0007")
         self.write(
             SESSIONS,
-            self.read(SESSIONS).replace("s-beta running 2026-09-28 q-0010", "s-beta running 2026-09-28 q-0007 q-0013,q-0010"),
+            self.read(SESSIONS).replace("s-beta running 2026-09-29T11:00Z q-0010", "s-beta running 2026-09-29T11:00Z q-0007 q-0013,q-0010"),
         )
 
         self.called("move", "q-0007", "--under", "q-0002")
 
         self.assertEqual("q-0002.0001", self.part("q-0004-which-parts-are-optional", "depends on"))
         self.assertEqual(
-            "s-alpha running 2026-09-29 q-0004 q-0002,q-0001\n"
-            "s-beta running 2026-09-28 q-0002.0001 q-0002.0001.0001,q-0010\n"
+            "s-alpha running 2026-09-29T11:30Z q-0004 q-0002,q-0001\n"
+            "s-beta running 2026-09-29T11:00Z q-0002.0001 q-0002.0001.0001,q-0010\n"
             "s-gamma ended 2026-09-20 q-0003\n",
             self.read(SESSIONS),
         )
@@ -1229,7 +1285,7 @@ class Renaming(Declared):
             },
             self.stems(),
         )
-        self.assertEqual("s-alpha running 2026-09-29 q-0002.0001.0001 q-0002,q-0001", self.own_line())
+        self.assertEqual("s-alpha running 2026-09-29T11:30Z q-0002.0001.0001 q-0002,q-0001", self.own_line())
 
     def test_a_move_to_the_parent_a_fitting_question_already_has_writes_nothing(self) -> None:
         self.called("open", "Is the owner optional?", "--under", "q-0002")
@@ -1740,7 +1796,7 @@ class Interference(Declared):
     """What another writer does between a call's validation and its write."""
 
     def declare_with(self, clauses: list[questions.Clause], meanwhile) -> None:
-        questions.declare(self.root, "s-alpha", clauses, TODAY, between=meanwhile)
+        questions.declare(self.root, "s-alpha", clauses, TODAY, between=meanwhile, now=NOW)
 
     def test_an_entry_changed_on_disk_refuses_the_call_and_keeps_the_other_writers_text(self) -> None:
         intruder = entry("q-0004", "Which parts are optional?", {"part of": "q-0002", "state": "open", "lean": "theirs"})
@@ -1771,13 +1827,13 @@ class Interference(Declared):
 
     def test_a_sessions_at_changes_its_own_line_and_keeps_one_another_session_wrote_meanwhile(self) -> None:
         def beta_moves() -> None:
-            self.write(SESSIONS, self.read(SESSIONS).replace("s-beta running 2026-09-28 q-0010", "s-beta running 2026-09-29 q-0001 q-0010"))
+            self.write(SESSIONS, self.read(SESSIONS).replace("s-beta running 2026-09-29T11:00Z q-0010", "s-beta running 2026-09-29T11:59Z q-0001 q-0010"))
 
         self.declare_with([questions.Clause("at", "q-0002")], beta_moves)
 
         self.assertEqual(
-            "s-alpha running 2026-09-29 q-0002 q-0004,q-0001\n"
-            "s-beta running 2026-09-29 q-0001 q-0010\n"
+            "s-alpha running 2026-09-29T12:00Z q-0002 q-0004,q-0001\n"
+            "s-beta running 2026-09-29T11:59Z q-0001 q-0010\n"
             "s-gamma ended 2026-09-20 q-0003\n",
             self.read(SESSIONS),
         )
@@ -1849,13 +1905,23 @@ class ARoundTrip(Declared):
 
 
 class Hooked(Rendered):
-    """What each host's hook receives and what it gets back."""
+    """What each host's hook receives and what it gets back.
 
-    def hook(self, host: str, payload: dict | str) -> tuple[int, str]:
+    The desktop app names every process it starts with its own conversation id, this suite's
+    run included when it runs there, so each case starts with none and sets one where it is the
+    subject."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.enterContext(mock.patch.dict(os.environ))
+        os.environ.pop(DESKTOP_ID, None)
+
+    def hook(self, host: str, payload: dict | str, desktop_id: str | None = None) -> tuple[int, str]:
         stdin = io.StringIO(payload if isinstance(payload, str) else json.dumps(payload))
         out = io.StringIO()
-        with contextlib.redirect_stdout(out), mock.patch("sys.stdin", stdin):
-            status = questions.main(["--hook", host], root=self.root, today=TODAY)
+        named = {DESKTOP_ID: desktop_id} if desktop_id else {}
+        with contextlib.redirect_stdout(out), mock.patch("sys.stdin", stdin), mock.patch.dict(os.environ, named):
+            status = questions.main(["--hook", host], root=self.root, today=TODAY, now=NOW)
         return status, out.getvalue()
 
     def context(self, said: str) -> str:
@@ -1873,13 +1939,40 @@ class TheHook(Hooked):
         self.assertEqual(0, status)
         self.assertEqual("SessionStart", json.loads(said)["hookSpecificOutput"]["hookEventName"])
         self.assertIn("session: abc-123, registered now", self.context(said))
-        self.assertIn("abc-123 running 2026-09-29 -", self.read(SESSIONS))
+        self.assertIn("abc-123 running 2026-09-29T12:00Z -", self.read(SESSIONS))
 
     def test_a_resumed_session_is_not_registered_twice(self) -> None:
         _, said = self.hook("claude-code", {"session_id": "s-alpha", "hook_event_name": "SessionStart", "source": "resume"})
 
         self.assertIn("session: s-alpha, already registered", self.context(said))
         self.assertEqual(3, len(self.read(SESSIONS).splitlines()))
+
+    def test_in_the_desktop_app_a_session_is_registered_under_the_apps_id(self) -> None:
+        _, said = self.hook(
+            "claude-code", {"session_id": "abc-123", "hook_event_name": "SessionStart", "source": "startup"}, "local_1"
+        )
+
+        self.assertIn("session: local_1, registered now", self.context(said))
+        self.assertIn("local_1 running", self.read(SESSIONS))
+        self.assertNotIn("abc-123", self.read(SESSIONS))
+
+    def test_a_conversation_the_desktop_app_resumes_under_a_new_id_is_the_session_it_was(self) -> None:
+        """The desktop app resumed a conversation under a new Claude Code id twice (2026-10-09, a
+        rollback; 2026-10-10, a reopening), and each time the store took it for a new session; the
+        app's own id for the conversation stayed the same throughout."""
+        _, said = self.hook(
+            "claude-code", {"session_id": "fork-1", "hook_event_name": "SessionStart", "source": "resume"}, "s-alpha"
+        )
+
+        self.assertIn("session: s-alpha, already registered", self.context(said))
+        self.assertIn("s-alpha running 2026-09-29T11:30Z q-0004", self.read(SESSIONS), "its position kept")
+        self.assertNotIn("fork-1", self.read(SESSIONS))
+
+    def test_a_desktop_message_whose_start_was_never_seen_registers_the_apps_id(self) -> None:
+        self.hook("claude-code", {"session_id": "abc-9", "hook_event_name": "UserPromptSubmit", "prompt": "hi"}, "local_2")
+
+        self.assertIn("local_2 running", self.read(SESSIONS))
+        self.assertNotIn("abc-9", self.read(SESSIONS))
 
     def test_a_message_gets_the_window_and_then_one_line_while_nothing_moved(self) -> None:
         submit = {"session_id": "s-alpha", "hook_event_name": "UserPromptSubmit", "prompt": "next"}
@@ -1946,7 +2039,7 @@ class TheHook(Hooked):
         """The hook fed bytes as a host's pipe carries them, decoded by nothing in between."""
         out = io.StringIO()
         with contextlib.redirect_stdout(out), mock.patch("sys.stdin", io.TextIOWrapper(io.BytesIO(raw))):
-            questions.main(["--hook", host], root=self.root, today=TODAY)
+            questions.main(["--hook", host], root=self.root, today=TODAY, now=NOW)
         return out.getvalue()
 
     def test_input_written_as_utf16_with_its_mark_is_read(self) -> None:
@@ -1987,7 +2080,7 @@ class TheHook(Hooked):
     def test_a_session_whose_start_was_never_seen_is_registered_by_its_first_message(self) -> None:
         _, said = self.hook("claude-code", {"session_id": "late-1", "hook_event_name": "UserPromptSubmit", "prompt": "hi"})
 
-        self.assertIn("late-1 running 2026-09-29 -", self.read(SESSIONS))
+        self.assertIn("late-1 running 2026-09-29T12:00Z -", self.read(SESSIONS))
         self.assertIn("session: late-1", self.context(said))
 
     def test_an_event_it_has_no_use_for_answers_nothing(self) -> None:
@@ -2028,6 +2121,145 @@ class TheAgentsOwnWindow(Hooked):
         self.assertIn("at, open, move, reword, depend, undepend, close", said)
 
 
+class ASilentSession(Hooked):
+    """A running line silent three hours is ended by the next wake, quietly, and a message of its
+    own session turns it running again (the user, 2026-10-10)."""
+
+    def seen_at(self, tag: str, when: datetime) -> None:
+        """The session's window memory, as if its session last drew a window then; one it already
+        holds keeps its fingerprint."""
+        memory = questions._memory(self.root, tag)
+        memory.parent.mkdir(parents=True, exist_ok=True)
+        if not memory.is_file():
+            memory.write_text("drawn", encoding="utf-8")
+        os.utime(memory, (when.timestamp(), when.timestamp()))
+
+    def seen(self, tag: str) -> float:
+        return os.path.getmtime(questions._memory(self.root, tag))
+
+    def line(self, tag: str) -> str:
+        return next(line for line in self.read(SESSIONS).splitlines() if line.startswith(f"{tag} "))
+
+    def start(self, tag: str, source: str = "startup") -> str:
+        _, said = self.hook("claude-code", {"session_id": tag, "hook_event_name": "SessionStart", "source": source})
+        return said
+
+    def test_a_line_last_seen_three_hours_ago_is_ended_at_another_sessions_start_its_position_kept(self) -> None:
+        self.write(SESSIONS, "s-beta running 2026-09-29T09:00Z q-0010\n")
+
+        self.start("s-new")
+
+        self.assertEqual("s-beta ended 2026-09-29T09:00Z q-0010", self.line("s-beta"))
+
+    def test_a_line_seen_under_three_hours_ago_stays_running(self) -> None:
+        self.write(SESSIONS, "s-beta running 2026-09-29T09:01Z q-0010\n")
+
+        self.start("s-new")
+
+        self.assertEqual("s-beta running 2026-09-29T09:01Z q-0010", self.line("s-beta"))
+
+    def test_a_line_written_long_ago_stays_running_while_its_session_draws_windows(self) -> None:
+        """A session answering messages on one question writes nothing to the store for hours."""
+        self.write(SESSIONS, "s-beta running 2026-09-20 q-0010\n")
+        self.seen_at("s-beta", NOW - timedelta(minutes=10))
+
+        self.start("s-new")
+
+        self.assertEqual("s-beta running 2026-09-20 q-0010", self.line("s-beta"))
+
+    def test_the_waking_sessions_own_line_is_not_ended_by_its_own_wake(self) -> None:
+        self.write(SESSIONS, "s-alpha running 2026-09-01 q-0004\n")
+
+        self.start("s-alpha")
+
+        self.assertEqual("s-alpha running 2026-09-01 q-0004", self.line("s-alpha"))
+
+    def test_a_compaction_ends_nothing(self) -> None:
+        self.write(SESSIONS, "s-alpha running 2026-09-29T11:30Z q-0004\ns-beta running 2026-09-01 q-0010\n")
+
+        self.start("s-alpha", source="compact")
+
+        self.assertEqual("s-beta running 2026-09-01 q-0010", self.line("s-beta"))
+
+    def test_the_wake_by_hand_ends_as_the_hook_does(self) -> None:
+        self.write(SESSIONS, "s-beta running 2026-09-01 q-0010\n")
+
+        self.said("--wake")
+
+        self.assertEqual("s-beta ended 2026-09-01T00:00Z q-0010", self.line("s-beta"))
+
+    def test_the_wake_says_nothing_of_having_ended_one(self) -> None:
+        self.write(SESSIONS, "s-beta running 2026-09-01 q-0010\n")
+
+        said = self.context(self.start("s-new"))
+
+        self.assertEqual(1, said.count("s-beta"), said)
+        self.assertIn("s-beta ended, last wrote 2026-09-01T00:00Z, at q-0010", self.section(said, "sessions:"))
+
+    def test_a_line_another_session_wrote_meanwhile_is_kept(self) -> None:
+        self.write(SESSIONS, "s-beta running 2026-09-01 q-0010\ns-gamma running 2026-09-29T11:59Z q-0003\n")
+
+        self.start("s-new")
+
+        self.assertEqual("s-gamma running 2026-09-29T11:59Z q-0003", self.line("s-gamma"))
+
+    def test_an_ended_line_runs_again_at_its_sessions_next_message_and_no_other_line_moves(self) -> None:
+        self.write(SESSIONS, "s-alpha ended 2026-09-29T08:00Z q-0004 q-0002\ns-beta ended 2026-09-01 q-0010\n")
+
+        self.hook("claude-code", {"session_id": "s-alpha", "hook_event_name": "UserPromptSubmit", "prompt": "hi"})
+
+        self.assertEqual(
+            "s-alpha running 2026-09-29T12:00Z q-0004 q-0002\ns-beta ended 2026-09-01 q-0010\n",
+            self.read(SESSIONS),
+        )
+
+    def test_an_ended_line_runs_again_when_its_agent_draws_the_window_by_the_rule(self) -> None:
+        self.write(SESSIONS, "s-alpha ended 2026-09-29T08:00Z q-0004\n")
+
+        self.said("--window", "--session", "s-alpha")
+
+        self.assertEqual("s-alpha running 2026-09-29T12:00Z q-0004", self.line("s-alpha"))
+
+    def test_every_window_marks_its_session_seen_the_unchanged_one_too(self) -> None:
+        self.said("--window", "--session", "s-alpha")
+        self.seen_at("s-alpha", NOW - timedelta(hours=5))
+
+        _, again = self.said("--window", "--session", "s-alpha")
+
+        self.assertIn("window unchanged since your last one", again)
+        self.assertEqual(NOW.timestamp(), self.seen("s-alpha"))
+
+    def test_after_a_compaction_the_session_is_still_seen_and_its_next_window_whole(self) -> None:
+        self.said("--window", "--session", "s-alpha")
+
+        self.hook("cursor", {"conversation_id": "s-alpha", "hook_event_name": "preCompact"})
+        _, window = self.said("--window", "--session", "s-alpha")
+
+        self.assertTrue(questions._memory(self.root, "s-alpha").is_file())
+        self.assertIn("path (root to current):", window)
+
+    def test_cursors_message_marks_its_session_seen_and_lets_the_message_through_injecting_nothing(self) -> None:
+        self.write(SESSIONS, "s-alpha ended 2026-09-29T08:00Z q-0004\n")
+
+        _, said = self.hook("cursor", {"conversation_id": "s-alpha", "hook_event_name": "beforeSubmitPrompt", "prompt": "hi"})
+        _, window = self.said("--window", "--session", "s-alpha")
+
+        self.assertEqual({"continue": True}, json.loads(said))
+        self.assertEqual("s-alpha running 2026-09-29T12:00Z q-0004", self.line("s-alpha"))
+        self.assertIn("path (root to current):", window, "the hook drew no window the agent never saw")
+
+    def test_cursors_message_naming_no_session_is_still_let_through(self) -> None:
+        status, said = self.hook("cursor", {"hook_event_name": "beforeSubmitPrompt"})
+
+        self.assertEqual((0, {"continue": True}), (status, json.loads(said)))
+
+    def test_cursors_message_from_a_session_never_seen_starting_registers_it(self) -> None:
+        _, said = self.hook("cursor", {"conversation_id": "late-9", "hook_event_name": "beforeSubmitPrompt"})
+
+        self.assertEqual({"continue": True}, json.loads(said))
+        self.assertEqual("late-9 running 2026-09-29T12:00Z -", self.line("late-9"))
+
+
 class AFirstWake(RepositoryCase):
     def setUp(self) -> None:
         super().setUp()
@@ -2036,11 +2268,11 @@ class AFirstWake(RepositoryCase):
     def test_in_a_tree_without_a_store_registers_the_first_session(self) -> None:
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            status = questions.main(["--wake"], root=self.root, today=TODAY)
+            status = questions.main(["--wake"], root=self.root, today=TODAY, now=NOW)
 
         tag = out.getvalue().splitlines()[0].split()[1].rstrip(",")
         self.assertEqual(0, status)
-        self.assertEqual(f"{tag} running 2026-09-29 -\n", self.read(SESSIONS))
+        self.assertEqual(f"{tag} running 2026-09-29T12:00Z -\n", self.read(SESSIONS))
 
 
 class NoStoreToDraw(RepositoryCase):
@@ -2061,6 +2293,111 @@ class NoStore(RepositoryCase):
 
         self.assertEqual(0, status)
         self.assertEqual("absent", json.loads(said.getvalue())["store"])
+
+
+SHELF = ".agents/skills/questions/STORE-ARRIVAL.md"
+# The fixture's own words, never the shipped ones, so a seed that carried words of its own would
+# be caught writing them.
+FIXTURE_ROOTS = ("What is the fixture for?", "How is the fixture built?", "Where does the fixture live?")
+
+
+def shelf(*roots: str) -> str:
+    lines = "".join(f"{root}\n" for root in roots)
+    return f"# What the store holds before anything has happened in it\n\nMachine input.\n\n```roots\n{lines}```\n"
+
+
+class Seeding(RepositoryCase):
+    """A store that holds no entry opens with the roots its shelf words; one that holds any is
+    the project's and is left."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        remember_windows_in_the_case(self)
+        self.write(SHELF, shelf(*FIXTURE_ROOTS))
+
+    def seeded(self) -> list[str]:
+        return questions.seed(self.root, NOW)
+
+    def snapshot(self) -> dict[str, bytes]:
+        return {name: (self.root / name).read_bytes() for name in folder_listing(self.root)}
+
+    def test_an_empty_store_opens_with_the_shelf_roots_in_order_and_nothing_under_them(self) -> None:
+        written = self.seeded()
+
+        store = questions.read_store(self.root)
+        self.assertEqual(3, len(written))
+        self.assertEqual(["q-0001", "q-0002", "q-0003"], [read.identity for read in store.roots])
+        self.assertEqual(list(FIXTURE_ROOTS), [read.question for read in store.roots])
+        self.assertTrue(all(read.open and read.parent is None for read in store.roots))
+        self.assertEqual({}, store.children)
+        checked = questions.check(self.root)
+        self.assertEqual([], checked.diagnostics)
+        self.assertEqual(3, checked.entries)
+
+    def test_seeding_registers_no_session(self) -> None:
+        self.seeded()
+
+        self.assertFalse((self.root / SESSIONS).exists())
+
+    def test_a_store_holding_a_live_entry_is_left_as_it_stands(self) -> None:
+        self.write(f"{STORE}/q-0001-whose-store-is-this.md", entry("q-0001", "Whose store is this?", {"state": "open"}))
+        untouched = self.snapshot()
+
+        self.assertEqual([], self.seeded())
+        self.assertEqual(untouched, self.snapshot())
+
+    def test_a_store_holding_only_an_archived_entry_is_left_as_it_stands(self) -> None:
+        self.write(
+            f"{STORE}/done/q-0001-whose-store-was-this.md",
+            entry("q-0001", "Whose store was this?", {"state": "closed:pruned", "answer": "nobody asked"}),
+        )
+        untouched = self.snapshot()
+
+        self.assertEqual([], self.seeded())
+        self.assertEqual(untouched, self.snapshot())
+
+    def test_a_sessions_file_alone_is_no_entry_and_the_store_is_seeded(self) -> None:
+        self.write(SESSIONS, "s-alpha running 2026-09-29 -\n")
+
+        self.assertEqual(3, len(self.seeded()))
+        self.assertEqual("s-alpha running 2026-09-29 -\n", self.read(SESSIONS))
+
+    def test_a_shelf_that_cannot_say_the_roots_is_refused_with_nothing_written(self) -> None:
+        for said, reason in (
+            (None, "no shelf"),
+            ("# What the store holds\n\nNo block here.\n", "no `roots` block"),
+            ("# What the store holds\n\n```roots\n\n```\n", "names no root"),
+        ):
+            with self.subTest(reason=reason):
+                if said is None:
+                    (self.root / SHELF).unlink(missing_ok=True)
+                else:
+                    self.write(SHELF, said)
+                with self.assertRaises(questions.Refused) as refused:
+                    self.seeded()
+                self.assertIn(reason, str(refused.exception))
+                self.assertFalse((self.root / STORE).exists())
+
+    def test_the_command_says_what_it_wrote_then_that_the_store_was_left(self) -> None:
+        first, second = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(first):
+            seeded = questions.main(["--seed"], root=self.root, today=TODAY, now=NOW)
+        with contextlib.redirect_stdout(second):
+            left = questions.main(["--seed"], root=self.root, today=TODAY, now=NOW)
+
+        self.assertEqual(0, seeded)
+        self.assertEqual(3, first.getvalue().count("wrote docs/questions/q-000"))
+        self.assertEqual(0, left)
+        self.assertIn("holds entries; left as it stands", second.getvalue())
+
+    def test_the_command_refuses_a_shelf_with_no_roots(self) -> None:
+        (self.root / SHELF).unlink()
+        said = io.StringIO()
+        with contextlib.redirect_stdout(said):
+            status = questions.main(["--seed"], root=self.root, today=TODAY, now=NOW)
+
+        self.assertEqual(2, status)
+        self.assertIn("refused: seed:", said.getvalue())
 
 
 if __name__ == "__main__":

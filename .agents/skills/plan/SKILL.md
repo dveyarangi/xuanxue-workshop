@@ -130,7 +130,8 @@ Mechanism: not yet
 - Record the plan as an RFC; its name and home are installed below.
 
 - RFC header: H1 is the ticket's title plus ` — implementation plan`; then
-  `**Authored:** YYYY-MM-DD`, and `**Last amended:** YYYY-MM-DD` once a later
+  `- **record of** what it intends to become`, which the mover turns to
+  `what happened` at close; then `**Authored:** YYYY-MM-DD`, and `**Last amended:** YYYY-MM-DD` once a later
   pass changes the plan; then one line stating what it implements, linking the
   ticket.
 

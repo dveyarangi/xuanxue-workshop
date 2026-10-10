@@ -2,7 +2,7 @@
 
 - **instruction** `.agents/skills/mechanism/SKILL.md` — the shape: membership, the three homes, moments, injection, records, incept, amend and retire
 - **state** always on
-- **kind** what must always hold
+- **record of** what must always hold
 
 ## How it works
 
@@ -24,10 +24,13 @@ record is finished. A maintainer's duty to archive finished records is a duty to
 declaration, so a record that carries none is a duty that cannot be discharged rather than a duty
 nobody has.
 
-**One instruction file**, so that naming a mechanism and naming its skill are one act. A second
-would make every reference ambiguous at the moment it is needed most, and it is what lets a moment
-instructed `elsewhere` resolve against a file rather than against a declaration that may not exist
-yet.
+**One mechanism per skill**, so that naming a skill names its owner. A skill with two owners would
+make every reference ambiguous at the moment it is needed most, and a moment instructed
+`elsewhere` names the skill, which resolves against a file rather than against a declaration that
+may not exist yet. The converse is not required: a mechanism may own several skills when each acts
+on a record it declares — the start and the end of one record are two acts of one mechanism, and
+splitting them across two mechanisms to keep one skill each cuts a lifecycle in half. The record
+is the brake: a skill acting on none of the mechanism's records is not its own.
 
 **Mechanical by construction**, because a mechanism whose parts a script cannot enumerate cannot be
 checked, and an unchecked declaration is exactly the label this shape exists to prevent.

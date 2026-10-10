@@ -57,6 +57,10 @@ If the parent is a document not already in your context window, read it from
 the file. When the parent is the chunk of work under discussion, there is no
 file — the tickets must then carry their own context.
 
+<installed by="ticket">
+**P12** Read the live tickets with `tickets.py --list` before ordering the queue or minting a ticket.
+</installed>
+
 ### 2. Explore the codebase (optional)
 
 If you have not already explored the codebase, do so to understand the current

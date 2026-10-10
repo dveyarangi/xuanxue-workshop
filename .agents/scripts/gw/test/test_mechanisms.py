@@ -63,7 +63,7 @@ class Declared(RepositoryCase):
                 f"# {SLUG} — one line saying what it is\n\n"
                 f"- **instruction** `{INSTRUCTION}` — the act\n"
                 "- **state** always on\n"
-                "- **kind** what must always hold\n"
+                "- **record of** what must always hold\n"
             ),
             "moments": MOMENTS,
             "parts": PARTS,
@@ -90,8 +90,8 @@ class Declared(RepositoryCase):
         """A header bending only the bullet under test; the rest stays well-formed."""
         if "**state**" not in bullets:
             bullets += "- **state** always on\n"
-        if "**kind**" not in bullets:
-            bullets += "- **kind** what must always hold\n"
+        if "**record of**" not in bullets:
+            bullets += "- **record of** what must always hold\n"
         return f"# {SLUG} — one line saying what it is\n\n{bullets}"
 
     def checked(self):
@@ -396,7 +396,7 @@ class TheHeader(Declared):
 
     def test_carries_the_doc_s_kind_so_an_agent_editing_it_meets_the_kind_in_context(self) -> None:
         with self.subTest(kind="missing"):
-            self.write(DOC, self.doc().replace("- **kind** what must always hold\n", ""))
+            self.write(DOC, self.doc().replace("- **record of** what must always hold\n", ""))
 
             problems = self.problems()
 
@@ -404,13 +404,22 @@ class TheHeader(Declared):
             self.assertIn("names no kind", problems[0])
 
         with self.subTest(kind="another"):
-            self.write(DOC, self.doc().replace("- **kind** what must always hold", "- **kind** what exists"))
+            self.write(DOC, self.doc().replace("- **record of** what must always hold", "- **record of** what exists"))
 
             problems = self.problems()
 
             self.assertEqual(1, len(problems))
             self.assertIn("what exists", problems[0])
             self.assertIn("what must always hold", problems[0])
+
+        with self.subTest(kind="under the mark's old name"):
+            self.write(DOC, self.doc().replace("- **record of** what must always hold", "- **kind** what must always hold"))
+
+            problems = self.problems()
+
+            self.assertEqual(1, len(problems))
+            self.assertIn("`- **kind**`", problems[0])
+            self.assertIn("`- **record of** what must always hold`", problems[0])
 
 
 class TheRulesFile(Declared):

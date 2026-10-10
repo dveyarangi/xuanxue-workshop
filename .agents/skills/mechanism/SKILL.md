@@ -21,9 +21,11 @@ to work*? Then it is a mechanism and owes a declaration.
 
 - A system, never a file. One spans skills, scripts, records, and rules injected into
   skills it did not write.
-- **One mechanism, one instruction file — a skill** *(the user, 2026-09-06)*. Rules it
-  needs elsewhere are installed as text from its rules file, never second instruction
-  files, and no body restates one *(the user, 2026-09-07)*.
+- **A skill has one mechanism** *(the user, 2026-09-06)*. A mechanism may own several,
+  each the act at one of its moments over a record it declares; a skill that acts on no
+  record of the mechanism is not its own *(loosened, the user, 2026-10-10)*. Rules it
+  needs in a skill it does not own are installed as text from its rules file, and no body
+  restates one *(the user, 2026-09-07)*.
 - Writing an entry into a record is not mechanism work. It belongs to the skill that
   owns the entry.
 
@@ -84,7 +86,7 @@ included *(the user, 2026-09-20)*.
 - A rules file's block is installed in every target it names, or the check fails.
 
 The installer is `inject_rules.py`: `<slug> --install`, with `--overwrite` when the source has
-moved; `<slug> --retract`; `--check` over the tree, in the verification set. Grammar and block
+moved, which also takes the source's block out of a file it no longer names; `<slug> --retract`; `--check` over the tree, in the verification set. Grammar and block
 form: [MECHANISM-FORMAT.md](./MECHANISM-FORMAT.md#the-rules-file).
 
 A mechanism that injects nothing has no rules file. A project's own rules file, beside the
@@ -135,7 +137,7 @@ a manifest — and each entry belongs at its authored home, wrapped there if pro
 mechanism is undeclared, write the rule by hand and wrap it as a straw dog bound to the question
 of what the mechanism owns, as you write it.
 
-**R6** A skill is a mechanism's one instruction file, or says so on its first body line: `Mechanism:`
+**R6** A skill is an instruction file of exactly one mechanism, or says so on its first body line: `Mechanism:`
 then `not yet`, wrapped as a straw dog bound to the question of what the skill owns, or
 `unowned by design` with its reason. Write the line as you add the skill; no list holds it.
 

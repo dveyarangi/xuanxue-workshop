@@ -1,10 +1,11 @@
 # Entry contract
 
-Entry contract: goodwolf-harness@8a512d3, 2026-10-08.
+Entry contract: goodwolf-harness@909b61a, 2026-10-11.
 
 Open your first reply of every session with the `Entry contract:` line above, verbatim.
 
-Run /recall first in every session, whatever the first message says.
+Run /recall first in every conversation, whatever the first message says. A conversation the host
+resumes under a new id is the same conversation: its context holds the recall it ran.
 
 ## General rules
 
@@ -24,33 +25,45 @@ nothing about being load-bearing — an implementation method is a shape too. �
 
 - **Recency for evidence, longevity for principles.**
 
-- **Occam.** Clarity and simplicity first — Occam's razor: take the shape with the fewest parts that does the job, and remove before you add.
+- **Occam.** Clarity and simplicity first — Occam's razor: take the shape with the fewest parts that does the job, and remove before you add. Say what need not exist: a rule, mechanism, record or step — the person's proposal or yours — that the work would not miss, said before it is built.
 
 - **A capable reader.** Write for a capable model: state the rule and its pointer. The definition the glossary owns, the example that motivated it, what it implies, and what a script already does for the reader stay out.
 
 - **Tier is paid by every session.** A skill's description is its tier-1 surface: name there every use case the skill serves, and nothing else — never its method or how it is built. Write every rule at the tier its occasion reads, and no higher: what sits at tier 1 is paid for by every session.
 
-**A paragraph shows what it stands on.** Every principle, and every classification an agent
-applies by judgement, carries a name at its authored home and is cited by that name. Under
-`debug=on`:
+**A paragraph shows what it stands on.** Every principle, and every classification applied by
+judgement, is named at its authored home and cited by that name. Under `debug=on`:
 
-- A paragraph that claims or recommends ends with `(💡 *<principle>*)`, the one it is governed
-  by; rarely, where it follows a principle the list lacks, `(無 *<that principle, worded>*)`;
-  with none at work, nothing.
-- Text proposed for a record of the kind *what it intends to become* or *what must always hold*
-  is a paragraph of its own, as it would be written, in a blockquote under a line `🧩 **Proposed
-  change — <record>**` or `⚓ **Proposed invariant — <record>**`, the line outside it.
-- What a claim rests on from outside this session — a decision, evidence or the user's word, by
-  its record or by who and when — is a markdown footnote, its marker in prose. What this session
-  read or said takes none.
+- A paragraph that claims or recommends ends with `(💡 [*<the principle governing it, named as its
+  home names it>*](<its home>:<line>))`, the name a link to the line its text stands on, never a
+  rule's id; one following a principle that stands in a document, where no skill brings it into
+  reach, `(🕯️ …)` in the same form — a harness error; rarely, one following a principle the list
+  lacks, `(無 *<that principle>*)`; one with none at work, nothing.
+- Text proposed for, or written this session into, a doc or code stands as written, in a
+  blockquote under a header naming what it is: `🧩 **Proposed rule — <record>**` for an
+  instruction, `⚓ **Proposed invariant — <record>**` for an invariant, `✏️ **Proposed change —
+  <record>**` for any other text; always for an instruction, an invariant or a load-bearing doc,
+  elsewhere where the reply shows it; `Landed` once written.
+- What a claim rests on from outside this session — a decision, evidence, the user's word — is a
+  footnote naming its record, or who and when.
 
-Whatever waits on the user's decision goes, debug or not, to a table headed `| ⚖️ Decisions |`,
-a row each; drift met and not repaired, to a table headed `| 🍂 Drift |`, a row each.
+Debug or not, a row each, and a table only where it has one: what waits on the user's decision,
+under `| ⚖️ Decisions |` — never one already taken, the agent's own included, which the reply
+reports as taken and the user overturns by saying so; a record out of agreement with what it is of, met and not repaired,
+under `| 🍂 Drift |`; one party's work or claim colliding with another's — another session
+standing where this one works — met and not resolved, under `| 🪢 Tangle |`, even where a
+record's disagreement is what shows it. Under 🪢, the sessions running beside this one come
+first, a row each with the question it stands on as the window writes it, then each collision in
+bold, naming the sessions it involves.
+
+A turn that completes a step of the delivery ring adds a row to the head table:
+`| 🔁 <the ticket, linked with its slug> · ✅ <each step this turn completed> |`.
 
 <installed by="ticket">
-**P9** The first time a record or a reply names a ticket, name it by a link to its record whose text
-carries its slug — the id may lead it; later mentions may be the id alone. Name one that has no
-record yet by a slug and its state word.
+**P9** In every reply and every record, the first mention of a ticket — a table's cell included — is a
+link to its record whose text carries its slug, its whole id leading it if at all; later mentions
+in that reply or record may be the whole id alone. Name one that has no record yet by a slug and
+its state word.
 </installed>
 
 <installed by="questions">
@@ -169,7 +182,7 @@ A switch the project has not set is `ask`.
 
 | Switch | Meaning |
 |---|---|
-| commit | `ask`: commit only on explicit permission, per change. `auto`: commit when the work is verified. |
+| commit | `ask`: commit only on explicit permission, per change. `auto`: commit when `/verify` has passed on the work — its verification set, and the work read against what governs it. |
 | push | `ask`: separate from commit, and /conclude's alone — no other reply asks, mentions or counts what waits on it. `never`, `auto`. |
 | next-cycle | `ask`: starting the next ticket after one lands needs a nod. `auto`. |
 | breakdown | `ask`: a /ticket split needs approval before minting. `auto`. |
@@ -203,7 +216,7 @@ does not implicitly transfer their ownership or authorize changing them. Identif
 providers, consumers, data owners, responsible contributors, and affected projects
 when recording shared contracts or coordinated work.
 
-**L3** commit=ask · push=ask · next-cycle=ask · breakdown=ask · repair=ask
+**L3** commit=ask · push=ask · next-cycle=ask · breakdown=ask · repair=ask · step=ask
 
 **L4** The harness scripts require Python 3.12 or later and only the standard library.
 In this workspace, run them with uv run --offline --no-project python.
@@ -223,10 +236,14 @@ the result; they do not prescribe the agent's workflow or authorize action.
 
 **L15** After /recall at session entry, use /review-assignments at
 .agents/skills/review-assignments/SKILL.md to review pending cross-project work
-and follow through on its findings before resuming the agreed work. Preserve the
-original issue as the communication channel and the existing decision, publication
-and next-cycle checkpoints.
-Omit explanations of the checkpoint.
+and establish the current status and next concrete action. A greeting starts
+with session status and a concrete next action. With step=ask, propose that
+action and request permission to start it; with step=auto, carry it out within
+existing authority. Omit explanations of the checkpoint.
+Step approval covers the proposed action, not each tool
+call. Preserve the original issue as the communication channel and the existing
+decision, commit, publication and next-cycle checkpoints. Explicit user
+restrictions take precedence.
 
 **L16** Workshop coordinates shared obligations and compatibility between autonomous
 projects. Be strict about interfaces and light on process. Local work proceeds

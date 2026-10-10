@@ -48,7 +48,7 @@ Port body changes, fixing defects as you port; leave every appendix file and ins
 ## Installed from other mechanisms
 
 <installed by="mechanism-shape">
-**R6** A skill is a mechanism's one instruction file, or says so on its first body line: `Mechanism:`
+**R6** A skill is an instruction file of exactly one mechanism, or says so on its first body line: `Mechanism:`
 then `not yet`, wrapped as a straw dog bound to the question of what the skill owns, or
 `unowned by design` with its reason. Write the line as you add the skill; no list holds it.
 

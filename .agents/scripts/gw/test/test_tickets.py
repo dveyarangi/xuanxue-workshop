@@ -15,6 +15,8 @@ STORE = "docs/questions"
 LIVE = "docs/tickets/01-0002-live.md"
 PLANNED = "docs/tickets/01-0003-planned.md"
 RFC = "docs/rfc/01-0003-planned.md"
+QUEUE = "docs/tickets/README.md"
+MARKED = "- **record of** what it intends to become\n"
 
 
 def ticket(
@@ -24,8 +26,9 @@ def ticket(
         "## Acceptance criteria\n\n- [ ] It works.\n- [ ] `/verify` has been run.\n"
     ),
     title: str = "# A ticket",
+    mark: str = MARKED,
 ) -> str:
-    return f"{title}\n\n{header}\n{sections}"
+    return f"{title}\n\n{mark}{header}\n{sections}"
 
 
 INCEPTED = (
@@ -53,7 +56,7 @@ class Records(RepositoryCase):
     def setUp(self) -> None:
         super().setUp()
         self.questions: dict[str, str] = {}
-        self.write("docs/tickets/README.md", "# Delivery status\n\n**Last updated:** never\n")
+        self.write(QUEUE, f"# Delivery status\n\n{MARKED}\n**Candidate:** none.\n")
         self.write("docs/tickets/01-0001-earlier.md", ticket(INCEPTED))
         self.write(LIVE, ticket(INCEPTED))
         self.write(PLANNED, ticket(SHAPED))
@@ -99,7 +102,7 @@ class TheHeader(Records):
 
         self.assertEqual(1, len(problems))
         self.assertIn("bullet list", problems[0])
-        self.assertEqual([(LIVE, 3)], self.problem_lines())
+        self.assertEqual([(LIVE, 4)], self.problem_lines(), "the mark's line counts")
 
     def test_missing_a_required_field_names_it(self) -> None:
         self.write(LIVE, ticket(INCEPTED.replace("- **Type:** HITL\n", "")))
@@ -221,6 +224,67 @@ class TheHeader(Records):
         self.assertEqual([], self.problems())
 
 
+class TheMark(Records):
+    """A live ticket opens its header with what it is a record of, so the agent editing it meets
+    the kind in context; the ticket format declares the kind, and the check holds the two equal."""
+
+    def test_a_ticket_carrying_none_is_reported(self) -> None:
+        self.write(LIVE, ticket(INCEPTED, mark=""))
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems))
+        self.assertIn("names no kind", problems[0])
+        self.assertEqual([(LIVE, 3)], self.problem_lines())
+
+    def test_a_ticket_marked_with_another_kind_is_reported(self) -> None:
+        self.write(LIVE, ticket(INCEPTED, mark="- **record of** what happened\n"))
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems))
+        self.assertIn("what happened", problems[0])
+        self.assertIn("what it intends to become", problems[0])
+
+    def test_the_mark_under_its_former_name_is_reported_and_the_header_still_read(self) -> None:
+        self.write(LIVE, ticket(INCEPTED, mark="- **kind** what it intends to become\n"))
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems), "the fields after it are read, so none goes missing")
+        self.assertIn("`- **kind**`", problems[0])
+
+    def test_is_told_from_the_retired_kind_field(self) -> None:
+        self.write(LIVE, ticket(INCEPTED.replace("- **Type:** HITL\n", "- **Type:** HITL\n- **Kind:** Maintenance\n")))
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems), "the mark passes while the retired field is refused")
+        self.assertIn("Kind is no longer a field", problems[0])
+
+    def test_the_queue_carrying_none_is_reported(self) -> None:
+        self.write(QUEUE, "# Delivery status\n\n**Candidate:** none.\n")
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems))
+        self.assertIn("names no kind", problems[0])
+        self.assertEqual([(QUEUE, 3)], self.problem_lines())
+
+    def test_the_queue_marked_with_another_kind_is_reported(self) -> None:
+        self.write(QUEUE, "# Delivery status\n\n- **record of** what exists\n\n**Candidate:** none.\n")
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems))
+        self.assertIn("what exists", problems[0])
+
+    def test_a_tree_without_a_queue_is_not_reported_for_it(self) -> None:
+        (self.root / QUEUE).unlink()
+
+        self.assertEqual([], self.problems())
+
+
 class ThePlanBullet(Records):
     def test_absent_while_an_rfc_exists_is_reported(self) -> None:
         self.write(PLANNED, ticket(SHAPED.replace("- **Plan:** [plan](../rfc/01-0003-planned.md) — what it selected\n", "")))
@@ -319,7 +383,7 @@ class TheSections(Records):
 
         self.assertEqual(1, len(problems))
         self.assertIn("Firmed at the align.", problems[0])
-        self.assertEqual([(PLANNED, 15)], self.problem_lines(), "the header's Answers line counts")
+        self.assertEqual([(PLANNED, 16)], self.problem_lines(), "the mark's and the Answers lines count")
 
     def test_an_incepted_ticket_may_hold_prose_among_its_criteria(self) -> None:
         self.write(
@@ -469,7 +533,7 @@ class TheCommandLine(Records):
         self.assertEqual(1, len(diagnostics))
         note = diagnostics[0]
         self.assertEqual(LIVE, note["record"])
-        self.assertEqual(3, note["line"])
+        self.assertEqual(4, note["line"], "the Status line, after the mark")
         self.assertIn("Nearly", note["problem"])
 
     def test_a_skip_alone_fails_the_run(self) -> None:
@@ -479,6 +543,93 @@ class TheCommandLine(Records):
 
         self.assertEqual(1, status)
         self.assertEqual(1, len(json.loads(out)["skipped"]))
+
+    def test_refuses_a_flag_it_does_not_know(self) -> None:
+        status, out = self.invoke("--lists")
+
+        self.assertEqual(2, status)
+        self.assertIn("--list", out)
+
+
+class TheList(Records):
+    """The live tickets as their headers say, rendered on request and never copied (the user,
+    2026-10-10): id, slug, status word, type, title and the question each answers."""
+
+    def listed(self) -> tuple[int, list[str], list[str]]:
+        """The exit status, the table's rows, and every other line printed after the table."""
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            status = tickets.main(["--list"], self.root)
+        lines = out.getvalue().splitlines()
+        rows = [line for line in lines if line.startswith("| [")]
+        after = [line for line in lines if line and not line.startswith("|")]
+        return status, rows, after
+
+    def test_names_every_live_ticket_in_id_order_with_the_question_it_answers(self) -> None:
+        self.write("docs/tickets/01-0002.0010-child.md", ticket(INCEPTED, title="# A child"))
+        self.write("docs/tickets/done/01-0000-closed.md", ticket(INCEPTED, title="# Closed"))
+
+        status, rows, after = self.listed()
+
+        self.assertEqual(0, status)
+        self.assertEqual([], after)
+        self.assertEqual(
+            [
+                "| [01-0001 earlier](docs/tickets/01-0001-earlier.md) | Ready | HITL | A ticket | "
+                "[q-0001 what-is-it-for](docs/questions/q-0001-what-is-it-for.md) |",
+                "| [01-0002 live](docs/tickets/01-0002-live.md) | Ready | HITL | A ticket | "
+                "[q-0002 what-is-it-for](docs/questions/q-0002-what-is-it-for.md) |",
+                "| [01-0002.0010 child](docs/tickets/01-0002.0010-child.md) | Ready | HITL | A child | "
+                "[q-0004 what-is-it-for](docs/questions/q-0004-what-is-it-for.md) |",
+                "| [01-0003 planned](docs/tickets/01-0003-planned.md) | In progress | AFK | A ticket | "
+                "[q-0003 what-is-it-for](docs/questions/q-0003-what-is-it-for.md) |",
+            ],
+            rows,
+        )
+
+    def test_shows_the_status_word_and_leaves_its_qualifier_in_the_ticket(self) -> None:
+        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Ready (aligned 2026-09-08)")))
+
+        _, rows, _ = self.listed()
+
+        self.assertIn("| [01-0002 live](docs/tickets/01-0002-live.md) | Ready | HITL |", rows[1])
+        self.assertNotIn("aligned", rows[1])
+
+    def test_an_edited_ticket_shows_in_the_next_list_with_no_other_edit(self) -> None:
+        _, before, _ = self.listed()
+        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Blocked"), title="# Renamed"))
+
+        _, after, _ = self.listed()
+
+        self.assertIn("| Ready | HITL | A ticket |", before[1])
+        self.assertIn("| Blocked | HITL | Renamed |", after[1])
+
+    def test_a_field_the_header_lacks_prints_a_dash_and_the_list_goes_on(self) -> None:
+        self.write_raw(LIVE, ticket("- **Status:** Ready\n- **Outcome:** One sentence.\n"))
+
+        status, rows, _ = self.listed()
+
+        self.assertEqual(0, status)
+        self.assertEqual(3, len(rows))
+        self.assertEqual("| [01-0002 live](docs/tickets/01-0002-live.md) | Ready | — | A ticket | — |", rows[1])
+
+    def test_a_bar_in_a_title_cannot_break_its_row(self) -> None:
+        self.write(LIVE, ticket(INCEPTED, title="# Either | or"))
+
+        _, rows, _ = self.listed()
+
+        self.assertIn("| Either \\| or |", rows[1])
+
+    def test_a_ticket_it_cannot_read_is_named_under_the_table_and_fails_the_run(self) -> None:
+        self.write(LIVE, "Not a title\n\n- **Status:** Ready\n")
+
+        status, rows, after = self.listed()
+
+        self.assertEqual(1, status)
+        self.assertEqual(2, len(rows))
+        self.assertEqual(1, len(after))
+        self.assertIn(LIVE, after[0])
+        self.assertIn("title", after[0])
 
 
 if __name__ == "__main__":

@@ -417,6 +417,15 @@ def _installing_or_retracting(root: Path, rules: RulesFile, mode: str, overwrite
         outcomes.append(outcome)
         if new_text is not None:
             planned.append((target, new_text))
+    if mode == "install":
+        for dropped in _dropped_targets(root, rules):
+            try:
+                outcome, new_text = _removal(root, rules.slug, dropped)
+            except Refused as refusal:
+                refusals.append(f"{dropped}: {refusal}")
+                continue
+            outcomes.append(outcome)
+            planned.append((dropped, new_text))
     report = {"slug": rules.slug, "mode": mode, "targets": outcomes, "refusals": refusals}
     if refusals:
         return report
@@ -460,6 +469,27 @@ def _planned(
             "then retract"
         )
     return {"target": target, "state": "retracted"}, without_block(text, found)
+
+
+def _dropped_targets(root: Path, rules: RulesFile) -> list[str]:
+    """Every file holding a block of this source that the source no longer names: a target dropped
+    from the rules file, whose block the check would report as one nothing owns."""
+    return [
+        name for name in corpus(root)
+        if name.endswith(".md") and name not in rules.anchors
+        and any(opening.group(1) == rules.slug for opening in INSTALLED_OPENING.finditer(without_code(_read(root / name))))
+    ]
+
+
+def _removal(root: Path, slug: str, target: str) -> tuple[dict, str]:
+    """The block taken out by the retraction's own cut, so the file is what it was before the
+    block was installed. It is installed, never authored, so nothing is asked; what it held is
+    reported, as an overwrite reports what it replaced."""
+    text = _read(root / target)
+    found = locate(text, slug)
+    if found is None or found.text is None:
+        raise Refused("the block opens and never closes")
+    return {"target": target, "state": "removed", "removed": found.text}, without_block(text, found)
 
 
 def _written(root: Path, planned: list[tuple[str, str]], report: dict) -> dict:

@@ -8,7 +8,9 @@ repairs every citation elsewhere in the repository that pointed at them. A paire
 and RFC — goes in one invocation, so each moved record cites the other's final home.
 
 Judgment stays with the caller: this script changes no checkbox, status, date or prose, and never
-touches the Git index. Eligibility, staging and commit remain `/maintain`'s and the user's.
+touches the Git index. Eligibility, staging and commit remain `/maintain`'s and the user's. The one
+line of a record it does rewrite is its mark: a record landing on a `done/` shelf is a record of
+what happened, which follows from the shelf and asks no judgment (the user, 2026-10-10).
 """
 
 from __future__ import annotations
@@ -31,6 +33,11 @@ from docs_corpus import (  # noqa: E402  (path set just above)
 )
 
 _USAGE = "usage: move_doc.py [--dry-run] SRC DST [SRC DST ...]"
+# A live record's kind, and the one an archived record carries; the ticket format declares both.
+_LIVE_KIND = "what it intends to become"
+_LIVE_MARK = f"- **record of** {_LIVE_KIND}"
+_CLOSED_MARK = "- **record of** what happened"
+_ARCHIVE = "done"
 
 
 def main(argv: list[str], root: Path | None = None) -> int:
@@ -231,6 +238,8 @@ def unfinished(root: Path, pairs: list[tuple[str, str]]) -> list[str]:
             problems.append(f"{source} is still at its old home")
         if not (root / destination).exists():
             problems.append(f"{destination} was never created")
+        elif _archived(destination) and _mark_line(_read(root / destination)) == _LIVE_MARK:
+            problems.append(f"{destination} is archived and still marked {_LIVE_KIND}")
     for name in _records(root):
         for written in citations(_read(root / name)):
             aimed = cited_record(root, name, target_of(written))
@@ -293,7 +302,11 @@ def _change_set(root: Path, pairs: list[tuple[str, str]]) -> list[_Move | _Repai
     """
     mapping = dict(pairs)
     moves = [
-        _Move(source, destination, _redepthed(root, _read(root / source), source, destination, mapping))
+        _Move(
+            source,
+            destination,
+            _marked_for(destination, _redepthed(root, _read(root / source), source, destination, mapping)),
+        )
         for source, destination in pairs
     ]
     citers = []
@@ -305,6 +318,24 @@ def _change_set(root: Path, pairs: list[tuple[str, str]]) -> list[_Move | _Repai
         if after != before:
             citers.append(_Repair(name, before, after))
     return [*moves, *citers]
+
+
+def _marked_for(destination: str, text: str) -> str:
+    """The record as its new shelf has it: one landing in a `done/` shelf marked as a record of
+    what happened, where it carried the live mark; any other text as it came."""
+    if not _archived(destination) or _mark_line(text) != _LIVE_MARK:
+        return text
+    return text.replace(_LIVE_MARK, _CLOSED_MARK, 1)
+
+
+def _archived(name: str) -> bool:
+    return posixpath.basename(posixpath.dirname(name)) == _ARCHIVE
+
+
+def _mark_line(text: str) -> str | None:
+    """The first non-blank line after the title, where a record carries its mark."""
+    lines = [line for line in text.splitlines()[1:] if line.strip()]
+    return lines[0] if lines else None
 
 
 def _records(root: Path) -> list[str]:

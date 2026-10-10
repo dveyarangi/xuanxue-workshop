@@ -1,10 +1,18 @@
 """What each live ticket declares in its header, and whether the record keeps its declared shape.
 
     uv run --offline --no-project python .agents/scripts/gw/tickets.py --check
+    uv run --offline --no-project python .agents/scripts/gw/tickets.py --list
 
-The shape is the ticket format shelf's, `TICKET-FORMAT.md`, under *The record*: the header's
-fields and their order, the sections a stage admits, the acceptance boxes, and the pairing of an
-RFC with the ticket that shares its basename. The question store is read for one thing: that a
+`--list` prints the live tickets as their headers say them, a markdown table in id order: the
+ticket by id and slug, its status word, its type, its title, and the question it answers by id and
+slug. It is the ticket list, rendered on request and never committed (the user, 2026-10-10); it
+judges nothing, so a field a header lacks prints a dash, and a ticket it cannot read is named under
+the table and fails the run.
+
+The shape is the ticket format shelf's, `TICKET-FORMAT.md`, under *The record*: the mark of what
+the ticket is a record of, the header's fields and their order, the sections a stage admits, the
+acceptance boxes, and the pairing of an RFC with the ticket that shares its basename. The queue is
+read for its mark alone. The question store is read for one thing: that a
 ticket's `Answers` links an entry the ticket owns. This script rules on form alone. Whether a ticket
 should have been written, whether its status is true, whether an outcome is any good, are
 judgments it records and never makes.
@@ -47,8 +55,18 @@ NAMED_SECTIONS = (
 # its own argument, so a section listing them is a second home (the user, 2026-10-03).
 RETIRED_SECTIONS = ("Open issues",)
 REQUIRED_SECTIONS = ("What to build", "Acceptance criteria")
-_USAGE = "usage: tickets.py --check"
+# A live ticket and the queue are records of what they intend to become, as the ticket format
+# declares; each carries it as the line its title is followed by, read as what the record is a
+# record of. The mark has no colon, which tells it from the retired `Kind:` field; `kind` was its
+# earlier name.
+MARK = "record of"
+FORMER_MARK = "kind"
+RECORD_KIND = "what it intends to become"
+_USAGE = "usage: tickets.py --check | --list"
+_NAMED = re.compile(r"^(\d{2}-\d{4}(?:\.\d{4})*|q-\d{4}(?:\.\d{4})*)-(.+)$")
+_DASH = "—"
 _BULLET = re.compile(r"^- \*\*([^*]+?):\*\* ?(.*)$")
+_MARK = re.compile(rf"^- \*\*({MARK}|{FORMER_MARK})\*\* ?(.*)$")
 _BARE = re.compile(r"^\*\*([^*]+?):\*\* ?(.*)$")
 _CONTINUATION = re.compile(r"^\s+\S")
 _STATUS = re.compile(r"^(Done|In progress|Ready|Partial|Planned|Blocked)(?: \(([^()]*)\))?$")
@@ -81,6 +99,8 @@ class Ticket:
     """One live ticket as its header and sections declare it. Nothing here has been judged yet."""
 
     record: str
+    title: str
+    mark: Field
     header: list[Field]
     sections: list[Section]
     bullet_form: bool
@@ -138,14 +158,31 @@ class Checked:
         }
 
 
+@dataclass(frozen=True)
+class Listing:
+    """The ticket list: a row per live ticket read, and every ticket that could not be read."""
+
+    rows: list[str]
+    skipped: list[Skipped]
+
+    def as_text(self) -> str:
+        table = ["| Ticket | Status | Type | Title | Question |", "|---|---|---|---|---|", *self.rows]
+        unread = [f"not read: {passed_over.record} — {passed_over.why}" for passed_over in self.skipped]
+        return "\n".join(table + ([""] + unread if unread else []))
+
+
 def main(argv: list[str], root: Path | None = None) -> int:
     root = root or Path(__file__).resolve().parents[3]
-    if argv != ["--check"]:
-        print(_USAGE)
-        return 2
-    checked = check(root)
-    print(json.dumps(checked.as_record(), indent=2))
-    return 1 if checked.diagnostics or checked.skipped else 0
+    if argv == ["--check"]:
+        checked = check(root)
+        print(json.dumps(checked.as_record(), indent=2))
+        return 1 if checked.diagnostics or checked.skipped else 0
+    if argv == ["--list"]:
+        listed = listing(root)
+        print(listed.as_text())
+        return 1 if listed.skipped else 0
+    print(_USAGE)
+    return 2
 
 
 def check(root: Path) -> Checked:
@@ -162,8 +199,64 @@ def check(root: Path) -> Checked:
             continue
         records.append(read)
         diagnostics += _problems(root, read, names) + _answers_problems(root, read, entries)
-    diagnostics += _pairing_problems(names)
+    diagnostics += _pairing_problems(names) + _queue_problems(root, names)
     return Checked(records, diagnostics, skipped)
+
+
+def listing(root: Path) -> Listing:
+    """Every live ticket as its header says it, in id order — the parent before its children, since
+    a name sorts `-` before `.`. Untracked tickets are listed too, so one minted this session is."""
+    entries = {read.record: read for read in questions.read_store(root).index.values()}
+    rows: list[str] = []
+    skipped: list[Skipped] = []
+    for name in _live_tickets(corpus(root)):
+        read = _read(root, name)
+        if isinstance(read, Skipped):
+            skipped.append(read)
+            continue
+        rows.append(_row(root, read, entries))
+    return Listing(rows, skipped)
+
+
+# --- a ticket as a row of the list --------------------------------------------------------------
+
+
+def _row(root: Path, read: Ticket, entries: dict[str, "questions.Entry"]) -> str:
+    """What the header says, shown and never judged: a field it lacks prints a dash."""
+    fields = read.fields
+    cells = (
+        _named_link(read.record),
+        _status_word(fields.get("Status")),
+        fields.get("Type") or _DASH,
+        read.title,
+        _question(root, read, entries),
+    )
+    return "| " + " | ".join(cell.replace("|", "\\|") for cell in cells) + " |"
+
+
+def _named_link(record: str) -> str:
+    """A link to a record whose text is its id and slug, read off its basename."""
+    basename = posixpath.splitext(posixpath.basename(record))[0]
+    named = _NAMED.match(basename)
+    return f"[{named.group(1)} {named.group(2)}]({record})" if named else f"[{basename}]({record})"
+
+
+def _status_word(status: str | None) -> str:
+    """The status without its qualifier, which stays in the ticket. A value the grammar does not
+    match is shown as written: whether it is right is `--check`'s to say."""
+    if not status:
+        return _DASH
+    word = _STATUS.match(status)
+    return word.group(1) if word else status
+
+
+def _question(root: Path, read: Ticket, entries: dict[str, "questions.Entry"]) -> str:
+    """The entry `Answers` links, as a named link; a dash unless it links exactly one entry."""
+    written = citations(read.fields.get("Answers", ""))
+    if len(written) != 1:
+        return _DASH
+    entry = entries.get(cited_record(root, read.record, target_of(written[0])) or "")
+    return _named_link(entry.record) if entry else _DASH
 
 
 # --- reading a ticket ---------------------------------------------------------------------------
@@ -186,19 +279,29 @@ def _read(root: Path, name: str) -> Ticket | Skipped:
     lines = text.splitlines()
     if not lines or not lines[0].startswith("# "):
         return Skipped(name, "does not open with a title line, so nothing after it can be placed")
-    header, bullet_form, after = _header(lines)
-    return Ticket(name, header, _sections(lines, after), bullet_form)
+    mark = _mark(lines)
+    header, bullet_form, after = _header(lines, mark.line if mark.name else mark.line - 1)
+    return Ticket(name, lines[0][2:].strip(), mark, header, _sections(lines, after), bullet_form)
 
 
-def _header(lines: list[str]) -> tuple[list[Field], bool, int]:
-    """The bullet list at the first non-blank line after the title, and where the body starts.
+def _mark(lines: list[str]) -> Field:
+    """What the record says it is a record of, on the first non-blank line after its title. A
+    record carrying none gets a mark with no name, standing on the line the mark belongs on."""
+    at = 1
+    while at < len(lines) and not lines[at].strip():
+        at += 1
+    carried = _MARK.match(lines[at]) if at < len(lines) else None
+    if not carried:
+        return Field("", "", at + 1)
+    return Field(carried.group(1), carried.group(2).strip(), at + 1)
+
+
+def _header(lines: list[str], at: int) -> tuple[list[Field], bool, int]:
+    """The bullet list starting at `at`, and where the body starts.
 
     A bare `**Field:**` line is read too, so the rest of the header can still be judged, but it
     is reported as the form it is: the shape admits the bullet form and nothing else.
     """
-    at = 1
-    while at < len(lines) and not lines[at].strip():
-        at += 1
     bullet_form = not (at < len(lines) and _BARE.match(lines[at]))
     marker = _BULLET if bullet_form else _BARE
     header: list[Field] = []
@@ -231,12 +334,38 @@ def _sections(lines: list[str], start: int) -> list[Section]:
 def _problems(root: Path, read: Ticket, names: list[str]) -> list[Diagnostic]:
     """Everything about one live ticket that the shelf's declared shape contradicts."""
     return (
-        _form_problems(read)
+        _mark_problems(read.record, read.mark, "ticket")
+        + _form_problems(read)
         + _field_problems(read)
         + _plan_problems(root, read, names)
         + _link_problems(root, read)
         + _section_problems(read)
     )
+
+
+def _mark_problems(record: str, mark: Field, called: str) -> list[Diagnostic]:
+    """The kind the record carries against the kind its format declares (the user, 2026-10-08):
+    carried, the agent editing it meets the kind in context before adding what the kind refuses."""
+    expected = f"`- **{MARK}** {RECORD_KIND}`"
+    if not mark.name:
+        return [Diagnostic(record, mark.line, f"the {called} names no kind: {expected} follows its title")]
+    if mark.name == FORMER_MARK:
+        return [Diagnostic(record, mark.line, f"the {called} carries its kind as `- **{FORMER_MARK}**`: write {expected}")]
+    if mark.value != RECORD_KIND:
+        return [Diagnostic(record, mark.line, f"the {called}'s kind is {mark.value}, and a live {called} is {RECORD_KIND}")]
+    return []
+
+
+def _queue_problems(root: Path, names: list[str]) -> list[Diagnostic]:
+    """The queue's mark, where the tree has a queue; a tree without one is not this check's to
+    report."""
+    if QUEUE not in names:
+        return []
+    try:
+        lines = (root / QUEUE).read_bytes().decode("utf-8").splitlines()
+    except UnicodeDecodeError:
+        return [Diagnostic(QUEUE, None, "is not UTF-8, so its mark cannot be read")]
+    return _mark_problems(QUEUE, _mark(lines), "queue")
 
 
 def _form_problems(read: Ticket) -> list[Diagnostic]:

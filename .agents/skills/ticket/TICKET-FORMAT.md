@@ -1,14 +1,14 @@
 # Ticket format
 
 This shelf owns ticket naming, delivery-state vocabulary, the shape of a
-ticket as a record, and how to amend the queue table in
-`docs/tickets/README.md`. What an RFC *contains* is `/plan`'s.
+ticket as a record, and what the queue in `docs/tickets/README.md` holds.
+What an RFC *contains* is `/plan`'s.
 
 ## Numbering
 
 ```
 docs/tickets/done/01-0010.0010-life-informs-dev-harness.md
-              │  │    └── slug — what the ticket is. Never changes. Cite by this.
+              │  │    └── slug — what the ticket is.
               │  └─────── position — global. Changes when priority changes.
               └────────── release — the contract the ticket serves.
 ```
@@ -16,8 +16,7 @@ docs/tickets/done/01-0010.0010-life-informs-dev-harness.md
 - Names are `01-NNNN-slug.md`. Positions step by 10. Insert by splitting the
   difference: `0015`, then `0012`. Positions stay four digits — longer numbers
   break numeric ordering. When the gap is exhausted, take the nearest free
-  slot on the correct side and note the placement in the queue row. Never
-  renumber anything else.
+  slot on the correct side. Never renumber anything else.
 - Allocate a position where the ticket will actually be worked, not merely at
   the end, checking both `docs/tickets/` and `docs/tickets/done/` for the
   surrounding positions.
@@ -31,8 +30,7 @@ docs/tickets/done/01-0010.0010-life-informs-dev-harness.md
 ### One basename per work item
 
 A ticket and its RFC share a basename. Cite by slug through a relative link;
-add the `done/` segment when the target completes. The filename never
-changes, only the folder.
+add the `done/` segment when the target completes.
 
 When every acceptance box is checked, including `/verify`, move the ticket to
 `docs/tickets/done/` and its RFC to `docs/rfc/done/`, and repair the
@@ -46,8 +44,8 @@ uv run --offline --no-project python .agents/scripts/gw/move_doc.py \
 ```
 
 The mover repairs citations and touches nothing else — no checkbox, no
-status, no date, no Git index. Eligibility, the ticket header and the queue
-row are yours. [/maintain](../maintain/SKILL.md) owns the surrounding pass.
+status, no date, no Git index. Eligibility and the ticket header are yours.
+[/maintain](../maintain/SKILL.md) owns the surrounding pass.
 
 Artifacts predating this keep their names.
 
@@ -77,6 +75,11 @@ never content *(the user, 2026-09-08)*.
   included. Archived records are matched by name for pairing and exempt from
   everything else; older fields in them are left, and a live record carries
   none.
+- **The kind** is *what it intends to become* while the ticket is live, and
+  *what happened* once it closes. A ticket carries it as `- **record of**
+  what it intends to become`, the line after its title; the mover turns it
+  to `what happened` as it closes the pair. The mark has no colon, which
+  tells it from a field; its earlier name, `kind`, is reported.
 - **The stage** is read from the `Plan` bullet. *Incepted*, before its plan
   exists, a ticket hosts chunks: routed inputs, ideas, any section; its open
   questions are entries of the store under its `Answers` question, each
@@ -88,14 +91,14 @@ never content *(the user, 2026-09-08)*.
 
 ### The header
 
-The bullet list at the first non-blank line after the title, one form,
-ending at the first line that is neither a bullet nor an indented
-continuation. Known fields in this order, a one-off field anywhere before
-`Outcome`, `Outcome` last:
+The bullet list after the mark, one form, ending at the first line that is
+neither a bullet nor an indented continuation. Known fields in this order, a
+one-off field anywhere before `Outcome`, `Outcome` last:
 
 ```md
 # {Title}
 
+- **record of** what it intends to become
 - **Status:** {value} {(qualifier)}
 - **Type:** HITL | AFK
 - **Plan:** [{title} RFC](../rfc/{basename}.md) — what it selected
@@ -175,32 +178,13 @@ sit in the same folder state. Only names are read; nothing inside an RFC is.
 - Reference the architecture, ADRs, glossary, open questions and edge records;
   never restate them.
 - Date a criterion checked early and a status flip; nothing else accretes.
-- Update the queue in the same pass.
 - Wrap at ~100 columns.
 
 ## The queue
 
-The queue is `docs/tickets/README.md`. `/ticket` amends **the table** in the
-same pass as minting, a status flip, or a completion. Pacing prose around
-the table (`Completed step`, `Current pass`, `Current stage`, working-document
-pointers) is not the table; leave it in place, do not restate it here, and
-do not replace it with another skeleton.
-
-```md
-| Ticket | Status | Type | Outcome |
-|---|---|---|---|
-| [Title](./RR-NNNN-slug.md) | Ready | HITL | {verbatim from the ticket header} |
-```
-
-| Field | Rule |
-|---|---|
-| `Last updated` | The date **delivery state** last moved, not the date the file was last touched. A copy-edit or a link repair does not advance it; a status flip, a minted ticket, or a reorder does. |
-| `Ticket` | Relative link to the ticket. The row is deleted when the ticket closes: `done/` enumerates finished work, and the queue is delivery status. |
-| `Status` | A [status](#status) value, including an allowed qualifier. |
-| `Type` | `HITL` or `AFK`. |
-| `Outcome` | Copied verbatim from the ticket header. |
-
-When minting, add a row where the ticket will actually be worked. When
-status, type, or outcome changes, update the row. When completing, delete the
-row; the closing pass carries that duty as an installed rule. Do not add
-columns.
+The queue is `docs/tickets/README.md`: the order of the work and its
+candidate. It copies nothing a ticket says; the live tickets are listed by
+`tickets.py --list`. It keeps no account of steps done: the
+session records hold it. It is of the kind *what it intends to become*, and
+carries `- **record of** what it intends to become` on the line after its
+title, held by `tickets.py --check` where the queue exists.

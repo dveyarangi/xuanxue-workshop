@@ -35,7 +35,8 @@ One pass over a declared scope. The scope decides which rules apply.
 - **B4** Re-check every mechanism the check reports due or never maintained, whatever scope you
   declared: its doc against the meta-rules at `rules`; its records against its doc and format at
   `output` — the live ones, and historical ones where a mechanical change stays in this tree, never
-  records on a remote board.
+  records on a remote board. Where the check names the files that moved, were added or went since
+  a mark, read those against the record.
 
 ## Judge
 
@@ -102,16 +103,21 @@ reports it cannot rewrite, and say which. Git recovers committed or staged conte
 
 **P5** Check the ticket records with `tickets.py --check` — format never content, live rows only. A
 diagnostic is a finding; repair it under the repair policy.
-
-**P8** Delete the ticket's row from the queue when you close it. The queue is delivery status, and
-`docs/tickets/done/` is where finished work is enumerated; a row for an archived ticket is a
-second home for what that folder already says.
 </installed>
 
 <installed by="questions">
 **Q4** Check the question store with `questions.py --check`. A diagnostic is a finding; repair it under
 the repair policy. Move each subtree it reports ready for `done/` with `move_doc.py`, every entry
 of the subtree in one invocation, into `docs/questions/done/`.
+</installed>
+
+<installed by="edge">
+**E1** Check the edge records and their sidecars with `edges.py --check` — form, never content. A
+diagnostic is a finding; repair it under the repair policy.
+
+**E2** An edge record is of the code and configuration it names. When the scope moves a part that a
+record under `docs/edge/` names, re-read what it says of that part. A promise the code no longer
+keeps is drift, reported with its evidence and never rewritten to fit.
 </installed>
 
 <installed by="coordinate">

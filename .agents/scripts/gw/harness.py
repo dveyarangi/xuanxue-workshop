@@ -32,11 +32,13 @@ import subprocess  # noqa: E402
 import tarfile  # noqa: E402
 import tempfile  # noqa: E402
 from dataclasses import dataclass, field  # noqa: E402
+from datetime import datetime, timezone  # noqa: E402
 from pathlib import Path  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import inject_rules  # noqa: E402  (path set just above)
+import questions  # noqa: E402
 from docs_corpus import (  # noqa: E402
     ANNOUNCE,
     ENTRY_FILE,
@@ -59,6 +61,9 @@ LICENSE = "LICENSE"
 INSTALLED_LICENSE = f"{CORE}LICENSE"
 LOCAL_FILE = inject_rules.LOCAL_FILE
 LINKS = (".claude/skills", ".cursor/skills")
+# The interpreter every core hook runs under, one line in the clone's Git directory: per clone by
+# construction, so no commit carries a path that is true on one machine only.
+INTERPRETER_RECORD = "gw-interpreter"
 LINK_TARGET = "../.agents/skills"
 SKILLS = ".agents/skills"
 HARNESS_SKILL = f"{SKILLS}/harness/SKILL.md"
@@ -114,6 +119,7 @@ class Report:
     gates: dict = field(default_factory=dict)
     excluded: list[str] = field(default_factory=list)
     links_resolve: dict = field(default_factory=dict)
+    interpreter: dict = field(default_factory=dict)
     notes: list[str] = field(default_factory=list)
     refusals: list[str] = field(default_factory=list)
     arrived: bool = False
@@ -160,6 +166,7 @@ def link(target: Path, report: Report) -> None:
     plan = _link_plan(target)
     _make_links(target, plan, report)
     _exclude_links(target, plan, report)
+    _record_interpreter(target, report)
     report.links_resolve = _links_resolve(target)
 
 
@@ -183,10 +190,14 @@ def run(target: Path, mode: str, overwrite: bool, source: Source, ref: str | Non
     else:
         previous = _refuse_unless_updatable(target, source, shipment, overwrite, report)
     plan = _link_plan(target)
+    wiring = _wiring_plan(target, shipment, previous)
     _write(target, shipment, previous, report)
     _write_delivery_status(target, shipment, report)
+    _seed_store(target, report)
+    _write_wiring(target, wiring, report)
     _make_links(target, plan, report)
     _exclude_links(target, plan, report)
+    _record_interpreter(target, report)
     _inject(target, report)
     _gate(target, shipment, report)
 
@@ -383,6 +394,7 @@ class Shipment:
         files = _transformed(source, ref, held=True)
         if HARNESS_SKILL not in files:
             raise Refused(f"ship: {ref.announced} has no {HARNESS_SKILL}; this is not the harness")
+        _refuse_unless_the_roots_are_said(files, ref)
         return cls(ref, files, arrival_state(files, ref))
 
     @classmethod
@@ -537,6 +549,19 @@ def arrival_state(files: dict[str, str], ref: Ref) -> str:
     if said is None:
         raise Refused(f"ship: {QUEUE_ARRIVAL} at {ref.announced} declares no arrival state")
     return said.group("said").replace("{ref}", ref.announced)
+
+
+def _refuse_unless_the_roots_are_said(files: dict[str, str], ref: Ref) -> None:
+    """A ref whose store shelf cannot say a fresh store's roots is refused while the shipment is
+    built, before anything is written, as one whose queue shelf cannot. Where the shelf sits and
+    how it is read are the questions mechanism's, asked of its script."""
+    shelf = files.get(questions.STORE_ARRIVAL)
+    if shelf is None:
+        raise Refused(f"ship: {ref.announced} has no shelf at {questions.STORE_ARRIVAL}")
+    try:
+        questions.arrival_roots(shelf)
+    except questions.Refused as refusal:
+        raise Refused(f"ship: {ref.announced}: {refusal}") from refusal
 
 
 def without_repository_line(path: str, text: str) -> str:
@@ -775,6 +800,121 @@ def _write_delivery_status(target: Path, shipment: Shipment, report: Report) -> 
     report.written.append(DELIVERY_STATUS)
 
 
+def _seed_store(target: Path, report: Report) -> None:
+    """A store holding no entry opens with its roots, on an install or an update alike, as the
+    delivery status is written whenever it is absent. The words, the entries and the rule of when
+    are the store script's; the installer only calls it (the user, 2026-10-09: no constants in the
+    installer). A store holding any entry is the project's and is left."""
+    try:
+        written = questions.seed(target, datetime.now(timezone.utc))
+    except (questions.Refused, questions.WriteInterrupted) as stopped:
+        raise Refused(f"{stopped}; run questions.py --seed, then harness.py . --check") from stopped
+    report.written += written
+    if not written:
+        report.notes.append(f"{questions.STORE} holds entries, so it is the project's: left as it stands")
+
+
+def _wiring_plan(target: Path, shipment: Shipment, previous: Shipment | None) -> dict[str, str]:
+    """Each host file's merged text, planned before anything is written so a host file that cannot
+    be merged refuses the run with no file changed. A host whose wiring left core since the
+    previous ref is planned too: its entries are taken out."""
+    shelves = _shelves(shipment)
+    before = _shelves(previous) if previous is not None else {}
+    plan: dict[str, str] = {}
+    for host_file in sorted({*shelves, *before}):
+        held = target / host_file
+        text = wired(
+            host_file,
+            _read(held) if held.is_file() else None,
+            shelves.get(host_file, "{}"),
+            before.get(host_file),
+        )
+        if text is not None:
+            plan[host_file] = text
+    return plan
+
+
+def _shelves(shipment: Shipment) -> dict[str, str]:
+    """Core's wiring per host file, read off the shipment: a shelf file's destination is its path
+    beneath the questions mechanism's hooks directory. A shelf that is not a hook file is a fault
+    of the ref, refused naming it."""
+    shelves = {}
+    for path, text in shipment.files.items():
+        if path.startswith(questions.HOOKS):
+            _hook_document(path, text)
+            shelves[path[len(questions.HOOKS):]] = text
+    return shelves
+
+
+def _write_wiring(target: Path, plan: dict[str, str], report: Report) -> None:
+    for host_file, text in plan.items():
+        _write_text(target / host_file, text)
+        report.written.append(host_file)
+
+
+def wired(host_file: str, held: str | None, wiring: str, previous: str | None) -> str | None:
+    """A host file with core's hook wiring merged in, or None when it already holds exactly that,
+    so an unchanged file is never rewritten.
+
+    The file is shared: the project's own hooks and keys stay where they are. What is core's is
+    what the wiring says, compared as JSON values — nothing is written into the file to mark it,
+    since JSON has no comments and a marker key is a field the host may reject. An entry the
+    previous ref wired and this one does not is taken out; one this ref wires and the file lacks is
+    appended; one already present stays where it is, so hooks a person copied by hand count once."""
+    current = _hook_document(host_file, held)
+    core = _hook_document(f"core's wiring for {host_file}", wiring)
+    left = _hook_document(f"the previous wiring for {host_file}", previous).get("hooks", {})
+    merged = json.loads(json.dumps(current))
+    for key, value in core.items():
+        if key == "hooks":
+            continue
+        if key not in merged:
+            merged[key] = value
+        elif merged[key] != value:
+            raise Refused(f"wire: {host_file} sets {key} to {merged[key]!r} and core's hooks need {value!r}; settle it by hand")
+    hooks = merged.setdefault("hooks", {})
+    for event, entries in left.items():
+        gone = [entry for entry in entries if entry not in core.get("hooks", {}).get(event, [])]
+        if event in hooks:
+            hooks[event] = [entry for entry in hooks[event] if entry not in gone]
+    for event, entries in core.get("hooks", {}).items():
+        listed = hooks.setdefault(event, [])
+        listed.extend([entry for entry in entries if entry not in listed])
+    if held is not None and merged == current:
+        return None
+    return json.dumps(merged, indent=2, ensure_ascii=False) + "\n"
+
+
+def holds_wiring(held: str | None, wiring: str) -> bool:
+    """Whether a host file holds every entry and key core's wiring names; the project's own are
+    never read, so a hook of its own is not drift."""
+    try:
+        current = _hook_document("the host file", held)
+    except Refused:
+        return False
+    core = json.loads(wiring)
+    keys_held = all(current.get(key) == value for key, value in core.items() if key != "hooks")
+    hooks = current.get("hooks", {})
+    return keys_held and all(
+        entry in hooks.get(event, []) for event, entries in core.get("hooks", {}).items() for entry in entries
+    )
+
+
+def _hook_document(name: str, text: str | None) -> dict:
+    """A hook file as the hosts read it: an object whose `hooks`, if any, maps each event to a list.
+    No text is an empty file; anything else is refused naming it, never rewritten."""
+    if text is None:
+        return {}
+    try:
+        document = json.loads(text)
+    except json.JSONDecodeError as error:
+        raise Refused(f"wire: {name} is not JSON — {error}; fix it by hand and run again") from error
+    hooks = document.get("hooks", {}) if isinstance(document, dict) else None
+    if not isinstance(hooks, dict) or not all(isinstance(entries, list) for entries in hooks.values()):
+        raise Refused(f"wire: {name} is not a hook file — an object whose hooks map each event to a list")
+    return document
+
+
 def _link_plan(target: Path) -> dict[str, str]:
     """Per loader link, before anything is written: `keep`, `make` or `repoint`. A junction, a
     directory or a file where the link goes is the recipient's own and refuses the run."""
@@ -846,6 +986,24 @@ def _exclude_links(target: Path, plan: dict[str, str], report: Report) -> None:
     report.excluded = list(plan)
 
 
+def _record_interpreter(target: Path, report: Report) -> None:
+    """The interpreter running this step, which runs by that fact, recorded for the hooks: a bare
+    `python` may be the Windows Store stub, macOS and Linux may carry only `python3`, and `uv` is
+    one machine's habit. A record naming an interpreter that still exists is the person's choice
+    and stays; one naming a missing path is rewritten."""
+    named = _git_in(target, "rev-parse", "--git-path", INTERPRETER_RECORD)
+    if named is None:
+        report.notes.append("git named no directory for the interpreter record: the hooks will say so")
+        return
+    record = target / named if not Path(named).is_absolute() else Path(named)
+    held = _read(record).strip() if record.is_file() else ""
+    if held and Path(held).is_file():
+        report.interpreter = {"record": held, "state": "kept"}
+        return
+    _write_text(record, f"{sys.executable}\n")
+    report.interpreter = {"record": sys.executable, "state": "written"}
+
+
 def _remove_link(path: Path) -> None:
     # Windows removes a directory symlink through rmdir, not unlink; the link itself goes, never its target.
     try:
@@ -915,13 +1073,30 @@ def _gate(target: Path, shipment: Shipment, report: Report) -> None:
 
 def _ref_gate(target: Path, shipment: Shipment) -> dict:
     differing = [path for path in shipment.files if _differs(target, path, shipment.files)]
-    own = sorted(name for name in corpus(target) if name.startswith(CORE) and name not in shipment.files)
+    differing += [
+        host_file for host_file, wiring in _shelves(shipment).items()
+        if not holds_wiring(_read(target / host_file) if (target / host_file).is_file() else None, wiring)
+    ]
+    own =sorted(name for name in corpus(target) if name.startswith(CORE) and name not in shipment.files)
     return {"passed": not differing, "ref": shipment.ref.announced, "differs": differing, "own": own}
 
 
 def _script_gate(target: Path, script: str) -> dict:
+    """A gate is the script's own verdict, and what it says is the script's diagnostics — the
+    reason, whole, so the person never runs the check again to find it. A script that printed no
+    report, having crashed, is quoted by its last lines instead."""
     done = _python(target, [str(target / SCRIPTS / script), "--check"])
-    return {"passed": done.returncode == 0, "exit": done.returncode, "said": _last_lines(done.stdout or done.stderr)}
+    return {"passed": done.returncode == 0, "exit": done.returncode, "said": _diagnostics(done)}
+
+
+def _diagnostics(done: subprocess.CompletedProcess) -> list:
+    try:
+        report = json.loads(done.stdout or "")
+    except json.JSONDecodeError:
+        report = None
+    if isinstance(report, dict) and isinstance(report.get("diagnostics"), list):
+        return report["diagnostics"]
+    return _last_lines(done.stdout or done.stderr)
 
 
 def _links_resolve(target: Path) -> dict[str, bool]:

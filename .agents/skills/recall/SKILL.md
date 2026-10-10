@@ -29,3 +29,7 @@ Your goal is to find out the actual state of the project and the current and/or 
 may now be due, and which straw dogs are due; take this session's position from the person or
 estimate it, and place it with `at`. Re-rank nothing another running session is on; then read the queue as this skill says.
 </installed>
+
+<installed by="ticket">
+**P12** Read the live tickets with `tickets.py --list` before ordering the queue or minting a ticket.
+</installed>

@@ -2,7 +2,7 @@
 
 - **instruction** `.agents/skills/maintain/SKILL.md` — the pass: scope, the four things, straw dogs, archiving, finish
 - **state** installed
-- **kind** what must always hold
+- **record of** what must always hold
 
 ## How it works
 
@@ -29,7 +29,8 @@ since its mark; its records are due when its own doc, rules file or skill did. `
 whatever scope a pass declared, because a pass that closes one ticket would otherwise never reach
 a mechanism doc. A mark fingerprints the surface as it stands when written, so what moved between
 the re-check and the mark is cleared unread; marking is therefore the step that closes the
-re-check.
+re-check. It fingerprints each file of the surface too, so a level falling due names what moved,
+was added or went, and the re-check reads those rather than guessing *(the user, 2026-10-11)*.
 
 In a recipient the mechanisms that came with core are maintained where core is made: the clock
 leaves them out and a mark refuses them, and the origin's marks never ship.
@@ -139,8 +140,9 @@ repair-and-report, recording the cause in the evidence.
   alone and installed there as this mechanism's block.
 - **The marks**, `docs/mechanisms/maintenance.md` — *what exists* — read by the clock at every pass. The
   instance's record: a recipient keeps its own, and the origin's never ships.
-- **The clock's report** — *what exists* — read by `/maintain` at the start of every pass, and by `/verify`
-  through the verification set, where only an unreadable mark or surface fails it.
+- **The clock's report** — *what exists* — read by `/maintain` at the start of every pass, a due
+  level naming the files that moved, were added or went since its mark, which the re-check reads;
+  and by `/verify` through the verification set, where only an unreadable mark or surface fails it.
 
 Nothing else; no index.
 

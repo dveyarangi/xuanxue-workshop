@@ -2,7 +2,7 @@
 
 - **instruction** `.agents/skills/harness/SKILL.md` — the four commands, install, update, check and the per-clone links, each refusal and what the person does, the first install's last step
 - **state** installed
-- **kind** what must always hold
+- **record of** what must always hold
 
 ## How it works
 
@@ -48,7 +48,11 @@ scripts, run as subprocesses, so what is checked is what arrived. The loader lin
 beside the verdict and never decide it: a link the platform refused is the person's one
 remaining step, and its command is already in the report. The shipped suite is not run here —
 it costs minutes, and an install is seconds — a recipient that wants it names it in its own
-verification set *(the user, 2026-09-21)*.
+verification set *(the user, 2026-09-21)*. The gate itself clones the source whole, over the
+network, at every run. A copy drifting from its ref is maintenance's to find, never
+verification's *(the user, 2026-10-09)*; no maintain pass runs the
+gate: one is offered to the person, with its reason, only once the comparison reads no network and
+takes no clone.
 
 It is **installed**; a tree without it holds no core at all. The repository's root `README.md`
 is not a part: it never ships, and a recipient has its own.
@@ -64,9 +68,13 @@ is not a part: it never ships, and a recipient has its own.
 | reading a refusal and resuming | `.agents/skills/harness/SKILL.md` | |
 | populating the local file after the first install | `.agents/skills/harness/SKILL.md` | |
 | pointing a tree at another core, as a fork does | `.agents/skills/harness/SKILL.md` | |
+| re-checking a recipient's copy against its ref in a maintain pass | — | not yet |
 | knowing an update is available | — | unowned by design — a person asks for one; nothing polls the repository |
 | verifying that a host reads the loader link | — | not yet |
 | writing a fresh tree's delivery status | `.agents/scripts/gw/harness.py` | |
+| opening a fresh tree's store with its roots, by the store's seed | `.agents/scripts/gw/harness.py` | |
+| merging core's hook wiring into each host's file | `.agents/scripts/gw/harness.py` | |
+| recording, per clone, the interpreter the hooks run under | `.agents/scripts/gw/harness.py` | |
 | removing one mechanism from a tree | — | not yet |
 | sending a change back to the repository | — | not yet |
 
@@ -94,6 +102,8 @@ would otherwise fail the shape check for the same absence the report already nam
 | the installer | `.agents/scripts/gw/inject_rules.py` | `mechanism-shape` |
 | citation reader | `.agents/scripts/gw/docs_corpus.py` | `mechanism-shape`, the one that cannot leave |
 | the delivery status's arrival state | `.agents/skills/ticket/QUEUE-ARRIVAL.md` | `ticket`, which owns the record and words it |
+| the store's seed, its shelf and its reader | `.agents/scripts/gw/questions.py` | `questions`, which owns the store and words its roots |
+| the hook wiring's directory, each file at its host file's path | `.agents/scripts/gw/questions.py` | `questions`, which words the hooks |
 | the shape check | `.agents/scripts/gw/mechanisms.py` | `mechanism-shape` |
 | test harness | `.agents/scripts/gw/test/repository.py` | `mechanism-shape` |
 | the listing script | `.agents/scripts/gw/straw_dogs.py` | `maintain` |
@@ -105,14 +115,18 @@ would otherwise fail the shape check for the same absence the report already nam
   follow.
 - **The stamped announce line** — *what exists* — announced by the recipient's first reply; read by `--check` and
   `--update` to know what was installed, and by the shape check to know it stands in a recipient.
-- **The report** — *what exists* — read by whoever ran the script, and by the recipient's `/verify` where its
-  verification set names the check. Its `pending` lines are read by the person who runs them.
+- **The report** — *what exists* — read by whoever ran the script. Its `pending` lines are read by
+  the person who runs them.
 - **A fresh tree's delivery status** — *what it intends to become* — read by the first session's `/recall`, which runs before
   anything has been written into the queue; worded by the `ticket` mechanism, placed here, and the
   instance's from its first line.
 - **The stamped repository line** — *what must always hold* — read by the script whenever a run is given no `--from`,
   including the recipient's own copy at its own `--check`; and by a person or a fork asking where
   this tree's core comes from, or pointing it somewhere else.
+- **Each host's hook file, core's entries merged in** — *what exists* — read by that host at session
+  start and before each message, and by `--check`, which compares core's entries alone.
+- **The interpreter record**, in the clone's Git directory — *what exists* — read by the hooks'
+  wrapper before every hook; made by the link step, so `--links` is the one step a fresh clone runs.
 - **The pending command** — *what exists* — read by a person, once, in an elevated prompt.
 
 No record. The two stamped lines are the tree's, and nothing else is kept.

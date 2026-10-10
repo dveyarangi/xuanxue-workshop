@@ -19,6 +19,18 @@ Find out:
 
 Look for architectural or responsibility leakage.
 
+## Installed from other mechanisms
+
+<installed by="edge">
+**E4** When the landed work changes an edge — a promise in its Contract or Invariants, an invariant's
+validator, or a check of its Extending — the same commit writes its record under `docs/edge/`. A
+promise the landing makes true loses its `⚠ pending` mark, and the record leaves
+`Normative (tentative)` when no mark is left; a landing that breaks a promise no decision changed
+is a finding, never written into the record. The Roadmap entry of the ticket that landed is
+removed. An extension observed live in this work has what was seen written in its sidecar, dated,
+not only in the ticket or the session record.
+</installed>
+
 ## The verification set
 
 The project's verification set is its typechecker, its tests and every other command required

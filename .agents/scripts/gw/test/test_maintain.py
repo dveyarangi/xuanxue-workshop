@@ -62,6 +62,20 @@ class Clocked(RepositoryCase):
         return {(row["mechanism"], row["level"]): row["why"]
                 for row in report["mechanisms"] if row["state"] == "due"}
 
+    def standing(self, mechanism: str, level: str) -> dict:
+        _, report = self.run_maintain("--check")
+        return next(row for row in report["mechanisms"] if (row["mechanism"], row["level"]) == (mechanism, level))
+
+    def mark_rows(self) -> list[str]:
+        """The rows of the marks' first table, the one a level's standing is decided by."""
+        lines = self.read(MARKS).splitlines()
+        rows = []
+        for line in lines[lines.index("| mechanism | level | fingerprint | date | outcome |") + 2:]:
+            if not line.startswith("|"):
+                break
+            rows.append(line)
+        return rows
+
 
 class NoMarks(Clocked):
     def test_every_mechanism_is_never_maintained_at_both_levels_and_nothing_fails(self) -> None:
@@ -107,7 +121,7 @@ class AMark(Clocked):
     def test_is_one_row_holding_what_was_checked_the_date_and_the_outcome(self) -> None:
         self.run_maintain("--mark", "sample", "output", "nothing to change", today="2026-09-27")
 
-        rows = [line for line in self.read(MARKS).splitlines() if line.startswith("| sample")]
+        rows = [line for line in self.mark_rows() if line.startswith("| sample")]
 
         self.assertEqual(1, len(rows))
         cells = [cell.strip() for cell in rows[0].strip("|").split("|")]
@@ -120,7 +134,7 @@ class AMark(Clocked):
                                  ("sample", "rules"), ("mechanism-shape", "rules")):
             self.run_maintain("--mark", mechanism, level, "amended")
 
-        rows = [line.split("|")[1:3] for line in self.read(MARKS).splitlines() if line.startswith("| ") and "---" not in line][1:]
+        rows = [line.split("|")[1:3] for line in self.mark_rows()]
 
         self.assertEqual(
             [["mechanism-shape", "rules"], ["mechanism-shape", "output"], ["sample", "rules"], ["sample", "output"]],
@@ -185,6 +199,79 @@ class AfterEveryLevelIsMarked(Clocked):
             self.write(name, self.read(name).replace("\n", "\r\n"))
 
         self.assertEqual({}, self.due())
+
+
+class ADueLevelNamesWhatChanged(Clocked):
+    """A mark keeps each file it was checked against, so a level falling due says which files to
+    read rather than leaving the re-check to guess (the user, 2026-10-11)."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.mark_every_level()
+
+    def test_a_file_that_moved_is_named_and_no_other(self) -> None:
+        self.write(SAMPLE_SHELF, self.read(SAMPLE_SHELF) + "And a date.\n")
+
+        standing = self.standing("sample", "output")
+
+        self.assertEqual("due", standing["state"])
+        self.assertEqual([SAMPLE_SHELF], standing["moved"])
+        self.assertNotIn("added", standing)
+        self.assertNotIn("gone", standing)
+
+    def test_a_file_added_beside_the_skill_is_named_as_added(self) -> None:
+        self.write(".agents/skills/sample/QUEUE-ARRIVAL.md", "# A fresh queue\n")
+
+        standing = self.standing("sample", "output")
+
+        self.assertEqual([".agents/skills/sample/QUEUE-ARRIVAL.md"], standing["added"])
+        self.assertNotIn("moved", standing)
+
+    def test_a_file_that_went_is_named_as_gone(self) -> None:
+        (self.root / SAMPLE_SHELF).unlink()
+
+        standing = self.standing("sample", "output")
+
+        self.assertEqual([SAMPLE_SHELF], standing["gone"])
+        self.assertNotIn("moved", standing)
+
+    def test_a_current_level_names_nothing(self) -> None:
+        standing = self.standing("sample", "output")
+
+        self.assertEqual("current", standing["state"])
+        self.assertEqual({"mechanism", "level", "state", "why"}, set(standing))
+
+
+class AMarkWrittenBeforeFilesWereKept(Clocked):
+    """A marks file holding the first table alone, as every one did before a mark kept its files."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.mark_every_level()
+        text = self.read(MARKS)
+        self.write(MARKS, text[: text.index("| mechanism | level | file | fingerprint |")].rstrip("\n") + "\n")
+
+    def test_reads_clean_and_current_while_nothing_moved(self) -> None:
+        status, report = self.run_maintain("--check")
+
+        self.assertEqual(0, status)
+        self.assertEqual([], report["diagnostics"])
+        self.assertEqual({"current"}, set(self.states(report).values()))
+
+    def test_falls_due_naming_no_file_and_saying_why(self) -> None:
+        self.write(SAMPLE_SHELF, self.read(SAMPLE_SHELF) + "And a date.\n")
+
+        standing = self.standing("sample", "output")
+
+        self.assertEqual("due", standing["state"])
+        self.assertIn("named no files", standing["why"])
+        self.assertNotIn("moved", standing)
+
+    def test_its_next_mark_keeps_its_files(self) -> None:
+        self.run_maintain("--mark", "sample", "output", "nothing to change")
+        self.write(SAMPLE_SHELF, self.read(SAMPLE_SHELF) + "And a date.\n")
+
+        self.assertEqual([SAMPLE_SHELF], self.standing("sample", "output")["moved"])
 
 
 class InstallingABlock(Clocked):
@@ -252,6 +339,28 @@ class MalformedMarks(Clocked):
                 self.assertEqual(1, status)
                 self.assertEqual(1, len(report["diagnostics"]), report["diagnostics"])
                 self.assertTrue(report["diagnostics"][0].startswith(f"{MARKS}:"), report["diagnostics"][0])
+                self.assertEqual(before, self.snapshot())
+
+    def test_a_bad_file_row_is_a_diagnostic_and_refuses_a_mark(self) -> None:
+        files = "\n| mechanism | level | file | fingerprint |\n|---|---|---|---|\n"
+        bad_rows = {
+            "a row of three cells": f"| sample | rules | {SAMPLE_SKILL} |\n",
+            "a fingerprint that is not one": f"| sample | rules | {SAMPLE_SKILL} | abc |\n",
+            "a level with no mark": f"| sample | output | {SAMPLE_SKILL} | {'b' * 64} |\n",
+        }
+        for kind, row in bad_rows.items():
+            with self.subTest(kind=kind):
+                self.write(MARKS, self.marks_holding(self.GOOD) + files + row)
+                before = self.snapshot()
+
+                status, report = self.run_maintain("--check")
+                self.assertEqual(1, status)
+                self.assertEqual(1, len(report["diagnostics"]), report["diagnostics"])
+                self.assertTrue(report["diagnostics"][0].startswith(f"{MARKS}:"), report["diagnostics"][0])
+
+                status, report = self.run_maintain("--mark", "sample", "output", "amended")
+                self.assertEqual(1, status)
+                self.assertIn("the marks do not read", report["refusals"][0])
                 self.assertEqual(before, self.snapshot())
 
     def test_a_table_under_another_header_is_a_diagnostic(self) -> None:

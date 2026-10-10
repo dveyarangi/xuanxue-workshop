@@ -9,6 +9,8 @@ install it with overwrite; the block in a target is never the place.
 | `.agents/skills/plan/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `### Record resolutions in the owning ticket inline` |
 | `AGENTS.md` | `## General rules` |
+| `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
+| `.agents/skills/ticket/SKILL.md` | `### 1. Locate the parent` |
 
 ## P1 — finished is every box checked
 
@@ -51,15 +53,14 @@ Check the ticket records with `tickets.py --check` — format never content, liv
 diagnostic is a finding; repair it under the repair policy.
 </rule>
 
-## P8 — a closed ticket leaves the queue
+## P12 — the live tickets are read from the list
 
-- **target** `.agents/skills/maintain/SKILL.md`
-- **authority** the user, 2026-09-09
+- **target** `.agents/skills/recall/SKILL.md`
+- **target** `.agents/skills/ticket/SKILL.md`
+- **authority** the user, 2026-10-10
 
 <rule>
-Delete the ticket's row from the queue when you close it. The queue is delivery status, and
-`docs/tickets/done/` is where finished work is enumerated; a row for an archived ticket is a
-second home for what that folder already says.
+Read the live tickets with `tickets.py --list` before ordering the queue or minting a ticket.
 </rule>
 
 ## P6 — an RFC is named by its ticket
@@ -107,10 +108,12 @@ later resolution changed.
 ## P9 — a ticket is named by a link, or by a slug and its state
 
 - **target** `AGENTS.md`
-- **authority** the user, 2026-09-21; the slug in the link text, 2026-09-26
+- **authority** the user, 2026-09-21; the slug in the link text, 2026-09-26; each reply on its
+  own, 2026-10-10
 
 <rule>
-The first time a record or a reply names a ticket, name it by a link to its record whose text
-carries its slug — the id may lead it; later mentions may be the id alone. Name one that has no
-record yet by a slug and its state word.
+In every reply and every record, the first mention of a ticket — a table's cell included — is a
+link to its record whose text carries its slug, its whole id leading it if at all; later mentions
+in that reply or record may be the whole id alone. Name one that has no record yet by a slug and
+its state word.
 </rule>

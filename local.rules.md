@@ -41,10 +41,10 @@ when recording shared contracts or coordinated work.
 ## L3 — autonomy switches
 
 - **target** `AGENTS.md`
-- **authority** harness defaults and installation scope, 2026-10-03
+- **authority** harness defaults and installation scope, 2026-10-03; the user, 2026-10-11, greeting status and next-action mode
 
 <rule>
-commit=ask · push=ask · next-cycle=ask · breakdown=ask · repair=ask
+commit=ask · push=ask · next-cycle=ask · breakdown=ask · repair=ask · step=ask
 </rule>
 
 ## L4 — Python runtime
@@ -247,15 +247,20 @@ If nothing new requires action, continue the agreed work.
 ## L15 — review assignments after session recovery
 
 - **target** `AGENTS.md`
-- **authority** the user, 2026-10-05, accepted wake, recall, review and continuation sequence; the user, 2026-10-11, checkpoint presentation
+- **authority** the user, 2026-10-05, accepted wake, recall, review and continuation sequence; 2026-10-11, greeting status proposes the next action under step=ask or executes it under step=auto; checkpoint presentation
+- **overrides** the prior L15 requirement to follow through on entry findings unconditionally, by applying the step switch to the next action after greeting status
 
 <rule>
 After /recall at session entry, use /review-assignments at
 .agents/skills/review-assignments/SKILL.md to review pending cross-project work
-and follow through on its findings before resuming the agreed work. Preserve the
-original issue as the communication channel and the existing decision, publication
-and next-cycle checkpoints.
-Omit explanations of the checkpoint.
+and establish the current status and next concrete action. A greeting starts
+with session status and a concrete next action. With step=ask, propose that
+action and request permission to start it; with step=auto, carry it out within
+existing authority. Omit explanations of the checkpoint.
+Step approval covers the proposed action, not each tool
+call. Preserve the original issue as the communication channel and the existing
+decision, commit, publication and next-cycle checkpoints. Explicit user
+restrictions take precedence.
 </rule>
 
 ## L16 — strict shared obligations with a lightweight process

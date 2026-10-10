@@ -69,20 +69,22 @@ When the user uses a term that conflicts with the existing language in `docs/glo
 
 This cuts both ways: before *you* propose a name, check the glossary yourself — including its _Avoid_ lists, which are reservations, not suggestions. If every synonym for a concept is avoided, that is a designed constraint telling you which word the project has chosen; work within it rather than proposing around it.
 
-### Challenge against the Edge records
-
-When the plan touches a product edge, check that surface's Edge record
-(`docs/edge/<surface>.md`) — the seam document aggregating the edge's contract, invariants,
-concerns, and staged roadmap. A contradiction with its Contract or Invariants is either a plan
-bug or a deliberate contract change — and a contract change must be named **breaking or
-compatible** out loud before proceeding. Update the record inline as decisions land, using the
-format in [EDGE-FORMAT.md](./EDGE-FORMAT.md): contract changes in `Contract`/`Invariants` (a
-promise without a validating test is marked **⚠ unguarded**), newly surfaced edge-scoped
-concerns as pointers in `Concerns`, staging shifts in `Roadmap`.
-
 ### Check whether it was already decided
 
 Before treating a question as open, search the ADRs and architecture docs for it. A surprising amount of "open" questions are accepted decisions the code drifted from — the answer then is "implement the ADR", not a fresh trade-off analysis. Cite the deciding document when you find one.
+
+### Challenge against the Edge records
+
+<installed by="edge">
+**E3** When the plan touches an edge — where the system meets those who consume it or extend it — check
+that edge's record under `docs/edge/`. A contradiction with its Contract or Invariants is either a
+plan bug or a deliberate contract change, and a contract change is named **breaking or
+compatible** out loud before proceeding. As decisions land, write them into the record in the
+shape of `.agents/skills/edge/EDGE-FORMAT.md`: a contract change in `Contract` and `Invariants`,
+marked `⚠ pending — <ticket>` until its ticket lands and the record set `Normative (tentative)`
+while any is pending, a promise without a validator marked **⚠ unguarded**; newly surfaced
+edge-scoped concerns as pointers in `Concerns`; staging shifts in `Roadmap`.
+</installed>
 
 ### Lead with the decisive fact
 

@@ -104,7 +104,7 @@ local rule where every mechanism's block precedes it.
 
 - **instruction** `<path>` — what it holds
 - **state** always on
-- **kind** what must always hold
+- **record of** what must always hold
 
 ## How it works
 
@@ -146,14 +146,17 @@ implementation changed.
 
 ### Header bullets
 
-- **instruction** — backticked repo-relative path to the mechanism's one skill.
+- **instruction** — backticked repo-relative path to a skill the mechanism owns.
   Required, and never the doc itself.
+  One bullet: a declaration names one skill, and a second skill
+  of the same mechanism has no field to stand in.
 - **state** — `always on` or `installed`, and nothing else. `always on` means nothing can install
   or uninstall it, so it has no lifecycle scripts and that absence is a property. It is what tells
   a reader which way to read the parts table.
-- **kind** — `what must always hold`, and nothing else: the doc is the record its instruction is
-  repaired to. This format is the kind's authored home; the bullet is the kind where an agent
-  editing the doc meets it, and the check holds the two equal.
+- **record of** — `what must always hold`, and nothing else: the doc is the record its
+  instruction is repaired to. This format is the kind's authored home; the bullet is the kind
+  where an agent editing the doc meets it, and the check holds the two equal. The bullet's
+  earlier name, `kind`, is reported.
 - There is no evidence bullet. The evidence is a record declared under [Records](#the-evidence-is-a-record-of-the-shape)
   below and found by the slug; the doc never names it, since it is the instance's and a recipient
   does not have it. Which ticket declared the mechanism is the evidence's first paragraph *(the

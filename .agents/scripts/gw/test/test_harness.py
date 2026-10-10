@@ -20,6 +20,7 @@ from repository import SCRIPTS, RepositoryCase, folder_listing, proves_a_process
 import harness
 import inject_rules
 import mechanisms
+import questions
 
 KEEPER = ".agents/skills/keeper/SKILL.md"
 HARNESS_SKILL = ".agents/skills/harness/SKILL.md"
@@ -36,6 +37,37 @@ QUEUE_ARRIVAL_TEXT = (
     "Machine input for the install, read by nobody at session time.\n\n"
     "```delivery-status\n# Delivery status\n\nCore arrived at `{ref}` and nothing is in flight.\n```\n"
 )
+QUESTIONS_SKILL = ".agents/skills/questions/SKILL.md"
+QUESTIONS_SKILL_TEXT = (
+    "---\nname: questions\ndescription: keeps the open questions\n---\n\n"
+    "Mechanism: unowned by design — this fixture's core declares only sample\n\n"
+    "Keep them.\n"
+)
+STORE_ARRIVAL = ".agents/skills/questions/STORE-ARRIVAL.md"
+STORE = "docs/questions"
+# The fixture's own words, never the shipped ones: an install seeding these proves the installer
+# carries no root of its own.
+FIXTURE_ROOTS = ("What is the fixture for?", "How is the fixture built?", "Where does the fixture live?")
+
+
+def store_arrival_text(*roots: str) -> str:
+    lines = "".join(f"{root}\n" for root in roots)
+    return f"# What the store holds before anything has happened in it\n\nMachine input.\n\n```roots\n{lines}```\n"
+
+
+# The fixture's own wiring, one shelf file per host file at the host file's own path; the sample
+# mechanism declares the Claude Code file as its part, so the shape gate depends on the merge.
+FIXTURE_WIRING = {
+    ".claude/settings.json": {"hooks": {"SessionStart": [{"hooks": [{"type": "command", "command": "sample --hook claude-code"}]}]}},
+    ".codex/hooks.json": {"hooks": {"SessionStart": [{"hooks": [{"type": "command", "command": "sample --hook codex"}]}]}},
+    ".cursor/hooks.json": {"version": 1, "hooks": {"sessionStart": [{"command": "sample --hook cursor"}]}},
+}
+
+
+def shelf_path(host_file: str) -> str:
+    return f"{questions.HOOKS}{host_file}"
+
+
 HARNESS_SKILL_TEXT = (
     "---\nname: harness\ndescription: places core\n---\n\n"
     "Mechanism: unowned by design — this fixture's core declares only sample\n\n"
@@ -63,14 +95,15 @@ SAMPLE_DOC = (
     "# sample — one line saying what it is\n\n"
     f"- **instruction** `{KEEPER}` — the act\n"
     "- **state** installed\n"
-    "- **kind** what must always hold\n\n"
+    "- **record of** what must always hold\n\n"
     "## How it works\n\nProse nothing parses.\n\n"
     "## Moments\n\n"
     "| moment | instructed by | kind, and why |\n|---|---|---|\n"
     f"| keeping | `{KEEPER}` | |\n"
     '| sweeping | — | <straw-dog question="q-0002">not yet</straw-dog> |\n\n'
     "## Install adds, uninstall removes\n\n"
-    f"| part | where |\n|---|---|\n| instruction file | `{KEEPER}` |\n\n"
+    f"| part | where |\n|---|---|\n| instruction file | `{KEEPER}` |\n"
+    '| Claude Code\'s hook wiring | `.claude/settings.json` → "--hook claude-code" |\n\n'
     "## Relies on, and does not own\n\n"
     "| part | where | owner |\n|---|---|---|\n| corpus reader | `.agents/scripts/gw/docs_corpus.py` | nobody removable |\n\n"
     "## What it produces, and who reads it\n\nThe declaration, read by whoever amends this.\n\n"
@@ -171,6 +204,8 @@ def plain_target_git(target: Path, *arguments: str) -> subprocess.CompletedProce
     no setting of its own."""
     if arguments == ("rev-parse", "--show-toplevel"):
         return subprocess.CompletedProcess(arguments, 0, str(target), "")
+    if arguments[:2] == ("rev-parse", "--git-path") and len(arguments) == 3:
+        return subprocess.CompletedProcess(arguments, 0, f".git/{arguments[2]}", "")
     return subprocess.CompletedProcess(arguments, 1, "", "")
 
 
@@ -254,6 +289,10 @@ class TwoTrees(RepositoryCase):
         self.write(HARNESS_SKILL, HARNESS_SKILL_TEXT)
         self.write(TICKET_SKILL, TICKET_SKILL_TEXT)
         self.write(QUEUE_ARRIVAL, QUEUE_ARRIVAL_TEXT)
+        self.write(QUESTIONS_SKILL, QUESTIONS_SKILL_TEXT)
+        self.write(STORE_ARRIVAL, store_arrival_text(*FIXTURE_ROOTS))
+        for host_file, wiring in FIXTURE_WIRING.items():
+            self.write(shelf_path(host_file), json.dumps(wiring, indent=2) + "\n")
         self.write(DOC, SAMPLE_DOC)
         self.write("AGENTS.md", ENTRY)
         self.write("CLAUDE.md", "@AGENTS.md\n")
@@ -369,6 +408,87 @@ class TheStamp(unittest.TestCase):
             harness.stamped("# Something else\n", ref)
 
         self.assertIn("not the harness", str(refused.exception))
+
+
+CORE_START = {"type": "command", "command": "core --hook start"}
+CORE_PROMPT = {"type": "command", "command": "core --hook prompt"}
+THEIRS = {"type": "command", "command": "their-own-check"}
+
+
+def wiring(**events: list) -> str:
+    return json.dumps({"hooks": events})
+
+
+class TheWiring(unittest.TestCase):
+    """Core's hook entries merged into a host file the project shares with core."""
+
+    def test_into_no_file_the_wiring_is_written_whole(self) -> None:
+        said = harness.wired(".codex/hooks.json", None, wiring(SessionStart=[CORE_START]), None)
+
+        self.assertEqual({"hooks": {"SessionStart": [CORE_START]}}, json.loads(said))
+        self.assertTrue(said.endswith("}\n"))
+
+    def test_the_projects_own_hooks_and_keys_stay_first_and_unchanged(self) -> None:
+        theirs = json.dumps({"permissions": {"allow": ["Bash(ls)"]}, "hooks": {"SessionStart": [THEIRS]}})
+
+        said = json.loads(harness.wired(".claude/settings.json", theirs, wiring(SessionStart=[CORE_START]), None))
+
+        self.assertEqual({"allow": ["Bash(ls)"]}, said["permissions"])
+        self.assertEqual([THEIRS, CORE_START], said["hooks"]["SessionStart"])
+
+    def test_an_entry_already_present_is_not_appended_and_nothing_is_written(self) -> None:
+        held = json.dumps({"hooks": {"SessionStart": [CORE_START, THEIRS]}})
+
+        self.assertIsNone(harness.wired(".codex/hooks.json", held, wiring(SessionStart=[CORE_START]), None))
+
+    def test_an_entry_that_left_core_is_removed_and_the_projects_neighbour_kept(self) -> None:
+        held = json.dumps({"hooks": {"SessionStart": [CORE_START, THEIRS], "Stop": [CORE_PROMPT]}})
+        previous = wiring(SessionStart=[CORE_START], Stop=[CORE_PROMPT])
+
+        said = json.loads(harness.wired(".codex/hooks.json", held, wiring(SessionStart=[CORE_START]), previous))
+
+        self.assertEqual({"SessionStart": [CORE_START, THEIRS], "Stop": []}, said["hooks"])
+
+    def test_a_key_beside_the_hooks_is_written_when_absent_and_refused_when_it_differs(self) -> None:
+        core = json.dumps({"version": 1, "hooks": {"sessionStart": [CORE_START]}})
+
+        written = json.loads(harness.wired(".cursor/hooks.json", json.dumps({"hooks": {}}), core, None))
+        with self.assertRaises(harness.Refused) as refused:
+            harness.wired(".cursor/hooks.json", json.dumps({"version": 2}), core, None)
+
+        self.assertEqual(1, written["version"])
+        self.assertIn(".cursor/hooks.json", str(refused.exception))
+        self.assertIn("version", str(refused.exception))
+
+    def test_a_host_file_of_the_wrong_shape_is_refused_naming_it(self) -> None:
+        for held in ("{not json", "[]", '{"hooks": []}', '{"hooks": {"SessionStart": {}}}'):
+            with self.subTest(held=held), self.assertRaises(harness.Refused) as refused:
+                harness.wired(".claude/settings.json", held, wiring(SessionStart=[CORE_START]), None)
+            self.assertIn(".claude/settings.json", str(refused.exception))
+
+    def test_a_wiring_holds_when_every_core_entry_and_key_is_present(self) -> None:
+        core = wiring(SessionStart=[CORE_START])
+
+        self.assertTrue(harness.holds_wiring(json.dumps({"hooks": {"SessionStart": [THEIRS, CORE_START]}}), core))
+        self.assertFalse(harness.holds_wiring(json.dumps({"hooks": {"SessionStart": [CORE_PROMPT]}}), core))
+        self.assertFalse(harness.holds_wiring("{not json", core))
+        self.assertFalse(harness.holds_wiring(None, core))
+
+
+class AGatesWords(unittest.TestCase):
+    def test_are_the_scripts_diagnostics_whole(self) -> None:
+        report = json.dumps({"blocks": [], "diagnostics": ["one", "two", "three", "four"]}, indent=2)
+
+        said = harness._diagnostics(subprocess.CompletedProcess([], 1, report, ""))
+
+        self.assertEqual(["one", "two", "three", "four"], said)
+
+    def test_are_a_crashed_scripts_last_lines(self) -> None:
+        crashed = "Traceback (most recent call last):\n  File \"x.py\", line 1\nKeyError: 'slug'\n"
+
+        said = harness._diagnostics(subprocess.CompletedProcess([], 1, "", crashed))
+
+        self.assertEqual("KeyError: 'slug'", said[-1])
 
 
 class TheLinks(unittest.TestCase):
@@ -715,6 +835,33 @@ class AnInstall(TwoTrees):
         self.assertFalse(report["gates"]["shape"]["passed"])
         self.assertFalse(report["arrived"])
         self.assertEqual(1, status)
+
+    def test_a_failed_shape_gate_carries_each_of_its_diagnostics(self) -> None:
+        self.write(".agents/skills/silent/SKILL.md", "# Silent\n\nNamed by nothing, claiming nothing.\n")
+        self.commit("a silent skill")
+
+        _, report = self.run_harness("--install")
+
+        said = report["gates"]["shape"]["said"]
+        self.assertTrue(said, report["gates"]["shape"])
+        self.assertTrue(any("silent" in json.dumps(note) for note in said), said)
+
+    def test_a_failed_injector_gate_carries_each_of_its_diagnostics(self) -> None:
+        self.run_harness("--install")
+        held = self.target_text(KEEPER)
+        (self.target / KEEPER).write_text(held + '\n<installed by="ghost">\n**G1** Nobody owns this.\n</installed>\n', encoding="utf-8")
+
+        _, report = self.run_harness("--check")
+
+        injector = report["gates"]["injector"]
+        self.assertFalse(injector["passed"])
+        self.assertIn(f"orphan block of ghost in {KEEPER}", injector["said"])
+
+    def test_a_passing_gate_says_nothing(self) -> None:
+        _, report = self.run_harness("--install")
+
+        self.assertEqual([], report["gates"]["shape"]["said"])
+        self.assertEqual([], report["gates"]["injector"]["said"])
 
     def test_a_file_edited_after_install_is_named_by_the_check(self) -> None:
         self.run_harness("--install")
@@ -1102,6 +1249,231 @@ class TheDeliveryStatus(TwoTrees):
                 self.assertEqual(before, self.target_snapshot())
 
 
+class TheRoots(TwoTrees):
+    """A fresh tree's store opens with the roots the questions mechanism's shelf words, written by
+    the store's script; the installer only calls it."""
+
+    def seeded_roots(self) -> list[str]:
+        return [read.question for read in questions.read_store(self.target).roots]
+
+    def store_snapshot(self) -> dict[str, bytes]:
+        return {name: data for name, data in self.target_snapshot().items() if name.startswith(STORE)}
+
+    def test_an_install_opens_the_store_with_the_shelf_roots(self) -> None:
+        status, report = self.run_harness("--install")
+
+        self.assertEqual(0, status, report)
+        self.assertEqual(list(FIXTURE_ROOTS), self.seeded_roots())
+        seeded = [name for name in report["written"] if name.startswith(f"{STORE}/")]
+        self.assertEqual(3, len(seeded), report["written"])
+        self.assertEqual([], questions.check(self.target).diagnostics)
+
+    def test_rewording_the_shelf_changes_what_an_install_seeds_with_no_change_to_the_installer(self) -> None:
+        reworded = ("What is the fixture for, reworded?", *FIXTURE_ROOTS[1:])
+        self.write(STORE_ARRIVAL, store_arrival_text(*reworded))
+        self.commit("the mechanism rewords its own roots")
+
+        status, report = self.run_harness("--install")
+
+        self.assertEqual(0, status, report)
+        self.assertEqual(list(reworded), self.seeded_roots())
+
+    def test_an_update_into_a_store_holding_no_entry_seeds_it(self) -> None:
+        self.run_harness("--install")
+        shutil.rmtree(self.target / STORE)
+
+        status, report = self.run_harness("--update")
+
+        self.assertEqual(0, status, report)
+        self.assertEqual(list(FIXTURE_ROOTS), self.seeded_roots())
+
+    def test_an_update_leaves_a_store_holding_an_entry_and_says_so(self) -> None:
+        self.run_harness("--install")
+        before = self.store_snapshot()
+
+        status, report = self.run_harness("--update")
+
+        self.assertEqual(0, status, report)
+        self.assertEqual(before, self.store_snapshot())
+        self.assertFalse(any(name.startswith(f"{STORE}/") for name in report["written"]), report["written"])
+        self.assertTrue(any(STORE in note for note in report["notes"]), report["notes"])
+
+    def test_a_ref_whose_shelf_cannot_say_the_roots_is_refused_and_nothing_is_written(self) -> None:
+        for spoil, reason in (
+            (lambda: (self.root / STORE_ARRIVAL).unlink(), "no shelf"),
+            (lambda: self.write(STORE_ARRIVAL, "# Roots\n\nNo block.\n"), "no `roots` block"),
+        ):
+            with self.subTest(reason=reason):
+                self.write(STORE_ARRIVAL, store_arrival_text(*FIXTURE_ROOTS))
+                spoil()
+                self.commit("spoil the shelf")
+                before = self.target_snapshot()
+
+                status, report = self.run_harness("--install")
+
+                self.assertEqual(1, status)
+                self.assertIn(reason, report["refusals"][0])
+                self.assertEqual(before, self.target_snapshot())
+
+
+class TheHookWiring(TwoTrees):
+    """Core's hooks merged into each host's shared file, beside the project's own."""
+
+    def held(self, host_file: str) -> dict:
+        return json.loads(self.target_text(host_file))
+
+    def test_an_install_arrives_with_each_host_file_holding_cores_hooks(self) -> None:
+        status, report = self.run_harness("--install")
+
+        self.assertEqual(0, status, report)
+        self.assertTrue(report["arrived"])
+        for host_file, wiring in FIXTURE_WIRING.items():
+            self.assertEqual(wiring, self.held(host_file))
+            self.assertIn(host_file, report["written"])
+
+    def test_without_its_hook_file_the_shape_gate_fails(self) -> None:
+        self.run_harness("--install")
+        (self.target / ".claude/settings.json").unlink()
+
+        _, report = self.run_harness("--check")
+
+        self.assertFalse(report["gates"]["shape"]["passed"])
+
+    def test_a_host_file_of_the_projects_own_keeps_its_hooks_and_keys(self) -> None:
+        theirs = {"permissions": {"allow": ["Bash(ls)"]}, "hooks": {"SessionStart": [{"hooks": [THEIRS]}]}}
+        (self.target / ".claude").mkdir()
+        (self.target / ".claude/settings.json").write_text(json.dumps(theirs), encoding="utf-8")
+
+        status, report = self.run_harness("--install")
+
+        self.assertEqual(0, status, report)
+        held = self.held(".claude/settings.json")
+        self.assertEqual(theirs["permissions"], held["permissions"])
+        core = FIXTURE_WIRING[".claude/settings.json"]["hooks"]["SessionStart"]
+        self.assertEqual(theirs["hooks"]["SessionStart"] + core, held["hooks"]["SessionStart"])
+
+    def test_an_update_replaces_cores_entries_and_keeps_the_projects(self) -> None:
+        self.run_harness("--install")
+        held = self.held(".codex/hooks.json")
+        held["hooks"]["Stop"] = [{"hooks": [THEIRS]}]
+        (self.target / ".codex/hooks.json").write_text(json.dumps(held), encoding="utf-8")
+        moved = {"hooks": {"UserPromptSubmit": [{"hooks": [{"type": "command", "command": "sample --hook codex"}]}]}}
+        self.write(shelf_path(".codex/hooks.json"), json.dumps(moved))
+        self.commit("core's codex hook moves to another event")
+
+        status, report = self.run_harness("--update")
+
+        self.assertEqual(0, status, report)
+        self.assertEqual(
+            {"SessionStart": [], "Stop": [{"hooks": [THEIRS]}], **moved["hooks"]},
+            self.held(".codex/hooks.json")["hooks"],
+        )
+
+    def test_a_check_passes_beside_a_projects_hook_and_names_an_edited_core_entry(self) -> None:
+        self.run_harness("--install")
+        held = self.held(".cursor/hooks.json")
+        held["hooks"]["sessionStart"].append(THEIRS)
+        (self.target / ".cursor/hooks.json").write_text(json.dumps(held), encoding="utf-8")
+
+        _, beside = self.run_harness("--check")
+        held["hooks"]["sessionStart"][0]["command"] = "edited --hook cursor"
+        (self.target / ".cursor/hooks.json").write_text(json.dumps(held), encoding="utf-8")
+        _, edited = self.run_harness("--check")
+
+        self.assertTrue(beside["gates"]["ref"]["passed"], beside["gates"]["ref"])
+        self.assertFalse(edited["gates"]["ref"]["passed"])
+        self.assertIn(".cursor/hooks.json", edited["gates"]["ref"]["differs"])
+
+    def test_a_host_file_that_is_not_json_refuses_the_install_and_nothing_is_written(self) -> None:
+        (self.target / ".codex").mkdir()
+        (self.target / ".codex/hooks.json").write_text("{not json", encoding="utf-8")
+        before = self.target_snapshot()
+
+        status, report = self.run_harness("--install")
+
+        self.assertEqual(1, status)
+        self.assertIn(".codex/hooks.json", report["refusals"][0])
+        self.assertEqual(before, self.target_snapshot())
+
+    def test_a_shelf_file_that_is_not_a_hook_file_refuses_naming_it(self) -> None:
+        self.write(shelf_path(".codex/hooks.json"), "[]")
+        self.commit("a broken shelf")
+        before = self.target_snapshot()
+
+        status, report = self.run_harness("--install")
+
+        self.assertEqual(1, status)
+        self.assertIn(shelf_path(".codex/hooks.json"), report["refusals"][0])
+        self.assertEqual(before, self.target_snapshot())
+
+
+HOOK_COMMAND = 'git -c "alias.gw-hook=!sh .agents/scripts/gw/hook.sh" gw-hook'
+# Stands in for the store's script: says what it was asked and what it was handed.
+ECHOING_QUESTIONS = "import sys\nprint('asked', ' '.join(sys.argv[1:]), 'handed', sys.stdin.read())\n"
+
+
+class TheWrapper(RepositoryCase):
+    """Every core hook, as the hosts run it: through Git's alias, under Git's `sh`, from wherever
+    the host's shell stands in the tree."""
+
+    proves_a_process = True
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.write(".agents/scripts/gw/hook.sh", (SCRIPTS / "hook.sh").read_text(encoding="utf-8"))
+        self.write(".agents/scripts/gw/questions.py", ECHOING_QUESTIONS)
+        (self.root / "sub").mkdir()
+
+    def run_hook(self, host: str, payload: str) -> subprocess.CompletedProcess:
+        return subprocess.run(
+            f"{HOOK_COMMAND} {host}", shell=True, cwd=self.root / "sub", input=payload,
+            capture_output=True, encoding="utf-8",
+        )
+
+    def record(self, interpreter: str) -> None:
+        (self.root / ".git" / harness.INTERPRETER_RECORD).write_text(f"{interpreter}\n", encoding="utf-8")
+
+    def test_runs_the_stores_hook_under_the_recorded_interpreter_from_the_trees_top(self) -> None:
+        self.record(sys.executable)
+
+        done = self.run_hook("codex", '{"hook_event_name": "SessionStart", "note": "привет"}')
+
+        self.assertEqual(0, done.returncode, done.stderr)
+        self.assertEqual(
+            'asked --hook codex handed {"hook_event_name": "SessionStart", "note": "привет"}', done.stdout.strip()
+        )
+
+    def test_without_a_record_it_names_the_step_in_the_hosts_form_and_holds_nothing_back(self) -> None:
+        for host, gone in (("claude-code", None), ("cursor", "C:/gone/python.exe")):
+            with self.subTest(host=host):
+                if gone:
+                    self.record(gone)
+
+                done = self.run_hook(host, "{}")
+
+                self.assertEqual(0, done.returncode, done.stderr)
+                said = done.stdout.strip()
+                if host == "cursor":
+                    said = json.loads(said)["additional_context"]
+                self.assertIn("harness.py . --links", said)
+
+
+class TheOriginsOwnHostFiles(unittest.TestCase):
+    """The origin never installs into itself, so nothing merges its host files: this holds them to
+    what its shelf ships, the way a check holds a recipient's."""
+
+    def test_hold_every_entry_the_shelf_wires(self) -> None:
+        origin = SCRIPTS.parents[2]
+        shelves = sorted((origin / questions.HOOKS).rglob("*.json"))
+
+        self.assertEqual(3, len(shelves))
+        for shelf in shelves:
+            host_file = shelf.relative_to(origin / questions.HOOKS).as_posix()
+            with self.subTest(host_file=host_file):
+                held = (origin / host_file).read_text(encoding="utf-8")
+                self.assertTrue(harness.holds_wiring(held, shelf.read_text(encoding="utf-8")))
+
+
 class TheCommandLine(unittest.TestCase):
     def run_main(self, *operands: str) -> int:
         with contextlib.redirect_stdout(io.StringIO()):
@@ -1130,6 +1502,42 @@ class TheLinkStep(TwoTrees):
         with contextlib.redirect_stdout(said):
             status = harness.main([str(self.target), "--links"])
         return status, json.loads(said.getvalue())
+
+    def recorded(self) -> str:
+        return (self.target / ".git" / harness.INTERPRETER_RECORD).read_text(encoding="utf-8").strip()
+
+    def test_records_the_interpreter_running_it_in_the_clones_git_directory(self) -> None:
+        self.run_harness("--install")
+        (self.target / ".git" / harness.INTERPRETER_RECORD).unlink()
+
+        _, report = self.run_links()
+
+        self.assertEqual(sys.executable, self.recorded())
+        self.assertEqual("written", report["interpreter"]["state"])
+
+    def test_an_install_records_it_too(self) -> None:
+        self.run_harness("--install")
+
+        self.assertEqual(sys.executable, self.recorded())
+
+    def test_a_record_naming_an_interpreter_that_exists_is_left(self) -> None:
+        self.run_harness("--install")
+        another = shutil.which("git")
+        (self.target / ".git" / harness.INTERPRETER_RECORD).write_text(f"{another}\n", encoding="utf-8")
+
+        _, report = self.run_links()
+
+        self.assertEqual(another, self.recorded())
+        self.assertEqual("kept", report["interpreter"]["state"])
+
+    def test_a_record_naming_a_missing_path_is_rewritten(self) -> None:
+        self.run_harness("--install")
+        (self.target / ".git" / harness.INTERPRETER_RECORD).write_text("C:/gone/python.exe\n", encoding="utf-8")
+
+        _, report = self.run_links()
+
+        self.assertEqual(sys.executable, self.recorded())
+        self.assertEqual("written", report["interpreter"]["state"])
 
     def test_a_tree_without_core_is_refused_before_anything_is_written(self) -> None:
         before = self.target_snapshot()

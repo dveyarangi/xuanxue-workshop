@@ -14,7 +14,7 @@ itself authorize new process machinery.
 The development instructions and supporting mechanisms through which projects define, implement, verify and maintain software, including the harness itself.
 
 **Mechanism**:
-A part of how the work gets done — the development method and its machinery — on which other work relies, together with its instructions, producers, consumers, checks and records. It has exactly one instruction file and may span many other files. What the project produces is not one.
+A part of how the work gets done — the development method and its machinery — on which other work relies, together with its instructions, producers, consumers, checks and records. It owns one or more instruction files, each a skill no other mechanism owns, and may span many other files. What the project produces is not one.
 
 **Skill**:
 A mechanism's own instruction file, invocable and identified by its purpose and conditions of use. A skill may also host rules installed into it by mechanisms that do not own it.
@@ -89,8 +89,16 @@ A project's own answers and overrides, authored once in its local rules file bes
 Placing a ref of core into a tree that is not core's own repository, from a fresh clone of that repository and never from a working tree; an update is the same over a tree that already holds one, and a check compares a copy against the ref its entry file announces. The mechanism that does all three is `harness`.
 _Avoid_: deploy, sync, distribute, port.
 
+**Edge**:
+Where the system meets someone outside it: a consumer of what it promises, or an extender attaching to it — a host and its integration, a recipient with its own mechanisms. Each edge has one **edge record** under `docs/edge/`: what is promised and required there, the checks a new extension passes, where each extension stands. A seam between two of the system's own parts is the architecture's, never an edge.
+_Avoid_: surface, boundary as names for this.
+
+**Extension**:
+One thing attached at an edge — a host, with the integration that reaches it — kept in a sidecar of its edge record, which holds where the integration lives and its result for every check the record names.
+_Avoid_: plugin, adapter.
+
 **Installation edge**:
-Everything about the core–instance interaction an instance must know to integrate core, customise it and stay coherent across core changes: a rule id, a target and its anchor, a script's path and command, a skill's name, the announce form, and a behaviour a recipient's files rely on. What a recipient never meets — a skill's body, a declaration's prose, a script's internals — is not on it.
+The edge between core and a recipient. Everything about the core–instance interaction an instance must know to integrate core, customise it and stay coherent across core changes: a rule id, a target and its anchor, a script's path and command, a skill's name, the announce form, and a behaviour a recipient's files rely on. What a recipient never meets — a skill's body, a declaration's prose, a script's internals — is not on it.
 _Avoid_: API, surface, interface as names for this.
 
 **Release**:
@@ -203,7 +211,7 @@ What a word means, held by a glossary — this one for the method, the project's
 A sort with a claim of completeness and a test that says where a thing goes when it is unclear what it is. One an agent applies by judgement carries a name by which a reply cites it — *kind of record*, *kind of statement*, *kind of turn*, *kind of moment*, *tier*; one a script reads is an enum in its format and needs none.
 
 **Kind of record**:
-What a record is by its source of truth, on two axes: which side is right when the record and the thing it is about disagree — the record, the thing, or neither — and whether the record's authority expires once the thing reaches it. Four kinds: **what it intends to become** — the record, until reached; the thing moves toward it and the person refines it, and it is spent when the thing matches it; **what must always hold** — the record, standing; the thing is repaired to it, and it changes only by decision; **what exists** — the thing; the record is regenerated from it and never edited by hand; **what happened** — neither, the referent being past; never repaired. The test between the first two, both written before the thing obeys them: the first expires when reached, the second keeps governing. A format declares the kind of its records once, as their authored home, and every record an agent edits carries it visibly on itself — the mark at the thing — so the agent meets it in context before adding what the kind refuses; a document without a format carries it on itself alone, and a record only a script writes carries none.
+What a record is by its source of truth, on two axes: which side is right when the record and the thing it is about disagree — the record, the thing, or neither — and whether the record's authority expires once the thing reaches it. Four kinds: **what it intends to become** — the record, until reached; the thing moves toward it and the person refines it, and it is spent when the thing matches it; **what must always hold** — the record, standing; the thing is repaired to it, and it changes only by decision; **what exists** — the thing; the record is brought to it, regenerated where a script can and rewritten by hand where none can; **what happened** — neither, the referent being past; never repaired. The test between the first two, both written before the thing obeys them: the first expires when reached, the second keeps governing. A format declares the kind of its records once, as their authored home, and every record an agent edits carries it visibly on itself — the mark at the thing — so the agent meets it in context before adding what the kind refuses; a document without a format carries it on itself alone, and a record only a script writes carries none.
 
 **Whiteboard**:
 The body of the question a task stands on, where everything bearing on the task is written until enough has gathered to see its form; then sorted into records of their kinds. It is of no kind, maintenance does not hold it, and a ticket is minted from it, never before it.
@@ -216,7 +224,7 @@ What a turn is, said before its reply is drafted: on a question, a new question,
 What a mechanism's moment carries: instructed by another mechanism, instructed from the wrong home, unowned by design, or not yet. The classification is the mechanism format's.
 
 **Meta-rule**:
-A rule governing how other rules or mechanisms are created, changed, checked or maintained.
+An instruction on how instructions are made, changed, checked or maintained — the mechanism shape's alone, reaching every file it governs installed from its rules file, the entry file included. A principle that bears on everything, instructions among them, is a meta-principle: meta too, and the entry file's own.
 
 **Tier 1**:
 Context supplied to the agent at the relevant occasion without a separate retrieval action. Intended Tier 1 placement and observed delivery are distinct facts.

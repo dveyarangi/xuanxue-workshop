@@ -2,7 +2,7 @@
 
 - **instruction** `.agents/skills/ticket/SKILL.md` — the act: sizing, slicing, impacting the split, presenting the breakdown, minting
 - **state** installed
-- **kind** what must always hold
+- **record of** what must always hold
 
 ## How it works
 
@@ -28,10 +28,6 @@ its durable home and in the session record, not in the ticket.
 It is **installed**. A tree without it tracks work some other way; the parts table below is what
 an installer adds and an uninstaller removes.
 
-The queue's table is still a copy of the ticket headers, amended by hand at every mint, flip and
-close, and the shelf's queue section says how. When the queue is derived, that section and the
-moment that reads it both go, along with P8, which is wrapped at its own home in the rules file.
-
 **Who decided each rule.** The skill and the shelf carry their rules with no attribution; this doc
 carries it. A rule with a name and date is that person's to amend, through `/align`.
 
@@ -42,10 +38,10 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | P5 — the records are checked by `tickets.py` | the user, 2026-09-08, owed to `/maintain`'s M1 |
 | P6 — an RFC is named by its ticket | the user, 2026-09-08 |
 | P7 — a resolved decision leaves the ticket for its durable home | the user, 2026-09-08 |
-| P8 — a closed ticket leaves the queue | the user, 2026-09-09 |
 | P9 — a ticket is named by a link, or by a slug and its state | the user, 2026-09-21; the slug in the link text, 2026-09-26 |
 | P10 — an align on a ticket opens with what the ticket is | the user, 2026-09-27 |
 | P11 — the ticket is swept for consistency when the align ends | `/align`'s own text, moved here 2026-09-29 |
+| P12 — the live tickets are read from the list | the user, 2026-10-10 |
 | the record's shape — one header form, `Type` required, `Kind` gone, `Outcome` one sentence, the stage read from the plan, the sections a stage admits | the user, 2026-09-08 |
 | the status vocabulary, numbering and one basename per work item | with the selected skills, 2026-09-06 |
 | check-only, and nothing retires this | the user, 2026-09-08 |
@@ -60,14 +56,13 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | numbering, naming and placing a ticket | `.agents/skills/ticket/TICKET-FORMAT.md` | |
 | writing a ticket to the shape its stage requires | `.agents/skills/ticket/TICKET-FORMAT.md` | |
 | flipping a status | `.agents/skills/ticket/TICKET-FORMAT.md` | |
-| amending the queue's table | `.agents/skills/ticket/TICKET-FORMAT.md` | |
 | resolving a decision a ticket owns | `.agents/skills/align/SKILL.md` | |
 | naming an RFC for a ticket | `.agents/skills/plan/SKILL.md` | |
 | deciding a ticket is finished | `.agents/skills/maintain/SKILL.md` | |
 | closing a finished ticket with its RFC | `.agents/skills/maintain/SKILL.md` | |
 | repairing the citations a close breaks | `.agents/scripts/gw/move_doc.py` | |
 | checking live records against the shape | `.agents/scripts/gw/tickets.py` | |
-| rendering the queue from the tickets | — | not yet |
+| listing the live tickets | `.agents/scripts/gw/tickets.py` | |
 | ordering the queue and writing its pacing prose | — | not yet |
 | promoting an open question of the store into a ticket | `.agents/skills/ticket/SKILL.md` | |
 | verifying a ticket's criteria against landed work | — | elsewhere — landing-time agreement is verification, `.agents/skills/verify/SKILL.md` |
@@ -105,29 +100,28 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 
 ## What it produces, and who reads it
 
-- **The tickets** — *what it intends to become* — read by `/plan` for what to build, by `/implement` for the same, by `/verify`
+- **The tickets** — *what it intends to become, what happened once closed* — read by `/plan` for what to build, by `/implement` for the same, by `/verify`
   for the criteria, by `/maintain` for whether each is finished, and through citations from every
   record that cites work by its slug.
-- **The queue's table** — *what exists* — read at wake by whoever resumes, as the entry file routes them; a copy
-  until the queue is derived from the tickets.
+- **The queue** — *what it intends to become* — read by `/recall` for the order and its candidate,
+  and by whoever orders the work; written by hand.
+- **The list** — *what exists* — read under P12 by whoever orders the queue or is about to mint a
+  ticket; rendered from the headers on request by `tickets.py --list` and never committed.
 - **The maintainer's report** — *what exists* — read by `/verify` through the verification set and by `/maintain`
   under P5. Its exit status is what the set consumes; its JSON is for the person reading a
   failure. It writes nothing.
 - **The mover's report** — *what happened* — read by the maintainer who ran it: what moved, what was repaired, what
   it could not rewrite.
 - **The rules file** — *what must always hold* — read by the installer alone, and by whoever amends a rule of this mechanism
-  that another skill reads. Its blocks sit in `/maintain`, `/plan`, `/align` and the entry file's
-  general rules.
+  that another skill reads. Its blocks sit in `/maintain`, `/plan`, `/align`, `/recall`, `/ticket`
+  and the entry file's general rules.
 
-Nothing else; no index of its own. The register of tickets is the queue, which is still copied by hand rather than derived.
+Nothing else. The register of tickets is the folder, which the list renders; nothing commits an
+index of it.
 
 ## Not yet at the shape
 
-**Three `not yet` rows**, each bound to an open question: the derived queue, the pacer, the
-installer.
-
-**The queue's table is still a copy.** The shelf's queue section instructs the copy inside a
-straw dog, and the maintainer does not read the queue at all.
+**Two `not yet` rows**, each bound to an open question: the pacer, the installer.
 
 **The maintainer reads names in `done/` and nothing else there.** A half-closed pair is caught by
 name; an archived record written under an older shelf is never reported, and that is the

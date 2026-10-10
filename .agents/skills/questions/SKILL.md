@@ -114,10 +114,12 @@ cites its owner's record.
 
 ## Branching
 
-**When** a question's shape hides parts whose expansion would change its answer, or a split comes
-back from an impact pass. **Do** open each hidden part under it, with `depend` where one cannot
-be asked before another; leave the parent open; call `at` on the first child that can be worked.
-No answer lands on the parent until its children close or are deferred with a default. How a kind
+**When** a question's shape hides parts whose expansion would change its answer; a split comes
+back from an impact pass; or the person refutes a proposed answer by reshaping the question rather
+than by choosing among its options. **Do** open each hidden part under it, with `depend` where one
+cannot be asked before another; leave the parent open; call `at` on the first child that can be
+worked. No answer lands on the parent, and none is put to the person as a proposal or a decision,
+until its children close or are deferred with a default. How a kind
 of question branches is the method's instrument; the moment is this one.
 
 ## Dropping
@@ -140,6 +142,7 @@ deleted.
 ```md
 # q-0090.0003 Which package manager do we use?
 
+- **record of** what happened
 - **part of** q-0090
 - **depends on** q-0070, q-0080.0001
 - **state** closed:decided, suspect
@@ -156,7 +159,12 @@ moving between roots would move between folders.
 evidence, what was refuted — written by hand with the edit tools, never by the script, which keeps
 it as it found it on every call. A line in it shaped like a part is not one.
 
-Every part but **state** is optional, and a closed entry must carry its **answer**. **struck** is
+**record of** opens the parts: what the entry is a record of — *what it intends to become* while
+open, *what happened* once closed — so whoever writes its body meets the kind in context. The
+script writes it from the state on every call, and the check holds the two equal; its earlier
+name, `kind`, is reported.
+
+Every other part but **state** is optional, and a closed entry must carry its **answer**. **struck** is
 `<n>, last <YYYY-MM-DDTHH:MMZ>`, in UTC, written by the script alone, never by hand. The state is
 `open` or `closed:<kind>`, with `, suspect` after it at most. **The id is the place**: a root is
 `q-NNNN`, a child its parent's id and one more position, `q-0090.0003`, the next after its
@@ -167,7 +175,13 @@ draw the window again. A reword changes the words and the file's name, never the
 of* is the line the check holds the id against.
 
 **The sessions file** — one row of `docs/questions/sessions` per session:
-`<tag> running|ended <YYYY-MM-DD> <q-id>|- [<q-id>,… up to four]` — its tag, whether it runs, the
-date it last wrote, its current question or `-` before it has one, and its recent ones. Tier 1
-through the window and the wake's read. What removes a row: kept by design — an ended row lets a
-later wake offer to resume, and a running row silent for a week is reported, never removed.
+`<tag> running|ended <YYYY-MM-DDTHH:MMZ> <q-id>|- [<q-id>,… up to four]` — its tag, whether it
+runs, when its line last changed, its current question or `-` before it has one, and its recent
+ones; a row holding the date alone still reads, as that day's start. Tier 1 through the window and
+the wake's read. What removes a row: kept by design — an ended row lets a later wake offer to
+resume.
+
+**A silent row ends at the next wake.** Every wake ends each other running row whose session
+nothing has seen for three hours, and says nothing of it. A session is seen while its messages
+reach a hook — the window drawn, or Cursor's prompt hook — or it writes its row; the next message
+turns an ended row running again.

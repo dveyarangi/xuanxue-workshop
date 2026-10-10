@@ -2,10 +2,19 @@
   "version": 1,
   "hooks": {
     "sessionStart": [
-      { "command": "uv run --offline --no-project python .agents/scripts/gw/questions.py --hook cursor" }
+      {
+        "command": "git -c \"alias.gw-hook=!sh .agents/scripts/gw/hook.sh\" gw-hook cursor"
+      }
     ],
     "preCompact": [
-      { "command": "uv run --offline --no-project python .agents/scripts/gw/questions.py --hook cursor" }
+      {
+        "command": "git -c \"alias.gw-hook=!sh .agents/scripts/gw/hook.sh\" gw-hook cursor"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "git -c \"alias.gw-hook=!sh .agents/scripts/gw/hook.sh\" gw-hook cursor"
+      }
     ]
   }
 }

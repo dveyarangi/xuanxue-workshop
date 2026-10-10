@@ -681,6 +681,69 @@ class FailingMidWrite(RepositoryCase):
         self.assertEqual(TARGET_TEXT, self.read(self.OTHER))
 
 
+SECOND = ".agents/skills/sweeper/SKILL.md"
+
+
+class DroppingATarget(RepositoryCase):
+    """A rules file that stops naming a target: the next install takes its block out of it."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.write(TARGET, TARGET_TEXT)
+        self.write(SECOND, TARGET_TEXT.replace("# Keeper", "# Sweeper"))
+        self.before = self.read(SECOND)
+        self.write(RULES, rules_file(
+            table=f"| target | anchor |\n|---|---|\n| `{TARGET}` | `{ANCHOR}` |\n| `{SECOND}` | `{ANCHOR}` |\n",
+            sections=self.section("R1", TARGET) + "\n" + self.section("R2", SECOND),
+        ))
+        self.run_installer(SLUG, "--install")
+        self.write(RULES, rules_file(sections=self.section("R1", TARGET)))
+
+    @staticmethod
+    def section(rule: str, target: str) -> str:
+        return (
+            f"## {rule} — a rule\n\n- **target** `{target}`\n- **authority** the user, 2026-09-07\n\n"
+            f"<rule>\nRule {rule}.\n</rule>\n"
+        )
+
+    def run_installer(self, *operands: str) -> tuple[int, dict]:
+        said = io.StringIO()
+        with contextlib.redirect_stdout(said), contextlib.redirect_stderr(said):
+            status = inject_rules.main(list(operands), root=self.root)
+        return status, json.loads(said.getvalue())
+
+    def test_the_next_install_removes_the_block_names_it_and_the_check_passes(self) -> None:
+        self.assertIn(f'<installed by="{SLUG}">', self.read(SECOND))
+
+        status, report = self.run_installer(SLUG, "--install")
+
+        self.assertEqual(0, status, report)
+        self.assertEqual(self.before, self.read(SECOND))
+        removed = [target for target in report["targets"] if target["target"] == SECOND]
+        self.assertEqual("removed", removed[0]["state"])
+        self.assertIn("Rule R2.", removed[0]["removed"])
+        self.assertEqual(0, self.run_installer("--check")[0])
+
+    def test_a_block_of_a_slug_with_no_rules_file_stays(self) -> None:
+        ghost = '\n<installed by="ghost">\n**G1** Nobody owns this.\n</installed>\n'
+        self.write(SECOND, self.read(SECOND) + ghost)
+
+        self.run_installer(SLUG, "--install", "--overwrite")
+
+        self.assertIn('<installed by="ghost">', self.read(SECOND))
+        self.assertNotIn(f'<installed by="{SLUG}">', self.read(SECOND))
+
+    def test_a_refusal_on_a_named_target_leaves_the_dropped_block_in_place(self) -> None:
+        self.write(TARGET, TARGET_TEXT.replace(ANCHOR, "## Another heading"))
+        held = self.read(SECOND)
+
+        status, report = self.run_installer(SLUG, "--install", "--overwrite")
+
+        self.assertEqual(1, status)
+        self.assertTrue(report["refusals"])
+        self.assertEqual(held, self.read(SECOND))
+
+
 class Checking(RepositoryCase):
     """The sweep: every rules file against its targets, every block against the rules files."""
 
