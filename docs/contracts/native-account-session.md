@@ -1,6 +1,6 @@
 # Native Cabinet account session
 
-**Status: accepted wire profile, 2026-10-09; self-profile parity and native security/continuation amended and document-verified 2026-10-10; amendment publication, implementation and native proof pending.**
+**Status: accepted wire profile, 2026-10-09; self-profile parity and native security/continuation amended, document-verified and published 2026-10-10; implementation and native proof pending.**
 The user accepted the remaining technical protocol with "принимаем": the five
 operations and their exact request/response/error definitions, a code lifetime
 of 60 seconds after issuance and a 900-second native attempt lifetime. Earlier
@@ -9,13 +9,13 @@ without phone and automatic browser continuation remain binding, including the
 documented client-impersonation risk. No account-switching workflow is added.
 Prepared within
 [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
-The earlier accepted profile is published at Workshop
-`b8ab296e2713580eb4b91155b0c333ea758a74ce`, the common authority cited by
+The complete amended profile is published at Workshop
+`3c98d4a5201710f8f777183dd7b61caefe47e2d5`, the common authority cited by
 [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
 and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
 Recipient implementation evidence and joint native proof remain pending.
-The native-token, pending-login protection and continuation amendments below are accepted locally
-and have not been published in that pinned revision or the recipient issues.
+The native-token, pending-login protection and continuation amendments below
+are included in that pinned revision and both recipient issues.
 The security choices follow
 [Security authority](../agent-contract.md#security-authority).
 The [existing agreements](../boundaries.md#accepted-content-admission) fix Cabinet

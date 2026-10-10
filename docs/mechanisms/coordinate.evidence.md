@@ -374,3 +374,14 @@ Both English issue bodies are prepared for replacement in the original issues
 publication requires a new accessible full commit SHA and per-change commit/push
 permission. The ticket and queue now show that stage explicitly. No additional
 Ready approval or repeated security decision was introduced.
+
+### Security amendment published — 2026-10-10
+
+The user authorized commit, push and paired-issue updates with "поехали".
+Workshop revision `3c98d4a5201710f8f777183dd7b61caefe47e2d5` is accessible;
+retrieved contract bytes match the commit. Both original issues 7 and 8 now cite
+that revision, and readback matches the reviewed bodies after SHA substitution,
+with titles, recipient labels, open states and counterpart links preserved.
+The owning native ticket and queue now record recipient implementation and joint
+proof as the next work. No further contract decision or publication approval is
+pending for this amendment.

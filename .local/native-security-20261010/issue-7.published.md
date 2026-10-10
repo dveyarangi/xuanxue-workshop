@@ -1,16 +1,9 @@
-# Cabinet: native account-session provider
+Accepted native account-session implementation assignment, including the 2026-10-10 security and browser-continuation amendment.
 
-**Published amendment in [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7), 2026-10-10.** Recipient label: `project:cabinet`.
-Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
-The accepted native profile includes full web self-profile parity with
-`homeHiddenTiles`, automatic continuation and the accepted client-impersonation
-risk. Its accepted security amendment fixes random/hash-only native credentials,
-database-backed browser-bound pending authorization and `/login/native` continuation.
-Implementation and joint native proof remain pending. The amendment pins
-`3c98d4a5201710f8f777183dd7b61caefe47e2d5`, shared with
-[daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
-The original issue holds the current recipient assignment and reports. Its body,
-recipient label and shared authority were read back against the reviewed text.
+Prepared within [01-0008-native-cabinet-account-session](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/tickets/01-0008-native-cabinet-account-session.md).
+Shared contract revision: `3c98d4a5201710f8f777183dd7b61caefe47e2d5`.
+
+Consumer contribution: [native account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
 
 ## Recipient and outcome
 
@@ -25,10 +18,10 @@ At Cabinet `f5036604a414f5e509ca3c9a73d5bcaaa72b3961`, the inspected auth guard 
 browser sessions roll after seven days with a 90-day credential lifetime, and
 logout clears the browser cookie. No native authorization grant, code exchange
 or native grant-revocation behavior was found in the scoped sources.
-[Current evidence](../current-system.md#native-account-session-source--2026-10-08)
+[Current evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/current-system.md#native-account-session-source--2026-10-08)
 links those primary files and the independently owned Daychi client boundary.
 Existing account restrictions and browser login methods remain supported.
-The [2026-10-10 amendment source check](../current-system.md#native-security-amendment-source-check--2026-10-10)
+The [2026-10-10 amendment source check](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/current-system.md#native-security-amendment-source-check--2026-10-10)
 retains the inspected native-auth gap and full `MeDto`/normalized `homeHiddenTiles`
 baseline: the only change since `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5`
 is `CLAUDE.md`. No native implementation or deployment is inferred.
@@ -36,7 +29,7 @@ is `CLAUDE.md`. No native implementation or deployment is inferred.
 ## Shared contract and conformance
 
 The sole accepted shared definition is
-[native account-session profile](../contracts/native-account-session.md), including
+[native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/contracts/native-account-session.md), including
 operations, field validation, account/token identities, lifecycle, failure recovery,
 isolation and common cases N01–N17. Its publication revision must be identical in
 both assignments. Do not independently choose redirect URI, durations, DTOs,

@@ -1,6 +1,6 @@
 # Native Cabinet account session
 
-- **Status:** In progress (verified security amendment awaiting publication; recipient implementation and proof pending)
+- **Status:** In progress (amended assignments published; recipient implementation and proof pending)
 - **Type:** HITL
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
 - **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
@@ -52,12 +52,12 @@ accepted database-backed pending authorization, browser binding, a fixed
 [pending browser authorization protection](../contracts/native-account-session.md#accepted-pending-browser-authorization-protection).
 The user subsequently accepted
 [`/login/native` continuation](../contracts/native-account-session.md#accepted-native-browser-continuation-route).
-All three relayed security/continuation choices are settled and document-verified locally;
-amendment publication remains pending. The settled public wire and earlier
+All three relayed security/continuation choices are settled, document-verified and
+published in the amended assignments. The settled public wire and earlier
 product decisions remain binding.
 
 The two recipient assignments are published against accepted Workshop revision
-`b8ab296e2713580eb4b91155b0c333ea758a74ce`:
+`3c98d4a5201710f8f777183dd7b61caefe47e2d5`:
 [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
 and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
 Cabinet and Daychi implement and release under their own
@@ -69,8 +69,8 @@ not provider/client implementation, deployment or native proof.
 - [x] Workshop settles native-token protection, pending-login protection and continuation.
 - [x] Workshop verifies the full amended contract and both recipient assignments,
   including security authority and fresh independent recipient reconstruction.
-- [ ] Workshop publishes one updated immutable authority in both original recipient
-  issues. The accepted local security amendments are not yet published.
+- [x] Workshop publishes one updated immutable authority in both original recipient
+  issues, with contract bytes, issue bodies, labels and dependency links read back.
 - [x] Both recipient assignments cite the same accessible immutable accepted
   contract and common conformance cases, with their original issue channels recorded.
 - [ ] Cabinet implements issuance, account read, renewal, revocation, errors and
@@ -491,8 +491,8 @@ and explicit implementation/proof status; they expose no unsettled contract choi
 Workshop has no application suite; recipient checks and actual native proof remain
 delivery criteria.
 
-Current stage: document verification complete; amendment publication prepared.
-Workshop's next action is to commit this reviewed package, make that revision
+At the verification handoff, document verification was complete and amendment
+publication was prepared. Workshop's next action was to commit this reviewed package, make that revision
 accessible and update the existing paired issue bodies to the same full SHA.
 Commit and push require the user's per-change permission under L3; publication
 retains original issue identities, labels and contribution channels. Prepared
@@ -500,6 +500,31 @@ retains original issue identities, labels and contribution channels. Prepared
 [Daychi issue body](../../.local/native-security-20261010/issue-8.body.md) contain
 revision placeholders for that mechanical substitution and are not published.
 Recipient implementation and joint native proof remain outstanding.
+
+## Security amendment publication — 2026-10-10
+
+The user authorized commit, push and the prepared original-issue updates with
+"поехали". Commit `3c98d4a5201710f8f777183dd7b61caefe47e2d5` was pushed to
+`origin/master`. GitHub returned the contract bytes exactly as committed, with
+blob `93aed52e5c55fa1310be2c4c2d0c388e6e2f2f5d`. Cabinet source remained
+`f5036604a414f5e509ca3c9a73d5bcaaa72b3961` and public Daychi remained
+`0a3c824c1586eb7b3ca16ca0b3a365539076b025`; original issues had no intervening
+comments or edits before replacement.
+
+Both original issue bodies now pin that full revision. Readback confirmed exact
+reviewed text after revision substitution, unchanged titles, recipient labels,
+open states and direct counterpart links. The
+[publication receipt](../../.local/native-security-20261010/publication-receipt.json)
+records the authority and body hashes. Preparation snapshots remain historical
+review artifacts; the published bodies contain no revision placeholder.
+
+Current stage: amended assignments published. Cabinet and Daychi agents, under
+their respective operators, next implement their assigned provider/client work
+and report evidence in the original issues. Implementation can proceed against
+the accessible accepted contract; joint proof additionally needs the conforming
+provider, controlled account and real native build. Workshop next reviews those
+reports against the common cases. Publication establishes no recipient execution,
+deployment or native proof, and the delivery ticket remains open.
 
 ## Out of scope
 

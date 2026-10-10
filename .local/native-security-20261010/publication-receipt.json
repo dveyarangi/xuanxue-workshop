@@ -1,0 +1,34 @@
+{
+  "stage": "published and read back",
+  "revision": "3c98d4a5201710f8f777183dd7b61caefe47e2d5",
+  "contract_blob": "93aed52e5c55fa1310be2c4c2d0c388e6e2f2f5d",
+  "contract_sha256": "eb14edab712833c3d5e217b51aceb3ab4aa633c594034b9974a63ba5b44c23bf",
+  "contract_readback": "exact committed bytes",
+  "issues": [
+    {
+      "number": 7,
+      "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/7",
+      "title": "xuanxue-cabinet: cabinet-native-account-session \u2014 provide native Cabinet account access",
+      "labels": [
+        "project:cabinet"
+      ],
+      "state": "OPEN",
+      "updatedAt": "2026-10-10T12:18:35Z",
+      "body_sha256": "4a4d39e3017c130c10f91f649fc02ef63e70bfed577cb9840726509c164bf9ea",
+      "body_readback": "matches reviewed body after revision substitution"
+    },
+    {
+      "number": 8,
+      "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/8",
+      "title": "daychi: daychi-native-account-session \u2014 implement native Cabinet sign-in and session lifecycle",
+      "labels": [
+        "project:daychi"
+      ],
+      "state": "OPEN",
+      "updatedAt": "2026-10-10T12:18:43Z",
+      "body_sha256": "11c52cdee6e7c57fcd15fb4b4ee4f8ff0d77cee9d0979a9f3c8109712d939561",
+      "body_readback": "matches reviewed body after revision substitution"
+    }
+  ],
+  "verified_at": "2026-10-10T12:18:55.917089+00:00"
+}
