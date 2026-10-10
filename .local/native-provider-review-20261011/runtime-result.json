@@ -1,0 +1,73 @@
+{
+  "observed_at_utc": "2026-10-10T23:10:15.364539+00:00",
+  "origin": "https://staging.xuanxue.su",
+  "scope": "Anonymous health and refusal probes only; no accounts, issued codes, pending authorizations or fixtures created",
+  "results": [
+    {
+      "case": "health",
+      "status": 200,
+      "cache_control": null,
+      "pragma": null,
+      "www_authenticate": null,
+      "sets_cookie": false,
+      "health": {
+        "status": "ok",
+        "commit": "97642c7",
+        "mongo": "up"
+      }
+    },
+    {
+      "case": "missing_native_bearer",
+      "status": 401,
+      "cache_control": "no-store",
+      "pragma": "no-cache",
+      "www_authenticate": "Bearer error=\"invalid_token\"",
+      "sets_cookie": false,
+      "body": {
+        "error": "invalid_token"
+      }
+    },
+    {
+      "case": "authorization_invalid_scope",
+      "status": 302,
+      "cache_control": "no-store",
+      "pragma": "no-cache",
+      "www_authenticate": null,
+      "sets_cookie": false,
+      "callback": {
+        "base": "su.xuanxue.daychi:/oauth/cabinet",
+        "keys": [
+          "error",
+          "iss",
+          "state"
+        ],
+        "error": [
+          "invalid_scope"
+        ],
+        "issuer": [
+          "https://staging.xuanxue.su"
+        ],
+        "synthetic_state_matches": true
+      }
+    },
+    {
+      "case": "unregistered_callback",
+      "status": 400,
+      "cache_control": "no-store",
+      "pragma": "no-cache",
+      "www_authenticate": null,
+      "sets_cookie": false
+    },
+    {
+      "case": "unknown_code",
+      "status": 400,
+      "cache_control": "no-store",
+      "pragma": "no-cache",
+      "www_authenticate": null,
+      "sets_cookie": false,
+      "body": {
+        "error": "invalid_grant"
+      }
+    }
+  ]
+}

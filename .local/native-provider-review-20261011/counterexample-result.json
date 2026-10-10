@@ -1,0 +1,10 @@
+{
+  "revision": "97642c734a0cc327d13bc58f193ac10a13b8d476",
+  "probe": "Frozen original TypeScript modules transpiled without edits; actual local pino logger; synthetic values only",
+  "canonicalAccepted": true,
+  "canonicalUrlRedacted": true,
+  "encodedNamesAccepted": true,
+  "encodedUrlLeaksStateAndChallenge": true,
+  "parsedQueryRedacted": true,
+  "duplicateDecodedNameRejected": true
+}

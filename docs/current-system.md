@@ -23,6 +23,75 @@ collaboration installation is [accepted and issue 1 closed](https://github.com/d
 The newer provider review below supersedes the public-row conformance gap.
 Native integration and broader Workshop source publication remain incomplete.
 
+## Native provider evidence — reviewed 2026-10-11
+
+Cabinet's [native provider report](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6102552279)
+identifies merged PRs [585](https://github.com/gregoryKot/xuanxue-cabinet/pull/585),
+[586](https://github.com/gregoryKot/xuanxue-cabinet/pull/586) and
+[588](https://github.com/gregoryKot/xuanxue-cabinet/pull/588), with final inspected
+revision `97642c734a0cc327d13bc58f193ac10a13b8d476`. Workshop read the original
+issue timeline, PR conversations and merge identities, froze the committed source
+and compared the provider against the accepted native profile at Workshop
+`3c98d4a5201710f8f777183dd7b61caefe47e2d5`. This supersedes the older native-provider
+gap within that scope; older dated observations below retain their provenance.
+
+The [native grants service](https://github.com/gregoryKot/xuanxue-cabinet/blob/97642c734a0cc327d13bc58f193ac10a13b8d476/api/src/native-auth/native-grants.service.ts)
+implements random 32-byte base64url credentials with SHA-256-only stored
+associations, full current-user checks, whole-second expiry/renewal, preserved
+predecessors and grant-wide revocation. The
+[authorization service](https://github.com/gregoryKot/xuanxue-cabinet/blob/97642c734a0cc327d13bc58f193ac10a13b8d476/api/src/native-auth/native-authorizations.service.ts)
+uses a database record for validated bindings, fixed pending/code deadlines,
+atomic completion and single-use S256 code exchange. Separate controllers enforce
+native request/error shapes and use the same `toMeDto` as web. Browser flow reads
+the existing session without renewing it; `/login/native` resumes automatically
+through tab-local attempt context and rereads the session on return from email
+login in another tab. This source inspection does not demonstrate actual Daychi
+callback, restoration or content behavior.
+
+The exact-revision [CI run 38087888957](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/38087888957)
+passed. Its downloaded logs confirm 5,563 API unit tests in each of coverage and
+Australia/Sydney runs, 1,007 HTTP e2e tests and 4,947 web tests in each of coverage
+and Australia/Sydney runs. All 14 native API unit files and seven native HTTP
+suites executed; web native-screen, attempt and return-path suites executed.
+Inspected assertions cover full web/native profile parity and normalized hidden
+tiles, 59/60-second code expiry, 899/900-second pending expiry, wrong-verifier
+nonconsumption, concurrent single-use exchange/completion, 604800/604801-second
+renewal, retained predecessor use, revoke/renew races and current blocked/deleted
+account refusal. Native revocation HTTP assertions exercise another native grant;
+an actual Daychi build and joint browser/native isolation proof remain separate.
+
+Anonymous HTTPS refusal probes on 2026-10-11, recorded at 23:10 UTC on
+2026-10-10 (02:10 in Asia/Jerusalem), found
+`https://staging.xuanxue.su/api/health` returning 200, `commit: 97642c7`, `mongo: up`.
+Native `me` without a bearer returned 401 `invalid_token` with `WWW-Authenticate`;
+an unknown synthetic code returned 400 `invalid_grant`; an unregistered callback
+returned a local 400; invalid scope returned a registered callback containing
+only `error`, `state`, `iss`, with the staging issuer. Each native refusal carried
+`no-store`/`no-cache` and no `Set-Cookie`. No account, pending authorization,
+issued credential, live fixture or deployment was changed. These probes establish
+the inspected staging revision and anonymous paths, not an authenticated native
+flow or production deployment. The [local probe result](../.local/native-provider-review-20261011/runtime-result.json)
+retains the observations.
+
+One provider deviation is reproduced against the native profile's
+[Transport and common representation](contracts/native-account-session.md#transport-and-common-representation)
+log protection. The
+[query parser](https://github.com/gregoryKot/xuanxue-cabinet/blob/97642c734a0cc327d13bc58f193ac10a13b8d476/api/src/native-auth/native-browser-query.ts)
+accepts percent-encoded parameter names through `URLSearchParams`, whereas
+[request URL redaction](https://github.com/gregoryKot/xuanxue-cabinet/blob/97642c734a0cc327d13bc58f193ac10a13b8d476/api/src/logging/request-serializer.ts)
+matches the raw name. A fully valid synthetic authorization URL with `%73tate`
+and `%63ode_challenge` retains both values in the actual local Pino JSON
+`req.url`, although parsed `req.query` is redacted. Canonical names are redacted;
+duplicate decoded names are rejected. The
+[counterexample](../.local/native-provider-review-20261011/counterexample.cjs) loads
+frozen original modules without source edits and uses synthetic values only;
+its [result](../.local/native-provider-review-20261011/counterexample-result.json)
+records the mismatch. This does not establish disclosure of any real credential
+or access to live provider logs. Cabinet owns correcting the redaction and
+supplying executed regression evidence in original issue 7. No shared contract
+amendment is needed. Full provider conformance, Daychi implementation and joint
+native proof are not accepted by this review.
+
 ## Assignment evidence — reviewed 2026-10-08
 
 Cabinet's [provider report](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6052693441)
