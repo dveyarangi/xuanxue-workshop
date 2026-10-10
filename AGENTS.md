@@ -226,6 +226,7 @@ the result; they do not prescribe the agent's workflow or authorize action.
 and follow through on its findings before resuming the agreed work. Preserve the
 original issue as the communication channel and the existing decision, publication
 and next-cycle checkpoints.
+Omit explanations of the checkpoint.
 
 **L16** Workshop coordinates shared obligations and compatibility between autonomous
 projects. Be strict about interfaces and light on process. Local work proceeds

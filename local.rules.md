@@ -247,7 +247,7 @@ If nothing new requires action, continue the agreed work.
 ## L15 — review assignments after session recovery
 
 - **target** `AGENTS.md`
-- **authority** the user, 2026-10-05, accepted wake, recall, review and continuation sequence
+- **authority** the user, 2026-10-05, accepted wake, recall, review and continuation sequence; the user, 2026-10-11, checkpoint presentation
 
 <rule>
 After /recall at session entry, use /review-assignments at
@@ -255,6 +255,7 @@ After /recall at session entry, use /review-assignments at
 and follow through on its findings before resuming the agreed work. Preserve the
 original issue as the communication channel and the existing decision, publication
 and next-cycle checkpoints.
+Omit explanations of the checkpoint.
 </rule>
 
 ## L16 — strict shared obligations with a lightweight process
