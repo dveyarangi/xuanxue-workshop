@@ -1,0 +1,11 @@
+{
+  "stage": "prepared, not published",
+  "authority": ".local/native-security-20261010/contract.review.md.snapshot",
+  "revision_placeholder": "__CONTRACT_REVISION__",
+  "publication_condition": "one full committed, accessible Workshop revision in both bodies",
+  "files": {
+    "contract.review.md.snapshot": "e9659d4b10b042dd984e62e51d12d379602bfedfebf15e7f4fa2924aa389c9e3",
+    "issue-7.body.md": "e2243358ca29f6736c4dcbc256a19006732093513485b631742f31f3b7dd0829",
+    "issue-8.body.md": "0208e5ba5147209b99935ddce0b196b1b3216b8259d02dcd4d73147409e6f8fb"
+  }
+}

@@ -411,6 +411,25 @@ RC1's boundary test. Structural installation and its negative checks are held by
 [reconciliation evidence](mechanisms/reconcile.evidence.md); they do not establish
 future semantic compliance.
 
+Struck again, 2026-10-10: native recipient questions exposed that RC1/L11's
+project-ownership distinction had been applied to security protocol choices simply
+because they could preserve the same visible wire. The user clarified that
+Workshop selects security principles and protocols even without a wire change.
+That accepted amendment is landed in
+[Security authority](agent-contract.md#security-authority), within the role contract
+L11 already brings to alignment. Native-token protection, pending-login protection
+and continuation decisions are now in the native contract and paired local briefs;
+amended publication is not yet claimed.
+
+The subsequent URL question further separates browser exposure from inter-project
+dependency: an exact continuation pathname need not be chosen by Workshop merely
+because the browser visits it. The assistant's claim that choosing `/login/native`
+was itself required by the security correction was too broad. The
+[native ticket diagnostic](tickets/01-0008-native-cabinet-account-session.md#continuation-url-diagnostic--2026-10-10)
+holds the concrete distinction and independent material. The existing completeness
+criteria continue to govern shared behavior; no rule requiring Workshop to choose
+every browser-visible route is proposed.
+
 Provisional status, accepted by the user, 2026-10-04: RC1's restriction can hide
 incomplete project logic encountered during reconciliation. Its authored section
 is now a straw dog bound to

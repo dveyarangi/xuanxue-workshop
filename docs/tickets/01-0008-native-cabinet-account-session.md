@@ -1,6 +1,6 @@
 # Native Cabinet account session
 
-- **Status:** In progress (recipient implementation)
+- **Status:** In progress (verified security amendment awaiting publication; recipient implementation and proof pending)
 - **Type:** HITL
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
 - **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
@@ -18,7 +18,10 @@ The existing [credential agreement](../boundaries.md#accepted-content-admission)
 [agreed native acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition)
 and [sign-out scope](../boundaries.md#accepted-sign-out-scope) govern the result.
 Cabinet remains the provider, account data owner and issuance/validation authority;
-native Daychi is the consumer. Both projects retain their own operators and internal design.
+native Daychi is the consumer. Both projects retain their own operators and internal
+design within accepted shared and security decisions. Workshop owns security
+principles and protocol selection under
+[Security authority](../agent-contract.md#security-authority).
 
 ## What to build
 
@@ -41,6 +44,17 @@ Unified Daychi content admission remains a separate contract contribution.
 The user accepted the current web `homeHiddenTiles` field on 2026-10-10.
 Its required normalized value and N01 parity fixtures are defined in the same
 native profile; no home-tile UI or preference editing/synchronization is added.
+On 2026-10-10 the user accepted
+[native credential protection](../contracts/native-account-session.md#accepted-native-credential-protection):
+random 32-byte bearer credentials and SHA-256 hash-only storage. The user also
+accepted database-backed pending authorization, browser binding, a fixed
+900-second server deadline and atomic single-use completion, recorded in
+[pending browser authorization protection](../contracts/native-account-session.md#accepted-pending-browser-authorization-protection).
+The user subsequently accepted
+[`/login/native` continuation](../contracts/native-account-session.md#accepted-native-browser-continuation-route).
+All three relayed security/continuation choices are settled and document-verified locally;
+amendment publication remains pending. The settled public wire and earlier
+product decisions remain binding.
 
 The two recipient assignments are published against accepted Workshop revision
 `b8ab296e2713580eb4b91155b0c333ea758a74ce`:
@@ -52,6 +66,11 @@ not provider/client implementation, deployment or native proof.
 
 ## Acceptance criteria — delivery
 
+- [x] Workshop settles native-token protection, pending-login protection and continuation.
+- [x] Workshop verifies the full amended contract and both recipient assignments,
+  including security authority and fresh independent recipient reconstruction.
+- [ ] Workshop publishes one updated immutable authority in both original recipient
+  issues. The accepted local security amendments are not yet published.
 - [x] Both recipient assignments cite the same accessible immutable accepted
   contract and common conformance cases, with their original issue channels recorded.
 - [ ] Cabinet implements issuance, account read, renewal, revocation, errors and
@@ -377,6 +396,110 @@ and direct issue links; both recipient labels and open states were read back.
 The provider and client implementations, release and joint native proof remain
 with their respective operators and these original issues. Publishing does not
 complete this ticket or establish native runtime conformance.
+
+## Security amendment — 2026-10-10
+
+The user clarified Workshop's security authority after Cabinet asked about signed
+versus random native credentials, pending authorization in a cookie versus the
+database, and a `/login/native` resumption page. Visible interoperability alone
+did not settle those security choices. The authority decision is recorded in
+[Security authority](../agent-contract.md#security-authority); its reasoning and
+source observations are in
+[coordination evidence](../mechanisms/coordinate.evidence.md#native-recipient-implementation-questions--2026-10-10).
+
+The user accepted the random-token/hash-only choice with "беседер". That decision
+is landed in the native profile and local provider brief. The user subsequently
+accepted pending-login protection with "принимаем": database-backed validated
+transactions, browser binding, a fixed server deadline and single-use completion.
+The user then accepted `/login/native` continuation with "хорошо". Workshop's
+next action is to verify the amended contract and paired briefs, before publishing
+one immutable amended authority through the existing paired issues.
+Recipient implementation and joint native proof remain outstanding.
+
+### Continuation URL diagnostic — 2026-10-10
+
+The user asked why the continuation route had not been chosen before the security
+authority clarification. The earlier criterion was dependence across Cabinet and
+Daychi: Daychi constructs `/auth/native/authorize` and validates its native
+callback, but does not construct `/login/native`. The earlier contract fixed
+automatic continuation and cross-tab transaction isolation while leaving provider
+routing unspecified. A browser-visible route is an interface to the browser;
+its visibility alone does not make its exact pathname a shared Cabinet/Daychi
+dependency. Deferring that pathname was consistent with project routing ownership.
+
+The error was extending provider ownership of routing to security protocol choice,
+and then describing selection of `/login/native` itself as a mandatory consequence
+of the new security authority. That clarification requires Workshop to settle
+transaction protection and authorization behavior, independently of the path name.
+The user has now accepted this concrete route too; it is an explicit choice, not
+evidence that all browser-visible paths require Workshop selection.
+
+The independent /discover pass received only the functional native-app/browser
+authorization flow, without this repository or decision history. Its material
+follows unchanged; it is candidate context, not a verdict about the project.
+
+#### Families
+
+- **OAuth endpoint contract.** Mapping: native app → authorization endpoint → provider interaction → registered native callback. A continuation page is an intermediate provider step unless it also serves as an endpoint independently addressed by a consumer. OAuth’s exact-match requirement concerns the registered callback; it does not establish a continuation page’s pathname. Failure: confusing those addresses creates unnecessary coupling or incorrect redirect validation. **Confidence: high** on the distinction; the particular page’s role remains unknown. [RFC 8252, §§6–8.4](https://www.rfc-editor.org/rfc/rfc8252.html)
+
+- **Public navigation interface.** Mapping: an independently maintained client or sign-in component constructs/configures `https://provider.example/continue?attempt=…`; the provider accepts that navigation and resumes the attempt. The URL’s agreed origin, route and parameter meanings form the interface. Choosing the literal address becomes shared when another component must ship, configure, register or validate that address independently. Failure: a route rename breaks deployed callers; inconsistent attempt identifiers resume the wrong transaction. **Confidence: high**, conditional structural inference.
+
+- **Opaque continuation link.** Mapping: provider creates a continuation URL → browser or sign-in component carries it unchanged → provider resolves it. The shared promise can cover who supplies the link, how it is transported, its validity period and its resulting behavior while leaving pathname selection to the provider. Address changes become shared concerns when outstanding links must survive them. Failure: consumers reconstruct paths, strip parameters, or retain links beyond their promised lifetime. **Confidence: high** for URI opacity; **medium** for applicability without seeing link transport. [W3C Web Architecture, §§2.5, 3.5.1](https://www.w3.org/TR/webarch/)
+
+- **Workflow continuation / capability.** Mapping: paused authorization attempt → URL carrying a reference or bearer authority → resume handler → callback dispatch. Reference and capability variants differ: possession might merely locate an attempt, or might authorize advancing it. The interface centers on attempt binding, replay, expiration and permitted transitions; its exact address matters only where another party relies on it. Failure: replay, cross-attempt substitution, or treating a locator as sufficient authority. **Confidence: medium**; these are conditional design deductions, not properties established by “continuation page.”
+
+#### What the tasking smuggled in
+
+“Two applications” conceals potentially separate native, sign-in, authorization and browser components. “Provider-owned” conflates hosting, route selection and compatibility responsibility. “Resume that attempt” presumes durable correlation. “Registered callback” does not establish that the continuation page itself is registered. “Page” presumes a rendered document where a redirect handler could suffice.
+
+#### Nothing to take
+
+No pathname follows from this shape alone. A browser-visible URL can be internally selected; an opaque URL can still carry shared behavioral obligations. I reject “microservice,” “event bus,” and “plugin interface” as families here: the task provides no service call, event delivery, or extension-registration structure to map them onto.
+
+## Full security-amendment package verification — 2026-10-10
+
+Workshop verified the complete contract and paired assignments against all 13
+shared-contract dimensions and the accepted Security authority, rather than only
+the three relayed questions. Fresh independent Cabinet and Daychi readers each
+used its own prepared issue body, cited frozen authority and own repository,
+without Workshop history or the other reader's findings. Both reconstructed the
+same shared operations, formats, profile, timing, lifecycle, security, isolation,
+failures and N01–N17 outcomes; neither found a semantic publication blocker or
+unrelated implementation scope. Local schema/indexes, transaction mechanics,
+libraries and presentation remain free within accepted guarantees. The
+[independent review record](../../.local/native-security-20261010/independent-review.md)
+retains input hashes, source limits and concrete implementation hazards.
+
+The [current source check](../current-system.md#native-security-amendment-source-check--2026-10-10)
+establishes Cabinet `f5036604a414f5e509ca3c9a73d5bcaaa72b3961`, unchanged relevant
+source since the previous provider baseline, and unchanged public Daychi
+`0a3c824c1586eb7b3ca16ca0b3a365539076b025`. The Daychi reader's local checkout is
+older and cannot independently repeat that public comparison. Original issues
+7 and 8 still contain the earlier `b8ab296` authority and have no comments;
+no recipient native implementation report or deployment is inferred.
+
+Required harness comparison passed at `goodwolf-harness@8a512d3`, resolved to
+`8a512d39f47ec09c1e76750ce82de8aad0c35cfc`, with no differences or refusals.
+Rule injection, mechanism validation, four ticket records and 30 question entries
+passed with no diagnostics. Package checks validate resolving local/pinned-target
+links, both JSON examples, all 15 account fields, N01–N17, token encoding/durations,
+the PKCE control vector and frozen artifacts. The token example was corrected to
+the accepted 32-byte/43-character encoding. The
+[check result](../../.local/native-security-20261010/package-check.json) records
+the final counts. Scoped straw-dog candidates concern accepted lifecycle conditions
+and explicit implementation/proof status; they expose no unsettled contract choice.
+Workshop has no application suite; recipient checks and actual native proof remain
+delivery criteria.
+
+Current stage: document verification complete; amendment publication prepared.
+Workshop's next action is to commit this reviewed package, make that revision
+accessible and update the existing paired issue bodies to the same full SHA.
+Commit and push require the user's per-change permission under L3; publication
+retains original issue identities, labels and contribution channels. Prepared
+[Cabinet issue body](../../.local/native-security-20261010/issue-7.body.md) and
+[Daychi issue body](../../.local/native-security-20261010/issue-8.body.md) contain
+revision placeholders for that mechanical substitution and are not published.
+Recipient implementation and joint native proof remain outstanding.
 
 ## Out of scope
 

@@ -1,7 +1,7 @@
 # Workshop and project-agent contract
 
 Contract for responsibility boundaries between Workshop, Cabinet and Daychi agents.
-Accepted by the user on 2026-10-04, with clarifications through 2026-10-08 incorporated.
+Accepted by the user on 2026-10-04, with clarifications through 2026-10-10 incorporated.
 
 This document owns role responsibilities, shared guarantees, communication and
 acceptance. [Onboarding](onboarding.md) owns installation and access requirements;
@@ -34,7 +34,8 @@ queue. The local folder spelling and remaining addressing details belong to the
 
 Workshop defines shared ownership, data semantics, consistency, failure obligations
 and observable acceptance outcomes. Implementing
-projects own executable interfaces, internal mechanisms, UX and presentation.
+projects own executable interfaces, internal mechanisms, UX and presentation
+within accepted shared and security decisions.
 Product-language recommendations are separate work and do not become boundary
 requirements.
 
@@ -58,6 +59,15 @@ validation across analysis, reconciliation, issuing and ongoing review; each sta
 owns its production and checks. Independent implementations satisfying their
 recipient briefs must agree on shared shapes and guarantees. Full recipient
 context remains mandatory while process steps are kept proportional to the work.
+
+### Security authority
+
+Workshop owns the choice of security principles and protocols, including choices
+that do not change the observable inter-project contract. Project ownership of
+internal implementation does not by itself delegate those choices.
+
+Decision: the user, 2026-10-10, clarified that selecting security principles and
+protocols belongs to Workshop even when the visible contract does not change.
 
 ## Workshop address
 

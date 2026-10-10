@@ -1,20 +1,9 @@
-# Daychi: native Cabinet account session
+Accepted native account-session implementation assignment, including the 2026-10-10 security and browser-continuation amendment.
 
-**Prepared amendment for [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8), 2026-10-10.** Recipient label: `project:daychi`.
-Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
-The accepted native profile includes full web self-profile parity with
-`homeHiddenTiles`, automatic continuation and the accepted client-impersonation
-risk. Its accepted security amendment fixes random/hash-only native credentials,
-database-backed browser-bound pending authorization and `/login/native` continuation.
-Implementation and joint native proof remain pending. The amendment will use one
-published immutable contract revision, shared with
-[cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7).
-The original issue holds the recipient assignment and reports. It still pins
-`b8ab296e2713580eb4b91155b0c333ea758a74ce`; this prepared amendment has not been
-published. Its final full commit SHA is supplied after the accepted package is
-committed and made accessible, before either issue body is replaced. Daychi keeps the same public
-authorization entry, callback and opaque-token parsing; `/login/native` is Cabinet's
-continuation, not a route Daychi constructs or calls.
+Prepared within [01-0008-native-cabinet-account-session](https://github.com/dveyarangi/xuanxue-workshop/blob/__CONTRACT_REVISION__/docs/tickets/01-0008-native-cabinet-account-session.md).
+Shared contract revision: `__CONTRACT_REVISION__`.
+
+Provider contribution: [native account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7).
 
 ## Recipient and outcome
 
@@ -30,9 +19,9 @@ At public Daychi `0a3c824c1586eb7b3ca16ca0b3a365539076b025`, the inspected nativ
 credential for its own content backend, `quietpractice` invitation handling and
 existing startup/foreground restoration. Its content logout waits for that backend.
 These paths do not implement Cabinet account access.
-[Scoped current evidence](../current-system.md#native-account-session-source--2026-10-08)
+[Scoped current evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/__CONTRACT_REVISION__/docs/current-system.md#native-account-session-source--2026-10-08)
 links the inspected code and Cabinet provider gap. The
-[amendment source check](../current-system.md#native-security-amendment-source-check--2026-10-10)
+[amendment source check](https://github.com/dveyarangi/xuanxue-workshop/blob/__CONTRACT_REVISION__/docs/current-system.md#native-security-amendment-source-check--2026-10-10)
 confirms the unchanged public source; separately reported private client work is
 not inspected or treated as native-auth implementation. Browser/linking/crypto/secure
 storage dependencies exist; the recipient chooses its integration libraries.
@@ -40,7 +29,7 @@ storage dependencies exist; the recipient chooses its integration libraries.
 ## Shared contract and conformance
 
 The sole accepted shared definition is
-[native account-session profile](../contracts/native-account-session.md), including
+[native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/__CONTRACT_REVISION__/docs/contracts/native-account-session.md), including
 operations, field validation, account/token identities, lifecycle, failure recovery,
 isolation and common cases N01–N17. Its publication revision must be identical in
 both assignments. Do not independently choose redirect URI, durations, DTOs,

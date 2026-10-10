@@ -109,6 +109,25 @@ owns affected revalidation and publication. This reconciles the accepted definit
 not provider/client implementation. The 2026-10-09 profile baseline below
 does not establish the current complete field set.
 
+## Native security amendment source check — 2026-10-10
+
+Preparation of the accepted security amendment re-read original native issues
+7 and 8: their bodies still cite Workshop `b8ab296`, retain the original recipient
+labels, and contain no comments or intervening implementation evidence.
+Cabinet's local source is `f5036604a414f5e509ca3c9a73d5bcaaa72b3961`;
+its only changed file since the inspected `fee65f3b` baseline is `CLAUDE.md`.
+The scoped native-auth, web self-profile and hidden-home-tile observations above
+remain applicable. Neither changed instructions nor this source comparison
+establish native implementation or deployment.
+
+The current public Daychi main remains
+`0a3c824c1586eb7b3ca16ca0b3a365539076b025`, read directly from GitHub; the compare
+from that baseline to main is identical with no changed files. The older local
+checkout is `5f9ba442e04cd5dfa70527b9e670b491c491888c`, not that public head.
+Its presence does not supersede the newer immutable source comparison above.
+The original public-pilot assignment's private client reports remain outside
+this native-auth source evidence; no native-auth implementation is inferred.
+
 ## Native account-session source — 2026-10-08
 
 This scoped read used Cabinet main

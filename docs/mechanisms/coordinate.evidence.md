@@ -280,14 +280,97 @@ from these operator-relayed questions.
 | Storage while browser login is pending | The validated authorization transaction survives login; cross-tab email completion cannot return another transaction's code. The 900-second limit is explicitly the Daychi local attempt lifetime. | A Cabinet persistence choice; the shared contract does not prescribe a browser-state collection or cookie. |
 | `/login/native` | The external browser entry remains `GET /auth/native/authorize`. Necessary login resumes the validated transaction automatically, preserves internal-only return targets and adds no confirmation screen. Internal browser routing is explicitly Cabinet's. | An internal helper route can conform; changing Daychi's external entry or adding required post-login confirmation would change an accepted obligation. |
 
-The published Cabinet brief explicitly retains storage schema, cryptographic
-representation, internal routing and library choices. These questions therefore
-do not demonstrate a missing shared wire decision. They concern the provider's
-local implementation plan, whose operator remains its authority.
+The initial diagnosis treated these questions as provider-local choices because
+they could preserve the same visible wire contract. The user corrected that
+criterion on 2026-10-10: Workshop owns security principles and protocol selection
+even when the observable contract does not change. That accepted responsibility
+now lives in [Security authority](../agent-contract.md#security-authority).
+The table above records the earlier disposition, not a current blanket delegation
+of the security choices.
 
-The communication failure was presenting implementation readiness without clearly
-distinguishing a complete shared contract from complete internal design. Independent
-recipient reading establishes compatible obligations, not the absence of local
-design questions. The existing CQ1 clarity criterion already includes permitted
-internal choices; no new prohibition on recipient questions or extra Workshop
-approval gate is introduced by this diagnosis.
+The reasoning failure was equating an unobservable implementation choice with a
+choice outside Workshop's authority. Independent recipient reading established
+compatible external obligations, but did not establish that all security decisions
+within Workshop's responsibility had been settled. This is an omitted authority
+and readiness dimension, not solely a communication problem.
+
+Token protection and pending-transaction protection fall within the clarified
+security responsibility. Login resumption does too where it determines transaction
+binding and the authentication flow; a helper route's name alone does not select
+a security protocol. This clarification selects no token representation or
+transaction store and does not change the accepted public entry, callback or
+automatic-continuation guarantees. The published profile and provider brief still
+contain the earlier broad internal-choice delegation; reconciling that delegation
+and settling the security choices are distinct from this authority decision.
+
+### Native credential protection accepted — 2026-10-10
+
+The user accepted the random-token/hash-only proposal with "беседер". Its durable
+home is
+[accepted native credential protection](../contracts/native-account-session.md#accepted-native-credential-protection).
+The local provider brief and owning ticket now reflect that choice and the
+remaining pending-login/resumption security alignment. The earlier issue pin
+remains published unchanged; no recipient implementation or amended publication
+is claimed.
+
+The inspected Cabinet source has two relevant precedents: web sessions use HS256
+under ADR 0012 and `api/src/auth/session-token.ts`, while
+`api/src/auth/email-login-token.service.ts` issues random 32-byte email credentials
+and stores hashes. Native account eligibility and grant revocation require database
+checks regardless of token signing. OWASP's primary Session Management guidance
+supports high-entropy random credentials with one-way verifier storage against
+read-only disclosure. Existing web-session format remains unchanged.
+
+For pending-login/resumption analysis, Cabinet
+`web/src/auth/returnTo.ts` uses tab-scoped sessionStorage and rejects paths starting
+with `/login`; `EmailLoginCallbackScreen.tsx` uses that common post-login path.
+Thus `/login/native` cannot simply be stored through the present helper. Those
+facts do not select the new security protocol or authorize modifying Cabinet.
+
+### Pending browser authorization protection accepted — 2026-10-10
+
+The user replied "принимаем" to database-backed pending authorization, an opaque
+browser binding in a Secure/HttpOnly/SameSite=Lax cookie, a fixed 900-second server
+deadline and atomic single-use completion. The decision lives in
+[pending browser authorization protection](../contracts/native-account-session.md#accepted-pending-browser-authorization-protection).
+The native profile, provider brief and owning work records now hold the decision
+and its provider evidence obligations. The independent Daychi local attempt
+deadline remains unchanged. Resumption security is the remaining alignment item;
+the existing published revision and issue bodies have not been amended.
+
+### Continuation accepted and URL classification corrected — 2026-10-10
+
+The user accepted `/login/native` continuation with "хорошо" and asked why the
+URL had not been selected before the security clarification. The accepted choice
+is in [native browser continuation](../contracts/native-account-session.md#accepted-native-browser-continuation-route).
+All three relayed choices are now settled locally; scoped amendment verification
+and publication remain pending.
+
+The owning ticket records the diagnosis and unchanged independent classification
+material. The earlier boundary test concerned separately maintained consumers'
+dependence on the exact route, not every URL visible to a browser. The public
+authorization entry and native callback were prescribed; the provider continuation
+was not a route Daychi constructed or called. The earlier contract already
+required automatic continuation and cross-tab isolation. Those shared behaviors
+cannot be dismissed because their routing belongs to Cabinet. Workshop's missing
+security authority was a separate criterion error; the new authority does not
+itself require Workshop to select every internal continuation pathname.
+
+### Full amended package reviewed — 2026-10-10
+
+The existing native-session ticket now records complete package verification,
+including all shared-contract dimensions and the clarified Security authority.
+Two fresh recipient readers independently reconstructed compatible obligations
+from their own prepared body, cited authority and own repository. Neither found
+a missing shared/security choice or unrelated scope. Their concrete source hazards
+concern implementing accepted obligations: Cabinet's existing login return-target,
+cookie/CSRF/error/logging behavior and Daychi's content logout/invitation routing.
+The [review record](../../.local/native-security-20261010/independent-review.md)
+retains source limits and input hashes. Document/source verification does not
+establish implementation, deployment or actual native proof.
+
+Both English issue bodies are prepared for replacement in the original issues
+7 and 8, with a common revision placeholder. All choices remain accepted; only
+publication requires a new accessible full commit SHA and per-change commit/push
+permission. The ticket and queue now show that stage explicitly. No additional
+Ready approval or repeated security decision was introduced.

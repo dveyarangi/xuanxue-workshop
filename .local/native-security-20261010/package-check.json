@@ -1,0 +1,11 @@
+{
+  "documents": 10,
+  "issue_bodies": 2,
+  "resolving_package_links": 213,
+  "json_examples": 2,
+  "account_fields": 15,
+  "common_cases": 17,
+  "pkce_vector": "passed",
+  "review_snapshot": "matches current contract",
+  "errors": []
+}
