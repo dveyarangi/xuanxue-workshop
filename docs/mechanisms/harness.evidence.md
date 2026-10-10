@@ -129,3 +129,107 @@ rule identifiers were checked after correcting a Windows decoding issue in
 the temporary selection; the corrected selection was checked again before
 commit. Staging did not replace working files. Evidence is committed separately;
 no push was performed.
+
+## Workshop update — 2026-10-08
+
+Authorized by the user: "давай снова обновим харнесс", followed by
+"прочитай репу еще раз, возьми последние изменения". The second fresh upstream
+clone supplied `8a512d39f47ec09c1e76750ce82de8aad0c35cfc`, upstream v41.
+Workshop announces `goodwolf-harness@8a512d3, 2026-10-08`.
+
+The first pass installed `6845964d0509dead967f5eced26adaefa49385d8` (v37).
+Its overwrite replaced the local skill-up description with upstream's equivalent
+agent-instruction use case. Its new shape validator required a kind header in
+five recipient-owned declarations: analyse, coordinate, issue, reconcile and
+review-assignments. Each received only
+`- **kind** what must always hold`; byte comparison against the first snapshot
+confirms that removing that line restores each original declaration exactly.
+
+The second pass used `--update --at 8a512d3`, without overwrite. It changed only
+the recall skill, conclude skill and stamped entry file. Neither pass deleted
+files. Fresh sources, snapshots, comparisons and verification reports are held
+outside this repository in
+`D:/Dev/workspaces/taichi_workspace/.local/harness-update-20261008-01a10ad8/`
+and its `-round2` sibling.
+
+Preservation comparison covered 93 files before this evidence entry was appended.
+Local rules, all 18 recipient-owned mechanism and skill files, distributable
+collaboration assets and product entry files match the second snapshot byte for
+byte. The only changed project document was `docs/contracts/native-account-session.md`,
+edited concurrently by the separate native-session work; this update did not
+write or revert it. Both existing loader links resolve to `.agents/skills`.
+
+The installation gate and an independent fresh `harness.py . --check` both
+report `arrived: true` at `8a512d3`: no core differences, injector diagnostics,
+orphans, shape diagnostics or pending link commands. Separate injector and shape
+checks and `git -c core.safecrlf=false diff --check` pass. The shipped test suite
+was not run; it is outside the project verification set for this update.
+
+Session recovery and assignment review read all six Workshop issues and their
+complete timelines, including relevant linked pull-request state. No new
+unhandled report or changed prerequisite required an issue reply. Existing
+reviews, queue order and the other session's native-account work were preserved.
+
+## Ownership-test verification finding — 2026-10-08
+
+The user requested another self-verification of Workshop readiness in session
+`01a11a58-894d-7d52-af3b-008b2c32b221`. Beyond the project's named installation
+gates, the reviewing agent ran the complete shipped standard-library suite:
+`uv run --offline --no-project python -m unittest discover -s .agents/scripts/gw/test`.
+The unchanged source ran 555 tests in 163.914 seconds: one failure, two skips.
+The failing case is
+`test_harness.ARefusal.test_gits_own_ownership_check_is_what_the_refusal_reads`.
+A targeted repeat reproduced the failure. The full installation comparison at
+`8a512d3`, rule injector and mechanism gates still pass; their success does not
+establish a clean shipped-suite result.
+
+The test replaces the `os.environ` object through `mock.patch.object`, then
+expects Git's real ownership check to see `GIT_TEST_ASSUME_DIFFERENT_OWNER=1`.
+On this Windows/Python 3.14 host, a child started without an explicit `env`
+inherits the native process environment, not that replacement mapping. A
+separate process probe returned `absent` with the replaced object, and `present`
+both with an explicit `env` and with `mock.patch.dict(os.environ, ...)`.
+The existing Git capability probe uses explicit `env`; the actual harness Git
+call inherits it. That difference explains why the capability probe passes but
+the action sees an ordinary owned repository. Child injector/shape calls then
+receive the replacement mapping explicitly and fail later. The observed failure
+does not demonstrate a defective production ownership refusal.
+
+A first candidate using `patch.dict` around the entire existing assertion helper
+failed before the action: that helper snapshots the Git index, which also
+receives the ownership test knob. The final proposed repair snapshots before
+setting the knob, runs only the installation action inside `patch.dict`, restores
+the environment, checks its status, single refusal and diagnostic words, then
+verifies the snapshot is unchanged. Its targeted run passed one test with no
+skips. No helper is generalized and no ownership check or assertion is removed.
+
+The [repair preview](../../.local/readiness-verification-20261008/harness-ownership-test.patch)
+and [process probe](../../.local/readiness-verification-20261008/environment-probe.json)
+are local diagnostic artifacts. The repair has not been applied to `.agents/` or
+the upstream harness repository. The shipped file remains source-identical at
+the announced ref. The project's `repair=ask` setting and the harness's source
+ownership remain in effect.
+
+The final candidate was also exercised against the complete suite by replacing
+only that test method in memory: 555 tests in 120.361 seconds, zero failures,
+zero errors, two skips. Both skips explicitly concern this process's lack of
+permission to create a symlink. The
+[candidate result](../../.local/readiness-verification-20261008/candidate-final-suite.json)
+distinguishes this successful proposal check from the unchanged shipped source's
+one failing test. No repository test, production function or saved Git setting
+was modified.
+
+### Full-tree commit recheck — 2026-10-10
+
+The user authorized committing all accumulated repository changes. The complete
+shipped suite ran 555 tests in 102.115 seconds, with the same ownership-fixture
+failure above and two symlink-permission skips. The saved test and production
+ownership behavior remain unchanged; the preview repair is still a proposal.
+This is a repeat of the recorded Windows process-environment limitation, not
+evidence of a clean shipped-suite run.
+
+The announced `goodwolf-harness@8a512d3` reference, injector, mechanism, question
+and ticket checks pass. A first full-tree injector pass detected redundant staging
+copies of instruction files created during commit preparation. Those diagnostic
+copies were retained as `.md.snapshot` files, after which the injector and complete
+harness gates passed. They are evidence snapshots, not additional instruction homes.

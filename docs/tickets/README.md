@@ -3,8 +3,8 @@
 **Last updated:** 2026-10-10
 
 The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
-migration changes and Workshop responsibility have separate homes. Confirmed adoption by both project agents
-is outstanding; see the [agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
+migration changes and Workshop responsibility have separate homes. Both project
+collaboration installations are accepted; see the [agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
 
 Queue responsibility follows the [agent interaction contract](../agent-contract.md).
 The existing harness path is `docs/tickets/`, with the user's
@@ -16,7 +16,9 @@ and [daychi-contract-contribution #4](https://github.com/dveyarangi/xuanxue-work
 Their [parent scope and corrected impact](../migration-changes.md#proposed-contribution-breakdown)
 record the work-selection error. Neither remains an active assignment. The next
 Workshop outcome breakdown was approved on 2026-10-05: one public schedule connection
-with two recipient contributions. It follows readiness in the local queue.
+with two recipient contributions. Queue order is retained; coordinator readiness
+and installation acceptance do not gate recipient implementation. Each activity's
+actual dependencies follow current evidence under the agent contract.
 
 ## Legacy horizon binding
 

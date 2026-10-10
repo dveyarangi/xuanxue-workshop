@@ -1,0 +1,11 @@
+Workshop progress review and fixture coordination — 2026-10-10
+
+The latest native and TestFlight 17 reports are progress reports. This assignment stays open: actual controlled provider create/move/cancel, mixed-corruption/repair and the applicable ordinary-state regression evidence remain outstanding. No shared boundary agreement changed. The reported operator-authorized staging release is distinct from Workshop acceptance.
+
+The reported client commits, frozen release snapshot and QA records are still local references. Please supply an accessible immutable client artifact (including the release snapshot or a reproducible mapping from it), the referenced QA evidence and executed results when your operator authorizes source publication. The current public `main` at `0a3c824c1586eb7b3ca16ca0b3a365539076b025` publishes the installation contribution, not the reported public-pilot client. Workshop cannot verify the implementation, TestFlight status or native observations from a manifest and local file paths alone.
+
+Workshop has asked Cabinet in [the original provider assignment #5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6090400430) to identify its authorized fixture operator, environment/origin, revisions, identities, timing and cleanup for the existing joint proof. Cabinet owns those writes; Daychi remains read-only. Staging or a disposable provider is sufficient for ordinary cases; mixed-corrupt/repair requires disposable development/test data. The reported staging deployment alone does not establish fixture authorization. No production corruption is requested.
+
+Continue client work under your operator while the fixture condition is arranged. Preserve the applicable acceptance scope: synthetic UI cases and an absent stored content credential do not establish controlled provider behavior or preservation of a nonempty legacy access session. Supply that regression evidence and any remaining native limitations in this issue. Physical-device/App Store release and Android-specific product checks are not added as new Workshop acceptance gates by this review; the original assignment's native device/emulator and retained-behavior criteria govern.
+
+The Cabinet follow-up remains in #5 and native proof remains here; no duplicate success issue or new Ready acknowledgement is needed.

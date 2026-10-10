@@ -1,0 +1,17 @@
+[
+  "docs/contracts/native-account-session.md",
+  "docs/assignments/native-session-cabinet.draft.md",
+  "docs/assignments/native-session-daychi.draft.md",
+  "docs/tickets/01-0008-native-cabinet-account-session.md",
+  "docs/questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md",
+  "docs/boundaries.md",
+  "docs/migration-changes.md",
+  "docs/questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md",
+  "docs/questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md",
+  "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+  "docs/questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md",
+  "docs/architecture.md",
+  "docs/tickets/README.md",
+  "docs/current-system.md",
+  "docs/agent-contract.md"
+]

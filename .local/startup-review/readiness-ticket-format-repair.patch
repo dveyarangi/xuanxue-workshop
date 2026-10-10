@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: docs/tickets/01-0005-workshop-coordination-ready.md
+@@
+ - **Responsible contributor:** Workshop agent under its operator
++- **Answers:** [q-0002.0005.0001](../questions/q-0002.0005.0001-how-should-workshop-review-and-acknowledge-assignments-at-startup.md)
+ - **Outcome:** Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement.
+@@
+-## Open issues
+-
+-- Establish the startup invocation in the actual Workshop host and verify it;
+-  the existence of a skill file alone does not show that a session reads it.
+-- Publication and each recipient's access to the private repository must be
+-  demonstrated before their installation can proceed.
+-
+ ## Acceptance criteria
+*** End Patch

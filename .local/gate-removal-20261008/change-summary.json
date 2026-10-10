@@ -1,0 +1,72 @@
+[
+  {
+    "path": "local.rules.md",
+    "added": 16,
+    "removed": 9
+  },
+  {
+    "path": ".agents/skills/review-assignments/SKILL.md",
+    "added": 15,
+    "removed": 8
+  },
+  {
+    "path": ".agents/mechanisms/review-assignments/review-assignments.md",
+    "added": 14,
+    "removed": 9
+  },
+  {
+    "path": "skills/collaborate/workshop-issue-format.md",
+    "added": 21,
+    "removed": 14
+  },
+  {
+    "path": "docs/agent-contract.md",
+    "added": 15,
+    "removed": 14
+  },
+  {
+    "path": "docs/tickets/01-0005-workshop-coordination-ready.md",
+    "added": 12,
+    "removed": 9
+  },
+  {
+    "path": "docs/rfc/01-0005-workshop-coordination-ready.md",
+    "added": 11,
+    "removed": 6
+  },
+  {
+    "path": "docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md",
+    "added": 9,
+    "removed": 9
+  },
+  {
+    "path": "docs/tickets/01-0008-native-cabinet-account-session.md",
+    "added": 4,
+    "removed": 6
+  },
+  {
+    "path": "docs/tickets/README.md",
+    "added": 6,
+    "removed": 4
+  },
+  {
+    "path": "docs/rule-failures.md",
+    "added": 21,
+    "removed": 0
+  },
+  {
+    "path": "docs/mechanisms/review-assignments.evidence.md",
+    "added": 57,
+    "removed": 3
+  },
+  {
+    "path": "docs/questions/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md",
+    "added": 21,
+    "removed": 1
+  },
+  {
+    "path": "docs/questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md",
+    "added": 1,
+    "removed": 1
+  }
+]

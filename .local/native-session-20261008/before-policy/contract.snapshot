@@ -1,0 +1,348 @@
+# Native Cabinet account session
+
+**Status: proposed, 2026-10-08.** Prepared within
+[01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
+This document is not an accepted or published implementation authority.
+The [existing agreements](../boundaries.md#accepted-content-admission) fix Cabinet
+account ownership, separate Daychi content access and installation-scoped sign-out.
+[Scoped source evidence](../current-system.md#native-account-session-source--2026-10-08)
+explains the implementation gap; it does not establish deployed native support.
+
+<straw-dog question="q-0002.0008.0001.0002">
+
+## Authority and extent
+
+Cabinet is the authorization server, account owner and resource server for this
+profile. Native Daychi is the public client `daychi-native`; it has no client secret.
+This profile permits reading the signed-in account, renewing its credential and
+revoking its native grant. It grants no staff access or Daychi content access.
+Existing Cabinet browser cookies and Daychi invitation/content credentials remain
+independent. A Cabinet credential is never sent to the existing Daychi backend.
+The future Cabinet-to-Daychi admission check is outside this profile.
+
+Each successful code exchange creates a distinct native authorization grant.
+`session_id` identifies that grant, not hardware, an account or every login on a
+physical device. Renewal keeps the grant; another sign-in creates another grant.
+The client stores one current Cabinet grant per configured issuer. Sign-out revokes
+the current known grant, not all grants for the account, client ID or device.
+An abandoned grant cannot be rediscovered from a device fingerprint in this profile.
+
+The configured HTTPS issuer is exactly `https://staging.xuanxue.su` for staging or
+`https://xuanxue.su` for production. It has no trailing slash or `/api` suffix.
+Operations below resolve against that issuer; credentials and account identities
+from different issuers are not interchangeable. The issuer is trusted application
+configuration, never selected by a received link. No discovery service is required.
+
+## Transport and common representation
+
+All server operations use HTTPS. Browser authorization runs in the external system
+browser. API requests use the operation's explicit credential; cookies cannot
+substitute for a native bearer or code. Native API responses neither issue nor clear
+browser cookies. Native form endpoints cannot require the browser-only CSRF header;
+their explicit bindings below protect the operation.
+
+JSON responses use `application/json`, `Cache-Control: no-store` and
+`Pragma: no-cache`; token-bearing requests/responses and authorization URLs must
+not enter application logs, analytics, crash reports or persisted navigation.
+Form POSTs use UTF-8 `application/x-www-form-urlencoded`. Duplicate parameters,
+unknown fields and wrong types are rejected. Parameter names are case sensitive.
+JSON success examples list every required field; no field is nullable or optional.
+Clients require the specified fields/types and ignore additional response fields.
+
+`access_token` is opaque to Daychi, 1–1024 ASCII bytes, conforming to the bearer
+`b64token` grammar, with at least 128 bits of unpredictable credential material.
+Daychi never decodes it to infer identity or authorization. Cabinet chooses its
+representation, signing, storage and executable definitions. Cabinet must distinguish
+native grants from browser credentials and reject using either in the other's channel.
+`session_id` is a stable opaque case-sensitive string matching `[A-Za-z0-9_-]{16,128}`.
+Account `id` is Cabinet's stable opaque case-sensitive identifier, 1–128 ASCII
+characters matching `[A-Za-z0-9_-]+`; consumers do not infer a database type.
+`name` is the current Cabinet display name, a Unicode string, including empty string
+when the account has no display name. No roles, email, phone or content permissions
+are exposed. JSON numeric durations are nonnegative integers in seconds. Response
+durations describe the credential supplied/returned by that operation, not the
+most recent credential issued elsewhere for the same grant.
+
+## Browser authorization and callback
+
+`GET /auth/native/authorize` is a browser entry, not a JSON API. The registered
+redirect URI is exactly `su.xuanxue.daychi:/oauth/cabinet` (single slash).
+Daychi registers that additional scheme for iOS and Android while preserving
+`quietpractice`, existing invitation routing and package/bundle identifiers.
+The release owner must control the scheme's domain namespace; accepting this
+profile authorizes use of the school's `xuanxue.su` namespace for this callback.
+
+Required query fields:
+
+| Field | Value |
+|---|---|
+| `response_type` | `code` |
+| `client_id` | `daychi-native` |
+| `redirect_uri` | Exact registered URI |
+| `scope` | Exactly `account:read` |
+| `state` | Fresh random 32 bytes, base64url without padding: 43 characters |
+| `code_challenge` | S256 digest, base64url without padding: 43 characters |
+| `code_challenge_method` | `S256` |
+
+Daychi generates a fresh 32-byte random verifier encoded as 43 base64url
+characters without padding; its challenge is SHA-256 of the ASCII verifier.
+It durably stores issuer, state, verifier, redirect URI and attempt start time
+before opening the browser. Only one attempt is current; a new attempt or logout
+supersedes the old one. A local attempt expires after 900 elapsed seconds; an
+expired attempt requires a new sign-in. Clock uncertainty fails the attempt closed.
+
+Cabinet uses its existing browser login methods and account creation restrictions.
+An already signed-in browser account may be used. Before returning a code the
+browser identifies that account and requires the user's Continue action; Cancel
+returns `access_denied`. Login must return to this internal authorization entry,
+preserving the validated transaction, without relaxing the existing internal-only
+`returnTo` policy. Completing an email link in another tab must leave a usable
+original authorization transaction or offer a fresh attempt; it must not return
+a code belonging to another transaction. Blocked accounts cannot receive a code.
+
+Success redirects to the registered URI with exactly `code`, `state` and `iss`.
+`code` is fresh opaque base64url, 43 characters, single-use and valid for 60 seconds
+after issuance. `state` is the original value; `iss` is the exact configured issuer.
+All values are percent encoded as query components. The code is bound to issuer,
+client, redirect URI, PKCE challenge and the selected Cabinet account. At exchange
+the current account must still exist and be active. Browser cookies never cross
+the callback. A code is valid when server time is strictly before its expiry.
+
+For an unknown client or nonmatching redirect URI, Cabinet returns a local HTTP 400
+page and never redirects. Missing/malformed state also stays on a local HTTP 400
+page. Once client, redirect and state are valid, other authorization failures return
+exactly `error`, `state`, `iss`, with error `invalid_request`,
+`unsupported_response_type`, `invalid_scope`, `access_denied`,
+`temporarily_unavailable` or `server_error`, as applicable. No diagnostic data is
+carried in a callback.
+
+Daychi receives callbacks on cold and warm starts before ordinary invite routing.
+The raw URI before `?` must equal the registered single-slash URI exactly, before
+any path/scheme normalization; authority, userinfo, port, encoded path alternatives
+and fragments are rejected. Query components are UTF-8 percent decoded exactly
+once; malformed encoding and duplicate decoded names are rejected. Check only the
+success or error field set, exact state and exact issuer against the pending attempt.
+Code/state use their declared 43-character syntax; errors use the declared callback
+allowlist. Empty values or extra fields are invalid. No URI normalization may make
+an alternative callback address eligible.
+A callback with neither/both code and error, a wrong binding or an expired attempt
+has no credential effect. Local browser cancellation clears the attempt and leaves
+an existing Cabinet session usable. The app removes sensitive callback data from
+navigation and clears the verifier after a terminal result. It never replays a
+consumed transaction. Late browser/network results after cancellation, replacement
+or logout cannot install a credential.
+
+## Code exchange
+
+`POST /api/auth/native/token` accepts exactly these form fields:
+`grant_type=authorization_code`, `client_id=daychi-native`, `redirect_uri` equal
+to the registered URI, `code`, `code_verifier`. Code and verifier are each 43
+base64url characters. No client authentication or bearer header is supplied.
+
+Cabinet validates every binding and atomically consumes a valid code. A wrong
+verifier never consumes another client's valid transaction. Exactly one concurrent
+valid exchange may succeed. Deleted/blocked accounts, expired/used/unknown codes
+and wrong bindings return HTTP 400 `{"error":"invalid_grant"}` without indicating
+which binding failed. An unsupported grant type returns HTTP 400
+`{"error":"unsupported_grant_type"}`; other malformed form requests return
+HTTP 400 `{"error":"invalid_request"}`. Unknown client IDs return HTTP 400
+`{"error":"invalid_client"}`.
+
+Success is HTTP 200 with this complete shape (credential and IDs illustrative):
+
+```json
+{
+  "access_token": "opaque-native-credential",
+  "token_type": "Bearer",
+  "expires_in": 7776000,
+  "scope": "account:read",
+  "session_id": "nativegrant123456",
+  "renew_after": 604801
+}
+```
+
+Before sending an exchange request, Daychi durably makes that transaction
+nonretryable. A crash/restart after dispatch before durable credential installation
+cannot send the same code again or accept a duplicate callback; it requires a
+fresh browser attempt. A durably installed credential is restored normally. Failure to
+establish that durable state prevents dispatch and preserves the prior session.
+The choice of local representation is Daychi's.
+
+No `refresh_token` or ID token is issued. This is authorization-code acquisition
+with PKCE followed by the application renewal operation below, not an OAuth
+refresh-token grant or OpenID Connect login. Lost exchange responses cannot be
+recovered by replaying a code: start a fresh browser attempt. Preserve any previous
+usable native session until the new credential has been durably installed.
+
+## Account read and renewal
+
+`GET /api/auth/native/me` requires exactly one
+`Authorization: Bearer <access_token>` header and no request parameters/body.
+HTTP 200:
+
+```json
+{
+  "account": { "id": "cabinet-account-id", "name": "Display name" },
+  "session": {
+    "id": "nativegrant123456",
+    "expires_in": 7776000,
+    "renew_after": 604801
+  }
+}
+```
+
+The response reads the current account and active grant, never solely token claims.
+Grant identity matches the credential's `session_id`. Account and durations are
+consistent within that operation; separate requests need not share a snapshot.
+
+**Proposed lifecycle:** a newly issued credential expires after 7,776,000 seconds
+(90 days). It becomes renewable when its age is strictly greater than 604,800
+seconds (seven days). A renewal issues another credential for the same grant,
+expiring 90 days from that issuance. There is no absolute grant lifetime in this
+profile. Server time uses whole epoch seconds;
+`renew_after=max(0, issued_at+604801-now)`. At age 604800, `renew_after=1`;
+at age 604801, `renew_after=0`. `expires_in=expiry-now`; credentials are refused
+when `now >= expiry`. No account response is successful at credential expiry.
+
+`POST /api/auth/native/renew` requires the same bearer and UTF-8
+`application/json` body `{}`. Missing, non-object or nonempty bodies and
+unsupported request media types return HTTP 400 `invalid_request`.
+HTTP 200 has the complete code-exchange success shape. Before the renewal threshold
+it returns the supplied credential and its remaining durations. After the threshold
+it returns a fresh credential and fresh durations. The old credential remains valid
+until its own expiry while its grant/account remains eligible. Concurrent renewals
+may issue different credentials belonging to the same grant; neither invalidates
+the others. There is no implicit renewal on account read.
+
+Keeping the predecessor valid makes retry after a lost renewal response or failed
+local write possible. It also means a copied valid bearer can read and renew until
+the grant is revoked, the account is refused or that bearer expires; renewal alone
+does not detect theft. This is an explicit tradeoff of retaining Cabinet's existing
+90-day/seven-day policy with few new mechanisms. Short access credentials with
+rotating refresh credentials or device-bound proofs would be a different profile,
+with different persistence and recovery obligations.
+
+Every native account read and renewal checks credential validity, grant revocation
+and the current account's existence/status. Revocation and issuance must agree:
+no response issued concurrently with an acknowledged revocation may yield a
+credential usable after that acknowledgement. Revocation knowledge is retained
+for as long as any issued credential for that grant could otherwise be accepted.
+
+## Failures and recovery
+
+Protected native operations return only `{"error":"<code>"}` on failure:
+
+| HTTP | Code | Meaning and client effect |
+|---|---|---|
+| 400 | `invalid_request` | Malformed request; preserve current credential, surface failure |
+| 401 | `invalid_token` | Missing/malformed/expired credential, deleted account or revoked grant; clear only the matching current Cabinet credential |
+| 403 | `account_blocked` | Current Cabinet account blocked; refuse account use, retain credential for possible recovery after unblock |
+| 429 | `rate_limited` | Temporary; preserve credential; `Retry-After` integer 1–3600 seconds |
+| 503 | `temporarily_unavailable` | Temporary server dependency failure; preserve credential |
+| 500 | `server_error` | Temporary unexpected failure; preserve credential |
+
+401 includes `WWW-Authenticate: Bearer error="invalid_token"`. A valid browser
+cookie alongside a missing/invalid native bearer cannot change the result.
+An unusable bearer is checked before account status; it cannot reveal block status.
+Token exchange and revocation use their operation-specific 400 errors and the same
+429/500/503 temporary codes. Transport failures, timeouts and invalid success
+bodies are failures, not evidence of sign-out or revocation. No automatic background
+polling is required. Explicit actions, startup and foreground restoration may retry;
+429 delays are respected. Temporary failure can show the last known account as
+cached/unavailable, never authorize an action from that cached account.
+
+## Persistence and sign-out
+
+Daychi stores Cabinet credentials and pending PKCE data in platform secure storage,
+separately from the legacy content credential and separately by issuer. A successful
+new credential is durably stored before sign-in or renewal is reported complete.
+Do not overwrite the previous valid credential on a failed write. On replacement,
+revoke the previous known grant after committing the new credential, when reachable.
+Failures of that best-effort revocation do not undo the new login.
+
+On restart/foreground, restore only the configured issuer's current credential and
+check `/api/auth/native/me`; if `renew_after=0`, attempt renewal. Failed renewal
+preserves the old valid credential. Responses to superseded requests cannot update
+the current credential/account. Credential storage/read/delete failures are explicit
+local failures, not success, unauthenticated server responses or cleared credentials.
+An already expired stored credential may be discarded without sending it for account
+read; local duration metadata never grants access or extends a server expiry.
+
+`POST /api/auth/native/revoke` accepts form fields `client_id=daychi-native`,
+`token=<native access_token>` and optional `token_type_hint=access_token`.
+No bearer header or browser cookie is required. An authentic issued native token,
+including an expired one whose grant association is still known, revokes its entire
+grant: every credential issued by exchange or renewal becomes unusable. Unknown,
+already revoked or non-native tokens return the same HTTP 200 empty body and cannot
+revoke other grant types. Malformed fields return the exchange's 400 errors.
+Client ID alone cannot identify a grant or revoke an account. Retry is idempotent.
+
+Sign-out first prevents further authenticated app use and invalidates pending
+attempts/responses, then durably deletes the current Cabinet credential, pending
+PKCE transaction and cached Cabinet account. It attempts revocation with the captured
+credential, bounded by the client's request timeout. It must not wait for a network
+response to complete local sign-out. An offline/failed revocation means only local
+sign-out is complete; Cabinet cannot promise remote token invalidation without
+acknowledgement. The client retains no credential for a later revocation queue.
+If secure deletion fails, authenticated use stays disabled in memory and the app
+reports incomplete local sign-out; it cannot claim that restart will remain signed out.
+
+Other native grants and Cabinet browser sessions remain usable. Daychi's existing
+content credential, native invitation flow, schedule cache, ordinary local choices
+and OS reminders remain usable. This profile adds no account-edit synchronization;
+when such pending edits exist under a later contract they belong to Cabinet sign-out
+cleanup, not ordinary local schedule/reminder state.
+
+## Common conformance cases
+
+Both contributions use these case IDs and observable results. Server unit/HTTP
+checks may use controlled time and disposable accounts; client checks may use a
+conforming fake provider for interruptions. Joint proof uses a reachable actual
+provider and an actual native development/release build, not Expo Go.
+
+| ID | Input/transition | Required outcome |
+|---|---|---|
+| N01 | Active existing account, PKCE sign-in, account read, app restart | Same Cabinet account and grant restored; legacy content still works |
+| N02 | RFC 7636 verifier `dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk` | Challenge `E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM`; correct exchange succeeds, wrong verifier fails |
+| N03 | Unknown client, altered redirect, malformed state, duplicate query | No redirect to an unregistered URI; no credential installed |
+| N04 | Wrong callback issuer/state/path, added authority/userinfo/port, encoded path, fragment, duplicate decoded fields, code+error | Ignored/refused without URI normalization; current session unchanged; fresh attempt remains possible |
+| N05 | Browser cancel, provider cancel, new attempt, logout; then late callback/response | No stale session resurrection; existing session survives cancellation |
+| N06 | Code at issuance+59 seconds / +60 seconds; replay; concurrent exchange | First valid pre-expiry exchange only; expired/replayed attempts return invalid_grant |
+| N07 | Account blocked/deleted between code issue and exchange | invalid_grant, no usable new grant |
+| N08 | Credential ages 604800 / 604801 seconds; expiry-1 / expiry | No renewal / renewal; valid / invalid_token; stable grant on renewal |
+| N09 | Lost renewal response, crash before persistence or secure write failure after server success | Old credential still usable; retry possible; no false completion |
+| N10 | Lost code-exchange response, crash after dispatch before durable credential installation, duplicate callback or write failure after exchange | No code replay; use a durably installed credential if present, otherwise a fresh browser attempt; prior valid session preserved on failure |
+| N11 | Two native grants plus a browser session; renew first, then revoke using its old token | All first-grant credentials refused; other grant and browser still usable |
+| N12 | Concurrent revoke/renew/read; repeated/unknown-token revocation | No usable credential after acknowledged revoke; repeat/unknown yields 200 |
+| N13 | Block/unblock, account deletion, missing native bearer with browser cookie | 403 retained then recovery / 401 clearing only matching native credential / 401 |
+| N14 | Offline, timeout, 429, 503, malformed success; subsequent recovery | Retain current credential, distinguish unavailable from refused; no background poll requirement |
+| N15 | Offline logout, failed secure deletion, crash during cleanup, delayed request result | Durable local logout when delete succeeds; explicit incomplete logout when it fails; no stale restoration after completed cleanup |
+| N16 | Warm/cold callback; existing quietpractice invitation; separate issuer | Dedicated callback works; legacy invitation works; issuer credentials never mix |
+| N17 | Existing Cabinet login methods, web cookie renewal/logout; Daychi ordinary schedule/reminders/content | Existing behavior retained; no native staff/content privilege introduced |
+
+Token/header leakage checks accompany the cases; test records include outcomes,
+revisions, environment and platform, never real credentials. N01/N11/N15/N16/N17
+need joint/native evidence; server/client interruption cases can supplement it.
+One real supported native platform suffices for the joint integration record;
+callback configuration and client checks cover both supported iOS and Android.
+
+There is no collection selection, ordering, pagination or event subscription in
+this profile: account read returns one current self-account. There is no public
+account lookup, account mutation, device inventory, native push or reminder sync.
+Future incompatible wire/lifecycle changes require a coordinated replacement
+profile; recipients cannot silently select different values. Publication pins this
+document and its common cases to one accessible immutable Workshop revision.
+
+</straw-dog>
+
+## Standards used for acquisition and transport
+
+[RFC 8252](https://www.rfc-editor.org/rfc/rfc8252) informs external-browser native
+authorization; [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636) supplies PKCE;
+[RFC 6749](https://www.rfc-editor.org/rfc/rfc6749) supplies code exchange;
+[RFC 9207](https://www.rfc-editor.org/rfc/rfc9207) supplies callback issuer binding;
+[RFC 6750](https://www.rfc-editor.org/rfc/rfc6750) supplies bearer transport;
+[RFC 7009](https://www.rfc-editor.org/rfc/rfc7009) informs revocation responses.
+[RFC 9700](https://www.rfc-editor.org/rfc/rfc9700) informs the threat analysis.
+The application renewal operation and proposed long bearer lifetime are explicit
+local profile choices, not a claim of adopting every OAuth security recommendation.

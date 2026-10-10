@@ -1,0 +1,1987 @@
+--- a/docs/contracts/native-account-session.md
++++ b/docs/contracts/native-account-session.md
+@@ -0,0 +1,637 @@
++# Native Cabinet account session
++
++**Status: accepted, 2026-10-09; self-profile parity amended 2026-10-10; implementation and native proof pending.**
++The user accepted the remaining technical protocol with "принимаем": the five
++operations and their exact request/response/error definitions, a code lifetime
++of 60 seconds after issuance and a 900-second native attempt lifetime. Earlier
++accepted acquisition, lifecycle, recovery, isolation, full web self-profile parity
++without phone and automatic browser continuation remain binding, including the
++documented client-impersonation risk. No account-switching workflow is added.
++Prepared within
++[01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
++The complete profile is the accepted local authority; an accessible immutable
++publication reference and recipient implementation evidence are still pending.
++The [existing agreements](../boundaries.md#accepted-content-admission) fix Cabinet
++account ownership, separate Daychi content access and installation-scoped sign-out.
++[Scoped source evidence](../current-system.md#native-account-session-source--2026-10-08)
++explains the implementation gap; it does not establish deployed native support.
++
++## Accepted credential lifetime and renewal
++
++Decision: the user, 2026-10-08, in response to retaining Cabinet's existing
++90-day/seven-day policy for native credentials and preserving the predecessor
++after renewal. A newly issued native Cabinet bearer expires 90 days after issuance;
++it becomes renewable when its age is strictly greater than seven days. Renewal
++issues another credential for the same native session, expiring 90 days from its
++own issuance. The session has no absolute lifetime cap while eligible renewal
++continues. The previous credential remains valid until its own expiry while the
++session and account remain eligible; revocation of that session ends all of its
++credentials. This permits recovery from a lost renewal response or failed local
++write without immediately invalidating the credential still stored by the client.
++
++The accepted tradeoff is that a copied valid bearer can also renew the session;
++renewal alone does not detect theft. Credential serialization, renewal wire
++operation, revocation mechanics, callback and other profile details below are specified below. The full protocol acceptance on 2026-10-09 settles those
++definitions; it does not establish implementation/runtime capability.
++
++## Accepted native credential acquisition
++
++The external-browser authorization-code-and-PKCE method was agreed by the user
++on 2026-10-04. On 2026-10-08 the user reaffirmed it with "да" and corrected the
++assistant's repeated approval request: browser sign-in was already agreed.
++This is retained scope, not another acquisition-method checkpoint.
++
++Native Daychi uses Cabinet-owned sign-in through the external system browser.
++Cabinet returns a short-lived single-use code; Daychi exchanges it for a
++Cabinet-issued bearer using PKCE to bind the exchange to the originating attempt.
++The return is bound to that attempt and the configured Cabinet issuer.
++Cancellation or an unrelated return leaves the current session unchanged.
++Cabinet owns sign-in and issuance; existing Cabinet web access is preserved.
++The registered callback is accepted below; exact wire fields, durations and
++endpoint/error definitions are accepted below. This does not select a complete
++OAuth/OIDC profile.
++
++## Accepted local sign-out and failure policy
++
++Decision: the user, 2026-10-08, replied "принимаем" to immediate local sign-out
++without waiting for network revocation, no retained retry credential, and explicit
++incomplete sign-out on local deletion failure.
++
++Sign-out immediately disables Cabinet account use in Daychi and removes the
++locally saved Cabinet session. It attempts Cabinet revocation, but local completion
++does not wait for the network. Offline or failed revocation cannot establish remote
++invalidation; a copied credential may remain usable. The client retains no token
++for a later revocation queue. If local deletion fails, account use stays disabled
++in memory and sign-out is reported incomplete; restart persistence is not promised.
++Other clients' sessions and Daychi's independent content access remain unaffected.
++
++The exact revoke operation and retention guarantees are accepted below; the
++session-isolation decision fixes the concurrency guarantee. This acceptance
++does not establish implementation or native runtime proof.
++
++## Accepted account-block recovery
++
++Decision: the user, 2026-10-08, replied "сохраняем" to retaining the credential
++after Cabinet reports an account block, so access can recover after unblock.
++
++When Cabinet reports that the account is blocked, Daychi disables Cabinet account
++use but retains its credential. After unblock, the next successful authoritative
++check restores account use if that credential remains valid. An expired or revoked
++credential requires a new sign-in; unblock neither extends its lifetime nor reverses
++revocation. Retaining a credential never authorizes use from a cached account.
++Exact HTTP/error definitions are accepted below.
++
++## Accepted registered callback
++
++Decision: the user, 2026-10-08, replied "пойдет" to the dedicated custom-scheme
++callback after comparing it with an app-bound HTTPS link, including scheme
++collision and PKCE protection limits.
++
++Cabinet registers exactly `su.xuanxue.daychi:/oauth/cabinet` (single slash) for
++native Daychi. Daychi adds that scheme on iOS and Android while preserving existing
++`quietpractice` invitation links and package/bundle identifiers. Cabinet redirects
++only to that exact registered URI; Daychi validates the return against its current
++attempt and Cabinet issuer. This selects the school's `xuanxue.su` namespace for
++the callback; the release owner must control that namespace.
++
++Custom schemes do not guarantee exclusive delivery to Daychi: another app may
++register the same scheme. PKCE prevents that app from exchanging an intercepted
++code without the originating verifier, but does not guarantee delivery. Exact
++query-field and raw-URI validation definitions are accepted below; this
++acceptance establishes neither native configuration nor runtime conformance.
++
++## Accepted interrupted code-exchange recovery
++
++Decision: the user, 2026-10-09, replied "согласен" to a fresh browser attempt
++after a lost code-exchange result, preserving any prior usable session.
++
++After dispatching a code-exchange request, if a new credential has not been
++successfully obtained and durably stored, Daychi treats the new sign-in as
++incomplete and does not replay that exchange. It preserves any prior usable
++Cabinet session. Completing the new sign-in requires a fresh browser attempt;
++Cabinet may reuse its valid browser session without repeating authentication.
++If the new credential was durably installed, normal restoration applies.
++The same rule covers a crash before durable installation or failure to save
++the returned credential. No separate server result-recovery operation is added.
++
++This selects recovery behavior; the exact exchange wire, timing and client
++persistence representation remain outside this decision. Native proof is pending.
++
++## Accepted session isolation and revocation guarantees
++
++Decision: the user, 2026-10-09, accepted item 3 with "сессия отдельно по каждому
++интерфейсу сессии". Client interfaces have independent sessions: native Daychi
++does not share its grant with a Cabinet browser session or another installation.
++Each completed new native sign-in creates a distinct grant; renewal keeps it.
++Revoking the current grant invalidates all credentials issued for it, including
++renewed credentials, without terminating other native grants or browser sessions.
++After Cabinet acknowledges revocation, a concurrent renewal cannot leave a usable
++credential for that grant. A grant identifies a sign-in, not physical hardware.
++This decision does not add an account-switching user story or device inventory.
++Exact revocation request/response and retention guarantees are accepted below.
++
++## Accepted failure categories
++
++Decision: the user, 2026-10-09, accepted item 5. Cabinet distinguishes an invalid
++session, a blocked account and temporary unavailability. Daychi clears only the
++matching invalid Cabinet credential; it retains a blocked account's credential
++with account use disabled, and retains a credential after temporary failure.
++The existing local sign-out and account-block recovery decisions still govern.
++Exact HTTP/error codes, response validation and retry timing are accepted below.
++
++## Accepted joint verification scope
++
++Decision: the user, 2026-10-09, accepted item 6. Provider/client checks cover
++sign-in, cancellation, restoration, renewal, revocation and failures, together
++with actual sign-in through a native Daychi build against a conforming Cabinet
++provider. Joint proof on one supported native platform is sufficient; callback
++configuration and client checks cover both iOS and Android. Existing web,
++invitation, content and ordinary schedule/reminder behavior remain regression
++obligations. Expo Go or a fake provider alone cannot establish that joint proof.
++The detailed wire inputs of common cases below are part of the accepted profile.
++
++## Accepted web self-profile parity
++
++Decision: the user, 2026-10-09, required "все, что получает веб самого кабинета"
++after rejecting a native profile limited to ID/name and excluding email/roles.
++Native Daychi receives Cabinet's full current self-profile, with the same field
++names, types, omission rules and meanings as the web's `MeDto`. Present consumer
++usage does not justify removing fields from that account response. This includes
++email and effective roles; role data does not grant additional API operations.
++The bearer remains a separate credential, not a client-decoded profile container.
++
++The [checked Cabinet self-profile](../current-system.md#cabinet-web-self-profile--2026-10-09)
++has no phone field. The user subsequently clarified "телефон не надо" on
++2026-10-09. No phone field or phone collection workflow is added. Full parity
++with the existing web self-profile remains accepted.
++
++Decision: the user, 2026-10-10, accepted adding `homeHiddenTiles` with
++"думаю надо добавлять" after the fresh Cabinet source check found the field
++missing from this profile's fixed definition. Native account read includes the
++same normalized hidden-home-tile preference as current web `MeDto`, defined
++below. N01 covers empty, populated and normalized values. This adds no Daychi
++home-tile UI, preference editing or synchronization operation.
++
++## Accepted browser continuation without additional confirmation
++
++Decision: the user, 2026-10-09, instructed "убери фрикшн" after the extra
++Continue button and the client-impersonation concern were explained, and asked
++to document that risk. Cabinet uses a valid active browser session to issue the
++native authorization code and return automatically to Daychi. It adds no account
++confirmation, consent or Continue screen for this handoff. If browser sign-in is
++necessary, completion of the existing sign-in returns through the validated
++authorization transaction automatically, without a second Cabinet confirmation.
++Existing account eligibility, registered callback, state/issuer validation and
++PKCE remain binding. This removes Cabinet-added handoff friction; it does not
++change operating-system or external login-provider interaction.
++
++### Accepted risk — native client impersonation
++
++The user explicitly accepted this risk on 2026-10-09. The public `daychi-native`
++client ID and custom-scheme callback do not prove that the initiating app is
++genuine Daychi. A malicious installed app able to receive the same callback scheme
++can initiate its own request with its own PKCE verifier. With an active Cabinet
++browser session and automatic authorization, it could obtain and redeem a code
++without a Cabinet confirmation click, gaining a Cabinet native bearer for that
++account. PKCE prevents redemption of another initiator's intercepted code; it
++does not prevent an impersonator from redeeming its own transaction.
++
++A confirmation on Cabinet's genuine browser page could require a visible user
++action, rather than unnoticed issuance from an existing browser session. It would
++not authenticate the calling app: an impersonator can use the registered client
++ID and lead the user to the same Cabinet confirmation. The assistant's earlier
++wording overstated the button's protection; the user challenged it on 2026-10-09.
++The weakness is unverified native client/callback ownership, not the absence of a
++button alone. Removing the button does not remove PKCE or other accepted bindings.
++The attack requires a malicious installed app that can receive this callback;
++merely copying a client ID without obtaining the code and its verifier is insufficient.
++
++The exposed bearer can read the full self-profile and renew under the accepted
++lifecycle until expiry or grant/account refusal. This is a documented deviation
++from [RFC 8252 section 8.6](https://www.rfc-editor.org/rfc/rfc8252#section-8.6)'s
++recommendation against automatic authorization when client identity cannot be
++assured. No app-identity proof, extra confirmation or other compensating mechanism
++is claimed. This accepted tradeoff is not a finding of deployed exploitation or
++native implementation capability.
++
++## Alignment observations — 2026-10-09
++
++The user challenged the additional browser Continue click, asked for current
++Daychi consumers to establish credential/payload needs, and challenged whether
++account switching is an existing application story. These are not accepted
++requirements. Current consumer evidence is recorded in
++[current-system](../current-system.md#native-consumer-needs--2026-10-09).
++The accepted target bearer transport to both backends remains in
++[content admission](../boundaries.md#accepted-content-admission). This account-session
++slice preserves the legacy content credential; it does not deliver that admission
++bridge. An account-only token must not be represented as already authorizing
++protected Daychi content. No in-place account replacement workflow is approved.
++
++## Authority and extent
++
++Cabinet is the authorization server, account owner and resource server for this
++profile. Native Daychi is the public client `daychi-native`; it has no client secret.
++This profile permits reading the signed-in account, renewing its credential and
++revoking its native grant. Reading the full self-profile includes effective roles
++but does not grant staff API operations or Daychi content access.
++Existing Cabinet browser cookies and Daychi invitation/content credentials remain
++independent. A Cabinet credential is never sent to the existing Daychi backend.
++The future Cabinet-to-Daychi admission check is outside this profile.
++
++The [accepted session isolation](#accepted-session-isolation-and-revocation-guarantees)
++governs the grant representation. Each successful code exchange creates a distinct native authorization grant.
++`session_id` identifies that grant, not hardware, an account or every login on a
++physical device. Renewal keeps the grant; another sign-in creates another grant.
++The client stores one current Cabinet grant per configured issuer. Sign-out revokes
++the current known grant, not all grants for the account, client ID or device.
++An abandoned grant cannot be rediscovered from a device fingerprint in this profile.
++
++The configured HTTPS issuer is exactly `https://staging.xuanxue.su` for staging or
++`https://xuanxue.su` for production. It has no trailing slash or `/api` suffix.
++Operations below resolve against that issuer; credentials and account identities
++from different issuers are not interchangeable. The issuer is trusted application
++configuration, never selected by a received link. No discovery service is required.
++
++## Transport and common representation
++
++All server operations use HTTPS. Browser authorization runs in the external system
++browser. API requests use the operation's explicit credential; cookies cannot
++substitute for a native bearer or code. Native API responses neither issue nor clear
++browser cookies. Native form endpoints cannot require the browser-only CSRF header;
++their explicit bindings below protect the operation.
++
++JSON responses use `application/json`, `Cache-Control: no-store` and
++`Pragma: no-cache`; token-bearing requests/responses and authorization URLs must
++not enter application logs, analytics, crash reports or persisted navigation.
++Form POSTs use UTF-8 `application/x-www-form-urlencoded`. Duplicate parameters,
++unknown fields and wrong types are rejected. Parameter names are case sensitive.
++JSON success examples list required fields; no field is nullable. Account `email`
++and `pendingEmail` follow the web's explicit optional-field omission rules below.
++Clients require the specified fields/types and ignore additional response fields.
++
++`access_token` is opaque to Daychi, 1–1024 ASCII bytes, conforming to the bearer
++`b64token` grammar, with at least 128 bits of unpredictable credential material.
++Daychi never decodes it to infer identity or authorization. Cabinet chooses its
++representation, signing, storage and executable definitions. Cabinet must distinguish
++native grants from browser credentials and reject using either in the other's channel.
++`session_id` is a stable opaque case-sensitive string matching `[A-Za-z0-9_-]{16,128}`.
++Account `id` is Cabinet's stable opaque case-sensitive identifier, 1–128 ASCII
++characters matching `[A-Za-z0-9_-]+`; consumers do not infer a database type.
++`name` is the current Cabinet display name, a Unicode string, including empty string
++when the account has no display name. The full account shape implements
++[accepted web self-profile parity](#accepted-web-self-profile-parity):
++
++| Account field | Type and meaning |
++|---|---|
++| `id` | Stable Cabinet account ID as defined above |
++| `name` | Cabinet display name as defined above |
++| `roles` | Array of effective `admin`, `teacher`, `assistant`, `accountant` roles; empty for a student and while student mode is enabled |
++| `status` | `active` or `blocked`, matching Cabinet `MeDto`; a blocked account read still returns the accepted refusal instead of a successful profile |
++| `telegramLinked` | Boolean: Telegram is linked as a login key |
++| `botChatActive` | Boolean: Cabinet has an active personal bot chat for this user |
++| `hasEmail` | Boolean: a confirmed email exists |
++| `email` | Optional string: confirmed email; omitted when absent, consistent with `hasEmail` |
++| `googleLinked` | Boolean: Google is linked as a login key |
++| `pendingEmail` | Optional string: email awaiting confirmation; omitted when absent; not a valid login key |
++| `noTelegram` | Boolean: user has indicated they do not have Telegram |
++| `needsProfile` | Boolean: user has not yet confirmed their own name |
++| `studentMode` | Boolean: Cabinet's student mode is enabled |
++| `canUseStudentMode` | Boolean: Cabinet says student mode is available; it is not inferred from effective `roles` |
++| `homeHiddenTiles` | Required array of `nextLesson`, `notice`, `exams`, `payment`, `grading`, `events`: Cabinet home tiles hidden by the account owner. Each key appears at most once, in the listed canonical order. `[]` means no hidden tiles. Cabinet returns the same normalized value as web `MeDto`; absent stored data yields `[]`, duplicate and unknown stored keys are removed. This field conveys a Cabinet preference; native account access adds no tile UI or preference mutation/synchronization. |
++
++All fields except the two explicitly optional emails are required. This shape
++matches Cabinet `shared/src/me.ts`, `shared/src/home-tiles.ts` and `toMeDto` at
++`fee65f3b8004d4ecac6c2d3da668cf966be0d0f5`, linked in the
++[2026-10-10 source check](../current-system.md#assignment-and-native-profile-recheck--2026-10-10).
++Raw Telegram/Google identifiers are not web self-profile fields.
++No phone field exists in that baseline; the user excluded adding one.
++Cabinet owns profile mapping and meanings; shared profile changes must preserve
++web/native parity through the coordinated contract revision. The account response
++does not embed a content-admission decision. JSON numeric durations are nonnegative integers in seconds. Response
++durations describe the credential supplied/returned by that operation, not the
++most recent credential issued elsewhere for the same grant.
++
++## Browser authorization and callback
++
++`GET /auth/native/authorize` is a browser entry, not a JSON API. The registered
++redirect URI is exactly `su.xuanxue.daychi:/oauth/cabinet` (single slash).
++Daychi registers that additional scheme for iOS and Android while preserving
++`quietpractice`, existing invitation routing and package/bundle identifiers.
++This implements the [accepted registered callback](#accepted-registered-callback).
++The release owner must control the scheme's domain namespace.
++
++Required query fields:
++
++| Field | Value |
++|---|---|
++| `response_type` | `code` |
++| `client_id` | `daychi-native` |
++| `redirect_uri` | Exact registered URI |
++| `scope` | Exactly `account:read` |
++| `state` | Fresh random 32 bytes, base64url without padding: 43 characters |
++| `code_challenge` | S256 digest, base64url without padding: 43 characters |
++| `code_challenge_method` | `S256` |
++
++Daychi generates a fresh 32-byte random verifier encoded as 43 base64url
++characters without padding; its challenge is SHA-256 of the ASCII verifier.
++It durably stores issuer, state, verifier, redirect URI and attempt start time
++before opening the browser. Only one attempt is current; a new attempt or logout
++supersedes the old one. A local attempt expires after 900 elapsed seconds; an
++expired attempt requires a new sign-in. Clock uncertainty fails the attempt closed.
++
++Cabinet uses its existing browser login methods and account creation restrictions.
++The [accepted automatic continuation](#accepted-browser-continuation-without-additional-confirmation)
++governs this handoff: a valid active browser session returns a code automatically,
++without a Cabinet account-confirmation, consent or Continue screen. Completion
++of necessary browser sign-in also continues automatically. Browser/login
++cancellation remains possible; provider cancellation returns `access_denied`.
++Login must return to this internal authorization entry,
++preserving the validated transaction, without relaxing the existing internal-only
++`returnTo` policy. Completing an email link in another tab must leave a usable
++original authorization transaction or offer a fresh attempt; it must not return
++a code belonging to another transaction. Blocked accounts cannot receive a code.
++
++Success redirects to the registered URI with exactly `code`, `state` and `iss`.
++`code` is fresh opaque base64url, 43 characters, single-use and valid for 60 seconds
++after issuance. `state` is the original value; `iss` is the exact configured issuer.
++All values are percent encoded as query components. The code is bound to issuer,
++client, redirect URI, PKCE challenge and the selected Cabinet account. At exchange
++the current account must still exist and be active. Browser cookies never cross
++the callback. A code is valid when server time is strictly before its expiry.
++
++For an unknown client or nonmatching redirect URI, Cabinet returns a local HTTP 400
++page and never redirects. Missing/malformed state also stays on a local HTTP 400
++page. Once client, redirect and state are valid, other authorization failures return
++exactly `error`, `state`, `iss`, with error `invalid_request`,
++`unsupported_response_type`, `invalid_scope`, `access_denied`,
++`temporarily_unavailable` or `server_error`, as applicable. No diagnostic data is
++carried in a callback.
++
++Daychi receives callbacks on cold and warm starts before ordinary invite routing.
++The raw URI before `?` must equal the registered single-slash URI exactly, before
++any path/scheme normalization; authority, userinfo, port, encoded path alternatives
++and fragments are rejected. Query components are UTF-8 percent decoded exactly
++once; malformed encoding and duplicate decoded names are rejected. Check only the
++success or error field set, exact state and exact issuer against the pending attempt.
++Code/state use their declared 43-character syntax; errors use the declared callback
++allowlist. Empty values or extra fields are invalid. No URI normalization may make
++an alternative callback address eligible.
++A callback with neither/both code and error, a wrong binding or an expired attempt
++has no credential effect. Local browser cancellation clears the attempt and leaves
++an existing Cabinet session usable. The app removes sensitive callback data from
++navigation and clears the verifier after a terminal result. It never replays a
++consumed transaction. Late browser/network results after cancellation, replacement
++or logout cannot install a credential.
++
++## Code exchange
++
++`POST /api/auth/native/token` accepts exactly these form fields:
++`grant_type=authorization_code`, `client_id=daychi-native`, `redirect_uri` equal
++to the registered URI, `code`, `code_verifier`. Code and verifier are each 43
++base64url characters. No client authentication or bearer header is supplied.
++
++Cabinet validates every binding and atomically consumes a valid code. A wrong
++verifier never consumes another client's valid transaction. Exactly one concurrent
++valid exchange may succeed. Deleted/blocked accounts, expired/used/unknown codes
++and wrong bindings return HTTP 400 `{"error":"invalid_grant"}` without indicating
++which binding failed. An unsupported grant type returns HTTP 400
++`{"error":"unsupported_grant_type"}`; other malformed form requests return
++HTTP 400 `{"error":"invalid_request"}`. Unknown client IDs return HTTP 400
++`{"error":"invalid_client"}`.
++
++Success is HTTP 200 with this complete shape (credential and IDs illustrative):
++
++```json
++{
++  "access_token": "opaque-native-credential",
++  "token_type": "Bearer",
++  "expires_in": 7776000,
++  "scope": "account:read",
++  "session_id": "nativegrant123456",
++  "renew_after": 604801
++}
++```
++
++The [accepted interrupted exchange recovery](#accepted-interrupted-code-exchange-recovery)
++governs this dispatch/persistence detail. Before sending an exchange
++request, Daychi durably makes that transaction
++nonretryable. A crash/restart after dispatch before durable credential installation
++cannot send the same code again or accept a duplicate callback; it requires a
++fresh browser attempt. A durably installed credential is restored normally. Failure to
++establish that durable state prevents dispatch and preserves the prior session.
++The choice of local representation is Daychi's.
++
++No `refresh_token` or ID token is issued. This is authorization-code acquisition
++with PKCE followed by the application renewal operation below, not an OAuth
++refresh-token grant or OpenID Connect login. Lost exchange responses cannot be
++recovered by replaying a code: start a fresh browser attempt. Preserve any previous
++usable native session until the new credential has been durably installed.
++
++## Account read and renewal
++
++`GET /api/auth/native/me` requires exactly one
++`Authorization: Bearer <access_token>` header and no request parameters/body.
++HTTP 200:
++
++```json
++{
++  "account": {
++    "id": "cabinet-account-id",
++    "name": "Display name",
++    "roles": [],
++    "status": "active",
++    "telegramLinked": true,
++    "botChatActive": true,
++    "hasEmail": true,
++    "email": "person@example.test",
++    "googleLinked": false,
++    "pendingEmail": "new-address@example.test",
++    "noTelegram": false,
++    "needsProfile": false,
++    "studentMode": false,
++    "canUseStudentMode": false,
++    "homeHiddenTiles": []
++  },
++  "session": {
++    "id": "nativegrant123456",
++    "expires_in": 7776000,
++    "renew_after": 604801
++  }
++}
++```
++
++The response reads the current account and active grant, never solely token claims.
++Grant identity matches the credential's `session_id`. Account and durations are
++consistent within that operation; separate requests need not share a snapshot.
++For the same current account state, native `account` matches the web's `MeDto`,
++including effective roles/student mode and email omission. The projects verify
++parity for accounts with and without email/pendingEmail, linked login keys, bot
++chat, staff/student-mode states and empty/populated/normalized `homeHiddenTiles`.
++These are account-read cases, not authorization
++for staff actions or a requirement to add profile-edit screens to Daychi.
++
++The [accepted lifetime and renewal policy](#accepted-credential-lifetime-and-renewal)
++governs this wire representation: a new credential's lifetime is
++7,776,000 seconds, and its renewal threshold is strictly greater than 604,800
++seconds. Server time uses whole epoch seconds;
++`renew_after=max(0, issued_at+604801-now)`. At age 604800, `renew_after=1`;
++at age 604801, `renew_after=0`. `expires_in=expiry-now`; credentials are refused
++when `now >= expiry`. No account response is successful at credential expiry.
++
++`POST /api/auth/native/renew` requires the same bearer and UTF-8
++`application/json` body `{}`. Missing, non-object or nonempty bodies and
++unsupported request media types return HTTP 400 `invalid_request`.
++HTTP 200 has the complete code-exchange success shape. Before the renewal threshold
++it returns the supplied credential and its remaining durations. After the threshold
++it returns a fresh credential and fresh durations. The old credential remains valid
++until its own expiry while its grant/account remains eligible. Concurrent renewals
++may issue different credentials belonging to the same grant; neither invalidates
++the others. There is no implicit renewal on account read.
++
++Keeping the predecessor valid makes retry after a lost renewal response or failed
++local write possible. It also means a copied valid bearer can read and renew until
++the grant is revoked, the account is refused or that bearer expires; renewal alone
++does not detect theft. This is an explicit tradeoff of retaining Cabinet's existing
++90-day/seven-day policy with few new mechanisms. Short access credentials with
++rotating refresh credentials or device-bound proofs would be a different profile,
++with different persistence and recovery obligations.
++
++Every native account read and renewal checks credential validity, grant revocation
++and the current account's existence/status. Revocation and issuance must agree:
++no response issued concurrently with an acknowledged revocation may yield a
++credential usable after that acknowledgement. Revocation knowledge is retained
++for as long as any issued credential for that grant could otherwise be accepted.
++
++## Failures and recovery
++
++Protected native operations return only `{"error":"<code>"}` on failure:
++
++The error mapping implements [accepted failure categories](#accepted-failure-categories).
++The `account_blocked` response implements
++[accepted account-block recovery](#accepted-account-block-recovery).
++
++| HTTP | Code | Meaning and client effect |
++|---|---|---|
++| 400 | `invalid_request` | Malformed request; preserve current credential, surface failure |
++| 401 | `invalid_token` | Missing/malformed/expired credential, deleted account or revoked grant; clear only the matching current Cabinet credential |
++| 403 | `account_blocked` | Current Cabinet account blocked; refuse account use, retain credential for possible recovery after unblock |
++| 429 | `rate_limited` | Temporary; preserve credential; `Retry-After` integer 1–3600 seconds |
++| 503 | `temporarily_unavailable` | Temporary server dependency failure; preserve credential |
++| 500 | `server_error` | Temporary unexpected failure; preserve credential |
++
++401 includes `WWW-Authenticate: Bearer error="invalid_token"`. A valid browser
++cookie alongside a missing/invalid native bearer cannot change the result.
++An unusable bearer is checked before account status; it cannot reveal block status.
++Token exchange and revocation use their operation-specific 400 errors and the same
++429/500/503 temporary codes. Transport failures, timeouts and invalid success
++bodies are failures, not evidence of sign-out or revocation. No automatic background
++polling is required. Explicit actions, startup and foreground restoration may retry;
++429 delays are respected. Temporary failure can show the last known account as
++cached/unavailable, never authorize an action from that cached account.
++
++## Persistence and sign-out
++
++Daychi stores Cabinet credentials and pending PKCE data in platform secure storage,
++separately from the legacy content credential and separately by issuer. A successful
++new credential is durably stored before sign-in or renewal is reported complete.
++Do not overwrite the previous valid credential on a failed write. This profile
++adds no account picker, in-place account switching or replacement-grant cleanup
++workflow. The retained-credential rule protects interrupted acquisition without
++creating that product requirement.
++
++On restart/foreground, restore only the configured issuer's current credential and
++check `/api/auth/native/me`; if `renew_after=0`, attempt renewal. Failed renewal
++preserves the old valid credential. Responses to superseded requests cannot update
++the current credential/account. Credential storage/read/delete failures are explicit
++local failures, not success, unauthenticated server responses or cleared credentials.
++An already expired stored credential may be discarded without sending it for account
++read; local duration metadata never grants access or extends a server expiry.
++
++`POST /api/auth/native/revoke` accepts form fields `client_id=daychi-native`,
++`token=<native access_token>` and optional `token_type_hint=access_token`.
++No bearer header or browser cookie is required. An authentic issued native token,
++including an expired one whose grant association is still known, revokes its entire
++grant: every credential issued by exchange or renewal becomes unusable. Unknown,
++already revoked or non-native tokens return the same HTTP 200 empty body and cannot
++revoke other grant types. Malformed fields return the exchange's 400 errors.
++Client ID alone cannot identify a grant or revoke an account. Retry is idempotent.
++
++The [accepted local sign-out policy](#accepted-local-sign-out-and-failure-policy)
++governs this storage/revocation wire detail. Sign-out first prevents
++further authenticated app use and invalidates pending
++attempts/responses, then durably deletes the current Cabinet credential, pending
++PKCE transaction and cached Cabinet account. It attempts revocation with the captured
++credential, bounded by the client's request timeout. It must not wait for a network
++response to complete local sign-out. An offline/failed revocation means only local
++sign-out is complete; Cabinet cannot promise remote token invalidation without
++acknowledgement. The client retains no credential for a later revocation queue.
++If secure deletion fails, authenticated use stays disabled in memory and the app
++reports incomplete local sign-out; it cannot claim that restart will remain signed out.
++
++Other native grants and Cabinet browser sessions remain usable. Daychi's existing
++content credential, native invitation flow, schedule cache, ordinary local choices
++and OS reminders remain usable. This profile adds no account-edit synchronization;
++when such pending edits exist under a later contract they belong to Cabinet sign-out
++cleanup, not ordinary local schedule/reminder state.
++
++## Common conformance cases
++
++The [accepted verification scope](#accepted-joint-verification-scope) governs coverage;
++the exact inputs below belong to the accepted wire profile.
++Both contributions use these case IDs and observable results. Server unit/HTTP
++checks may use controlled time and disposable accounts; client checks may use a
++conforming fake provider for interruptions. Joint proof uses a reachable actual
++provider and an actual native development/release build, not Expo Go.
++
++| ID | Input/transition | Required outcome |
++|---|---|---|
++| N01 | Active existing account, PKCE sign-in with and without an existing browser session, account read, app restart; web/native self-profile comparison with email omitted/present, pending email, linked keys, bot chat, staff/student mode and empty/populated/normalized hidden home tiles | Valid browser session returns automatically; necessary login has no additional Cabinet confirmation after completion; same Cabinet account and grant restored; full account matches web MeDto for the same state; legacy content still works |
++| N02 | RFC 7636 verifier `dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk` | Challenge `E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM`; correct exchange succeeds, wrong verifier fails |
++| N03 | Unknown client, altered redirect, malformed state, duplicate query | No redirect to an unregistered URI; no credential installed |
++| N04 | Wrong callback issuer/state/path, added authority/userinfo/port, encoded path, fragment, duplicate decoded fields, code+error | Ignored/refused without URI normalization; current session unchanged; fresh attempt remains possible |
++| N05 | Browser cancel, provider cancel, new attempt, logout; then late callback/response | No stale session resurrection; existing session survives cancellation |
++| N06 | Code at issuance+59 seconds / +60 seconds; replay; concurrent exchange | First valid pre-expiry exchange only; expired/replayed attempts return invalid_grant |
++| N07 | Account blocked/deleted between code issue and exchange | invalid_grant, no usable new grant |
++| N08 | Credential ages 604800 / 604801 seconds; expiry-1 / expiry | No renewal / renewal; valid / invalid_token; stable grant on renewal |
++| N09 | Lost renewal response, crash before persistence or secure write failure after server success | Old credential still usable; retry possible; no false completion |
++| N10 | Lost code-exchange response, crash after dispatch before durable credential installation, duplicate callback or write failure after exchange | No code replay; use a durably installed credential if present, otherwise a fresh browser attempt; prior valid session preserved on failure |
++| N11 | Two native grants plus a browser session; renew first, then revoke using its old token | All first-grant credentials refused; other grant and browser still usable |
++| N12 | Concurrent revoke/renew/read; repeated/unknown-token revocation | No usable credential after acknowledged revoke; repeat/unknown yields 200 |
++| N13 | Block/unblock, account deletion, missing native bearer with browser cookie | 403 retained then recovery / 401 clearing only matching native credential / 401 |
++| N14 | Offline, timeout, 429, 503, malformed success; subsequent recovery | Retain current credential, distinguish unavailable from refused; no background poll requirement |
++| N15 | Offline logout, failed secure deletion, crash during cleanup, delayed request result | Durable local logout when delete succeeds; explicit incomplete logout when it fails; no stale restoration after completed cleanup |
++| N16 | Warm/cold callback; existing quietpractice invitation; separate issuer | Dedicated callback works; legacy invitation works; issuer credentials never mix |
++| N17 | Existing Cabinet login methods, web cookie renewal/logout; Daychi ordinary schedule/reminders/content | Existing behavior retained; no native staff/content privilege introduced |
++
++N01 hidden-home-tile source fixtures absent / `["notice"]` /
++`["events", "payment", "events", "gone"]` produce account values `[]` /
++`["notice"]` / `["payment", "events"]` respectively, equal to the web profile
++for the same account state. The final fixture exercises stored-source normalization;
++unknown keys are not valid wire enum values. Native clients require the declared
++field, array type and keys. New keys require the coordinated shared-profile revision
++already required for changes to account-field meanings.
++
++Token/header leakage checks accompany the cases; test records include outcomes,
++revisions, environment and platform, never real credentials. N01/N11/N15/N16/N17
++need joint/native evidence; server/client interruption cases can supplement it.
++One real supported native platform suffices for the joint integration record;
++callback configuration and client checks cover both supported iOS and Android.
++
++There is no collection selection, ordering, pagination or event subscription in
++this profile: account read returns one current self-account. There is no public
++account lookup, account mutation, device inventory, native push or reminder sync.
++Future incompatible wire/lifecycle changes require a coordinated replacement
++profile; recipients cannot silently select different values. Publication pins this
++document and its common cases to one accessible immutable Workshop revision.
++
++## Standards used for acquisition and transport
++
++[RFC 8252](https://www.rfc-editor.org/rfc/rfc8252) informs external-browser native
++authorization; [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636) supplies PKCE;
++[RFC 6749](https://www.rfc-editor.org/rfc/rfc6749) supplies code exchange;
++[RFC 9207](https://www.rfc-editor.org/rfc/rfc9207) supplies callback issuer binding;
++[RFC 6750](https://www.rfc-editor.org/rfc/rfc6750) supplies bearer transport;
++[RFC 7009](https://www.rfc-editor.org/rfc/rfc7009) informs revocation responses.
++[RFC 9700](https://www.rfc-editor.org/rfc/rfc9700) informs the threat analysis.
++The application renewal operation and accepted long bearer lifetime are explicit
++local profile choices, not a claim of adopting every OAuth security recommendation.
+--- a/docs/assignments/native-session-cabinet.draft.md
++++ b/docs/assignments/native-session-cabinet.draft.md
+@@ -0,0 +1,100 @@
++# Cabinet: native account-session provider
++
++**Draft — not issued.** Recipient label: `project:cabinet`.
++Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
++The full native account-session protocol was accepted by the user on 2026-10-09,
++including automatic browser continuation, full web self-profile parity without
++phone, lifecycle/recovery and the documented native client-impersonation risk.
++Implementation and joint native proof remain pending.
++The user accepted the `homeHiddenTiles` self-profile addition on 2026-10-10;
++its field definition and N01 cases belong to that same shared profile.
++Before publication, replace
++the local authority link with the accepted document and common cases at one accessible full Workshop
++commit SHA, shared with the Daychi assignment; no placeholder is a release authority.
++
++## Recipient and outcome
++
++Cabinet supplies browser/code-and-PKCE acquisition, native bearer account read,
++renewal and grant-scoped revocation for native Daychi. Cabinet owns account data,
++executable definitions, implementation and release under its own operator.
++Daychi implements the consumer. Workshop reviews the shared outcome and evidence.
++
++## Expected / observed
++
++At Cabinet `868a4edb09926a950b78e8daa3ce495c6e8e256e`, the auth guard is cookie-only,
++browser sessions roll after seven days with a 90-day credential lifetime, and
++logout clears the browser cookie. No native authorization grant, code exchange
++or native grant-revocation behavior was found in the scoped sources.
++[Current evidence](../current-system.md#native-account-session-source--2026-10-08)
++links those primary files and the independently owned Daychi client boundary.
++Existing account restrictions and browser login methods remain supported.
++The [2026-10-10 source comparison](../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
++used Cabinet `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5`: the inspected auth
++guard/controller and browser token/renewal files are unchanged from that baseline;
++current `MeDto` and its mapper add required normalized `homeHiddenTiles`.
++
++## Shared contract and conformance
++
++The sole accepted shared definition is
++[native account-session profile](../contracts/native-account-session.md), including
++operations, field validation, account/token identities, lifecycle, failure recovery,
++isolation and common cases N01–N17. Its publication revision must be identical in
++both assignments. Do not independently choose redirect URI, durations, DTOs,
++errors or refresh behavior. Native credentials do not authorize existing Daychi
++content endpoints or Cabinet staff operations.
++
++## Impact and required changes
++
++- Supply the external-browser authorization entry using existing Cabinet login,
++  strict registered callback, state/issuer binding and S256 PKCE. Reuse a valid
++  active browser session automatically; necessary sign-in also returns automatically,
++  without an additional Cabinet account-confirmation, consent or Continue screen.
++  Preserve internal-only web login return targets. The contract owns the accepted
++  client-impersonation risk; no native app-identity proof is claimed.
++- Supply atomic single-use code exchange and distinct revocable native grants.
++  Implement the profile's native token, account-read, renewal and revoke operations,
++  with the exact declared request/response/error behavior.
++- Validate native credential kind, grant and current account on read/renewal.
++  Return the complete web `MeDto` as the native account, including optional email
++  omission, effective-role/student-mode semantics and normalized `homeHiddenTiles`.
++  Cover empty/populated/normalized preference parity under N01;
++  exposing role data does not grant staff operations.
++  Keep predecessor credentials valid for interrupted-renewal recovery; acknowledged
++  revocation invalidates every credential of that grant, including concurrent issuance.
++- Preserve browser cookie login/renewal/logout, current account restrictions and
++  all other native grants. Native endpoints must not accept cookies as substitutes,
++  emit browser session cookies or accidentally inherit a browser-only CSRF requirement.
++- Own executable interfaces and meaningful provider checks against the common
++  cases. Storage schema, crypto representation, internal browser/API routing and
++  libraries remain Cabinet choices consistent with the profile.
++
++## Execution dependencies
++
++Implementation uses the accepted, accessible pinned profile under Cabinet's own
++operator. No Workshop readiness confirmation, collaboration-installation acceptance,
++Daychi public pilot completion or consumer deployment gates this implementation.
++
++Provider execution evidence needs disposable controlled accounts/time and two
++native grants plus a browser session for isolation. Cabinet's operator owns fixture
++writes and deployment approval. Actual joint native proof additionally needs a
++reachable conforming provider, its exact origin/revision, a controlled active test
++account and Daychi's actual native build. Workshop accepts conformance evidence;
++it does not release Cabinet. Provider/source availability is reported as facts in
++this original issue, without requiring a separate permission ceremony.
++
++## Acceptance evidence
++
++Report here commits/PRs, exact contract revision, executed check counts/outcomes,
++redacted failure results, deployment origin/revision and remaining limitations.
++Never publish credentials, codes or verifiers. Cover provider aspects of N01–N17,
++especially code binding/expiry/replay, strict renewal boundaries, blocked/deleted
++accounts, lost-renewal recoverability and cross-grant/browser isolation after revoke.
++Use the same case IDs as Daychi so the two reports can be compared.
++
++Supply a reachable authorized test environment/account for the joint read,
++restart, logout/isolation and callback/native compatibility checks. Cabinet local
++checks can complete before the consumer is deployed; shared integration remains
++open until actual native evidence is supplied and Workshop verifies the pair.
++No content-admission API, reminder sync, gateway or backend retirement belongs
++to this assignment.
++
+--- a/docs/assignments/native-session-daychi.draft.md
++++ b/docs/assignments/native-session-daychi.draft.md
+@@ -0,0 +1,107 @@
++# Daychi: native Cabinet account session
++
++**Draft — not issued.** Recipient label: `project:daychi`.
++Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
++The full native account-session protocol was accepted by the user on 2026-10-09,
++including automatic browser continuation, full web self-profile parity without
++phone, lifecycle/recovery and the documented native client-impersonation risk.
++Implementation and joint native proof remain pending.
++The user accepted the `homeHiddenTiles` self-profile addition on 2026-10-10;
++its field definition and N01 cases belong to that same shared profile.
++Before publication, replace
++the local authority link with the accepted document and common cases at one accessible full Workshop
++commit SHA, shared with the Cabinet assignment; no placeholder is a release authority.
++
++## Recipient and outcome
++
++Native Daychi signs in through Cabinet, securely restores its Cabinet account
++session, reads the current account and signs out locally without ending other
++clients' sessions. Cabinet owns accounts, native issuance/validation and the provider.
++Daychi owns native implementation, UX and release under its operator; Workshop
++reviews the shared outcome/evidence.
++
++## Expected / observed
++
++At Daychi `e1ab559c8d5db3dbd7db95aa7400941381ada12a`, the native app has a SecureStore
++credential for its own content backend, `quietpractice` invitation handling and
++existing startup/foreground restoration. Its content logout waits for that backend.
++These paths do not implement Cabinet account access.
++[Scoped current evidence](../current-system.md#native-account-session-source--2026-10-08)
++links the inspected code and Cabinet provider gap. Browser/linking/crypto/secure
++storage dependencies exist; the recipient chooses its integration libraries.
++
++## Shared contract and conformance
++
++The sole accepted shared definition is
++[native account-session profile](../contracts/native-account-session.md), including
++operations, field validation, account/token identities, lifecycle, failure recovery,
++isolation and common cases N01–N17. Its publication revision must be identical in
++both assignments. Do not independently choose redirect URI, durations, DTOs,
++errors or refresh behavior. The configured Cabinet origin is distinct from
++`EXPO_PUBLIC_DAYCHEE_API_URL`; Cabinet credentials never go to that existing backend.
++
++## Impact and required changes
++
++- Implement external-browser S256 PKCE acquisition, secure pending-attempt storage,
++  exact callback/state/issuer validation and native code exchange. Handle warm/cold
++  starts and superseded/cancelled attempts without resurrecting a session.
++  Cover automatic return from an existing Cabinet browser session and after
++  necessary sign-in under N01, with no additional Cabinet confirmation step.
++  Retain OS/provider interaction and all callback/PKCE protections; the documented
++  impersonation risk does not authorize removing those bindings.
++- Consume the complete Cabinet web `MeDto` account shape and its optional-email
++  omission/effective-role semantics and required `homeHiddenTiles` field/type/keys.
++  Cabinet owns its normalized value; consuming it adds no home-tile UI or
++  preference editing/synchronization. Profile data does not authorize an operation;
++  Cabinet remains authoritative. Cover full profile parity, including empty,
++  populated and normalized hidden-home-tile values, under N01.
++- Register the additional callback scheme while preserving the existing scheme,
++  bundle/package IDs and invitation behavior. Keep code-bearing URLs out of
++  logs, analytics, crash reports and persistent navigation.
++- Securely persist a separate Cabinet credential by issuer, restore/check the
++  account and renew under the shared lifecycle. A failed write or temporary
++  failure preserves the usable predecessor; handle lost code-exchange responses
++  with a fresh attempt. Reject malformed responses without clearing a valid session.
++- Distinguish invalid credentials, blocked account and temporary unavailability.
++  Ignore stale responses; clearing a Cabinet session never clears legacy content
++  access. Do not infer authorization by decoding token contents.
++- Implement immediate local logout, durable secure cleanup and bounded best-effort
++  revocation. Offline logout cannot promise remote revocation; storage deletion
++  failure cannot be presented as durable logout. Retain ordinary schedule cache,
++  local selections, OS reminders, invitations and content access.
++- Own executable client definitions, integration libraries, internal state handling
++  and product presentation. Add no account/reminder synchronization or background
++  polling; the shared contract fixes observable behavior, not those internals.
++
++## Execution dependencies
++
++Implementation and client interruption/conformance checks can use the accepted,
++accessible pinned profile and a conforming fake provider under Daychi's operator.
++No Workshop readiness confirmation, collaboration-installation acceptance, public
++pilot completion or live-provider deployment gates that implementation.
++
++Actual joint proof needs the conforming Cabinet provider at a reachable configured
++origin, its deployed revision, a controlled account and Daychi's actual native
++development/release build with the registered callback; Expo Go is insufficient.
++Cabinet's original provider assignment supplies provider/fixture evidence; replace
++this descriptive reference with its direct issue link when the pair is published.
++Cabinet's operator owns its fixtures/release; Daychi's owns its build/device/release.
++Workshop accepts integration evidence. Source/fixture/runtime conditions are checked
++from current facts, not issue state or an administrative readiness comment.
++
++## Acceptance evidence
++
++Report here commits/PRs, exact shared revision, executed checks, redacted outcomes,
++native build/platform, issuer and deployed provider revision. Cover client aspects
++of N01–N17 using the same case IDs as Cabinet. Show sign-in/account read, restart
++restoration, renewal/recovery, callback cancellation/mismatch/replay, blocked versus
++unavailable states, failed storage operations and stale-response rejection.
++
++Show actual native N01/N11/N15/N16/N17 behavior with the authorized provider;
++show both-platform callback configuration/client checks, and record the platform
++used for joint proof. Demonstrate that revoking one Cabinet grant leaves another
++native grant/browser session usable, and Cabinet logout leaves legacy invitation,
++content and ordinary schedule/reminders usable. A fake provider alone does not
++establish integration. No content-admission replacement, account-edit sync,
++gateway or backend retirement belongs to this assignment.
++
+--- a/docs/tickets/01-0008-native-cabinet-account-session.md
++++ b/docs/tickets/01-0008-native-cabinet-account-session.md
+@@ -0,0 +1,384 @@
++# Native Cabinet account session
++
++- **Status:** In progress (implementation preparation)
++- **Type:** HITL
++- **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
++- **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
++- **Outcome:** Native Daychi signs in through Cabinet, securely restores and renews its session, reads the full current self-profile and signs out of that installation, with joint native proof and existing web/content behavior retained.
++
++## Parent
++
++The credential contribution in the [accepted migration delta](../migration-changes.md#changes-derived-from-accepted-contracts),
++within the [first-stage scope](../stage-1.md). The user approved this one-outcome
++breakdown and minting on 2026-10-06. Its
++[post-impact assessment](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#impact)
++recommends a complete native account-session path separated from the broader migration.
++
++The existing [credential agreement](../boundaries.md#accepted-content-admission),
++[agreed native acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition)
++and [sign-out scope](../boundaries.md#accepted-sign-out-scope) govern the result.
++Cabinet remains the provider, account data owner and issuance/validation authority;
++native Daychi is the consumer. Both projects retain their own operators and internal design.
++
++## What to build
++
++Implement the [accepted native account-session profile](../contracts/native-account-session.md)
++through Cabinet's provider and Daychi's native consumer. Cabinet supplies browser
++authorization, atomic code/PKCE exchange, bearer validation, full web-equivalent
++self-profile, renewal and grant-wide revocation. Daychi supplies the registered
++native callback, secure persistence/restoration, temporary-failure recovery and
++installation-scoped logout. Valid browser sessions return automatically; necessary
++sign-in has no extra Cabinet confirmation. The accepted impersonation risk remains
++documented. Existing Cabinet web and Daychi invitation/content/schedule/reminder
++behavior remain supported.
++
++The user accepted the complete technical protocol on 2026-10-09 with "принимаем",
++including code lifetime 60 seconds after issuance and attempt lifetime 900 seconds.
++No shared wire choice remains for recipients to settle independently. This adds
++no account-switching or profile-edit workflow and no phone field. The same Cabinet
++account data and effective-role meanings apply to the full native self-profile.
++Unified Daychi content admission remains a separate contract contribution.
++The user accepted the current web `homeHiddenTiles` field on 2026-10-10.
++Its required normalized value and N01 parity fixtures are defined in the same
++native profile; no home-tile UI or preference editing/synchronization is added.
++
++The two recipient briefs are prepared locally against that accepted authority.
++Implementation publication still needs one accessible immutable full Workshop
++revision in both briefs. Cabinet and Daychi implement and release under their own
++operators; Workshop verifies the joint outcome. Acceptance of this contract is
++not provider/client implementation, deployment or native proof.
++
++## Acceptance criteria — delivery
++
++- [ ] Both recipient assignments cite the same accessible immutable accepted
++  contract and common conformance cases, with their original issue channels recorded.
++- [ ] Cabinet implements issuance, account read, renewal, revocation, errors and
++  web compatibility; provider evidence covers its N01–N17 obligations.
++- [ ] Daychi implements native handoff, full self-profile, secure persistence,
++  restoration, recovery and local exit; client evidence covers its N01–N17 obligations.
++- [ ] Joint N01/N11/N15/N16/N17 proof uses a real native build and a conforming
++  reachable Cabinet provider, with controlled accounts, issuer and exact revisions.
++  One supported platform supplies joint proof; both iOS/Android configurations
++  and client checks are covered.
++- [ ] /verify confirms the delivered contract behavior and retained Cabinet web,
++  Daychi invitation/content and ordinary schedule/reminder behavior. No native
++  proof or runtime acceptance is inferred from the contract's acceptance.
++
++## Acceptance criteria — alignment exit
++
++- [x] The user has accepted the complete native-session boundary contract, with
++  authority, scope, operations, data shapes, credential lifecycle, access, failures,
++  effects and compatibility settled; inapplicable dimensions have explicit reasons.
++- [x] Common conformance outcomes cover successful sign-in/account read, restart
++  restoration, expiry/renewal, current-user refusal, temporary failure and recovery,
++  installation-scoped sign-out, cancelled/mismatched/replayed handoffs and interrupted
++  persistence; existing web, native invitation and content-access paths remain supported.
++- [x] Provider/client actions and joint native-runtime proof cover the same contract;
++  recipient execution and integration dependencies are stated for their own activities.
++- [x] Accepted decisions are in their authoritative home; this same ticket is rewritten
++  with implementation acceptance criteria retaining the approved native proof and regressions.
++- [x] /verify confirms the alignment result, contract completeness, ownership,
++  compatibility, source references and the implementation-stage rewrite.
++
++## Activity dependencies
++
++Contract preparation/alignment can start without public-provider correction,
++public-pilot native proof or Daychi installation. There is no dependency on
++[cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md)
++for this activity; existing queue order is preserved.
++
++Implementation publication requires settled definitions, common cases and an
++accessible immutable contract authority. Recipient implementation proceeds under
++its operator; Workshop readiness and installation acceptance do not gate it.
++Joint native proof additionally requires a reachable conforming auth provider,
++controlled test account and actual native runtime, established by current evidence.
++
++## Evidence baseline
++
++The [refreshed source check](../current-system.md#native-account-session-source--2026-10-08)
++records Cabinet `868a4edb09926a950b78e8daa3ce495c6e8e256e` and Daychi
++`e1ab559c8d5db3dbd7db95aa7400941381ada12a`. Its linked primary sources own the
++observations; no native auth runtime or deployment is claimed.
++The [2026-10-10 scoped comparison](../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
++uses Cabinet `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5` and Daychi
++`0a3c824c1586eb7b3ca16ca0b3a365539076b025`. It retains unchanged auth/native
++observations and identifies the web hidden-home-tile field now included in the
++accepted native definition.
++
++## Technical preparation — 2026-10-08
++
++The user authorized technical preparation on 2026-10-08. The
++[proposed shared profile](../contracts/native-account-session.md) specifies
++browser authorization, PKCE/callback binding, code exchange, account read,
++renewal, revocation, local persistence/failure recovery and common cases N01–N17.
++The [Cabinet draft assignment](../assignments/native-session-cabinet.draft.md)
++and [Daychi draft assignment](../assignments/native-session-daychi.draft.md)
++derive their actions from that same proposal. These are reviewable preparation,
++not published implementation assignments. The lifecycle and local sign-out decisions
++and acquisition reaffirmation accept those parts, not the complete wire profile.
++
++### Impact
++
++Native account access crosses Cabinet issuance/account ownership and Daychi
++browser handoff, secure persistence and restoration. Revocation requires Cabinet
++to distinguish individual native grants while retaining web behavior; a header
++substitution alone cannot meet installation-scoped sign-out.
++
++### Hidden edges
++
++A lost successful exchange consumes the code; recovery needs a fresh browser
++attempt. A lost renewal response or failed local write must preserve a usable
++predecessor. Offline local logout cannot establish server revocation. Callback
++delivery on cold start, cancellation and issuer mixups affect session integrity.
++
++### Leave alone
++
++Content admission, legacy content credentials, account/reminder synchronization,
++ordinary local choices/reminders, browser cookie policy and the public pilot.
++No device fingerprint, gateway, background polling or backend retirement is added.
++
++### Recommendation
++
++The user accepted the native credential lifetime/renewal policy on 2026-10-08.
++Its durable home is
++[accepted credential lifetime and renewal](../contracts/native-account-session.md#accepted-credential-lifetime-and-renewal).
++The decision includes predecessor validity for interrupted-renewal recovery and
++the stated copied-bearer tradeoff. This policy is no longer a pending choice.
++
++The same day's [acquisition reaffirmation](../contracts/native-account-session.md#accepted-native-credential-acquisition)
++holds the browser/code-and-PKCE method fixed. The user also accepted
++[local sign-out and failure policy](../contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy):
++immediate local exit, bounded best-effort remote revocation, no later token retry
++queue and explicit incomplete exit if local deletion fails. Their provenance lives
++in those contract sections. The user subsequently accepted
++[account-block recovery](../contracts/native-account-session.md#accepted-account-block-recovery):
++retain the credential while disabling account use; a successful authoritative
++check after unblock restores access if the credential remains valid. The user also
++accepted [the registered callback](../contracts/native-account-session.md#accepted-registered-callback)
++`su.xuanxue.daychi:/oauth/cabinet`, with invitation compatibility and the stated
++scheme-collision tradeoff. Exact endpoint/DTO/query definitions were accepted
++with the complete technical protocol on 2026-10-09.
++On 2026-10-09 the user accepted
++[interrupted exchange recovery](../contracts/native-account-session.md#accepted-interrupted-code-exchange-recovery):
++after a dispatched exchange without durable installation of the new credential,
++start a fresh browser attempt while preserving any prior usable session.
++Normal restoration applies if the new credential was durably installed.
++
++The same day's acceptance of proposal items 3, 5 and 6 landed in
++[session isolation and revocation guarantees](../contracts/native-account-session.md#accepted-session-isolation-and-revocation-guarantees),
++[failure categories](../contracts/native-account-session.md#accepted-failure-categories)
++and [joint verification scope](../contracts/native-account-session.md#accepted-joint-verification-scope).
++These accept independent client sessions, grant-wide revocation including renewal
++races, invalid/blocked/temporary distinctions, and real native proof on one platform
++with configuration/client checks on both. Exact wire values were subsequently
++accepted with the complete technical protocol on 2026-10-09.
++
++The user challenged the extra Continue click, the omission of the bearer and
++current content consumers from the account-payload explanation, and an unproven
++account-switching story. [Current consumer evidence](../current-system.md#native-consumer-needs--2026-10-09)
++records protected wiki/Zoom consumers and the accepted target bearer transport
++to both backends. The account-session slice does not complete the admission bridge.
++The proposed previous-grant cleanup for in-place replacement was withdrawn as a
++requirement; no new account-switching UX is approved. Existing interrupted-acquisition
++and secure-write protection remains binding. This slice's separation from the
++unified content-admission bridge remains material to complete-profile acceptance.
++The user subsequently required the complete web Cabinet self-profile, including
++email and roles, rather than the proposed ID/name subset. Its durable home is
++[accepted web self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity).
++The accepted account response specifies the full checked `MeDto`, including
++optional-email omission, linked-key/chat flags and effective roles/student mode;
++N01 includes profile-parity cases. Cabinet owns the meanings; no Daychi profile-edit
++UX or staff operations are added. The user subsequently excluded phone with
++"телефон не надо". The same turn accepted
++[automatic browser continuation](../contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
++without any additional Cabinet account/consent/Continue screen, retaining necessary
++existing sign-in and all callback/PKCE bindings. The user accepted the
++[native client-impersonation risk](../contracts/native-account-session.md#accepted-risk--native-client-impersonation)
++and requested its documentation. N01 now covers automatic reuse of a valid browser
++session and automatic continuation after necessary sign-in. These decisions do
++not themselves approve the complete wire profile or establish deployed/native
++behavior. The user subsequently accepted the complete wire profile with
++"принимаем" on 2026-10-09; deployed/native behavior still requires implementation
++and proof.
++
++Use code/PKCE acquisition and one revocable native grant with a renewable bearer.
++Implement the accepted lifetime/renewal policy through the accepted shared profile,
++without adding refresh-token rotation/recovery machinery. Endpoint/DTO/callback-query,
++exact revocation wire and other endpoint/DTO/timing values were accepted on 2026-10-09;
++publication requires accepted shared meanings and an immutable accessible revision.
++
++### Draft validation
++
++Fresh independent Cabinet and Daychi recipient readers reconstructed their own
++obligations from the brief, cited profile and their repository sources. Both found
++coverage of all N01–N17 aspects. The Daychi reader found a callback URI ambiguity;
++the profile now requires exact raw single-slash URI equality and decoded query
++validation, and its affected independent re-read found no remaining substantive
++gap. Cabinet's review prompted explicit renewal media/body validation and the
++general duration formula. Exchange-dispatch durability and crash inputs make
++interruption recovery explicit. These reviews establish draft readability and
++compatibility, not implementation, accepted policy or native runtime behavior.
++
++Initial draft checks passed: ticket validator, question validator, rule injection
++and mechanism validation. The initial five contract, assignment, ticket and
++question files had 33 resolving local links/anchors. Scoped straw-dog review
++confirmed the candidate profile/briefs are bound to the open native question;
++publication-placeholder references outside the wrappers describe draft state.
++`git diff --check` passed. The required harness source comparison still fails
++only on the pre-existing `.agents/skills/skill-up/SKILL.md` difference from
++`goodwolf-harness@5871845`; its injection/shape checks pass. That unrelated
++difference was not changed. No application test suite exists in Workshop;
++provider/client checks and actual native proof await implementation.
++
++After lifetime/renewal acceptance, the ticket and question validators passed
++again (four ticket records, 29 questions, no diagnostics). Eight affected files
++have 61 resolving local links/anchors; proposal wrappers are balanced and the
++accepted policy is outside them. Scoped whitespace checks pass. The decision
++accepts policy without changing the reviewed proposed operations or case outcomes.
++
++### Complete-profile acceptance and verification — 2026-10-09
++
++The user accepted the remaining technical protocol with "принимаем". The complete
++contract is accepted; its proposal wrapper and the paired briefs' proposal
++wrappers are removed. The briefs remain unissued drafts awaiting the same
++accessible immutable authority. Architecture, boundaries, migration delta,
++question summaries and this ticket now distinguish accepted wire from pending
++implementation and proof. The existing ticket carries delivery acceptance
++criteria; no new ticket split, publication or sibling implementation is claimed.
++
++The required harness comparison passed against announced
++`goodwolf-harness@8a512d3` (resolved
++`8a512d39f47ec09c1e76750ce82de8aad0c35cfc`), with no source differences or
++refusals. Its network-dependent clone required an approved escalation after the
++restricted-network attempt failed. Rule injection and mechanism validation
++passed with no diagnostics. Ticket validation covered four records and question
++validation covered 29 entries, with no diagnostics. The nine scoped documents
++have 144 resolving local links/anchors; scoped `git diff --check` passed.
++
++Scoped straw-dog guesses describe accepted lifecycle conditions, explicit gateway
++deferral, stable reminder constraints, source evidence or unissued assignment
++state; none requires making the accepted native wire provisional again. Earlier
++dated validation above records its original baseline and is superseded for the
++current alignment result by this pass. There is no application test suite in
++Workshop. Provider/client conformance, deployment and actual native proof remain
++delivery criteria, not results of document verification.
++
++The user's accompanying question about non-browser login is informational.
++Explaining native email-code and passkey alternatives does not replace or reopen
++the accepted browser/code-and-PKCE acquisition method.
++
++## Recipient revalidation — 2026-10-10
++
++Fresh independent Cabinet and Daychi readers reconstructed obligations from their
++own brief, cited authority and relevant repository sources without Workshop
++session history. Ownership, activity dependencies, internal freedom and N01–N17
++coverage passed their scoped reading. Both found one publication blocker from
++the [new source evidence](../current-system.md#assignment-and-native-profile-recheck--2026-10-10):
++current web `MeDto` requires `homeHiddenTiles`, whereas the accepted native
++field table, example and explicit N01 inputs omit its definition.
++
++The concrete counterexample is a current web account with
++`homeHiddenTiles: ["notice"]`. Projecting only the native table's listed fields
++can satisfy that table while failing full-current-web parity. Returning the
++additional field leaves the consumer's required-field/enum meaning unspecified
++by the shared authority. The accepted full-profile requirement is retained;
++its exact field definition and cases need reconciliation before immutable
++publication. Reading this preference adds no tile UI, editing or synchronization
++scope. The complete acquisition/lifecycle decisions remain accepted.
++
++The user accepted the amendment on 2026-10-10 with "думаю надо добавлять".
++Its durable home is the
++[accepted self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity).
++The contract now includes the current required normalized field, its six keys,
++empty meaning and canonical order in the account definition/example, and compares
++empty/populated/normalized values in N01. Both recipient briefs identify their
++provider/client parity obligations against that same authority. The next action
++was the affected recipient re-read and scoped verification; both passed below.
++Both briefs still require one accessible immutable authority and direct issue
++links; no auth issue has been published. The public-pilot review was handled in
++the original assignments and does not gate this preparation.
++
++The readers also identified older proposal/native-wire wording in current-system
++and boundaries. The user authorized its repair on 2026-10-10. Current wording now
++distinguishes the accepted native profile from its pending implementation/proof
++and the separate unresolved content-admission check. Dated source observations
++retain their provenance. Existing shared working-tree changes and sibling projects
++were preserved.
++
++Scoped record checks passed: four tickets and 29 question entries with no
++diagnostics, 55 resolving local links/anchors across the three changed work/evidence
++documents, balanced straw-dog wrappers and scoped whitespace validation. The
++question validator's lexical-similarity suggestions do not collapse the separately
++scoped native-session, content-consolidation and gateway questions. Published
++fixture/progress responses were read back against their prepared bodies. These
++checks establish record coherence, not accepted profile amendment, application
++conformance or native runtime proof.
++
++### Authorized drift repair — 2026-10-10
++
++Scope: the maintained native-state wording in boundaries/current-system, its live
++question references and the superseded body of Cabinet's original public-provider
++assignment. The user authorized these repairs with "чини дрифт". Boundary summaries
++now distinguish accepted public/native definitions from unresolved protected
++schedule, reminder synchronization and content-admission integration. The acquisition
++heading names its accepted status; all four live inbound references were updated.
++Historical session/done records and dated source observations were preserved.
++
++[Cabinet issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5) now cites
++the accepted `4aec5f8` authority, verified `868a4ed` provider and valid-only
++omission/error-log behavior. Its obsolete all-or-error requirement and superseded
++provider deviation are removed from the current brief. The published body was read
++back exactly; the recipient label and accepted closed state are preserved. Remaining
++fixture coordination stays in the original issue, with actual native proof in issue 6.
++
++This is factual reconciliation under A1 and the issue body's current-assignment
++requirement. No shared promise changed in that repair. The user's subsequent
++acceptance of `homeHiddenTiles` lands separately in the native profile above.
++The maintenance clock
++reports no due local mechanisms, and declaration/rule-injection checks have no
++diagnostics. Built-in mechanisms are outside this recipient's marking authority.
++
++### Hidden-home-tile amendment verified — 2026-10-10
++
++Both independent recipient readers re-read the changed profile/brief and found the
++earlier counterexample resolved. Cabinet owns normalized provider parity;
++Daychi requires the field/type/keys and proves the same account-read values.
++Empty/populated/source-normalization cases match the exact captured Cabinet
++definition. No additional shared wire, operation or UI choice was found; unaffected
++earlier obligation/dependency coverage remains valid.
++
++The required harness comparison passed against announced `8a512d3`, resolved to
++`8a512d39f47ec09c1e76750ce82de8aad0c35cfc`, with no differences or refusals.
++Rule injection and mechanism validation passed. Ticket validation covered four
++records and question validation 29 entries, with no diagnostics. Nine scoped
++documents have 147 resolving local links/anchors; both JSON examples parse,
++the account example matches all 15 declared fields and the six tile keys match
++Cabinet source. Scoped whitespace checks passed. Straw-dog candidates describe
++accepted lifecycle conditions, the phone exclusion and unissued publication/proof
++state; none makes the accepted field provisional. No application suite exists
++in Workshop, and provider/client implementation or native runtime proof is not
++claimed by these document checks.
++
++The recipient pair is ready for an accessible immutable authority and direct
++original-issue links. No auth assignment has been issued; the same existing
++delivery criteria retain publication, implementation and joint native proof.
++
++## Out of scope
++
++- Content-admission replacement and backend retirement: the
++  [content-admission agreement](../boundaries.md#accepted-content-admission) and
++  [consolidation deferral](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)
++  retain their existing scope and bindings.
++- Reminder synchronization and protected schedule cutover remain separate rows
++  in the [migration delta](../migration-changes.md#changes-derived-from-accepted-contracts).
++- Gateway implementation remains [deferred](../boundaries.md#accepted-gateway-deferral).
++- New background polling and native server push remain outside the
++  [first-stage scope](../stage-1.md#scope-limits).
++
++## Parent scope addressed
++
++The credential migration foundation for later authenticated schedule and account/reminder
++work. The approved eventual result includes native sign-in, restoration, account read,
++agreed expiry/renewal, refusal versus temporary failure and recovery, and local sign-out;
++actual native proof and Cabinet web/Daychi ordinary-content regressions remain required.
++It does not complete the broader migration or the public schedule connection.
+--- a/docs/questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md
++++ b/docs/questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md
+@@ -0,0 +1,161 @@
++# q-0002.0008.0001.0002 How will native Daychi maintain a Cabinet account session without replacing its content access?
++
++- **part of** q-0002.0008.0001
++- **state** open
++- **owner** [01-0008](../tickets/01-0008-native-cabinet-account-session.md)
++- **lean** Complete native protocol remains accepted. The user accepted required homeHiddenTiles parity on 2026-10-10; the field/example, N01 fixtures and both recipient briefs are reconciled. Both affected independent recipient readings pass. Required harness, rule and mechanism checks, four tickets, 29 questions, 147 links and JSON/source checks pass. No auth issues are issued; accessible immutable authority, provider/client implementation and joint native proof remain pending.
++- **struck** 2, last 2026-10-09T12:08Z
++
++The user approved the one-outcome breakdown and minting on 2026-10-06. The
++[native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md)
++ticket owns this narrow delivery outcome and its decision-bearing phase.
++The [approved breakdown and impact](q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#approved-breakdown)
++hold its scoped evidence and rationale.
++
++Native account access must preserve Daychi's existing content credentials and
++ordinary schedule/reminder path. Shared protocol and lifecycle choices remain
++in the existing [authentication-standard question](q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md);
++this ticket covers their native-session application, not the separate admission
++check or broader content migration. Its native contract is accepted;
++recipient implementation and native acceptance retain the ticket's activity-specific dependencies.
++
++## Technical preparation — 2026-10-08
++
++The user authorized preparation of the shared protocol. The
++[native-session proposal](../contracts/native-account-session.md) and its paired
++draft assignments in the owning ticket specify acquisition, callback binding,
++account read, renewal/revocation, persistence and failure recovery with common
++cases. Refreshed source evidence lives in
++[current-system](../current-system.md#native-account-session-source--2026-10-08).
++The proposal preserves accepted ownership, sign-out scope and independent content
++access. Source resemblance and drafting alone did not accept the profile; the
++user's subsequent lifecycle decision below accepts that part. No implementation
++issue is published.
++
++## Native lifetime and renewal accepted — 2026-10-08
++
++The user replied "сохраняем" to retaining Cabinet's native lifetime/renewal policy
++with predecessor validity for interrupted-renewal recovery. The decision lives in
++[accepted credential lifetime and renewal](../contracts/native-account-session.md#accepted-credential-lifetime-and-renewal).
++Remaining wire, callback, revocation mechanics and failure choices are proposed;
++the native-session question stays open and publication/implementation is not claimed.
++
++## Acquisition reaffirmation and local sign-out accepted — 2026-10-08
++
++The user reaffirmed the browser/code-and-PKCE method and corrected the assistant's
++repeated method-approval request. Its operative home is
++[accepted native credential acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition).
++This is an existing agreement held fixed, not another approval checkpoint.
++
++The user replied "принимаем" to immediate local sign-out without waiting for
++remote revocation, no later credential retry queue and explicit incomplete exit
++when local deletion fails. Its home is
++[accepted local sign-out and failure policy](../contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy).
++Exact callback/wire and server revocation mechanics remain proposed.
++
++## Registered callback accepted — 2026-10-08
++
++The user replied "пойдет" to the dedicated callback
++`su.xuanxue.daychi:/oauth/cabinet`, preserving existing `quietpractice` invitations.
++The choice and scheme-collision tradeoff live in
++[accepted registered callback](../contracts/native-account-session.md#accepted-registered-callback).
++Exact query/wire and server revocation mechanics remain proposed; callback runtime
++configuration and integration proof are not established by this decision.
++No implementation assignment or native acceptance is claimed.
++
++## Account-block recovery accepted — 2026-10-08
++
++The user replied "сохраняем" to retaining the credential after Cabinet reports
++an account block, while disabling account use. A successful authoritative check
++after unblock restores access only if the credential remains valid. Its durable
++home is [account-block recovery](../contracts/native-account-session.md#accepted-account-block-recovery).
++Exact callback/wire and server revocation mechanics remain proposed.
++
++## Interrupted exchange recovery accepted — 2026-10-09
++
++The user replied "согласен" to a fresh browser attempt after dispatching a code
++exchange without successfully obtaining and durably installing the new credential.
++Any prior usable session is preserved; a durably installed new credential restores
++normally. The decision lives in
++[interrupted code-exchange recovery](../contracts/native-account-session.md#accepted-interrupted-code-exchange-recovery).
++Exact exchange wire/timing and server revocation mechanics remain proposed.
++
++## Partial profile acceptance and consumer check — 2026-10-09
++
++The user accepted items 3, 5 and 6: independent interface sessions, grant-wide
++revocation including concurrent renewal, invalid/blocked/temporary distinctions,
++and joint native proof on one platform plus configuration/client checks on both.
++Their durable homes are
++[session isolation](../contracts/native-account-session.md#accepted-session-isolation-and-revocation-guarantees),
++[failure categories](../contracts/native-account-session.md#accepted-failure-categories)
++and [verification scope](../contracts/native-account-session.md#accepted-joint-verification-scope).
++This does not accept the whole profile or its exact wire definitions.
++
++The user challenged the extra browser confirmation, asked what the current Daychi
++consumers actually need, and challenged account switching as an existing story.
++[Current consumer evidence](../current-system.md#native-consumer-needs--2026-10-09)
++records the bearer used by wiki/Zoom readers, absence of a Cabinet account-switching
++flow in the inspected app, and the accepted target bearer transport to both
++backends. The native slice preserves current content access but does not deliver
++the separate Cabinet admission bridge. At that point browser interaction and
++profile needs remained under alignment; their later decisions are recorded below.
++Replacement scope remains under alignment; previous-grant replacement cleanup
++is no longer prescribed by the draft. Accepted interrupted-acquisition recovery
++remains fixed.
++
++## Full web self-profile required — 2026-10-09
++
++The user rejected omitting email/roles because existing native readers did not
++use them and required everything Cabinet web receives. The decision lives in
++[accepted web self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity).
++[Fresh Cabinet evidence](../current-system.md#cabinet-web-self-profile--2026-10-09)
++identifies `MeDto` at `1ad7fb7e93a1440fa59330481eba4f2f0c0eb025`; the native account
++draft now carries that full shape with its effective roles, optional email and
++profile/login-key flags. Current web `MeDto` has no phone field. This profile
++instruction alone did not settle phone or browser interaction; the subsequent
++decision below does. Complete wire acceptance remains separate.
++
++## Phone excluded and automatic continuation accepted — 2026-10-09
++
++The user said "телефон не надо" and instructed removal of handoff friction while
++documenting the client-impersonation hole. Native self-profile parity adds no
++phone. Cabinet reuses an active browser session and returns to Daychi automatically;
++necessary existing sign-in also continues without an extra Cabinet confirmation.
++The decision and explicitly accepted risk live in
++[automatic browser continuation](../contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
++and [native client impersonation](../contracts/native-account-session.md#accepted-risk--native-client-impersonation).
++The proposal and both draft assignments now implement those meanings; N01 covers
++both browser-session states. Callback/issuer/state/PKCE protections remain binding.
++No full wire acceptance, published implementation issue or native proof is claimed.
++
++The user subsequently challenged the claimed protection of a Continue button:
++an impersonating app could lead the user to that button too. The contract's risk
++description now distinguishes visible interaction from native app authentication.
++No button establishes the caller's identity; the accepted automatic continuation
++decision remains fixed. The proposed attack requires a malicious installed app
++able to receive the registered callback and redeem its own PKCE transaction.
++This is a design limitation, not evidence of an exploited deployed Cabinet flow.
++
++## Complete technical protocol accepted — 2026-10-09
++
++The user replied "принимаем" to the remaining formats and five operations,
++including 60 seconds for the code after issuance and 15 minutes for the native
++attempt. The [native account-session contract](../contracts/native-account-session.md)
++is now accepted in full, with the earlier policies, full web self-profile without
++phone, automatic continuation and accepted impersonation risk held fixed.
++Contract/brief proposal wrappers were removed and the owning ticket now records
++recipient implementation and joint native proof as its delivery criteria.
++Implementation publication and actual native proof remain pending; acceptance
++does not establish either. The user's request to explain non-browser acquisition
++is informational and does not reopen the accepted browser method.
++
++## Current web hidden-home-tile parity accepted — 2026-10-10
++
++Fresh Cabinet source and both independent recipient readings found current web
++`homeHiddenTiles` absent from the fixed native definition/example. The user
++accepted adding it with "думаю надо добавлять" after its meaning was explained.
++The [accepted self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity)
++owns the required normalized field and N01 cases. Both recipient briefs now refer
++to that same amended authority. The addition conveys a Cabinet preference without
++adding Daychi tile UI or preference mutation/synchronization. Publication,
++implementation and joint native proof remain the existing delivery remainder.
+--- a/docs/boundaries.md
++++ b/docs/boundaries.md
+@@ -28,13 +28,15 @@
+ | Boundary | Provider | Consumer | Responsibility and unresolved contract |
+ |---|---|---|---|
+ | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
+-| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. Apply accepted schedule access and count/date-window retrieval modes. Resolve the executable schemas, stable identifiers, credential lifecycle and synchronization details. |
+-| Cabinet admission check for Daychi content | Cabinet backend | Daychi backend | Apply the admission and credential-transport contract below. Check schema, renewal, and verification require agreement. |
++| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Protected schedule and account/reminder synchronization details remain unresolved. |
++| Cabinet admission check for Daychi content | Cabinet backend | Daychi backend | Apply the admission and credential-transport contract below. The server-to-server check schema, caller trust and integration verification require agreement. Native account renewal is defined in the separate accepted profile. |
+ | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
+ 
+ The admission contract below owns the third row's failure behavior, removal
+-condition, and consolidation-ticket binding. Credential format and the executable
+-check contract remain open.
++condition, and consolidation-ticket binding. The
++[native account-session profile](contracts/native-account-session.md) defines
++native acquisition, bearer lifecycle and account access. The executable content
++admission-check contract remains open; native account access does not complete it.
+ 
+ The first two rows share one provider. Identify the promises common to both
+ consumers and the requirements specific to Cabinet web or Daychi clients; do not
+@@ -310,12 +312,16 @@
+ admission check. Cabinet owns credential issuance and authoritative validation;
+ Daychi does not establish a separate account or session authority.
+ 
+-Credential format, renewal, the admission-check request/response, and verification remain open in the
++The [native account-session profile](contracts/native-account-session.md) defines
++the accepted native credential, exact renewal wire and common conformance cases.
++Publication, implementation and native proof remain outstanding. The separate
++content-admission check's request/response, caller trust and integration verification
++remain open in the
+ [credential question](questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md).
+ The user requested a separate
+ [standardization question](questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md)
+-on 2026-10-04; the provisional acquisition decision below does not select a token format
+-or settle the remaining lifecycle and admission protocol.
++on 2026-10-04; the accepted native profile does not establish full OIDC adoption
++or settle the separate admission protocol.
+ The current Cabinet cookie and Daychi bearer implementations are source evidence,
+ not deployed support for this target cross-project contract.
+ 
+@@ -325,7 +331,17 @@
+ current client installation. Other Cabinet and Daychi clients remain signed in;
+ ordinary sign-out does not terminate every session of the account. The accepted
+ discard of that installation's unsynced reminder and lead-time edits still
+-applies; Cabinet's already-accepted account state remains.
++applies; Cabinet's already-accepted account state remains. The user accepted native
++local exit and network/storage failure behavior on 2026-10-08; its authoritative
++home is [local sign-out policy](contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy).
++
++### Accepted native credential lifetime and renewal
++
++Native account credential lifetime and renewal were accepted by the
++user on 2026-10-08. Their authoritative definition is
++[accepted credential lifetime and renewal](contracts/native-account-session.md#accepted-credential-lifetime-and-renewal);
++the full native wire profile was accepted by the user on 2026-10-09.
++Implementation and native proof remain pending.
+ 
+ ### Accepted gateway deferral
+ 
+@@ -334,22 +350,18 @@
+ accepted direct connections cannot satisfy. Daychi clients reach Cabinet for
+ schedule and account/reminder state, and Daychi's retained backend for content.
+ Cabinet retains account, issuance and admission authority. The native sign-in
+-handoff below remains provisional; gateway deferral does not finalize the
+-authentication standard or authorize gateway implementation.
+-
+-### Provisional native credential acquisition
++method below was reaffirmed for native-session delivery on 2026-10-08. Gateway
++deferral is separate from the accepted native wire profile and does not authorize
++gateway implementation.
++
++### Accepted native credential acquisition
+ 
+ Decision: the user, 2026-10-04, accepted the shared Cabinet sign-in handoff for
+ the initial migration, as a straw dog pending the
+ [gateway question](questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md).
+-The provisional text is bound to the gateway question whose answer will rewrite
+-it. A delivery ticket may own work answering that question; the binding stays
+-with the question.
+-
+-<straw-dog question="q-0002.0010">
+-Native Daychi uses Cabinet-owned sign-in through an external browser, with OAuth
+-2.0 authorization code and PKCE to obtain a Cabinet-issued bearer credential.
+-Cabinet owns sign-in and issuance; Daychi consumes the secure handoff. Cabinet web
+-access is preserved. This contract does not select the bearer token format,
+-credential lifecycle, admission-check schema or product presentation.
+-</straw-dog>
++That provisional disposition records the initial agreement. On 2026-10-08 the
++user reaffirmed the existing browser/code-and-PKCE method and corrected a repeated
++approval request. Its operative home is
++[accepted native credential acquisition](contracts/native-account-session.md#accepted-native-credential-acquisition).
++The method and full native wire profile are accepted; the separate admission-check
++schema remains unresolved. Gateway deferral remains unchanged.
+--- a/docs/migration-changes.md
++++ b/docs/migration-changes.md
+@@ -22,8 +22,8 @@
+ | Accepted contract | Cabinet contribution | Daychi contribution | Decisions still needed |
+ |---|---|---|---|
+ | [Schedule access](boundaries.md#accepted-schedule-access), [retrieval modes](boundaries.md#accepted-schedule-retrieval-modes) and [source cutover](boundaries.md#accepted-schedule-source-cutover) | Valid public rows, omission logs and protected-route regressions are verified at `868a4ed` on staging; amended production deployment is not established. Broader authenticated retrieval remains migration work. | Implement and verify the native public pilot against its fixed contract; remove the school-HTML source at the later verified Cabinet cutover. | Public pilot schema/identities are fixed; valid best-effort rows carry no completeness metadata. Provider acknowledgement awaits record publication; native proof, broader authenticated retrieval and cutover compatibility remain separate. |
+-| [Cabinet credentials](boundaries.md#accepted-content-admission) and [provisional acquisition](boundaries.md#provisional-native-credential-acquisition) | Support native bearer issuance and the provisional Cabinet-owned browser/code-and-PKCE handoff while retaining web cookies and authoritative validation. | Consume the provisional handoff and present Cabinet credentials to the target APIs. | Final acquisition contract, token format and remaining lifecycle; gateway work is deferred and Cabinet web access is preserved. |
+-| [Sign-out scope](boundaries.md#accepted-sign-out-scope) | Preserve other clients' signed-in state when one client signs out. | End authenticated use in the current installation and apply the accepted unsynced-edit discard. | Executable logout contract and verification; account-wide sign-out is not required by ordinary sign-out. |
++| [Native account-session profile](contracts/native-account-session.md) | Implement the accepted native bearer issuance, browser/code-and-PKCE handoff, full web self-profile and grant lifecycle while retaining web cookies. | Implement the accepted handoff, restoration, renewal and account read. Existing content access remains in this slice. | The complete native profile was accepted on 2026-10-09; publication, implementation and actual native proof remain outstanding. Separate content-admission integration and gateway work retain their existing scope. |
++| [Sign-out scope](boundaries.md#accepted-sign-out-scope) | Revoke the calling native grant and all its credentials while preserving other grants and web sessions. | End authenticated use in the current installation through the accepted local-exit and best-effort revocation policy; apply the accepted unsynced-edit discard. | Native logout wire and behavior are accepted in the account-session profile; implementation and verification remain outstanding. Account-wide sign-out is not required by ordinary sign-out. |
+ | [Content admission](boundaries.md#accepted-content-admission) | Provide a narrow authoritative admission check. | Replace independent content admission with the accepted call to Cabinet and distinguish refusal from temporary failure. | Executable check schema, caller trust, verification and any cache bound; removal follows the target contract's consolidation binding. |
+ | [Reminder selections](boundaries.md#accepted-reminder-selections) | Extend the existing class-ID selection with one-off lesson selections that follow the same occurrence through rescheduling; expose shared account selections to both clients. | Pull account data on sign-in; read and change the shared selection, preserving one-off selection identity when a lesson moves. | Identifier encoding, executable synchronization contract and verification. |
+ | [Offline reminder editing](boundaries.md#accepted-offline-reminder-editing) | Reconcile choices independently; latest edit wins for the same choice, including removals; retain Cabinet's stored value on equal update times. | Allow offline selection changes and preserve pending edits through refreshes, failures and retries; discard unsynced selection and lead-time edits on explicit sign-out and prevent cross-account replay. | Clock handling, pending-edit tracking, removal retention and verification. |
+@@ -43,11 +43,12 @@
+   projection, identities and refresh/error semantics. The broader authenticated
+   schedule and account/reminder migration still needs executable compatibility
+   definitions and verification for the accepted school-HTML source removal at cutover.
+-- Finalization of the [provisional credential-acquisition
+-  contract](boundaries.md#provisional-native-credential-acquisition), token format
+-  and lifecycle, preservation of Cabinet web access, and the admission-check
+-  request, response and failure contract. Gateway work is deferred; ordinary
+-  sign-out affects only the current installation.
++- The [native account-session profile](contracts/native-account-session.md) settles
++  acquisition, token transport, lifecycle and native sign-out. Its publication,
++  implementation and actual native proof remain outstanding. The separate
++  content-admission check still needs its request, response, caller trust and
++  failure contract. Gateway work is deferred; ordinary sign-out affects only
++  the current installation.
+ - Ongoing reconciliation of new local edits and account changes. Initial migration
+   scope is held by the [migration question](questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md#initial-usage-and-ongoing-synchronization--2026-10-04).
+ - Verification of accepted failed-refresh and independent-delivery behavior,
+--- a/docs/questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md
++++ b/docs/questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md
+@@ -2,7 +2,7 @@
+ 
+ - **part of** q-0002.0008
+ - **state** open
+-- **lean** Accepted Cabinet authority, web cookies and native bearer transport to both backends. Browser/code-and-PKCE acquisition is a gateway-bound straw dog. Final acquisition, lifecycle and narrow check schema remain open in the standardization question.
++- **lean** Accepted Cabinet authority, web cookies and native bearer transport. The complete native account-session profile is accepted on 2026-10-09, including acquisition, lifetime/renewal, exit/recovery, full web self-profile, callback and exact wire. Native implementation/publication/proof and the separate Cabinet-to-Daychi content-admission check remain outstanding.
+ - **struck** 0, last 2026-10-03T23:03Z
+ 
+ The user accepted [content-admission placement](../boundaries.md#accepted-content-admission)
+@@ -21,11 +21,14 @@
+ [standardization question](q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md).
+ 
+ On 2026-10-04 the user accepted the
+-[Cabinet-owned browser/code-and-PKCE handoff](../boundaries.md#provisional-native-credential-acquisition)
++[Cabinet-owned browser/code-and-PKCE handoff](../boundaries.md#accepted-native-credential-acquisition)
+ as a straw dog pending the
+ [gateway question](q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md).
+-Acquisition is provisionally selected; finalization, token format and lifecycle
+-remain open in the standardization question.
++At that decision acquisition was provisionally selected. The method was reaffirmed
++on 2026-10-08. The complete native wire and server revocation mechanics were accepted
++on 2026-10-09; the separate content-admission check remains open. Accepted native
++acquisition, lifecycle and local sign-out/failure policy live in the
++[native-session contract](../contracts/native-account-session.md).
+ 
+ Current source evidence: Cabinet accepts a session cookie through
+ [AuthGuard](https://github.com/gregoryKot/xuanxue-cabinet/blob/27f3e7bf50ac0a1e1f981519b7009fc2a19e7042/api/src/auth/auth.guard.ts); Daychi clients use bearer
+--- a/docs/questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md
++++ b/docs/questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md
+@@ -2,7 +2,7 @@
+ 
+ - **part of** q-0002.0008.0001
+ - **state** open
+-- **lean** Accepted on 2026-10-05: ordinary sign-out affects only the current installation; other Cabinet and Daychi clients remain signed in, local unsynced edits are discarded. Gateway deferred. Cabinet authority and cookie/bearer transport fixed; native browser/code-and-PKCE acquisition provisional. Final acquisition, format, expiry, renewal, revocation, admission schema, caller trust and interoperability remain open.
++- **lean** Cabinet authority, cookie/bearer transport and the complete native browser/code-and-PKCE account-session profile are accepted on 2026-10-09. This is not full OIDC adoption: application renewal and long bearer lifetime are explicit accepted choices. Native publication/implementation/proof, separate admission schema/caller trust and wider interoperability remain open; gateway is deferred.
+ - **struck** 1, last 2026-10-04T18:32Z
+ 
+ Opened at the user's request on 2026-10-04. Select a standard authentication
+@@ -63,15 +63,16 @@
+ authorization-code-and-PKCE handoff, explicitly as a straw dog pending the
+ [gateway question](q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md)
+ or its eventual owning ticket. The operative contract and question-bound straw
+-dog live in [native credential acquisition](../boundaries.md#provisional-native-credential-acquisition).
++dog live in [native credential acquisition](../boundaries.md#accepted-native-credential-acquisition).
+ This is an accepted provisional default, not a final authentication standard.
+ No sibling implementation assignment was issued by this agreement.
+ 
+ The gateway is [deferred by the user, 2026-10-05](../boundaries.md#accepted-gateway-deferral).
+ Standardization proceeds against the accepted direct connections, without waiting
+-for a gateway initiative. The native acquisition contract remains provisional;
+-token format, lifecycle, narrow admission schema, caller trust and
+-interoperability remain unresolved.
++for a gateway initiative. Native acquisition was provisional at that decision;
++the method was reaffirmed on 2026-10-08. Exact native wire, token representation,
++narrow admission schema, caller trust and interoperability remain unresolved.
++The subsequent native lifecycle and local sign-out decisions are recorded below.
+ 
+ ## Sign-out scope accepted — 2026-10-05
+ 
+@@ -82,4 +83,40 @@
+ lead-time edits remains in force, while Cabinet's already-accepted state remains.
+ The decision lives in [sign-out scope](../boundaries.md#accepted-sign-out-scope).
+ Expiry, renewal, other revocation behavior and the executable contracts remain
+-open in this question.
++open in this question at that decision. Native lifetime/renewal was subsequently
++accepted below; remaining revocation mechanics and executable contracts remain open.
++
++## Native lifetime and renewal accepted — 2026-10-08
++
++The user accepted retaining Cabinet's existing lifetime/renewal policy for native
++credentials, including predecessor validity after renewal for interruption recovery.
++The decision lives in
++[accepted credential lifetime and renewal](../contracts/native-account-session.md#accepted-credential-lifetime-and-renewal).
++The complete native wire profile, exact acquisition binding, server revocation
++mechanics, admission-check schema and interoperability remain open. No native
++implementation or publication is established by this acceptance.
++
++## Acquisition reaffirmation and local sign-out accepted — 2026-10-08
++
++The user reaffirmed the existing browser/code-and-PKCE method and corrected a
++repeated method-approval request. The user also accepted immediate local sign-out
++without waiting for remote revocation, no retained retry credential and explicit
++incomplete exit on local deletion failure. Their authoritative homes are
++[native acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition)
++and [local sign-out policy](../contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy).
++The user subsequently accepted
++[account-block recovery](../contracts/native-account-session.md#accepted-account-block-recovery):
++retain the credential without account use while blocked, then recover after a
++successful authoritative check if the credential remains valid. Exact wire and
++server revocation mechanics remain proposed.
++
++The user subsequently accepted the
++[registered native callback](../contracts/native-account-session.md#accepted-registered-callback)
++`su.xuanxue.daychi:/oauth/cabinet` with existing invitation compatibility and
++the explicit scheme-collision tradeoff. Exact query/wire definitions remain proposed.
++
++On 2026-10-09 the user accepted
++[interrupted code-exchange recovery](../contracts/native-account-session.md#accepted-interrupted-code-exchange-recovery):
++a fresh browser attempt after dispatch without durable installation, preserving
++any prior usable session. This does not settle remaining wire/timing definitions
++or the broader admission-check protocol.
+--- a/docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md
++++ b/docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md
+@@ -3,7 +3,7 @@
+ - **part of** q-0002
+ - **state** closed:deferred
+ - **answer** until project contributions demonstrate a concrete client or deployment requirement that accepted direct connections cannot satisfy, meanwhile use the accepted direct connections and retain provisional native acquisition; [gateway deferral](../boundaries.md#accepted-gateway-deferral) — the user, 2026-10-05
+-- **lean** Deferred by the user, 2026-10-05, until project contributions demonstrate a client or deployment requirement that accepted direct connections cannot satisfy. Cabinet authority remains fixed; native acquisition stays provisional and its gateway-bound straw dog is not due. Authentication standardization can proceed without a gateway initiative.
++- **lean** Gateway remains deferred until project contributions demonstrate a concrete requirement that accepted direct connections cannot satisfy. Browser/code-and-PKCE acquisition and the complete native account-session profile are accepted; implementation/native proof and the separate content-admission check remain pending. Cabinet authority stays fixed; no gateway initiative is required for credential work.
+ - **struck** 0, last 2026-10-04T18:56Z
+ 
+ Opened at the user's request on 2026-10-04. The user accepted native Daychi's
+@@ -20,12 +20,12 @@
+ does not authorize a separate identity owner, backend consolidation or a gateway
+ implementation.
+ 
+-The [provisional native acquisition contract](../boundaries.md#provisional-native-credential-acquisition)
+-is the current default. After the harness update to v25, the straw dog's
+-`question` attribute names this question. If the question becomes work, assign it
+-to the owning ticket; the binding continues to name the question. Its answer
+-must record the gateway disposition and resulting acquisition contract, whether
+-that retains the current handoff or replaces it.
++The [provisional native acquisition contract](../boundaries.md#accepted-native-credential-acquisition)
++was the default at opening, with a straw dog bound to this question. On 2026-10-08
++the user reaffirmed the existing acquisition method for native-session delivery;
++its operative home is now
++[accepted native acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition).
++This does not change the gateway deferral or authorize a gateway implementation.
+ 
+ Provider: Cabinet for sign-in, issuance and authoritative admission. Consumers:
+ Daychi native clients and its retained content backend; Cabinet web compatibility
+@@ -53,5 +53,8 @@
+ The decision is recorded in
+ [accepted gateway deferral](../boundaries.md#accepted-gateway-deferral).
+ Credential standardization can proceed against the accepted direct connections;
+-it does not need to wait for a gateway initiative. The native handoff remains a
+-straw dog bound to this deferred question, which does not make it due.
++it does not need to wait for a gateway initiative. The handoff was still a gateway-bound
++straw dog at that decision; its subsequent native-delivery reaffirmation above
++holds the method fixed. The complete native wire profile was accepted on 2026-10-09;
++its [native-session contract](../contracts/native-account-session.md) owns the
++accepted definition, while implementation and native proof remain pending.
+--- a/docs/questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md
++++ b/docs/questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md
+@@ -3,8 +3,8 @@
+ - **part of** q-0002.0002
+ - **state** open
+ - **owner** [01-0007](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+-- **lean** One connection outcome and paired assignments use published contract e209d27. Cabinet installation is accepted and its provider is deployed on staging and production. Required-data provider correction, Daychi installation/native proof, coordinator grading/publication and reconciled-record publication remain incomplete; queue order is preserved.
+-- **struck** 0, last 2026-10-05T09:40Z
++- **lean** Public pilot contract 4aec5f8 and paired assignment updates are published. Native Cabinet account-session outcome 01-0008 is in implementation preparation: its complete shared profile is accepted, including homeHiddenTiles parity, and the two recipient readings pass. Accessible immutable authority, paired issue publication, implementation and joint native proof remain pending; public-pilot proof and existing queue/checkpoints remain separate.
++- **struck** 1, last 2026-10-06T14:45Z
+ 
+ ## Resumed selection — 2026-10-05
+ 
+@@ -57,6 +57,122 @@
+ remain outstanding. Keep existing queue order and original issues as the reporting
+ and acceptance channel; later application pairs remain outside authorization.
+ 
++## Prepared next-work proposal — 2026-10-06
++
++The user approved this one-outcome breakdown and minting on 2026-10-06. The
++[native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md)
++ticket is registered after the public pilot, preserving the prior queue order.
++No recipient assignment is published. The scoped source check and impact below
++are the basis of the approved breakdown.
++
++### Scoped source check
++
++Read-only local inspection used Cabinet
++`fc2dee20d64d91122a58e57709c378c5fc91bae7` and Daychi
++`5f9ba442e04cd5dfa70527b9e670b491c491888c` on 2026-10-06. The inspected auth/session
++and native configuration files have no working-tree diff from those revisions.
++This refresh covers the facts below, not every application seam or deployment.
++
++| Boundary | Promise and current evidence | Remaining action |
++|---|---|---|
++| Cabinet account API → native Daychi | [Accepted authority/transport](../boundaries.md#accepted-content-admission): Cabinet owns issuance and accounts; native uses its bearer credential. Cabinet's [guard](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/api/src/auth/auth.guard.ts) reads a session cookie, checks the current user and blocked status, and renews through Set-Cookie. Its [auth route definitions](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/shared/src/auth-routes.ts) expose sign-in/account operations, without a native authorization/code exchange. | Add the native acquisition and bearer lifecycle against one agreed contract; preserve existing web behavior. |
++| Cabinet browser sign-in → native return | [Provisional handoff](../boundaries.md#accepted-native-credential-acquisition) uses Cabinet-owned external-browser sign-in with authorization code and PKCE. Daychi's [app configuration](https://github.com/sleontenko/daychi/blob/5f9ba442e04cd5dfa70527b9e670b491c491888c/apps/practice-app/app.json) declares quietpractice; its [native intent handler](https://github.com/sleontenko/daychi/blob/5f9ba442e04cd5dfa70527b9e670b491c491888c/apps/practice-app/src/app/+native-intent.tsx) handles invitation links. An existing scheme is not proof of a Cabinet callback contract. | Agree the exact redirect/client registration and handoff behavior, then implement both ends and demonstrate the return on a native runtime. |
++| Daychi content session versus Cabinet account session | Daychi's [access session](https://github.com/sleontenko/daychi/blob/5f9ba442e04cd5dfa70527b9e670b491c491888c/apps/practice-app/src/features/access/session.ts) stores a Daychi credential in SecureStore, validates its opaque format, and calls Daychi access endpoints. Its current logout waits for that backend before deleting the local credential. Cabinet's [session token](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/api/src/auth/session-token.ts) is a signed JWT; its current cookie policy is 90-day expiry with [renewal after seven days](https://github.com/gregoryKot/xuanxue-cabinet/blob/fc2dee20d64d91122a58e57709c378c5fc91bae7/api/src/auth/session-renewal.ts). These existing implementations do not settle the native credential contract. | Preserve the existing content-access path while adding Cabinet account access; do not pass a Cabinet token through the existing Daychi token decoder or silently adopt the cookie lifecycle. |
++
++No new auth runtime, sign-in, credential issuance or deployment was exercised.
++The session's complete issue review found no assignment covering this outcome:
++issues 1/2 concern installation, 5/6 concern the public pilot, and 3/4 are withdrawn.
++The remaining shared choices already live in
++[q-0002.0008.0001.0001 — Which authentication standard should Cabinet and Daychi adopt?](q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md).
++
++### Approved breakdown
++
++1. **[native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md) — Ready (alignment); HITL.** One coordinating outcome:
++   native Daychi signs in to Cabinet, securely retains/restores its Cabinet-issued
++   credential, reads its current Cabinet account, and signs out of that installation
++   without ending other clients' sessions. Cabinet web access remains supported.
++   This advances the credential row of the accepted migration delta and supplies
++   the account-access foundation for later authenticated schedule/reminder work.
++   It does not claim that the full migration is complete.
++
++   **Responsible contributors:** Workshop owns the shared agreement and joint
++   acceptance; Cabinet's agent/operator owns issuance, bearer validation and web
++   regression proof; Daychi's agent/operator owns the native client and its proof.
++   Cabinet remains the account/session authority and data owner.
++
++   **Dependencies by activity:** local contract preparation has no dependency on
++   public-provider correction, native public-pilot proof or Daychi installation.
++   Breakdown approval and minting are complete. Publishing implementation assignments
++   requires settled shared definitions, common cases and an accessible immutable
++   authority. Each recipient's implementation requires its accepted collaboration
++   installation and its operator's authority. Joint native proof additionally
++   requires the reachable auth provider and a controlled test account. Cabinet's
++   installation is already accepted; Daychi's remains outstanding.
++
++   **Scope:** Cabinet account sign-in, credential restoration/renewal, one existing
++   account read, current-user refusal and temporary-failure recovery, and
++   installation-scoped sign-out. The existing browser/code-and-PKCE handoff remains
++   the provisional baseline. Exact native operations, responses, client/redirect
++   binding, token lifecycle and concurrent credential use remain shared decisions;
++   this proposal selects no token format or expiry policy.
++
++   **Excluded:** Daychi content-admission replacement, content backend retirement,
++   reminder synchronization, protected schedule cutover, gateway implementation,
++   new background polling and native server push. Existing content credentials,
++   ordinary schedule/cache/selections and OS reminders are compatibility obligations.
++
++   **Acceptance:** both projects implement the same pinned native-session contract;
++   a real native runtime completes Cabinet sign-in and account read, restores the
++   session after restart, exercises the agreed expiry/renewal behavior, distinguishes
++   refusal from temporary failure and recovers; sign-out leaves other installations
++   signed in. Cancellation, mismatched/replayed handoffs, unavailable provider and
++   interrupted credential persistence have agreed common outcomes and executed
++   checks. Cabinet web and Daychi's ordinary/content paths have regression evidence.
++   Workshop reviews original-issue reports and reconciles its current records.
++
++### Impact
++
++Load-bearing: this crosses account authority, browser/native transport, credentials
++and their lifecycle. Provider and client must share one contract. The proposed
++single outcome crosses the full path; two recipient issues would be contributions
++to it, not separate horizontal local tickets. It creates a useful account-access
++capability without requiring the whole reminder/content migration.
++
++### Hidden edges
++
++Cookie rolling renewal is not a native renewal response. Cabinet's current logout
++clears a cookie; its stateless token does not establish per-installation server
++revocation. Daychi's existing decoder and storage key belong to a different authority.
++The existing native URL handler handles invitations, so callback integration must
++preserve those links. Refusal, user blocking, renewal races, cancelled browser flows
++and failures during persistence need common outcomes before issue publication.
++The content-admission and gateway straw dogs remain bound to their existing
++questions; this proposal does not resolve or reopen either deferral.
++
++### Leave alone
++
++Existing queue order, readiness/installation assignments, public pilot issues and
++their fixed wire contract; Cabinet web sign-in; Daychi content authority and stored
++credentials; ordinary schedule/cache/reminders; deferred gateway and consolidation.
++
++### Recommendation
++
++**Narrow, then proceed:** prepare one native Cabinet account-session outcome instead
++of one broad authentication/content/reminder migration. The narrowed slice is the
++breakdown above. Its approval adds this outcome to prepared work without releasing
++sibling implementation or finalizing the authentication standard. No further split
++is justified by the inspected path.
++
++### Pending action and resumption
++
++The approved outcome is minted in the ticket linked above. Its next activity is
++alignment of the existing authentication question for this narrow native-session
++scope, followed by complete recipient briefs. No external issue has been created.
++The first unresolved contract decision is the native credential lifecycle: format,
++expiry, renewal, revocation and their observable API behavior. Exact handoff and
++error definitions follow within that same contract. Implementation publication is
++blocked by those definitions, not by the public pilot's required-data correction.
++
+ ## Earlier retirement
+ 
+ The user retired the unpublished pilot issue drafts at session conclusion.
+--- a/docs/architecture.md
++++ b/docs/architecture.md
+@@ -85,4 +85,4 @@
+ - [Tracker access and claims](questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md): operator access, claims, and handling of the legacy horizon record.
+ - [Agent adoption](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md): instructions and demonstrable integration under each operator.
+ - [Operational obligations](questions/q-0002.0006-what-visibility-and-error-monitoring-obligations-should-workshop-enforce.md): distinguish what initial coordination requires from the broader product goals.
+-- [Gateway](boundaries.md#accepted-gateway-deferral): deferred by the user, 2026-10-05, until project contributions demonstrate a requirement that the accepted direct connections cannot satisfy. Native sign-in remains provisional.
++- [Gateway](boundaries.md#accepted-gateway-deferral): deferred by the user, 2026-10-05, until project contributions demonstrate a requirement that the accepted direct connections cannot satisfy. [Native browser/code-and-PKCE acquisition](contracts/native-account-session.md#accepted-native-credential-acquisition) and its complete [native-session profile](contracts/native-account-session.md) are accepted; implementation/native proof and the separate content-admission check remain pending.
+--- a/docs/tickets/README.md
++++ b/docs/tickets/README.md
+@@ -1,6 +1,6 @@
+ # Delivery status
+ 
+-**Last updated:** 2026-10-06
++**Last updated:** 2026-10-10
+ 
+ The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
+ migration changes and Workshop responsibility have separate homes. Confirmed adoption by both project agents
+@@ -31,4 +31,5 @@
+ |---|---|---|---|
+ | [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md) | In progress | HITL | Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement. |
+ | [cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md) | Planned | HITL | A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence. |
++| [native-cabinet-account-session](./01-0008-native-cabinet-account-session.md) | In progress (implementation preparation) | HITL | Native Daychi signs in through Cabinet, securely restores and renews its session, reads the full current self-profile and signs out of that installation, with joint native proof and existing web/content behavior retained. |
+ | [daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md) | Blocked (horizon) | HITL | Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend. |
+--- a/docs/current-system.md
++++ b/docs/current-system.md
+@@ -64,6 +64,150 @@
+ installation evidence, not a merge, application integration or release; the
+ [original acceptance](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501)
+ and completed closure satisfy issue 6's installation dependency.
++
++## Assignment and native-profile recheck — 2026-10-10
++
++Fresh remote heads are Cabinet
++`fee65f3b8004d4ecac6c2d3da668cf966be0d0f5` and Daychi
++`0a3c824c1586eb7b3ca16ca0b3a365539076b025`. Compared with the 2026-10-08 baseline,
++Cabinet's inspected auth guard/controller, browser token/renewal and public lesson
++paths have no changed files. Its account mapper now includes a new required web
++self-profile field. Daychi's comparison contains the published collaboration
++installation and wiki changes, but no changes to the inspected native access,
++intent or app-configuration paths and no published public-pilot client. These
++source comparisons establish neither current deployment nor native runtime behavior.
++
++At that exact Cabinet head, [MeDto](https://github.com/gregoryKot/xuanxue-cabinet/blob/fee65f3b8004d4ecac6c2d3da668cf966be0d0f5/shared/src/me.ts#L95)
++requires `homeHiddenTiles: HomeTileKey[]`.
++[The shared keys and normalization](https://github.com/gregoryKot/xuanxue-cabinet/blob/fee65f3b8004d4ecac6c2d3da668cf966be0d0f5/shared/src/home-tiles.ts)
++define `nextLesson`, `notice`, `exams`, `payment`, `grading`, `events` in that
++canonical order, remove duplicates/unknown stored keys and map absent stored
++data to `[]`. [toMeDto](https://github.com/gregoryKot/xuanxue-cabinet/blob/fee65f3b8004d4ecac6c2d3da668cf966be0d0f5/api/src/auth/user.mapper.ts)
++returns this normalized field. This is a source fact, not a new native UI or
++mutation requirement. The accepted native contract's full-current-web parity
++obligation remains fixed. Both independent recipient readers found the field
++missing from the fixed native definition/example and N01 inputs. The user accepted
++its addition on 2026-10-10; the
++[native contract](contracts/native-account-session.md#accepted-web-self-profile-parity)
++now defines that read-only parity field and its common cases. The
++[native ticket](tickets/01-0008-native-cabinet-account-session.md#recipient-revalidation--2026-10-10)
++owns affected revalidation and publication. This reconciles the accepted definition,
++not provider/client implementation. The 2026-10-09 profile baseline below
++does not establish the current complete field set.
++
++## Native account-session source — 2026-10-08
++
++This scoped read used Cabinet main
++`868a4edb09926a950b78e8daa3ce495c6e8e256e` and Daychi main
++`e1ab559c8d5db3dbd7db95aa7400941381ada12a`. Compared with the native ticket's
++earlier `fc2dee2` / `5f9ba44` evidence, the inspected authentication/access paths
++have no intervening changes. The newer revisions do not establish native support.
++
++Cabinet's
++[guard](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/api/src/auth/auth.guard.ts)
++still accepts a browser cookie, checks the current account and rejects blocked
++accounts. Its browser credential expires 90 days after issuance and is reissued
++when its age is strictly greater than seven days:
++[token](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/api/src/auth/session-token.ts),
++[renewal](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/api/src/auth/session-renewal.ts).
++The inspected auth controller exposes browser login/profile/logout, with logout
++clearing the cookie; it supplies neither native code exchange nor grant revocation.
++The guard's mutation CSRF check also applies to public routes unless explicitly
++skipped. Native form/Bearer operations therefore need deliberate channel handling.
++[Browser return targets](https://github.com/gregoryKot/xuanxue-cabinet/blob/868a4edb09926a950b78e8daa3ce495c6e8e256e/web/src/auth/returnTo.ts)
++are internal paths in tab session storage; native authorization must preserve that
++restriction rather than turn login into an arbitrary redirect service.
++
++Daychi's
++[access session](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/features/access/session.ts)
++stores its own backend's opaque credential in SecureStore, restores it through
++that backend and protects against stale responses. Its current logout waits for
++the backend before clearing storage. Neither operation implements Cabinet native
++account access. The
++[native intent handler](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/app/+native-intent.tsx)
++handles invitation links, and
++[app configuration](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/app.json)
++registers `quietpractice` with existing iOS/Android identity
++`ai.mypraxis.quietpractice`. The package already has browser, linking, crypto and
++secure-storage libraries; no Cabinet-specific callback/store/profile flow was
++found in the inspected paths.
++
++The [native account-session profile](contracts/native-account-session.md) is an
++accepted addition to those boundaries; acceptance does not establish deployed
++capability. This dated source inspection did not itself approve native lifetime
++or renewal policy; the profile owns the user's subsequent accepted decisions.
++No authenticated mutation, token issuance, sibling edit or native runtime check
++was performed by this source inspection.
++
++## Native consumer needs — 2026-10-09
++
++A fresh GitHub read confirmed Daychi main remains
++`e1ab559c8d5db3dbd7db95aa7400941381ada12a`. The local checkout is the older
++`5f9ba442e04cd5dfa70527b9e670b491c491888c`; the inspected access/session and
++access-screen sources agree with the freshly fetched main files. This is source
++evidence, not a new native/runtime verification.
++
++The [session client](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/features/access/session.ts)
++receives its own backend's opaque `token`, stores it in SecureStore and sends
++`Authorization: Bearer ...`. Restoration checks `/api/access/session`;
++[the server](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/practice_api/daychee_app.py)
++returns `{ "active": true }`, not an account profile. Native consumers use that
++credential for `/api/wiki/*` catalog/material reads and `/api/access/zoom`.
++Public schedule reads and ordinary local selection/reminders do not require it.
++
++The [access screen](https://github.com/sleontenko/daychi/blob/e1ab559c8d5db3dbd7db95aa7400941381ada12a/apps/practice-app/src/features/access/access-screen.tsx)
++offers a request/invitation flow and "Выйти на этом телефоне". The inspected
++screen, settings and session paths have no Cabinet account picker, account
++profile or in-place account-switching story. They do not establish a need for
++email, phone, roles or per-material permissions in a Cabinet token/profile.
++Names and Telegram entered in an access request are request data, not claims
++required by these authenticated content readers.
++
++The accepted target differs from this current implementation:
++[content admission](boundaries.md#accepted-content-admission) uses a Cabinet-issued
++bearer presented to Cabinet and Daychi, with authoritative admission checked by
++Cabinet. Its server-to-server check remains unsettled. The accepted native account-session
++profile defines acquisition and lifecycle while preserving the existing content
++credential; its `account:read` scope alone does not complete unified content access.
++
++Browser interaction was checked against
++[RFC 8252 section 8.6](https://www.rfc-editor.org/rfc/rfc8252#section-8.6):
++automatic authorization without interaction is discouraged when native client
++identity cannot be assured, even after previous approval of a client ID. The
++accepted custom scheme and PKCE bind an exchange to its initiator; they do not
++prove that initiator is the genuine Daychi application. Merging authorization
++interaction into fresh browser sign-in was a UX proposal. The user subsequently
++accepted [automatic continuation](contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
++and the [client-impersonation risk](contracts/native-account-session.md#accepted-risk--native-client-impersonation)
++on 2026-10-09, removing the extra Cabinet confirmation. This is a recorded
++decision, not changed provider behavior or a claim of compliance with that RFC
++recommendation.
++
++## Cabinet web self-profile — 2026-10-09
++
++A fresh GitHub branch read found Cabinet main at
++`1ad7fb7e93a1440fa59330481eba4f2f0c0eb025`, newer than the 2026-10-08 native
++source baseline. This check inspected self-profile sources at that exact revision;
++it does not refresh every earlier auth/runtime observation.
++
++The [web AuthProvider](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/web/src/auth/AuthProvider.tsx)
++reads `GET /auth/me` as
++[MeDto](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/shared/src/me.ts).
++Its fields are `id`, `name`, `roles`, `status`, `telegramLinked`, `botChatActive`,
++`hasEmail`, optional `email`, `googleLinked`, optional `pendingEmail`, `noTelegram`,
++`needsProfile`, `studentMode` and `canUseStudentMode`.
++The [mapper](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/api/src/auth/user.mapper.ts)
++omits absent emails and uses effective roles, empty in student mode. The
++[guard](https://github.com/gregoryKot/xuanxue-cabinet/blob/1ad7fb7e93a1440fa59330481eba4f2f0c0eb025/api/src/auth/auth.guard.ts)
++checks the current account and refuses a blocked account before successful profile
++read. Telegram/Google raw identity IDs and a phone field are absent from MeDto.
++
++The user required the full web profile for native Daychi on 2026-10-09. This
++requirement lives in
++[accepted web self-profile parity](contracts/native-account-session.md#accepted-web-self-profile-parity);
++the earlier consumer-needs observation is not a reason to narrow that payload.
++The user subsequently excluded phone on 2026-10-09, matching the checked web shape.
++No profile mutation, sibling edit or new native proof was performed.
+ 
+ ## Cabinet public-schedule environments — checked 2026-10-06
+ 

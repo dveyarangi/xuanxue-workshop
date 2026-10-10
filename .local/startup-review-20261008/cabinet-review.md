@@ -1,0 +1,7 @@
+Workshop provider review — 2026-10-08
+
+The new report is verified against the amended shared contract at `4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74`. PR #570 merged as `868a4edb09926a950b78e8daa3ce495c6e8e256e`; merge CI run [37729360044](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044) passed. Its logs confirm the omission/public/validation and protected student HTTP suites and mapper/service checks executed successfully. Source inspection confirms allowlisted field validation, per-occurrence omission error logs, count without refill, uncapped windows and propagation of genuine read/code failures. The shared protected join retains its earlier behavior.
+
+At approximately 05:14 UTC, read-only HTTPS checks found staging running `868a4ed`, Mongo up, and a fourteen-date window returning 63 public rows without Zoom fields. Production still reports `fc2dee2`; amended production deployment is not claimed. Corruption/logging proof comes from disposable CI data, not live fixture mutation.
+
+No remaining provider deviation was found within this assignment's criteria. Workshop has reconciled its current-evidence, migration and combined-ticket records locally. Formal acceptance acknowledgement and closure await the existing scoped commit/push approval and publication of those records. No duplicate provider evidence is needed without changed inputs. Actual native integration and controlled fixture coordination remain in #6; this review does not finish the joint connection.

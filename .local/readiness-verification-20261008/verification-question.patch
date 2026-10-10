@@ -1,0 +1,55 @@
+--- a/docs/questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md
++++ b/docs/questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md
+@@ -5,30 +5,29 @@
+ - **owner** [01-0005](../tickets/01-0005-workshop-coordination-ready.md)
+ - **struck** 1, last 2026-10-08T07:11Z
+ 
+-## Verification scope — 2026-10-05
++## Current verification scope — 2026-10-08
+ 
+-The [2026-10-06 fresh-entry observation](../mechanisms/review-assignments.evidence.md#fresh-entry-and-real-report-handling--2026-10-06)
+-supersedes the earlier absence of invocation/live-result proof. This session
+-loaded entry instructions, ran recall before review, discovered current work,
+-reviewed Cabinet's complete installation/incomplete provider evidence, accepted
+-and closed installation issue 1, and returned its dependency effect to issue 5.
+-The three L5 structural checks pass. Remaining representative operator grading
+-and readiness-source publication are still coordinator work; they do not hold
+-Cabinet's already-verified installation result open.
++Fresh ordinary Workshop entry and actual addressed discovery are observed in the
++[2026-10-06 report](../mechanisms/review-assignments.evidence.md#fresh-entry-and-real-report-handling--2026-10-06)
++and again in the [2026-10-08 verification](../mechanisms/review-assignments.evidence.md#fresh-entry-and-readiness-verification--2026-10-08).
++The current full harness comparison at `8a512d3`, rule injector, mechanism,
++ticket and question checks pass. Original issues 1 and 2 hold accepted Cabinet
++and Daychi installations; issue 5 holds accepted amended provider evidence.
++Issue 6 remains open for the Daychi client and actual native connection proof.
+ 
+-The accepted review process is implemented in the review instruction and local
+-entry and reconciliation rules. The [evidence record](../mechanisms/review-assignments.evidence.md)
+-shows successful structural checks and explicit discovery in an already-running
+-session. Those observations do not establish ordinary session-entry invocation
+-or independently graded handling of a recipient result.
++Independent operator grading of the representative review outputs and publication
++of the corrected current instruction/contract/evidence baseline remain incomplete.
++The published agent contract still contains superseded administrative dependencies;
++the local corrected baseline removes them. This coordinator outcome does not gate
++recipient implementation under its operator against the settled accessible contract.
++Actual native integration retains its provider, fixture and runtime conditions.
+ 
+-A fresh ordinary Workshop session must load its entry instructions, recover state
+-through recall, invoke assignment review and discover current addressed work.
+-The operator must grade observed handling of obstacle, incomplete, complete and
+-already-closed results, unchanged conversations and tracker failure against the
+-accepted contract. The evidence record supplies the representative inputs and
+-required outcomes; they are not reported as completed exercises.
++## Earlier builder observation — 2026-10-05
+ 
+-No live recipient report was available in the current-session read. Installation
+-issues remain Planned. Publication and release retain their existing approvals;
+-recipient adoption remains separate from Workshop's invocation and review proof.
++The accepted review process was implemented in the review instruction and local
++entry and reconciliation rules. The earlier evidence showed successful structural
++checks and explicit discovery in an already-running session. Those observations
++did not establish ordinary fresh-entry invocation or independently graded handling
++of a recipient result. No live recipient report was available in that earlier
++read; installation issues were Planned. These are dated observations superseded
++by the original issues and fresh-entry evidence linked above.

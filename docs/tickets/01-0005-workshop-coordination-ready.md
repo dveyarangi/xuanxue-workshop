@@ -14,12 +14,14 @@ the [agent contract](../agent-contract.md). The user approved this three-part
 first-launch breakdown on 2026-10-04. This is Workshop's own inception work; the
 Cabinet and Daychi installations are separate issues in the Workshop GitHub tracker.
 
-This work supplies readiness for
+Related recipient installation outcomes are
 [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
 and [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).
-Daychi's installation retains its readiness dependency. Cabinet's completed
-installation is [accepted](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155);
-this coordinator outcome remains incomplete. They are not local ticket copies.
+Both installations are accepted: [Cabinet](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155)
+and [Daychi](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501).
+This coordinator outcome remains incomplete and does not gate their work.
+They are not local ticket copies. The user removed the readiness and
+installation-acceptance dependencies on 2026-10-08.
 
 The [recorded impact](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#impact)
 traces the startup, publication, issue-review and independent-operator dependencies.
@@ -52,9 +54,9 @@ owns review history, the startup/reconciliation connection and the accepted
 evidence standard. The outcome fulfils that contract through the installed review
 instruction and its shared bindings.
 
-Publish the README, canonical contract and the Workshop readiness evidence before
-releasing the two project installation assignments for execution. Obtain the
-existing per-change commit and push approvals at the publication step. Workshop
+Publish the README, canonical contract and Workshop review evidence under the
+existing per-change commit and push approvals. Publication and independent review
+are this outcome's obligations; they do not hold recipient execution. Workshop
 does not perform the sibling installations itself.
 
 ## Acceptance criteria
@@ -76,8 +78,9 @@ does not perform the sibling installations itself.
   verified-result and already-closed-result paths against the accepted contract.
 - [ ] Verified results lead to the necessary record updates, acknowledgement and
   closure; missing evidence does not produce false acceptance or deployment claims.
-- [ ] Published instructions and readiness evidence are referenced in the two
-  installation issues, releasing them for their operators to execute independently.
+- [ ] Published instructions and review evidence are accessible from the repository
+  entry and original installation issues; recipient execution follows its actual
+  activity conditions and operator authority.
 - [ ] /verify confirms the implemented skill, startup wiring, publication and
   issue-review behavior against the governing contract and project verification set.
 

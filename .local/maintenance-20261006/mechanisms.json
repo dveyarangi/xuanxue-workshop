@@ -1,0 +1,2247 @@
+{
+  "declarations": [
+    {
+      "mechanism": "harness",
+      "doc": ".agents/mechanisms/harness/harness.md",
+      "instruction": ".agents/skills/harness/SKILL.md",
+      "state": "installed",
+      "rules": null,
+      "moments": [
+        {
+          "moment": "installing a ref into an empty tree",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "updating a tree that has a copy",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking a copy against the ref it announces",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "making a loader link, or handing the person the command",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reading a refusal and resuming",
+          "instructed by": ".agents/skills/harness/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "populating the local file after the first install",
+          "instructed by": ".agents/skills/harness/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "pointing a tree at another core, as a fork does",
+          "instructed by": ".agents/skills/harness/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "knowing an update is available",
+          "instructed by": null,
+          "kind": "unowned by design",
+          "why": "a person asks for one; nothing polls the repository",
+          "referent": null
+        },
+        {
+          "moment": "verifying that a host reads the loader link",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "writing a fresh tree's delivery status",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "removing one mechanism from a tree",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "sending a change back to the repository",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "instruction file",
+          "where": ".agents/skills/harness/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "this doc",
+          "where": ".agents/mechanisms/harness/harness.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the script",
+          "where": ".agents/scripts/gw/harness.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its tests",
+          "where": ".agents/scripts/gw/test/test_harness.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the entry file",
+          "where": "AGENTS.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the host stub",
+          "where": "CLAUDE.md",
+          "anchor": null,
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "the installer",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "citation reader",
+          "where": ".agents/scripts/gw/docs_corpus.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`, the one that cannot leave"
+        },
+        {
+          "part": "the delivery status's arrival state",
+          "where": ".agents/skills/ticket/QUEUE-ARRIVAL.md",
+          "anchor": null,
+          "owner": "`ticket`, which owns the record and words it"
+        },
+        {
+          "part": "the shape check",
+          "where": ".agents/scripts/gw/mechanisms.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "test harness",
+          "where": ".agents/scripts/gw/test/repository.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the listing script",
+          "where": ".agents/scripts/gw/straw_dogs.py",
+          "anchor": null,
+          "owner": "`maintain`"
+        },
+        {
+          "part": "the method's vocabulary",
+          "where": ".agents/glossary.md",
+          "anchor": null,
+          "owner": "nobody removable"
+        }
+      ]
+    },
+    {
+      "mechanism": "maintain",
+      "doc": ".agents/mechanisms/maintain/maintain.md",
+      "instruction": ".agents/skills/maintain/SKILL.md",
+      "state": "installed",
+      "rules": ".agents/mechanisms/maintain/maintain.rules.md",
+      "moments": [
+        {
+          "moment": "declaring a scope and running a pass over it",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "re-checking derived work when what governs it moved \u2014 a doc against the meta-rules, an implementation against its doc, records against their format",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "holding a landed slice to its governing docs, both ways",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "landing-time agreement is verification",
+          "referent": ".agents/skills/verify/SKILL.md"
+        },
+        {
+          "moment": "knowing a re-check is due",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "marking a level re-checked",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "rewriting a straw dog that is due, and retiring the block",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "guessing where a straw dog nobody wrapped stands, and judging each guess",
+          "instructed by": ".agents/scripts/gw/straw_dogs.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "cleaning prose and records to one home per fact",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "closing a finished ticket with its RFC",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "updating the header at close",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking a mechanism's records against their declared format, the ticket records among them",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "repairing mechanically, history included",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "a meta-rule, read where it lives",
+          "referent": ".agents/skills/mechanism/SKILL.md"
+        },
+        {
+          "moment": "disposing of a concern",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "a concern is an open question of the store, closed by a recorded kind that points to the ADR, architecture section or code that owns its answer",
+          "referent": ".agents/skills/questions/SKILL.md"
+        },
+        {
+          "moment": "checking links outside a close",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "cleaning inline comments in scope",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "verification applies the comment skill to landed work",
+          "referent": ".agents/skills/verify/SKILL.md"
+        },
+        {
+          "moment": "running the verification set the scope touched",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "installing this mechanism into a tree, with the rest of core",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "removing this mechanism from a tree",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "picking up a dream",
+          "instructed by": null,
+          "kind": "unowned by design",
+          "why": "the entry file says *may*, a permission and not a duty, while the dream skill is experimental",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "instruction file",
+          "where": ".agents/skills/maintain/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "format shelf",
+          "where": ".agents/skills/maintain/MARKS-FORMAT.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "this doc",
+          "where": ".agents/mechanisms/maintain/maintain.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its rules file",
+          "where": ".agents/mechanisms/maintain/maintain.rules.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the listing script",
+          "where": ".agents/scripts/gw/straw_dogs.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its tests",
+          "where": ".agents/scripts/gw/test/test_straw_dogs.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the clock",
+          "where": ".agents/scripts/gw/maintain.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its tests",
+          "where": ".agents/scripts/gw/test/test_maintain.py",
+          "anchor": null,
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "the mover",
+          "where": ".agents/scripts/gw/move_doc.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_paired_close.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_refusals.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_citations.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_command_line.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_failure_contract.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "the ticket maintainer",
+          "where": ".agents/scripts/gw/tickets.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "whether a straw dog is due, read by the listing",
+          "where": ".agents/scripts/gw/questions.py",
+          "anchor": null,
+          "owner": "`questions`"
+        },
+        {
+          "part": "citation reader",
+          "where": ".agents/scripts/gw/docs_corpus.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`, the one that cannot leave"
+        },
+        {
+          "part": "test harness",
+          "where": ".agents/scripts/gw/test/repository.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the shape check",
+          "where": ".agents/scripts/gw/mechanisms.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the installer",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the method's vocabulary",
+          "where": ".agents/glossary.md",
+          "anchor": null,
+          "owner": "nobody removable"
+        }
+      ]
+    },
+    {
+      "mechanism": "mechanism-shape",
+      "doc": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+      "instruction": ".agents/skills/mechanism/SKILL.md",
+      "state": "always on",
+      "rules": ".agents/mechanisms/mechanism-shape/mechanism-shape.rules.md",
+      "moments": [
+        {
+          "moment": "deciding whether a thing is a mechanism",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "incepting one",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "telling an inceptor what to hand `/maintain`",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "amending a declared one, editing a skill that is an instruction file included",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "retiring a declared one",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "installing a declared mechanism into a tree, with the rest of core",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "removing one declared mechanism from a tree",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking that a declaration is true",
+          "instructed by": ".agents/scripts/gw/mechanisms.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "installing a mechanism's rules into skills, its own included, and the project's local file after every mechanism's",
+          "instructed by": ".agents/scripts/gw/inject_rules.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "retracting them",
+          "instructed by": ".agents/scripts/gw/inject_rules.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reporting a retired tag left in core",
+          "instructed by": ".agents/scripts/gw/mechanisms.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "writing a mechanism's rule where a session reads it, the entry file included, at `/align` or here",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "re-checking a mechanism when what governs it has moved",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "re-checking derived work against a changed source is maintenance",
+          "referent": ".agents/skills/maintain/SKILL.md"
+        },
+        {
+          "moment": "writing or changing a skill's text",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "a sibling mechanism's subject, and both apply when a skill is an instruction file",
+          "referent": ".agents/skills/skill-up/SKILL.md"
+        },
+        {
+          "moment": "recording that an installed skill belongs to no mechanism",
+          "instructed by": ".agents/skills/skill-up/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "asking whether every installed skill is claimed",
+          "instructed by": ".agents/scripts/gw/mechanisms.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "holding core to citing only what its mechanisms declare",
+          "instructed by": ".agents/scripts/gw/mechanisms.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "finding a mechanism's doc, or asking what is declared at all",
+          "instructed by": null,
+          "kind": "unowned by design",
+          "why": "the directory is a routing table and the index renders it on request; looking something up needs no rule",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "instruction file",
+          "where": ".agents/skills/mechanism/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "format shelf",
+          "where": ".agents/skills/mechanism/MECHANISM-FORMAT.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "trigger",
+          "where": "AGENTS.md",
+          "anchor": "is mechanism work: use",
+          "owner": null
+        },
+        {
+          "part": "the hand-edit rule",
+          "where": "AGENTS.md",
+          "anchor": "is not that file's to edit",
+          "owner": null
+        },
+        {
+          "part": "this doc",
+          "where": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its rules file",
+          "where": ".agents/mechanisms/mechanism-shape/mechanism-shape.rules.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the check",
+          "where": ".agents/scripts/gw/mechanisms.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the check's tests",
+          "where": ".agents/scripts/gw/test/test_mechanisms.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the installer",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the installer's tests",
+          "where": ".agents/scripts/gw/test/test_inject_rules.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the test harness's tests",
+          "where": ".agents/scripts/gw/test/test_repository.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "citation reader",
+          "where": ".agents/scripts/gw/docs_corpus.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "test harness",
+          "where": ".agents/scripts/gw/test/repository.py",
+          "anchor": null,
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "the method's vocabulary",
+          "where": ".agents/glossary.md",
+          "anchor": null,
+          "owner": "nobody removable"
+        },
+        {
+          "part": "a `not yet`'s question and whether it is due, read by the check",
+          "where": ".agents/scripts/gw/questions.py",
+          "anchor": null,
+          "owner": "`questions`"
+        }
+      ]
+    },
+    {
+      "mechanism": "questions",
+      "doc": ".agents/mechanisms/questions/questions.md",
+      "instruction": ".agents/skills/questions/SKILL.md",
+      "state": "installed",
+      "rules": ".agents/mechanisms/questions/questions.rules.md",
+      "moments": [
+        {
+          "moment": "placing a message before answering it",
+          "instructed by": "AGENTS.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "closing, branching or dropping a question",
+          "instructed by": ".agents/skills/questions/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "re-parenting, merging or pruning by hand",
+          "instructed by": ".agents/skills/questions/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "drawing the window",
+          "instructed by": ".agents/scripts/gw/questions.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "registering a session and delivering its window through a host's hook",
+          "instructed by": ".agents/scripts/gw/questions.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "writing entries and the position from a call",
+          "instructed by": ".agents/scripts/gw/questions.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "writing a question's argument, the body after its parts, by hand",
+          "instructed by": ".agents/skills/questions/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking the store",
+          "instructed by": ".agents/scripts/gw/questions.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reading where the work stands when a session wakes",
+          "instructed by": ".agents/skills/recall/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "writing the session's leans and ending it",
+          "instructed by": ".agents/skills/conclude/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "archiving the subtree a closure finishes",
+          "instructed by": ".agents/scripts/gw/questions.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "sweeping a wholly closed subtree a closure left behind",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "installing this mechanism into a tree, with the rest of core",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "judging a message outside the agent",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "detecting a shape that hides children",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "holding a ticket's open questions under the question it answers",
+          "instructed by": ".agents/skills/ticket/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "saying which straw dogs are due, and carrying their bindings through a rename",
+          "instructed by": ".agents/scripts/gw/questions.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "carrying the hook wiring into a recipient tree",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "removing this mechanism from a tree",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "instruction file",
+          "where": ".agents/skills/questions/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "this doc",
+          "where": ".agents/mechanisms/questions/questions.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its rules file",
+          "where": ".agents/mechanisms/questions/questions.rules.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the store's script",
+          "where": ".agents/scripts/gw/questions.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its tests",
+          "where": ".agents/scripts/gw/test/test_questions.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "Claude Code's hook wiring",
+          "where": ".claude/settings.json",
+          "anchor": "--hook claude-code",
+          "owner": null
+        },
+        {
+          "part": "Codex's hook wiring",
+          "where": ".codex/hooks.json",
+          "anchor": "--hook codex",
+          "owner": null
+        },
+        {
+          "part": "Cursor's hook wiring",
+          "where": ".cursor/hooks.json",
+          "anchor": "--hook cursor",
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "the mover",
+          "where": ".agents/scripts/gw/move_doc.py",
+          "anchor": null,
+          "owner": "`ticket`"
+        },
+        {
+          "part": "citation reader",
+          "where": ".agents/scripts/gw/docs_corpus.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "test harness",
+          "where": ".agents/scripts/gw/test/repository.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the shape check",
+          "where": ".agents/scripts/gw/mechanisms.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the installer",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the method's vocabulary",
+          "where": ".agents/glossary.md",
+          "anchor": null,
+          "owner": "nobody removable"
+        }
+      ]
+    },
+    {
+      "mechanism": "reconcile",
+      "doc": ".agents/mechanisms/reconcile/reconcile.md",
+      "instruction": ".agents/skills/reconcile/SKILL.md",
+      "state": "installed",
+      "rules": ".agents/mechanisms/reconcile/reconcile.rules.md",
+      "moments": [
+        {
+          "moment": "beginning or resuming the pass at its recorded stage",
+          "instructed by": ".agents/skills/reconcile/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking boundaries and deriving instruction summaries",
+          "instructed by": ".agents/skills/reconcile/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "distinguishing boundary decisions from project design during alignment",
+          "instructed by": ".agents/skills/align/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "choosing a disposition and issuing work",
+          "instructed by": ".agents/skills/reconcile/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "resolving contract-shape ambiguity during alignment",
+          "instructed by": ".agents/skills/align/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reviewing implementation assignments together for one shared shape",
+          "instructed by": ".agents/skills/reconcile/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "shaping local outcomes, impacting their split and obtaining approval",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "the ticket mechanism owns the breakdown",
+          "referent": ".agents/skills/ticket/SKILL.md"
+        },
+        {
+          "moment": "configuring source pointers and the maintenance binding",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "installing or retracting local bindings",
+          "instructed by": ".agents/scripts/gw/inject_rules.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking declaration and installed bindings",
+          "instructed by": ".agents/scripts/gw/mechanisms.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "handing results to the project's acceptance process",
+          "instructed by": ".agents/skills/reconcile/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "instruction",
+          "where": ".agents/skills/reconcile/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "declaration",
+          "where": ".agents/mechanisms/reconcile/reconcile.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its rules file",
+          "where": ".agents/mechanisms/reconcile/reconcile.rules.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "contract-shape reference",
+          "where": ".agents/skills/reconcile/CONTRACT-SHAPE.md",
+          "anchor": null,
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "maintenance entry",
+          "where": ".agents/skills/maintain/SKILL.md",
+          "anchor": null,
+          "owner": "maintain"
+        },
+        {
+          "part": "assignment shaping and approval",
+          "where": ".agents/skills/ticket/SKILL.md",
+          "anchor": null,
+          "owner": "ticket"
+        },
+        {
+          "part": "installed assignment-shaping rule",
+          "where": ".agents/mechanisms/ticket/ticket.rules.md",
+          "anchor": null,
+          "owner": "ticket"
+        },
+        {
+          "part": "declaration and dependency checker",
+          "where": ".agents/scripts/gw/mechanisms.py",
+          "anchor": null,
+          "owner": "mechanism-shape"
+        },
+        {
+          "part": "installed-rule checker and installer",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": "mechanism-shape"
+        },
+        {
+          "part": "local-rule convention",
+          "where": ".agents/skills/mechanism/SKILL.md",
+          "anchor": null,
+          "owner": "mechanism-shape"
+        }
+      ]
+    },
+    {
+      "mechanism": "review-assignments",
+      "doc": ".agents/mechanisms/review-assignments/review-assignments.md",
+      "instruction": ".agents/skills/review-assignments/SKILL.md",
+      "state": "installed",
+      "rules": ".agents/mechanisms/review-assignments/review-assignments.rules.md",
+      "moments": [
+        {
+          "moment": "reviewing cross-project work after session recovery",
+          "instructed by": ".agents/skills/review-assignments/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "handling a project report or incoming request",
+          "instructed by": ".agents/skills/review-assignments/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reading reports and artifacts linked through an issue's timeline",
+          "instructed by": ".agents/skills/review-assignments/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reassessing dependent assignments after prerequisite evidence changes",
+          "instructed by": ".agents/skills/review-assignments/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "using relevant discussions during reconciliation",
+          "instructed by": ".agents/skills/reconcile/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "supplying project context and entry invocation",
+          "instructed by": ".agents/skills/mechanism/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "installing or retracting the bindings",
+          "instructed by": ".agents/scripts/gw/inject_rules.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking the declaration and installed bindings",
+          "instructed by": ".agents/scripts/gw/mechanisms.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "rechecking instruction and entry agreement",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "grading review decisions against real or representative evidence",
+          "instructed by": null,
+          "kind": "unowned by design",
+          "why": "the operator grades the observed decisions against the project contract",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "review instruction",
+          "where": ".agents/skills/review-assignments/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "declaration",
+          "where": ".agents/mechanisms/review-assignments/review-assignments.md",
+          "anchor": null,
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "entry and shared review obligations",
+          "where": "local.rules.md",
+          "anchor": null,
+          "owner": "local"
+        },
+        {
+          "part": "instruction delivery at entry",
+          "where": "AGENTS.md",
+          "anchor": null,
+          "owner": "harness"
+        },
+        {
+          "part": "boundary comparison",
+          "where": ".agents/skills/reconcile/SKILL.md",
+          "anchor": null,
+          "owner": "reconcile"
+        },
+        {
+          "part": "declaration checker",
+          "where": ".agents/scripts/gw/mechanisms.py",
+          "anchor": null,
+          "owner": "mechanism-shape"
+        },
+        {
+          "part": "rule installer and checker",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": "mechanism-shape"
+        }
+      ]
+    },
+    {
+      "mechanism": "ticket",
+      "doc": ".agents/mechanisms/ticket/ticket.md",
+      "instruction": ".agents/skills/ticket/SKILL.md",
+      "state": "installed",
+      "rules": ".agents/mechanisms/ticket/ticket.rules.md",
+      "moments": [
+        {
+          "moment": "deciding a chunk is ticket-sized, or needs `/align` or a spec first",
+          "instructed by": ".agents/skills/ticket/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "decomposing a parent into slices, and impacting the split",
+          "instructed by": ".agents/skills/ticket/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "presenting the breakdown for approval under the `breakdown` switch",
+          "instructed by": ".agents/skills/ticket/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "numbering, naming and placing a ticket",
+          "instructed by": ".agents/skills/ticket/TICKET-FORMAT.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "writing a ticket to the shape its stage requires",
+          "instructed by": ".agents/skills/ticket/TICKET-FORMAT.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "flipping a status",
+          "instructed by": ".agents/skills/ticket/TICKET-FORMAT.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "amending the queue's table",
+          "instructed by": ".agents/skills/ticket/TICKET-FORMAT.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "resolving a decision a ticket owns",
+          "instructed by": ".agents/skills/align/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "naming an RFC for a ticket",
+          "instructed by": ".agents/skills/plan/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "deciding a ticket is finished",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "closing a finished ticket with its RFC",
+          "instructed by": ".agents/skills/maintain/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "repairing the citations a close breaks",
+          "instructed by": ".agents/scripts/gw/move_doc.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "checking live records against the shape",
+          "instructed by": ".agents/scripts/gw/tickets.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "rendering the queue from the tickets",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "ordering the queue and writing its pacing prose",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "promoting an open question of the store into a ticket",
+          "instructed by": ".agents/skills/ticket/SKILL.md",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "verifying a ticket's criteria against landed work",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "landing-time agreement is verification",
+          "referent": ".agents/skills/verify/SKILL.md"
+        },
+        {
+          "moment": "writing an RFC's contents",
+          "instructed by": null,
+          "kind": "elsewhere",
+          "why": "what an RFC holds is planning's",
+          "referent": ".agents/skills/plan/SKILL.md"
+        },
+        {
+          "moment": "installing this mechanism into a tree, with the rest of core",
+          "instructed by": ".agents/scripts/gw/harness.py",
+          "kind": null,
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "removing this mechanism from a tree",
+          "instructed by": null,
+          "kind": "not yet",
+          "why": "",
+          "referent": null
+        },
+        {
+          "moment": "reading how a shaped ticket reached its decisions",
+          "instructed by": null,
+          "kind": "unowned by design",
+          "why": "the durable home carries the decision with its provenance and the session record the align; looking it up needs no rule",
+          "referent": null
+        }
+      ],
+      "parts": [
+        {
+          "part": "instruction file",
+          "where": ".agents/skills/ticket/SKILL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "format shelf",
+          "where": ".agents/skills/ticket/TICKET-FORMAT.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the queue's arrival state",
+          "where": ".agents/skills/ticket/QUEUE-ARRIVAL.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "this doc",
+          "where": ".agents/mechanisms/ticket/ticket.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "its rules file",
+          "where": ".agents/mechanisms/ticket/ticket.rules.md",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the mover",
+          "where": ".agents/scripts/gw/move_doc.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_paired_close.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_refusals.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_citations.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_command_line.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the mover's tests",
+          "where": ".agents/scripts/gw/test/test_failure_contract.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the maintainer",
+          "where": ".agents/scripts/gw/tickets.py",
+          "anchor": null,
+          "owner": null
+        },
+        {
+          "part": "the maintainer's tests",
+          "where": ".agents/scripts/gw/test/test_tickets.py",
+          "anchor": null,
+          "owner": null
+        }
+      ],
+      "relies on": [
+        {
+          "part": "citation reader",
+          "where": ".agents/scripts/gw/docs_corpus.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`, the one that cannot leave"
+        },
+        {
+          "part": "test harness",
+          "where": ".agents/scripts/gw/test/repository.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the installer",
+          "where": ".agents/scripts/gw/inject_rules.py",
+          "anchor": null,
+          "owner": "`mechanism-shape`"
+        },
+        {
+          "part": "the method's vocabulary",
+          "where": ".agents/glossary.md",
+          "anchor": null,
+          "owner": "nobody removable"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "skill": ".agents/skills/advise/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/align/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/celebrate/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/commit/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/conclude/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/discover/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/dream/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/edge/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/harness/",
+      "named by": [
+        "harness"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/impact/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/implement/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/improve-comments/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/maintain/",
+      "named by": [
+        "maintain"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/mechanism/",
+      "named by": [
+        "mechanism-shape"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/plan/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/questions/",
+      "named by": [
+        "questions"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/recall/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/reconcile/",
+      "named by": [
+        "reconcile"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/review-architecture/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/review-assignments/",
+      "named by": [
+        "review-assignments"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/setup-devops/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/skill-up/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/spec/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/tdd/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    },
+    {
+      "skill": ".agents/skills/ticket/",
+      "named by": [
+        "ticket"
+      ],
+      "claims": null
+    },
+    {
+      "skill": ".agents/skills/verify/",
+      "named by": [],
+      "claims": {
+        "kind": "not yet",
+        "why": "",
+        "referent": null
+      }
+    }
+  ],
+  "core cites": {
+    "painted doors": [
+      {
+        "file": ".agents/glossary.md",
+        "line": 4,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/mechanisms/maintain/maintain.md",
+        "line": 137,
+        "cites": "docs/mechanisms/maintenance.md"
+      },
+      {
+        "file": ".agents/mechanisms/mechanism-shape/mechanism-shape.md",
+        "line": 100,
+        "cites": "docs/mechanisms/"
+      },
+      {
+        "file": ".agents/mechanisms/questions/questions.rules.md",
+        "line": 89,
+        "cites": "docs/questions/done/"
+      },
+      {
+        "file": ".agents/mechanisms/ticket/ticket.rules.md",
+        "line": 29,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/mechanisms/ticket/ticket.rules.md",
+        "line": 30,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/mechanisms/ticket/ticket.rules.md",
+        "line": 61,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/mechanisms/ticket/ticket.rules.md",
+        "line": 71,
+        "cites": "docs/rfc/"
+      },
+      {
+        "file": ".agents/mechanisms/ticket/ticket.rules.md",
+        "line": 72,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/scripts/gw/harness.py",
+        "line": 66,
+        "cites": "docs/tickets/README.md"
+      },
+      {
+        "file": ".agents/scripts/gw/maintain.py",
+        "line": 34,
+        "cites": "docs/mechanisms/maintenance.md"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 57,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 58,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 59,
+        "cites": "docs/tickets/README.md"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 62,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 63,
+        "cites": "docs/questions/done/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 64,
+        "cites": "docs/questions/sessions"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 65,
+        "cites": "docs/mechanisms/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 68,
+        "cites": "docs/mechanisms/maintenance.md"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 70,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 72,
+        "cites": "docs/architecture.md"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 73,
+        "cites": "docs/adr/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 75,
+        "cites": "docs/rfc/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 76,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 78,
+        "cites": "docs/spec/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 80,
+        "cites": "docs/sessions/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 82,
+        "cites": "docs/dreams/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 84,
+        "cites": "docs/cicd.md"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 86,
+        "cites": "docs/edge/"
+      },
+      {
+        "file": ".agents/scripts/gw/mechanisms.py",
+        "line": 88,
+        "cites": "docs/rule-failures.md"
+      },
+      {
+        "file": ".agents/scripts/gw/questions.py",
+        "line": 1,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/scripts/gw/questions.py",
+        "line": 1,
+        "cites": "docs/questions/done/"
+      },
+      {
+        "file": ".agents/scripts/gw/questions.py",
+        "line": 1,
+        "cites": "docs/questions/sessions"
+      },
+      {
+        "file": ".agents/scripts/gw/questions.py",
+        "line": 54,
+        "cites": "docs/questions"
+      },
+      {
+        "file": ".agents/scripts/gw/questions.py",
+        "line": 55,
+        "cites": "docs/questions/sessions"
+      },
+      {
+        "file": ".agents/scripts/gw/straw_dogs.py",
+        "line": 51,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/scripts/gw/straw_dogs.py",
+        "line": 55,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/scripts/gw/straw_dogs.py",
+        "line": 55,
+        "cites": "docs/rfc/"
+      },
+      {
+        "file": ".agents/scripts/gw/straw_dogs.py",
+        "line": 55,
+        "cites": "docs/spec/"
+      },
+      {
+        "file": ".agents/scripts/gw/straw_dogs.py",
+        "line": 55,
+        "cites": "docs/sessions/"
+      },
+      {
+        "file": ".agents/scripts/gw/tickets.py",
+        "line": 31,
+        "cites": "docs/tickets"
+      },
+      {
+        "file": ".agents/scripts/gw/tickets.py",
+        "line": 32,
+        "cites": "docs/rfc"
+      },
+      {
+        "file": ".agents/scripts/gw/tickets.py",
+        "line": 33,
+        "cites": "docs/tickets/README.md"
+      },
+      {
+        "file": ".agents/scripts/gw/tickets.py",
+        "line": 173,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/skills/align/ADR-FORMAT.md",
+        "line": 3,
+        "cites": "docs/adr/"
+      },
+      {
+        "file": ".agents/skills/align/ADR-FORMAT.md",
+        "line": 5,
+        "cites": "docs/adr/"
+      },
+      {
+        "file": ".agents/skills/align/ADR-FORMAT.md",
+        "line": 27,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/skills/align/ADR-FORMAT.md",
+        "line": 31,
+        "cites": "docs/adr/"
+      },
+      {
+        "file": ".agents/skills/align/EDGE-FORMAT.md",
+        "line": 3,
+        "cites": "docs/edge/"
+      },
+      {
+        "file": ".agents/skills/align/GLOSSARY-FORMAT.md",
+        "line": 34,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/align/GLOSSARY-FORMAT.md",
+        "line": 57,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/align/GLOSSARY-FORMAT.md",
+        "line": 58,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 62,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 62,
+        "cites": "docs/adr/"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 68,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 75,
+        "cites": "docs/edge/"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 109,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 111,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/conclude/SKILL.md",
+        "line": 14,
+        "cites": "docs/sessions"
+      },
+      {
+        "file": ".agents/skills/conclude/SKILL.md",
+        "line": 15,
+        "cites": "docs/sessions/"
+      },
+      {
+        "file": ".agents/skills/dream/SKILL.md",
+        "line": 50,
+        "cites": "docs/dreams"
+      },
+      {
+        "file": ".agents/skills/edge/SKILL.md",
+        "line": 17,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/skills/edge/SKILL.md",
+        "line": 23,
+        "cites": "docs/edge/"
+      },
+      {
+        "file": ".agents/skills/edge/SKILL.md",
+        "line": 25,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": ".agents/skills/maintain/MARKS-FORMAT.md",
+        "line": 4,
+        "cites": "docs/mechanisms/maintenance.md"
+      },
+      {
+        "file": ".agents/skills/maintain/SKILL.md",
+        "line": 95,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/skills/maintain/SKILL.md",
+        "line": 96,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/skills/maintain/SKILL.md",
+        "line": 106,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/skills/maintain/SKILL.md",
+        "line": 113,
+        "cites": "docs/questions/done/"
+      },
+      {
+        "file": ".agents/skills/mechanism/MECHANISM-FORMAT.md",
+        "line": 246,
+        "cites": "docs/mechanisms/"
+      },
+      {
+        "file": ".agents/skills/mechanism/SKILL.md",
+        "line": 45,
+        "cites": "docs/mechanisms/"
+      },
+      {
+        "file": ".agents/skills/plan/SKILL.md",
+        "line": 142,
+        "cites": "docs/rfc/"
+      },
+      {
+        "file": ".agents/skills/plan/SKILL.md",
+        "line": 143,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/skills/questions/SKILL.md",
+        "line": 8,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/skills/questions/SKILL.md",
+        "line": 9,
+        "cites": "docs/questions/sessions"
+      },
+      {
+        "file": ".agents/skills/questions/SKILL.md",
+        "line": 102,
+        "cites": "docs/questions/done/"
+      },
+      {
+        "file": ".agents/skills/questions/SKILL.md",
+        "line": 127,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/skills/questions/SKILL.md",
+        "line": 129,
+        "cites": "docs/questions/done/"
+      },
+      {
+        "file": ".agents/skills/questions/SKILL.md",
+        "line": 162,
+        "cites": "docs/questions/sessions"
+      },
+      {
+        "file": ".agents/skills/setup-devops/SKILL.md",
+        "line": 32,
+        "cites": "docs/cicd.md"
+      },
+      {
+        "file": ".agents/skills/spec/SKILL.md",
+        "line": 35,
+        "cites": "docs/spec/"
+      },
+      {
+        "file": ".agents/skills/ticket/SKILL.md",
+        "line": 12,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/skills/ticket/SKILL.md",
+        "line": 106,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/skills/ticket/SKILL.md",
+        "line": 111,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/skills/ticket/SKILL.md",
+        "line": 135,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 5,
+        "cites": "docs/tickets/README.md"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 22,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 22,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 38,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 38,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 73,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 112,
+        "cites": "docs/rfc/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 167,
+        "cites": "docs/rfc/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 167,
+        "cites": "docs/rfc/done/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 168,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 168,
+        "cites": "docs/tickets/done/"
+      },
+      {
+        "file": ".agents/skills/ticket/TICKET-FORMAT.md",
+        "line": 183,
+        "cites": "docs/tickets/README.md"
+      },
+      {
+        "file": ".agents/skills/verify/SKILL.md",
+        "line": 70,
+        "cites": "docs/questions/"
+      },
+      {
+        "file": "AGENTS.md",
+        "line": 90,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": "AGENTS.md",
+        "line": 90,
+        "cites": "docs/glossary.md"
+      },
+      {
+        "file": "AGENTS.md",
+        "line": 91,
+        "cites": "docs/tickets/"
+      },
+      {
+        "file": "AGENTS.md",
+        "line": 143,
+        "cites": "docs/rule-failures.md"
+      }
+    ],
+    "skipped": [
+      {
+        "file": ".agents/skills/review-assignments/SKILL.md",
+        "line": 41,
+        "cites": "docs/current-system.md"
+      },
+      {
+        "file": ".agents/skills/review-assignments/SKILL.md",
+        "line": 42,
+        "cites": "docs/boundaries.md"
+      },
+      {
+        "file": ".agents/skills/review-assignments/SKILL.md",
+        "line": 43,
+        "cites": "docs/migration-changes.md"
+      },
+      {
+        "file": ".agents/skills/review-assignments/SKILL.md",
+        "line": 44,
+        "cites": "docs/stage-1.md"
+      },
+      {
+        "file": ".agents/skills/review-assignments/SKILL.md",
+        "line": 45,
+        "cites": "docs/agent-contract.md"
+      },
+      {
+        "file": ".agents/skills/align/SKILL.md",
+        "line": 182,
+        "cites": "docs/agent-contract.md"
+      },
+      {
+        "file": ".agents/skills/reconcile/SKILL.md",
+        "line": 148,
+        "cites": "docs/current-system.md"
+      },
+      {
+        "file": ".agents/skills/reconcile/SKILL.md",
+        "line": 149,
+        "cites": "docs/boundaries.md"
+      },
+      {
+        "file": ".agents/skills/reconcile/SKILL.md",
+        "line": 150,
+        "cites": "docs/migration-changes.md"
+      },
+      {
+        "file": ".agents/skills/reconcile/SKILL.md",
+        "line": 151,
+        "cites": "docs/stage-1.md"
+      },
+      {
+        "file": ".agents/skills/reconcile/SKILL.md",
+        "line": 152,
+        "cites": "docs/agent-contract.md"
+      },
+      {
+        "file": ".agents/skills/reconcile/SKILL.md",
+        "line": 156,
+        "cites": "docs/agent-contract.md"
+      }
+    ],
+    "leaks": []
+  },
+  "diagnostics": []
+}

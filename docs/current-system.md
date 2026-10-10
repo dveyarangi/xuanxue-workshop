@@ -67,6 +67,20 @@ and completed closure satisfy issue 6's installation dependency.
 
 ## Assignment and native-profile recheck — 2026-10-10
 
+The full Workshop issue timelines were read across all returned pages, including
+closed assignments and cross-references. At that review no native-auth assignment existed.
+Daychi's [native progress report](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6086520134)
+and [TestFlight 17 report](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6089038600)
+claim actual staging reads, client checks and an operator-authorized internal beta.
+Their client commits, frozen snapshot and QA records remain local references;
+Workshop has not inspected that implementation or verified the reported native
+observations, release status or regressions. Controlled provider create/move/cancel
+and mixed-corrupt/repair proof remain outstanding. The
+[Cabinet fixture follow-up](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6090400430)
+requests its authorized operator, environment, fixture identities and timing;
+the [Daychi review](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6090404158)
+records the missing accessible artifacts and scoped acceptance remainder.
+
 Fresh remote heads are Cabinet
 `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5` and Daychi
 `0a3c824c1586eb7b3ca16ca0b3a365539076b025`. Compared with the 2026-10-08 baseline,

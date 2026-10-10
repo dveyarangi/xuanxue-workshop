@@ -1,0 +1,38 @@
+[
+  {
+    "label": "cabinet",
+    "repo": "gregoryKot/xuanxue-cabinet",
+    "sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+    "paths": [
+      "api/src/auth/auth.guard.ts",
+      "api/src/auth/auth.service.ts",
+      "api/src/auth/session-token.ts",
+      "api/src/auth/session-renewal.ts",
+      "api/src/auth/session-cookie.ts",
+      "api/src/auth/session-user.ts",
+      "api/src/auth/auth.controller.ts",
+      "shared/src/auth.ts",
+      "shared/src/auth-routes.ts",
+      "api/src/auth/google-auth.controller.ts",
+      "api/src/auth/google-oauth-cookie.ts",
+      "web/src/auth/returnTo.ts",
+      "web/src/auth/LoginScreen.tsx",
+      "docs/adr/0012-session-hmac-jwt-builtin-crypto.md"
+    ]
+  },
+  {
+    "label": "daychi",
+    "repo": "sleontenko/daychi",
+    "sha": "e1ab559c8d5db3dbd7db95aa7400941381ada12a",
+    "paths": [
+      "apps/practice-app/app.json",
+      "apps/practice-app/package.json",
+      "apps/practice-app/src/features/access/session.ts",
+      "apps/practice-app/src/features/access/invitation-link.ts",
+      "apps/practice-app/src/app/+native-intent.tsx",
+      "apps/practice-app/src/app/_layout.tsx",
+      "apps/practice-app/src/features/access/access-errors.ts",
+      "apps/practice-app/src/features/access/return-target.ts"
+    ]
+  }
+]

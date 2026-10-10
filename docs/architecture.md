@@ -50,7 +50,7 @@ shared shape; proposal ownership alone supplies no compatible baseline.
 
 The [agent interaction contract](agent-contract.md) is the sole authored home for
 assignment routing, reporting, record-update responsibility and acknowledgement.
-It records the accepted Issues exchange and the remaining open decisions. Architecture
+It records the accepted Issues exchange; question records hold unresolved choices. Architecture
 and project onboarding refer to that contract rather than defining another protocol.
 
 The repository README is the product entry point for an arriving project agent.
@@ -75,8 +75,10 @@ checks are necessary coordination work, not removable process overhead.
 There is no mandatory bilateral PR approval ceremony: the user rejected it as
 too cumbersome on 2026-10-03.
 
-The selected publication and return address, and its verified readiness, are in
-the [agent contract](agent-contract.md#workshop-address). Publication and access
+The selected publication and return address is in
+the [agent contract](agent-contract.md#workshop-address); the
+[adoption record](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md)
+holds readiness and adoption evidence. Publication and access
 from each operator's environment are dependencies of working agent integration.
 
 ## Deferred decisions

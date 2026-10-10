@@ -1,0 +1,169 @@
+# Native Cabinet account session
+
+- **Status:** In progress (alignment)
+- **Type:** HITL
+- **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
+- **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
+- **Outcome:** Cabinet and Daychi have an agreed native account-session contract that makes the approved sign-in, restoration, account-read and installation-scoped sign-out outcome implementation-ready.
+
+## Parent
+
+The credential contribution in the [accepted migration delta](../migration-changes.md#changes-derived-from-accepted-contracts),
+within the [first-stage scope](../stage-1.md). The user approved this one-outcome
+breakdown and minting on 2026-10-06. Its
+[post-impact assessment](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#impact)
+recommends a complete native account-session path separated from the broader migration.
+
+The existing [credential agreement](../boundaries.md#accepted-content-admission),
+[provisional handoff](../boundaries.md#provisional-native-credential-acquisition)
+and [sign-out scope](../boundaries.md#accepted-sign-out-scope) govern the result.
+Cabinet remains the provider, account data owner and issuance/validation authority;
+native Daychi is the consumer. Both projects retain their own operators and internal design.
+
+## What to build
+
+This is the decision-bearing phase of one delivery ticket. Establish a complete
+shared native account-session contract and common conformance outcomes for the
+approved path: Daychi signs in through Cabinet, securely retains/restores its
+Cabinet-issued credential, reads its current Cabinet account and signs out of
+that installation without ending other clients' sessions. Cabinet web access and
+Daychi's existing content-access path remain supported.
+
+The contract must settle acquisition and callback binding, permitted credential
+use, lifecycle and renewal, current-user access/refusal, temporary-failure recovery,
+and sign-out behavior. These are shared observable choices, not separate decisions
+for each recipient. Their existing argument remains in the
+[authentication-standard question](../questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md).
+The browser/code-and-PKCE handoff remains the accepted provisional baseline;
+minting does not finalize the standard, token format or expiry policy.
+
+At alignment exit, accepted decisions land in their authoritative contract home
+and this same ticket is rewritten to implementation behavior and joint acceptance.
+Alignment does not finish the approved native delivery outcome. Cabinet's contribution
+will supply issuance, bearer validation/lifecycle and web compatibility; Daychi's
+will supply the native flow and its compatibility evidence. Their original addressed
+issues will be outputs of this ticket once their shared authority is complete and
+published; no external implementation assignment is created by this minting.
+
+## Acceptance criteria — alignment exit
+
+- [ ] The user has accepted the complete native-session boundary contract, with
+  authority, scope, operations, data shapes, credential lifecycle, access, failures,
+  effects and compatibility settled; inapplicable dimensions have explicit reasons.
+- [ ] Common conformance outcomes cover successful sign-in/account read, restart
+  restoration, expiry/renewal, current-user refusal, temporary failure and recovery,
+  installation-scoped sign-out, cancelled/mismatched/replayed handoffs and interrupted
+  persistence; existing web, native invitation and content-access paths remain supported.
+- [ ] Provider/client actions and joint native-runtime proof cover the same contract;
+  recipient execution and integration dependencies are stated for their own activities.
+- [ ] Accepted decisions are in their authoritative home; this same ticket is rewritten
+  with implementation acceptance criteria retaining the approved native proof and regressions.
+- [ ] /verify confirms the alignment result, contract completeness, ownership,
+  compatibility, source references and the implementation-stage rewrite.
+
+## Activity dependencies
+
+Contract preparation/alignment can start without public-provider correction,
+public-pilot native proof or Daychi installation. There is no dependency on
+[cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md)
+for this activity; existing queue order is preserved.
+
+Implementation publication requires settled definitions, common cases and an
+accessible immutable contract authority. Recipient implementation proceeds under
+its operator; Workshop readiness and installation acceptance do not gate it.
+Joint native proof additionally requires a reachable conforming auth provider,
+controlled test account and actual native runtime, established by current evidence.
+
+## Evidence baseline
+
+The [refreshed source check](../current-system.md#native-account-session-source--2026-10-08)
+records Cabinet `868a4edb09926a950b78e8daa3ce495c6e8e256e` and Daychi
+`e1ab559c8d5db3dbd7db95aa7400941381ada12a`. Its linked primary sources own the
+observations; no native auth runtime or deployment is claimed.
+
+## Technical preparation — 2026-10-08
+
+The user authorized technical preparation on 2026-10-08. The
+[proposed shared profile](../contracts/native-account-session.md) specifies
+browser authorization, PKCE/callback binding, code exchange, account read,
+renewal, revocation, local persistence/failure recovery and common cases N01–N17.
+The [Cabinet draft assignment](../assignments/native-session-cabinet.draft.md)
+and [Daychi draft assignment](../assignments/native-session-daychi.draft.md)
+derive their actions from that same proposal. These are reviewable preparation,
+not published implementation assignments or accepted contract changes.
+
+### Impact
+
+Native account access crosses Cabinet issuance/account ownership and Daychi
+browser handoff, secure persistence and restoration. Revocation requires Cabinet
+to distinguish individual native grants while retaining web behavior; a header
+substitution alone cannot meet installation-scoped sign-out.
+
+### Hidden edges
+
+A lost successful exchange consumes the code; recovery needs a fresh browser
+attempt. A lost renewal response or failed local write must preserve a usable
+predecessor. Offline local logout cannot establish server revocation. Callback
+delivery on cold start, cancellation and issuer mixups affect session integrity.
+
+### Leave alone
+
+Content admission, legacy content credentials, account/reminder synchronization,
+ordinary local choices/reminders, browser cookie policy and the public pilot.
+No device fingerprint, gateway, background polling or backend retirement is added.
+
+### Recommendation
+
+<straw-dog question="q-0002.0008.0001.0002">
+Use code/PKCE acquisition and one revocable native grant with a renewable bearer.
+Preserve the browser's 90-day/seven-day policy as a proposed native choice;
+retain each predecessor until its expiry to recover interrupted renewal. This
+avoids refresh-token rotation/recovery machinery, at the cost that a copied bearer
+can continue using/renewing its grant until revocation, refusal or expiry.
+The user must accept or replace this policy before it becomes an implementation
+obligation. Endpoint/DTO/callback and failure choices are likewise proposed;
+publication requires accepted shared meanings and an immutable accessible revision.
+</straw-dog>
+
+### Draft validation
+
+Fresh independent Cabinet and Daychi recipient readers reconstructed their own
+obligations from the brief, cited profile and their repository sources. Both found
+coverage of all N01–N17 aspects. The Daychi reader found a callback URI ambiguity;
+the profile now requires exact raw single-slash URI equality and decoded query
+validation, and its affected independent re-read found no remaining substantive
+gap. Cabinet's review prompted explicit renewal media/body validation and the
+general duration formula. Exchange-dispatch durability and crash inputs make
+interruption recovery explicit. These reviews establish draft readability and
+compatibility, not implementation, accepted policy or native runtime behavior.
+
+Record checks passed: ticket validator, question validator, rule injection and
+mechanism validation. The five prepared/updated contract, assignment, ticket and
+question files have 33 resolving local links/anchors. Scoped straw-dog review
+confirmed the candidate profile/briefs are bound to the open native question;
+publication-placeholder references outside the wrappers describe draft state.
+`git diff --check` passed. The required harness source comparison still fails
+only on the pre-existing `.agents/skills/skill-up/SKILL.md` difference from
+`goodwolf-harness@5871845`; its injection/shape checks pass. That unrelated
+difference was not changed. No application test suite exists in Workshop;
+provider/client checks and actual native proof await implementation.
+
+## Out of scope
+
+- Content-admission replacement and backend retirement: the
+  [content-admission agreement](../boundaries.md#accepted-content-admission) and
+  [consolidation deferral](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)
+  retain their existing scope and bindings.
+- Reminder synchronization and protected schedule cutover remain separate rows
+  in the [migration delta](../migration-changes.md#changes-derived-from-accepted-contracts).
+- Gateway implementation remains [deferred](../boundaries.md#accepted-gateway-deferral).
+- New background polling and native server push remain outside the
+  [first-stage scope](../stage-1.md#scope-limits).
+
+## Parent scope addressed
+
+The credential migration foundation for later authenticated schedule and account/reminder
+work. The approved eventual result includes native sign-in, restoration, account read,
+agreed expiry/renewal, refusal versus temporary failure and recovery, and local sign-out;
+actual native proof and Cabinet web/Daychi ordinary-content regressions remain required.
+It does not complete the broader migration or the public schedule connection.

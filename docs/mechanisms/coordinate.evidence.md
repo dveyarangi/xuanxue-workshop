@@ -1,5 +1,122 @@
 # Coordination loop evidence
 
+## Scoped maintenance of the further-work change — 2026-10-06
+
+Scope: the approved coordinator addition, its source bindings in local.rules.md
+and five installed consumers, its declaration, shared validation references,
+the related question/failure records and the one-sentence skill-up change.
+The application contracts and recipient implementations were not changed.
+
+Under maintain A1/E1 and skill-up's source/overlap checks, replaced the table's
+opaque route IDs with direct links to the seven named skills in the approved
+draft. The table is the explicitly requested navigation summary; the stage
+instructions and installed rules retain their execution definitions. Removed
+repeated review-reuse instructions from coordinator prose, leaving RA2 as their
+owner; kept pending-action recovery in Continue and resume. Removed the second
+external-wait instruction and combined the repeated activity-dependency clauses.
+The table and its continuation conditions remain present. Updated the declaration
+to describe this summary/owner distinction.
+
+Manual tracing against the read sources established these bounded conclusions:
+
+| Case | Result from the maintained instruction |
+|---|---|
+| Missing relevant evidence | Direct analyse link; return the observation for comparison. |
+| Known deviation versus unresolved shared choice | Separate reconcile and align rows; neither permits independent recipient choices. |
+| Existing covering assignment | Review that issue; the row continues authorized work after findings rather than always waiting for another report. |
+| No covering work | Ticket/impact breakdown, retaining its required approval. |
+| External integration proof pending while a contract choice is unresolved | The proof blocks its integration action; alignment can be proposed under its own authority. |
+| Unchanged resumption | Recover the stored step or wait; RA2 reuses the applicable review. |
+| Recorded migration candidates outside the active outcome | Use migration delta and queue bindings; historical grouping does not authorize another pair. |
+
+These are author-performed source traces, not an independent execution grade.
+The checks passed for all 46 installed blocks, mechanism declarations, live ticket
+and question formats, 77 local reference targets and whitespace. Straw-dog scan
+found no due entries or diagnostics; scoped guessing found no candidates.
+The two question-similarity suggestions concern already distinct migration,
+consolidation, access and gateway questions; no merge follows from shared words.
+No live ticket has all acceptance criteria satisfied, and the resolved proposal
+question is already archived, so nothing moved in this pass.
+
+The published compatibility contract-shape link was read successfully and still
+serves the full criteria. The local redirect and new canonical path retain their
+existing joint-publication obligation. Harness verification passes installation,
+declaration and loader-link gates; its only reference mismatch remains the
+explicitly approved skill-up sentence, tracked upstream in issue 3 below.
+maintain.py classifies these mechanisms as recipient built-ins and excludes them
+from maintenance marks; no marks were fabricated. Publication and independent
+behavioral evidence remain with the existing readiness work referenced below.
+
+## Further-work instructions — 2026-10-06
+
+Compared the installed instruction with the replacement chat draft explicitly
+approved by the user. The proposal occasions, active outcome criteria and queue,
+stage scope, accepted-contract delta, agreement/evidence/assignment comparison,
+defined actions, proposal contents and authority/dependency conditions were
+present in prose. The initial comparison incorrectly treated the draft's explicit
+table as interchangeable with compressed rule references. After the user's
+second correction, `Actions and resumption` now presents each source condition,
+its concrete next action and its continuation condition in the skill itself.
+It uses the installed routes for execution definitions. The accompanying
+resumption paragraph restores the existing pending action, retains unchanged
+choices and limits each dependency to the action it actually blocks.
+
+The user's completeness check found a real installation omission: the authored
+L9 source map had changed, but the interrupted installer left old local blocks
+in coordinate, analyse, reconcile, issue and review-assignments. Regenerating
+those blocks from local.rules.md completed the approved change. The instruction
+and declaration checks now pass with no diagnostics; whitespace checks pass.
+The named queue, migration-delta and agent-contract sections were resolved.
+
+The full harness check resolves both host loader links and passes its injector
+and mechanism gates. Its reference gate reports exactly one divergence from
+goodwolf-harness@5871845: the user-approved skill-up description sentence. The
+upstream request is [goodwolf-harness issue 3](https://github.com/dveyarangi/goodwolf-harness/issues/3).
+This pass establishes installed text and agreement coverage; it does not provide
+independent behavioral grading of the new proposal occasion or publish new work.
+
+## Live coordination exercise — 2026-10-06
+
+Scope: ordinary Workshop session entry through recall, assignment review and
+coordinated reconciliation of the existing installation/public-schedule work.
+The session was `01a110e9-26ca-76e1-9f28-3dccce638a22`. This is an observed
+instruction execution, not independent grading or completed application integration.
+
+The GitHub connector returned all six Workshop issues in every state. Their full
+comment collections and timelines were read; each timeline fit within its first
+100-event page. Relevant Cabinet PRs 561 and 562 and their issue comments were
+followed. Existing source/check/deployment evidence was reused because no new
+recipient report changed its basis. The shell GitHub path could not reach the API;
+the connector supplied the required reads, so that limitation was not treated as
+an empty inbox.
+
+| Existing work | Verified current disposition | Remaining owner action |
+|---|---|---|
+| [Cabinet installation #1](https://github.com/dveyarangi/xuanxue-workshop/issues/1) | Accepted and closed; retained merge `130fb09bc9b3619f41649bbad5e94673bc8e94b8`. The latest acknowledgement explicitly separates completed installation from Workshop readiness. | No repeated installation or acknowledgement. Workshop source portability/publication remains separate. |
+| [Cabinet provider #5](https://github.com/dveyarangi/xuanxue-workshop/issues/5) | Installation dependency is satisfied. Merge `fc2dee20d64d91122a58e57709c378c5fc91bae7` and reviewed deployment evidence remain the baseline. The latest Workshop response requests correction of malformed required-data handling. | Cabinet supplies the correction and HTTP-level evidence in the same issue; provider acceptance remains incomplete. |
+| [Daychi installation #2](https://github.com/dveyarangi/xuanxue-workshop/issues/2) | Open, with no comment or timeline report; readiness and operator access remain its stated prerequisites. | Workshop completes its readiness/publication outcome; the Daychi operator supplies access and installation evidence under the existing assignment. |
+| [Daychi consumer #6](https://github.com/dveyarangi/xuanxue-workshop/issues/6) | Open, with no recipient report. Client development depends on accepted installation; actual integration proof additionally needs the conforming provider and controlled fixtures. | Daychi implements and demonstrates the native pilot under its operator after the applicable dependencies are satisfied. |
+
+Issues 3 and 4 remain withdrawn; their timelines contain no returned contribution
+requiring acceptance. No incoming Workshop request was discovered in the complete
+six-issue collection. Both application briefs cite the same immutable public
+lessons authority at `e209d27239391be3af2be71b898c79f453851c01`. Its thirteen
+contract dimensions and shared conformance cases retain compatible provider and
+consumer obligations; read-only effects, absent snapshot/push guarantees and
+project-owned internal choices remain explicit. The present gap is implementation
+conformance and evidence, not a new shared choice.
+
+The coordinator reused its active entry review when applying reconciliation;
+it did not repeat discovery as a recursive invocation. Since the latest relevant
+responses were already Workshop's and no new contribution changed their basis,
+no duplicate response, issue edit, closure or recipient assignment was made.
+The local queue keeps readiness first and the joint connection second. Remote
+`master` still points to `e209d27239391be3af2be71b898c79f453851c01`; publication of
+the new local coordination sources and portable companion link remains part of
+[workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).
+Commit/push, recipient installations, fixture writes and native proof were not
+performed by this exercise.
+
 ## Maintenance — 2026-10-06
 
 Scope: the five coordination mechanisms, their installed rules, shared references,
@@ -143,3 +260,34 @@ and application delivery with
 [cabinet-daychi-public-schedule-connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md).
 The distributed format retains its existing HEAD compatibility link; the new
 redirect and target must be published together before that published path changes.
+
+## Native recipient implementation questions — 2026-10-10
+
+After publication, the Workshop operator relayed three Cabinet design questions:
+signed native credentials with a grant record versus random credentials stored as
+hashes, pending browser authorization in a signed cookie versus the database, and
+an internal `/login/native` page to resume authorization after login.
+The original recipient channel is
+[cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7).
+Its pinned authority is
+[native account-session at b8ab296](https://github.com/dveyarangi/xuanxue-workshop/blob/b8ab296e2713580eb4b91155b0c333ea758a74ce/docs/contracts/native-account-session.md).
+No recipient implementation, external guarantee change or tracker reply is inferred
+from these operator-relayed questions.
+
+| Question | Existing contract boundary | Disposition |
+|---|---|---|
+| Native token representation and storage | The token is opaque to Daychi; its wire grammar, limits, credential kind, current-account validation, grant identity, renewal and grant-wide revocation are defined. Cabinet explicitly owns representation, signing and storage. | A Cabinet design choice; either representation still has to meet the same observable guarantees. |
+| Storage while browser login is pending | The validated authorization transaction survives login; cross-tab email completion cannot return another transaction's code. The 900-second limit is explicitly the Daychi local attempt lifetime. | A Cabinet persistence choice; the shared contract does not prescribe a browser-state collection or cookie. |
+| `/login/native` | The external browser entry remains `GET /auth/native/authorize`. Necessary login resumes the validated transaction automatically, preserves internal-only return targets and adds no confirmation screen. Internal browser routing is explicitly Cabinet's. | An internal helper route can conform; changing Daychi's external entry or adding required post-login confirmation would change an accepted obligation. |
+
+The published Cabinet brief explicitly retains storage schema, cryptographic
+representation, internal routing and library choices. These questions therefore
+do not demonstrate a missing shared wire decision. They concern the provider's
+local implementation plan, whose operator remains its authority.
+
+The communication failure was presenting implementation readiness without clearly
+distinguishing a complete shared contract from complete internal design. Independent
+recipient reading establishes compatible obligations, not the absence of local
+design questions. The existing CQ1 clarity criterion already includes permitted
+internal choices; no new prohibition on recipient questions or extra Workshop
+approval gate is introduced by this diagnosis.

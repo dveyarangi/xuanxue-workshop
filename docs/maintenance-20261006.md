@@ -1,5 +1,39 @@
 # Maintenance of recent Workshop work — 2026-10-06
 
+## Agent-contract separation follow-up — 2026-10-06
+
+Scope: agent-contract.md, onboarding.md and their local readers and links. The
+user identified mixed contract, procedure, history and status responsibilities.
+The inspected working copy already linked out to commit inspections and dry-run
+history, but still embedded a readiness/adoption snapshot and installation detail.
+
+Under maintain A1/E1, the contract retains roles, addressed-work ownership,
+acceptance, communication and contract evolution. Onboarding owns installation
+requirements; collaborate and its issue format own execution procedures. Dated
+clarification prefixes become the current accepted wording, retaining decision
+provenance in the contract's opening attribution and the existing question records.
+Published section anchors are preserved. Architecture's description of the
+contract's scope is updated accordingly.
+
+The removed adoption snapshot's surviving facts already have homes: local entry
+and direct-review wiring, observed invocation and Cabinet handling in
+[review evidence](mechanisms/review-assignments.evidence.md#fresh-entry-and-real-report-handling--2026-10-06),
+bounded independent grading in
+[coordination evidence](mechanisms/coordinate.evidence.md#independent-loop-grading),
+Cabinet acceptance and Daychi's dependency in the
+[adoption disposition](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#current-disposition--2026-10-06).
+The duplicated status block is obsolete in the contract; removing it does not
+resolve the still-open adoption question or assert any new readiness result.
+
+Checks: all 12 pre-existing contract heading anchors are preserved; 98 local
+reference targets and heading fragments in the five changed documents resolve.
+Question-store and whitespace checks pass. The remaining four straw dogs have
+no diagnostics or due entries. Scoped guessing returns only architecture's
+existing gateway-deferral condition, a summary pointing to its accepted home;
+it adds no provisional promise. No mechanism is due or eligible for an instance
+maintenance mark. No tracker state, recipient installation or application
+capability was reverified or changed by this document separation.
+
 ## Scope and stage
 
 Requested by the user across recent sessions. Scope starts with the initial

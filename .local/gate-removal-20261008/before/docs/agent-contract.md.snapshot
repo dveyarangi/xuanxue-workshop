@@ -1,0 +1,210 @@
+# Workshop and project-agent contract
+
+Contract for responsibility boundaries between Workshop, Cabinet and Daychi agents.
+Accepted by the user on 2026-10-04, with the 2026-10-05 clarifications incorporated.
+
+This document owns role responsibilities, shared guarantees, communication and
+acceptance. [Onboarding](onboarding.md) owns installation and access requirements;
+agent procedures live in skills. Implementation evidence and current work have
+the separate homes linked under [Adoption and implementation](#adoption-and-implementation).
+
+## Accepted obligations
+
+Cabinet and Daychi have separate operators and own their implementation and setup.
+Workshop owns coordination and the evidence-backed current boundary records.
+The [first-stage goal](stage-1.md#completion) owns the overall completion condition;
+[boundary contracts](boundaries.md) own the application promises.
+
+All inter-agent assignments, both outgoing and incoming, live in Workshop's GitHub
+Issues. Recipient labels identify addressed work: `project:daychi` for Daychi,
+`project:cabinet` for xuanxue-cabinet, and
+`project:workshop` for Workshop. A recipient label names who is to perform the
+work, not who opened the issue. Project agents address migration-coordination
+requests and Workshop-functionality reports to `project:workshop`.
+Workshop supplies the recipient label when issuing work. The
+[installation requirements](onboarding.md#collaboration-installation) bind that
+label to the recipient's local instructions.
+Project repositories are not separate dispatch boards.
+Workshop inception work stays in its local ticket queue. Incoming issues about
+Workshop functionality or contract migrations are external requests, distinct from that local inception
+queue. The local folder spelling and remaining addressing details belong to the
+[tracker question](questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md).
+
+## Boundary scope and product language
+
+Workshop defines shared ownership, data semantics, consistency, failure obligations
+and observable acceptance outcomes. Implementing
+projects own executable interfaces, internal mechanisms, UX and presentation.
+Product-language recommendations are separate work and do not become boundary
+requirements.
+
+Boundary agreements constrain behavior that must agree across projects.
+Assignments and acceptance evidence are governed by this division of authority.
+
+Project ownership of executable definitions identifies their authored home;
+it does not permit independently selected
+cross-project contract shapes. Coordinated implementation has one fully specified
+externally observable contract. Internal implementations may differ while
+fulfilling that same shape.
+
+Implementation assignments share an accessible immutable contract reference and
+common conformance examples/outcomes. An incomplete shared shape is unresolved
+coordination, even when the assignments are Planned. Separate project proposals
+do not establish a compatible implementation assignment. The
+[coordinator's contract-shape reference](../.agents/skills/coordinate/CONTRACT-SHAPE.md)
+holds the dimensions used to assess completeness. The
+[coordination mechanism](../.agents/mechanisms/coordinate/coordinate.md) owns shared
+validation across analysis, reconciliation, issuing and ongoing review; each stage
+owns its production and checks. Independent implementations satisfying their
+recipient briefs must agree on shared shapes and guarantees. Full recipient
+context remains mandatory while process steps are kept proportional to the work.
+
+## Workshop address
+
+[dveyarangi/xuanxue-workshop](https://github.com/dveyarangi/xuanxue-workshop).
+This repository publishes the canonical contract and hosts the
+[single inter-agent issue tracker](https://github.com/dveyarangi/xuanxue-workshop/issues).
+The canonical document path within that repository is `docs/agent-contract.md`.
+
+## Entry and first assignment
+
+The [onboarding agreement](onboarding.md#access-and-communication) owns participant
+access and the original-issue communication requirement when another project joins.
+
+The operator gives the project agent the Workshop repository link. README points
+to installation assignments and the /collaborate skill, which owns installation
+and communication. Installation issues point to the same skill. This entry route belongs to Workshop,
+not to the installation ticket's outcome.
+
+The first assignment's outcome is collaboration installed and verified in the
+recipient project under its operator. The
+[onboarding agreement](onboarding.md#collaboration-installation) defines that
+installation and its evidence. Subsequent application work depends directly on
+the recipient's accepted installation; Workshop readiness is a prerequisite of
+the installation assignment.
+
+Workshop may post subsequent assignments as Planned before readiness and onboarding
+are confirmed. Their execution waits for
+those dependencies and the identified contract baseline; posting is not release.
+Posting does not establish adoption.
+
+Dependencies distinguish starting work from integration proof and completion.
+Work against an agreed contract and proof requiring a conforming reachable
+provider have different prerequisites.
+Eligibility follows satisfied assignment conditions and the recipient operator's
+authority; Planned/Ready wording adds no separate release approval. Workshop
+reviews changed prerequisite evidence and communicates resulting action in
+affected original issues. The [issue format](../skills/collaborate/workshop-issue-format.md#dependencies)
+owns dependency fields and interpretation.
+
+### Boundary summary in project instructions
+
+Boundary-related work must be recognizable from the project's entry instructions
+before loading the collaboration skill. Workshop supplies the shared context;
+the recipient owns its checked local integration. The
+[boundary-summary requirements](onboarding.md#boundary-context) define the
+installation and update evidence. Detailed promises and versions remain in their
+authoritative boundary contracts.
+
+## Project-agent rules to install
+
+Cabinet and Daychi install
+the [/collaborate skill](../skills/collaborate/SKILL.md) under their own
+operators. That skill owns the procedures for discovery, installation, invocation,
+assignment discussion, result reporting and duplicate checks for Workshop problems.
+The project agent implements local work; Workshop retains shared-record maintenance
+and acceptance responsibility.
+
+## Workshop rules
+
+Workshop is accountable for addressed assignments, startup review, resolution of
+reported assignment problems, evidence verification, reconciled records and
+acceptance acknowledgement. Startup review covers assignments and replies,
+including completion reports in already-closed issues.
+
+An accepted outgoing assignment has evidence checked against its scope, affected
+records reconciled, and a Workshop acknowledgement referencing the resulting
+record revision or confirming that no boundary changed. Missing requirements and
+evidence, reported problems, alternatives and their resolution belong to the
+original assignment. Incoming Workshop assignments have recorded resolutions
+when Workshop's work is complete. Contract changes retain the evolution agreement
+below; project operators retain implementation and release ownership.
+
+## Directions and issue ownership
+
+| Direction | Work performed by | Review and closure |
+|---|---|---|
+| Workshop to Cabinet or Daychi | The addressed project agent under its operator | Workshop verifies the result, reconciles its records and closes the issued assignment. |
+| Project agent to Workshop about Workshop functionality | Workshop | Workshop resolves and closes its incoming issue. |
+| Project agent to Workshop requesting contract migration | Workshop coordinates; affected project agents implement their parts | Workshop checks provider and consumer evidence, updates records and closes the migration request. |
+
+Creating, executing and accepting an assignment are different responsibilities.
+The Workshop review obligation applies to the assignments it issues, not to all
+internal issues or PRs in a project repository.
+
+## Exchange through GitHub Issues
+
+The original assignment issue holds its report, problems, alternatives, evidence,
+follow-up questions and Workshop acknowledgement. Returning a result or updating
+Workshop records does not require a second issue. The separate incoming channel
+handles problems with Workshop functionality and requests to coordinate contract
+migrations. Problems with Workshop functionality remain subject to the skill's
+duplicate check.
+
+An accepted target, a project completion report, or a closed GitHub issue alone
+does not establish acceptance or the deployed state of a boundary. The
+[Workshop responsibilities](#workshop-rules) define acceptance.
+
+The original issue's conversation and closure hold the review history;
+there is no separate local acknowledgement ledger.
+An unchanged conversation whose last message is Workshop's needs no repeated
+response. A new project report requires review, including when the project agent
+has closed the issue before Workshop acceptance.
+
+Startup review discovers pending issue conversations; boundary reconciliation
+uses the relevant discussions and returned
+evidence when beginning or resuming its comparison. A boundary-affecting result
+feeds Workshop's record reconciliation before acceptance acknowledgement. Responses
+and acceptance remain in the original issue. The dedicated Workshop review skill
+supplies session-entry discovery; shared review obligations also apply when
+reconciliation begins or resumes.
+
+Workshop can accept complete, inspectable project evidence against an assignment's
+criteria without repeating the installation in
+the recipient operator's environment. Artifact and check evidence must support
+the claimed outcome; a bare completion claim is insufficient. Checks are repeated
+when necessary to resolve a gap or contradiction. This does not transfer recipient
+installation or release ownership to Workshop.
+
+## Contract evolution
+
+A project can work autonomously within the active boundary contract.
+It can also introduce a new contract version without waiting
+for Workshop approval while continuing to fulfil the active contract. A version
+identifier alone does not establish compatibility.
+
+The initiating project opens a Workshop issue to coordinate migration to the new
+version. Workshop coordinates affected consumers and records the transition.
+An incompatible replacement requires coordination before implementation; the old
+version is retired only after all known consumers have confirmed their transition.
+
+Provider and consumer checks supply evidence of working behavior. Workshop reviews
+that evidence and reconciles shared records before closing the migration. This
+responsibility does not imply an implemented executable compatibility validator
+or make prior Workshop approval a gate for introducing a coexisting version.
+
+## Adoption and implementation
+
+The [adoption record](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#current-disposition--2026-10-06)
+owns recipient adoption status and links to its evidence.
+[workshop-coordination-ready](tickets/01-0005-workshop-coordination-ready.md) owns remaining
+coordinator acceptance work. [Review evidence](mechanisms/review-assignments.evidence.md)
+and [coordination evidence](mechanisms/coordinate.evidence.md) own observed
+instruction behavior and grading. The
+[reconciliation report](reconciliation-20261004.md) retains dated installation,
+access and publication history; [current-system](current-system.md) holds observed
+project capabilities and source revisions.
+
+Source publication alone does not establish recipient adoption or release an
+unsatisfied dependency. The startup requirement implies no background service or
+unattended polling.

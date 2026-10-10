@@ -1,0 +1,86 @@
+[
+  {
+    "origin": "https://staging.xuanxue.su",
+    "observedUtc": "2026-10-08T07:33:43.5206922Z",
+    "healthStatus": 200,
+    "health": {
+      "status": "ok",
+      "version": "0.1.0",
+      "commit": "868a4ed",
+      "mongo": "up",
+      "uptimeSec": 9481,
+      "scheduler": {
+        "enabled": true,
+        "lastTickFinishedAt": "2026-10-08T07:33:05.298Z",
+        "stale": false
+      }
+    },
+    "windowStatus": 200,
+    "count": 63,
+    "distinctIds": 63,
+    "fields": [
+      "classId",
+      "classTitle",
+      "durationMin",
+      "format",
+      "groupLabel",
+      "id",
+      "location",
+      "startsAt",
+      "status",
+      "tags",
+      "topic"
+    ],
+    "containsZoom": false,
+    "invalidStatus": 400,
+    "invalidBody": {
+      "statusCode": 400,
+      "code": "invalid_input",
+      "message": "Укажите оба поля периода — «from» и «to», либо ни одного. Одна граница не задаёт выборку.",
+      "requestId": "7429191a-6065-4e8f-bb3a-c2f44b8857cf"
+    },
+    "protectedStatus": 401
+  },
+  {
+    "origin": "https://xuanxue.su",
+    "observedUtc": "2026-10-08T07:33:44.9557461Z",
+    "healthStatus": 200,
+    "health": {
+      "status": "ok",
+      "version": "0.1.0",
+      "commit": "fc2dee2",
+      "mongo": "up",
+      "uptimeSec": 176547,
+      "scheduler": {
+        "enabled": true,
+        "lastTickFinishedAt": "2026-10-08T07:33:07.024Z",
+        "stale": false
+      }
+    },
+    "windowStatus": 200,
+    "count": 67,
+    "distinctIds": 67,
+    "fields": [
+      "classId",
+      "classTitle",
+      "durationMin",
+      "format",
+      "groupLabel",
+      "id",
+      "location",
+      "startsAt",
+      "status",
+      "tags",
+      "topic"
+    ],
+    "containsZoom": false,
+    "invalidStatus": 400,
+    "invalidBody": {
+      "statusCode": 400,
+      "code": "invalid_input",
+      "message": "Укажите оба поля периода — «from» и «to», либо ни одного. Одна граница не задаёт выборку.",
+      "requestId": "f9489753-7617-43b0-832c-a22374b8a65d"
+    },
+    "protectedStatus": 401
+  }
+]

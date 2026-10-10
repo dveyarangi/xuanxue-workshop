@@ -22,9 +22,9 @@ session entry and handling project reports. The mechanism declaration accounts
 for its instruction, invocation, maintenance and operator grading.
 
 Project pointers reach the skill through the installed local context. Local rule
-L14 holds the shared review/action/continuation instruction and targets both
-reconciliation and review. A new local entry rule invokes review after recall.
-The shared source prevents two authored review procedures. No acknowledgement
+L14 holds the review/action/continuation instruction in assignment review.
+L15 invokes review after recall. Reconciliation uses the existing review findings.
+No acknowledgement
 ledger, periodic runner or project-local installation is introduced.
 
 The review distinguishes outgoing assignments from incoming Workshop requests
@@ -62,9 +62,14 @@ reply needs attention. Independently authorized local work can continue.
 5. A fresh ordinary Workshop session must demonstrate entry-file loading, recall,
    review invocation and actual tracker discovery. Installation and explicit
    invocation alone cannot establish fresh-entry invocation.
-6. Publish only after the existing commit and push approvals. Read back the entry,
-   readiness evidence and installation dependencies before release. Recipient
-   installations and their acceptance remain separate outcomes.
+6. Publish only after the existing commit and push approvals. Read back the entry
+   and review evidence. Recipient installations and their acceptance remain separate
+   outcomes; this coordinator verification does not gate recipient execution.
+
+The 2026-10-08 dependency correction extends L14 to assess necessity as well as
+fulfillment against source, checks, runtime and operator evidence. Readiness and
+installation acknowledgements do not hold implementation against a settled shared
+contract. Actual integration still requires its provider, fixtures and runtime.
 
 Current implementation and verification results are recorded in the
 [review evidence](../mechanisms/review-assignments.evidence.md#remaining-readiness-evidence).

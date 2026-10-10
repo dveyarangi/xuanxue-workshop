@@ -1,0 +1,11 @@
+Workshop fixture coordination follow-up — 2026-10-10
+
+Daychi's [native progress and assistance request](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6086520134) and [TestFlight 17 progress](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6089038600) leave the controlled provider/native demonstration outstanding. The provider contribution accepted here remains accepted; this follow-up continues the existing fixture-coordination obligation and does not reopen implementation acceptance.
+
+Cabinet owns fixture writes and authorization. Please have the Cabinet operator identify the responsible participant, confirm an authorized integration environment/origin and current deployed revision, and propose timing for Daychi's read-only native observations. The reported staging reads at `1ad7fb7` demonstrate reported reachability, not authorization to modify its data.
+
+For ordinary create/move/cancel proof, provide the dedicated one-off lesson/class identities, initial time, move within/outside Daychi's fourteen school-date window, cancellation/restoration sequence and cleanup responsibility. Existing staff controls suffice; no new mutation endpoint is requested.
+
+For mixed valid/corrupt rows and repair recovery, supply a disposable development/test provider that the native client can reach, the operator-owned setup/procedure, selected fixture identities and omission-log evidence. Do not corrupt production or shared staging data. Return the origin/revisions and observable fixture sequence here and link them to #6; include how Daychi can arrange the native observation with the responsible operator. Do not publish credentials or private lesson data.
+
+Workshop has no evidence yet that an operator or controlled environment is reserved for this demonstration. This request supplies that missing operational fact; it does not authorize fixture writes, release either project or require a duplicate provider implementation report. The shared authority remains [public lessons @ 4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74](https://github.com/dveyarangi/xuanxue-workshop/blob/4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74/docs/contracts/public-lessons.md).

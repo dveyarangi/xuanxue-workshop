@@ -1,0 +1,324 @@
+# q-0002.0005 How should agents adopt Workshop rules and discover addressed work?
+
+- **part of** q-0002
+- **state** open
+- **lean** Cabinet and Daychi collaboration installations are accepted in original issues 1 and 2. Daychi immutable artifacts, fresh-session proof and return path are verified; issue 6 installation dependency is satisfied. Broader Workshop readiness, independent grading and source rollout remain separate; native application proof is open.
+- **struck** 2, last 2026-10-05T13:39Z
+
+The [first-stage goal](../stage-1.md) requires both project agents to demonstrate
+successful integration with Workshop. Each agent and its own human operator
+performs the setup. Workshop supplies addressed work and collects confirmation.
+
+Determine the minimum usable instruction entry point, access, work discovery,
+and evidence of adoption. A shared local filesystem cannot be assumed. An
+unattended runner, new periodic scheduler, or generalized adoption platform is
+not implied by this stage. The reporting and record-update contract belongs to
+the [agent interaction contract](../agent-contract.md).
+
+## Accepted direction and remaining work
+
+### Current disposition — 2026-10-06
+
+Cabinet installation is [accepted and closed](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155).
+Its retained artifacts, direct report and dependency effect are recorded in the
+[assignment review](../reconciliation-20261004.md#cabinet-assignment-review--2026-10-06).
+This supersedes the pending Cabinet acceptance and temporary dry-run states below.
+Daychi's newer report is reviewed below; the earlier unreported state is superseded.
+Workshop review is installed and fresh entry is observed; independent grading
+and publication remain in the [readiness evidence](../mechanisms/review-assignments.evidence.md).
+
+### Daychi installation review — 2026-10-08
+
+The [completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6043001309),
+[PR 7](https://github.com/sleontenko/daychi/pull/7) and its immutable
+verification record supply the missing accessible source and fresh-session proof.
+Workshop verified exact transformed-source equality of both installed files at
+`6fd2657b9dd66fe8a85947fc62f492280978856b`, source `e209d27`, the entry invocation
+and existing/target summary. Reported matching MacBook/Mac Mini hashes, fresh
+ephemeral invocation/discovery and the direct authenticated issue report satisfy
+the installation criteria. No application boundary contract changes. PR 7 is open;
+installation acceptance does not assert its merge or application deployment.
+Workshop [accepted and closed the original issue](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501).
+Its acceptance satisfies issue 6's installation prerequisite; provider/fixture and native proof remain
+separate integration dependencies. Workshop readiness/source rollout is separate.
+
+### Independent Cabinet operator attempt — 2026-10-05
+
+The user supplied a new independent operator report of blocked installation and
+unavailable cross-repository issue reporting. The
+[installation-assignment preparation question](q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md)
+holds the assessed report, direct GitHub/source checks, known friction and pending
+alignment. This is distinct from the earlier Workshop-directed dry run. No
+recipient installation was accepted and issue #1 has not received this report.
+
+### Cabinet installation dry run — reported by the user, 2026-10-05
+
+This is user-supplied evidence from a Workshop-operator-directed dry run in the
+Cabinet checkout. It was not posted to
+[cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1).
+No commit, PR, deployment or application migration was performed. The files are
+uncommitted and the report says they will be rolled back; rollback completion
+has not been reported. This does not establish permanent Cabinet adoption or
+Cabinet-operator acceptance.
+
+Reported source: `ba5e35f24e49ac2931f3af9382646c5cbd87e1e8`, readable using
+`gh` from the Cabinet checkout.
+
+Reported installation:
+
+- `.cursor/skills/collaborate/SKILL.md`: label `project:cabinet`, Installation
+  section removed, source revision recorded as a line in the installed skill.
+- `.cursor/skills/collaborate/workshop-issue-format.md`: unchanged companion;
+  the installed skill's relative link resolves.
+- `CLAUDE.md`: collaboration block appended while preserving existing rules;
+  no additional AGENTS.md because the reported host reads CLAUDE.md. The block
+  is an uncommitted instruction snapshot, with no committed revision supplied.
+- Summary: existing `api/` to `web/` through `shared/`, `@xuanxue/shared` and
+  `shared/src/*-routes.ts`; Cabinet-to-Daychi connections explicitly targets.
+  The report confirms both Cabinet parts import the shared package and reports
+  no summary disagreement.
+
+A new agent without prior conversation, instructed to start from CLAUDE.md,
+read the installed skill and companion, discovered the one open Cabinet-labelled
+assignment, and recognized boundary work under api, web and shared. This supports
+the instruction-reading, skill-invocation and addressed-discovery path. It does
+not prove automatic host loading of CLAUDE.md in an ordinary session. The contract
+does not require Cursor to inject the skill before the project instructions are
+read.
+
+Issue #1's readiness instruction correctly prevented ordinary installation. The
+dry run proceeded under the human's explicit chat direction. Workshop's own
+startup-review capability, release of the installation assignment, actual
+Cabinet-operator installation, durable retained instructions, original-issue
+reporting and Workshop acceptance remain outstanding. Missing commit or PR alone
+is not a new rejection criterion: the existing assignment needs identifiable
+instruction evidence and verified retained installation, not a prescribed Git
+delivery mechanism.
+
+One underspecified instruction was exercised: installation step 5 said "Record
+the source revision" without naming its location. The reported choice was a
+reasonable interpretation. On 2026-10-05 the user accepted recording
+`Source revision: <full source commit>` beneath the Project label line in the
+installed skill and supplying both files from one immutable revision in the issue.
+The accepted [source agreement](../onboarding.md#installation-source) and the
+distributable skill now carry that clarification locally; publication remains
+outstanding. No separate metadata file is introduced.
+
+Evidence assessment only: no acceptance boxes, issue state, sibling files or
+remote comments were changed. The report is retained here rather than dispatched
+without explicit instruction.
+
+## Independent Cabinet installation PR — inspected 2026-10-05
+
+The user reports a new Cabinet update. Workshop issues 1 and 5 were reread and
+still have no comments; a tracker-wide check found no new Workshop issue.
+Cabinet has opened [draft PR 561](https://github.com/gregoryKot/xuanxue-cabinet/pull/561),
+head `612183810f9a6708ac30cb48984649b7d4cb22af`, against the inspected Cabinet
+baseline `628314472aa2752ebb2bbe9ab75ac3dea9791719`. It is open and unmerged.
+
+Direct text comparison confirms the installed skill matches Workshop
+`e209d27239391be3af2be71b898c79f453851c01` after substituting `project:cabinet`,
+adding the full Source revision beneath it and removing Installation; the adjacent
+issue format matches that published source. Both files are in the PR. CLAUDE.md
+contains the skill link, invocation conditions and checked existing/target
+boundaries. The diff includes the ignore exception and project-owned ADR and gate.
+No Cabinet code was executed or changed by Workshop.
+
+The PR description reports a separate agent without prior context starting from
+CLAUDE.md, finding the skill and Cabinet issues 1 and 5, and recognising the
+boundaries. This is a recipient report, not observed session output or proof of
+ordinary host entry. It says issue 5 has not been started and still waits for
+Workshop acceptance of issue 1. It also reports that the agent session cannot
+post to Workshop and expects the owner to post the original-issue report; adding
+collaborators has not demonstrated that host connection's working write access.
+Workshop has not introduced a new communication channel.
+
+At inspection the `checks` CI job succeeded; `backup-restore` and `changes` were
+queued. This is not a claim that every PR check has passed or that the installation
+is merged into the project baseline. No installation criterion was accepted and
+no dependent assignment was released.
+
+One source portability defect is now observable in a real installation: the
+format's relative contract-shape link resolves under `.claude/.agents/`, while
+the recipient tree has no CONTRACT-SHAPE.md. The adjacent skill-to-format link
+does resolve. The broken appendix link comes unchanged from Workshop's source;
+it is not recipient adaptation drift. No repair was applied. Source-link repair
+and publication of the newer local rules require their existing checkpoints.
+
+### Skill corrections accepted during alignment — the user, 2026-10-04
+
+- The project-agent skill is named `collaborate`.
+- It has no separate `REFERENCE.md`; necessary pointers belong in `SKILL.md`.
+- Its description must explicitly trigger use for every change affecting shared
+  boundaries, including changes initiated locally rather than by a Workshop issue.
+- Remove installation from the skill description's invocation occasions, as
+  directed by the user on 2026-10-04. The source still contains its installation
+  section; the installation assignment directs the agent there.
+- Installation assignments require both installing the skill and adding a link
+  with invocation conditions to the project's durable agent instructions.
+- Invocation conditions belong in the discovery description and the project's
+  agent instructions. The skill body describes actions once invoked; a startup
+  instruction buried there cannot cause the agent to load it at startup.
+- The project's durable agent instructions must also hold a very short description
+  of its boundaries, so work initiated outside the skill can trigger it. The
+  description must agree with the shared boundary records. The user accepted
+  ownership and updating on 2026-10-04; the
+  [agent contract](../agent-contract.md#boundary-summary-in-project-instructions)
+  owns that agreement. The installed skill alone cannot supply the information
+  needed to decide to invoke it.
+- The source skill includes an installation section. Installation writes the
+  project-recipient label into the installed skill and removes the installation
+  section from that local copy. The distributable source retains the section.
+  This supersedes the earlier direction to keep installation outside the skill
+  (the user, 2026-10-04). README and the assignment point to these instructions.
+- The skill must explain what Workshop is rather than presuppose that knowledge.
+- Installation must explicitly supply how the recipient identifies its own
+  assignments. The accepted recipient-label rule is owned by the
+  [agent contract](../agent-contract.md#accepted-obligations).
+- Omit the entire `Mechanism: unowned by design` declaration, as explicitly
+  directed by the user; it is not part of the recipient skill.
+
+On 2026-10-04 the user requested saving the current agreement before drafting the
+Workshop reconciliation procedure. The corrected source is
+[/collaborate skill](../../skills/collaborate/SKILL.md); it replaces the earlier unsolicited
+skill and its separate reference file. README and the agent contract point to it.
+Compact project boundary summaries are published in the installation issues,
+using provider/consumer names and distinguishing current from target. On
+2026-10-04, following explicit user approval, both remote bodies were aligned
+with the saved source and their recipient labels applied. Neither project
+installation nor end-to-end verification has been demonstrated.
+
+### Contract changes initiated locally — accepted
+
+The user accepted the autonomy and migration boundary on 2026-10-04. The
+[contract-evolution agreement](../agent-contract.md#contract-evolution) owns it.
+The skill must apply that agreement to locally initiated work as well as assignments.
+No executable Workshop compatibility validator has been established by this decision.
+
+The user selected a dedicated Workshop startup skill on 2026-10-04 and corrected
+the first outgoing assignments to instruction installation. The
+[role-specific contract](../agent-contract.md) owns those requirements; they are
+not a request to install Workshop's internal review rules into the projects.
+
+The user clarified the bootstrap on 2026-10-04: a repository link leads to README,
+then the project-addressed issue, which requests installation of a local collaboration
+skill with invocation conditions. The [entry contract](../agent-contract.md#entry-and-first-assignment)
+owns that route. It must be usable without a preinstalled collaboration skill.
+
+Implement and connect Workshop's review skill to session startup and identify
+outgoing assignments in the single Workshop tracker. Project agents install their
+own collaboration skills from the initial assignments. Verify the local instruction
+entry point and invocation behavior through returned evidence. Installation,
+contract contributions and application migration remain distinguishable work.
+
+The shared contract is accepted and the /collaborate skill source exists locally.
+Workshop's separate startup-review skill and its startup wiring remain unfinished;
+neither project installation has been verified.
+
+## Approved first-launch breakdown
+
+Parent: the agent-integration portion of the [first-stage goal](../stage-1.md),
+under the [accepted contract](../agent-contract.md). Approved and minted on
+2026-10-04. These first-launch tasks do not replace later application-contract
+contributions or migration work.
+
+1. **[workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).** Workshop-owned, local inception
+   ticket, HITL. No dependency on either project installation. Deliver the dedicated
+   startup review skill and its invocation wiring; prepare the published README
+   and canonical contract entry; make addressed assignments discoverable in the
+   one tracker. Verify the path from issue discovery through evidence review and
+   record update to acknowledgement/closure, including blocker handling and an
+   already-closed issue. Publication retains the existing commit/push checkpoints.
+   Scope covered: Workshop's operational side of the first-stage return path.
+2. **[cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1).** Issue in Workshop addressed to
+   Cabinet, AFK after its operator supplies access. Depends on Workshop readiness
+   and published instructions. Outcome: the Cabinet collaboration skill is installed
+   and verified. Install the skill and durable invocation instructions referencing
+   the project-agent contract. Demonstrate work discovery and report installation
+   evidence in this issue for Workshop review. No application migration or installation
+   of Workshop's internal review rules. Scope covered: Cabinet agent integration.
+3. **[daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).** Issue in Workshop addressed to
+   Daychi, AFK after its operator supplies access. Same complete installation and
+   evidence path as Cabinet, implemented in Daychi's own environment. Outcome: the
+   Daychi collaboration skill is installed and verified. Depends on
+   Workshop readiness and published instructions, not on Cabinet installation.
+   Scope covered: Daychi agent integration.
+
+The two installation issues exist in the Workshop tracker with Planned status
+in their bodies and an explicit instruction to wait for readiness. They can be
+performed independently by their recipients once that prerequisite is satisfied.
+Their remote bodies point to the /collaborate skill and its companion format,
+contain explicit BOUNDARY_SUMMARY blocks and carry the accepted recipient labels.
+Readback on 2026-10-04 verified both updates against the approved bodies.
+Creation does not authorize publication or sibling edits in this checkout.
+
+### Impact
+
+Workshop readiness touches its startup instructions, the new review skill,
+canonical contract, README entry and GitHub interaction. Each project installation
+touches only that project's agent configuration and skill, performed by its own
+operator and agent. The complete path crosses the Workshop tracker without
+creating additional boards or copying shared agreements.
+
+### Hidden edges
+
+The Workshop repository is private and empty; recipient access and publication
+are prerequisites that local documentation cannot prove. Startup instructions
+must retain the existing recall obligation. A project agent may close an issue
+before Workshop review, so discovery cannot examine open issues alone. Local
+skill registration depends on the recipient's actual host; a file existing does
+not prove invocation. The old README prohibition on agent setup was amended at
+its authored local-rule source to support the accepted bootstrap.
+
+### Leave alone
+
+Application source, APIs, authentication, reminders, deployment and migration data;
+the broader horizon; each project's independent operator and release workflow.
+No new background polling service, duplicate success issues or required Workshop
+harness installation in sibling projects.
+
+### Recommendation
+
+Proceed with these three first-launch slices. Workshop must be ready to receive
+and verify installation results before those tasks are dispatched; the two local
+project installations are independent and require separate evidence. Additional
+application-contract work remains separate from this onboarding breakdown.
+
+## Ticket-format maintenance finding — 2026-10-05
+
+The concluding reconciliation audit ran the current ticket validator. The existing
+[01-0005-workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md) lacks the required
+`Answers` header and retains the retired `Open issues` section. This is record
+format drift; it does not change the ticket's scope, readiness or deferred state.
+The repair needs to preserve the open concerns in their owning question records.
+It is recorded here for the owning work; the audit did not amend the ticket.
+
+The user approved the prepared format-only repair on 2026-10-05. The Answers link
+is present and the obsolete section removed; the current ticket validator reports
+no readiness-record findings. The scope, acceptance criteria and open questions
+are preserved. Deferred horizon-record findings were not part of that approval.
+
+### Workshop review implementation — 2026-10-05
+
+The dedicated review skill, after-recall entry binding and shared reconciliation
+feedback rule are installed. Structural gates and explicit current-session issue
+discovery pass. The [review evidence](../mechanisms/review-assignments.evidence.md)
+separates these observations from fresh ordinary-session invocation, independent
+grading and publication. The [verification question](q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
+holds the invocation and grading proof still required. Neither installation issue
+has been released or accepted, and durable recipient adoption remains unverified.
+
+## Assignment-timeline discovery correction — 2026-10-06
+
+[Cabinet installation-assignment review](q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md#report-discovered-through-the-assignment-timeline--2026-10-06)
+confirms that Workshop issue 1 links Cabinet PR 561 through a cross-reference.
+The inspectable installation report is available through that original-assignment
+timeline despite zero direct comments. PR state and artifact head are unchanged;
+installation acceptance and dependent release remain unestablished.
+
+The [subsequent merged-artifact review](../reconciliation-20261004.md#cabinet-assignment-review--2026-10-06)
+supersedes that unchanged-PR statement: Cabinet installation is retained in
+`130fb09`; the public route is retained in `fc2dee2`. Both final PR heads have
+green CI. Full timeline discovery is installed, but Workshop readiness,
+installation-source portability, acceptance and provider/native proof remain
+open. No direct-comment absence is used to dismiss either report.

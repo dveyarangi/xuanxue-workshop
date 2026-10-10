@@ -1,5 +1,42 @@
 # Rule failures
 
+## 2026-10-06 — Coordinator draft omitted input sources and action definitions
+
+Status: closed; the user approved the replacement coordinator instructions and
+the skill-up description trigger, installed and checked on 2026-10-06.
+
+Struck again, 2026-10-06: the approved action table was compressed to rule IDs,
+and the completeness review incorrectly counted that as preserving the requested
+form. The user also identified missing explicit resumption conditions. Restored
+the table in the coordinator skill with source condition, action and continuation,
+plus recovery of the pending action from the existing work record. The acceptance
+comparison now checks the requested structure as well as covered meanings.
+The subsequent scoped maintenance replaced opaque route references with direct
+skill links and removed repeated review, wait and dependency instructions; its
+[evidence](mechanisms/coordinate.evidence.md#scoped-maintenance-of-the-further-work-change--2026-10-06)
+distinguishes source tracing from independent behavioral grading.
+
+Rules in play: [mechanism](../.agents/skills/mechanism/SKILL.md#siblings)
+requires skill-up when writing skill instructions;
+[skill-up](../.agents/skills/skill-up/SKILL.md) requires precise instructions,
+references to existing owners and a fit/overlap/contradiction check. The assistant
+did not invoke skill-up and drafted generic goal, obligation and next-action
+wording without connecting it to the project's sources and existing stage routes.
+The user identified that this left the resulting choice underdetermined.
+
+Proposed amendment: apply skill-writing checks to drafts as well as installed
+text; resolve each consequential input to its authoritative source or installed
+project binding, and each action to its defined operation or owning skill.
+Existing operations are referenced, not redefined. The
+[question argument](questions/done/q-0002.0002.0004-when-should-coordination-propose-or-prepare-further-work.md#draft-rejected-for-unspecified-inputs-and-actions--2026-10-06)
+holds the source/routing audit and amendment proposal. The replacement draft uses
+those inputs and operations. The accepted coordinator section and installed L9
+now connect selection to these sources and existing routes. The user chose a
+one-sentence skill-up description amendment: "Use whenever writing any
+instructions, whether to a file or directly in a reply." The broader proposed
+body check was not added. Its upstream transfer is
+[goodwolf-harness issue 3](https://github.com/dveyarangi/goodwolf-harness/issues/3).
+
 ## 2026-10-06 — Direct reconciliation lost its review entry
 
 Status: repaired and independently graded.
@@ -20,6 +57,15 @@ records the direct, reused and changed-evidence cases and their independent grad
 
 Status: closed; issue and records repaired, and creation/edit-time coverage landed
 in the [issue skill](../.agents/skills/issue/SKILL.md#validate-and-maintain), 2026-10-06.
+
+Struck again in the agent contract on 2026-10-06: earlier maintenance removed
+commit/dry-run history but left a duplicated readiness snapshot and installation
+requirements mixed with role guarantees. The follow-up moves installation
+requirements to onboarding, replaces status with links to its existing owners,
+and corrects architecture's claim that readiness lives in the contract. The
+[scoped report](maintenance-20261006.md#agent-contract-separation-follow-up--2026-10-06)
+records surviving fact homes and preserves the published anchors. This applies
+the existing A1/E1 rule rather than introducing a new document or workflow.
 
 Struck again, 2026-10-06, in the onboarding contract: the assistant appended
 Cabinet installation reports, acceptance and closure history to a document that
@@ -85,6 +131,27 @@ on reread. Structural checks verify installation, not semantic review quality.
 ## 2026-10-05 — Assignment status obscured execution dependencies
 
 Status: amendment landed locally; harness, declaration and binding checks pass.
+
+Struck again, 2026-10-08: a Daychi agent stopped at the original readiness and
+installation-acceptance holds despite a settled accessible implementation contract.
+L14 reassessed fulfillment of written dependencies without reassessing whether
+they protected an obligation. L16 required removing steps that protect none but
+did not put that assessment at the review occasion. The earlier correction removed
+an extra Ready approval while retaining the original ceremonial dependency.
+
+Amendment shown before writing and accepted by the user's request: L14 assesses
+each dependency's necessity and fulfillment from current source, executed checks,
+runtime and operator evidence, updates the original issue, and removes unsupported
+holds. Document claims, status and acknowledgement alone establish neither. Only
+activity-specific observable conditions remain; shared promise changes return to
+alignment. Readiness and installation acceptance do not gate recipient implementation.
+The issue format and contract are corrected at their own homes. This supersedes
+the installation-before-development example below; provider-before-native-proof
+remains necessary. The amendment is landed locally and the original issue bodies
+are updated; publication of this rule follows the existing commit/push checkpoint.
+Binding, mechanism, ticket and question checks pass. The full harness reference
+check detects the pre-existing `skill-up` description change; this pass leaves
+that unrelated source divergence intact.
 
 Struck again, 2026-10-06: the review treated coordinator readiness and record
 publication as extra acceptance criteria for Cabinet's verified installation.
@@ -379,6 +446,17 @@ application contract changes in this correction.
 
 Status: local clarification installed in /align; accepted application decisions unchanged.
 
+Struck again, 2026-10-08: during native-session alignment, the assistant read the
+agreed browser/code-and-PKCE method but treated its provisional wording as a reason
+to ask for the method again. The user corrected the repeated approval request.
+The entry prohibition on reopening accepted decisions and
+[L10, accepted premises during alignment](../local.rules.md#l10--accepted-premises-during-alignment)
+already required holding the method fixed and asking only about unresolved wire
+or recovery consequences. Proposed reminder: "Provisional wire details do not
+reopen an agreed acquisition method." Refused here as a restatement of L10, with
+no rule addition. Execution correction: record the reaffirmed method in its
+operative contract home and continue with actual unresolved failure behavior.
+
 Struck again, 2026-10-05: while resuming reconciliation, the assistant treated
 retirement of incomplete implementation drafts as revocation of the agreed public
 schedule connection and asked the user to select it again. The user corrected
@@ -455,6 +533,23 @@ native issues 7/8 were published and read back. The distinct conclude-only push
 restriction is repaired by L17 in local.rules.md, installed into AGENTS.md and
 /conclude with push=ask retained. Its diagnosis and behavioral cases are recorded in
 [the pipeline question](questions/done/q-0002.0002.0005-how-should-the-delivery-pipeline-make-its-current-stage-and-next-action-clear-without-reopening-settled-decisions.md).
+
+Struck again, 2026-10-06, session `01a1114c-a3d8-7b71-be77-b242d14ca5cb`:
+the initial question asked what /coordinate says, but subsequent clarification
+established the expectation of preparing further work while recipient results
+wait. The assistant continued explaining the route instead of carrying out
+concrete preparation. It let queue order and downstream execution/publication
+conditions stand in for a preparation hold. The
+[coordinator selection instruction](../.agents/skills/coordinate/SKILL.md#select-the-next-action)
+already requires considering further work during external waits, assessing
+preparation separately and continuing available authorized actions. Its
+[declaration](../.agents/mechanisms/coordinate/coordinate.md#what-would-show-it-working-graded-by-someone-who-did-not-build-it)
+explicitly rejects blocking unrelated contract preparation on integration.
+Proposed reminder: "Continue authorized preparation to the next actual checkpoint
+after answering a clarification." This repeats the previously refused amendment
+below and the existing coordinator instruction; no rule change is made.
+The diagnostic identifies an execution failure; concrete next-work preparation
+has not been completed by this diagnostic.
 
 Struck again, 2026-10-06: after the user requested conclusion and commit, the
 assistant stopped for another confirmation of the connected Workshop bundle.

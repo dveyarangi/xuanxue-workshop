@@ -1,0 +1,237 @@
+{
+  "rules files": 10,
+  "blocks": [
+    {
+      "slug": "analyse",
+      "target": ".agents/skills/coordinate/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "analyse",
+      "target": ".agents/skills/reconcile/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "analyse",
+      "target": ".agents/skills/review-assignments/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "analyse",
+      "target": ".agents/skills/issue/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/coordinate/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/analyse/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/reconcile/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/issue/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/review-assignments/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/align/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/ticket/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "coordinate",
+      "target": ".agents/skills/maintain/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "issue",
+      "target": ".agents/skills/coordinate/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "issue",
+      "target": ".agents/skills/reconcile/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "issue",
+      "target": ".agents/skills/review-assignments/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "maintain",
+      "target": ".agents/skills/mechanism/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "mechanism-shape",
+      "target": ".agents/skills/maintain/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "mechanism-shape",
+      "target": ".agents/skills/mechanism/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "mechanism-shape",
+      "target": ".agents/skills/align/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "mechanism-shape",
+      "target": ".agents/skills/skill-up/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "mechanism-shape",
+      "target": "AGENTS.md",
+      "state": "present"
+    },
+    {
+      "slug": "mechanism-shape",
+      "target": ".agents/skills/verify/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "questions",
+      "target": "AGENTS.md",
+      "state": "present"
+    },
+    {
+      "slug": "questions",
+      "target": ".agents/skills/recall/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "questions",
+      "target": ".agents/skills/conclude/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "questions",
+      "target": ".agents/skills/maintain/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "reconcile",
+      "target": ".agents/skills/coordinate/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "reconcile",
+      "target": ".agents/skills/review-assignments/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "reconcile",
+      "target": ".agents/skills/issue/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "review-assignments",
+      "target": ".agents/skills/coordinate/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "review-assignments",
+      "target": ".agents/skills/reconcile/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "review-assignments",
+      "target": ".agents/skills/maintain/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "ticket",
+      "target": ".agents/skills/maintain/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "ticket",
+      "target": ".agents/skills/plan/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "ticket",
+      "target": ".agents/skills/align/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "ticket",
+      "target": "AGENTS.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": "AGENTS.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/coordinate/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/analyse/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/issue/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/verify/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/maintain/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/reconcile/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/review-assignments/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/align/SKILL.md",
+      "state": "present"
+    },
+    {
+      "slug": "local",
+      "target": ".agents/skills/mechanism/SKILL.md",
+      "state": "present"
+    }
+  ],
+  "orphans": [],
+  "diagnostics": []
+}

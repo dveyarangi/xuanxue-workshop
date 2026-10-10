@@ -1,0 +1,11 @@
+[
+  "docs/contracts/native-account-session.md",
+  "docs/assignments/native-session-cabinet.draft.md",
+  "docs/assignments/native-session-daychi.draft.md",
+  "docs/tickets/01-0008-native-cabinet-account-session.md",
+  "docs/questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md",
+  "docs/questions/done/q-0002.0002.0005-how-should-the-delivery-pipeline-make-its-current-stage-and-next-action-clear-without-reopening-settled-decisions.md",
+  "docs/tickets/README.md",
+  "docs/rule-failures.md",
+  "docs/questions/sessions"
+]

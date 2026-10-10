@@ -1,0 +1,17 @@
+{
+  "contract": "4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74",
+  "daychi": "https://github.com/dveyarangi/xuanxue-workshop/issues/6",
+  "cabinet": "https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6037099758",
+  "replacedReview": "https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6011347777",
+  "checks": {
+    "cabinetBodyPreserved": true,
+    "cabinetLabel": true,
+    "daychiBodyExact": true,
+    "daychiLabel": true,
+    "amendmentExact": true,
+    "replacedReviewExact": true,
+    "bothUseContract": true,
+    "directDependenciesPreserved": true,
+    "noUnresolvedPlaceholders": true
+  }
+}

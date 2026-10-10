@@ -1,0 +1,2291 @@
+{
+  "run": {
+    "id": 37729360044,
+    "name": "CI",
+    "node_id": "WFR_kwLOUOqjF88AAAAIyNhYrA",
+    "head_branch": "main",
+    "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+    "path": ".github/workflows/ci.yml",
+    "display_title": "fix(api): битое занятие выпадает из публичного расписания с error-лог…",
+    "run_number": 1449,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success",
+    "workflow_id": 350505850,
+    "check_suite_id": 102213837894,
+    "check_suite_node_id": "CS_kwDOUOqjF88AAAAXzGtkRg",
+    "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+    "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+    "pull_requests": [],
+    "created_at": "2026-10-08T04:49:53Z",
+    "updated_at": "2026-10-08T04:54:13Z",
+    "actor": {
+      "login": "dveyarangi",
+      "id": 693404,
+      "node_id": "MDQ6VXNlcjY5MzQwNA==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/693404?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dveyarangi",
+      "html_url": "https://github.com/dveyarangi",
+      "followers_url": "https://api.github.com/users/dveyarangi/followers",
+      "following_url": "https://api.github.com/users/dveyarangi/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dveyarangi/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dveyarangi/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dveyarangi/subscriptions",
+      "organizations_url": "https://api.github.com/users/dveyarangi/orgs",
+      "repos_url": "https://api.github.com/users/dveyarangi/repos",
+      "events_url": "https://api.github.com/users/dveyarangi/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dveyarangi/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "run_attempt": 1,
+    "referenced_workflows": [],
+    "run_started_at": "2026-10-08T04:49:53Z",
+    "triggering_actor": {
+      "login": "dveyarangi",
+      "id": 693404,
+      "node_id": "MDQ6VXNlcjY5MzQwNA==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/693404?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dveyarangi",
+      "html_url": "https://github.com/dveyarangi",
+      "followers_url": "https://api.github.com/users/dveyarangi/followers",
+      "following_url": "https://api.github.com/users/dveyarangi/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dveyarangi/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dveyarangi/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dveyarangi/subscriptions",
+      "organizations_url": "https://api.github.com/users/dveyarangi/orgs",
+      "repos_url": "https://api.github.com/users/dveyarangi/repos",
+      "events_url": "https://api.github.com/users/dveyarangi/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dveyarangi/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "jobs_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/jobs",
+    "logs_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/logs",
+    "check_suite_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-suites/102213837894",
+    "artifacts_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/artifacts",
+    "cancel_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/cancel",
+    "rerun_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/rerun",
+    "previous_attempt_url": null,
+    "workflow_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/workflows/350505850",
+    "head_commit": {
+      "id": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+      "tree_id": "8464cdb2170d5fe23ac7a9bdef61e8fe3d5ad061",
+      "message": "fix(api): битое занятие выпадает из публичного расписания с error-логом (#570)\n\n## Что и зачем\n\nКонтракт Workshop для `GET /api/public/lessons` изменён\n([public-lessons.md @\n4aec5f8](https://github.com/dveyarangi/xuanxue-workshop/blob/4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74/docs/contracts/public-lessons.md),\n[issue #5](https://github.com/dveyarangi/xuanxue-workshop/issues/5)):\nрасписание отдаётся лучшим доступным, а битая запись выпадает из ответа\nс error-логом.\n\n- `projectPublicLesson` (allowlist) проверяет занятие и его класс и\nвозвращает DTO либо причину: класс не найден, `durationMin` не конечное\nчисло, `startsAt` не дата, `format`/`status` вне перечисления,\nобязательная строка не строка, id не ObjectId, `tags` не массив строк,\n`location` есть и не строка. Пустые строки, отсутствующий `location` и\n`tags` → `[]` остаются законными.\n- `PublicLessonsService` пропускает такое занятие и пишет `Logger.error`\nс причиной, `lessonId`, `classId`, `requestId` — без темы и Zoom. Ответ\n— 200 с целыми занятиями. Битый общий класс выкидывает все свои занятия.\n«Ближайшие» берут `limit` кандидатов до проверки и не добирают.\n- Сбой чтения, ошибка расшифровки класса и ошибка кода не превращаются в\nпропуск: 500 `internal_error`, как раньше.\n- Режим `missingClass: 'fail'` у общего join удалён: им больше никто не\nпользуется. Экран ученика по-прежнему молча пропускает дату без класса.\n- ADR-0170 и SECURITY §3 описывают новое поведение; ссылка на контракт в\n`shared/src/public-lessons.ts` — `4aec5f8`.\n\nПочему старое поведение смогло появиться: проверки полей в проекции не\nбыло, битое значение молча пропадало из JSON. Против повтора — чистая\nфункция-проекция с таблицей битых полей в юнит-тесте и\n`public-lessons-omission.e2e-spec.ts`. Он проверяет смесь битых и целых,\nбитый общий класс, фикстуру контракта с починкой, все битые и пустую\nвыборку, `limit` без добора, пустые строки, сбой чтения (500) и\nсодержимое лога (причина, id, requestId, ни `zoom`, ни секретов).\n\n## Чеклист\n\n- [ ] CI зелёный\n- [x] Логика покрыта тестами (включая read-after-write, если пишем и\nчитаем в разных местах)\n- [x] Новый эндпоинт: DTO + e2e-тест на владение (юзер А не видит данные\nюзера Б)\n- [x] User-facing текст сверен с [docs/VOICE.md](../docs/VOICE.md),\nтолько «вы»\n- [x] Продуктовая фича показывает своё число в своём разделе\n(docs/adr/0025), на чистой базе — «пока нечего показать»\n- [x] Решение уровня архитектуры оформлено ADR в `docs/adr/`\n- [x] Секретов в диффе нет\n- [x] Старая версия заменённого кода удалена (не оставлена рядом как\n«дубль»)\n- [x] Ошибка, всплывшая в этом PR (своя, чужая или в гейте), получила\nмеханизм против повтора — или сказано, почему нельзя (CLAUDE.md, правило\n1д)\n\n---------\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "timestamp": "2026-10-08T04:49:50Z",
+      "author": {
+        "name": "Fima Rotter",
+        "email": "dveyarangi@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      }
+    },
+    "repository": {
+      "id": 1357554455,
+      "node_id": "R_kgDOUOqjFw",
+      "name": "xuanxue-cabinet",
+      "full_name": "gregoryKot/xuanxue-cabinet",
+      "private": false,
+      "owner": {
+        "login": "gregoryKot",
+        "id": 64986425,
+        "node_id": "MDQ6VXNlcjY0OTg2NDI1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/64986425?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/gregoryKot",
+        "html_url": "https://github.com/gregoryKot",
+        "followers_url": "https://api.github.com/users/gregoryKot/followers",
+        "following_url": "https://api.github.com/users/gregoryKot/following{/other_user}",
+        "gists_url": "https://api.github.com/users/gregoryKot/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/gregoryKot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/gregoryKot/subscriptions",
+        "organizations_url": "https://api.github.com/users/gregoryKot/orgs",
+        "repos_url": "https://api.github.com/users/gregoryKot/repos",
+        "events_url": "https://api.github.com/users/gregoryKot/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/gregoryKot/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/gregoryKot/xuanxue-cabinet",
+      "description": "Кабинет школы тайцзицюань Сюань-Сюэ: расписание, рассылки, оплаты, экзамены",
+      "fork": false,
+      "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet",
+      "forks_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/forks",
+      "keys_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/teams",
+      "hooks_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/hooks",
+      "issue_events_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/events",
+      "assignees_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/tags",
+      "blobs_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/languages",
+      "stargazers_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/stargazers",
+      "contributors_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/contributors",
+      "subscribers_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/subscribers",
+      "subscription_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/subscription",
+      "commits_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/merges",
+      "archive_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/downloads",
+      "issues_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/labels{/name}",
+      "releases_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/deployments"
+    },
+    "head_repository": {
+      "id": 1357554455,
+      "node_id": "R_kgDOUOqjFw",
+      "name": "xuanxue-cabinet",
+      "full_name": "gregoryKot/xuanxue-cabinet",
+      "private": false,
+      "owner": {
+        "login": "gregoryKot",
+        "id": 64986425,
+        "node_id": "MDQ6VXNlcjY0OTg2NDI1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/64986425?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/gregoryKot",
+        "html_url": "https://github.com/gregoryKot",
+        "followers_url": "https://api.github.com/users/gregoryKot/followers",
+        "following_url": "https://api.github.com/users/gregoryKot/following{/other_user}",
+        "gists_url": "https://api.github.com/users/gregoryKot/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/gregoryKot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/gregoryKot/subscriptions",
+        "organizations_url": "https://api.github.com/users/gregoryKot/orgs",
+        "repos_url": "https://api.github.com/users/gregoryKot/repos",
+        "events_url": "https://api.github.com/users/gregoryKot/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/gregoryKot/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/gregoryKot/xuanxue-cabinet",
+      "description": "Кабинет школы тайцзицюань Сюань-Сюэ: расписание, рассылки, оплаты, экзамены",
+      "fork": false,
+      "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet",
+      "forks_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/forks",
+      "keys_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/teams",
+      "hooks_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/hooks",
+      "issue_events_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/events",
+      "assignees_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/tags",
+      "blobs_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/languages",
+      "stargazers_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/stargazers",
+      "contributors_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/contributors",
+      "subscribers_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/subscribers",
+      "subscription_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/subscription",
+      "commits_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/merges",
+      "archive_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/downloads",
+      "issues_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/labels{/name}",
+      "releases_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/deployments"
+    }
+  },
+  "jobs": {
+    "total_count": 19,
+    "jobs": [
+      {
+        "id": 113154739107,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIxLow",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154739107",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154739107",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:49:53Z",
+        "started_at": "2026-10-08T04:49:55Z",
+        "completed_at": "2026-10-08T04:50:39Z",
+        "name": "backup-restore",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:49:56Z",
+            "completed_at": "2026-10-08T04:49:57Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:49:57Z",
+            "completed_at": "2026-10-08T04:50:09Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:09Z",
+            "completed_at": "2026-10-08T04:50:11Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:11Z",
+            "completed_at": "2026-10-08T04:50:33Z"
+          },
+          {
+            "name": "mongodb-database-tools (mongodump/mongorestore)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:33Z",
+            "completed_at": "2026-10-08T04:50:34Z"
+          },
+          {
+            "name": "засеять исходную базу",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:50:34Z",
+            "completed_at": "2026-10-08T04:50:34Z"
+          },
+          {
+            "name": "бэкап",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:50:34Z",
+            "completed_at": "2026-10-08T04:50:34Z"
+          },
+          {
+            "name": "восстановить во вторую базу",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:50:34Z",
+            "completed_at": "2026-10-08T04:50:34Z"
+          },
+          {
+            "name": "сравнить исходную и восстановленную базы",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:50:34Z",
+            "completed_at": "2026-10-08T04:50:35Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-08T04:50:35Z",
+            "completed_at": "2026-10-08T04:50:35Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-08T04:50:35Z",
+            "completed_at": "2026-10-08T04:50:35Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-08T04:50:35Z",
+            "completed_at": "2026-10-08T04:50:37Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-08T04:50:37Z",
+            "completed_at": "2026-10-08T04:50:37Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154739107",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026877,
+        "runner_name": "GitHub Actions 1000026877",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154739230,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIxMHg",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154739230",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154739230",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:49:53Z",
+        "started_at": "2026-10-08T04:49:55Z",
+        "completed_at": "2026-10-08T04:50:01Z",
+        "name": "changes",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:49:56Z",
+            "completed_at": "2026-10-08T04:49:57Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:49:57Z",
+            "completed_at": "2026-10-08T04:49:59Z"
+          },
+          {
+            "name": "какие файлы поменялись — решаем, какие джобы нужны",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:49:59Z",
+            "completed_at": "2026-10-08T04:49:59Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:49:59Z",
+            "completed_at": "2026-10-08T04:49:59Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:49:59Z",
+            "completed_at": "2026-10-08T04:49:59Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154739230",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026878,
+        "runner_name": "GitHub Actions 1000026878",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154739266,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIxMQg",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154739266",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154739266",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:49:53Z",
+        "started_at": "2026-10-08T04:49:55Z",
+        "completed_at": "2026-10-08T04:51:53Z",
+        "name": "checks",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:49:56Z",
+            "completed_at": "2026-10-08T04:49:58Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:49:58Z",
+            "completed_at": "2026-10-08T04:50:00Z"
+          },
+          {
+            "name": "Run actions/setup-node@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:00Z",
+            "completed_at": "2026-10-08T04:50:02Z"
+          },
+          {
+            "name": "route collisions",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:02Z",
+            "completed_at": "2026-10-08T04:50:02Z"
+          },
+          {
+            "name": "списки карточек — промежуток между строками задан",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:02Z",
+            "completed_at": "2026-10-08T04:50:02Z"
+          },
+          {
+            "name": "запись + перечитывание — новых мест сверх аллоу-листа нет (ADR-0087)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:50:02Z",
+            "completed_at": "2026-10-08T04:50:02Z"
+          },
+          {
+            "name": "каждый контроллер закрыт e2e на отказ чужому (ADR-0106)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:50:02Z",
+            "completed_at": "2026-10-08T04:50:02Z"
+          },
+          {
+            "name": "тесты что-то проверяют — без .only, .skip и пустых тел (ADR-0106)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:50:02Z",
+            "completed_at": "2026-10-08T04:50:03Z"
+          },
+          {
+            "name": "заглушки apiFetch не растут очередью `…Once`",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:50:03Z",
+            "completed_at": "2026-10-08T04:50:03Z"
+          },
+          {
+            "name": "вызовы в сеть с таймаутом (ADR-0106)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-08T04:50:03Z",
+            "completed_at": "2026-10-08T04:50:03Z"
+          },
+          {
+            "name": "нумерация ADR — один номер, одно решение",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:50:03Z",
+            "completed_at": "2026-10-08T04:50:20Z"
+          },
+          {
+            "name": "скилл /collaborate установлен и отслеживается git (ADR-0169)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:50:20Z",
+            "completed_at": "2026-10-08T04:50:20Z"
+          },
+          {
+            "name": "маркеров конфликта слияния нет",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:50:20Z",
+            "completed_at": "2026-10-08T04:50:20Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-08T04:50:20Z",
+            "completed_at": "2026-10-08T04:50:35Z"
+          },
+          {
+            "name": "тесты скриптов-храповиков (node:test)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-10-08T04:50:35Z",
+            "completed_at": "2026-10-08T04:50:36Z"
+          },
+          {
+            "name": "сверка .env.example со всеми env, которые реально читает api",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-08T04:50:36Z",
+            "completed_at": "2026-10-08T04:50:37Z"
+          },
+          {
+            "name": "eslint ratchet",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-08T04:50:37Z",
+            "completed_at": "2026-10-08T04:51:29Z"
+          },
+          {
+            "name": "jscpd ratchet",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-08T04:51:29Z",
+            "completed_at": "2026-10-08T04:51:29Z"
+          },
+          {
+            "name": "file-size ratchet",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-08T04:51:29Z",
+            "completed_at": "2026-10-08T04:51:29Z"
+          },
+          {
+            "name": "robot-phrases ratchet",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-10-08T04:51:29Z",
+            "completed_at": "2026-10-08T04:51:29Z"
+          },
+          {
+            "name": "npm audit (prod deps, high+)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-10-08T04:51:29Z",
+            "completed_at": "2026-10-08T04:51:30Z"
+          },
+          {
+            "name": "prettier — формат всего репозитория",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-10-08T04:51:30Z",
+            "completed_at": "2026-10-08T04:51:46Z"
+          },
+          {
+            "name": "мёртвые экспорты shared/src/index.ts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23,
+            "started_at": "2026-10-08T04:51:46Z",
+            "completed_at": "2026-10-08T04:51:47Z"
+          },
+          {
+            "name": "типографские акценты в тексте пользователя",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24,
+            "started_at": "2026-10-08T04:51:47Z",
+            "completed_at": "2026-10-08T04:51:47Z"
+          },
+          {
+            "name": "бот не знает страниц — веб-формулировка не в текстах бота",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25,
+            "started_at": "2026-10-08T04:51:47Z",
+            "completed_at": "2026-10-08T04:51:47Z"
+          },
+          {
+            "name": "knip — мёртвый код и неиспользуемые зависимости",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26,
+            "started_at": "2026-10-08T04:51:47Z",
+            "completed_at": "2026-10-08T04:51:49Z"
+          },
+          {
+            "name": "gitleaks — секреты в диффе/истории",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27,
+            "started_at": "2026-10-08T04:51:49Z",
+            "completed_at": "2026-10-08T04:51:51Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 52,
+            "started_at": "2026-10-08T04:51:51Z",
+            "completed_at": "2026-10-08T04:51:51Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 53,
+            "started_at": "2026-10-08T04:51:51Z",
+            "completed_at": "2026-10-08T04:51:51Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 54,
+            "started_at": "2026-10-08T04:51:51Z",
+            "completed_at": "2026-10-08T04:51:52Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 55,
+            "started_at": "2026-10-08T04:51:52Z",
+            "completed_at": "2026-10-08T04:51:52Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154739266",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026879,
+        "runner_name": "GitHub Actions 1000026879",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772098,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzMgg",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772098",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772098",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:03Z",
+        "completed_at": "2026-10-08T04:50:50Z",
+        "name": "web-build",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:04Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:29Z"
+          },
+          {
+            "name": "vite build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:29Z",
+            "completed_at": "2026-10-08T04:50:48Z"
+          },
+          {
+            "name": "pwa-гейт (манифест, иконки, заглушка service worker)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:48Z",
+            "completed_at": "2026-10-08T04:50:48Z"
+          },
+          {
+            "name": "бюджет стартового JS (gzip)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:50:48Z",
+            "completed_at": "2026-10-08T04:50:48Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:50:48Z",
+            "completed_at": "2026-10-08T04:50:49Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:50:49Z",
+            "completed_at": "2026-10-08T04:50:49Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:50:49Z",
+            "completed_at": "2026-10-08T04:50:49Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772098",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026880,
+        "runner_name": "GitHub Actions 1000026880",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772114,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzMkg",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772114",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772114",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:52:35Z",
+        "name": "api-tz (2)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:08Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:08Z",
+            "completed_at": "2026-10-08T04:50:33Z"
+          },
+          {
+            "name": "jest под TZ=Australia/Sydney (тест перехода летнего времени)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:33Z",
+            "completed_at": "2026-10-08T04:52:32Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:52:32Z",
+            "completed_at": "2026-10-08T04:52:33Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:52:33Z",
+            "completed_at": "2026-10-08T04:52:33Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:52:33Z",
+            "completed_at": "2026-10-08T04:52:33Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772114",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026881,
+        "runner_name": "GitHub Actions 1000026881",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772144,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzMsA",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772144",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772144",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:52:05Z",
+        "name": "docker",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:15Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:15Z",
+            "completed_at": "2026-10-08T04:50:17Z"
+          },
+          {
+            "name": "сборка docker-образа",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:17Z",
+            "completed_at": "2026-10-08T04:51:32Z"
+          },
+          {
+            "name": "запуск контейнера (host-сеть — видит services.mongo на localhost)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:51:32Z",
+            "completed_at": "2026-10-08T04:51:32Z"
+          },
+          {
+            "name": "ждём /api/health и проверяем код 200, status=ok, mongo=up, commit",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:51:32Z",
+            "completed_at": "2026-10-08T04:51:35Z"
+          },
+          {
+            "name": "ждём тик планировщика (scheduler.tick в логах, PLAN §8)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:51:35Z",
+            "completed_at": "2026-10-08T04:52:01Z"
+          },
+          {
+            "name": "логи контейнера",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:52:01Z",
+            "completed_at": "2026-10-08T04:52:01Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-10-08T04:52:01Z",
+            "completed_at": "2026-10-08T04:52:01Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-08T04:52:01Z",
+            "completed_at": "2026-10-08T04:52:01Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-08T04:52:01Z",
+            "completed_at": "2026-10-08T04:52:01Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772144",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026888,
+        "runner_name": "GitHub Actions 1000026888",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772157,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzMvQ",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772157",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772157",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:05Z",
+        "completed_at": "2026-10-08T04:52:51Z",
+        "name": "api-tz (1)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:09Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:09Z",
+            "completed_at": "2026-10-08T04:50:34Z"
+          },
+          {
+            "name": "jest под TZ=Australia/Sydney (тест перехода летнего времени)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:34Z",
+            "completed_at": "2026-10-08T04:52:47Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:52:47Z",
+            "completed_at": "2026-10-08T04:52:47Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:52:47Z",
+            "completed_at": "2026-10-08T04:52:48Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:52:48Z",
+            "completed_at": "2026-10-08T04:52:48Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772157",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026887,
+        "runner_name": "GitHub Actions 1000026887",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772159,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzMvw",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772159",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772159",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:51:51Z",
+        "name": "web-coverage (2)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:07Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:23Z"
+          },
+          {
+            "name": "typecheck",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:23Z",
+            "completed_at": "2026-10-08T04:50:23Z"
+          },
+          {
+            "name": "vitest --coverage (сырое покрытие шарда — порог считает web-coverage-ratchet)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:23Z",
+            "completed_at": "2026-10-08T04:51:48Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:51:48Z",
+            "completed_at": "2026-10-08T04:51:49Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:51:49Z",
+            "completed_at": "2026-10-08T04:51:49Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:51:49Z",
+            "completed_at": "2026-10-08T04:51:49Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:51:49Z",
+            "completed_at": "2026-10-08T04:51:49Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772159",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026882,
+        "runner_name": "GitHub Actions 1000026882",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772162,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzMwg",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772162",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772162",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:52:23Z",
+        "name": "web-coverage (1)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:07Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:26Z"
+          },
+          {
+            "name": "typecheck",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:26Z",
+            "completed_at": "2026-10-08T04:50:35Z"
+          },
+          {
+            "name": "vitest --coverage (сырое покрытие шарда — порог считает web-coverage-ratchet)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:35Z",
+            "completed_at": "2026-10-08T04:52:21Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:52:21Z",
+            "completed_at": "2026-10-08T04:52:22Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:52:22Z",
+            "completed_at": "2026-10-08T04:52:22Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:52:22Z",
+            "completed_at": "2026-10-08T04:52:22Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:52:22Z",
+            "completed_at": "2026-10-08T04:52:22Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772162",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026883,
+        "runner_name": "GitHub Actions 1000026883",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772224,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNAA",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772224",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772224",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:03Z",
+        "completed_at": "2026-10-08T04:53:16Z",
+        "name": "api-e2e (1)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:07Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:31Z"
+          },
+          {
+            "name": "e2e (реальный AppModule, ownership-смок)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:31Z",
+            "completed_at": "2026-10-08T04:53:14Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:53:14Z",
+            "completed_at": "2026-10-08T04:53:14Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:53:14Z",
+            "completed_at": "2026-10-08T04:53:14Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:53:14Z",
+            "completed_at": "2026-10-08T04:53:14Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772224",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026885,
+        "runner_name": "GitHub Actions 1000026885",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772226,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNAg",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772226",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772226",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:03Z",
+        "completed_at": "2026-10-08T04:51:46Z",
+        "name": "web-tz (1)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:04Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:20Z"
+          },
+          {
+            "name": "vitest под TZ=Australia/Sydney (тест перехода летнего времени)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:20Z",
+            "completed_at": "2026-10-08T04:51:44Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:51:44Z",
+            "completed_at": "2026-10-08T04:51:44Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:51:44Z",
+            "completed_at": "2026-10-08T04:51:44Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:51:44Z",
+            "completed_at": "2026-10-08T04:51:44Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772226",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026884,
+        "runner_name": "GitHub Actions 1000026884",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772244,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNFA",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772244",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772244",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:52:40Z",
+        "name": "web-tz (3)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:08Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:08Z",
+            "completed_at": "2026-10-08T04:50:34Z"
+          },
+          {
+            "name": "vitest под TZ=Australia/Sydney (тест перехода летнего времени)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:34Z",
+            "completed_at": "2026-10-08T04:52:37Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:52:37Z",
+            "completed_at": "2026-10-08T04:52:37Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:52:37Z",
+            "completed_at": "2026-10-08T04:52:38Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:52:38Z",
+            "completed_at": "2026-10-08T04:52:38Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772244",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026892,
+        "runner_name": "GitHub Actions 1000026892",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772257,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNIQ",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772257",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772257",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:53:42Z",
+        "name": "api-coverage (1)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:07Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:36Z"
+          },
+          {
+            "name": "typecheck (shared + api)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:36Z",
+            "completed_at": "2026-10-08T04:50:53Z"
+          },
+          {
+            "name": "shared vitest с покрытием",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:53Z",
+            "completed_at": "2026-10-08T04:51:00Z"
+          },
+          {
+            "name": "jest --coverage (сырое покрытие шарда — порог считает api-coverage-ratchet)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:51:00Z",
+            "completed_at": "2026-10-08T04:53:38Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:53:38Z",
+            "completed_at": "2026-10-08T04:53:39Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:53:39Z",
+            "completed_at": "2026-10-08T04:53:39Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-08T04:53:39Z",
+            "completed_at": "2026-10-08T04:53:39Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-10-08T04:53:39Z",
+            "completed_at": "2026-10-08T04:53:40Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772257",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026889,
+        "runner_name": "GitHub Actions 1000026889",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772264,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNKA",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772264",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772264",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:03Z",
+        "completed_at": "2026-10-08T04:52:39Z",
+        "name": "web-tz (2)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:30Z"
+          },
+          {
+            "name": "vitest под TZ=Australia/Sydney (тест перехода летнего времени)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:30Z",
+            "completed_at": "2026-10-08T04:52:37Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:52:37Z",
+            "completed_at": "2026-10-08T04:52:37Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:52:37Z",
+            "completed_at": "2026-10-08T04:52:37Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:52:37Z",
+            "completed_at": "2026-10-08T04:52:37Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772264",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026891,
+        "runner_name": "GitHub Actions 1000026891",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772269,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNLQ",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772269",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772269",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:53:14Z",
+        "name": "api-e2e (2)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:07Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:30Z"
+          },
+          {
+            "name": "e2e (реальный AppModule, ownership-смок)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:30Z",
+            "completed_at": "2026-10-08T04:53:11Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:53:11Z",
+            "completed_at": "2026-10-08T04:53:11Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-08T04:53:11Z",
+            "completed_at": "2026-10-08T04:53:12Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-08T04:53:12Z",
+            "completed_at": "2026-10-08T04:53:12Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772269",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026893,
+        "runner_name": "GitHub Actions 1000026893",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772273,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNMQ",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772273",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772273",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:03Z",
+        "completed_at": "2026-10-08T04:52:58Z",
+        "name": "api-coverage (2)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:06Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:06Z",
+            "completed_at": "2026-10-08T04:50:27Z"
+          },
+          {
+            "name": "typecheck (shared + api)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:27Z",
+            "completed_at": "2026-10-08T04:50:27Z"
+          },
+          {
+            "name": "shared vitest с покрытием",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:27Z",
+            "completed_at": "2026-10-08T04:50:27Z"
+          },
+          {
+            "name": "jest --coverage (сырое покрытие шарда — порог считает api-coverage-ratchet)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:50:27Z",
+            "completed_at": "2026-10-08T04:52:55Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-08T04:52:55Z",
+            "completed_at": "2026-10-08T04:52:56Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:52:56Z",
+            "completed_at": "2026-10-08T04:52:56Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-08T04:52:56Z",
+            "completed_at": "2026-10-08T04:52:57Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-10-08T04:52:57Z",
+            "completed_at": "2026-10-08T04:52:57Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772273",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026890,
+        "runner_name": "GitHub Actions 1000026890",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113154772320,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWIzNYA",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113154772320",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113154772320",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:50:02Z",
+        "started_at": "2026-10-08T04:50:04Z",
+        "completed_at": "2026-10-08T04:52:29Z",
+        "name": "web-coverage (3)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:50:04Z",
+            "completed_at": "2026-10-08T04:50:05Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:50:05Z",
+            "completed_at": "2026-10-08T04:50:07Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:50:07Z",
+            "completed_at": "2026-10-08T04:50:30Z"
+          },
+          {
+            "name": "typecheck",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4,
+            "started_at": "2026-10-08T04:50:30Z",
+            "completed_at": "2026-10-08T04:50:30Z"
+          },
+          {
+            "name": "vitest --coverage (сырое покрытие шарда — порог считает web-coverage-ratchet)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:50:30Z",
+            "completed_at": "2026-10-08T04:52:25Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:52:25Z",
+            "completed_at": "2026-10-08T04:52:27Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:52:27Z",
+            "completed_at": "2026-10-08T04:52:27Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:52:27Z",
+            "completed_at": "2026-10-08T04:52:27Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:52:27Z",
+            "completed_at": "2026-10-08T04:52:27Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113154772320",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026886,
+        "runner_name": "GitHub Actions 1000026886",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113155400109,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWJZhrQ",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113155400109",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113155400109",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:52:30Z",
+        "started_at": "2026-10-08T04:52:31Z",
+        "completed_at": "2026-10-08T04:52:52Z",
+        "name": "web-coverage-ratchet",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:52:32Z",
+            "completed_at": "2026-10-08T04:52:33Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:52:33Z",
+            "completed_at": "2026-10-08T04:52:34Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:52:34Z",
+            "completed_at": "2026-10-08T04:52:49Z"
+          },
+          {
+            "name": "скачать сырое покрытие всех шардов",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:52:49Z",
+            "completed_at": "2026-10-08T04:52:50Z"
+          },
+          {
+            "name": "склеить покрытие шардов в summary",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:52:50Z",
+            "completed_at": "2026-10-08T04:52:50Z"
+          },
+          {
+            "name": "coverage ratchet (по склеенному покрытию)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:52:50Z",
+            "completed_at": "2026-10-08T04:52:50Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:52:50Z",
+            "completed_at": "2026-10-08T04:52:50Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:52:50Z",
+            "completed_at": "2026-10-08T04:52:50Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:52:50Z",
+            "completed_at": "2026-10-08T04:52:50Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113155400109",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026894,
+        "runner_name": "GitHub Actions 1000026894",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 113155694818,
+        "run_id": 37729360044,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/runs/37729360044",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUOqjF88AAAAaWJrg4g",
+        "head_sha": "868a4edb09926a950b78e8daa3ce495c6e8e256e",
+        "url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/actions/jobs/113155694818",
+        "html_url": "https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/37729360044/job/113155694818",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-08T04:53:42Z",
+        "started_at": "2026-10-08T04:53:44Z",
+        "completed_at": "2026-10-08T04:54:12Z",
+        "name": "api-coverage-ratchet",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-08T04:53:45Z",
+            "completed_at": "2026-10-08T04:53:46Z"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-08T04:53:46Z",
+            "completed_at": "2026-10-08T04:53:48Z"
+          },
+          {
+            "name": "Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-08T04:53:48Z",
+            "completed_at": "2026-10-08T04:54:07Z"
+          },
+          {
+            "name": "скачать сырое покрытие всех шардов",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-08T04:54:07Z",
+            "completed_at": "2026-10-08T04:54:08Z"
+          },
+          {
+            "name": "склеить покрытие шардов в summary",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-08T04:54:08Z",
+            "completed_at": "2026-10-08T04:54:08Z"
+          },
+          {
+            "name": "coverage ratchet (по склеенному покрытию)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-08T04:54:08Z",
+            "completed_at": "2026-10-08T04:54:08Z"
+          },
+          {
+            "name": "Post Run ./.github/actions/setup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-08T04:54:08Z",
+            "completed_at": "2026-10-08T04:54:09Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-08T04:54:09Z",
+            "completed_at": "2026-10-08T04:54:09Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-08T04:54:09Z",
+            "completed_at": "2026-10-08T04:54:09Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/gregoryKot/xuanxue-cabinet/check-runs/113155694818",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000026895,
+        "runner_name": "GitHub Actions 1000026895",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  },
+  "source": {
+    "provider-mapper": {
+      "path": "api/src/lessons/public-lesson.mapper.ts",
+      "content": "// Проекция LessonRecord + ClassRecord (lean) → PublicLessonDto\n// (`/public/lessons`, ADR-0170). Явный allowlist полей, не «объект целиком\n// минус секреты»: маршрут открыт всему интернету, а новое поле в схеме класса\n// или занятия иначе утекло бы само (CLAUDE.md, «API»). Zoom-ссылок и паролей\n// здесь нет ни у класса, ни у занятия — входной тип их даже не объявляет, а\n// spec проверяет точный набор ключей.\n//\n// Битая строка — не исключение, а причина: контракт Workshop (public-lessons.md,\n// случай 6) велит выбросить такое занятие из ответа и записать error-лог, а\n// остальные отдать. lean() не подставляет default и не проверяет enum, поэтому\n// значения из базы здесь — `unknown`, пока не проверены.\nimport { Types } from 'mongoose';\nimport {\n  CLASS_FORMATS,\n  LESSON_STATUSES,\n  type ClassFormat,\n  type LessonStatus,\n  type PublicLessonDto,\n} from '@xuanxue/shared';\nimport { toIsoUtc } from '../common/iso-date';\nimport type { LeanLesson } from './lesson.mapper';\nimport type { LessonClassLookupInput } from './lesson-classes.lookup';\n\ntype PublicLessonInput = Pick<\n  LeanLesson,\n  '_id' | 'startsAt' | 'durationMin' | 'topic' | 'status' | 'tags'\n> & { classId: Types.ObjectId };\n\ntype PublicClassInput = Pick<\n  LessonClassLookupInput,\n  'title' | 'groupLabel' | 'format' | 'location'\n>;\n\nexport type PublicLessonProjection = { dto: PublicLessonDto } | { reason: string };\n\n/** Строка ObjectId или `undefined`, если в поле не ObjectId (битый документ). */\nexport function objectIdString(value: unknown): string | undefined {\n  return value instanceof Types.ObjectId ? value.toString() : undefined;\n}\n\nfunction isOneOf<T extends string>(values: readonly T[], value: unknown): value is T {\n  return typeof value === 'string' && (values as readonly string[]).includes(value);\n}\n\nfunction invalidReason(\n  lesson: PublicLessonInput,\n  cls: PublicClassInput,\n): string | undefined {\n  const startsAt: unknown = lesson.startsAt;\n  if (!(startsAt instanceof Date) || Number.isNaN(startsAt.getTime())) {\n    return 'startsAt не дата';\n  }\n  const duration: unknown = lesson.durationMin;\n  if (typeof duration !== 'number' || !Number.isFinite(duration)) {\n    return 'durationMin не конечное число';\n  }\n  const strings: [string, unknown][] = [\n    ['topic', lesson.topic],\n    ['classTitle', cls.title],\n    ['groupLabel', cls.groupLabel],\n  ];\n  for (const [field, value] of strings) {\n    if (typeof value !== 'string') return `${field} не строка`;\n  }\n  if (!isOneOf<ClassFormat>(CLASS_FORMATS, cls.format)) {\n    return 'format вне online/offline/both';\n  }\n  if (!isOneOf<LessonStatus>(LESSON_STATUSES, lesson.status)) {\n    return 'status вне scheduled/cancelled';\n  }\n  // У дат до ADR-0075 поля `tags` в документе нет — это законно, контракт\n  // требует `[]`. Битым считается только присутствующее не-массив-строк.\n  const tags: unknown = lesson.tags;\n  if (\n    tags !== undefined &&\n    (!Array.isArray(tags) || tags.some((tag) => typeof tag !== 'string'))\n  ) {\n    return 'tags не массив строк';\n  }\n  const location: unknown = cls.location;\n  if (location !== undefined && typeof location !== 'string') {\n    return 'location не строка';\n  }\n  return undefined;\n}\n\nexport function projectPublicLesson(\n  lesson: PublicLessonInput,\n  cls: PublicClassInput | undefined,\n): PublicLessonProjection {\n  if (objectIdString(lesson._id) === undefined) return { reason: '_id не ObjectId' };\n  if (objectIdString(lesson.classId) === undefined) {\n    return { reason: 'classId не ObjectId' };\n  }\n  if (!cls) return { reason: 'класс не найден' };\n  const reason = invalidReason(lesson, cls);\n  if (reason !== undefined) return { reason };\n  const dto: PublicLessonDto = {\n    id: lesson._id.toString(),\n    classId: lesson.classId.toString(),\n    startsAt: toIsoUtc(lesson.startsAt),\n    durationMin: lesson.durationMin,\n    classTitle: cls.title,\n    groupLabel: cls.groupLabel,\n    format: cls.format,\n    topic: lesson.topic,\n    status: lesson.status,\n    tags: lesson.tags ?? [],\n  };\n  // Ключ `location` — только если адрес есть (контракт: «omitted when absent»).\n  // Пустая строка — не «нет адреса»: контракт велит отдавать пустые строки как\n  // есть, поэтому проверка на undefined, а не на truthy.\n  if (cls.location !== undefined) dto.location = cls.location;\n  return { dto };\n}\n"
+    },
+    "provider-service": {
+      "path": "api/src/lessons/public-lessons.service.ts",
+      "content": "// GET /public/lessons (ADR-0170, контракт Workshop) — расписание школы без\n// Zoom для daychi. Отдельный сервис, а не флаг у MyLessonsService: две\n// проекции в одном методе — риск, что поле для сессии утечёт в публичный\n// ответ. Общее — только запрос классов (lesson-classes.lookup.ts).\n// Отменённые занятия включены: клиент должен показать «занятия не будет».\nimport { Injectable, Logger } from '@nestjs/common';\nimport { InjectModel } from '@nestjs/mongoose';\nimport type { DateTime } from 'luxon';\nimport { Model, Types, type QueryFilter } from 'mongoose';\nimport type { ListPublicLessonsQuery, PublicLessonDto } from '@xuanxue/shared';\nimport { ClassRecord } from '../classes/class.schema';\nimport { LessonRecord } from './lesson.schema';\nimport type { LeanLesson } from './lesson.mapper';\nimport { findLessonClassesByIds } from './lesson-classes.lookup';\nimport { objectIdString, projectPublicLesson } from './public-lesson.mapper';\nimport { resolvePublicLessonsWindow } from './public-lessons-window';\n\n@Injectable()\nexport class PublicLessonsService {\n  private readonly logger = new Logger(PublicLessonsService.name);\n\n  constructor(\n    @InjectModel(LessonRecord.name) private readonly model: Model<LessonRecord>,\n    @InjectModel(ClassRecord.name) private readonly classModel: Model<ClassRecord>,\n  ) {}\n\n  /**\n   * Битое занятие (нет класса, поле не того типа) выпадает из ответа с\n   * error-логом, остальные уходят с 200 — контракт Workshop, случай 6. Лог\n   * обязателен именно здесь: ответ успешный, глобальный фильтр 500 его не\n   * увидит. Сбой чтения базы или ошибка кода летят дальше и дают 500.\n   */\n  async list(\n    query: ListPublicLessonsQuery,\n    now: DateTime,\n    requestId?: string,\n  ): Promise<PublicLessonDto[]> {\n    const selection = resolvePublicLessonsWindow(query);\n    const filter: QueryFilter<LessonRecord> =\n      selection.mode === 'count'\n        ? { startsAt: { $gte: now.toJSDate() } }\n        : { startsAt: { $gte: selection.from.toJSDate(), $lt: selection.to.toJSDate() } };\n\n    const cursor = this.model.find(filter).sort({ startsAt: 1 });\n    // Окно — без предела по числу занятий (контракт): ширину ограничивает\n    // сама проверка окна, 28 суток. «Ближайшие» берут limit кандидатов до\n    // проверки и выпавшее не добирают (контракт: no refill).\n    const docs = await (\n      selection.mode === 'count' ? cursor.limit(selection.limit) : cursor\n    ).lean<LeanLesson[]>();\n\n    const classIds = docs\n      .map((doc): unknown => doc.classId)\n      .filter((id): id is Types.ObjectId => id instanceof Types.ObjectId);\n    const classById = await findLessonClassesByIds(this.classModel, classIds);\n\n    const dtos: PublicLessonDto[] = [];\n    for (const doc of docs) {\n      const classId = objectIdString(doc.classId);\n      const cls = classId === undefined ? undefined : classById.get(classId);\n      const projection = projectPublicLesson(doc, cls);\n      if ('dto' in projection) {\n        dtos.push(projection.dto);\n        continue;\n      }\n      // Тема и Zoom в лог не идут: только id и причина.\n      this.logger.error(\n        `Публичное занятие пропущено (requestId=${requestId ?? '-'}, lessonId=${objectIdString(doc._id) ?? '-'}, classId=${classId ?? '-'}): ${projection.reason}`,\n      );\n    }\n    return dtos;\n  }\n}\n"
+    },
+    "provider-omission-tests": {
+      "path": "api/test/public-lessons-omission.e2e-spec.ts",
+      "content": "// e2e на битые занятия GET /public/lessons (ADR-0170, контракт Workshop\n// public-lessons.md, случай 6): битое занятие или класс выпадает из ответа\n// 200 с error-логом на каждое пропущенное занятие, остальные отдаются; сбой\n// чтения — 500 `internal_error`, не 200. Битое значение кладём updateOne мимо\n// схемы: create() с required/enum его не пустил бы, а уже лежащий документ\n// lean() отдаёт как есть. Часы заморожены через Settings.now Luxon.\nimport { Logger } from '@nestjs/common';\nimport { Types } from 'mongoose';\nimport { Settings } from 'luxon';\nimport type { ApiErrorBody, PublicLessonDto } from '@xuanxue/shared';\nimport { createTestApp, type TestApp } from './e2e-support/create-app';\nimport {\n  contractLessonId,\n  createPublicLessonHelpers,\n  ZOOM_LINK,\n  ZOOM_PASSWORD,\n} from './e2e-support/public-lessons-fixtures';\n\nconst NOW = new Date('2026-10-05T10:00:00.000Z');\nconst HOUR_MS = 3_600_000;\nconst REQUEST_ID = 'e2e-omission-1';\nconst OMISSION_MARK = 'Публичное занятие пропущено';\nconst WINDOW_QUERY = 'from=2026-10-05T00:00:00%2B03:00&to=2026-10-19T00:00:00%2B03:00';\n\ndescribe('GET /public/lessons — битые занятия (e2e)', () => {\n  let testApp: TestApp;\n  const h = createPublicLessonHelpers(() => testApp);\n  const realNow = Settings.now;\n  let errorLog: jest.SpyInstance;\n\n  beforeAll(async () => {\n    Settings.now = () => NOW.getTime();\n    testApp = await createTestApp();\n  }, 60_000);\n\n  afterAll(async () => {\n    Settings.now = realNow;\n    await testApp.close();\n  });\n\n  beforeEach(() => {\n    errorLog = jest.spyOn(Logger.prototype, 'error').mockImplementation(() => undefined);\n  });\n\n  afterEach(async () => {\n    errorLog.mockRestore();\n    await h.clearAll();\n  });\n\n  function omissionLogs(): string[] {\n    return errorLog.mock.calls\n      .map(([message]) => String(message))\n      .filter((message) => message.includes(OMISSION_MARK));\n  }\n\n  function at(hours: number): Date {\n    return new Date(NOW.getTime() + hours * HOUR_MS);\n  }\n\n  async function getIds(query = ''): Promise<string[]> {\n    const res = await h.getPublic(query).set('x-request-id', REQUEST_ID);\n    expect(res.status).toBe(200);\n    return (res.body as PublicLessonDto[]).map((l) => l.id);\n  }\n\n  it('смесь: без durationMin, класс с чужим format, без класса — 200 только с целыми', async () => {\n    const goodClass = await h.createClass();\n    const badClass = await h.createClass();\n    await h.classModel().updateOne({ _id: badClass }, { $set: { format: 'hybrid' } });\n    const valid = await h.createLesson({ classId: goodClass, startsAt: at(1) });\n    const noDuration = await h.createLesson({ classId: goodClass, startsAt: at(2) });\n    await h.lessonModel().updateOne({ _id: noDuration }, { $unset: { durationMin: 1 } });\n    const badFormat = await h.createLesson({ classId: badClass, startsAt: at(3) });\n    const missingClassId = new Types.ObjectId();\n    const orphan = await h.createLesson({ classId: missingClassId, startsAt: at(4) });\n\n    expect(await getIds()).toEqual([valid]);\n\n    const logs = omissionLogs();\n    expect(logs).toHaveLength(3);\n    const expected: [string, string, string][] = [\n      [noDuration, goodClass.toString(), 'durationMin'],\n      [badFormat, badClass.toString(), 'format'],\n      [orphan, missingClassId.toString(), 'класс не найден'],\n    ];\n    for (const [lessonId, classId, cause] of expected) {\n      const line = logs.find((log) => log.includes(`lessonId=${lessonId}`));\n      expect(line).toContain(`classId=${classId}`);\n      expect(line).toContain(`requestId=${REQUEST_ID}`);\n      expect(line).toContain(cause);\n    }\n    const all = logs.join('\\n');\n    expect(all).not.toMatch(/zoom/i);\n    expect(all).not.toContain(ZOOM_LINK);\n    expect(all).not.toContain(ZOOM_PASSWORD);\n  });\n\n  it('битый общий класс — выпадают все его занятия, чужие остаются', async () => {\n    const goodClass = await h.createClass();\n    const badClass = await h.createClass();\n    await h.classModel().updateOne({ _id: badClass }, { $set: { format: 'hybrid' } });\n    await h.createLesson({ classId: badClass, startsAt: at(1) });\n    const valid = await h.createLesson({ classId: goodClass, startsAt: at(2) });\n    await h.createLesson({ classId: badClass, startsAt: at(3) });\n\n    expect(await getIds()).toEqual([valid]);\n    expect(omissionLogs()).toHaveLength(2);\n  });\n\n  it('фикстура контракта: у 003 нет durationMin — 002, 004, 005; починили — снова все четыре', async () => {\n    await h.seedContractLessons();\n    await h\n      .lessonModel()\n      .updateOne({ _id: contractLessonId(3) }, { $unset: { durationMin: 1 } });\n\n    expect(await getIds(WINDOW_QUERY)).toEqual([2, 4, 5].map(contractLessonId));\n    expect(omissionLogs()).toHaveLength(1);\n\n    await h.lessonModel().updateOne({ _id: contractLessonId(3) }, { durationMin: 60 });\n\n    expect(await getIds(WINDOW_QUERY)).toEqual([2, 3, 4, 5].map(contractLessonId));\n  });\n\n  it('все кандидаты битые — 200 и [] с логами', async () => {\n    const classId = await h.createClass();\n    await h.classModel().updateOne({ _id: classId }, { $set: { format: 'hybrid' } });\n    await h.createLesson({ classId, startsAt: at(1) });\n    await h.createLesson({ classId, startsAt: at(2) });\n\n    expect(await getIds()).toEqual([]);\n    expect(omissionLogs()).toHaveLength(2);\n  });\n\n  it('кандидатов нет — 200 и [] без логов пропуска', async () => {\n    expect(await getIds()).toEqual([]);\n    expect(omissionLogs()).toHaveLength(0);\n  });\n\n  it('limit=2, первый кандидат битый — только второй, без добора третьим', async () => {\n    const classId = await h.createClass();\n    const broken = await h.createLesson({ classId, startsAt: at(1) });\n    await h.lessonModel().updateOne({ _id: broken }, { $unset: { durationMin: 1 } });\n    const second = await h.createLesson({ classId, startsAt: at(2) });\n    await h.createLesson({ classId, startsAt: at(3) });\n\n    expect(await getIds('limit=2')).toEqual([second]);\n    expect(omissionLogs()).toHaveLength(1);\n  });\n\n  it('пустые строки, нет адреса и тегов — занятие целое, не выпадает', async () => {\n    const classId = await h.createClass();\n    await h.classModel().updateOne({ _id: classId }, { $set: { title: '' } });\n    const id = await h.createLesson({ classId, startsAt: at(1), topic: '' });\n\n    expect(await getIds()).toEqual([id]);\n    expect(omissionLogs()).toHaveLength(0);\n  });\n\n  it('сбой чтения классов — 500 internal_error, а не 200', async () => {\n    const classId = await h.createClass();\n    await h.createLesson({ classId, startsAt: at(1) });\n    const find = jest.spyOn(h.classModel(), 'find').mockImplementation(() => {\n      throw new Error('Mongo недоступна');\n    });\n\n    const res = await h.getPublic();\n    find.mockRestore();\n\n    expect(res.status).toBe(500);\n    expect(Array.isArray(res.body)).toBe(false);\n    expect((res.body as ApiErrorBody).code).toBe('internal_error');\n    expect(res.text).not.toContain('Mongo недоступна');\n    expect(omissionLogs()).toHaveLength(0);\n  });\n});\n"
+    },
+    "provider-public-tests": {
+      "path": "api/test/public-lessons.e2e-spec.ts",
+      "content": "// e2e на GET /public/lessons (ADR-0170, контракт Workshop public-lessons.md):\n// публичное расписание школы без Zoom, два режима выборки. Настоящий AppModule\n// на MongoMemoryServer. Часы заморожены через Settings.now Luxon (CLAUDE.md\n// «Детерминизм»): контроллер берёт `DateTime.utc()`. Отказы запроса — в\n// public-lessons-validation, битые занятия и 500 — в public-lessons-omission.\nimport { Settings } from 'luxon';\nimport type { MyLessonDto, PublicLessonDto } from '@xuanxue/shared';\nimport { createTestApp, type TestApp } from './e2e-support/create-app';\nimport { sessionCookieFor } from './e2e-support/http';\nimport {\n  contractLessonId,\n  createPublicLessonHelpers,\n  PUBLIC_LESSONS_PATH,\n  ZOOM_LINK,\n} from './e2e-support/public-lessons-fixtures';\nimport request from 'supertest';\n\nconst NOW = new Date('2026-10-05T10:00:00.000Z');\nconst HOUR_MS = 3_600_000;\nconst CONTRACT_KEYS = [\n  'classId',\n  'classTitle',\n  'durationMin',\n  'format',\n  'groupLabel',\n  'id',\n  'location',\n  'startsAt',\n  'status',\n  'tags',\n  'topic',\n].sort();\nconst WINDOW_QUERY = 'from=2026-10-05T00:00:00%2B03:00&to=2026-10-19T00:00:00%2B03:00';\n\ndescribe('GET /public/lessons (e2e)', () => {\n  let testApp: TestApp;\n  const h = createPublicLessonHelpers(() => testApp);\n  const realNow = Settings.now;\n\n  beforeAll(async () => {\n    Settings.now = () => NOW.getTime();\n    testApp = await createTestApp();\n  }, 60_000);\n\n  afterAll(async () => {\n    Settings.now = realNow;\n    await testApp.close();\n  });\n\n  afterEach(h.clearAll);\n\n  async function listIds(query: string): Promise<string[]> {\n    const res = await h.getPublic(query);\n    expect(res.status).toBe(200);\n    return (res.body as PublicLessonDto[]).map((l) => l.id);\n  }\n\n  describe('форма ответа', () => {\n    it('без сессии — 200, голый массив, поля ровно по контракту', async () => {\n      const classId = await h.createClass({ location: 'Тель-Авив' });\n      await h.createLesson({\n        classId,\n        startsAt: new Date(NOW.getTime() + HOUR_MS),\n        tags: ['дракон'],\n      });\n\n      const res = await h.getPublic();\n\n      expect(res.status).toBe(200);\n      const body = res.body as PublicLessonDto[];\n      expect(Array.isArray(body)).toBe(true);\n      expect(body).toHaveLength(1);\n      const [item] = body;\n      expect(Object.keys(item ?? {}).sort()).toEqual(CONTRACT_KEYS);\n      expect(item).toMatchObject({\n        classId: classId.toString(),\n        startsAt: '2026-10-05T11:00:00.000Z',\n        durationMin: 60,\n        classTitle: 'Tai chi',\n        groupLabel: 'School',\n        format: 'both',\n        location: 'Тель-Авив',\n        topic: 'Practice',\n        status: 'scheduled',\n        tags: ['дракон'],\n      });\n    });\n\n    it('занятие без тегов — tags: [], класс без адреса — ключа location нет', async () => {\n      const classId = await h.createClass();\n      await h.createLesson({ classId, startsAt: new Date(NOW.getTime() + HOUR_MS) });\n\n      const [item] = (await h.getPublic()).body as PublicLessonDto[];\n\n      expect(item?.tags).toEqual([]);\n      expect(item).not.toHaveProperty('location');\n      expect(Object.keys(item ?? {})).toHaveLength(CONTRACT_KEYS.length - 1);\n    });\n\n    it('два занятия одного класса — один classId, разные id', async () => {\n      const classId = await h.createClass();\n      await h.createLesson({ classId, startsAt: new Date(NOW.getTime() + HOUR_MS) });\n      await h.createLesson({ classId, startsAt: new Date(NOW.getTime() + 2 * HOUR_MS) });\n\n      const body = (await h.getPublic()).body as PublicLessonDto[];\n\n      expect(body).toHaveLength(2);\n      expect(body[0]?.classId).toBe(body[1]?.classId);\n      expect(body[0]?.id).not.toBe(body[1]?.id);\n    });\n  });\n\n  describe('проекция без Zoom', () => {\n    async function expectNoZoom(cookie?: string): Promise<void> {\n      const classId = await h.createClass({ location: 'Зал' });\n      await h.createLesson({\n        classId,\n        startsAt: new Date(NOW.getTime() + HOUR_MS),\n        withZoomOverride: true,\n      });\n\n      const res = await h.getPublic('', cookie);\n\n      expect(res.status).toBe(200);\n      const [item] = res.body as PublicLessonDto[];\n      expect(Object.keys(item ?? {}).sort()).toEqual(CONTRACT_KEYS);\n      expect(item).not.toHaveProperty('zoomLink');\n      expect(item).not.toHaveProperty('zoomPassword');\n      expect(item).not.toHaveProperty('zoomLinkOverride');\n      // Текст целиком: ни ключа, ни значения секрета, ни под другим именем.\n      expect(res.text).not.toMatch(/zoom/i);\n      expect(res.text).not.toContain('секрет');\n    }\n\n    it('без сессии у класса и занятия с Zoom — ни ссылки, ни пароля', async () => {\n      await expectNoZoom();\n    });\n\n    it('с сессией admin ответ тот же — сессия проекцию не расширяет', async () => {\n      await expectNoZoom(await sessionCookieFor(testApp.app, ['admin']));\n    });\n  });\n\n  describe('режим «ближайшие»', () => {\n    it('по умолчанию — 10 из 12 будущих, по возрастанию startsAt', async () => {\n      const classId = await h.createClass();\n      await h.createLessonsEveryMinute(classId, new Date(NOW.getTime() + HOUR_MS), 12);\n\n      const body = (await h.getPublic()).body as PublicLessonDto[];\n\n      expect(body).toHaveLength(10);\n      expect(body.map((l) => l.topic)).toEqual(\n        Array.from({ length: 10 }, (_, i) => `Занятие ${i}`),\n      );\n    });\n\n    it('limit=1 — одно ближайшее', async () => {\n      const classId = await h.createClass();\n      await h.createLessonsEveryMinute(classId, new Date(NOW.getTime() + HOUR_MS), 3);\n\n      const body = (await h.getPublic('limit=1')).body as PublicLessonDto[];\n\n      expect(body.map((l) => l.topic)).toEqual(['Занятие 0']);\n    });\n\n    it('limit=50 при 60 занятиях — ровно 50', async () => {\n      const classId = await h.createClass();\n      await h.createLessonsEveryMinute(classId, new Date(NOW.getTime() + HOUR_MS), 60);\n\n      expect(await listIds('limit=50')).toHaveLength(50);\n    });\n\n    it('занятие ровно в now включено, на секунду раньше — нет', async () => {\n      const classId = await h.createClass();\n      const atNow = await h.createLesson({ classId, startsAt: NOW });\n      await h.createLesson({ classId, startsAt: new Date(NOW.getTime() - 1000) });\n\n      expect(await listIds('limit=50')).toEqual([atNow]);\n    });\n\n    it('отменённое будущее занятие остаётся в списке со статусом cancelled', async () => {\n      const classId = await h.createClass();\n      await h.createLesson({\n        classId,\n        startsAt: new Date(NOW.getTime() + HOUR_MS),\n        status: 'cancelled',\n      });\n\n      const body = (await h.getPublic()).body as PublicLessonDto[];\n\n      expect(body.map((l) => l.status)).toEqual(['cancelled']);\n    });\n  });\n\n  describe('режим «окно»', () => {\n    const SEEDED = [2, 3, 4, 5].map(contractLessonId);\n\n    it('фикстура контракта 001–006 — ровно 002, 003, 004, 005; 004 отменено', async () => {\n      await h.seedContractLessons();\n\n      const res = await h.getPublic(WINDOW_QUERY);\n\n      expect(res.status).toBe(200);\n      const body = res.body as PublicLessonDto[];\n      expect(body.map((l) => l.id)).toEqual(SEEDED);\n      expect(body.map((l) => l.status)).toEqual([\n        'scheduled',\n        'scheduled',\n        'cancelled',\n        'scheduled',\n      ]);\n    });\n\n    it('смещение в виде +0300 даёт те же границы, now окно не сужает', async () => {\n      await h.seedContractLessons();\n\n      const ids = await listIds(\n        'from=2026-10-05T00:00:00%2B0300&to=2026-10-19T00:00:00%2B0300',\n      );\n\n      expect(ids).toEqual(SEEDED);\n    });\n\n    it('перенос 003 внутри окна — тот же id, теперь после 004', async () => {\n      await h.seedContractLessons();\n      await h.moveLesson(3, '2026-10-07T15:00:00Z');\n\n      const body = (await h.getPublic(WINDOW_QUERY)).body as PublicLessonDto[];\n\n      expect(body.map((l) => l.id)).toEqual([2, 4, 3, 5].map(contractLessonId));\n      expect(body.find((l) => l.id === contractLessonId(3))?.startsAt).toBe(\n        '2026-10-07T15:00:00.000Z',\n      );\n    });\n\n    it('перенос 003 за окно — его в ответе нет', async () => {\n      await h.seedContractLessons();\n      await h.moveLesson(3, '2026-10-20T15:00:00Z');\n\n      expect(await listIds(WINDOW_QUERY)).toEqual([2, 4, 5].map(contractLessonId));\n    });\n\n    it('отмена 005 — остаётся в ответе с тем же id и статусом cancelled', async () => {\n      await h.seedContractLessons();\n      await h\n        .lessonModel()\n        .updateOne({ _id: contractLessonId(5) }, { status: 'cancelled' });\n\n      const body = (await h.getPublic(WINDOW_QUERY)).body as PublicLessonDto[];\n\n      const moved = body.find((l) => l.id === contractLessonId(5));\n      expect(moved?.status).toBe('cancelled');\n      expect(body).toHaveLength(4);\n    });\n\n    it('пустое окно — 200 и []', async () => {\n      expect(await listIds(WINDOW_QUERY)).toEqual([]);\n    });\n\n    it('201 занятие в окне — все 201, без limit и пагинации', async () => {\n      const classId = await h.createClass();\n      await h.createLessonsEveryMinute(classId, new Date('2026-10-05T00:00:00Z'), 201);\n\n      const ids = await listIds('from=2026-10-05T00:00:00Z&to=2026-10-06T00:00:00Z');\n\n      expect(ids).toHaveLength(201);\n      expect(new Set(ids).size).toBe(201);\n    });\n\n    it('пример со сменой смещения (337 часов) принимается', async () => {\n      const query = 'from=2024-10-20T00:00:00%2B03:00&to=2024-11-03T00:00:00%2B02:00';\n\n      expect(await listIds(query)).toEqual([]);\n    });\n  });\n\n  describe('прочее', () => {\n    // У контроллера один маршрут. Утверждение 404 на путь под\n    // /api/public/lessons — ещё и то, что check-ownership-e2e.mjs требует от\n    // спека контроллера: «чужое» здесь не бывает, расписание школы общее и\n    // публичное, поэтому отказ проверяем на лишнем пути, а не на владельце.\n    it('GET /api/public/lessons/anything — 404', async () => {\n      const res = await request(h.server()).get(`${PUBLIC_LESSONS_PATH}/anything`);\n      expect(res.status).toBe(404);\n    });\n\n    // Регресс: защищённый маршрут ученика не тронут, Zoom в нём по-прежнему есть.\n    it('GET /api/me/lessons с сессией по-прежнему отдаёт zoomLink', async () => {\n      const classId = await h.createClass();\n      await h.createLesson({ classId, startsAt: new Date(NOW.getTime() + HOUR_MS) });\n      const cookie = await sessionCookieFor(testApp.app, []);\n\n      const res = await request(h.server()).get('/api/me/lessons').set('Cookie', cookie);\n\n      expect(res.status).toBe(200);\n      expect((res.body as MyLessonDto[])[0]?.zoomLink).toBe(ZOOM_LINK);\n    });\n  });\n});\n"
+    },
+    "provider-join": {
+      "path": "api/src/lessons/lesson-with-class.ts",
+      "content": "// Общий join «занятия ученика → классы по id», вынесенный из\n// MyLessonsService.findClassesByIds (CLAUDE.md «Одна механика — один\n// компонент»): и `/me/lessons`, и `/me/lessons/archive` подтягивают классы\n// тем же приёмом ($in + Map) и одинаково собирают из них DTO (расшифровка\n// занятия + пропуск даты без класса) — второй раз этот код не пишется,\n// оба сервиса зовут функции отсюда (иначе jscpd считает дубль).\nimport type { Model, Types } from 'mongoose';\nimport { CLASS_ENCRYPT_SCHEMA, ClassRecord } from '../classes/class.schema';\nimport { decryptRecord } from '../utils/encryption';\nimport { LESSON_ENCRYPT_SCHEMA } from './lesson.schema';\nimport type { LeanLesson } from './lesson.mapper';\n\n/** `Pick<ClassRecord, ...>` вместо простого пересечения — тот же приём, что\n * у RawLeanExam/RawLeanExamItem (exam.mapper.ts/exam-item.mapper.ts): иначе\n * тип не проходит ограничение `T extends Record<string, unknown>` у\n * decryptRecord. */\nexport type LessonClassLookupInput = Pick<\n  ClassRecord,\n  'title' | 'groupLabel' | 'format' | 'location' | 'zoomLink' | 'zoomPassword'\n> & { _id: Types.ObjectId };\n\nexport async function findLessonClassesByIds(\n  classModel: Model<ClassRecord>,\n  classIds: Types.ObjectId[],\n): Promise<Map<string, LessonClassLookupInput>> {\n  const uniqueIds = [...new Set(classIds.map((id) => id.toString()))];\n  const docs = await classModel\n    .find({ _id: { $in: uniqueIds } })\n    .lean<LessonClassLookupInput[]>();\n  return new Map(\n    docs.map((doc) => [doc._id.toString(), decryptRecord(doc, CLASS_ENCRYPT_SCHEMA)]),\n  );\n}\n\n/**\n * Расшифровывает каждую дату занятия и собирает из неё DTO вместе с классом\n * из `classById` (см. `findLessonClassesByIds`). Дата, у которой класс не\n * нашёлся — рассинхрон данных (класс у даты занятия удалить нельзя, пока на\n * него ссылается хоть одна дата, ClassesService.remove); её молча\n * пропускают, не роняя весь список ученику.\n */\nexport function joinLessonsWithClasses<T>(\n  docs: LeanLesson[],\n  classById: Map<string, LessonClassLookupInput>,\n  toDto: (lesson: LeanLesson, cls: LessonClassLookupInput) => T,\n): T[] {\n  return docs\n    .map((doc) => {\n      const cls = classById.get(doc.classId.toString());\n      if (!cls) return null;\n      return toDto(decryptRecord(doc, LESSON_ENCRYPT_SCHEMA), cls);\n    })\n    .filter((dto): dto is T => dto !== null);\n}\n"
+    },
+    "provider-dto": {
+      "path": "shared/src/public-lessons.ts",
+      "content": "// Публичное расписание школы для daychi (`GET /api/public/lessons`, ADR-0170).\n// Контракт Workshop, ревизия 4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74:\n// https://github.com/dveyarangi/xuanxue-workshop/blob/4aec5f84130c2dd8df6875c30fd94c3cf2a5ec74/docs/contracts/public-lessons.md\n// Ровно проекция контракта, без Zoom и служебных полей: маршрут открыт всему\n// интернету, поэтому лишнее поле здесь — утечка (маппер в api — allowlist).\nimport type { ClassFormat, LessonStatus } from './domain';\n\nexport interface PublicLessonDto {\n  id: string;\n  classId: string;\n  startsAt: string; // ISO UTC с Z\n  durationMin: number;\n  classTitle: string;\n  groupLabel: string;\n  format: ClassFormat;\n  /** Нет адреса у класса — ключа в ответе нет (контракт: единственное необязательное поле). */\n  location?: string;\n  topic: string;\n  status: LessonStatus;\n  tags: string[];\n}\n\n/** Два режима, смешивать нельзя: `limit` (ближайшие) либо оба `from`+`to`\n * (полное окно) — правило проверяет `resolvePublicLessonsWindow` в api. */\nexport interface ListPublicLessonsQuery {\n  limit?: number;\n  from?: string;\n  to?: string;\n}\n\n// Пределы взяты из контракта Workshop (ссылка в шапке файла), а не придуманы\n// здесь: daychi рассчитывает на них, менять в одностороннем порядке нельзя.\nexport const PUBLIC_LESSONS_LIMIT_DEFAULT = 10;\nexport const PUBLIC_LESSONS_LIMIT_MAX = 50;\n/** Окно не шире 4 недель = 28 суток UTC; ровно 28 суток допустимо. */\nexport const PUBLIC_LESSONS_WINDOW_MAX_WEEKS = 4;\n"
+    }
+  },
+  "join": {
+    "path": "api/src/lessons/lesson-classes.lookup.ts",
+    "content": "// Общий join «занятия ученика → классы по id», вынесенный из\n// MyLessonsService.findClassesByIds (CLAUDE.md «Одна механика — один\n// компонент»): и `/me/lessons`, и `/me/lessons/archive` подтягивают классы\n// тем же приёмом ($in + Map) и одинаково собирают из них DTO (расшифровка\n// занятия + пропуск даты без класса) — второй раз этот код не пишется,\n// оба сервиса зовут функции отсюда (иначе jscpd считает дубль).\nimport type { Model, Types } from 'mongoose';\nimport { CLASS_ENCRYPT_SCHEMA, ClassRecord } from '../classes/class.schema';\nimport { decryptRecord } from '../utils/encryption';\nimport { LESSON_ENCRYPT_SCHEMA } from './lesson.schema';\nimport type { LeanLesson } from './lesson.mapper';\n\n/** `Pick<ClassRecord, ...>` вместо простого пересечения — тот же приём, что\n * у RawLeanExam/RawLeanExamItem (exam.mapper.ts/exam-item.mapper.ts): иначе\n * тип не проходит ограничение `T extends Record<string, unknown>` у\n * decryptRecord. */\nexport type LessonClassLookupInput = Pick<\n  ClassRecord,\n  'title' | 'groupLabel' | 'format' | 'location' | 'zoomLink' | 'zoomPassword'\n> & { _id: Types.ObjectId };\n\nexport async function findLessonClassesByIds(\n  classModel: Model<ClassRecord>,\n  classIds: Types.ObjectId[],\n): Promise<Map<string, LessonClassLookupInput>> {\n  const uniqueIds = [...new Set(classIds.map((id) => id.toString()))];\n  const docs = await classModel\n    .find({ _id: { $in: uniqueIds } })\n    .lean<LessonClassLookupInput[]>();\n  return new Map(\n    docs.map((doc) => [doc._id.toString(), decryptRecord(doc, CLASS_ENCRYPT_SCHEMA)]),\n  );\n}\n\n/**\n * Расшифровывает каждую дату занятия и собирает из неё DTO вместе с классом\n * из `classById` (см. `findLessonClassesByIds`). Дата, у которой класс не\n * нашёлся — рассинхрон данных (класс у даты занятия удалить нельзя, пока на\n * него ссылается хоть одна дата, ClassesService.remove); её молча\n * пропускают, не роняя весь список ученику.\n */\nexport function joinLessonsWithClasses<T>(\n  docs: LeanLesson[],\n  classById: Map<string, LessonClassLookupInput>,\n  toDto: (lesson: LeanLesson, cls: LessonClassLookupInput) => T,\n): T[] {\n  return docs\n    .map((doc) => {\n      const cls = classById.get(doc.classId.toString());\n      if (!cls) return null;\n      return toDto(decryptRecord(doc, LESSON_ENCRYPT_SCHEMA), cls);\n    })\n    .filter((dto): dto is T => dto !== null);\n}\n"
+  },
+  "ciLogEvidence": {
+    "113154772224": [
+      "2026-10-08T04:51:16.0733109Z PASS test/public-lessons-omission.e2e-spec.ts",
+      "2026-10-08T04:53:01.3376154Z PASS test/public-lessons-validation.e2e-spec.ts",
+      "2026-10-08T04:53:13.9623584Z Test Suites: 73 passed, 73 total",
+      "2026-10-08T04:53:13.9624287Z Tests:       409 passed, 409 total"
+    ],
+    "113154772269": [
+      "2026-10-08T04:51:01.5811706Z PASS test/public-lessons.e2e-spec.ts",
+      "2026-10-08T04:51:58.7597016Z PASS test/my-lessons-archive-materials.e2e-spec.ts",
+      "2026-10-08T04:52:37.0929729Z PASS test/my-lessons-archive.e2e-spec.ts",
+      "2026-10-08T04:52:56.0221011Z PASS test/my-lessons.e2e-spec.ts",
+      "2026-10-08T04:53:11.4222510Z Test Suites: 72 passed, 72 total",
+      "2026-10-08T04:53:11.4223083Z Tests:       484 passed, 484 total"
+    ],
+    "113154772257": [
+      "2026-10-08T04:51:00.4475357Z \u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m34 passed\u001b[39m\u001b[22m\u001b[90m (34)\u001b[39m",
+      "2026-10-08T04:51:00.4475903Z \u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m380 passed\u001b[39m\u001b[22m\u001b[90m (380)\u001b[39m",
+      "2026-10-08T04:52:31.9728742Z PASS src/lessons/my-lessons.service.spec.ts",
+      "2026-10-08T04:52:38.0784664Z PASS src/lessons/public-lesson.mapper.spec.ts",
+      "2026-10-08T04:53:16.4414130Z PASS src/lessons/dto/list-public-lessons.dto.spec.ts",
+      "2026-10-08T04:53:38.4131597Z Test Suites: 278 passed, 278 total",
+      "2026-10-08T04:53:38.4132256Z Tests:       2611 passed, 2611 total"
+    ],
+    "113154772273": [
+      "2026-10-08T04:51:08.8741740Z PASS src/lessons/my-lessons-archive.service.spec.ts",
+      "2026-10-08T04:51:20.9219142Z PASS src/lessons/public-lessons.service.spec.ts",
+      "2026-10-08T04:52:24.7683124Z PASS src/lessons/my-lessons.controller.spec.ts",
+      "2026-10-08T04:52:26.9380937Z PASS src/lessons/public-lessons-window.spec.ts",
+      "2026-10-08T04:52:27.4256529Z PASS src/lessons/public-lessons.controller.spec.ts",
+      "2026-10-08T04:52:55.9168472Z Test Suites: 277 passed, 277 total",
+      "2026-10-08T04:52:55.9169502Z Tests:       2684 passed, 2684 total"
+    ]
+  }
+}

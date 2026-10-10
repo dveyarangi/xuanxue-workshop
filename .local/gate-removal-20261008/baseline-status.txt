@@ -1,0 +1,59 @@
+ M .agents/mechanisms/coordinate/coordinate.md
+ M .agents/skills/analyse/SKILL.md
+ M .agents/skills/coordinate/SKILL.md
+ M .agents/skills/issue/SKILL.md
+ M .agents/skills/reconcile/SKILL.md
+ M .agents/skills/review-assignments/SKILL.md
+ M .agents/skills/skill-up/SKILL.md
+ M docs/agent-contract.md
+ M docs/architecture.md
+ M docs/maintenance-20261006.md
+ M docs/mechanisms/coordinate.evidence.md
+ M docs/onboarding.md
+ M docs/questions/q-0002-what-is-the-architecture-of-workshop.md
+ M docs/questions/q-0002.0002-how-should-workshop-maintain-and-verify-boundary-contracts.md
+ M docs/questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md
+ M docs/questions/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md
+ M docs/questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md
+ M docs/questions/sessions
+ M docs/rule-failures.md
+ M docs/tickets/README.md
+ M local.rules.md
+?? .local/conclude-session.py
+?? .local/coordination-commit-evidence-paths.txt
+?? .local/coordination-loop-validation/
+?? .local/gate-removal-20261008/
+?? .local/maintenance-20261006/audit.py
+?? .local/maintenance-20261006/mechanisms.json
+?? .local/maintenance-20261006/published-public-lessons.md
+?? .local/maintenance-20261006/rehome.py
+?? .local/partial-issue5-before.md
+?? .local/partial-issue5-comment.md
+?? .local/partial-issue5-review-replacement.md
+?? .local/partial-issue6-before.md
+?? .local/partial-issue6.md
+?? .local/partial-publication-readback.json
+?? .local/reconciliation-20261005/cabinet-public-lessons-issue-body.md
+?? .local/reconciliation-20261005/cabinet-public-lessons-issue.md
+?? .local/reconciliation-20261005/check-contract-review.py
+?? .local/reconciliation-20261005/coordinating-ticket-draft.md
+?? .local/reconciliation-20261005/daychi-public-lessons-issue-body.md
+?? .local/reconciliation-20261005/daychi-public-lessons-issue.md
+?? .local/reconciliation-20261005/public-lessons-contract-review.md
+?? .local/reconciliation-20261005/public-lessons-publication.patch
+?? .local/reconciliation-20261005/published-issue-readback.json
+?? .local/reconciliation-20261006/daychi-public-lessons-issue-body.md
+?? .local/reconciliation-20261006/report-review-comments.md
+?? .local/reconciliation-20261006/report-review-straw-dogs.json
+?? .local/revise-public-contract.py
+?? .local/settle-public-partial-question.py
+?? .local/startup-review-20261008/
+?? .local/startup-review/readiness-ticket-format-repair.patch
+?? .local/startup-review/review-assignments.SKILL.md
+?? .local/startup-review/review-assignments.mechanism.md
+?? .local/startup-review/review-assignments.rules.md
+?? docs/questions/done/q-0002.0002.0004-when-should-coordination-propose-or-prepare-further-work.md
+?? docs/questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md
+?? docs/sessions/0007-20261006-coordinate-next-actions-and-contract-cleanup.md
+?? docs/sessions/0008-20261008-public-pilot-amendment-and-native-session-ticket.md
+?? docs/tickets/01-0008-native-cabinet-account-session.md

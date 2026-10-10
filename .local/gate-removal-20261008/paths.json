@@ -1,0 +1,16 @@
+[
+  "local.rules.md",
+  ".agents/skills/review-assignments/SKILL.md",
+  ".agents/mechanisms/review-assignments/review-assignments.md",
+  "skills/collaborate/workshop-issue-format.md",
+  "docs/agent-contract.md",
+  "docs/tickets/01-0005-workshop-coordination-ready.md",
+  "docs/rfc/01-0005-workshop-coordination-ready.md",
+  "docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md",
+  "docs/tickets/01-0008-native-cabinet-account-session.md",
+  "docs/tickets/README.md",
+  "docs/rule-failures.md",
+  "docs/mechanisms/review-assignments.evidence.md",
+  "docs/questions/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md",
+  "docs/questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md"
+]

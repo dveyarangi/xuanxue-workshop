@@ -1,0 +1,23 @@
+{
+  "store": "present",
+  "entries": 29,
+  "diagnostics": [],
+  "findings": [
+    {
+      "record": "docs/questions/q-0002.0009-should-cabinet-serve-daychi-content.md",
+      "line": 1,
+      "finding": "q-0002.0007 and q-0002.0009 may be one question: both ask about cabinet, content, daychi"
+    },
+    {
+      "record": "docs/questions/q-0002.0010-should-clients-reach-cabinet-and-daychi-through-a-shared-gateway.md",
+      "line": 1,
+      "finding": "q-0002.0008.0001 and q-0002.0010 may be one question: both ask about cabinet, clients, daychi"
+    },
+    {
+      "record": "docs/questions/q-0002.0009-should-cabinet-serve-daychi-content.md",
+      "line": 1,
+      "finding": "q-0002.0008.0001.0002 and q-0002.0009 may be one question: both ask about cabinet, content, daychi"
+    }
+  ],
+  "skipped": []
+}

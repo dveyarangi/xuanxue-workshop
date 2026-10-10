@@ -1,0 +1,13 @@
+{
+  "candidate_only": true,
+  "repository_source_modified": false,
+  "tests": 555,
+  "failures": 0,
+  "errors": 1,
+  "skipped": 2,
+  "skip_reasons": [
+    "this platform refuses to create a symlink; a kept link cannot be made",
+    "this platform refuses to create a symlink; a link to keep cannot be made"
+  ],
+  "successful": false
+}

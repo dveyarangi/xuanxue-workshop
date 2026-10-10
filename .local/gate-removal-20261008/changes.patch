@@ -1,0 +1,563 @@
+--- before/local.rules.md
++++ after/local.rules.md
+@@ -196,13 +196,13 @@
+ ## L14 — issue review, action and return to work
+ 
+ - **target** `.agents/skills/review-assignments/SKILL.md`
+-- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports
++- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports; 2026-10-08, reassess dependencies from ground truth and remove readiness and installation-acceptance gates
+ 
+ <rule>
+ Review relevant assignments and discussions in Workshop GitHub Issues, including
+ unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
+-review of the same issue. An unchanged conversation whose last message is Workshop's
+-needs no repeated response; the original issue holds the review history.
++review of the same issue. An unchanged conversation and unchanged relevant evidence
++need no repeated response; the original issue holds the review history.
+ 
+ Read each issue's full timeline across all pages, including mentions and
+ cross-references, alongside its body, comments and closure events. Follow relevant
+@@ -223,12 +223,19 @@
+ confirms that no boundary changed. Preserve the distinction between accepted
+ contracts, implementation evidence and deployed behavior.
+ 
+-After accepting a prerequisite or reviewing changed prerequisite evidence,
+-reassess affected dependent assignments using the dependency conditions in
+-skills/collaborate/workshop-issue-format.md. Communicate changed eligibility or
+-required action in the affected original issues. An unchanged dependent
+-conversation does not make changed prerequisite evidence irrelevant; unchanged
+-conditions require no repeated response.
++Reassess each dependency's necessity and fulfillment from current source,
++executed checks, runtime and operator evidence. A document, ticket status or
++acknowledgement alone does not establish either. Use the dependency conditions in
++skills/collaborate/workshop-issue-format.md; update the original issue to remove
++ceremonial or unsupported holds and retain only dependencies tied to a specific
++activity and observable condition. Changes to shared promises return to /align.
++Workshop readiness and collaboration-installation acceptance do not gate recipient
++implementation under its operator against an accessible settled shared contract.
++
++After accepting a prerequisite or reviewing changed relevant evidence, reassess
++affected dependent assignments and communicate changed eligibility or required
++action in their original issues. An unchanged dependent conversation does not make
++changed evidence irrelevant; unchanged conditions require no repeated response.
+ 
+ After handling the findings, report what changed, what remains blocked or undecided,
+ and where the existing queue stands. Preserve its order. Resume already-authorized
+--- before/.agents/skills/review-assignments/SKILL.md
++++ after/.agents/skills/review-assignments/SKILL.md
+@@ -118,8 +118,8 @@
+ 
+ **L14** Review relevant assignments and discussions in Workshop GitHub Issues, including
+ unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
+-review of the same issue. An unchanged conversation whose last message is Workshop's
+-needs no repeated response; the original issue holds the review history.
++review of the same issue. An unchanged conversation and unchanged relevant evidence
++need no repeated response; the original issue holds the review history.
+ 
+ Read each issue's full timeline across all pages, including mentions and
+ cross-references, alongside its body, comments and closure events. Follow relevant
+@@ -140,12 +140,19 @@
+ confirms that no boundary changed. Preserve the distinction between accepted
+ contracts, implementation evidence and deployed behavior.
+ 
+-After accepting a prerequisite or reviewing changed prerequisite evidence,
+-reassess affected dependent assignments using the dependency conditions in
+-skills/collaborate/workshop-issue-format.md. Communicate changed eligibility or
+-required action in the affected original issues. An unchanged dependent
+-conversation does not make changed prerequisite evidence irrelevant; unchanged
+-conditions require no repeated response.
++Reassess each dependency's necessity and fulfillment from current source,
++executed checks, runtime and operator evidence. A document, ticket status or
++acknowledgement alone does not establish either. Use the dependency conditions in
++skills/collaborate/workshop-issue-format.md; update the original issue to remove
++ceremonial or unsupported holds and retain only dependencies tied to a specific
++activity and observable condition. Changes to shared promises return to /align.
++Workshop readiness and collaboration-installation acceptance do not gate recipient
++implementation under its operator against an accessible settled shared contract.
++
++After accepting a prerequisite or reviewing changed relevant evidence, reassess
++affected dependent assignments and communicate changed eligibility or required
++action in their original issues. An unchanged dependent conversation does not make
++changed evidence irrelevant; unchanged conditions require no repeated response.
+ 
+ After handling the findings, report what changed, what remains blocked or undecided,
+ and where the existing queue stands. Preserve its order. Resume already-authorized
+--- before/.agents/mechanisms/review-assignments/review-assignments.md
++++ after/.agents/mechanisms/review-assignments/review-assignments.md
+@@ -13,9 +13,12 @@
+ The original issue conversation holds review history and acceptance evidence.
+ Discovery follows timeline references to reports and artifacts, including reports
+ held in other repositories. Direct comments are only one evidence surface.
+-Changed prerequisite evidence also affects dependent assignments, even when
+-their own conversations have not changed. The shared issue format owns dependency
+-conditions; local review obligations bind reassessment to evidence handling.
++Dependency review tests necessity as well as fulfillment against current source,
++checks, runtime and operator evidence. Changed facts affect dependent assignments
++even when their own conversations have not changed. The shared issue format owns
++activity conditions; local review obligations bind reassessment and original-issue
++correction to evidence handling. Document claims and acknowledgements describe
++decisions and reviews but do not establish operational readiness.
+ 
+ ## Moments
+ 
+@@ -25,7 +28,7 @@
+ | routing a blocker or changed obligation back into coordination | `.agents/skills/coordinate/SKILL.md` | |
+ | handling a project report or incoming request | `.agents/skills/review-assignments/SKILL.md` | |
+ | reading reports and artifacts linked through an issue's timeline | `.agents/skills/review-assignments/SKILL.md` | |
+-| reassessing dependent assignments after prerequisite evidence changes | `.agents/skills/review-assignments/SKILL.md` | |
++| reassessing dependency necessity and fulfillment from observed conditions | `.agents/skills/review-assignments/SKILL.md` | |
+ | reviewing relevant discussions when reconciliation begins or resumes | `.agents/skills/review-assignments/SKILL.md` | |
+ | supplying project context and entry invocation | `.agents/skills/mechanism/SKILL.md` | |
+ | installing or retracting the bindings | `.agents/scripts/gw/inject_rules.py` | |
+@@ -87,10 +90,12 @@
+ commit must produce an artifact-based review. An incidental mention must not
+ produce acceptance; an inaccessible reference must remain explicitly pending.
+ Acceptance follows required record reconciliation and references its result.
+-For prerequisite acceptance, the operator checks that dependent work is
+-reassessed without an invented Ready approval. A closed unaccepted prerequisite
+-must remain unsatisfied; provider-dependent integration must remain blocked even
+-when client development is eligible. An unchanged prerequisite produces no
+-duplicate response.
++The operator grades a case where a settled accessible contract and operator
++authority permit implementation while an installation acknowledgement is absent:
++review removes the administrative hold from the original issue. A case without
++a reachable conforming provider still cannot complete actual integration proof.
++Changed runtime or operator evidence triggers reassessment even when the last
++issue message is the coordinator's. A proposed shared promise change still returns
++to alignment. Unchanged evidence produces no duplicate response.
+ The structural checks reject a missing instruction or a missing or altered
+ installed context or entry binding. These checks do not grade semantic decisions.
+--- before/skills/collaborate/workshop-issue-format.md
++++ after/skills/collaborate/workshop-issue-format.md
+@@ -25,8 +25,8 @@
+   [the coordinator-owned contract-shape reference](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/.agents/skills/reconcile/CONTRACT-SHAPE.md).
+ - **Impact and required changes:** affected providers and consumers, requested
+   action, scope and dependencies.
+-- **Execution dependencies:** direct prerequisite issues, the work each blocks,
+-  and its satisfaction evidence and acceptance responsibility; see below.
++- **Execution dependencies:** observable conditions and any direct prerequisite
++  issues, the activity each enables and its evidence; see below.
+ - **BOUNDARY_SUMMARY**, when supplying or updating project instructions: use the
+   block below. Describe what changed outside that block.
+ - **Acceptance evidence:** checks and results required to establish the outcome,
+@@ -50,19 +50,26 @@
+ 
+ ## Dependencies
+ 
+-Link direct prerequisite issues. Keep transitive prerequisites in their owning
+-assignments unless they impose a separate condition on this work. State whether
+-each prerequisite blocks starting, integration proof or completion, what evidence
+-satisfies it, and who accepts that evidence when acceptance is required.
+-Distinguish work possible against an agreed contract from work requiring a
+-reachable provider.
++Name the activity each dependency enables, its observable condition and current
++source, check, runtime or operator evidence. Link a direct prerequisite issue when
++it supplies that condition. Keep transitive dependencies in their owning assignments
++unless they impose a separate condition on this work. Distinguish implementation
++against an accessible settled shared contract from actual integration proof requiring
++a reachable conforming provider, controlled fixtures and the consumer runtime.
+ 
+-Eligibility follows those conditions and the recipient's operator authority.
+-Planned or Ready text summarizes eligibility; it creates no additional release
+-approval. State any genuinely required release approval as an explicit condition
+-with its responsible owner. A closed prerequisite alone is not acceptance where
+-the assignment requires acknowledgement. Reassess linked prerequisites when
+-choosing work or reviewing changed evidence.
++Reassess both necessity and fulfillment when choosing work or reviewing changed
++evidence. Documents describe agreed obligations; document claims, ticket states and
++acknowledgements alone do not establish operational readiness. Remove conditions
++that protect no shared obligation and update the original issue when facts change.
++Workshop readiness and collaboration-installation acceptance are not prerequisites
++for recipient implementation under its operator. Installation and its evidence
++remain separately reviewable outcomes.
++
++Eligibility follows actual activity conditions and the recipient's operator
++authority. Planned or Ready text creates no additional approval. Name any required
++operator release approval and its owner explicitly. Changes to shared promises
++require coordination; dependency review does not waive conformance or acceptance
++evidence for the assignment's own outcome.
+ 
+ ## Boundary summary block
+ 
+--- before/docs/agent-contract.md
++++ after/docs/agent-contract.md
+@@ -1,7 +1,7 @@
+ # Workshop and project-agent contract
+ 
+ Contract for responsibility boundaries between Workshop, Cabinet and Daychi agents.
+-Accepted by the user on 2026-10-04, with the 2026-10-05 clarifications incorporated.
++Accepted by the user on 2026-10-04, with clarifications through 2026-10-08 incorporated.
+ 
+ This document owns role responsibilities, shared guarantees, communication and
+ acceptance. [Onboarding](onboarding.md) owns installation and access requirements;
+@@ -79,22 +79,23 @@
+ The first assignment's outcome is collaboration installed and verified in the
+ recipient project under its operator. The
+ [onboarding agreement](onboarding.md#collaboration-installation) defines that
+-installation and its evidence. Subsequent application work depends directly on
+-the recipient's accepted installation; Workshop readiness is a prerequisite of
+-the installation assignment.
+-
+-Workshop may post subsequent assignments as Planned before readiness and onboarding
+-are confirmed. Their execution waits for
+-those dependencies and the identified contract baseline; posting is not release.
+-Posting does not establish adoption.
++installation and its evidence. Installation is a separately reviewable outcome;
++its acceptance and Workshop's internal coordination readiness do not gate application
++implementation. Recipient operators own authorization of their local work against
++an accessible settled shared contract. Posting does not establish adoption.
+ 
+ Dependencies distinguish starting work from integration proof and completion.
+ Work against an agreed contract and proof requiring a conforming reachable
+ provider have different prerequisites.
+-Eligibility follows satisfied assignment conditions and the recipient operator's
+-authority; Planned/Ready wording adds no separate release approval. Workshop
+-reviews changed prerequisite evidence and communicates resulting action in
+-affected original issues. The [issue format](../skills/collaborate/workshop-issue-format.md#dependencies)
++Eligibility follows the actual conditions for each activity and the recipient
++operator's authority; Planned/Ready wording adds no separate release approval.
++Workshop dependency review assesses both necessity and fulfillment from source,
++executed checks, runtime and operator evidence. Documents record shared obligations;
++document claims, status and acknowledgements alone do not prove operational readiness.
++Dependencies protect specific obligations, such as a reachable conforming provider
++and controlled fixtures for actual native proof. Changed conditions are reflected
++in the affected original issue; shared promise changes retain coordination.
++The [issue format](../skills/collaborate/workshop-issue-format.md#dependencies)
+ owns dependency fields and interpretation.
+ 
+ ### Boundary summary in project instructions
+@@ -157,7 +158,7 @@
+ 
+ The original issue's conversation and closure hold the review history;
+ there is no separate local acknowledgement ledger.
+-An unchanged conversation whose last message is Workshop's needs no repeated
++An unchanged conversation and unchanged relevant evidence need no repeated
+ response. A new project report requires review, including when the project agent
+ has closed the issue before Workshop acceptance.
+ 
+--- before/docs/tickets/01-0005-workshop-coordination-ready.md
++++ after/docs/tickets/01-0005-workshop-coordination-ready.md
+@@ -14,12 +14,14 @@
+ first-launch breakdown on 2026-10-04. This is Workshop's own inception work; the
+ Cabinet and Daychi installations are separate issues in the Workshop GitHub tracker.
+ 
+-This work supplies readiness for
++Related recipient installation outcomes are
+ [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
+ and [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).
+-Daychi's installation retains its readiness dependency. Cabinet's completed
+-installation is [accepted](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155);
+-this coordinator outcome remains incomplete. They are not local ticket copies.
++Both installations are accepted: [Cabinet](https://github.com/dveyarangi/xuanxue-workshop/issues/1#issuecomment-6011474155)
++and [Daychi](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501).
++This coordinator outcome remains incomplete and does not gate their work.
++They are not local ticket copies. The user removed the readiness and
++installation-acceptance dependencies on 2026-10-08.
+ 
+ The [recorded impact](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#impact)
+ traces the startup, publication, issue-review and independent-operator dependencies.
+@@ -52,9 +54,9 @@
+ evidence standard. The outcome fulfils that contract through the installed review
+ instruction and its shared bindings.
+ 
+-Publish the README, canonical contract and the Workshop readiness evidence before
+-releasing the two project installation assignments for execution. Obtain the
+-existing per-change commit and push approvals at the publication step. Workshop
++Publish the README, canonical contract and Workshop review evidence under the
++existing per-change commit and push approvals. Publication and independent review
++are this outcome's obligations; they do not hold recipient execution. Workshop
+ does not perform the sibling installations itself.
+ 
+ ## Acceptance criteria
+@@ -76,8 +78,9 @@
+   verified-result and already-closed-result paths against the accepted contract.
+ - [ ] Verified results lead to the necessary record updates, acknowledgement and
+   closure; missing evidence does not produce false acceptance or deployment claims.
+-- [ ] Published instructions and readiness evidence are referenced in the two
+-  installation issues, releasing them for their operators to execute independently.
++- [ ] Published instructions and review evidence are accessible from the repository
++  entry and original installation issues; recipient execution follows its actual
++  activity conditions and operator authority.
+ - [ ] /verify confirms the implemented skill, startup wiring, publication and
+   issue-review behavior against the governing contract and project verification set.
+ 
+--- before/docs/rfc/01-0005-workshop-coordination-ready.md
++++ after/docs/rfc/01-0005-workshop-coordination-ready.md
+@@ -22,9 +22,9 @@
+ for its instruction, invocation, maintenance and operator grading.
+ 
+ Project pointers reach the skill through the installed local context. Local rule
+-L14 holds the shared review/action/continuation instruction and targets both
+-reconciliation and review. A new local entry rule invokes review after recall.
+-The shared source prevents two authored review procedures. No acknowledgement
++L14 holds the review/action/continuation instruction in assignment review.
++L15 invokes review after recall. Reconciliation uses the existing review findings.
++No acknowledgement
+ ledger, periodic runner or project-local installation is introduced.
+ 
+ The review distinguishes outgoing assignments from incoming Workshop requests
+@@ -62,9 +62,14 @@
+ 5. A fresh ordinary Workshop session must demonstrate entry-file loading, recall,
+    review invocation and actual tracker discovery. Installation and explicit
+    invocation alone cannot establish fresh-entry invocation.
+-6. Publish only after the existing commit and push approvals. Read back the entry,
+-   readiness evidence and installation dependencies before release. Recipient
+-   installations and their acceptance remain separate outcomes.
++6. Publish only after the existing commit and push approvals. Read back the entry
++   and review evidence. Recipient installations and their acceptance remain separate
++   outcomes; this coordinator verification does not gate recipient execution.
++
++The 2026-10-08 dependency correction extends L14 to assess necessity as well as
++fulfillment against source, checks, runtime and operator evidence. Readiness and
++installation acknowledgements do not hold implementation against a settled shared
++contract. Actual integration still requires its provider, fixtures and runtime.
+ 
+ Current implementation and verification results are recorded in the
+ [review evidence](../mechanisms/review-assignments.evidence.md#remaining-readiness-evidence).
+--- before/docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md
++++ after/docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md
+@@ -2,8 +2,6 @@
+ 
+ - **Status:** Planned
+ - **Type:** HITL
+-- **Depends on:** [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md)
+-  (verified Workshop coordination and review capability)
+ - **Answers:** [q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
+ - **Outcome:** A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence.
+ 
+@@ -21,10 +19,10 @@
+ accessible immutable contract and common conformance cases, so their results can
+ be reviewed against one agreement.
+ 
+-Each recipient's accepted installation precedes its development. Workshop
+-readiness is already a prerequisite of those installation assignments. The
+-reachable Cabinet provider and controlled fixture setup precede actual native
+-integration proof; client development can proceed against the agreed contract.
++Recipient development proceeds under its operator against the accessible settled
++shared contract. Workshop readiness and installation acceptance do not gate it.
++A reachable conforming Cabinet provider, controlled fixtures and an actual native
++runtime are conditions of integration proof, assessed from current evidence.
+ Publication can precede execution eligibility and does not finish this outcome.
+ 
+ The [2026-10-06 environment check](../current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
+@@ -35,8 +33,9 @@
+ without adding a version selector or completeness metadata. Valid-only omission and
+ explicit logs are verified in the scoped 2026-10-08 provider review below. Actual
+ native refresh proof remains outstanding; fixture writes belong to Cabinet's
+-authorized operator. Daychi's installation is accepted in issue 2; issue 6 now
+-has its satisfied development prerequisite recorded.
++authorized operator. Daychi's installation is accepted in issue 2. The user removed
++readiness and installation-acceptance gates on 2026-10-08; issue 6 retains only the
++activity conditions needed for actual integration proof.
+ 
+ Review contribution evidence in the original assignments, reconcile current
+ boundary and remaining migration records, then publish those records before
+@@ -62,7 +61,8 @@
+   reachable setup/runtime and deployment limits.
+   [Scoped review](../current-system.md#assignment-evidence--reviewed-2026-10-08):
+   PR 570 / `868a4ed`, successful merge CI and staging runtime verified;
+-  production retains `fc2dee2`. Acknowledgement awaits record publication.
++  production retains `fc2dee2`. Records were published at `48ddb32` and
++  [Cabinet's contribution accepted](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6052988637).
+ - [ ] Daychi's pilot satisfies the consumer cases and preserves ordinary schedule,
+   cache, selections, access credentials and OS reminders.
+ - [ ] Actual native-to-provider evidence demonstrates dated results, controlled
+--- before/docs/tickets/01-0008-native-cabinet-account-session.md
++++ after/docs/tickets/01-0008-native-cabinet-account-session.md
+@@ -69,12 +69,10 @@
+ for this activity; existing queue order is preserved.
+ 
+ Implementation publication requires settled definitions, common cases and an
+-accessible immutable contract authority. Recipient implementation requires its
+-accepted collaboration installation and operator authority:
+-[cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
+-is accepted; [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2)
+-is outstanding. Joint native proof additionally requires a reachable conforming
+-auth provider, controlled test account and actual native runtime.
++accessible immutable contract authority. Recipient implementation proceeds under
++its operator; Workshop readiness and installation acceptance do not gate it.
++Joint native proof additionally requires a reachable conforming auth provider,
++controlled test account and actual native runtime, established by current evidence.
+ 
+ ## Evidence baseline
+ 
+--- before/docs/tickets/README.md
++++ after/docs/tickets/README.md
+@@ -1,10 +1,10 @@
+ # Delivery status
+ 
+-**Last updated:** 2026-10-06
++**Last updated:** 2026-10-08
+ 
+ The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
+-migration changes and Workshop responsibility have separate homes. Confirmed adoption by both project agents
+-is outstanding; see the [agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
++migration changes and Workshop responsibility have separate homes. Both project
++collaboration installations are accepted; see the [agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
+ 
+ Queue responsibility follows the [agent interaction contract](../agent-contract.md).
+ The existing harness path is `docs/tickets/`, with the user's
+@@ -16,7 +16,9 @@
+ Their [parent scope and corrected impact](../migration-changes.md#proposed-contribution-breakdown)
+ record the work-selection error. Neither remains an active assignment. The next
+ Workshop outcome breakdown was approved on 2026-10-05: one public schedule connection
+-with two recipient contributions. It follows readiness in the local queue.
++with two recipient contributions. Queue order is retained; coordinator readiness
++and installation acceptance do not gate recipient implementation. Each activity's
++actual dependencies follow current evidence under the agent contract.
+ 
+ ## Legacy horizon binding
+ 
+--- before/docs/rule-failures.md
++++ after/docs/rule-failures.md
+@@ -131,6 +131,27 @@
+ ## 2026-10-05 — Assignment status obscured execution dependencies
+ 
+ Status: amendment landed locally; harness, declaration and binding checks pass.
++
++Struck again, 2026-10-08: a Daychi agent stopped at the original readiness and
++installation-acceptance holds despite a settled accessible implementation contract.
++L14 reassessed fulfillment of written dependencies without reassessing whether
++they protected an obligation. L16 required removing steps that protect none but
++did not put that assessment at the review occasion. The earlier correction removed
++an extra Ready approval while retaining the original ceremonial dependency.
++
++Amendment shown before writing and accepted by the user's request: L14 assesses
++each dependency's necessity and fulfillment from current source, executed checks,
++runtime and operator evidence, updates the original issue, and removes unsupported
++holds. Document claims, status and acknowledgement alone establish neither. Only
++activity-specific observable conditions remain; shared promise changes return to
++alignment. Readiness and installation acceptance do not gate recipient implementation.
++The issue format and contract are corrected at their own homes. This supersedes
++the installation-before-development example below; provider-before-native-proof
++remains necessary. The amendment is landed locally and the original issue bodies
++are updated; publication of this rule follows the existing commit/push checkpoint.
++Binding, mechanism, ticket and question checks pass. The full harness reference
++check detects the pre-existing `skill-up` description change; this pass leaves
++that unrelated source divergence intact.
+ 
+ Struck again, 2026-10-06: the review treated coordinator readiness and record
+ publication as extra acceptance criteria for Cabinet's verified installation.
+--- before/docs/mechanisms/review-assignments.evidence.md
++++ after/docs/mechanisms/review-assignments.evidence.md
+@@ -110,6 +110,9 @@
+ agent behavior. The amendment remains local and unpublished; no recipient
+ installation or external assignment was changed.
+ 
++The installation-acceptance grading conditions above are superseded by the
++2026-10-08 dependency correction and the current mechanism declaration below.
++
+ ## Remaining readiness evidence
+ 
+ ### Fresh entry and real report handling — 2026-10-06
+@@ -141,9 +144,10 @@
+ holds the remaining grading proof and the dated invocation observations. The
+ 2026-10-06 observation above demonstrates entry-file loading, recall before review,
+ skill invocation and actual addressed discovery. Independent grading
+-of the cases above, publication of the resulting readiness baseline and release of
+-installation dependencies also remain outstanding. Structural checks and explicit
+-invocation do not satisfy those conditions. Recipient installation and adoption
++of the cases above and publication of the resulting review baseline remain
++outstanding for the coordinator outcome. The user removed installation-release
++dependencies on 2026-10-08 as recorded below. Structural checks and explicit
++invocation do not establish semantic grading. Recipient installation and adoption
+ remain separate outcomes under their own operators.
+ 
+ ## Timeline discovery and Cabinet replay — 2026-10-06
+@@ -181,3 +185,53 @@
+ This is an observed builder replay, not independent operator grading or a fresh
+ Workshop startup. No issue response, acceptance, closure, dependency release,
+ commit or push was performed. The review correction is installed locally.
++
++## Dependency necessity and gate removal — 2026-10-08
++
++The user reports a Daychi agent stopping at the explicit Workshop-readiness and
++installation-acceptance holds and directs their removal. The user also requires
++assignment review to revisit dependencies from ground truth. L14 previously
++reassessed fulfillment of written conditions without reassessing their necessity.
++The [repeated failure](../rule-failures.md#2026-10-05--assignment-status-obscured-execution-dependencies)
++records that distinction and the amendment shown before writing.
++
++The amended [L14](../../local.rules.md#l14--issue-review-action-and-return-to-work)
++assesses necessity and fulfillment from source, executed checks, runtime and
++operator evidence. Documents constrain agreed promises but do not prove readiness.
++The installed review instruction receives the rule through the local installer;
++no new ledger, background check or issue-state mechanism is introduced.
++An unchanged conversation cannot suppress review of changed relevant facts.
++
++Ground truth for this disposition is the inspected installation artifacts and
++fresh-session evidence for Cabinet and Daychi, the merged Cabinet PR 570 source,
++successful merge CI logs and observed staging runtime. The
++[scoped source/runtime record](../current-system.md#assignment-evidence--reviewed-2026-10-08)
++holds their revisions and limits. A settled accessible API contract permits local
++client implementation under its operator. Actual native proof still needs a
++conforming reachable provider, authorized controlled fixtures and a native runtime;
++the native demonstration is not established by the provider checks or acknowledgement.
++
++Original issue bodies were freshly read, then updated and read back exactly:
++[cabinet-workshop-collaboration #1](https://github.com/dveyarangi/xuanxue-workshop/issues/1),
++[daychi-workshop-collaboration #2](https://github.com/dveyarangi/xuanxue-workshop/issues/2),
++[cabinet-public-lessons #5](https://github.com/dveyarangi/xuanxue-workshop/issues/5) and
++[daychi-public-lessons #6](https://github.com/dveyarangi/xuanxue-workshop/issues/6).
++States and recipient labels were preserved. The Daychi body now describes the
++amended staging provider evidence and current native-proof conditions; installation
++status reflects accepted PR evidence while retaining its open-PR limit. The
++[correction in the original Daychi assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6053193026)
++explicitly supersedes earlier installation-prerequisite comments. Shared API
++definitions, conformance obligations and operator fixture ownership remain intact.
++
++Before regeneration the binding check rejected the stale review-local block.
++After regeneration, injector, mechanism, ticket and question checks pass with no
++diagnostics; the mechanism check has no core leaks. The full harness check at
++`5871845` passes injector, shape and loader-link checks but fails source comparison
++on the pre-existing `skill-up` description addition. That file was already modified
++before this pass and was not edited here. This is not a clean full-harness result.
++
++The declaration pre-registers operator grading of necessity, absent administrative
++acknowledgement, unavailable provider, changed runtime evidence and shared-promise
++changes. This pass demonstrates original-issue correction and structural binding;
++it does not claim fresh-session semantic grading of the amended rule. Local rule
++and record publication retain the existing commit/push checkpoint.
+--- before/docs/questions/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md
++++ after/docs/questions/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md
+@@ -2,8 +2,28 @@
+ 
+ - **part of** q-0002.0005
+ - **state** open
+-- **lean** Cabinet installation evidence is accepted and issue 1 closed with a no-shared-boundary-change acknowledgement; issue 5 installation prerequisite is satisfied. Direct reporting works in the reported session. Persistent future-session access, Workshop source-link follow-up and coordinator readiness/publication remain separate work.
++- **lean** Both collaboration installations are accepted. The user removed coordinator-readiness and installation-acceptance gates; assignment review reassesses dependency necessity and fulfillment from current source, checks, runtime and operator evidence and updates original issues. Actual native proof still needs a conforming reachable provider, controlled fixtures and native runtime. Coordinator grading and source rollout remain separate.
+ - **struck** 1, last 2026-10-08T05:27Z
++
++## Dependency decision — the user, 2026-10-08
++
++The user requires assignment review to revisit dependencies from ground truth and
++remove the readiness and installation-acceptance gates. The original breakdown
++had combined published/access requirements with Workshop's internal quality review;
++neither an unchecked coordinator ticket nor a missing acknowledgement establishes
++an obstacle to implementation against the settled accessible shared contract.
++
++Both recipient installations have inspectable accepted evidence. Cabinet's amended
++provider has merged source, successful executed checks and a reachable staging
++runtime; Daychi's actual native demonstration remains unproved. Review therefore
++retains the conforming-provider, controlled-fixture and native-runtime conditions
++for that activity, without holding client implementation behind installation review.
++
++The [agent contract](../agent-contract.md#entry-and-first-assignment) owns the revised
++eligibility agreement. [L14](../../local.rules.md#l14--issue-review-action-and-return-to-work)
++owns evidence-based dependency reassessment and original-issue updates. The
++[review evidence](../mechanisms/review-assignments.evidence.md#dependency-necessity-and-gate-removal--2026-10-08)
++records this pass. Earlier dependency assessments below remain dated history.
+ 
+ ## Existing coverage and the missing procedure — 2026-10-05
+ 
+--- before/docs/questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md
++++ after/docs/questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md
+@@ -2,7 +2,7 @@
+ 
+ - **part of** q-0002
+ - **state** open
+-- **lean** Cabinet and Daychi collaboration installations are accepted in original issues 1 and 2. Daychi immutable artifacts, fresh-session proof and return path are verified; issue 6 installation dependency is satisfied. Broader Workshop readiness, independent grading and source rollout remain separate; native application proof is open.
++- **lean** Cabinet and Daychi collaboration installations are accepted in original issues 1 and 2. Their source and invocation evidence is verified. The user removed readiness and installation-acceptance gates; issue 6 client implementation proceeds under its operator against the settled accessible contract. Actual native proof retains provider, fixture and runtime conditions. Coordinator grading and source rollout remain separate.
+ - **struck** 2, last 2026-10-05T13:39Z
+ 
+ The [first-stage goal](../stage-1.md) requires both project agents to demonstrate

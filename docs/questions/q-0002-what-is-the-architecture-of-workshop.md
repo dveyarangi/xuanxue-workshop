@@ -1,8 +1,8 @@
 # q-0002 What is the architecture of Workshop?
 
 - **state** open
-- **lean** Public pilot contract e209d27 and paired assignments are published. Cabinet installation is accepted; its public provider is deployed on staging and production with a required-data conformance correction outstanding. Workshop review invokes after recall; grading/publication, Daychi adoption, native proof and broader application contracts remain open.
-- **struck** 4, last 2026-10-06T11:11Z
+- **lean** Public pilot amendment 4aec5f8 and original provider/consumer issue updates are published and read back. Cabinet installation is accepted; amended provider conformance, Daychi installation/native proof and broader application contracts remain open. Native account-session scope is minted locally for alignment; unrelated readiness/source-rollout work remains separate.
+- **struck** 5, last 2026-10-08T14:56Z
 
 ## Current decision context
 

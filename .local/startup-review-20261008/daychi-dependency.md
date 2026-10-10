@@ -1,0 +1,5 @@
+Dependency update: Workshop has accepted Daychi's installation in [issue #2](https://github.com/dveyarangi/xuanxue-workshop/issues/2) and closed it as completed. Its installation prerequisite for client development is satisfied. The reported existing Daychi operator authorization remains the authority for continuation; no additional Ready approval is introduced.
+
+Workshop has also inspected Cabinet PR #570 / `868a4edb09926a950b78e8daa3ce495c6e8e256e` against the shared `4aec5f8` contract. The omission/logging and protected-route evidence passes; staging currently reports `868a4ed`, while production remains `fc2dee2`. Formal provider acknowledgement in #5 awaits approved publication of Workshop's reconciled records.
+
+Actual native proof remains this assignment's responsibility. Controlled fixture access and writes stay with Cabinet's authorized operator; disposable development data remains sufficient for mixed-corruption/repair proof. No production corruption experiment, application release or fixture-write authorization is added by this update.

@@ -1,0 +1,22 @@
+[
+  {
+    "number": 5,
+    "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/5",
+    "title": "xuanxue-cabinet: cabinet-public-lessons \u2014 provide the agreed public lessons API",
+    "state": "open",
+    "label": "project:cabinet",
+    "contract": "https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md",
+    "comments": 0,
+    "updated_at": "2026-10-05T17:13:33Z"
+  },
+  {
+    "number": 6,
+    "url": "https://github.com/dveyarangi/xuanxue-workshop/issues/6",
+    "title": "daychi: daychi-public-lessons \u2014 display Cabinet lessons in the native schedule pilot",
+    "state": "open",
+    "label": "project:daychi",
+    "contract": "https://github.com/dveyarangi/xuanxue-workshop/blob/e209d27239391be3af2be71b898c79f453851c01/docs/contracts/public-lessons.md",
+    "comments": 0,
+    "updated_at": "2026-10-05T17:12:37Z"
+  }
+]

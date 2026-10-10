@@ -1,0 +1,80 @@
+{
+  "records": [
+    {
+      "record": "docs/tickets/01-0005-workshop-coordination-ready.md",
+      "stage": "shaped",
+      "fields": {
+        "Status": "In progress",
+        "Type": "HITL",
+        "Plan": "[Workshop coordination ready RFC](../rfc/01-0005-workshop-coordination-ready.md) \u2014 one review skill after recall, sharing the installed feedback rule with reconciliation",
+        "Responsible contributor": "Workshop agent under its operator",
+        "Answers": "[q-0002.0005.0002](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)",
+        "Outcome": "Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement."
+      },
+      "sections": [
+        "Parent",
+        "What to build",
+        "Acceptance criteria",
+        "Out of scope",
+        "Parent scope addressed"
+      ]
+    },
+    {
+      "record": "docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md",
+      "stage": "incepted",
+      "fields": {
+        "Status": "Planned",
+        "Type": "HITL",
+        "Answers": "[q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)",
+        "Outcome": "A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence."
+      },
+      "sections": [
+        "Parent",
+        "What to build",
+        "Acceptance criteria",
+        "Out of scope"
+      ]
+    },
+    {
+      "record": "docs/tickets/01-0008-native-cabinet-account-session.md",
+      "stage": "incepted",
+      "fields": {
+        "Status": "In progress (alignment)",
+        "Type": "HITL",
+        "Responsible contributor": "Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions",
+        "Answers": "[q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)",
+        "Outcome": "Cabinet and Daychi have an agreed native account-session contract that makes the approved sign-in, restoration, account-read and installation-scoped sign-out outcome implementation-ready."
+      },
+      "sections": [
+        "Parent",
+        "What to build",
+        "Acceptance criteria \u2014 alignment exit",
+        "Activity dependencies",
+        "Evidence baseline",
+        "Technical preparation \u2014 2026-10-08",
+        "Out of scope",
+        "Parent scope addressed"
+      ]
+    },
+    {
+      "record": "docs/tickets/01-0010-daychi-backend-capabilities-in-cabinet.md",
+      "stage": "incepted",
+      "fields": {
+        "Status": "Blocked (horizon)",
+        "Type": "HITL",
+        "Responsible projects": "Cabinet provides the target backend; Daychi owns consumer compatibility and source exports; Workshop coordinates the boundary agreement.",
+        "Start condition": "The user authorizes a separate consolidation initiative after its data, compatibility, and rollout assessment.",
+        "Answers": "[q-0002.0009](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)",
+        "Outcome": "Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend."
+      },
+      "sections": [
+        "Parent",
+        "What to build",
+        "Acceptance criteria \u2014 provisional alignment exit",
+        "Out of scope"
+      ]
+    }
+  ],
+  "diagnostics": [],
+  "skipped": []
+}

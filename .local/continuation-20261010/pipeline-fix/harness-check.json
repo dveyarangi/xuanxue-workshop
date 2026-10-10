@@ -1,0 +1,73 @@
+{
+  "target": ".",
+  "mode": "check",
+  "repository": "https://github.com/dveyarangi/goodwolf-harness.git",
+  "ref": {
+    "repository": "goodwolf-harness",
+    "commit": "8a512d39f47ec09c1e76750ce82de8aad0c35cfc",
+    "announced": "8a512d3",
+    "date": "2026-10-08"
+  },
+  "written": [],
+  "replaced": [],
+  "deleted": [],
+  "own": [],
+  "links": [],
+  "pending": [],
+  "injected": [],
+  "gates": {
+    "ref": {
+      "passed": true,
+      "ref": "8a512d3",
+      "differs": [],
+      "own": [
+        ".agents/mechanisms/analyse/analyse.md",
+        ".agents/mechanisms/analyse/analyse.rules.md",
+        ".agents/mechanisms/coordinate/coordinate.md",
+        ".agents/mechanisms/coordinate/coordinate.rules.md",
+        ".agents/mechanisms/issue/issue.md",
+        ".agents/mechanisms/issue/issue.rules.md",
+        ".agents/mechanisms/reconcile/reconcile.md",
+        ".agents/mechanisms/reconcile/reconcile.rules.md",
+        ".agents/mechanisms/review-assignments/review-assignments.md",
+        ".agents/mechanisms/review-assignments/review-assignments.rules.md",
+        ".agents/skills/analyse/SKILL.md",
+        ".agents/skills/coordinate/CONTRACT-SHAPE.md",
+        ".agents/skills/coordinate/SKILL.md",
+        ".agents/skills/coordinate/VALIDATION.md",
+        ".agents/skills/issue/SKILL.md",
+        ".agents/skills/reconcile/CONTRACT-SHAPE.md",
+        ".agents/skills/reconcile/SKILL.md",
+        ".agents/skills/review-assignments/SKILL.md"
+      ]
+    },
+    "injector": {
+      "passed": true,
+      "exit": 0,
+      "said": [
+        "  \"orphans\": [],",
+        "  \"diagnostics\": []",
+        "}"
+      ]
+    },
+    "shape": {
+      "passed": true,
+      "exit": 0,
+      "said": [
+        "  },",
+        "  \"diagnostics\": []",
+        "}"
+      ]
+    }
+  },
+  "excluded": [],
+  "links_resolve": {
+    ".claude/skills": true,
+    ".cursor/skills": true
+  },
+  "notes": [
+    "whether a host reads the loader link is not observable from inside a tree"
+  ],
+  "refusals": [],
+  "arrived": true
+}

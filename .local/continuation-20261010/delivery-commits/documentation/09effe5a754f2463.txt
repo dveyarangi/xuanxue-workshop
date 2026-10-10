@@ -1,0 +1,161 @@
+# q-0002.0008.0001.0002 How will native Daychi maintain a Cabinet account session without replacing its content access?
+
+- **part of** q-0002.0008.0001
+- **state** open
+- **owner** [01-0008](../tickets/01-0008-native-cabinet-account-session.md)
+- **lean** The accepted native contract, including homeHiddenTiles parity and N01-N17, is published at b8ab296e2713580eb4b91155b0c333ea758a74ce. Cabinet issue 7 and Daychi issue 8 cite that same authority and each other; exact bodies, labels and accessible contract blob were read back. Recipient implementation and actual joint native proof remain pending under the original issues.
+- **struck** 3, last 2026-10-10T00:09Z
+
+The user approved the one-outcome breakdown and minting on 2026-10-06. The
+[native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md)
+ticket owns this narrow delivery outcome and its decision-bearing phase.
+The [approved breakdown and impact](q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#approved-breakdown)
+hold its scoped evidence and rationale.
+
+Native account access must preserve Daychi's existing content credentials and
+ordinary schedule/reminder path. Shared protocol and lifecycle choices remain
+in the existing [authentication-standard question](q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md);
+this ticket covers their native-session application, not the separate admission
+check or broader content migration. Its native contract is accepted;
+recipient implementation and native acceptance retain the ticket's activity-specific dependencies.
+
+## Technical preparation — 2026-10-08
+
+The user authorized preparation of the shared protocol. The
+[native-session proposal](../contracts/native-account-session.md) and its paired
+draft assignments in the owning ticket specify acquisition, callback binding,
+account read, renewal/revocation, persistence and failure recovery with common
+cases. Refreshed source evidence lives in
+[current-system](../current-system.md#native-account-session-source--2026-10-08).
+The proposal preserves accepted ownership, sign-out scope and independent content
+access. Source resemblance and drafting alone did not accept the profile; the
+user's subsequent lifecycle decision below accepts that part. No implementation
+issue is published.
+
+## Native lifetime and renewal accepted — 2026-10-08
+
+The user replied "сохраняем" to retaining Cabinet's native lifetime/renewal policy
+with predecessor validity for interrupted-renewal recovery. The decision lives in
+[accepted credential lifetime and renewal](../contracts/native-account-session.md#accepted-credential-lifetime-and-renewal).
+Remaining wire, callback, revocation mechanics and failure choices are proposed;
+the native-session question stays open and publication/implementation is not claimed.
+
+## Acquisition reaffirmation and local sign-out accepted — 2026-10-08
+
+The user reaffirmed the browser/code-and-PKCE method and corrected the assistant's
+repeated method-approval request. Its operative home is
+[accepted native credential acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition).
+This is an existing agreement held fixed, not another approval checkpoint.
+
+The user replied "принимаем" to immediate local sign-out without waiting for
+remote revocation, no later credential retry queue and explicit incomplete exit
+when local deletion fails. Its home is
+[accepted local sign-out and failure policy](../contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy).
+Exact callback/wire and server revocation mechanics remain proposed.
+
+## Registered callback accepted — 2026-10-08
+
+The user replied "пойдет" to the dedicated callback
+`su.xuanxue.daychi:/oauth/cabinet`, preserving existing `quietpractice` invitations.
+The choice and scheme-collision tradeoff live in
+[accepted registered callback](../contracts/native-account-session.md#accepted-registered-callback).
+Exact query/wire and server revocation mechanics remain proposed; callback runtime
+configuration and integration proof are not established by this decision.
+No implementation assignment or native acceptance is claimed.
+
+## Account-block recovery accepted — 2026-10-08
+
+The user replied "сохраняем" to retaining the credential after Cabinet reports
+an account block, while disabling account use. A successful authoritative check
+after unblock restores access only if the credential remains valid. Its durable
+home is [account-block recovery](../contracts/native-account-session.md#accepted-account-block-recovery).
+Exact callback/wire and server revocation mechanics remain proposed.
+
+## Interrupted exchange recovery accepted — 2026-10-09
+
+The user replied "согласен" to a fresh browser attempt after dispatching a code
+exchange without successfully obtaining and durably installing the new credential.
+Any prior usable session is preserved; a durably installed new credential restores
+normally. The decision lives in
+[interrupted code-exchange recovery](../contracts/native-account-session.md#accepted-interrupted-code-exchange-recovery).
+Exact exchange wire/timing and server revocation mechanics remain proposed.
+
+## Partial profile acceptance and consumer check — 2026-10-09
+
+The user accepted items 3, 5 and 6: independent interface sessions, grant-wide
+revocation including concurrent renewal, invalid/blocked/temporary distinctions,
+and joint native proof on one platform plus configuration/client checks on both.
+Their durable homes are
+[session isolation](../contracts/native-account-session.md#accepted-session-isolation-and-revocation-guarantees),
+[failure categories](../contracts/native-account-session.md#accepted-failure-categories)
+and [verification scope](../contracts/native-account-session.md#accepted-joint-verification-scope).
+This does not accept the whole profile or its exact wire definitions.
+
+The user challenged the extra browser confirmation, asked what the current Daychi
+consumers actually need, and challenged account switching as an existing story.
+[Current consumer evidence](../current-system.md#native-consumer-needs--2026-10-09)
+records the bearer used by wiki/Zoom readers, absence of a Cabinet account-switching
+flow in the inspected app, and the accepted target bearer transport to both
+backends. The native slice preserves current content access but does not deliver
+the separate Cabinet admission bridge. At that point browser interaction and
+profile needs remained under alignment; their later decisions are recorded below.
+Replacement scope remains under alignment; previous-grant replacement cleanup
+is no longer prescribed by the draft. Accepted interrupted-acquisition recovery
+remains fixed.
+
+## Full web self-profile required — 2026-10-09
+
+The user rejected omitting email/roles because existing native readers did not
+use them and required everything Cabinet web receives. The decision lives in
+[accepted web self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity).
+[Fresh Cabinet evidence](../current-system.md#cabinet-web-self-profile--2026-10-09)
+identifies `MeDto` at `1ad7fb7e93a1440fa59330481eba4f2f0c0eb025`; the native account
+draft now carries that full shape with its effective roles, optional email and
+profile/login-key flags. Current web `MeDto` has no phone field. This profile
+instruction alone did not settle phone or browser interaction; the subsequent
+decision below does. Complete wire acceptance remains separate.
+
+## Phone excluded and automatic continuation accepted — 2026-10-09
+
+The user said "телефон не надо" and instructed removal of handoff friction while
+documenting the client-impersonation hole. Native self-profile parity adds no
+phone. Cabinet reuses an active browser session and returns to Daychi automatically;
+necessary existing sign-in also continues without an extra Cabinet confirmation.
+The decision and explicitly accepted risk live in
+[automatic browser continuation](../contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
+and [native client impersonation](../contracts/native-account-session.md#accepted-risk--native-client-impersonation).
+The proposal and both draft assignments now implement those meanings; N01 covers
+both browser-session states. Callback/issuer/state/PKCE protections remain binding.
+No full wire acceptance, published implementation issue or native proof is claimed.
+
+The user subsequently challenged the claimed protection of a Continue button:
+an impersonating app could lead the user to that button too. The contract's risk
+description now distinguishes visible interaction from native app authentication.
+No button establishes the caller's identity; the accepted automatic continuation
+decision remains fixed. The proposed attack requires a malicious installed app
+able to receive the registered callback and redeem its own PKCE transaction.
+This is a design limitation, not evidence of an exploited deployed Cabinet flow.
+
+## Complete technical protocol accepted — 2026-10-09
+
+The user replied "принимаем" to the remaining formats and five operations,
+including 60 seconds for the code after issuance and 15 minutes for the native
+attempt. The [native account-session contract](../contracts/native-account-session.md)
+is now accepted in full, with the earlier policies, full web self-profile without
+phone, automatic continuation and accepted impersonation risk held fixed.
+Contract/brief proposal wrappers were removed and the owning ticket now records
+recipient implementation and joint native proof as its delivery criteria.
+Implementation publication and actual native proof remain pending; acceptance
+does not establish either. The user's request to explain non-browser acquisition
+is informational and does not reopen the accepted browser method.
+
+## Current web hidden-home-tile parity accepted — 2026-10-10
+
+Fresh Cabinet source and both independent recipient readings found current web
+`homeHiddenTiles` absent from the fixed native definition/example. The user
+accepted adding it with "думаю надо добавлять" after its meaning was explained.
+The [accepted self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity)
+owns the required normalized field and N01 cases. Both recipient briefs now refer
+to that same amended authority. The addition conveys a Cabinet preference without
+adding Daychi tile UI or preference mutation/synchronization. Publication,
+implementation and joint native proof remain the existing delivery remainder.

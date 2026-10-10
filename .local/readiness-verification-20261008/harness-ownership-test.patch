@@ -1,0 +1,28 @@
+--- a/.agents/scripts/gw/test/test_harness.py
++++ b/.agents/scripts/gw/test/test_harness.py
+@@ -14,6 +14,7 @@
+ import tempfile
+ import unittest
+ from pathlib import Path
++from unittest import mock
+ 
+ from repository import SCRIPTS, RepositoryCase, folder_listing, proves_a_process
+ 
+@@ -578,9 +579,14 @@
+     def test_gits_own_ownership_check_is_what_the_refusal_reads(self) -> None:
+         if not git_checks_ownership():
+             self.skipTest("this Git predates the ownership check; the refusal is proved against its message")
+-        self._patch(os, "environ", {**os.environ, "GIT_TEST_ASSUME_DIFFERENT_OWNER": "1"})
+-
+-        self.assert_refused(("--install",), "target:", "dubious ownership", "safe.directory")
++        before = self.target_snapshot()
++        with mock.patch.dict(os.environ, {"GIT_TEST_ASSUME_DIFFERENT_OWNER": "1"}):
++            status, report = self.run_harness("--install")
++        self.assertEqual(1, status)
++        self.assertEqual(1, len(report["refusals"]), report)
++        for word in ("target:", "dubious ownership", "safe.directory"):
++            self.assertIn(word, report["refusals"][0])
++        self.assertEqual(before, self.target_snapshot())
+ 
+     @proves_a_process
+     def test_the_source_itself_by_its_remote(self) -> None:

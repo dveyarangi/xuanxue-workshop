@@ -1,0 +1,13 @@
+{
+  "local_references_checked": 30,
+  "link_errors": [],
+  "proposed_repair": "D:\\Dev\\workspaces\\taichi_workspace\\xuanxue-workshop\\.local\\readiness-verification-20261008\\verification-question.patch",
+  "harness_ref": "8a512d3",
+  "harness_ref_gate": "passed",
+  "injector_gate": "passed",
+  "mechanism_gate": "passed",
+  "tickets_gate": "passed",
+  "questions_gate": "passed",
+  "operator_grading": "pending",
+  "current_baseline_publication": "pending"
+}

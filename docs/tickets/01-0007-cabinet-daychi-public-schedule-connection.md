@@ -2,8 +2,6 @@
 
 - **Status:** Planned
 - **Type:** HITL
-- **Depends on:** [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md)
-  (verified Workshop coordination and review capability)
 - **Answers:** [q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
 - **Outcome:** A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence.
 
@@ -21,10 +19,10 @@ API; Daychi consumes it in its native staged pilot. Both assignments use the sam
 accessible immutable contract and common conformance cases, so their results can
 be reviewed against one agreement.
 
-Each recipient's accepted installation precedes its development. Workshop
-readiness is already a prerequisite of those installation assignments. The
-reachable Cabinet provider and controlled fixture setup precede actual native
-integration proof; client development can proceed against the agreed contract.
+Recipient development proceeds under its operator against the accessible settled
+shared contract. Workshop readiness and installation acceptance do not gate it.
+A reachable conforming Cabinet provider, controlled fixtures and an actual native
+runtime are conditions of integration proof, assessed from current evidence.
 Publication can precede execution eligibility and does not finish this outcome.
 
 The [2026-10-06 environment check](../current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
@@ -35,8 +33,9 @@ the not-yet-used pilot on 2026-10-07: omit corrupt rows with error-level logs,
 without adding a version selector or completeness metadata. Valid-only omission and
 explicit logs are verified in the scoped 2026-10-08 provider review below. Actual
 native refresh proof remains outstanding; fixture writes belong to Cabinet's
-authorized operator. Daychi's installation is accepted in issue 2; issue 6 now
-has its satisfied development prerequisite recorded.
+authorized operator. Daychi's installation is accepted in issue 2. The user removed
+readiness and installation-acceptance gates on 2026-10-08; issue 6 retains only the
+activity conditions needed for actual integration proof.
 
 Review contribution evidence in the original assignments, reconcile current
 boundary and remaining migration records, then publish those records before
@@ -62,7 +61,8 @@ remains under Cabinet's operator.
   reachable setup/runtime and deployment limits.
   [Scoped review](../current-system.md#assignment-evidence--reviewed-2026-10-08):
   PR 570 / `868a4ed`, successful merge CI and staging runtime verified;
-  production retains `fc2dee2`. Acknowledgement awaits record publication.
+  production retains `fc2dee2`. Records were published at `48ddb32` and
+  [Cabinet's contribution accepted](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6052988637).
 - [ ] Daychi's pilot satisfies the consumer cases and preserves ordinary schedule,
   cache, selections, access credentials and OS reminders.
 - [ ] Actual native-to-provider evidence demonstrates dated results, controlled
@@ -74,6 +74,27 @@ remains under Cabinet's operator.
   in the original issues.
 - [ ] /verify confirms this ticket's complete outcome against the governing
   contract, contribution evidence and Workshop records.
+
+## Progress review — 2026-10-10
+
+Daychi supplied new native and TestFlight 17 progress reports in the original
+issue. The [current evidence](../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
+distinguishes reported checks/native reads/release from inspectable implementation
+and verified integration. No additional acceptance criterion is checked by this
+review: published client/QA artifacts and controlled provider/native proof remain
+missing. Physical-device release and Android product checks are not added as new
+Workshop gates beyond the existing native device/emulator and retained-behavior
+criteria.
+
+The [original Cabinet issue follow-up](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6090400430)
+requests the authorized fixture operator, integration origin/revision, identities,
+timing and cleanup for the already-scoped joint proof. The
+[Daychi response](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6090404158)
+requests accessible client/QA evidence and records that fixture coordination is
+underway. Cabinet provider acceptance stands; issue 6 remains open. Queue order
+is unchanged. The next review resumes when accessible client evidence or the
+operator-owned fixture arrangement arrives; available recipient work continues
+under its own operator.
 
 ## Out of scope
 

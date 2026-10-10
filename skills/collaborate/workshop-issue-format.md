@@ -25,8 +25,8 @@ Apply the recipient label defined by the agent contract.
   [the coordinator-owned contract-shape reference](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/.agents/skills/reconcile/CONTRACT-SHAPE.md).
 - **Impact and required changes:** affected providers and consumers, requested
   action, scope and dependencies.
-- **Execution dependencies:** direct prerequisite issues, the work each blocks,
-  and its satisfaction evidence and acceptance responsibility; see below.
+- **Execution dependencies:** observable conditions and any direct prerequisite
+  issues, the activity each enables and its evidence; see below.
 - **BOUNDARY_SUMMARY**, when supplying or updating project instructions: use the
   block below. Describe what changed outside that block.
 - **Acceptance evidence:** checks and results required to establish the outcome,
@@ -50,19 +50,26 @@ commit, identified by its full SHA. That commit is the installed source revision
 
 ## Dependencies
 
-Link direct prerequisite issues. Keep transitive prerequisites in their owning
-assignments unless they impose a separate condition on this work. State whether
-each prerequisite blocks starting, integration proof or completion, what evidence
-satisfies it, and who accepts that evidence when acceptance is required.
-Distinguish work possible against an agreed contract from work requiring a
-reachable provider.
+Name the activity each dependency enables, its observable condition and current
+source, check, runtime or operator evidence. Link a direct prerequisite issue when
+it supplies that condition. Keep transitive dependencies in their owning assignments
+unless they impose a separate condition on this work. Distinguish implementation
+against an accessible settled shared contract from actual integration proof requiring
+a reachable conforming provider, controlled fixtures and the consumer runtime.
 
-Eligibility follows those conditions and the recipient's operator authority.
-Planned or Ready text summarizes eligibility; it creates no additional release
-approval. State any genuinely required release approval as an explicit condition
-with its responsible owner. A closed prerequisite alone is not acceptance where
-the assignment requires acknowledgement. Reassess linked prerequisites when
-choosing work or reviewing changed evidence.
+Reassess both necessity and fulfillment when choosing work or reviewing changed
+evidence. Documents describe agreed obligations; document claims, ticket states and
+acknowledgements alone do not establish operational readiness. Remove conditions
+that protect no shared obligation and update the original issue when facts change.
+Workshop readiness and collaboration-installation acceptance are not prerequisites
+for recipient implementation under its operator. Installation and its evidence
+remain separately reviewable outcomes.
+
+Eligibility follows actual activity conditions and the recipient's operator
+authority. Planned or Ready text creates no additional approval. Name any required
+operator release approval and its owner explicitly. Changes to shared promises
+require coordination; dependency review does not waive conformance or acceptance
+evidence for the assignment's own outcome.
 
 ## Boundary summary block
 
