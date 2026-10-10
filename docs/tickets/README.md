@@ -1,5 +1,7 @@
 # Delivery status
 
+- **record of** what it intends to become
+
 **Last updated:** 2026-10-10
 
 The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,

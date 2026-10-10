@@ -1,5 +1,6 @@
 # Daychi backend capabilities in Cabinet
 
+- **record of** what it intends to become
 - **Status:** Blocked (horizon)
 - **Type:** HITL
 - **Responsible projects:** Cabinet provides the target backend; Daychi owns consumer compatibility and source exports; Workshop coordinates the boundary agreement.

@@ -537,6 +537,19 @@ unresolved behavior; installation checks do not prove that future behavior.
 
 Status: amendment refused as redundant; execution corrected by resuming alignment.
 
+Struck again, 2026-10-11, session `01a127cf-692a-70d1-b8d4-28b653b5ce15`:
+an ordinary greeting invoked recall and assignment discovery, but the assistant
+ended after finding a new Cabinet provider report without proposing the next
+action or requesting its start. The initial diagnosis incorrectly called the
+status-only stop itself a violation. The user clarified that a greeting means
+status, followed by a proposed action under step=ask or execution under step=auto.
+The later answer-only restriction was respected. The
+[fresh-entry diagnosis](questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md#discovery-stopped-before-review--2026-10-11)
+records the corrected diagnosis and fresh-session grading cases. Local L15 now
+defines that entry handoff and local L3 sets step=ask using the existing ask
+default. The earlier automatic-review proposal was withdrawn. Issues remain
+unchanged during the user's pipeline-only diagnosis.
+
 Struck again, 2026-10-10: clarification about the reviewed native-session tasks
 and their next step led to explanatory replies without a clear pipeline stage
 and concrete next action. The user corrected the initial diagnosis: repeated

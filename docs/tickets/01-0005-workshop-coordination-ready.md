@@ -1,5 +1,6 @@
 # Workshop coordination ready
 
+- **record of** what it intends to become
 - **Status:** In progress
 - **Type:** HITL
 - **Plan:** [Workshop coordination ready RFC](../rfc/01-0005-workshop-coordination-ready.md) — one review skill after recall, sharing the installed feedback rule with reconciliation

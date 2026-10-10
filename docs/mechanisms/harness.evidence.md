@@ -233,3 +233,43 @@ and ticket checks pass. A first full-tree injector pass detected redundant stagi
 copies of instruction files created during commit preparation. Those diagnostic
 copies were retained as `.md.snapshot` files, after which the injector and complete
 harness gates passed. They are evidence snapshots, not additional instruction homes.
+
+## Workshop update — 2026-10-11
+
+The user authorized bringing in the current harness: "тащи его". A fresh source
+clone supplied `909b61ac1673ee330be0d85e15e7e8e682799fe2`, replacing the announced
+`8a512d39f47ec09c1e76750ce82de8aad0c35cfc`. Workshop now announces
+`Entry contract: goodwolf-harness@909b61a, 2026-10-11.`
+
+The installer first visited `09dd48d189f9eb24271d80271eda764f5f04ee46`, whose hook
+shelf identifies the preceding core commands, then installed the target ref.
+This let the installer replace the old commands in all three host hook files
+without retaining them as project hooks. New commands run the Git shell wrapper
+and its recorded Python interpreter directly, without uv. Windows long-path
+support was supplied per process; no global Git setting was changed.
+
+The five Workshop mechanism declarations gained the current `record of` field
+in place of `kind`. The question writer added the required record mark to all
+30 question records; assertions confirmed unchanged identities, questions,
+bodies and other metadata. Four live tickets and their queue gained the same
+format metadata. Their status, scope and acceptance criteria did not change.
+Workshop's own skills and rules remain present, including `step=ask` and the
+local greeting handoff. The update does not perform assignment work or publish
+issue replies.
+
+Final verification:
+
+- Harness gate: `arrived: true`; source comparison, injector and mechanism shape
+  pass, with no differing core files. Both loader links resolve.
+- Question store: 30 records, no diagnostics. Similarity suggestions remain
+  advisory; this update makes no question-merging decision.
+- Tickets: four live records, no diagnostics.
+- `git -c core.safecrlf=false diff --check`: passes.
+- The actual new Codex command accepts a UserPromptSubmit payload from a nested
+  directory and returns the current session's question window.
+
+The shipped unit suite was not run for this update. The direct hook probe does
+not establish that the desktop will invoke it in a fresh session; that is the
+user's planned greeting trial. Raw receipts, migration assertions and backups
+are retained in `.local/harness-update-20261011/`, excluded only in this clone's
+Git metadata. No commit or push was made.

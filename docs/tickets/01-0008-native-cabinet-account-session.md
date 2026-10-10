@@ -1,5 +1,6 @@
 # Native Cabinet account session
 
+- **record of** what it intends to become
 - **Status:** In progress (amended assignments published; recipient implementation and proof pending)
 - **Type:** HITL
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions

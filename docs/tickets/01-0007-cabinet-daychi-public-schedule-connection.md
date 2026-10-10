@@ -1,5 +1,6 @@
 # Cabinet–Daychi public schedule connection
 
+- **record of** what it intends to become
 - **Status:** Planned
 - **Type:** HITL
 - **Answers:** [q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)

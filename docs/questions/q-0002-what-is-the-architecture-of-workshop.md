@@ -1,5 +1,6 @@
 # q-0002 What is the architecture of Workshop?
 
+- **record of** what it intends to become
 - **state** open
 - **lean** Public pilot amendment 4aec5f8 and original provider/consumer issue updates are published and read back. Cabinet installation is accepted; amended provider conformance, Daychi installation/native proof and broader application contracts remain open. Native account-session scope is minted locally for alignment; unrelated readiness/source-rollout work remains separate.
 - **struck** 5, last 2026-10-08T14:56Z
