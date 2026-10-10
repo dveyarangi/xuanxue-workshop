@@ -41,10 +41,10 @@ when recording shared contracts or coordinated work.
 ## L3 — autonomy switches
 
 - **target** `AGENTS.md`
-- **authority** harness defaults and installation scope, 2026-10-03; the user, 2026-10-11, greeting status and next-action mode
+- **authority** harness defaults and installation scope, 2026-10-03; the user, 2026-10-11, greeting status and next-action mode; automatic commit and push
 
 <rule>
-commit=ask · push=ask · next-cycle=ask · breakdown=ask · repair=ask · step=ask
+commit=auto · push=auto · next-cycle=ask · breakdown=ask · repair=ask · step=ask
 </rule>
 
 ## L4 — Python runtime
@@ -256,7 +256,8 @@ After /recall at session entry, use /review-assignments at
 and establish the current status and next concrete action. A greeting starts
 with session status and a concrete next action. With step=ask, propose that
 action and request permission to start it; with step=auto, carry it out within
-existing authority. Omit explanations of the checkpoint.
+existing authority. Show the substance of the proposed action before asking
+for approval. Omit explanations of the checkpoint.
 Step approval covers the proposed action, not each tool
 call. Preserve the original issue as the communication channel and the existing
 decision, commit, publication and next-cycle checkpoints. Explicit user
@@ -280,14 +281,15 @@ agree on every shared shape and guarantee. Remove steps that protect no obligati
 
 - **target** `AGENTS.md`
 - **target** `.agents/skills/conclude/SKILL.md`
-- **authority** the user, 2026-10-10, native publication and pipeline repair request
+- **authority** the user, 2026-10-10, native publication and pipeline repair request; 2026-10-11, automatic commit and push
 
 <rule>
 Override the conclude-only push restriction in AGENTS.md Autonomy/push and
-.agents/skills/conclude/SKILL.md. Keep push=ask separate from commit approval.
+.agents/skills/conclude/SKILL.md. Keep push authorization separate from commit
+authorization; follow the project's push switch.
 When publication is required to continue authorized work, state the GitHub action
-and request permission for the prepared, reviewed commit at that point; do not
-defer the request or hide the pending action until session end.
+and publish the prepared, reviewed commit under that switch at that point; do not
+defer publication or hide the pending action until session end.
 </rule>
 
 ## L18 — visible coordination stage and next action

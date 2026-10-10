@@ -216,7 +216,7 @@ does not implicitly transfer their ownership or authorize changing them. Identif
 providers, consumers, data owners, responsible contributors, and affected projects
 when recording shared contracts or coordinated work.
 
-**L3** commit=ask · push=ask · next-cycle=ask · breakdown=ask · repair=ask · step=ask
+**L3** commit=auto · push=auto · next-cycle=ask · breakdown=ask · repair=ask · step=ask
 
 **L4** The harness scripts require Python 3.12 or later and only the standard library.
 In this workspace, run them with uv run --offline --no-project python.
@@ -239,7 +239,8 @@ the result; they do not prescribe the agent's workflow or authorize action.
 and establish the current status and next concrete action. A greeting starts
 with session status and a concrete next action. With step=ask, propose that
 action and request permission to start it; with step=auto, carry it out within
-existing authority. Omit explanations of the checkpoint.
+existing authority. Show the substance of the proposed action before asking
+for approval. Omit explanations of the checkpoint.
 Step approval covers the proposed action, not each tool
 call. Preserve the original issue as the communication channel and the existing
 decision, commit, publication and next-cycle checkpoints. Explicit user
@@ -252,10 +253,11 @@ Complete recipient context is necessary work: independently implemented ends mus
 agree on every shared shape and guarantee. Remove steps that protect no obligation.
 
 **L17** Override the conclude-only push restriction in AGENTS.md Autonomy/push and
-.agents/skills/conclude/SKILL.md. Keep push=ask separate from commit approval.
+.agents/skills/conclude/SKILL.md. Keep push authorization separate from commit
+authorization; follow the project's push switch.
 When publication is required to continue authorized work, state the GitHub action
-and request permission for the prepared, reviewed commit at that point; do not
-defer the request or hide the pending action until session end.
+and publish the prepared, reviewed commit under that switch at that point; do not
+defer publication or hide the pending action until session end.
 </installed>
 
 ## Straw dogs

@@ -35,8 +35,9 @@ happened. As the conclude's last act, run `questions.py --end --session <tag>`.
 
 <installed by="local">
 **L17** Override the conclude-only push restriction in AGENTS.md Autonomy/push and
-.agents/skills/conclude/SKILL.md. Keep push=ask separate from commit approval.
+.agents/skills/conclude/SKILL.md. Keep push authorization separate from commit
+authorization; follow the project's push switch.
 When publication is required to continue authorized work, state the GitHub action
-and request permission for the prepared, reviewed commit at that point; do not
-defer the request or hide the pending action until session end.
+and publish the prepared, reviewed commit under that switch at that point; do not
+defer publication or hide the pending action until session end.
 </installed>
