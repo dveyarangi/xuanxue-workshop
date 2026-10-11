@@ -273,3 +273,40 @@ not establish that the desktop will invoke it in a fresh session; that is the
 user's planned greeting trial. Raw receipts, migration assertions and backups
 are retained in `.local/harness-update-20261011/`, excluded only in this clone's
 Git metadata. No commit or push was made.
+
+## Workshop update — 2026-10-12
+
+Authorized by the user: "давай обновим харнесс". A fresh upstream clone supplied
+`e5e74d6d44f61259531db2f1cfcf312f96103df9`, whose entry contract is v82.
+Workshop announces `goodwolf-harness@e5e74d6, 2026-10-12`, replacing `909b61a`.
+
+Windows initially refused checkout of long upstream document names. Repeating
+checkout with process-scoped `core.longpaths=true` completed it. The same
+process-scoped setting accompanied the installer's fresh clones; no global Git
+setting changed.
+
+The new installer includes the upstream front page at
+`.agents/skills/harness/README.md`. Its comparison against the earlier ref treated
+that absent new file as an edit in core, refusing the first update without
+writing anything. After verifying that the file did not exist locally, the
+update ran with `--overwrite --at e5e74d6`. Its replaced list contains only that
+new front-page path. It wrote 37 files and deleted none. This was a transformation
+compatibility refusal, not replacement of a project-authored file.
+
+The installation gate and an independent fresh harness check both report
+`arrived: true` at the complete target hash. The separate injector and mechanism
+shape checks pass without diagnostics or orphans. Both loader links resolve;
+all three host hook files are unchanged. Whitespace checks pass. The shipped
+unit suite was not run: the project verification set for this update consists
+of the harness, injector and mechanism checks.
+
+Preservation comparison before this evidence entry covered 98 files, all
+byte-identical to the snapshot: local rules, all 18 recipient-owned mechanism
+and skill files, project documents, distributable collaboration assets, product
+entry files and host hooks. The straw-dog candidate scan covers installed core;
+its inherited wording is shipped upstream text with recipient bindings sheared,
+not a newly authored Workshop decision. No Workshop question or ticket changed.
+
+Fresh source, pre-update snapshot, upstream diff and raw update/verification
+receipts are retained outside this repository at
+`D:/Dev/workspaces/taichi_workspace/.local/harness-update-20261012-01a10ad8/`.
