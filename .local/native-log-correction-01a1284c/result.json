@@ -1,0 +1,12 @@
+{
+  "revision": "67d5cbd0041daa13c6973b657479e45a6716486f",
+  "canonicalAcceptedAndRedacted": true,
+  "originalEncodedCounterexampleAcceptedAndRedacted": true,
+  "acceptedAuthorizationVariants": 20,
+  "sensitiveCanonicalAndEncodedAliases": 14,
+  "distinctNamesRetained": true,
+  "duplicateDecodedNameRejected": true,
+  "productionHttpLoggerRuns": 2,
+  "wholeLogSyntheticSecretAbsence": true,
+  "scope": "Pinned original modules transpiled without edits; actual Pino and production pino-http configuration; synthetic values and local HTTP only"
+}

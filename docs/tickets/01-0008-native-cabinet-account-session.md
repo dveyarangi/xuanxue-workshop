@@ -530,9 +530,12 @@ deployment or native proof, and the delivery ticket remains open.
 ## Cabinet provider review — 2026-10-11
 
 Provider behavior and staging refusal paths are inspected at Cabinet
-`97642c734a0cc327d13bc58f193ac10a13b8d476`. Full provider conformance remains open
-because percent-encoded query names bypass authorization-URL log redaction.
-Daychi implementation and joint native proof remain unverified.
+`97642c734a0cc327d13bc58f193ac10a13b8d476`. The subsequent log-protection
+correction at `67d5cbd0041daa13c6973b657479e45a6716486f` is verified in the
+[scoped correction review](../current-system.md#native-log-protection-correction--reviewed-2026-10-11).
+The earlier encoded-name deviation is resolved. The controlled account,
+Daychi implementation and joint native proof remain unverified; neither
+assignment is acknowledged or closed by this correction review.
 
 The [current-system review](../current-system.md#native-provider-evidence--reviewed-2026-10-11)
 owns source, CI, runtime and counterexample evidence. It supersedes the former
@@ -543,7 +546,7 @@ claim or green CI alone.
 
 | Boundary | Parties | Promise | Evidence and remaining difference | Disposition |
 |---|---|---|---|---|
-| Native account session | Cabinet provider/account owner; Daychi consumer | Browser/PKCE acquisition, full account parity, lifetime/renewal, grant revocation and web compatibility | Pinned source and executed CI establish inspected provider behavior; anonymous staging probes confirm `97642c7` and refusal paths. Encoded query names leave authorization values in the request log URL. | Cabinet correction under the same contract in [issue 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7); full provider acceptance remains open. |
+| Native account session | Cabinet provider/account owner; Daychi consumer | Browser/PKCE acquisition, full account parity, lifetime/renewal, grant revocation and web compatibility | The baseline provider review remains applicable; the scoped `67d5cbd` source/CI/logger review resolves the encoded-name log deviation and staging health confirms that revision. | No remaining log-protection correction under the unchanged contract in [issue 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7). Controlled-account and joint evidence remain open; no full assignment acceptance. |
 | Joint native session | Cabinet fixture/release operator; Daychi build/release operator; Workshop reviewer | Real native N01/N11/N15/N16/N17, both-platform client/configuration checks, retained content and ordinary behavior | No Daychi report in [issue 8](https://github.com/dveyarangi/xuanxue-workshop/issues/8) and no joint native proof supplied. The provider report promises an account outside the public issue; it does not establish an arranged controlled account. | Daychi local work can proceed against the accepted contract; joint proof retains reachable conforming provider, controlled account and actual native build conditions. |
 
 The operator authorized this report review and its original-issue response on

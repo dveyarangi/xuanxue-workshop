@@ -23,6 +23,45 @@ collaboration installation is [accepted and issue 1 closed](https://github.com/d
 The newer provider review below supersedes the public-row conformance gap.
 Native integration and broader Workshop source publication remain incomplete.
 
+## Native log-protection correction — reviewed 2026-10-11
+
+Cabinet's [correction report](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6103679689)
+and merged [PR 589](https://github.com/gregoryKot/xuanxue-cabinet/pull/589) identify
+revision `67d5cbd0041daa13c6973b657479e45a6716486f`. Workshop inspected the complete
+four-file change against the previous `97642c7` review and the unchanged native
+profile at `3c98d4a5201710f8f777183dd7b61caefe47e2d5`. The serializer now decodes
+each query parameter name with `URLSearchParams` before selecting redaction;
+it preserves the raw name and replaces its sensitive value. The authorization
+parser, duplicate rejection and shared wire are unchanged.
+
+The exact-revision [CI run 38097551022](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/38097551022)
+passed. Downloaded logs show `logging.module.spec.ts`,
+`request-serializer.spec.ts` and `native-browser-query.spec.ts` executed and
+passed in both coverage and Australia/Sydney jobs. The new HTTP logger test
+first asserts that the encoded-name authorization request is valid, then asserts
+that neither synthetic state nor challenge occurs anywhere in the production
+Pino HTTP log line. API unit shards total 5,570 passing tests in each of the
+coverage and Australia/Sydney runs; the HTTP e2e shards total 1,007 passing tests.
+
+Workshop independently loaded the pinned original modules without source edits,
+using local TypeScript/Pino dependencies. The original encoded-name counterexample
+and canonical request remain accepted and are redacted. Checks passed for 20
+accepted state/challenge encoding combinations, 14 canonical/encoded sensitive
+parameter aliases, preservation of distinct names and rejection of duplicate
+decoded names. Two real local HTTP requests through the original
+`buildPinoHttpOptions('production', 'info')` confirmed absence of synthetic query,
+cookie, authorization, response-cookie and callback-code values throughout the
+emitted log line. The [scoped result](../.local/native-log-correction-01a1284c/result.json)
+records these checks. No live log or real account credential was inspected.
+
+A separate anonymous staging health read on 2026-10-11 returned `status: ok`,
+`commit: 67d5cbd` and `mongo: up`. This establishes the observed staging revision,
+not production deployment or an authenticated native flow. The earlier
+log-redaction deviation below is resolved within this reviewed scope. No shared
+contract changed. Issue 8 still has no Daychi report; the controlled account,
+client implementation and joint native N01/N11/N15/N16/N17 evidence remain
+unverified. This correction review does not acknowledge or close either assignment.
+
 ## Native provider evidence — reviewed 2026-10-11
 
 Cabinet's [native provider report](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6102552279)
