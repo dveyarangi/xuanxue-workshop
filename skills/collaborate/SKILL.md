@@ -51,6 +51,13 @@ project's own tracker and rules.
    project instructions. Verify the installed format link resolves. Report in
    the original installation issue.
 
+<installed by="local">
+**L21** Use an installation assignment for your own project. If none was supplied, search
+Workshop Issues for an existing one. If none exists, ask your operator to introduce
+the repository to Workshop for project reception. Reuse an existing introduction
+request; another project's installation assignment is not your project's context.
+</installed>
+
 ## Check addressed work
 
 In [Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues), find

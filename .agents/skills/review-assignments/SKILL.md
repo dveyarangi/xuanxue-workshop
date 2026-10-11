@@ -102,6 +102,13 @@ Ordinary review responses stay with assignment review.
 </installed>
 
 <installed by="local">
+**L19** When a supplied repository or a participant discovered during issue review is a school
+project absent from README.md's Repository map, enter /coordinate at
+.agents/skills/coordinate/SKILL.md for project reception. Reuse an active coordination
+and issue-review pass. Establish the next reception action under the configured step
+switch; discovery does not establish accepted participation or authorize recipient changes.
+A repository cited only as a dependency or example does not start reception.
+
 **L9** Use the sources relevant to the current scope:
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.

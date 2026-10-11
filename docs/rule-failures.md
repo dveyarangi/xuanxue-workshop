@@ -5,6 +5,27 @@
 Status: closed; the user approved the replacement coordinator instructions and
 the skill-up description trigger, installed and checked on 2026-10-06.
 
+Struck again, 2026-10-12: an introduced school repository and an incoming report
+with an unrecorded participant produced report explanation/review proposals,
+without routing to new-project reception. The preparation gap was already
+documented in the [installation-assignment question](questions/done/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md#existing-coverage-and-the-missing-procedure--2026-10-05).
+The same missing input-to-action connection remained: accepted requirements and
+recipient instructions assumed an existing assignment; the entry and review
+instructions supplied no reception occasion. The agent also failed to surface
+that existing gap when interpreting the new repository.
+
+The user authorized repairing the reusable process before a separate session
+runs it. [L19-L21 in local.rules.md](../local.rules.md#l19--project-reception-trigger)
+now supply the trigger, source-bound preparation and own-project assignment
+discovery through existing coordination, onboarding and record mechanisms.
+They are installed at their reading occasions. A cold reading identified and
+resolved the initially ambiguous chat-only record home; a separate final reader
+passed six starting cases without prior reports or conversation history.
+[Verification evidence](mechanisms/coordinate.evidence.md#project-reception--2026-10-12)
+records the checks and excludes actual new-session invocation or Knowledge
+onboarding. Disposition: amendment landed and reading-based verification passed;
+the user's requested real reception run remains a separate session's work.
+
 Struck again, 2026-10-06: the approved action table was compressed to rule IDs,
 and the completeness review incorrectly counted that as preserving the requested
 form. The user also identified missing explicit resumption conditions. Restored

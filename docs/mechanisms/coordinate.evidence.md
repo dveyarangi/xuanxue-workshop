@@ -1,5 +1,59 @@
 # Coordination loop evidence
 
+## Project reception — 2026-10-12
+
+The user requested repair of reusable new-project reception before its execution
+in a new session, using only context available to that session. The existing
+onboarding agreement and recipient installation procedure started after an
+assignment existed. The preparation gap was already recorded on 2026-10-05 in
+the [installation-assignment question](../questions/done/q-0002.0005.0003-how-should-workshop-prepare-installation-assignments-that-project-agents-can-complete.md).
+
+An independent reader, without conversation history, inspected a Git-exported
+snapshot of Workshop `e889c943489bc78f36096ee84b2551aea616e29b` and found no
+explicit reception trigger or initial preparation route. README also offered
+only Cabinet's and Daychi's existing installation assignments.
+
+[Project-local reception rules](../../local.rules.md#l19--project-reception-trigger)
+now bind the introduction/discovery occasion to coordination, supply preparation
+from existing onboarding and issue-format authorities, and give a new project
+agent a first-assignment discovery path. The rules are installed into AGENTS,
+assignment review, coordination and the distributable collaboration skill.
+The collaboration guard is within its Installation section, which the canonical
+procedure removes from the retained recipient copy. No new mechanism, record
+type, admission registry or application-implementation gate was added.
+
+The first candidate's independent cold reading passed its routing and authority
+but found ambiguity about the durable home of a URL introduced only in chat.
+The final rule uses Q1's project-specific question for that case and links later
+approved owning work. Access-grant ownership was made explicit; a dependency or
+example citation does not initiate reception.
+
+A separate final reader received only an exported final tree and the grading
+question, without the earlier reports. It passed all six cases: chat-only school
+repository; an unlisted participant in an incoming issue; an existing project or
+assignment; missing operator/account/host context; a dependency/example citation,
+including a school-project example; and an arriving project agent without an
+assignment. It could locate trigger, next action, owner, authority, durable home
+and resumption, distinguish step=ask from step=auto, and separate discovery,
+accepted participation, publication, retained installation and integration proof.
+It reported no material contradiction or private-context dependency.
+
+Before installation, the binding checker rejected three stale local blocks and
+the absent collaboration guard. After final installation it checked 11 rule
+files and 54 blocks without diagnostics. The declaration checker checked 11
+mechanisms without diagnostics. The required harness check passed the source,
+binding and declaration gates at `e5e74d6d44f61259531db2f1cfcf312f96103df9`.
+The question-store validator and whitespace check passed. Straw-dog candidates
+were an existing publication condition and the distributable label placeholder,
+not tentative reception rules.
+
+This is structural verification and independent reading, not actual invocation
+by the user's next host session or evidence of Knowledge onboarding. No project
+was registered, recipient modified, assignment published or issue accepted by
+this repair. The [Knowledge reception question](../questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md)
+retains its repository, original incoming issue and the user's separate-session
+execution condition.
+
 ## Scoped maintenance of the further-work change — 2026-10-06
 
 Scope: the approved coordinator addition, its source bindings in local.rules.md

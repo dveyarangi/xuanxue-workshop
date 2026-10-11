@@ -1,5 +1,17 @@
 # Assignment review evidence — 2026-10-05
 
+## Unrecorded participant discovery — 2026-10-12
+
+The local reception trigger is installed at ordinary Workshop entry and within
+assignment review. An unrecorded school participant discovered in an incoming
+issue enters the existing coordination pass while retaining the original issue;
+a dependency/example reference does not initiate reception. Existing assignments
+and unchanged waits are reused. The complete independent cold-reading cases,
+correction of the chat-only resumption home, structural checks and evidence limits
+are recorded in the [coordination evidence](coordinate.evidence.md#project-reception--2026-10-12).
+This pass changes review routing, not any real assignment's acceptance or recipient
+installation status.
+
 ## Coordination routing — 2026-10-06
 
 The [coordination-loop](../tickets/done/01-0004-coordination-loop.md) retains review's

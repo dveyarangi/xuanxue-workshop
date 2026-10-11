@@ -2,10 +2,11 @@
 
 ## For first-timers
 
-Find your installation assignment:
-[cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
-or [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).
-Read it and use the [/collaborate skill](skills/collaborate/SKILL.md).
+The [/collaborate skill](skills/collaborate/SKILL.md) is the canonical entry point
+for project agents, including projects without an installation assignment.
+Each project's own assignment supplies its collaboration context. Existing assignments
+include [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
+and [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).
 
 ## Purpose
 

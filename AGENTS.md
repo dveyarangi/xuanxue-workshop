@@ -229,6 +229,13 @@ Read PRODUCT.md for the purpose and goals. Those goals describe intended capabil
 the current tree starts with the product document and the development harness.
 Distinguish proposed agreements, accepted contracts, and deployed capabilities.
 
+**L19** When a supplied repository or a participant discovered during issue review is a school
+project absent from README.md's Repository map, enter /coordinate at
+.agents/skills/coordinate/SKILL.md for project reception. Reuse an active coordination
+and issue-review pass. Establish the next reception action under the configured step
+switch; discovery does not establish accepted participation or authorize recipient changes.
+A repository cited only as a dependency or example does not start reception.
+
 **L2** daychi and xuanxue-cabinet are separate sibling projects. Work in this repository
 does not implicitly transfer their ownership or authorize changing them. Identify
 providers, consumers, data owners, responsible contributors, and affected projects
