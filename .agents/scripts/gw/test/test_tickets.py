@@ -31,22 +31,32 @@ def ticket(
     return f"{title}\n\n{mark}{header}\n{sections}"
 
 
-INCEPTED = (
+BEFORE = (
     "- **Status:** Ready\n"
     "- **Type:** HITL\n"
+    "- **Minted:** 2026-09-08\n"
     "- **Depends on:** [an earlier one](./01-0001-earlier.md) (what it supplies)\n"
     "- **Outcome:** One sentence saying what lands.\n"
 )
-SHAPED = (
+PLANNED_BEFORE = (
     "- **Status:** In progress\n"
     "- **Type:** AFK\n"
+    "- **Minted:** 2026-09-08\n"
     "- **Plan:** [plan](../rfc/01-0003-planned.md) — what it selected\n"
     "- **Outcome:** One sentence saying what lands.\n"
+)
+# A ticket minted the day the format moved, and so held to the narrowed shape.
+AFTER = BEFORE.replace("2026-09-08", tickets.FORMAT_MOVED)
+NAMED_FIVE = (
+    "## Parent\n\nThe spec.\n\n## What to build\n\nThe thing.\n\n"
+    "## Acceptance criteria\n\n- [ ] It works.\n- [ ] `/verify` has been run.\n\n"
+    "## Out of scope\n\nThe rest.\n\n## Parent scope addressed\n\nStories 1, 2.\n"
 )
 
 
 class Records(RepositoryCase):
-    """A tree with one incepted ticket, one shaped ticket and its RFC, all conforming.
+    """A tree with two tickets minted before the format moved, one of them planned, and its RFC,
+    all conforming.
 
     Every live ticket names the question it answers (the user, 2026-10-03), so a ticket written
     here without an `Answers` line is given one, and a store entry it owns, as it is written; a
@@ -57,9 +67,9 @@ class Records(RepositoryCase):
         super().setUp()
         self.questions: dict[str, str] = {}
         self.write(QUEUE, f"# Delivery status\n\n{MARKED}\n**Candidate:** none.\n")
-        self.write("docs/tickets/01-0001-earlier.md", ticket(INCEPTED))
-        self.write(LIVE, ticket(INCEPTED))
-        self.write(PLANNED, ticket(SHAPED))
+        self.write("docs/tickets/01-0001-earlier.md", ticket(BEFORE))
+        self.write(LIVE, ticket(BEFORE))
+        self.write(PLANNED, ticket(PLANNED_BEFORE))
         self.write(RFC, "# A ticket — implementation plan\n")
 
     def write(self, name: str, text: str):
@@ -96,7 +106,7 @@ class Records(RepositoryCase):
 
 class TheHeader(Records):
     def test_written_bare_rather_than_as_a_bullet_list_is_reported_as_the_form(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("- **", "**")))
+        self.write(LIVE, ticket(BEFORE.replace("- **", "**")))
 
         problems = self.problems()
 
@@ -105,7 +115,7 @@ class TheHeader(Records):
         self.assertEqual([(LIVE, 4)], self.problem_lines(), "the mark's line counts")
 
     def test_missing_a_required_field_names_it(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("- **Type:** HITL\n", "")))
+        self.write(LIVE, ticket(BEFORE.replace("- **Type:** HITL\n", "")))
 
         problems = self.problems()
 
@@ -113,12 +123,12 @@ class TheHeader(Records):
         self.assertIn("Type", problems[0])
 
     def test_allows_one_parenthetical_qualifier(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Ready (aligned 2026-09-08)")))
+        self.write(LIVE, ticket(BEFORE.replace("Ready", "Ready (aligned 2026-09-08)")))
 
         self.assertEqual([], self.problems())
 
     def test_done_must_open_its_parenthetical_with_the_date(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Done (split)")))
+        self.write(LIVE, ticket(BEFORE.replace("Ready", "Done (split)")))
 
         problems = self.problems()
 
@@ -127,12 +137,12 @@ class TheHeader(Records):
         self.assertIn("date", problems[0])
 
     def test_done_dated_with_words_after_a_comma_is_fine(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Done (2026-09-08, split)")))
+        self.write(LIVE, ticket(BEFORE.replace("Ready", "Done (2026-09-08, split)")))
 
         self.assertEqual([], self.problems())
 
     def test_with_a_type_outside_hitl_and_afk_is_reported(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("HITL", "Pairing")))
+        self.write(LIVE, ticket(BEFORE.replace("HITL", "Pairing")))
 
         problems = self.problems()
 
@@ -140,7 +150,7 @@ class TheHeader(Records):
         self.assertIn("Pairing", problems[0])
 
     def test_carrying_kind_is_reported_since_it_is_no_longer_a_field(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("- **Type:** HITL\n", "- **Type:** HITL\n- **Kind:** Maintenance\n")))
+        self.write(LIVE, ticket(BEFORE.replace("- **Type:** HITL\n", "- **Type:** HITL\n- **Kind:** Maintenance\n")))
 
         problems = self.problems()
 
@@ -152,6 +162,7 @@ class TheHeader(Records):
             "- **Status:** Ready\n"
             "- **Outcome:** One sentence saying what lands.\n"
             "- **Type:** HITL\n"
+            "- **Minted:** 2026-09-08\n"
         )
         self.write(LIVE, ticket(swapped))
 
@@ -165,6 +176,7 @@ class TheHeader(Records):
         swapped = (
             "- **Type:** HITL\n"
             "- **Status:** Ready\n"
+            "- **Minted:** 2026-09-08\n"
             "- **Outcome:** One sentence saying what lands.\n"
         )
         self.write(LIVE, ticket(swapped))
@@ -178,7 +190,7 @@ class TheHeader(Records):
     def test_a_one_off_field_may_sit_anywhere_before_outcome(self) -> None:
         self.write(
             LIVE,
-            ticket(INCEPTED.replace("- **Type:** HITL\n", "- **Related:** [x](./01-0001-earlier.md)\n- **Type:** HITL\n")),
+            ticket(BEFORE.replace("- **Type:** HITL\n", "- **Related:** [x](./01-0001-earlier.md)\n- **Type:** HITL\n")),
         )
 
         self.assertEqual([], self.problems())
@@ -186,7 +198,7 @@ class TheHeader(Records):
     def test_with_an_outcome_of_two_sentences_is_reported(self) -> None:
         self.write(
             LIVE,
-            ticket(INCEPTED.replace("One sentence saying what lands.", "Two sentences. The second one.")),
+            ticket(BEFORE.replace("One sentence saying what lands.", "Two sentences. The second one.")),
         )
 
         problems = self.problems()
@@ -197,7 +209,7 @@ class TheHeader(Records):
     def test_reads_a_wrapped_bullet_as_one_value(self) -> None:
         self.write(
             LIVE,
-            ticket(INCEPTED.replace("One sentence saying what lands.", "One sentence\n  saying what lands.")),
+            ticket(BEFORE.replace("One sentence saying what lands.", "One sentence\n  saying what lands.")),
         )
 
         checked = self.checked()
@@ -207,7 +219,7 @@ class TheHeader(Records):
         self.assertEqual("One sentence saying what lands.", live.fields["Outcome"])
 
     def test_with_a_link_that_does_not_resolve_is_reported(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("01-0001-earlier.md", "01-0001-elsewhere.md")))
+        self.write(LIVE, ticket(BEFORE.replace("01-0001-earlier.md", "01-0001-elsewhere.md")))
 
         problems = self.problems()
 
@@ -217,7 +229,7 @@ class TheHeader(Records):
     def test_a_status_line_in_a_later_section_is_prose_not_header(self) -> None:
         self.write(
             LIVE,
-            ticket(INCEPTED, sections="## What to build\n\n**Status:** Accepted, as prose.\n\n"
+            ticket(BEFORE, sections="## What to build\n\n**Status:** Accepted, as prose.\n\n"
                    "## Acceptance criteria\n\n- [ ] `/verify` has been run.\n"),
         )
 
@@ -229,7 +241,7 @@ class TheMark(Records):
     the kind in context; the ticket format declares the kind, and the check holds the two equal."""
 
     def test_a_ticket_carrying_none_is_reported(self) -> None:
-        self.write(LIVE, ticket(INCEPTED, mark=""))
+        self.write(LIVE, ticket(BEFORE, mark=""))
 
         problems = self.problems()
 
@@ -238,7 +250,7 @@ class TheMark(Records):
         self.assertEqual([(LIVE, 3)], self.problem_lines())
 
     def test_a_ticket_marked_with_another_kind_is_reported(self) -> None:
-        self.write(LIVE, ticket(INCEPTED, mark="- **record of** what happened\n"))
+        self.write(LIVE, ticket(BEFORE, mark="- **record of** what happened\n"))
 
         problems = self.problems()
 
@@ -247,7 +259,7 @@ class TheMark(Records):
         self.assertIn("what it intends to become", problems[0])
 
     def test_the_mark_under_its_former_name_is_reported_and_the_header_still_read(self) -> None:
-        self.write(LIVE, ticket(INCEPTED, mark="- **kind** what it intends to become\n"))
+        self.write(LIVE, ticket(BEFORE, mark="- **kind** what it intends to become\n"))
 
         problems = self.problems()
 
@@ -255,7 +267,7 @@ class TheMark(Records):
         self.assertIn("`- **kind**`", problems[0])
 
     def test_is_told_from_the_retired_kind_field(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("- **Type:** HITL\n", "- **Type:** HITL\n- **Kind:** Maintenance\n")))
+        self.write(LIVE, ticket(BEFORE.replace("- **Type:** HITL\n", "- **Type:** HITL\n- **Kind:** Maintenance\n")))
 
         problems = self.problems()
 
@@ -287,7 +299,7 @@ class TheMark(Records):
 
 class ThePlanBullet(Records):
     def test_absent_while_an_rfc_exists_is_reported(self) -> None:
-        self.write(PLANNED, ticket(SHAPED.replace("- **Plan:** [plan](../rfc/01-0003-planned.md) — what it selected\n", "")))
+        self.write(PLANNED, ticket(PLANNED_BEFORE.replace("- **Plan:** [plan](../rfc/01-0003-planned.md) — what it selected\n", "")))
 
         problems = self.problems()
 
@@ -296,7 +308,7 @@ class ThePlanBullet(Records):
         self.assertIn(RFC, problems[0])
 
     def test_present_while_no_rfc_exists_is_reported(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("- **Type:** HITL\n", "- **Type:** HITL\n- **Plan:** [plan](../rfc/01-0002-live.md)\n")))
+        self.write(LIVE, ticket(BEFORE.replace("- **Minted:** 2026-09-08\n", "- **Minted:** 2026-09-08\n- **Plan:** [plan](../rfc/01-0002-live.md)\n")))
 
         problems = self.problems()
 
@@ -304,7 +316,7 @@ class ThePlanBullet(Records):
         self.assertIn("Plan", problems[0])
 
     def test_pointing_at_another_file_than_the_rfc_is_reported(self) -> None:
-        self.write(PLANNED, ticket(SHAPED.replace("../rfc/01-0003-planned.md", "./01-0002-live.md")))
+        self.write(PLANNED, ticket(PLANNED_BEFORE.replace("../rfc/01-0003-planned.md", "./01-0002-live.md")))
 
         problems = self.problems()
 
@@ -315,7 +327,7 @@ class ThePlanBullet(Records):
 
 class TheSections(Records):
     def test_a_required_section_missing_is_reported(self) -> None:
-        self.write(LIVE, ticket(INCEPTED, sections="## Acceptance criteria\n\n- [ ] `/verify` run.\n"))
+        self.write(LIVE, ticket(BEFORE, sections="## Acceptance criteria\n\n- [ ] `/verify` run.\n"))
 
         problems = self.problems()
 
@@ -325,57 +337,50 @@ class TheSections(Records):
     def test_a_provisional_heading_is_read_as_the_criteria_section(self) -> None:
         self.write(
             LIVE,
-            ticket(INCEPTED, sections="## What to build\n\nX.\n\n"
+            ticket(BEFORE, sections="## What to build\n\nX.\n\n"
                    "## Acceptance criteria — provisional, firmed at the align\n\n- [ ] `/verify` run.\n"),
         )
 
         self.assertEqual([], self.problems())
 
-    def test_a_shaped_ticket_with_a_second_unnamed_section_is_reported(self) -> None:
-        self.write(
-            PLANNED,
-            ticket(SHAPED, sections="## Why this exists\n\nBecause.\n\n## Verification — 2026-09-08\n\nNotes.\n\n"
-                   "## What to build\n\nThe thing.\n\n## Acceptance criteria\n\n- [ ] `/verify` run.\n"),
-        )
+    def test_a_ticket_minted_since_the_format_moved_holding_a_narrative_section_is_reported(self) -> None:
+        self.write(LIVE, ticket(AFTER, sections="## Why this exists\n\nBecause.\n\n" + NAMED_FIVE))
 
         problems = self.problems()
 
-        self.assertEqual(1, len(problems))
-        self.assertIn("Verification — 2026-09-08", problems[0])
+        self.assertEqual(1, len(problems), problems)
+        self.assertIn("`Why this exists`", problems[0])
 
-    def test_a_shaped_ticket_may_carry_one_narrative_section(self) -> None:
-        self.write(
-            PLANNED,
-            ticket(SHAPED, sections="## Parent\n\nThe spec.\n\n## Why this exists\n\nBecause.\n\n"
-                   "## What to build\n\nThe thing.\n\n"
-                   "## Acceptance criteria\n\n- [ ] `/verify` run.\n\n## Out of scope\n\nThe rest.\n\n"
-                   "## Parent scope addressed\n\nStories 1, 2.\n"),
-        )
+    def test_a_ticket_minted_since_the_format_moved_may_hold_the_five_named_sections(self) -> None:
+        self.write(LIVE, ticket(AFTER, sections=NAMED_FIVE))
 
         self.assertEqual([], self.problems())
 
-    def test_an_incepted_ticket_hosts_any_section(self) -> None:
+    def test_a_ticket_minted_before_the_format_moved_is_not_reported_for_any_section(self) -> None:
+        sections = (
+            "## Why this exists\n\nBecause.\n\n## Decisions this ticket's align owns\n\n1. One.\n\n"
+            "## Verification — 2026-09-08\n\nNotes.\n\n"
+            "## What to build\n\nThe thing.\n\n## Acceptance criteria\n\n- [ ] `/verify` run.\n"
+        )
+        self.write(LIVE, ticket(BEFORE, sections=sections))
+        self.write(PLANNED, ticket(PLANNED_BEFORE, sections=sections))
+
+        self.assertEqual([], self.problems())
+
+    def test_no_acceptance_box_naming_verify_is_reported_for_either_shape(self) -> None:
+        for header in (BEFORE, AFTER):
+            with self.subTest(header=header):
+                self.write(LIVE, ticket(header, sections="## What to build\n\nX.\n\n## Acceptance criteria\n\n- [ ] It works.\n"))
+
+                problems = self.problems()
+
+                self.assertEqual(1, len(problems))
+                self.assertIn("/verify", problems[0])
+
+    def test_a_ticket_minted_since_the_format_moved_with_prose_among_its_criteria_is_reported(self) -> None:
         self.write(
             LIVE,
-            ticket(INCEPTED, sections="## Why this exists\n\nBecause.\n\n## Input from elsewhere\n\nChunks.\n\n"
-                   "## Verification — 2026-09-08\n\nNotes.\n\n"
-                   "## What to build\n\nThe thing.\n\n## Acceptance criteria\n\n- [ ] `/verify` run.\n"),
-        )
-
-        self.assertEqual([], self.problems())
-
-    def test_no_acceptance_box_naming_verify_is_reported_at_either_stage(self) -> None:
-        self.write(LIVE, ticket(INCEPTED, sections="## What to build\n\nX.\n\n## Acceptance criteria\n\n- [ ] It works.\n"))
-
-        problems = self.problems()
-
-        self.assertEqual(1, len(problems))
-        self.assertIn("/verify", problems[0])
-
-    def test_a_shaped_ticket_with_prose_among_its_criteria_is_reported(self) -> None:
-        self.write(
-            PLANNED,
-            ticket(SHAPED, sections="## What to build\n\nX.\n\n## Acceptance criteria\n\n"
+            ticket(AFTER, sections="## What to build\n\nX.\n\n## Acceptance criteria\n\n"
                    "Firmed at the align.\n\n- [ ] It works,\n  wrapped.\n- [x] `/verify` run.\n"),
         )
 
@@ -383,16 +388,55 @@ class TheSections(Records):
 
         self.assertEqual(1, len(problems))
         self.assertIn("Firmed at the align.", problems[0])
-        self.assertEqual([(PLANNED, 16)], self.problem_lines(), "the mark's and the Answers lines count")
+        self.assertEqual([(LIVE, 17)], self.problem_lines(), "the mark's, the Minted and the Answers lines count")
 
-    def test_an_incepted_ticket_may_hold_prose_among_its_criteria(self) -> None:
+    def test_a_ticket_minted_before_the_format_moved_may_hold_prose_among_its_criteria(self) -> None:
         self.write(
-            LIVE,
-            ticket(INCEPTED, sections="## What to build\n\nX.\n\n## Acceptance criteria\n\n"
+            PLANNED,
+            ticket(PLANNED_BEFORE, sections="## What to build\n\nX.\n\n## Acceptance criteria\n\n"
                    "Provisional, firmed at the align.\n\n- [ ] `/verify` run.\n"),
         )
 
         self.assertEqual([], self.problems())
+
+
+class WhenItWasMinted(Records):
+    """A ticket says the day it was minted, and its shape is read from it: one minted before the
+    format moved is held to the required sections and the `/verify` box alone (the user,
+    2026-10-11)."""
+
+    def test_a_ticket_without_minted_is_reported(self) -> None:
+        self.write(LIVE, ticket(BEFORE.replace("- **Minted:** 2026-09-08\n", "")))
+
+        self.assertEqual(["the header has no Minted bullet"], self.problems())
+
+    def test_a_minted_that_is_no_date_is_reported(self) -> None:
+        for written in ("last week", "2026-13-01", "2026-9-8"):
+            with self.subTest(written=written):
+                self.write(LIVE, ticket(BEFORE.replace("2026-09-08", written)))
+
+                problems = self.problems()
+
+                self.assertEqual(1, len(problems), problems)
+                self.assertIn("Minted", problems[0])
+                self.assertIn("YYYY-MM-DD", problems[0])
+
+    def test_minted_out_of_order_is_reported(self) -> None:
+        self.write(
+            LIVE,
+            ticket(BEFORE.replace("- **Minted:** 2026-09-08\n", "").replace("- **Outcome:**", "- **Minted:** 2026-09-08\n- **Outcome:**")),
+        )
+
+        problems = self.problems()
+
+        self.assertEqual(1, len(problems), problems)
+        self.assertIn("Minted", problems[0])
+
+    def test_the_record_says_when_it_was_minted(self) -> None:
+        records = {read.record: read.as_record() for read in self.checked().records}
+
+        self.assertEqual("2026-09-08", records[LIVE]["minted"])
+        self.assertNotIn("stage", records[LIVE])
 
 
 class TheQuestionItAnswers(Records):
@@ -401,7 +445,7 @@ class TheQuestionItAnswers(Records):
     2026-10-03)."""
 
     def raw(self, answers: str | None, sections: str | None = None) -> None:
-        header = INCEPTED if answers is None else INCEPTED.replace(
+        header = BEFORE if answers is None else BEFORE.replace(
             "- **Outcome:**", f"- **Answers:** {answers}\n- **Outcome:**"
         )
         self.write_raw(LIVE, ticket(header) if sections is None else ticket(header, sections))
@@ -430,13 +474,13 @@ class TheQuestionItAnswers(Records):
 
         self.assertEqual(["Answers links q-0001, whose owner is not this ticket"], self.problems())
 
-    def test_an_open_issues_section_is_reported_at_either_stage(self) -> None:
+    def test_an_open_issues_section_is_reported_in_every_ticket(self) -> None:
         sections = (
             "## What to build\n\nThe thing.\n\n## Open issues\n\n- One.\n\n"
             "## Acceptance criteria\n\n- [ ] `/verify` has been run.\n"
         )
-        self.write(LIVE, ticket(INCEPTED, sections))
-        self.write(PLANNED, ticket(SHAPED, sections))
+        self.write(LIVE, ticket(BEFORE, sections))
+        self.write(PLANNED, ticket(PLANNED_BEFORE, sections))
 
         problems = self.problems()
 
@@ -458,7 +502,7 @@ class Pairing(Records):
     def test_an_archived_rfc_whose_ticket_is_live_is_reported(self) -> None:
         self.write("docs/rfc/done/01-0003-planned.md", self.read(RFC))
         (self.root / RFC).unlink()
-        self.write(PLANNED, ticket(SHAPED.replace("../rfc/", "../rfc/done/")))
+        self.write(PLANNED, ticket(PLANNED_BEFORE.replace("../rfc/", "../rfc/done/")))
 
         problems = self.problems()
 
@@ -524,7 +568,7 @@ class TheCommandLine(Records):
         self.assertEqual(3, len(report["records"]))
 
     def test_reports_a_violation_with_file_line_and_rule_and_a_non_zero_status(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Nearly")))
+        self.write(LIVE, ticket(BEFORE.replace("Ready", "Nearly")))
 
         status, out = self.invoke("--check")
 
@@ -566,8 +610,8 @@ class TheList(Records):
         return status, rows, after
 
     def test_names_every_live_ticket_in_id_order_with_the_question_it_answers(self) -> None:
-        self.write("docs/tickets/01-0002.0010-child.md", ticket(INCEPTED, title="# A child"))
-        self.write("docs/tickets/done/01-0000-closed.md", ticket(INCEPTED, title="# Closed"))
+        self.write("docs/tickets/01-0002.0010-child.md", ticket(BEFORE, title="# A child"))
+        self.write("docs/tickets/done/01-0000-closed.md", ticket(BEFORE, title="# Closed"))
 
         status, rows, after = self.listed()
 
@@ -588,7 +632,7 @@ class TheList(Records):
         )
 
     def test_shows_the_status_word_and_leaves_its_qualifier_in_the_ticket(self) -> None:
-        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Ready (aligned 2026-09-08)")))
+        self.write(LIVE, ticket(BEFORE.replace("Ready", "Ready (aligned 2026-09-08)")))
 
         _, rows, _ = self.listed()
 
@@ -597,7 +641,7 @@ class TheList(Records):
 
     def test_an_edited_ticket_shows_in_the_next_list_with_no_other_edit(self) -> None:
         _, before, _ = self.listed()
-        self.write(LIVE, ticket(INCEPTED.replace("Ready", "Blocked"), title="# Renamed"))
+        self.write(LIVE, ticket(BEFORE.replace("Ready", "Blocked"), title="# Renamed"))
 
         _, after, _ = self.listed()
 
@@ -614,7 +658,7 @@ class TheList(Records):
         self.assertEqual("| [01-0002 live](docs/tickets/01-0002-live.md) | Ready | — | A ticket | — |", rows[1])
 
     def test_a_bar_in_a_title_cannot_break_its_row(self) -> None:
-        self.write(LIVE, ticket(INCEPTED, title="# Either | or"))
+        self.write(LIVE, ticket(BEFORE, title="# Either | or"))
 
         _, rows, _ = self.listed()
 

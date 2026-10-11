@@ -14,6 +14,4 @@ record is that project's — nothing merges it, nothing overwrites it.
 
 **Candidate:** the project's own setup, then its first `/align`. A tree with core and no answers
 of its own has no delivery to pace; what comes first is deciding what this project is.
-
-**Next cycle needs a nod** where the entry file's `next-cycle` switch says `ask`.
 ```

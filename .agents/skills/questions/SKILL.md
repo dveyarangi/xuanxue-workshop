@@ -51,8 +51,8 @@ apostrophe goes in double quotes, with no backtick or `$` inside.
 
 **Look it up first.** Every question a message raises is looked for before anything is opened, in
 *the docs*: the architecture, ADRs, the glossary, the mechanism docs, the code, and the decisions
-landed in live tickets, where a decision sits until it reaches its home. Found, point to it and
-open nothing; a settled question is not reopened without new evidence against its answer. An
+waiting in the `## Decisions` lists of the questions' bodies, where a decision sits until it has
+a home. Found, point to it and open nothing; a settled question is not reopened without new evidence against its answer. An
 answer that leaves part unsettled is found only in part: the rest is a raised question of its
 own. There is no need to search `done/`: a decided entry links to what holds its answer.
 
@@ -107,10 +107,12 @@ is made irrelevant, or one is replaced. **Do** `close` with its kind and pointer
 The answer is never the deliberation itself. `suspect` every open child and dependent whose
 assumption the answer changes; call `at` on the parent first if the closed question was current.
 A `close` that finishes a subtree moves it to `docs/questions/done/` itself and says so; a closed
-question with an open, deferred or suspect child stays live until that child closes. Closing
-against a decision that has not reached its home yet, `assign` the record holding it first if
-the question has no owner: the straw dogs waiting on it come due once no link of its answer
-cites its owner's record.
+question with an open, deferred or suspect child stays live until that child closes. A `close`
+refuses while the question's `## Decisions` list holds a decision with no home: land it, or move
+it to the nearest open question above that holds everyone who needs it — on a merge or a
+supersession, to the question it points to. Closing against a
+decision still waiting in such a list, cite the list: the straw dogs waiting on the question come
+due once every link of its answer is a home — never a question's list, a ticket or an RFC.
 
 ## Branching
 
@@ -158,6 +160,11 @@ moving between roots would move between folders.
 **The body** follows the parts after one blank line: the question's argument — positions,
 evidence, what was refuted — written by hand with the edit tools, never by the script, which keeps
 it as it found it on every call. A line in it shaped like a part is not one.
+
+**The decisions list** is the body's `## Decisions` section, up to the next `## ` heading: a
+decision with nowhere to land yet is an item, `- ` or `N. `, and takes `→ <link>` to its home when
+it lands. The script reads the list at `close` and in the check and never writes it; prose between
+the items and a fenced block hold no decision.
 
 **record of** opens the parts: what the entry is a record of — *what it intends to become* while
 open, *what happened* once closed — so whoever writes its body meets the kind in context. The

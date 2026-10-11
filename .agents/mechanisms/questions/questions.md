@@ -96,6 +96,7 @@ roles, is an open question of the store.
 | registering a session and delivering its window through a host's hook | `.agents/scripts/gw/questions.py` | |
 | writing entries and the position from a call | `.agents/scripts/gw/questions.py` | |
 | writing a question's argument, the body after its parts, by hand | `.agents/skills/questions/SKILL.md` | |
+| landing a decision an align makes, and holding one with nowhere to land yet | `.agents/skills/align/SKILL.md` | |
 | checking the store | `.agents/scripts/gw/questions.py` | |
 | reading where the work stands when a session wakes | `.agents/skills/recall/SKILL.md` | |
 | writing the session's leans and ending it | `.agents/skills/conclude/SKILL.md` | |
@@ -125,9 +126,6 @@ roles, is an open question of the store.
 | the shelf of Cursor's hook wiring | `.agents/skills/questions/hooks/.cursor/hooks.json` |
 | the hooks' wrapper, launched by a Git alias | `.agents/scripts/gw/hook.sh` |
 | its line endings, kept LF in every clone | `.agents/.gitattributes` |
-| Claude Code's hook wiring | `.claude/settings.json` → "gw-hook claude-code" |
-| Codex's hook wiring | `.codex/hooks.json` → "gw-hook codex" |
-| Cursor's hook wiring | `.cursor/hooks.json` → "gw-hook cursor" |
 
 ## Relies on, and does not own
 
@@ -160,7 +158,8 @@ roles, is an open question of the store.
 - **The hook's answers** — *what exists* — read by the host, which places them in the agent's context.
 - **The check's report** — *what exists* — read by `/maintain` at its pass and by `/verify` through the
   verification set.
-- **The rules file** — *what must always hold* — read by the installer alone.
+- **The rules file** — *what must always hold* — read by the installer alone. Its blocks sit in the
+  entry file, `/recall`, `/conclude`, `/maintain` and `/align`.
 
 Nothing else; the tree is rendered on request and never committed.
 

@@ -120,6 +120,11 @@ ARRIVAL_TEST = (
 )
 LICENSE_TEXT = "MIT License\n\nCopyright (c) 2026 the fixture's contributors\n"
 INSTALLED_LICENSE = ".agents/LICENSE"
+FRONT_PAGE = (
+    "# The repository's front page, shipped beside the harness skill\n\n"
+    "Its evidence: [the panel](docs/research/panel.md), a document only the origin has.\n"
+)
+INSTALLED_FRONT_PAGE = ".agents/skills/harness/README.md"
 
 
 def platform_makes_symlinks() -> bool:
@@ -308,7 +313,7 @@ class TwoTrees(RepositoryCase):
             self.write(f".agents/scripts/gw/{script.name}", text)
         self.write(".agents/scripts/gw/test/test_arrival.py", ARRIVAL_TEST)
         self.write(TICKET, "# Sweep\n")
-        self.write("README.md", "# The repository's front page, never shipped\n")
+        self.write("README.md", FRONT_PAGE)
         self.write("LICENSE", LICENSE_TEXT)
         self.write("local.rules.md", "# local — never shipped\n")
         self.commit("core")
@@ -381,6 +386,28 @@ class TheShear(unittest.TestCase):
         code = "x = 1\n# TODO q-0002: the shear strips\n# this on install.\n"
 
         self.assertEqual("x = 1\n# TODO: the shear strips\n# this on install.\n", harness.todo_bindings_sheared(code))
+
+
+class TheFrontPage(unittest.TestCase):
+    """The front page is the origin's document, not core text: it ships as written, a straw dog
+    sheared like any shipped page, its links the origin's, and the leak rule does not read it."""
+
+    REF = harness.Ref("goodwolf-harness", "0123abc" * 5 + "01234", "v1", "2026-10-11")
+    TEXT = (
+        "# Front\n\n"
+        "The table: [peers](docs/research/peers.md); the rules: [AGENTS.md](AGENTS.md).\n"
+        '<straw-dog question="q-0001">Not yet.</straw-dog>\n'
+    )
+
+    def test_ships_as_written_with_its_links_and_refuses_nothing(self) -> None:
+        shipped = harness.shipped(
+            harness.INSTALLED_FRONT_PAGE, self.TEXT, self.REF, "https://github.com/o/goodwolf-harness.git"
+        )
+
+        self.assertIn("[peers](docs/research/peers.md)", shipped)
+        self.assertIn("[AGENTS.md](AGENTS.md)", shipped)
+        self.assertNotIn("<straw-dog", shipped)
+        self.assertIn("Not yet.", shipped)
 
 
 class TheLocalBlockStrip(unittest.TestCase):
@@ -567,7 +594,7 @@ class TheRepositoryLine(unittest.TestCase):
 
 class TheSource(TwoTrees):
     @proves_a_process
-    def test_the_manifest_at_a_ref_is_core_the_two_root_files_and_the_license_and_nothing_else(self) -> None:
+    def test_the_manifest_at_a_ref_is_core_the_two_root_files_the_license_and_the_front_page_and_nothing_else(self) -> None:
         with harness.Source(str(self.source)) as source:
             ref = source.resolve("HEAD")
             manifest = source.files(ref)
@@ -577,6 +604,7 @@ class TheSource(TwoTrees):
         self.assertIn(KEEPER, manifest)
         self.assertIn(".agents/scripts/gw/test/test_arrival.py", manifest)
         self.assertEqual((self.source / "LICENSE").read_bytes(), manifest[INSTALLED_LICENSE])
+        self.assertEqual((self.source / "README.md").read_bytes(), manifest[INSTALLED_FRONT_PAGE])
         self.assertNotIn("LICENSE", manifest)
         self.assertNotIn("README.md", manifest)
         self.assertNotIn("local.rules.md", manifest)
@@ -584,10 +612,12 @@ class TheSource(TwoTrees):
 
         with self.subTest(license="absent at the ref"):
             # Every ref before the license existed lacks it, and the archive refuses a path the ref lacks.
-            self.remove("LICENSE")
-            self.commit("no license")
+            self.remove("LICENSE", "README.md")
+            self.commit("no license, no front page")
             with harness.Source(str(self.source)) as source:
-                self.assertNotIn(INSTALLED_LICENSE, source.files(source.resolve("HEAD")))
+                held = source.files(source.resolve("HEAD"))
+                self.assertNotIn(INSTALLED_LICENSE, held)
+                self.assertNotIn(INSTALLED_FRONT_PAGE, held)
 
     @proves_a_process
     def test_a_tagged_commit_is_announced_by_its_tag_and_an_untagged_one_by_its_short_commit(self) -> None:
@@ -706,8 +736,55 @@ class ARefusal(TwoTrees):
     def test_the_source_itself_by_its_remote(self) -> None:
         subprocess.run(["git", "remote", "add", "origin", str(self.source)], cwd=self.target, check=True)
 
-        with self.assertRaisesRegex(harness.Refused, "target:.*the source itself"):
+        with self.assertRaisesRegex(harness.Refused, "target:.*the source itself.*--replace-clone"):
             harness._work_tree_root(self.target, harness.Source(str(self.source)))
+
+    def clone_of_the_source(self) -> Path:
+        """What a host makes of *install <url> here* in an empty folder: the origin, cloned into it."""
+        folder = self.plain_folder()
+        subprocess.run(["git", "clone", "--quiet", str(self.source), str(folder)], check=True, capture_output=True)
+        return folder
+
+    @proves_a_process
+    def test_a_clean_clone_of_the_origin_where_the_project_was_meant_is_replaced_by_an_install(self) -> None:
+        folder = self.clone_of_the_source()
+        self.assertTrue((folder / TICKET).is_file(), "the clone holds the origin's own records")
+
+        status, report = self.run_harness_at(folder, "--install", "--replace-clone")
+
+        self.assertEqual([], report["refusals"])
+        self.assertTrue(report["arrived"], report["gates"])
+        self.assertTrue(any("replace-clone" in note for note in report["notes"]), report["notes"])
+        for origins_own in (TICKET, "local.rules.md", "README.md"):
+            self.assertFalse((folder / origins_own).exists(), origins_own)
+        self.assertTrue((folder / KEEPER).is_file())
+        self.assertIn(f"Entry contract: {self.source.name}@{self.short_head()}, ", (folder / "AGENTS.md").read_text(encoding="utf-8"))
+        log = subprocess.run(["git", "-C", str(folder), "rev-list", "--count", "--all"], capture_output=True, text=True)
+        self.assertEqual("0", log.stdout.strip(), "a fresh repository, none of the origin's history")
+
+    @proves_a_process
+    def test_a_clone_with_changes_of_its_own_is_not_replaced(self) -> None:
+        folder = self.clone_of_the_source()
+        (folder / "notes.txt").write_text("theirs\n", encoding="utf-8")
+
+        status, report = self.run_harness_at(folder, "--install", "--replace-clone")
+
+        self.assertEqual(1, len(report["refusals"]), report["refusals"])
+        self.assertIn("replace-clone:", report["refusals"][0])
+        self.assertTrue((folder / "notes.txt").is_file())
+        self.assertTrue((folder / TICKET).is_file(), "nothing written, nothing removed")
+
+    @proves_a_process
+    def test_a_folder_that_is_no_clone_of_the_origin_is_not_replaced(self) -> None:
+        folder = self.plain_folder()
+        subprocess.run(["git", "init", "--quiet"], cwd=folder, check=True)
+        (folder / "notes.txt").write_text("theirs\n", encoding="utf-8")
+
+        status, report = self.run_harness_at(folder, "--install", "--replace-clone")
+
+        self.assertEqual(1, len(report["refusals"]), report["refusals"])
+        self.assertIn("replace-clone:", report["refusals"][0])
+        self.assertTrue((folder / "notes.txt").is_file())
 
     def test_install_over_a_present_manifest_path(self) -> None:
         for present in ("AGENTS.md", "CLAUDE.md", KEEPER, INSTALLED_LICENSE):
@@ -793,6 +870,7 @@ class AnInstall(TwoTrees):
         self.assertTrue((self.target / KEEPER).is_file())
         self.assertTrue((self.target / ".agents/scripts/gw/harness.py").is_file())
         self.assertFalse((self.target / "README.md").exists())
+        self.assertEqual(FRONT_PAGE, self.target_text(INSTALLED_FRONT_PAGE))
         self.assertFalse((self.target / "local.rules.md").exists())
         self.assertFalse((self.target / TICKET).exists())
         entry = self.target_text("AGENTS.md")

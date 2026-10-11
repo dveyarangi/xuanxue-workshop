@@ -1,10 +1,10 @@
 ---
 name: mechanism
 description: >-
-  Use before building or amending a mechanism — a part of how the work is done
-  here: a skill, a check, a record, the loop itself. Owns what counts as one,
-  what it is made of, where each part lives, and how one is incepted, declared,
-  checked and retired. Not for what the project produces.
+  Method is mechanism work: use before changing how the work is done here — a
+  skill, a check, a record, the loop itself — before building or amending a
+  mechanism, and before changing a rule inside an `<installed>` block, whose
+  home is its mechanism's rules file. Not for what the project produces.
 ---
 
 # Build and amend mechanisms
@@ -13,8 +13,8 @@ The only home of the shape. A rule carrying a name and date is that person's to 
 
 ## Is it a mechanism
 
-A mechanism is part of **how the work gets done** — the development method and its
-machinery. What the project produces is not one, however much depends on it.
+A mechanism is part of **how the work gets done**. What the project produces is not one,
+however much depends on it.
 
 Test: does other work rely on this as a source of instruction or behavior *about how
 to work*? Then it is a mechanism and owes a declaration.
@@ -33,11 +33,13 @@ to work*? Then it is a mechanism and owes a declaration.
 
 | home | holds | reaches a session |
 |---|---|---|
-| `AGENTS.md` | meta-rules, and a mechanism's rules only as installed blocks | at start, every session |
+| `AGENTS.md` | meta-principles, and a mechanism's rules only as installed blocks | at start, every session |
 | `.agents/skills/<name>/` | the act, and every rule read *in the work it governs* | when the skill is invoked |
 | `.agents/mechanisms/<slug>/` | why the instruction is what it is: parts, moments, and the mechanism's rules in their single home | when installing, amending or debugging |
 
-The cut is **when is this read**. There is no fourth home.
+The cut is **when is this read**. There is no fourth home. What a skill's act needs — a call, a
+refusal and what to do at it, a script's name — is instruction and stays in the skill; the doc
+takes only what informs.
 
 > The doc is the instruction's *why*. The evidence is the doc's *why*.
 > *(the user, 2026-09-06)*

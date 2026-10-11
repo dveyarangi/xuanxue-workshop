@@ -7,7 +7,7 @@ install it with overwrite; the block in a target is never the place.
 |---|---|
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/mechanism/SKILL.md` | `## Records` |
-| `.agents/skills/align/SKILL.md` | `### Record resolutions in the owning ticket inline` |
+| `.agents/skills/align/SKILL.md` | `### Land resolutions as they are made` |
 | `.agents/skills/skill-up/SKILL.md` | `## Installed from other mechanisms` |
 | `AGENTS.md` | `## Project-local` |
 | `.agents/skills/verify/SKILL.md` | `## The verification set` |

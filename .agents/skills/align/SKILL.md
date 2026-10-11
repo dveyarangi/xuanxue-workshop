@@ -121,9 +121,9 @@ When high-level architecture of this project changes, update `architecture.md`. 
 > You should guide the user toward deep modules with simple boundaries.
 
 
-### Record resolutions in the owning ticket inline
+### Land resolutions as they are made
 
-When the plan under review is a ticket, record each resolution the moment it lands, as the block below says.
+Land each resolution the moment it is made, as the blocks below say.
 
 <installed by="mechanism-shape">
 **R5** Land a mechanism's rule in AGENTS.md only as an installed block from its rules file. While the
@@ -132,16 +132,22 @@ of what the mechanism owns, as you write it.
 </installed>
 
 <installed by="ticket">
-**P7** Land a resolved decision in its durable home with its provenance, and rewrite the ticket in
-place to what is now true; close the question it answers against that home — against the ticket's
-decision while it has not landed, after assigning the question to the ticket if it has no owner —
-and when a decision lands, repoint every entry closed against it there.
+**P7** Rewrite the ticket in place to what the align's landed decisions make true.
 
-**P10** Open an align on a ticket by saying what the ticket is: what it builds and the problem it answers,
-in plain words, each of its terms explained, before the necessity gate or any question.
+**P10** Open an align by saying what its work is: what it builds and the problem it answers, in plain
+words, each of its terms explained, before the necessity gate or any question.
 
-**P11** Sweep the ticket for internal consistency at the end: an early section may still assert what a
-later resolution changed.
+**P11** Sweep the question's body, and the ticket where there is one, for internal consistency at the end:
+an early line may still assert what a later resolution changed.
+</installed>
+
+<installed by="questions">
+**Q6** Land a decision as it is made, with its provenance: final in its durable home where no open
+question's answer can change its form or home, otherwise as a straw dog bound to the nearest open
+ancestor whose answer can. One with nowhere to land yet — its home is work not done — is a line in
+the `## Decisions` list of the lowest question holding everyone who needs it, and takes
+`→ <link>` when it lands. Close the question it answers against where it landed, and when a line
+lands, repoint every entry closed against its list there.
 </installed>
 
 ### Offer ADRs sparingly

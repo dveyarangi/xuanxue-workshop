@@ -9,6 +9,7 @@ install it with overwrite; the block in a target is never the place.
 | `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/conclude/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
+| `.agents/skills/align/SKILL.md` | `### Land resolutions as they are made` |
 
 ## Q1 — every message is placed before it is answered
 
@@ -46,13 +47,8 @@ The calls:
 - `questions.py close q-0004 decided '[link](../path.md) — who, date' --session <tag>`
 
 The store's other calls are made whenever the turn's own work settles, opens or moves a question.
-Only the working agent calls, never a helper. Under `debug=on`, head the reply with a one-cell
-table holding a row for each, in order, the first over `|---|`: `| ↳ **q-N** · <its question as
-the window writes it> |` for the question the turn ends on, `| + **q-N** · <question> |` for one
-opened in it — one the turn opened and ends on gets the `+` row alone — `| ✓ **q-N** · <question> (<kind>: <its answer>) |` for one closed in it, the
-question alone for one it left open, `| ▶ **<process>** · <its scope> |` for a process,
-`| ? **uncharted** · <the question> |` for an ask, `| ~ **banter** |` for banter. For any other
-call, a closure, a branching or a drop, read the questions skill.
+Only the working agent calls, never a helper. For any other call, a closure, a branching or a
+drop, read the questions skill.
 </rule>
 
 ## Q2 — the wake opens at where the work stands
@@ -62,7 +58,8 @@ call, a closure, a branching or a drop, read the questions skill.
 
 <rule>
 Start from the wake's read — the one the host's session-start hook put in your context, or
-`questions.py --wake`. Report where the other sessions stand, what is suspect, which deferrals
+`questions.py --wake --session <tag>` with the tag that read named; a bare `--wake` registers a new
+session, and is for a host whose hook registered none. Report where the other sessions stand, what is suspect, which deferrals
 may now be due, and which straw dogs are due; take this session's position from the person or
 estimate it, and place it with `at`. Re-rank nothing another running session is on; then read the queue as this skill says.
 </rule>
@@ -98,4 +95,18 @@ of the subtree in one invocation, into `docs/questions/done/`.
 The first time a reply names a question, write its id with its question as the window writes it;
 later mentions may be the id alone. A question the store does not hold yet is written out, never
 named after the ticket it will belong to.
+</rule>
+
+## Q6 — a decision lands as it is made
+
+- **target** `.agents/skills/align/SKILL.md`
+- **authority** the user, 2026-10-11 — q-0024.0009.0003.0002.0001; moved here from the ticket's P7
+
+<rule>
+Land a decision as it is made, with its provenance: final in its durable home where no open
+question's answer can change its form or home, otherwise as a straw dog bound to the nearest open
+ancestor whose answer can. One with nowhere to land yet — its home is work not done — is a line in
+the `## Decisions` list of the lowest question holding everyone who needs it, and takes
+`→ <link>` when it lands. Close the question it answers against where it landed, and when a line
+lands, repoint every entry closed against its list there.
 </rule>

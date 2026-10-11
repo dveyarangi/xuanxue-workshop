@@ -90,6 +90,11 @@ FORMER_MARK = "kind"
 OPEN_KIND = "what it intends to become"
 CLOSED_KIND = "what happened"
 KINDS = ("decided", "pruned", "merged", "deferred", "moot", "superseded")
+# The body's list a decision waits in until it has a home, and the arrow its home follows; no
+# home is in the store, a ticket or an RFC (the user, 2026-10-11).
+DECISIONS = "## Decisions"
+ARROW = "→"
+NOT_HOMES = (f"{STORE}/", "docs/tickets/", "docs/rfc/")
 _USAGE = (
     "usage: questions.py --check | --window --session <tag> | --wake [--session <tag>] "
     "| --end --session <tag> | --tree [<q-id>] | --seed | <event> ... --session <tag>, the events "
@@ -120,6 +125,7 @@ _SESSION = re.compile(
 _BARE_ID = re.compile(rf"(?<![\w.]){_ID}(?!\w)")
 _HEADING = re.compile(r"^#{1,6} +(.*?)(?: +#+)? *$")
 _FENCE = re.compile(r"^\s*(```|~~~)")
+_ITEM = re.compile(r"^(?:-|\d+\.) +(\S.*)$")
 _ROOTS_BLOCK = re.compile(r"^```roots\n(?P<said>.*?)^```", re.MULTILINE | re.DOTALL)
 
 
@@ -333,6 +339,7 @@ def check(root: Path) -> Checked:
         return Checked(False, 0, [], [], [])
     entries, diagnostics, skipped = _entries(root)
     diagnostics += [note for read in entries for note in _answer_problems(root, read)]
+    diagnostics += _waiting_problems(root, entries)
     index = {read.identity: read for read in entries if read.identity}
     sessions, session_problems, unreadable = _sessions(root)
     diagnostics += (
@@ -396,7 +403,7 @@ def _read(name: str, text: str) -> tuple[Entry, list[Diagnostic]]:
 
     A line the format does not admit is reported and the rest is still read, so one defect does
     not hide the others behind it. The parts end at the first blank line after one; what follows is
-    the body, never parsed, so a line in an argument that looks like a part is not one.
+    the body, never read for parts, so a line in an argument that looks like a part is not one.
     """
     lines = text.splitlines()
     problems: list[Diagnostic] = []
@@ -613,6 +620,86 @@ def _anchors(text: str) -> set[str]:
         seen[slug] = count + 1
         anchors.add(slug if count == 0 else f"{slug}-{count}")
     return anchors
+
+
+# --- the decisions list -------------------------------------------------------------------------
+
+
+def waiting_decisions(root: Path, read: Entry) -> list[str]:
+    """The opening words of each decision in the entry's `## Decisions` list that has no home yet.
+
+    A decision lands as it is made; one with nowhere to land yet waits in that list, and takes
+    `→ <link>` when it lands (the user, 2026-10-11). The script reads the list and never writes it:
+    the body stays the agent's.
+    """
+    return [_opening_words(item) for item in _decisions(read.body) if not _has_home(root, read.record, item)]
+
+
+def is_home(root: Path, citing: str, written: str) -> bool:
+    """Whether a link holds a decision for good: it resolves, and to a file outside the store, a
+    ticket and an RFC — a question's body is where a decision waits, and a ticket and its plan
+    expire once their work lands (the user, 2026-10-11)."""
+    target = target_of(written)
+    if target.elsewhere:
+        return True
+    record = cited_record(root, citing, target)
+    return record is not None and not record.startswith(NOT_HOMES) and _resolves(root, citing, written)
+
+
+def _decisions(body: str) -> list[str]:
+    """Each item of the body's `## Decisions` list, `- ` or `N. `, its indented lines joined to it.
+
+    The list runs to the next `## ` heading; prose between its items, as the bodies written before
+    the list was read hold it, belongs to no item, and a fenced block is an illustration.
+    """
+    items: list[str] = []
+    within = inside_fence = continuing = False
+    for line in body.splitlines():
+        if _FENCE.match(line):
+            inside_fence = not inside_fence
+            continuing = False
+            continue
+        item = _ITEM.match(line)
+        if inside_fence:
+            continue
+        if line.startswith("## "):
+            within = line.rstrip() == DECISIONS
+            continuing = False
+        elif within and item:
+            items.append(item.group(1))
+            continuing = True
+        elif within and continuing and _CONTINUATION.match(line):
+            items[-1] += f" {line.strip()}"
+        else:
+            continuing = False
+    return items
+
+
+def _has_home(root: Path, citing: str, item: str) -> bool:
+    """Whether a decision names a home after its arrow, and only homes."""
+    _, arrow, after = item.partition(ARROW)
+    links = citations(after) if arrow else []
+    return bool(links) and all(is_home(root, citing, link) for link in links)
+
+
+def _opening_words(item: str) -> str:
+    """The decision as a refusal names it: its first words, emphasis dropped."""
+    return " ".join(item.replace("*", "").split()[:8])
+
+
+def _waiting_problems(root: Path, entries: list[Entry]) -> list[Diagnostic]:
+    """A live closed entry still holding a decision with no home: a hand edit did what `close`
+    refuses. An archived entry is history and is not read for it."""
+    return [
+        Diagnostic(
+            read.record,
+            read.parts["state"].line,
+            f'is closed and its Decisions list holds a decision with no home yet: "{words}"',
+        )
+        for read in entries
+        if read.kind and not read.archived
+        for words in waiting_decisions(root, read)
+    ]
 
 
 # --- the store as a whole -----------------------------------------------------------------------
@@ -1006,11 +1093,10 @@ def due(root: Path, read: Entry) -> bool:
     """Whether a straw dog bound to this question is due: its text waited on an answer that has
     now landed, or on a question that no longer stands (the user, 2026-10-03 and 2026-10-04).
 
-    A decided answer has landed when none of its links still cites the record of the work that owns
-    the question — while one does, the decision sits in that work and has not reached its home.
-    With no owner, every cited answer is already elsewhere, which is why a question closed against a
-    decision that has not landed is assigned first. A merge or a supersession is never due: the
-    binding follows the successor. A deferral, an open question and a suspect one are never due.
+    A decided answer has landed when every link it holds is a home: while one cites a question's
+    list, a ticket or an RFC, the decision waits there and has not reached its home (the user,
+    2026-10-11). A merge or a supersession is never due: the binding follows the successor. A
+    deferral, an open question and a suspect one are never due.
     """
     if read.suspect:
         return False
@@ -1019,10 +1105,8 @@ def due(root: Path, read: Entry) -> bool:
     answer = read.parts.get("answer")
     if read.kind != "decided" or answer is None:
         return False
-    homes = {_cited_file(root, read.record, link) for link in citations(answer.value)} - {None}
-    owner = read.parts.get("owner")
-    owned = [_cited_file(root, read.record, link) for link in citations(owner.value)] if owner else []
-    return bool(homes) and not (homes & set(owned))
+    links = citations(answer.value)
+    return bool(links) and all(is_home(root, read.record, link) for link in links)
 
 
 def successor(index: dict[str, Entry], read: Entry) -> Entry | None:
@@ -1036,11 +1120,6 @@ def successor(index: dict[str, Entry], read: Entry) -> Entry | None:
             return None
         seen.append(at)
     return at if at is not read else None
-
-
-def _cited_file(root: Path, citing: str, written: str) -> str | None:
-    """The record a link cites, without its anchor; `None` for a link outside the repository."""
-    return cited_record(root, citing, target_of(written))
 
 
 def window(root: Path, tag: str, full: bool = False) -> str:
@@ -1473,9 +1552,17 @@ def _root_lines(store: Store, path: list[Entry]) -> list[str]:
     )
 
 
+def _position(store: Store, current: str | None) -> str:
+    """Another session's position with its question's words, so a reply can name it as written."""
+    if current is None:
+        return "no position yet"
+    entry = store.index.get(current)
+    return f"{current} {entry.question}" if entry else current
+
+
 def _elsewhere_lines(store: Store, held: Session) -> list[str]:
     others = [
-        f"  {other.tag} at {other.current or 'no position yet'} (last wrote {_stamp(other.wrote)})"
+        f"  {other.tag} at {_position(store, other.current)} (last wrote {_stamp(other.wrote)})"
         for other in store.sessions
         if other.running and other.tag != held.tag
     ]
@@ -2071,6 +2158,14 @@ class _Draft:
                     f"`close {closing.identity} pruned` leaves {', '.join(left)} open under it; move out "
                     "the ones that stand alone and close the rest first"
                 )
+        waiting = waiting_decisions(self.root, closing)
+        if waiting:
+            successor = f", or to {clause.text}" if kind in ("merged", "superseded") else ""
+            raise Refused(
+                f'`close {closing.identity} {kind}`: its Decisions list holds a decision with no home yet: '
+                f'"{waiting[0]}"; land it, or move it to the nearest open question above that holds '
+                f"everyone who needs it{successor}"
+            )
         state = f"closed:{kind}" + (", suspect" if closing.suspect else "")
         closed = _with(closing, state=state, answer=clause.text)
         problems = _answer_problems(self.root, closed)

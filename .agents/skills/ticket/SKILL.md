@@ -96,8 +96,8 @@ it will deliver.
 
 ### 3.1 Impact the proposed split
 
-Run [/impact](../impact/SKILL.md) on the draft split. Record its output on
-the parent. If the recommendation is narrow or rethink, revise the draft and
+Run [/impact](../impact/SKILL.md) on the draft split. Record its output in
+the body of the parent's question. If the recommendation is narrow or rethink, revise the draft and
 run `/impact` again until the split is what you will present.
 
 `/impact`'s current output is whether the split is balanced (proceed, narrow,
@@ -141,43 +141,32 @@ filenames in the `Depends on` field. A blocker that is already complete lives
 in `docs/tickets/done/` — reference it there.
 
 Write each file to [The record](./TICKET-FORMAT.md#the-record) — the header,
-its fields, the sections the stage admits, and the citation conventions. A
-freshly minted slice is incepted: it needs `Status`, `Type`, `Answers`,
-`Outcome`, `What to build` and `Acceptance criteria`, and may host whatever
-else it has. `Answers` links the question the slice's goal answers: open it in
-the store under the parent ticket's question when the store holds none, and
-`assign` it to the slice.
+its fields, the sections it admits, and the citation conventions; `Minted` is
+the day it is written. `Answers` links the question the slice's goal answers:
+open it in the store under the parent ticket's question when the store holds
+none, and `assign` it to the slice.
 Each child carries a one-line pointer to the parent's recorded `/impact`
 assessment.
 
-### Decision-bearing ticket lifecycle
+### Decision-bearing work
 
-A decision-bearing ticket is the working document for an
-[/align](../align/SKILL.md) session and then becomes the implementation-ready
-feature ticket for the same outcome. Do not mint separate decision and
-implementation tickets for that outcome.
+An align runs on the question its work answers, and that question's body is
+its working document. A ticket is minted from the body once the form of the
+work is seen, never before — for decision-bearing work, after its align.
 
-- **At minting:** `Outcome`, `What to build`, and `Acceptance criteria`
-  describe the alignment exit: the decision is landed in its durable home and
-  the feature is unblocked. The decision tree's open questions are entries of
-  the store under the ticket's `Answers` question, each holding its own
-  evidence and alternatives in its body.
 - **Question promotion:** an open question in `docs/questions/` that becomes
-  work is assigned to the ticket with `assign`; its argument stays in the entry.
-- **During alignment:** follow [/align](../align/SKILL.md)'s inline
-  resolution rule; the ticket is the live working document for its decisions,
-  the store for its open questions.
-- **At resolution:** land decisions in their durable homes, close each question
-  they answer with a pointer to that home (or open a new one for
-  separately-scoped residue), and rewrite the same ticket in place to feature
-  altitude ([TICKET-FORMAT.md](./TICKET-FORMAT.md)). Keep its place in the order
-  unless the resolved dependencies require moving it.
-- **If the resolved feature is too coarse for one RFC:** retain the ticket as
-  the parent/end-state and decompose it through `/ticket`; do not create a
-  sibling merely to hold the implementation.
-- **If alignment eliminates the feature:** complete the ticket as a landed
-  decision; this is the only case where it closes without becoming an
-  implementation ticket.
+  work is assigned to the ticket minted for it with `assign`; its argument
+  stays in the entry.
+- **At resolution:** the ticket is minted, or rewritten in place, at feature
+  altitude ([TICKET-FORMAT.md](./TICKET-FORMAT.md)); open a new question for
+  separately-scoped residue. Keep its place in the order unless the resolved
+  dependencies require moving it.
+- **If the resolved feature is too coarse for one RFC:** mint it as the
+  parent's end-state and decompose it through `/ticket`.
+- **If alignment eliminates the feature:** no ticket is minted; the question
+  closes against where its decision landed. A
+  live ticket minted before 2026-10-11 as an align's working document closes
+  as a landed decision.
 
 ### Altitude decides whether a slice is a ticket
 

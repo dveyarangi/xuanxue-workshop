@@ -45,6 +45,9 @@ SKILLS = ".agents/skills"
 CORE = ".agents/"
 ENTRY_FILE = "AGENTS.md"
 TESTS = SCRIPTS + "test/"
+# The origin's front page, shipped beside the harness skill: the origin's own document, not core
+# text, so what it cites is skipped and reported rather than read as a leak.
+FRONT_PAGE = ".agents/skills/harness/README.md"
 RULE = "AGENTS.md § Core and instance"
 # What core may name under `docs/`: a painted door — a record some mechanism declares, the directory
 # or the one file — and never a particular record behind it. Held here by hand until each owner's
@@ -356,7 +359,10 @@ def _core_cites(root: Path) -> tuple[list[Citation], list[Diagnostic]]:
             except UnreadableCode as error:
                 unreadable.append(Diagnostic(name, f"{name} could not be read for citations: {error}"))
                 continue
-        cites += [Citation(name, seen.line, seen.path, _standing(seen)) for seen in mentions]
+        cites += [
+            Citation(name, seen.line, seen.path, "skipped" if name == FRONT_PAGE else _standing(seen))
+            for seen in mentions
+        ]
     return cites, unreadable
 
 

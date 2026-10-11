@@ -8,7 +8,9 @@ Mechanism: not yet
 
 Write one session record under `docs/sessions/`: the account of what happened, for a reader who
 has the tree and not the transcript. Substance before form — a session that produced decisions
-is recorded by its decisions, not by its commits. It holds:
+is recorded by its decisions, not by its commits. It opens with
+`- **record of** what happened`, the line after its title: it is of that kind and no other —
+never repaired, never copied into the queue. It holds:
 
 - Each decision with what chose it: the alternatives weighed, what refuted them, and the
   correction that turned the answer, in the user's words where the wording carried the point.

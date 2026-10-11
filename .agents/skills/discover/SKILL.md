@@ -88,8 +88,8 @@ question.
 already said, and the second isolation buys nothing.
 
 **Put the material into the work as it came back.** A summary written before you use it is your
-reading of the pass, which is the contamination the pass exists to escape. It goes into the ticket,
-spec or align that prompted it, the way `/impact`'s does.
+reading of the pass, which is the contamination the pass exists to escape. It goes into the body of
+the question, or the spec, that prompted it, the way `/impact`'s does.
 
 ## Neighbours
 

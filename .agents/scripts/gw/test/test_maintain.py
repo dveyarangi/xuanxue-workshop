@@ -20,28 +20,44 @@ SAMPLE_DOC = ".agents/mechanisms/sample/sample.md"
 SAMPLE_RULES = ".agents/mechanisms/sample/sample.rules.md"
 SAMPLE_SKILL = ".agents/skills/sample/SKILL.md"
 SAMPLE_SHELF = ".agents/skills/sample/SAMPLE-FORMAT.md"
+SAMPLE_SCRIPT = ".agents/scripts/gw/sample.py"
+SHAPE_DOC = ".agents/mechanisms/mechanism-shape/mechanism-shape.md"
+SHAPE_TOOL = ".agents/scripts/gw/shape_tool.py"
 ORIGIN_ENTRY = "# Entry\n\nEntry contract: v1, 2026-09-27.\n\n## General rules\n\n- Be clear.\n"
+WHY_PARTS = "a part it owns moved since its mark"
+WHY_OUTPUT = "what governs its records or its instructions moved since its mark"
 
 
-def declaration(slug: str, instruction: str) -> str:
-    """A doc as far as the clock reads one: its title and its instruction bullet."""
-    return f"# {slug} — what it is\n\n- **instruction** `{instruction}` — the act\n- **state** installed\n"
+def declaration(slug: str, instruction: str, parts: tuple[str, ...] = (), relied_on: tuple[str, ...] = ()) -> str:
+    """A doc as far as the clock reads one: its title, its instruction bullet, and the two tables
+    naming the files it owns and the files it only relies on."""
+    owned = "".join(f"| a part | `{where}` |\n" for where in parts)
+    borrowed = "".join(f"| a part | `{where}` | mechanism-shape |\n" for where in relied_on)
+    return (
+        f"# {slug} — what it is\n\n- **instruction** `{instruction}` — the act\n- **state** installed\n\n"
+        f"## Install adds, uninstall removes\n\n| part | where |\n|---|---|\n{owned}\n"
+        f"## Relies on, and does not own\n\n| part | where | owner |\n|---|---|---|\n{borrowed}"
+    )
 
 
 class Clocked(RepositoryCase):
-    """A tree with the mechanism shape and one other mechanism, each with a skill and rules."""
+    """A tree with the mechanism shape and one other mechanism, each with a skill, rules and the
+    parts it owns; the sample relies on a tool of the shape's it does not own."""
 
     def setUp(self) -> None:
         super().setUp()
         self.write("AGENTS.md", ORIGIN_ENTRY)
-        self.write(".agents/mechanisms/mechanism-shape/mechanism-shape.md",
-                   declaration("mechanism-shape", SHAPE_SKILL))
+        self.write(SHAPE_DOC, declaration("mechanism-shape", SHAPE_SKILL, parts=(SHAPE_SKILL, SHAPE_RULES, SHAPE_TOOL)))
         self.write(SHAPE_RULES, "# mechanism-shape — rules\n\n## R1 — a rule\n")
         self.write(SHAPE_SKILL, "# Mechanism\n\nThe shape.\n")
-        self.write(SAMPLE_DOC, declaration("sample", SAMPLE_SKILL))
+        self.write(SHAPE_TOOL, "print('the shape')\n")
+        self.write(SAMPLE_DOC, declaration("sample", SAMPLE_SKILL,
+                                           parts=(SAMPLE_DOC, SAMPLE_SKILL, SAMPLE_SHELF, SAMPLE_RULES, SAMPLE_SCRIPT),
+                                           relied_on=(SHAPE_TOOL,)))
         self.write(SAMPLE_RULES, "# sample — rules\n\n## S1 — a rule\n")
         self.write(SAMPLE_SKILL, "# Sample\n\nThe act.\n")
         self.write(SAMPLE_SHELF, "# Sample format\n\nA record has a title.\n")
+        self.write(SAMPLE_SCRIPT, "print('sample')\n")
 
     def run_maintain(self, *argv: str, today: str = "2026-09-27") -> tuple[int, dict]:
         printed = io.StringIO()
@@ -54,7 +70,7 @@ class Clocked(RepositoryCase):
 
     def mark_every_level(self) -> None:
         for mechanism in ("mechanism-shape", "sample"):
-            for level in ("rules", "output"):
+            for level in ("parts", "output"):
                 self.run_maintain("--mark", mechanism, level, "nothing to change")
 
     def due(self) -> dict[tuple[str, str], str]:
@@ -84,9 +100,9 @@ class NoMarks(Clocked):
         self.assertEqual(0, status)
         self.assertEqual(
             {
-                ("mechanism-shape", "rules"): "never maintained",
+                ("mechanism-shape", "parts"): "never maintained",
                 ("mechanism-shape", "output"): "never maintained",
-                ("sample", "rules"): "never maintained",
+                ("sample", "parts"): "never maintained",
                 ("sample", "output"): "never maintained",
             },
             self.states(report),
@@ -115,8 +131,15 @@ class AMark(Clocked):
 
         states = self.states(report)
         self.assertEqual("current", states[("sample", "output")])
-        self.assertEqual("never maintained", states[("sample", "rules")])
+        self.assertEqual("never maintained", states[("sample", "parts")])
         self.assertEqual("never maintained", states[("mechanism-shape", "output")])
+
+    def test_may_say_the_thing_was_repaired_to_the_record(self) -> None:
+        status, report = self.run_maintain("--mark", "sample", "parts", "repaired")
+
+        self.assertEqual(0, status, report)
+        self.assertIn("| sample | parts |", report["marked"])
+        self.assertTrue(report["marked"].endswith("| repaired |"), report["marked"])
 
     def test_is_one_row_holding_what_was_checked_the_date_and_the_outcome(self) -> None:
         self.run_maintain("--mark", "sample", "output", "nothing to change", today="2026-09-27")
@@ -131,13 +154,13 @@ class AMark(Clocked):
 
     def test_rows_stand_sorted_by_mechanism_then_level_whatever_order_they_were_marked_in(self) -> None:
         for mechanism, level in (("sample", "output"), ("mechanism-shape", "output"),
-                                 ("sample", "rules"), ("mechanism-shape", "rules")):
+                                 ("sample", "parts"), ("mechanism-shape", "parts")):
             self.run_maintain("--mark", mechanism, level, "amended")
 
         rows = [line.split("|")[1:3] for line in self.mark_rows()]
 
         self.assertEqual(
-            [["mechanism-shape", "rules"], ["mechanism-shape", "output"], ["sample", "rules"], ["sample", "output"]],
+            [["mechanism-shape", "parts"], ["mechanism-shape", "output"], ["sample", "parts"], ["sample", "output"]],
             [[cell.strip() for cell in row] for row in rows],
         )
 
@@ -155,38 +178,52 @@ class AfterEveryLevelIsMarked(Clocked):
     def test_nothing_moved_is_nothing_due(self) -> None:
         self.assertEqual({}, self.due())
 
-    def test_the_mechanism_skill_moving_makes_every_doc_due_and_the_shape_s_own_records(self) -> None:
-        self.append(SHAPE_SKILL, "A new meta-rule.\n")
+    def test_a_part_a_mechanism_owns_moving_makes_its_doc_alone_due_naming_the_part(self) -> None:
+        self.append(SAMPLE_SCRIPT, "print('more')\n")
 
-        self.assertEqual(
-            {
-                ("mechanism-shape", "rules"): "the meta-rules moved since its mark",
-                ("sample", "rules"): "the meta-rules moved since its mark",
-                ("mechanism-shape", "output"): "its doc, rules file or skill moved since its mark",
-            },
-            self.due(),
-        )
+        self.assertEqual({("sample", "parts"): WHY_PARTS}, self.due())
+        self.assertEqual([SAMPLE_SCRIPT], self.standing("sample", "parts")["moved"])
 
-    def test_the_shape_s_rules_file_moving_makes_every_doc_due(self) -> None:
-        self.append(SHAPE_RULES, "\n## R2 — another rule\n")
+    def test_a_part_a_mechanism_relies_on_moving_is_its_owner_s_doc_to_notice(self) -> None:
+        self.append(SHAPE_TOOL, "print('more')\n")
 
-        self.assertEqual({("mechanism-shape", "rules"), ("sample", "rules"), ("mechanism-shape", "output")},
-                         set(self.due()))
+        self.assertEqual({("mechanism-shape", "parts"): WHY_PARTS}, self.due())
 
-    def test_the_entry_file_moving_makes_every_doc_due_and_no_records(self) -> None:
-        self.append("AGENTS.md", "- Be brief.\n")
+    def test_a_mechanism_s_own_doc_moving_makes_its_records_due_and_never_the_doc_itself(self) -> None:
+        self.append(SAMPLE_DOC, "\nMore about it.\n")
 
-        self.assertEqual({("mechanism-shape", "rules"), ("sample", "rules")}, set(self.due()))
+        self.assertEqual({("sample", "output"): WHY_OUTPUT}, self.due())
 
-    def test_a_mechanism_s_own_doc_rules_file_skill_or_shelf_moving_makes_its_records_alone_due(self) -> None:
-        for moved in (SAMPLE_DOC, SAMPLE_RULES, SAMPLE_SKILL, SAMPLE_SHELF):
+    def test_a_mechanism_s_rules_file_skill_or_shelf_moving_makes_its_doc_and_its_records_due(self) -> None:
+        for moved in (SAMPLE_RULES, SAMPLE_SKILL, SAMPLE_SHELF):
             with self.subTest(moved=moved):
                 before = self.read(moved)
                 self.append(moved, "One more line.\n")
 
-                self.assertEqual({("sample", "output"): "its doc, rules file or skill moved since its mark"},
-                                 self.due())
+                self.assertEqual({("sample", "parts"): WHY_PARTS, ("sample", "output"): WHY_OUTPUT}, self.due())
                 self.write(moved, before)
+
+    def test_the_shape_s_doc_rules_file_or_skill_moving_makes_every_mechanism_s_output_due_one_row_each(self) -> None:
+        """Every mechanism's doc and skill are the shape's outputs, read against it one mechanism
+        at a time in that mechanism's own row (the user, 2026-10-11)."""
+        for moved, shape_parts_too in ((SHAPE_DOC, False), (SHAPE_RULES, True), (SHAPE_SKILL, True)):
+            with self.subTest(moved=moved):
+                before = self.read(moved)
+                self.append(moved, "A new meta-rule.\n")
+
+                expected = {("mechanism-shape", "output"): WHY_OUTPUT, ("sample", "output"): WHY_OUTPUT}
+                if shape_parts_too:
+                    expected[("mechanism-shape", "parts")] = WHY_PARTS
+                self.assertEqual(expected, self.due())
+                self.assertEqual([moved], self.standing("sample", "output")["moved"])
+                self.write(moved, before)
+
+    def test_the_entry_file_moving_makes_nothing_due(self) -> None:
+        """A meta-principle every session reads governs no doc in particular; the mechanism whose
+        part the entry file is watches it at `parts` (the user, 2026-10-11)."""
+        self.append("AGENTS.md", "- Be brief.\n")
+
+        self.assertEqual({}, self.due())
 
     def test_evidence_moving_makes_nothing_due(self) -> None:
         self.write("docs/mechanisms/sample.evidence.md", "# Why sample is what it is\n")
@@ -240,6 +277,22 @@ class ADueLevelNamesWhatChanged(Clocked):
 
         self.assertEqual("current", standing["state"])
         self.assertEqual({"mechanism", "level", "state", "why"}, set(standing))
+
+
+class AScriptAmongTheParts(Clocked):
+    """A script or a test is read as written: the installer writes blocks into markdown alone, so
+    its tag in a script's text is the script's own words, never a block to take back out."""
+
+    def test_quoting_the_installer_s_tag_twice_reads_clean_and_is_named_when_it_moves(self) -> None:
+        self.write(SAMPLE_SCRIPT, 'A = \'<installed by="sample">\'\nB = \'<installed by="sample">\'\n')
+        self.mark_every_level()
+
+        status, report = self.run_maintain("--check")
+        self.assertEqual(0, status, report["diagnostics"])
+        self.assertEqual([], report["diagnostics"])
+
+        self.write(SAMPLE_SCRIPT, self.read(SAMPLE_SCRIPT) + "C = 3\n")
+        self.assertEqual([SAMPLE_SCRIPT], self.standing("sample", "parts")["moved"])
 
 
 class AMarkWrittenBeforeFilesWereKept(Clocked):
@@ -314,10 +367,11 @@ class MalformedMarks(Clocked):
     """A row the check cannot read would make its mechanism silently ineligible; it is reported
     instead, the file left as it is, and no mark is written over it."""
 
-    GOOD = "| sample | rules | " + "a" * 64 + " | 2026-09-27 | amended |\n"
+    GOOD = "| sample | parts | " + "a" * 64 + " | 2026-09-27 | amended |\n"
     BAD_ROWS = {
-        "a row of four cells": "| sample | rules | 2026-09-27 | amended |\n",
-        "a level that is not one": GOOD.replace("| rules |", "| records |"),
+        "a row of four cells": "| sample | parts | 2026-09-27 | amended |\n",
+        "a level that is not one": GOOD.replace("| parts |", "| records |"),
+        "the retired level": GOOD.replace("| parts |", "| rules |"),
         "a fingerprint that is not one": GOOD.replace("a" * 64, "abc"),
         "a date that is not one": GOOD.replace("2026-09-27", "2026-13-40"),
         "an outcome that is not one": GOOD.replace("amended", "fixed"),
@@ -344,8 +398,8 @@ class MalformedMarks(Clocked):
     def test_a_bad_file_row_is_a_diagnostic_and_refuses_a_mark(self) -> None:
         files = "\n| mechanism | level | file | fingerprint |\n|---|---|---|---|\n"
         bad_rows = {
-            "a row of three cells": f"| sample | rules | {SAMPLE_SKILL} |\n",
-            "a fingerprint that is not one": f"| sample | rules | {SAMPLE_SKILL} | abc |\n",
+            "a row of three cells": f"| sample | parts | {SAMPLE_SKILL} |\n",
+            "a fingerprint that is not one": f"| sample | parts | {SAMPLE_SKILL} | abc |\n",
             "a level with no mark": f"| sample | output | {SAMPLE_SKILL} | {'b' * 64} |\n",
         }
         for kind, row in bad_rows.items():
@@ -394,7 +448,7 @@ class MalformedMarks(Clocked):
 class AnUnreadableSurface(Clocked):
     """What cannot be fingerprinted is said, never guessed around: a guess would read as current."""
 
-    def assert_unreadable_naming(self, words: str, level: str = "rules") -> None:
+    def assert_unreadable_naming(self, words: str, level: str = "output") -> None:
         status, report = self.run_maintain("--check")
 
         self.assertEqual(1, status)
@@ -428,22 +482,33 @@ class AnUnreadableSurface(Clocked):
         self.assert_unreadable_naming(f"{SAMPLE_SKILL} does not resolve", level="output")
 
     def test_a_tree_declaring_no_mechanism_shape(self) -> None:
-        (self.root / ".agents/mechanisms/mechanism-shape/mechanism-shape.md").unlink()
+        (self.root / SHAPE_DOC).unlink()
 
         self.assert_unreadable_naming("no mechanism-shape is declared")
+
+    def test_a_part_that_does_not_resolve(self) -> None:
+        (self.root / SAMPLE_SCRIPT).unlink()
+
+        self.assert_unreadable_naming(f"{SAMPLE_SCRIPT} does not resolve", level="parts")
+
+    def test_a_part_that_is_a_directory(self) -> None:
+        (self.root / SAMPLE_SCRIPT).unlink()
+        (self.root / SAMPLE_SCRIPT).mkdir()
+
+        self.assert_unreadable_naming(f"sample's part {SAMPLE_SCRIPT} is a directory", level="parts")
 
 
 class AMarkForAMechanismNoLongerDeclared(Clocked):
     def setUp(self) -> None:
         super().setUp()
-        self.run_maintain("--mark", "sample", "rules", "amended")
+        self.run_maintain("--mark", "sample", "parts", "amended")
         (self.root / SAMPLE_DOC).unlink()
 
     def test_is_reported_by_the_check_without_failing_it(self) -> None:
         status, report = self.run_maintain("--check")
 
         self.assertEqual(0, status)
-        self.assertEqual([("sample", "rules")],
+        self.assertEqual([("sample", "parts")],
                          [(row["mechanism"], row["level"]) for row in report["undeclared"]])
         self.assertNotIn("sample", {row["mechanism"] for row in report["mechanisms"]})
 
@@ -483,7 +548,7 @@ class InARecipient(Clocked):
 class ARefusedMark(Clocked):
     def setUp(self) -> None:
         super().setUp()
-        self.run_maintain("--mark", "sample", "rules", "amended")
+        self.run_maintain("--mark", "sample", "parts", "amended")
         self.before = self.snapshot()
 
     def assert_refused_naming(self, words: str, *argv: str) -> None:
@@ -495,13 +560,16 @@ class ARefusedMark(Clocked):
         self.assertEqual(self.before, self.snapshot())
 
     def test_names_a_mechanism_the_tree_does_not_declare(self) -> None:
-        self.assert_refused_naming("elsewhere is not a declared mechanism", "elsewhere", "rules", "amended")
+        self.assert_refused_naming("elsewhere is not a declared mechanism", "elsewhere", "parts", "amended")
 
     def test_names_a_level_that_is_not_one(self) -> None:
         self.assert_refused_naming("records is not a level", "sample", "records", "amended")
 
+    def test_names_the_retired_level(self) -> None:
+        self.assert_refused_naming("rules is not a level", "sample", "rules", "amended")
+
     def test_names_an_outcome_that_is_not_one(self) -> None:
-        self.assert_refused_naming("fixed is not an outcome", "sample", "rules", "fixed")
+        self.assert_refused_naming("fixed is not an outcome", "sample", "parts", "fixed")
 
 
 if __name__ == "__main__":

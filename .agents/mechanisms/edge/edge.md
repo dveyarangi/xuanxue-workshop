@@ -92,8 +92,6 @@ installer adds and an uninstaller removes.
 | its rules file | `.agents/mechanisms/edge/edge.rules.md` |
 | the maintainer | `.agents/scripts/gw/edges.py` |
 | the maintainer's tests | `.agents/scripts/gw/test/test_edges.py` |
-| the challenge's heading in `/align` | `.agents/skills/align/SKILL.md` → "### Challenge against the Edge records" |
-| the installed rules' heading in `/verify` | `.agents/skills/verify/SKILL.md` → "## Installed from other mechanisms" |
 
 ## Relies on, and does not own
 
@@ -103,6 +101,8 @@ installer adds and an uninstaller removes.
 | the installer | `.agents/scripts/gw/inject_rules.py` | `mechanism-shape` |
 | the pass that re-reads a record | `.agents/skills/maintain/SKILL.md` | `maintain` |
 | the status vocabulary a record's aggregation sections keep out | `.agents/skills/ticket/TICKET-FORMAT.md` | `ticket` |
+| the challenge's heading in `/align`, where E3 is installed | `.agents/skills/align/SKILL.md` → "### Challenge against the Edge records" | `/align`'s own, its mechanism not yet |
+| the installed rules' heading in `/verify`, where E4 is installed | `.agents/skills/verify/SKILL.md` → "## Installed from other mechanisms" | `/verify`'s own, its mechanism not yet |
 | the method's vocabulary | `.agents/glossary.md` | nobody removable |
 
 ## What it produces, and who reads it

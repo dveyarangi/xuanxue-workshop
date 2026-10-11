@@ -3,9 +3,15 @@
     uv run --offline --no-project python .agents/scripts/gw/maintain.py --check
     uv run --offline --no-project python .agents/scripts/gw/maintain.py --mark <mechanism> <level> <outcome>
 
-A mechanism is checked at two levels. At `rules` its doc is due when the meta-rules moved since
-its mark; at `output` its records are due when its own doc, rules file or skill moved since its
-mark. A mark is the fingerprint of what a maintenance checked, written by `--mark` when the
+A record is due when what it depends on moved, and a mechanism has two dependences, so it is
+checked at two levels. At `parts` its doc is due when a part it owns moved since its mark — the
+rows of its *Install adds, uninstall removes* table, whole files, the doc itself aside; a part it
+only relies on is its owner's doc to watch. At `output` its records are due when its own doc,
+rules file or skill moved, and its doc and skill when the mechanism shape's did: every
+mechanism's doc and skill are the shape's outputs, read against it one mechanism at a time in
+that mechanism's own row (the user, 2026-10-11). A due level names the files that moved, so the
+re-check reads in the direction the file gives — a shape file against the doc and skill, an own
+file against the records. A mark is the fingerprint of what a maintenance checked, written by `--mark` when the
 maintenance finishes and by nothing else: no edit to a doc counts as a re-check. It keeps each
 file's fingerprint too, so a level falling due names the files that moved, were added or went,
 and the re-check reads those (the user, 2026-10-11). Dueness is derived at every look and never
@@ -30,26 +36,28 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import inject_rules  # noqa: E402  (path set just above)
-from docs_corpus import ENTRY_FILE, INSTALLED_OPENING, announced, without_code  # noqa: E402
+from docs_corpus import INSTALLED_OPENING, announced, without_code  # noqa: E402
 from mechanisms import Declaration, declarations  # noqa: E402
 
 MARKS = "docs/mechanisms/maintenance.md"
-# The mechanism whose rules every mechanism's doc is written to.
+# The mechanism whose outputs every mechanism's doc and skill are.
 SHAPE = "mechanism-shape"
 EVIDENCE = "EVIDENCE.md"
-# TODO: a third trigger — a mechanism's records changed
+# TODO: a third dependence — a mechanism's records changed
 # enough since its mark — waits for each mechanism to declare where its records live.
-LEVELS = ("rules", "output")
+LEVELS = ("parts", "output")
 NEVER = "never maintained"
 DUE = "due"
 CURRENT = "current"
 WHY_MOVED = {
-    "rules": "the meta-rules moved since its mark",
-    "output": "its doc, rules file or skill moved since its mark",
+    "parts": "a part it owns moved since its mark",
+    "output": "what governs its records or its instructions moved since its mark",
 }
 WHY_UNNAMED = "it moved since a mark that named no files"
 WHY_BUILT_IN = "a recipient's built-in mechanisms came with core, maintained where core is made"
-OUTCOMES = ("amended", "nothing to change")
+# How the due pair came out: the record amended to a landed decision, the thing repaired to the
+# record, or nothing the record says touched (the user, 2026-10-11).
+OUTCOMES = ("amended", "repaired", "nothing to change")
 COLUMNS = ("mechanism", "level", "fingerprint", "date", "outcome")
 FILE_COLUMNS = ("mechanism", "level", "file", "fingerprint")
 _FINGERPRINT = re.compile(r"^[0-9a-f]{64}$")
@@ -264,15 +272,35 @@ def _received_core(root: Path) -> bool:
 
 
 def _surface(root: Path, declared: list[Declaration], mechanism: Declaration, level: str) -> list[str]:
-    """The files a level is checked against: the meta-rules at `rules`, the same for every
-    mechanism; the mechanism's own doc, rules file and skill at `output`."""
-    if level == "rules":
-        shape = next((one for one in declared if one.slug == SHAPE), None)
-        if shape is None or shape.rules is None:
-            raise Unreadable(f"no {SHAPE} is declared with a rules file, so the meta-rules have no home to read")
-        return sorted([ENTRY_FILE, shape.rules, *_skill_files(root, shape)])
+    """The files a level is checked against: at `parts`, every part the mechanism owns but its
+    doc, the record side of that pair; at `output`, what governs its records joined with what
+    governs its doc and skill — the mechanism shape's own surface, read here one mechanism at a
+    time rather than in a row of the shape's."""
+    if level == "parts":
+        return sorted(_owned_parts(root, mechanism))
+    shape = next((one for one in declared if one.slug == SHAPE), None)
+    if shape is None:
+        raise Unreadable(f"no {SHAPE} is declared, so what every mechanism's doc is written to has no home to read")
+    return sorted({*_governing(root, mechanism), *_governing(root, shape)})
+
+
+def _governing(root: Path, mechanism: Declaration) -> list[str]:
+    """What a mechanism's records are written to: its doc, its rules file and its skill."""
     rules = [mechanism.rules] if mechanism.rules else []
-    return sorted([mechanism.doc, *rules, *_skill_files(root, mechanism)])
+    return [mechanism.doc, *rules, *_skill_files(root, mechanism)]
+
+
+def _owned_parts(root: Path, mechanism: Declaration) -> list[str]:
+    """The files the doc says the mechanism is made of, each a whole file: an owned part is never
+    a line in another's file, and a directory would hide what moved inside it."""
+    owned = []
+    for part in mechanism.parts:
+        if part.where == mechanism.doc:
+            continue
+        if (root / part.where).is_dir():
+            raise Unreadable(f"{mechanism.slug}'s part {part.where} is a directory, not a file")
+        owned.append(part.where)
+    return owned
 
 
 def _skill_files(root: Path, mechanism: Declaration) -> list[str]:
@@ -321,8 +349,12 @@ def _authored(name: str, text: str) -> str:
     """A file as its own author wrote it: LF line endings, and every installed block taken back out
     by the installer's own inverse, so installing or retracting a rule moves nothing. A block is
     policed as injection drift, not as content (R2); one the inverse refuses was edited by hand,
-    and `inject_rules.py --check` reports the same block as drift."""
+    and `inject_rules.py --check` reports the same block as drift. The installer writes into
+    markdown alone, so a script or a test among a mechanism's parts is read as written: the tag in
+    its text is its own words."""
     text = text.replace("\r\n", "\n")
+    if not name.endswith(".md"):
+        return text
     for slug in dict.fromkeys(INSTALLED_OPENING.findall(without_code(text))):
         try:
             found = inject_rules.locate(text, slug)

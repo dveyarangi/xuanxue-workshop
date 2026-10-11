@@ -62,6 +62,18 @@ Artifacts predating this keep their names.
   `Ready (aligned 2026-09-08)`. `Done`'s parenthetical opens with its date;
   words may follow after a comma: `Done (2026-09-08, split)`.
 
+## The contract
+
+A ticket is a unit of agreed work. Whatever holds one states its outcome — one sentence of
+observable behaviour; the question it
+answers; what to build; its acceptance criteria, each observably true when done and one
+of them verification; its parent, where it was carved from one; and its status. It is done when
+every criterion holds, verification included.
+
+The file under `docs/tickets/`, in the shape below, is the contract's default form. A project's own
+board — issues, Linear, Jira — stands in for the file where each of its items states all of the
+above; the harness supplies no adapter, and its scripts read the file form alone.
+
 ## The record
 
 A ticket is a record of the ticket mechanism, and this section is its
@@ -80,14 +92,15 @@ never content *(the user, 2026-09-08)*.
   what it intends to become`, the line after its title; the mover turns it
   to `what happened` as it closes the pair. The mark has no colon, which
   tells it from a field; its earlier name, `kind`, is reported.
-- **The stage** is read from the `Plan` bullet. *Incepted*, before its plan
-  exists, a ticket hosts chunks: routed inputs, ideas, any section; its open
-  questions are entries of the store under its `Answers` question, each
-  holding its own argument. *Shaped*, once its plan exists, it keeps only what
-  is actual. A resolved decision lands in its durable home with its provenance
-  and rewrites `What to build` in place; the session record holds the align. A
-  checked box with its date is the whole verification record — no delivery
-  log, no verification narrative.
+- **The shape** is read from `Minted`. A ticket is minted from the body of
+  the question it answers once the work's form is seen, never before, and
+  holds what is actual for the work — the existing state where it bears
+  included — filling the picture by references rather than restating it. A
+  decision lands where it is made, the story goes to evidence or a session
+  record, and the ticket links them. A checked box with its date is the whole
+  verification record. A ticket
+  minted before 2026-10-11 is held to the required sections and the `/verify`
+  box alone, and is brought to this shape at its next touch.
 
 ### The header
 
@@ -101,6 +114,7 @@ one-off field anywhere before `Outcome`, `Outcome` last:
 - **record of** what it intends to become
 - **Status:** {value} {(qualifier)}
 - **Type:** HITL | AFK
+- **Minted:** YYYY-MM-DD
 - **Plan:** [{title} RFC](../rfc/{basename}.md) — what it selected
 - **Depends on:** [{title}](./RR-NNNN-slug.md) ({what it supplies})
 - **Blocks:** [{title}](./RR-NNNN-slug.md) — {why}
@@ -112,6 +126,7 @@ one-off field anywhere before `Outcome`, `Outcome` last:
 |---|---|---|---|
 | `Status` | required | a [status](#status) value with at most one parenthetical; `Done`'s opens with the date | |
 | `Type` | required | `HITL` or `AFK` | `HITL` needs a human decision or review; `AFK` merges unattended. |
+| `Minted` | required | a day, `YYYY-MM-DD` | the day the ticket was written; its shape is read from it |
 | `Plan` | exactly when an RFC with the ticket's basename exists under `docs/rfc/` or its `done/` | its link resolves to that RFC | plus one clause on what it selected |
 | `Depends on` | optional | every link resolves | blockers, each with a parenthetical naming what it supplies — not a bare link |
 | `Blocks` | optional | every link resolves | only when the blocking relation is itself an argument; carries its `— why` |
@@ -128,9 +143,6 @@ one-off field anywhere before `Outcome`, `Outcome` last:
 - `Parent` — the spec or coarse ticket this was carved from; otherwise the
   durable doc owning the context. Never a session. A subticket says which
   slice it is and what the parent keeps.
-- One narrative section — titled for the claim it argues. Diagram the
-  mechanism; link the evidence. Say what is deliberately *not* a defect. Omit
-  when the framing is uncontested.
 - `What to build` — **required**. End-to-end behavior, not a file-by-file
   plan. Each constraint carries its reason. Rewritten in place as decisions
   land.
@@ -146,9 +158,8 @@ one-off field anywhere before `Outcome`, `Outcome` last:
   number. The record of the split the user approved; nothing derives coverage
   from it yet.
 
-An incepted ticket may hold any section besides the two required. A shaped
-ticket holds the five named above and at most one narrative, nothing else;
-its `Acceptance criteria` holds checkbox lines, their continuations and blank
+A ticket holds the five sections named above and nothing else; its
+`Acceptance criteria` holds checkbox lines, their continuations and blank
 lines, nothing else.
 
 ### Acceptance criteria

@@ -20,7 +20,7 @@ mechanism of the tree's own.
 Run the script from any clone of the harness, or from the tree's own copy once it has one:
 
 ```
-python <clone>/.agents/scripts/gw/harness.py <target> --install [--from REPOSITORY] [--at REF]
+python <clone>/.agents/scripts/gw/harness.py <target> --install [--replace-clone] [--from REPOSITORY] [--at REF]
 python <target>/.agents/scripts/gw/harness.py <target> --update [--overwrite] [--from REPOSITORY] [--at REF]
 python <target>/.agents/scripts/gw/harness.py . --check [--from REPOSITORY]
 python <target>/.agents/scripts/gw/harness.py . --links
@@ -38,8 +38,8 @@ until they have been run.
 
 ## What a run does
 
-Copies every file under `.agents/` plus `AGENTS.md` and `CLAUDE.md`, and the source's root
-`LICENSE` as `.agents/LICENSE`, with the origin's local blocks removed and every straw-dog wrapper and `TODO` binding sheared so the rule stays and the question it waits on, which only this tree holds, does not;
+Copies every file under `.agents/` plus `AGENTS.md` and `CLAUDE.md`, the source's root
+`LICENSE` as `.agents/LICENSE`, and its root `README.md` beside this skill, with the origin's local blocks removed and every straw-dog wrapper and `TODO` binding sheared so the rule stays and the question it waits on, which only this tree holds, does not;
 stamps the entry file's announce line `<repository>@<ref>, <date>`, which is the tree's only
 revision record and what every session there announces; merges core's hooks into each host's
 shared hook file — `.claude/settings.json`, `.codex/hooks.json`, `.cursor/hooks.json` — beside the
@@ -56,8 +56,9 @@ the stamped line is the evidence a person reads.
 Every refusal writes nothing and names its step.
 
 - **A link the platform refused to create** is not a refusal: everything else landed, and the
-  report's `pending` lines are the exact commands. Present them to the person verbatim, to run
-  once in an elevated prompt, then run `--links`, which confirms each resolves without a source.
+  report's `pending` lines are the exact commands. Present those for the hosts the person works
+  in, verbatim, to run once in an elevated prompt; once they say they have, run `--links`
+  yourself — it confirms each resolves without a source, and is never asked of the person.
 - **A folder that is not a Git repository**: empty, the install runs `git init` there first and
   says so in its notes — every script of core reads a tree through Git, so a target is a
   repository. Holding files of its own, it is refused with the step: where the root goes is the
@@ -87,15 +88,34 @@ Every refusal writes nothing and names its step.
   run reads.
 - **A ref whose harness skill carries no such line**: not the harness, in the same sense as an
   entry file with no announce line. Check the ref, or the repository.
-- **The source itself as target**: the origin is never installed into.
+- **The source itself as target**: the origin is never installed into. A clean clone of it standing
+  where the project was meant — the person asked for an install there and the host cloned — is
+  turned into one from inside it, `harness.py . --install --replace-clone`: the tree is emptied,
+  a repository begun afresh, and core installed at the clone's commit. A clone holding changes of
+  its own is refused.
 
 ## After the first install
 
-The tree has core and no answers. Write `local.rules.md` beside the entry file, in the rules-file
-format the entry file's *Project-local* section describes, from the environment you stand in: the
+The tree has core and no answers, and its entry file arrived after this session began, so none of
+its rules are in your context: read it now — from here they govern this session, as they will
+every next one. Write `local.rules.md` beside the entry file, in the rules-file format the entry file's *Project-local* section describes, from the environment you stand in: the
 project's facts for the entry file, its autonomy switches, and its verification set — its
-typechecker, its tests, every command required of landed work, read off its own toolchain; a project without one has an
-empty set, and its local file says so. Then `inject_rules.py local --install`, and `--check`.
+typechecker, its tests, every command required of landed work, read off its own toolchain, a
+project without one having none of its own and its local file saying so; and, offered beside them,
+the harness's checks. Then `inject_rules.py local --install`, and `--check`.
+That check is the install's verification: the `commit` switch just written decides the install's
+commit, as it decides any other, named in the project's own convention where it states one.
+
+The person asked for a method to work by, not for files. Before asking anything, introduce it in
+their language, in a few lines: who you now are to them, what you will do for them, and where you
+stop for their yes. Ask each answer with the reason a project would choose it, in their terms —
+*commit on my own once the checks pass, or ask each time* — never as a switch's name and values;
+the origin's own answers, read in its clone, are not this project's and are offered as no default.
+The harness's checks
+are two kinds: those of the records the method keeps — `tickets.py`, `questions.py`, `edges.py`,
+`maintain.py` — serve every project that works by it; those of core itself — `mechanisms.py`,
+`inject_rules.py` — serve a project that means to change the harness. End with the first question the work asks. What was copied, gated and registered stays in the
+files and the commit, said on request.
 
 `uv run --offline --no-project python` is the harness's own habit; the scripts need only the
 standard library, so a bare `python` works.

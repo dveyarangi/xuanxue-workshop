@@ -33,9 +33,6 @@ Mechanism: not yet
 - Detect implementation challenges and use [/align](../align/SKILL.md) to
   resolve them with the user.
 
-- Do not generalize from one shape. Preserve a seam. Generalize only when a
-  second materially different shape forces the same concept.
-
 - Do not select implementation shapes just because "that how it is usually
   done" or based on first idea. Promote simplicity, look for elegant solutions,
   prefer removing over expanding, prefer conciseness over verbosity.

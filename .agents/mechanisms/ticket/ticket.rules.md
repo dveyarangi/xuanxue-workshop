@@ -7,7 +7,7 @@ install it with overwrite; the block in a target is never the place.
 |---|---|
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/plan/SKILL.md` | `## Installed from other mechanisms` |
-| `.agents/skills/align/SKILL.md` | `### Record resolutions in the owning ticket inline` |
+| `.agents/skills/align/SKILL.md` | `### Land resolutions as they are made` |
 | `AGENTS.md` | `## General rules` |
 | `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/ticket/SKILL.md` | `### 1. Locate the parent` |
@@ -73,36 +73,34 @@ Name the RFC by the owning ticket's basename, under `docs/rfc/`, with no serial 
 moves to `docs/rfc/done/` with the ticket.
 </rule>
 
-## P7 — a resolved decision leaves the ticket for its durable home
+## P7 — the ticket is rewritten to what landed
 
 - **target** `.agents/skills/align/SKILL.md`
-- **authority** the user, 2026-09-08; against the store, 2026-10-03; the owner first, 2026-10-04
+- **authority** the user, 2026-09-08; narrowed 2026-10-11, the landing moved to the questions
+  mechanism's Q6
 
 <rule>
-Land a resolved decision in its durable home with its provenance, and rewrite the ticket in
-place to what is now true; close the question it answers against that home — against the ticket's
-decision while it has not landed, after assigning the question to the ticket if it has no owner —
-and when a decision lands, repoint every entry closed against it there.
+Rewrite the ticket in place to what the align's landed decisions make true.
 </rule>
 
-## P10 — an align on a ticket opens with what the ticket is
+## P10 — an align opens with what its work is
 
 - **target** `.agents/skills/align/SKILL.md`
-- **authority** the user, 2026-09-27
+- **authority** the user, 2026-09-27; its work, ticket or not, 2026-10-11
 
 <rule>
-Open an align on a ticket by saying what the ticket is: what it builds and the problem it answers,
-in plain words, each of its terms explained, before the necessity gate or any question.
+Open an align by saying what its work is: what it builds and the problem it answers, in plain
+words, each of its terms explained, before the necessity gate or any question.
 </rule>
 
-## P11 — the ticket is swept for consistency when the align ends
+## P11 — the question's body and the ticket are swept when the align ends
 
 - **target** `.agents/skills/align/SKILL.md`
-- **authority** `/align`'s own text, moved here 2026-09-29
+- **authority** `/align`'s own text, moved here 2026-09-29; the body, the user, 2026-10-11
 
 <rule>
-Sweep the ticket for internal consistency at the end: an early section may still assert what a
-later resolution changed.
+Sweep the question's body, and the ticket where there is one, for internal consistency at the end:
+an early line may still assert what a later resolution changed.
 </rule>
 
 ## P9 — a ticket is named by a link, or by a slug and its state

@@ -206,13 +206,13 @@ by install, so listing them there contradicts its title.
 optionally with an anchor:
 
 ```
-`AGENTS.md` → "is mechanism work: use"
+`.agents/skills/align/SKILL.md` → "### Challenge against the Edge records"
 ```
 
-The phrase after `→` is checked as a verbatim substring of the file named. Use one
-wherever the part is a line inside a shared file, or the line is deletable with the
-check still green. Injection does not replace it: a meta-rule is never injected, and a
-line in the entry file is exactly what an anchor is for.
+The phrase after `→` is checked as a verbatim substring of the file named. An owned part
+is a whole file: in another's file a mechanism owns only what it installs there, which
+its rules file names. The anchor serves a relied-on line — a heading another skill
+carries, where a block is installed — so a line moved or renamed fails the check.
 
 ## Records
 

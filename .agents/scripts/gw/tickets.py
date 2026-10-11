@@ -29,6 +29,7 @@ import posixpath
 import re
 import sys
 from dataclasses import dataclass, field
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -41,8 +42,12 @@ RFCS = "docs/rfc"
 QUEUE = "docs/tickets/README.md"
 STATUSES = ("Done", "In progress", "Ready", "Partial", "Planned", "Blocked")
 TYPES = ("HITL", "AFK")
-ORDERED = ("Status", "Type", "Plan", "Depends on", "Blocks", "Answers", "Outcome")
-REQUIRED = ("Status", "Type", "Answers", "Outcome")
+ORDERED = ("Status", "Type", "Minted", "Plan", "Depends on", "Blocks", "Answers", "Outcome")
+REQUIRED = ("Status", "Type", "Minted", "Answers", "Outcome")
+# The day the format narrowed to the five named sections, the stage gone (the user, 2026-10-11): a
+# ticket minted before it is held to the required sections and the /verify box alone.
+# TODO: the older shape goes once no live ticket was minted before it.
+FORMAT_MOVED = "2026-10-11"
 RETIRED = ("Kind", "Legacy id", "RFC", "Parent PRD", "User stories addressed")
 NAMED_SECTIONS = (
     "Parent",
@@ -71,6 +76,7 @@ _BARE = re.compile(r"^\*\*([^*]+?):\*\* ?(.*)$")
 _CONTINUATION = re.compile(r"^\s+\S")
 _STATUS = re.compile(r"^(Done|In progress|Ready|Partial|Planned|Blocked)(?: \(([^()]*)\))?$")
 _DONE_DATED = re.compile(r"^\d{4}-\d{2}-\d{2}(?:, .+)?$")
+_DAY = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _BOUNDARY = re.compile(r"[.!?]\s+[A-Z`]")
 _CHECKBOX = re.compile(r"^- \[[ xX]\] ")
 _HEADING = "## "
@@ -110,14 +116,25 @@ class Ticket:
         return {found.name: found.value for found in self.header}
 
     @property
-    def shaped(self) -> bool:
-        """A ticket is shaped once it has a plan; until then it is incepted and hosts chunks."""
-        return "Plan" in self.fields
+    def minted(self) -> str | None:
+        """The day it was minted, `None` where the header says no such day."""
+        said = self.fields.get("Minted", "")
+        try:
+            return date.fromisoformat(said).isoformat() if _DAY.match(said) else None
+        except ValueError:
+            return None
+
+    # TODO: every ticket is narrowed once none minted before is live.
+    @property
+    def narrowed(self) -> bool:
+        """Whether it is held to the narrowed shape: minted on or after the day the format moved.
+        The older shape is temporary, marked for removal above."""
+        return self.minted is not None and self.minted >= FORMAT_MOVED
 
     def as_record(self) -> dict:
         return {
             "record": self.record,
-            "stage": "shaped" if self.shaped else "incepted",
+            "minted": self.minted,
             "fields": self.fields,
             "sections": [section.title for section in self.sections],
         }
@@ -404,6 +421,10 @@ def _field_problems(read: Ticket) -> list[Diagnostic]:
             notes.append(
                 Diagnostic(read.record, found.line, f"Type is `{found.value}`, not HITL or AFK")
             )
+        elif found.name == "Minted" and read.minted is None:
+            notes.append(
+                Diagnostic(read.record, found.line, f"Minted is `{found.value}`, not a day written YYYY-MM-DD")
+            )
         elif found.name == "Outcome" and _BOUNDARY.search(found.value):
             notes.append(Diagnostic(read.record, found.line, "Outcome is more than one sentence"))
     return notes + _order_problems(read)
@@ -543,7 +564,7 @@ def _titled(section: Section, name: str) -> bool:
 
 
 def _section_problems(read: Ticket) -> list[Diagnostic]:
-    """The required sections; what a shaped ticket may hold beyond them; the acceptance boxes."""
+    """The required sections; for a narrowed ticket, nothing beyond the five named; the boxes."""
     notes = []
     last_line = read.header[-1].line if read.header else 1
     for name in REQUIRED_SECTIONS:
@@ -559,21 +580,17 @@ def _section_problems(read: Ticket) -> list[Diagnostic]:
                     "under its Answers question, drawn by `questions.py --tree`",
                 )
             )
-    if read.shaped:
-        unnamed = [
-            section
-            for section in read.sections
-            if not any(_titled(section, name) for name in NAMED_SECTIONS)
-        ]
-        for extra in unnamed[1:]:
-            notes.append(
-                Diagnostic(
-                    read.record,
-                    extra.line,
-                    f"`{extra.title}` is a second section outside the five the shaped form admits; "
-                    "one narrative section is the most a shaped ticket carries",
+    if read.narrowed:
+        for extra in read.sections:
+            if not any(_titled(extra, name) for name in NAMED_SECTIONS + RETIRED_SECTIONS):
+                notes.append(
+                    Diagnostic(
+                        read.record,
+                        extra.line,
+                        f"`{extra.title}` is outside the five sections a ticket holds; a decision lands "
+                        "where it is made, and the story goes to evidence or a session record",
+                    )
                 )
-            )
     criteria = next(
         (section for section in read.sections if _titled(section, "Acceptance criteria")), None
     )
@@ -583,12 +600,12 @@ def _section_problems(read: Ticket) -> list[Diagnostic]:
 
 
 def _criteria_problems(read: Ticket, criteria: Section) -> list[Diagnostic]:
-    """One box names /verify at either stage; a shaped ticket's boxes are all the section holds."""
+    """One box names /verify in every ticket; a narrowed ticket's boxes are all the section holds."""
     notes = []
     boxes = [text for _, text in criteria.body if _CHECKBOX.match(text)]
     if not any("/verify" in text for text in boxes):
         notes.append(Diagnostic(read.record, criteria.line, "no acceptance box names /verify"))
-    if read.shaped:
+    if read.narrowed:
         for number, text in criteria.body:
             if text.strip() and not _CHECKBOX.match(text) and not _CONTINUATION.match(text):
                 notes.append(

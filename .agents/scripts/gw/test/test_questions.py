@@ -776,7 +776,7 @@ class TheWindow(Rendered):
 
         self.assertIn("recently attached: q-0002, q-0001", text)
         others = self.section(text, "other running sessions:")
-        self.assertIn("s-beta at q-0010 (last wrote 2026-09-29T11:00Z)", others)
+        self.assertIn("s-beta at q-0010 How do sessions reach each other? (last wrote 2026-09-29T11:00Z)", others)
         self.assertNotIn("s-gamma", others)
         self.assertNotIn("s-alpha", others)
         self.assertNotIn("next free id", text, "the script draws ids, so the agent is not handed one")
@@ -1427,8 +1427,27 @@ class Dueness(Store):
         answer = "[sweeping](../architecture.md#sweeping), [decision 1](../tickets/01-0002-sweep.md#decisions)"
         self.assertFalse(self.is_due({"state": "closed:decided", "owner": self.WORK, "answer": answer}))
 
-    def test_a_decision_with_no_owner_is_due_wherever_it_points(self) -> None:
-        self.assertTrue(self.is_due({"state": "closed:decided", "answer": "[decision 1](../tickets/01-0002-sweep.md#decisions)"}))
+    def test_a_decision_citing_a_ticket_or_an_rfc_is_not_due_owner_or_not(self) -> None:
+        self.write("docs/rfc/01-0002-sweep.md", "# Sweep — implementation plan\n")
+        for answer in ("[decision 1](../tickets/01-0002-sweep.md#decisions)", "[the plan](../rfc/01-0002-sweep.md)"):
+            with self.subTest(answer=answer):
+                self.assertFalse(self.is_due({"state": "closed:decided", "answer": answer}))
+
+    def test_a_decision_waiting_in_a_questions_list_is_not_due_until_it_is_repointed_home(self) -> None:
+        self.write(f"{STORE}/q-0001-which-store-holds-the-questions.md", self.read(f"{STORE}/q-0001-which-store-holds-the-questions.md") + "\n## Decisions\n\n- Swept.\n")
+        waiting = "[the list](q-0001-which-store-holds-the-questions.md#decisions) — the user, 2026-10-11"
+        self.assertFalse(self.is_due({"state": "closed:decided", "answer": waiting}))
+
+        self.assertTrue(self.is_due({"state": "closed:decided", "answer": "[sweeping](../architecture.md#sweeping)"}))
+
+    def test_an_archived_answer_citing_a_questions_list_is_not_due(self) -> None:
+        self.place(
+            "q-0003-was-it-swept",
+            "Was it swept?",
+            {"state": "closed:decided", "answer": "[the list](../q-0001-which-store-holds-the-questions.md)"},
+            folder=f"{STORE}/done",
+        )
+        self.assertFalse(questions.due(self.root, questions.read_store(self.root).index["q-0003"]))
 
     def test_an_archived_entry_reads_its_links_from_where_it_now_stands(self) -> None:
         self.place(
@@ -1543,6 +1562,96 @@ class TheBody(Declared):
 
         self.assertIn("changed since this call read it", str(refused.exception))
         self.assertEqual(edited, self.entry_text("q-0007-who-moves-a-subtree"))
+
+
+class TheDecisionsList(Declared):
+    """A decision with nowhere to land yet waits as an item of the body's `## Decisions` list, and
+    a close is refused while one has no home after its `→` (the user, 2026-10-11)."""
+
+    STEM = "q-0007-who-moves-a-subtree"
+    HOME = "→ [the record](../record.md)"
+
+    def argue(self, body: str, stem: str = STEM) -> None:
+        self.write(f"{STORE}/{stem}.md", self.entry_text(stem) + "\n" + body)
+
+    def test_a_close_is_refused_naming_a_bulleted_decision_with_no_home(self) -> None:
+        self.argue("## Decisions\n\n- Sweep by hand — the user, 2026-10-11\n")
+
+        self.assertRefused('"Sweep by hand', "close", "q-0007", "moot", "overtaken")
+
+    def test_a_close_is_refused_naming_a_numbered_decision_with_no_home(self) -> None:
+        self.argue(f"## Decisions\n\n1. **Keep the list** {self.HOME}\n2. **Sweep by hand** *(the user)*:\n   as before.\n")
+
+        self.assertRefused('"Sweep by hand', "close", "q-0007", "moot", "overtaken")
+
+    def test_a_refusal_says_where_the_decision_can_go(self) -> None:
+        self.argue("## Decisions\n\n- Sweep by hand\n")
+
+        self.assertRefused("land it, or move it to the nearest open question above", "close", "q-0007", "moot", "overtaken")
+        self.assertRefused("or to q-0010", "close", "q-0007", "merged", "q-0010")
+
+    def test_a_close_passes_when_every_decision_has_a_home(self) -> None:
+        self.argue(f"## Decisions\n\n- Sweep by hand — the user, 2026-10-11\n  {self.HOME}\n1. Keep the list {self.HOME}\n")
+
+        self.called("close", "q-0007", "moot", "overtaken")
+
+        self.assertEqual("closed:moot", self.part(self.STEM, "state"))
+
+    def test_a_close_passes_with_no_list_and_with_an_empty_one(self) -> None:
+        self.called("close", "q-0005", "decided", "[the record](../record.md) — the user, 2026-09-29")
+        self.argue("An argument.\n\n## Decisions\n\nNothing decided yet.\n")
+
+        self.called("close", "q-0007", "moot", "overtaken")
+
+    def test_an_arrow_to_a_question_a_ticket_an_rfc_or_nowhere_is_no_home(self) -> None:
+        self.write("docs/tickets/01-0002-sweep.md", "# Sweep\n")
+        self.write("docs/rfc/01-0002-sweep.md", "# Sweep — implementation plan\n")
+        for link in (
+            "[q-0003](q-0003-how-is-a-subtree-archived.md)",
+            "[the ticket](../tickets/01-0002-sweep.md)",
+            "[the plan](../rfc/01-0002-sweep.md)",
+            "[gone](../gone.md)",
+            "the record",
+        ):
+            with self.subTest(link=link):
+                self.write(f"{STORE}/{self.STEM}.md", entry("q-0007", "Who moves a subtree?", {"part of": "q-0003", "state": "open"}))
+                self.argue(f"## Decisions\n\n- Sweep by hand → {link}\n")
+
+                self.assertRefused('"Sweep by hand', "close", "q-0007", "moot", "overtaken")
+
+    def test_a_list_inside_a_fence_is_not_read(self) -> None:
+        self.argue("An example:\n\n```md\n## Decisions\n\n- Sweep by hand\n```\n")
+
+        self.called("close", "q-0007", "moot", "overtaken")
+
+    def test_prose_between_the_items_and_a_later_heading_hold_no_decision(self) -> None:
+        self.argue(
+            f"## Decisions\n\n1. Keep the list {self.HOME}\n\n**The user, later:** sweep by hand.\n\n"
+            f"2. Sweep by hand\n   {self.HOME}\n\n## Notes\n\n- not a decision\n"
+        )
+
+        self.called("close", "q-0007", "moot", "overtaken")
+
+    def test_the_check_reports_a_live_closed_entry_holding_a_decision_with_no_home(self) -> None:
+        self.argue("## Decisions\n\n- Sweep by hand\n", stem="q-0005-is-the-id-a-path")
+
+        self.assertTrue(any('no home yet: "Sweep by hand' in problem for problem in self.problems()), self.problems())
+
+    def test_the_check_reads_no_list_in_an_archived_entry(self) -> None:
+        before = self.problems()
+        name = f"{STORE}/done/q-0012-an-archived-one.md"
+        self.write(name, self.read(name) + "\n## Decisions\n\n- Sweep by hand\n")
+
+        self.assertEqual(before, self.problems())
+
+    def test_a_move_and_a_reword_keep_the_list_as_written(self) -> None:
+        body = "## Decisions\n\n- Sweep by hand\n"
+        self.argue(body)
+
+        self.called("move", "q-0007", "--under", "q-0002")
+        self.called("reword", "q-0002.0001", "Who carries a subtree away?")
+
+        self.assertTrue(self.entry_text("q-0002.0001-who-carries-a-subtree-away").endswith("\n" + body))
 
 
 class ArchivingAtClosure(Declared):

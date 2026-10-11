@@ -14,7 +14,7 @@ itself authorize new process machinery.
 The development instructions and supporting mechanisms through which projects define, implement, verify and maintain software, including the harness itself.
 
 **Mechanism**:
-A part of how the work gets done — the development method and its machinery — on which other work relies, together with its instructions, producers, consumers, checks and records. It owns one or more instruction files, each a skill no other mechanism owns, and may span many other files. What the project produces is not one.
+A part of how the work gets done, on which other work relies, together with its instructions, producers, consumers, checks and records. It owns one or more instruction files, each a skill no other mechanism owns, and may span many other files. What the project produces is not one.
 
 **Skill**:
 A mechanism's own instruction file, invocable and identified by its purpose and conditions of use. A skill may also host rules installed into it by mechanisms that do not own it.
@@ -162,10 +162,7 @@ _Avoid_: unplaced, nowhere, new as names for this.
 A historical account retained after its active role ends, with its disposition explicit; of the kind *what happened*. Current work should be understandable from maintained sources without requiring that record; historical investigation and mechanical maintenance may still reach it.
 
 **Ticket**:
-A tracked unit of work with an intended outcome and observable completion criteria. It may own unresolved decisions before implementation is ready. Of the kind *what it intends to become*: spent when its criteria hold.
-
-**Ticket stage**:
-What a ticket holds, read from whether it has a plan. Incepted — no plan yet — it hosts chunks: routed inputs, ideas, open questions. Shaped — its plan exists — it keeps only what is actual: the work, its criteria, and what is still open. A resolved decision lives in its durable home and in the session record, not in the ticket.
+A tracked unit of agreed work with an intended outcome and observable completion criteria, minted from the body of the question it answers once the work's form is seen. It holds what is actual for the work; a decision lands where it is made, not in the ticket. Of the kind *what it intends to become*: spent when its criteria hold.
 _Avoid_: dossier, decision log, history as names for a ticket's contents.
 
 **HITL ticket**:
@@ -191,7 +188,7 @@ A boundary across which a producer supplies behavior, information or an artifact
 A seam across distinct responsibilities whose contract determines a promised outcome, authority, data meaning or integrity, compatibility, or recovery beyond either side's implementation-local choices. A change that appears valid at one end can invalidate the other end or their shared guarantee.
 
 **Kind of statement**:
-What a written sentence of the method is, told apart by one test each: an **instruction** says what to do — a rule, with a moment and an outcome; a **principle** says what to prefer when it is unclear what to do; an **invariant** says what must hold; a **definition** says what a word means; a **classification** says where a thing goes when it is unclear what it is. A sentence is of one kind; the kinds a reply may mark are principle, classification and the footing a claim rests on.
+What a written sentence of the method is, told apart by one test each: an **instruction** says what to do — a rule, with a moment and an outcome; a **principle** says what to prefer when it is unclear what to do; an **invariant** says what must hold; a **definition** says what a word means; a **classification** says where a thing goes when it is unclear what it is. A sentence is of one kind; which kinds a reply marks, and how, is the entry file's.
 
 **Principle**:
 What to prefer when it is unclear what to do: a preference under uncertainty, written as *prefer A over B* and applied by judgement. It names no occasion and no outcome, so it never fires and is never a rule failure: a principle that "did not fire" is a rule missing. Its home is the entry file's general section, a mechanism's doc, or this glossary, and it carries a name there — the bold lead of its sentence — by which it is cited; in an instruction file it appears only as the pointer behind a rule.
@@ -214,7 +211,7 @@ A sort with a claim of completeness and a test that says where a thing goes when
 What a record is by its source of truth, on two axes: which side is right when the record and the thing it is about disagree — the record, the thing, or neither — and whether the record's authority expires once the thing reaches it. Four kinds: **what it intends to become** — the record, until reached; the thing moves toward it and the person refines it, and it is spent when the thing matches it; **what must always hold** — the record, standing; the thing is repaired to it, and it changes only by decision; **what exists** — the thing; the record is brought to it, regenerated where a script can and rewritten by hand where none can; **what happened** — neither, the referent being past; never repaired. The test between the first two, both written before the thing obeys them: the first expires when reached, the second keeps governing. A format declares the kind of its records once, as their authored home, and every record an agent edits carries it visibly on itself — the mark at the thing — so the agent meets it in context before adding what the kind refuses; a document without a format carries it on itself alone, and a record only a script writes carries none.
 
 **Whiteboard**:
-The body of the question a task stands on, where everything bearing on the task is written until enough has gathered to see its form; then sorted into records of their kinds. It is of no kind, maintenance does not hold it, and a ticket is minted from it, never before it.
+The body of the question a task stands on, where everything bearing on the task is written until enough has gathered to see its form; then sorted into records of their kinds. It is of no kind, maintenance does not hold it, and a ticket is minted from it, never before it. A decision does not wait on it: it lands as it is made, and only one with nowhere to land yet waits in the body's `## Decisions` list.
 _Avoid_: draft as a record type, scratch, notes.
 
 **Kind of turn**:
@@ -224,7 +221,7 @@ What a turn is, said before its reply is drafted: on a question, a new question,
 What a mechanism's moment carries: instructed by another mechanism, instructed from the wrong home, unowned by design, or not yet. The classification is the mechanism format's.
 
 **Meta-rule**:
-An instruction on how instructions are made, changed, checked or maintained — the mechanism shape's alone, reaching every file it governs installed from its rules file, the entry file included. A principle that bears on everything, instructions among them, is a meta-principle: meta too, and the entry file's own.
+An instruction on how instructions are made, changed, checked or maintained — the mechanism shape's alone, held in the shape's own skill, and installed from its rules file where another file reads it. A principle that bears on everything, instructions among them, is a meta-principle: meta too, and the entry file's own.
 
 **Tier 1**:
 Context supplied to the agent at the relevant occasion without a separate retrieval action. Intended Tier 1 placement and observed delivery are distinct facts.

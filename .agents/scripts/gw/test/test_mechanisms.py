@@ -769,6 +769,14 @@ class CoreStandsAlone(Declared):
         self.assertEqual([], self.problems())
         self.assertEqual([DOCUMENT], self.standing("skipped"))
 
+    def test_the_front_page_beside_the_harness_skill_is_the_origins_document_and_its_citations_are_skipped(self) -> None:
+        # Beside a skill the fixture claims, as the real one stands beside the harness skill.
+        self.write(".agents/skills/harness/SKILL.md", "Mechanism: unowned by design — a fixture.\n")
+        self.write(mechanisms.FRONT_PAGE, f"# Front\n\nThe evidence: [panel]({DOCUMENT}).\n")
+
+        self.assertEqual([], self.problems())
+        self.assertEqual([DOCUMENT], self.standing("skipped", mechanisms.FRONT_PAGE))
+
     def test_a_project_local_block_is_a_retired_tag_and_excuses_nothing(self) -> None:
         self.write(CITING, f"# Notes\n\n<project-local>\n`{DOCUMENT}`\n</project-local>\n")
 

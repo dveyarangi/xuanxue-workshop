@@ -6,24 +6,24 @@
 
 ## How it works
 
-A ticket is a tracked unit of work: an outcome, observable criteria, and the decisions it still
-owns, held as one file whose shape is the format shelf's and whose state is a folder. The skill
-says how work is sized and sliced into tickets and how a breakdown is approved; the shelf says
-what a ticket is as a record — its name, its header, the sections its stage admits, what finishes
-it and what removes it; the mover closes a finished ticket with its RFC and repairs every citation
+A ticket is a tracked unit of agreed work: an outcome, observable criteria and the work, held as
+one file whose shape is the format shelf's and whose state is a folder. The skill says how work is
+sized and sliced into tickets and how a breakdown is approved; the shelf says what a ticket is —
+the contract any board must state, and as a file its name, its header, the sections it admits,
+what finishes it and what removes it; the mover closes a finished ticket with its RFC and repairs every citation
 that pointed at them; the maintainer holds every live ticket to the shelf's shape.
 
 **Paired close is a behavior of this mechanism and `/maintain` is its actor.** The duty that a
 finished ticket moves is written once, in this mechanism's rules file, and reaches `/maintain` as
 an installed block; `/maintain` is not a part of this mechanism, it is the target the duty is
 installed into. Two other skills act on a ticket rule in their own work and receive it the same
-way: `/plan` names an RFC by its ticket, and `/align` lands a resolved decision in its durable
-home and rewrites the ticket in place.
+way: `/plan` names an RFC by its ticket, and `/align` rewrites the ticket in place to what its
+landed decisions make true.
 
-**A ticket holds what is actual at its stage** *(the user, 2026-09-08)*. Until its plan exists it
-is incepted and hosts chunks — routed inputs, ideas, open questions. Once its plan exists it is
-shaped and keeps the work, its criteria, and only what is still open; a resolved decision lives in
-its durable home and in the session record, not in the ticket.
+**A ticket holds what is actual for the work** *(the user, 2026-09-08; 2026-10-11)*. It is minted
+from the body of the question it answers once the work's form is seen, and keeps the work and its
+criteria. A decision lands where it is made, by the questions mechanism's rule; the question's
+body holds what has nowhere to land yet, and the session record the align.
 
 It is **installed**. A tree without it tracks work some other way; the parts table below is what
 an installer adds and an uninstaller removes.
@@ -37,12 +37,13 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | P2, P3 — the pair closes in one invocation; the header is the maintainer's | the install RFC of 2026-09-06, which specified the mover |
 | P5 — the records are checked by `tickets.py` | the user, 2026-09-08, owed to `/maintain`'s M1 |
 | P6 — an RFC is named by its ticket | the user, 2026-09-08 |
-| P7 — a resolved decision leaves the ticket for its durable home | the user, 2026-09-08 |
+| P7 — the ticket is rewritten to what landed | the user, 2026-09-08; narrowed 2026-10-11, the landing the questions mechanism's Q6 |
 | P9 — a ticket is named by a link, or by a slug and its state | the user, 2026-09-21; the slug in the link text, 2026-09-26 |
-| P10 — an align on a ticket opens with what the ticket is | the user, 2026-09-27 |
-| P11 — the ticket is swept for consistency when the align ends | `/align`'s own text, moved here 2026-09-29 |
+| P10 — an align opens with what its work is | the user, 2026-09-27; its work, ticket or not, 2026-10-11 |
+| P11 — the question's body and the ticket are swept when the align ends | `/align`'s own text, moved here 2026-09-29; the body, the user, 2026-10-11 |
 | P12 — the live tickets are read from the list | the user, 2026-10-10 |
-| the record's shape — one header form, `Type` required, `Kind` gone, `Outcome` one sentence, the stage read from the plan, the sections a stage admits | the user, 2026-09-08 |
+| the record's shape — one header form, `Type` required, `Kind` gone, `Outcome` one sentence | the user, 2026-09-08 |
+| the contract; `Minted` required and the shape read from it; the five sections alone, the stage and the narrative gone | the user, 2026-10-11 |
 | the status vocabulary, numbering and one basename per work item | with the selected skills, 2026-09-06 |
 | check-only, and nothing retires this | the user, 2026-09-08 |
 
@@ -56,7 +57,7 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | numbering, naming and placing a ticket | `.agents/skills/ticket/TICKET-FORMAT.md` | |
 | writing a ticket to the shape its stage requires | `.agents/skills/ticket/TICKET-FORMAT.md` | |
 | flipping a status | `.agents/skills/ticket/TICKET-FORMAT.md` | |
-| resolving a decision a ticket owns | `.agents/skills/align/SKILL.md` | |
+| rewriting a ticket to what an align landed | `.agents/skills/align/SKILL.md` | |
 | naming an RFC for a ticket | `.agents/skills/plan/SKILL.md` | |
 | deciding a ticket is finished | `.agents/skills/maintain/SKILL.md` | |
 | closing a finished ticket with its RFC | `.agents/skills/maintain/SKILL.md` | |
@@ -69,7 +70,7 @@ carries it. A rule with a name and date is that person's to amend, through `/ali
 | writing an RFC's contents | — | elsewhere — what an RFC holds is planning's, `.agents/skills/plan/SKILL.md` |
 | installing this mechanism into a tree, with the rest of core | `.agents/scripts/gw/harness.py` | |
 | removing this mechanism from a tree | — | not yet |
-| reading how a shaped ticket reached its decisions | — | unowned by design — the durable home carries the decision with its provenance and the session record the align; looking it up needs no rule |
+| reading how a ticket reached its decisions | — | unowned by design — the durable home carries the decision with its provenance and the session record the align; looking it up needs no rule |
 
 ## Install adds, uninstall removes
 
