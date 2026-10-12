@@ -44,7 +44,7 @@ class Workshop:
         finally:
             db.close()
 
-    def ask(self, request_id, question, *, sender="operator", target=None):
+    def ask(self, request_id, question, *, sender="operator", target=None, conversation=None):
         request_id, question, sender, target = (redact(value) for value in (request_id, question, sender, target))
         with self.connect() as db:
             added = db.execute("INSERT OR IGNORE INTO requests VALUES (?, ?, ?, ?, ?, NULL)",
@@ -61,6 +61,10 @@ class Workshop:
             return result
         try:
             context = self.context(question, target)
+            if conversation is not None:
+                context["conversation"] = redact(conversation)
+            if len(json.dumps(context, ensure_ascii=False).encode("utf-8")) > 750_000:
+                raise ValueError("Source and conversation context exceed the supported size")
             decision = self.agent(redact(context))
             disposition = decision["disposition"]
             if disposition not in {"answer", "change", "clarify", "refuse"}:

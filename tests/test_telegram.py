@@ -2,6 +2,7 @@ import json
 import tempfile
 import unittest
 import threading
+import sqlite3
 from pathlib import Path
 
 from workshop_bot.service import Workshop
@@ -43,6 +44,82 @@ def message(update=1, text="@workshop_bot Кто владеет проектам
 
 
 class GroupTests(unittest.TestCase):
+    def test_existing_history_is_preserved_and_an_old_reply_survives_context_limits(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            state = root / "state.sqlite3"
+            with sqlite3.connect(state) as db:
+                db.execute("CREATE TABLE telegram_requests (update_id INTEGER PRIMARY KEY, message_id INTEGER UNIQUE, "
+                           "sender TEXT, created TEXT, body TEXT, thread_id INTEGER, status TEXT, result TEXT, "
+                           "sent_ids TEXT DEFAULT '[]', error TEXT, parts TEXT DEFAULT '[]', "
+                           "attempts INTEGER DEFAULT 0, retry_at REAL DEFAULT 0)")
+                db.execute("INSERT INTO telegram_requests "
+                           "(update_id,message_id,sender,created,body,status,result,sent_ids,parts) "
+                           "VALUES (1,11,'{}','2026-10-12','Первый вопрос','sent',?, '[101]', ?)",
+                           (json.dumps({"answer": "Первый ответ"}), json.dumps(["Первый ответ"])))
+            db.close()
+            calls = []
+
+            def agent(context):
+                calls.append(context)
+                return {"disposition": "answer", "answer": "Ответ", "reason": "", "sources": [], "edit": None}
+
+            updates = [message(i, "Ж" * 4000) for i in range(200, 240)]
+            for update in updates:
+                update["message"]["entities"] = []
+            reply = message(300, "Продолжим первый вопрос")
+            reply["message"]["entities"] = []
+            reply["message"]["reply_to_message"] = {"message_id": 101}
+            group = Group(Workshop(root, state, agent), TelegramPeer([*updates, reply]), -100123)
+            group.start()
+            group.poll_once(0)
+            self.assertTrue(group.work_once())
+            context = calls[0]["conversation"]
+            self.assertGreater(context["omitted_messages"], 0)
+            self.assertTrue(any(m["text"] == "Первый ответ" for m in context["messages"]))
+            self.assertTrue(any(m["text"] == "Первый вопрос" for m in context["messages"]))
+            self.assertLessEqual(len(json.dumps(context["messages"], ensure_ascii=False).encode("utf-8")), 120_000)
+            self.assertEqual(len(group.history()), 42)
+            self.assertEqual(group.history()[0]["sent_ids"], [101])
+
+    def test_another_member_can_reply_after_restart_with_group_and_bot_history(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            calls = []
+
+            def agent(context):
+                calls.append(context)
+                return {"disposition": "answer", "answer": "План: начать в пятницу.",
+                        "reason": "", "sources": [], "edit": None}
+
+            app = Workshop(root, root / "state.sqlite3", agent)
+            group = Group(app, TelegramPeer([message()]), -100123)
+            group.start()
+            group.poll_once(0)
+            group.work_once()
+            reply = message(200, "А во сколько?")
+            reply["message"]["entities"] = []
+            reply["message"]["from"] = {"id": 8, "first_name": "Boris"}
+            reply["message"]["reply_to_message"] = {"message_id": 101, "text": "UNTRUSTED nested quote"}
+            future = message(201, "FUTURE discussion")
+            future["message"]["entities"] = []
+            peer = TelegramPeer([reply, future])
+            resumed = Group(Workshop(root, root / "state.sqlite3", agent), peer, -100123)
+            resumed.start()
+            resumed.poll_once(0)
+            self.assertTrue(resumed.work_once())
+            self.assertFalse(resumed.work_once())
+            self.assertEqual(len(calls), 2)
+            history = calls[1]["conversation"]
+            self.assertEqual(history["current"]["reply_to"], 101)
+            self.assertEqual(history["current"]["conversation_id"], 11)
+            self.assertEqual(history["current"]["sender"]["id"], 8)
+            self.assertEqual([m["role"] for m in history["messages"]], ["user", "assistant"])
+            self.assertIn("План: начать в пятницу.", json.dumps(history, ensure_ascii=False))
+            self.assertNotIn("FUTURE", json.dumps(history))
+            self.assertNotIn("UNTRUSTED", json.dumps(history))
+            self.assertEqual(peer.sent[0]["reply_parameters"]["message_id"], 210)
+
     def test_process_interruption_during_send_is_visible_after_restart(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -169,7 +246,7 @@ class GroupTests(unittest.TestCase):
             self.assertEqual("".join(item["text"] for item in peer.sent), answer)
             self.assertTrue(all(len(item["text"].encode("utf-16-le")) // 2 <= 4096 for item in peer.sent))
 
-    def test_only_addressed_group_text_is_retained_and_hidden_links_work_after_emoji(self):
+    def test_group_discussion_is_context_but_only_real_references_get_answers(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             contexts = []
@@ -178,7 +255,7 @@ class GroupTests(unittest.TestCase):
                 contexts.append(context)
                 return {"disposition": "answer", "answer": "Ответ", "reason": "", "sources": [], "edit": None}
 
-            ordinary = message(1, "PRIVATE ordinary talk")
+            ordinary = message(1, "Обсуждаем запуск в пятницу")
             ordinary["message"]["entities"] = []
             elsewhere = message(2, "@workshop_bot PRIVATE other group", chat=-100999)
             linked = message(3)
@@ -198,7 +275,9 @@ class GroupTests(unittest.TestCase):
             while group.work_once():
                 pass
             self.assertEqual(len(contexts), 1)
-            self.assertEqual(len(group.history()), 1)
+            self.assertEqual(len(group.history()), 3)
+            self.assertIn("Обсуждаем запуск в пятницу", json.dumps(contexts, ensure_ascii=False))
+            self.assertEqual([r["status"] for r in group.history()], ["observed", "sent", "observed"])
             self.assertNotIn("PRIVATE", json.dumps([contexts, group.history(), app.history()]))
 
     def test_uncertain_send_is_not_repeated_after_restart_and_next_request_runs(self):

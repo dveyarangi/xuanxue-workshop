@@ -8,7 +8,7 @@ from .telegram_api import TelegramError
 
 
 class Group:
-    """First group exchange; continuation context is pending under q-0002.0012."""
+    """Retain group discussion while answering only messages addressed to the bot."""
 
     def __init__(self, workshop, api, group_id):
         self.workshop = workshop
@@ -25,6 +25,13 @@ class Group:
             columns = {row[1] for row in db.execute("PRAGMA table_info(telegram_requests)")}
             if not {"parts", "retry_at", "attempts"}.issubset(columns):
                 raise ValueError("Версия истории Telegram не поддерживается; исходная история сохранена.")
+            for name in ("reply_to", "conversation_id"):
+                if name not in columns:
+                    db.execute(f"ALTER TABLE telegram_requests ADD COLUMN {name} INTEGER")
+            if "context" not in columns:
+                db.execute("ALTER TABLE telegram_requests ADD COLUMN context TEXT")
+            db.execute("UPDATE telegram_requests SET conversation_id=message_id "
+                       "WHERE conversation_id IS NULL AND status != 'observed'")
 
     def start(self):
         identity = self.api.call("getMe")
@@ -63,10 +70,13 @@ class Group:
             with self.workshop.connect() as db:
                 if selected:
                     db.execute("INSERT OR IGNORE INTO telegram_requests "
-                               "(update_id,message_id,sender,created,body,thread_id,status) VALUES (?,?,?,?,?,?,'queued')",
+                               "(update_id,message_id,sender,created,body,thread_id,status,reply_to,conversation_id) "
+                               "VALUES (?,?,?,?,?,?,?,?,?)",
                                (update["update_id"], selected["message_id"],
                                 json.dumps(redact(selected["sender"]), ensure_ascii=False), selected["created"],
-                                redact(selected["body"]), selected["thread_id"]))
+                                redact(selected["body"]), selected["thread_id"],
+                                "queued" if selected["addressed"] else "observed",
+                                selected["reply_to"], selected["conversation_id"]))
                     if selected["bare"]:
                         invitation = "Задайте вопрос о проектах Workshop — помогу разобраться."
                         db.execute("UPDATE telegram_requests SET status='ready', result=?, parts=? "
@@ -86,15 +96,27 @@ class Group:
         if message.get("from", {}).get("is_bot") and not message.get("sender_chat"):
             return None
         text = message.get("text", message.get("caption", ""))
+        if not text:
+            kind = next((key for key in ("photo", "video", "voice", "audio", "document", "sticker", "animation",
+                                        "video_note", "poll", "contact", "location", "venue") if key in message), "service")
+            text = f"[Сообщение без текста: {kind}; содержимое недоступно]"
         entities = message.get("entities", message.get("caption_entities", []))
         references = self.references(text, entities)
-        if not references:
-            return None
+        reply = message.get("reply_to_message", {})
+        reply_to = reply.get("message_id")
+        parent = None
+        if reply_to is not None:
+            with self.workshop.connect() as db:
+                parent = db.execute("SELECT * FROM telegram_requests WHERE EXISTS "
+                                    "(SELECT 1 FROM json_each(sent_ids) WHERE value=?)", (reply_to,)).fetchone()
+        addressed = bool(references) or parent is not None
         remaining = text
         for reference in references:
             remaining = remaining.replace(reference, "", 1)
         return {"message_id": message["message_id"], "body": text,
-                "bare": not remaining.strip(" \t\r\n,.;:!?—-"),
+                "addressed": addressed, "reply_to": reply_to,
+                "conversation_id": parent["conversation_id"] if parent else message["message_id"] if addressed else None,
+                "bare": bool(references) and not remaining.strip(" \t\r\n,.;:!?—-"),
                 "sender": {k: v for k, v in message.get("sender_chat", message.get("from", {})).items()
                            if k in {"id", "first_name", "last_name", "username", "title", "type"}},
                 "created": datetime.fromtimestamp(message["date"], timezone.utc).isoformat(),
@@ -139,10 +161,12 @@ class Group:
             if row["retry_at"] > time.time():
                 return False
             if row["status"] == "queued":
-                db.execute("UPDATE telegram_requests SET status='processing' WHERE update_id=?", (row["update_id"],))
+                context = json.loads(row["context"]) if row["context"] else self.conversation(row)
+                db.execute("UPDATE telegram_requests SET status='processing', context=? WHERE update_id=?",
+                           (json.dumps(context, ensure_ascii=False), row["update_id"]))
         if row["status"] == "queued":
             result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
-                                       row["body"], sender=row["sender"])
+                                       row["body"], sender=row["sender"], conversation=context)
             text = result["answer"]
             if result.get("sources"):
                 text += "\n\nИсточники — локальные записи Workshop:\n" + "\n".join(result["sources"])
@@ -181,6 +205,40 @@ class Group:
                            ("sent" if len(sent_ids) == len(parts) else "ready", json.dumps(sent_ids), row["update_id"]))
         return True
 
+    def conversation(self, request):
+        with self.workshop.connect() as db:
+            rows = db.execute("SELECT * FROM telegram_requests WHERE message_id < ? ORDER BY message_id",
+                              (request["message_id"],)).fetchall()
+        messages = []
+        for row in rows:
+            messages.append({"message_id": row["message_id"], "role": "user", "text": row["body"],
+                             "sender": json.loads(row["sender"]), "created": row["created"],
+                             "thread_id": row["thread_id"], "reply_to": row["reply_to"],
+                             "conversation_id": row["conversation_id"]})
+            for message_id, part in zip(json.loads(row["sent_ids"]), json.loads(row["parts"])):
+                if message_id < request["message_id"]:
+                    messages.append({"message_id": message_id, "role": "assistant", "text": part,
+                                     "reply_to": row["message_id"], "thread_id": row["thread_id"],
+                                     "conversation_id": row["conversation_id"]})
+        messages.sort(key=lambda message: message["message_id"])
+        anchors = {request["reply_to"], request["conversation_id"]}
+        priority = [m for m in messages if m["message_id"] in anchors]
+        recent = [m for m in reversed(messages) if m["message_id"] not in anchors]
+        selected, size = [], 2
+        for message in priority + recent:
+            length = len(json.dumps(message, ensure_ascii=False).encode("utf-8")) + 2
+            if size + length > 120_000:
+                continue
+            selected.append(message)
+            size += length
+        selected.sort(key=lambda message: message["message_id"])
+        return {"messages": selected, "omitted_messages": len(messages) - len(selected),
+                "scope": "Received group text/captions and confirmed bot replies; no pre-collection archive, "
+                         "attachment contents or messages Telegram did not deliver.",
+                "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),
+                            "created": request["created"], "thread_id": request["thread_id"],
+                            "reply_to": request["reply_to"], "conversation_id": request["conversation_id"]}}
+
     def history(self):
         with self.workshop.connect() as db:
             rows = db.execute("SELECT * FROM telegram_requests ORDER BY update_id").fetchall()
@@ -188,7 +246,8 @@ class Group:
         for row in rows:
             record = dict(row)
             record.update(sender=json.loads(row["sender"]), result=json.loads(row["result"]) if row["result"] else None,
-                          sent_ids=json.loads(row["sent_ids"]), parts=json.loads(row["parts"]), chat_id=self.group_id)
+                          sent_ids=json.loads(row["sent_ids"]), parts=json.loads(row["parts"]), chat_id=self.group_id,
+                          context=json.loads(row["context"]) if row["context"] else None)
             record["message_url"] = (f"https://t.me/c/{str(self.group_id)[4:]}/{row['message_id']}"
                                      if str(self.group_id).startswith("-100") else None)
             records.append(record)
