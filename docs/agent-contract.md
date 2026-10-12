@@ -1,7 +1,7 @@
 # Workshop and project-agent contract
 
-Contract for responsibility boundaries between Workshop, Cabinet and Daychi agents.
-Accepted by the user on 2026-10-04, with clarifications through 2026-10-10 incorporated.
+Contract for responsibility boundaries between Workshop, Cabinet, Daychi and Knowledge agents.
+Accepted by the user on 2026-10-04, with clarifications through 2026-10-12 incorporated.
 
 This document owns role responsibilities, shared guarantees, communication and
 acceptance. [Onboarding](onboarding.md) owns installation and access requirements;
@@ -17,7 +17,7 @@ The [first-stage goal](stage-1.md#completion) owns the overall completion condit
 
 All inter-agent assignments, both outgoing and incoming, live in Workshop's GitHub
 Issues. Recipient labels identify addressed work: `project:daychi` for Daychi,
-`project:cabinet` for xuanxue-cabinet, and
+`project:cabinet` for xuanxue-cabinet, `project:knowledge` for Daychi Knowledge, and
 `project:workshop` for Workshop. A recipient label names who is to perform the
 work, not who opened the issue. Project agents address migration-coordination
 requests and Workshop-functionality reports to `project:workshop`.
@@ -29,6 +29,22 @@ Workshop inception work stays in its local ticket queue. Incoming issues about
 Workshop functionality or contract migrations are external requests, distinct from that local inception
 queue. The local folder spelling and remaining addressing details belong to the
 [tracker question](questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md).
+
+### Accepted Knowledge participation — 2026-10-12
+
+Daychi Knowledge is a separate Workshop participant. Its accountable operator and
+participating GitHub account are `sleontenko`; its recipient label is
+`project:knowledge`. Its responsibilities are defined in
+[the Knowledge boundary](boundaries.md#accepted-knowledge-responsibility-boundary).
+The user accepted this participation model on 2026-10-12.
+
+Existing account permission and retained instructions are established in
+[the reception evidence](current-system.md#knowledge-reception-evidence--inspected-2026-10-12).
+Registration does not establish fresh-session invocation or collaboration acceptance
+in the Knowledge checkout. Remaining reception work belongs to
+[the reception question](questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md);
+structured-article implementation acceptance remains in
+[original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
 
 ## Boundary scope and product language
 
@@ -119,7 +135,7 @@ authoritative boundary contracts.
 
 ## Project-agent rules to install
 
-Cabinet and Daychi install
+Cabinet, Daychi and Knowledge install
 the [/collaborate skill](../skills/collaborate/SKILL.md) under their own
 operators. That skill owns the procedures for discovery, installation, invocation,
 assignment discussion, result reporting and duplicate checks for Workshop problems.
@@ -145,7 +161,7 @@ below; project operators retain implementation and release ownership.
 
 | Direction | Work performed by | Review and closure |
 |---|---|---|
-| Workshop to Cabinet or Daychi | The addressed project agent under its operator | Workshop verifies the result, reconciles its records and closes the issued assignment. |
+| Workshop to Cabinet, Daychi or Knowledge | The addressed project agent under its operator | Workshop verifies the result, reconciles its records and closes the issued assignment. |
 | Project agent to Workshop about Workshop functionality | Workshop | Workshop resolves and closes its incoming issue. |
 | Project agent to Workshop requesting contract migration | Workshop coordinates; affected project agents implement their parts | Workshop checks provider and consumer evidence, updates records and closes the migration request. |
 

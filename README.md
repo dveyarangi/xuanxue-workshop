@@ -35,6 +35,7 @@ contributors do not need to share a local checkout:
 | Repository | Who it serves | Product scope |
 |---|---|---|
 | [daychi](https://github.com/sleontenko/daychi) | Students and readers of the school's learning materials | Practice app with schedules, selected classes, reminders, and personal access to materials and Zoom; web wiki with search, reading, recent publications, and a relationship graph. |
+| [daychi-knowledge](https://github.com/sleontenko/daychi-knowledge) | Source contributors, editors and reviewers | Source indexing, transcription, editorial preparation, independent review and gated content packages for Daychi. Daychi retains the API, storage and readers. |
 | [xuanxue-cabinet](https://github.com/gregoryKot/xuanxue-cabinet) | Teachers, administrators, and students | School cabinet with schedules, automatic delivery of class links and recordings, payments, materials, and exams; available as an installable web app. |
 | [xuanxue-workshop](https://github.com/dveyarangi/xuanxue-workshop) (this repository) | Contributors and their coding agents | Planned coordination workspace for responsibilities, onboarding, shared agreements, tasks, handoffs, and adoption of changes across projects. |
 

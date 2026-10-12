@@ -23,6 +23,20 @@ existing material, recording, and exam features retain their responsibilities.
 The move of schedule, users, and reminders is accepted ownership direction, not a
 claim that migration is implemented or deployed.
 
+## Accepted Knowledge responsibility boundary
+
+Decision: the user, 2026-10-12, accepted Knowledge's separate participation.
+
+Knowledge owns source preparation, editorial review and its gated import tools.
+Daychi retains the API, persisted content, access control and readers. Knowledge
+prepares content for Daychi's provider-owned import definitions; separate project
+participation changes no wire format, access protocol or content identity.
+Existing content/semantics v1 remain active. Structured-article implementation and
+integration acceptance stay in [original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
+Accountability and addressing belong to
+[the participant agreement](agent-contract.md#accepted-knowledge-participation--2026-10-12);
+observed source and deployment claims belong to [current evidence](current-system.md#knowledge-reception-evidence--inspected-2026-10-12).
+
 ## Target connections
 
 | Boundary | Provider | Consumer | Responsibility and unresolved contract |
