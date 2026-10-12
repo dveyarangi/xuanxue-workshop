@@ -67,8 +67,11 @@ class Workshop:
                 raise ValueError("Invalid decision")
             if (disposition == "change") != (decision["edit"] is not None):
                 raise ValueError("Decision and edit disagree")
-            if not decision["answer"].strip() or any(p not in context["documents"] for p in decision["sources"]):
-                raise ValueError("Invalid answer or source")
+            if not decision["answer"].strip():
+                raise ValueError("Codex returned an empty answer")
+            unknown_sources = [p for p in decision["sources"] if p not in context["documents"]]
+            if unknown_sources:
+                raise ValueError("Sources not supplied to Codex: " + ", ".join(unknown_sources))
             result = {"status": {"answer": "answered", "change": "applying", "clarify": "clarification",
                                  "refuse": "refused"}[disposition], "answer": decision["answer"],
                       "reason": decision["reason"], "sources": decision["sources"],
@@ -83,7 +86,7 @@ class Workshop:
             prepared = json.loads(saved) if saved else None
             result = {**prepared, "status": "uncertain",
                       "answer": "Запись прервалась; результат правки требует проверки."} if prepared and prepared["status"] == "applying" else {
-                          "status": "failed", "answer": "Не удалось обработать запрос; правка не применена."}
+                          "status": "failed", "answer": "Не удалось подготовить ответ. Попробуйте задать вопрос ещё раз."}
             result["error"] = type(error).__name__
             if isinstance(error, (ValueError, RuntimeError)):
                 result["detail"] = str(error)
@@ -191,14 +194,15 @@ class Workshop:
                              ".agents/skills/questions/SKILL.md", ".agents/skills/ticket/TICKET-FORMAT.md"]
         instructions = {p: self.path(p).read_text(encoding="utf-8-sig")
                         for p in instruction_paths if self.path(p).is_file()}
-        question_context = {}
         for source in sorted((self.root / "docs/questions").glob("q-*.md")):
             name = source.relative_to(self.root).as_posix()
-            question_context[name] = self.path(name).read_text(encoding="utf-8-sig")
-        for name in (*instructions, *question_context):
+            data = self.path(name).read_bytes()
+            documents[name] = data.decode("utf-8-sig")
+            versions[name] = hashlib.sha256(data).hexdigest()
+        for name in instructions:
             versions[name] = hashlib.sha256(self.path(name).read_bytes()).hexdigest()
         context = {"question": question, "target": target, "documents": documents, "versions": versions,
-                   "instructions": instructions, "question_context": question_context,
+                   "instructions": instructions,
                    "evidence_scope": "Selected local documents and question records in docs/questions only; "
                    "no live GitHub reads, complete question-store window or store operations in this stage."}
         if len(json.dumps(context, ensure_ascii=False).encode("utf-8")) > 750_000:

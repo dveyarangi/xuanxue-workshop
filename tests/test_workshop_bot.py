@@ -12,6 +12,35 @@ from workshop_bot.service import Workshop
 
 
 class WorkshopTests(unittest.TestCase):
+    def test_a_source_not_supplied_to_codex_is_rejected_without_claiming_an_edit(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            app = Workshop(root, root / "history.sqlite3", lambda context: {
+                "disposition": "answer", "answer": "Unsupported answer", "reason": "",
+                "sources": ["docs/not-supplied.md"], "edit": None})
+            result = app.ask("unknown-source", "Что ты такое?")
+            self.assertEqual(result["status"], "failed")
+            self.assertIn("docs/not-supplied.md", result["detail"])
+            self.assertNotIn("правк", result["answer"])
+
+    def test_question_record_supplied_to_codex_can_be_cited_in_the_answer(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            name = "docs/questions/q-0001-what-is-workshop.md"
+            path = root / name
+            path.parent.mkdir(parents=True)
+            path.write_text("Workshop coordinates school projects.", encoding="utf-8")
+
+            def agent(context):
+                return {"disposition": "answer", "answer": "Я помогаю с проектами школы.",
+                        "reason": "Known Workshop purpose", "sources": [name], "edit": None}
+
+            app = Workshop(root, root / "history.sqlite3", agent)
+            result = app.ask("identity", "Что ты такое?")
+            self.assertEqual(result["status"], "answered", result)
+            self.assertEqual(result["sources"], [name])
+            self.assertEqual(app.history()[0]["result"], result)
+
     def editable(self, temporary):
         root = Path(temporary) / "project"
         name = "docs/tickets/01-0020-demo.md"
