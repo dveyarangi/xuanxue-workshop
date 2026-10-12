@@ -73,6 +73,11 @@ evidence for the assignment's own outcome.
 
 ## Boundary summary block
 
+A boundary summary gives a fresh project session standing context for recognising
+changes to shared responsibilities or contracts. State the shared capability or
+exchange, the responsibility split and governing contract links; identify relevant
+local entry points.
+
 Installation and reconciliation assignments supplying a summary use the exact
 heading `## BOUNDARY_SUMMARY` followed by one fenced Markdown block:
 

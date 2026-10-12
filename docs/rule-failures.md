@@ -91,6 +91,18 @@ records the direct, reused and changed-evidence cases and their independent grad
 
 ## 2026-10-06 — Investigation history published in a live assignment
 
+Struck again, 2026-10-12: Knowledge's supplied BOUNDARY_SUMMARY carried inspection
+evidence, version/acceptance status, routing and unrelated assignment exclusions
+into text destined for permanent project entry instructions. The existing
+[issue instruction](../.agents/skills/issue/SKILL.md#derive-and-draft),
+[summary format](../skills/collaborate/workshop-issue-format.md#boundary-summary-block)
+and [onboarding requirement](onboarding.md#boundary-context) already separate
+these records. The user accepted a focused replacement and a purpose/content
+clarification in the existing format, rather than a new policy or checklist.
+The [issue evidence](mechanisms/issue.evidence.md#boundary-summary-purpose--2026-10-12)
+owns this correction. No collaboration procedure, project responsibility or
+application-contract guarantee is changed.
+
 Status: closed; issue and records repaired, and creation/edit-time coverage landed
 in the [issue skill](../.agents/skills/issue/SKILL.md#validate-and-maintain), 2026-10-06.
 
