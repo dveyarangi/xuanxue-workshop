@@ -23,6 +23,31 @@ collaboration installation is [accepted and issue 1 closed](https://github.com/d
 The newer provider review below supersedes the public-row conformance gap.
 Native integration and broader Workshop source publication remain incomplete.
 
+## Knowledge reception evidence — inspected 2026-10-12
+
+At [Knowledge e400680](https://github.com/sleontenko/daychi-knowledge/tree/e4006807c3adaa373ad3a6f63396d0a2eaea66ef),
+README and AGENTS identify source preparation, transcription, editorial review and
+gated imports as Knowledge's role, with `sleontenko` accountable. Daychi retains
+the API, storage, access and readers. Inspected importers target Daychi's existing
+owner content, semantic-content and article operations; this is source evidence,
+not Workshop acceptance of their deployed behavior.
+
+The retained collaboration skill matches Workshop `e209d27239391be3af2be71b898c79f453851c01`
+after the project-label/source-revision substitutions, Installation removal and
+blank-line normalization. Its companion matches after the pinned portable-link
+adaptation. AGENTS invokes it at startup and boundary work; CLAUDE points to
+AGENTS. Both currently retain `project:daychi`. GitHub confirms `sleontenko` has
+Workshop write permission; the original issue-9 report demonstrates that account's
+return path. Knowledge's migration record names a Mac Mini checkout and Claude/Codex
+entry points, but retained host files and fresh-session discovery there are unverified.
+
+[Knowledge PR 4](https://github.com/sleontenko/daychi-knowledge/pull/4) is merged;
+its inspected CI executed 114 passing tests and the repository guard. The
+[issue-9 completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6113936401)
+claims the structured-article pilot is deployed. Reception does not accept that
+application result. No Knowledge-specific installation assignment was found;
+participant identity and routing remain in the [reception question](questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md).
+
 ## Native log-protection correction — reviewed 2026-10-11
 
 Cabinet's [correction report](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6103679689)
