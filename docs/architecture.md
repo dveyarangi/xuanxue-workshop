@@ -81,6 +81,15 @@ the [agent contract](agent-contract.md#workshop-address); the
 holds readiness and adoption evidence. Publication and access
 from each operator's environment are dependencies of working agent integration.
 
+## Telegram access
+
+The [Telegram contract](contracts/telegram-workshop.md) owns group access, replies,
+operator history and recovery. Participants may request reasonable task/question
+changes consistent with current architecture; the existing records remain their
+authoritative home. Code, architecture, agreement, agent-rule, publication and
+cross-project assignment changes retain separate operator authority. The bot's
+history distinguishes record application from reply delivery.
+
 ## Deferred decisions
 
 - [Contract maintenance and verification](questions/q-0002.0002-how-should-workshop-maintain-and-verify-boundary-contracts.md): schema references and evidence required for a shared promise.

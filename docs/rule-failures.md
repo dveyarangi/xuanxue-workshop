@@ -619,6 +619,14 @@ continue the current readiness ticket through planning, implementation and check
 with short progress updates between actions. This does not grant commit, push,
 repair or next-cycle permission.
 
+Struck again, 2026-10-12: after the user authorized architecture-compatible task
+and question changes through Telegram, the assistant updated the contract and
+plan, then ended without proposing the next concrete action. The user again had
+to ask why progress stopped. The previously refused duplicate amendment remains
+refused. Execution correction: present the first planned Codex integration proof
+and request the transition from planning to implementation, with the observable
+allowed-edit and refused-conflict outcomes stated.
+
 Rule in play: [align, What to do](../.agents/skills/align/SKILL.md) requires walking
 the decision tree one question at a time. The user repeatedly asked the assistant
 to continue after replies ended at recording or explaining the current decision.
