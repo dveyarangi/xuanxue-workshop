@@ -3,7 +3,8 @@
 The first local stage of [telegram-workshop-access](../docs/tickets/01-0020-telegram-workshop-access.md)
 answers questions from selected current Workshop records and can amend one passage
 of prose in a selected existing ticket. The first Telegram receiver is implemented;
-an actual bot/group exchange has not been verified.
+actual group intake and delivery have been observed. The first question exposed
+a source-catalog defect, now repaired; a successful live answer remains under acceptance.
 
 ## Run from the Workshop root
 

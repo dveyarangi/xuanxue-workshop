@@ -1,5 +1,20 @@
 # Rule failures
 
+## 2026-10-12 — Supplied evidence absent from the response source catalog
+
+Status: implementation repaired; regression and actual local model response pass.
+
+The Telegram decision call received question records that the response validator
+did not accept as sources. Earlier real-model examples happened to cite other
+documents, so those examples did not establish consistency across the supplied
+source categories. The first live group question exposed the gap.
+
+The source catalog now contains the supplied question records, with a regression
+for this category and a counterexample retaining rejection of unavailable sources.
+This was an implementation and coverage gap, not a missing workflow rule; no new
+agent rule is proposed. The [live exchange evidence](questions/q-0002.0012-how-should-telegram-provide-access-to-workshop.md#first-live-exchange-and-source-repair--2026-10-12)
+records the repair and the remaining live-answer proof.
+
 ## 2026-10-06 — Coordinator draft omitted input sources and action definitions
 
 Status: closed; the user approved the replacement coordinator instructions and
