@@ -1,11 +1,13 @@
 import argparse
 import json
+import sqlite3
 import sys
 import uuid
 from pathlib import Path
 
 from .codex import Codex
 from .service import Workshop
+from .telegram_runtime import configured_group, group_history, serve, setup
 
 
 def main():
@@ -19,9 +21,25 @@ def main():
     ask.add_argument("--sender", default="operator")
     ask.add_argument("--request-id")
     subcommands.add_parser("history")
+    telegram_setup = subcommands.add_parser("telegram-setup")
+    telegram_setup.add_argument("--group", type=int)
+    telegram = subcommands.add_parser("telegram")
+    telegram.add_argument("--once", action="store_true")
+    subcommands.add_parser("telegram-history")
     args = parser.parse_args()
     state = args.state or args.root / ".local/workshop-bot/history.sqlite3"
+    if args.command == "telegram-setup":
+        setup(state.parent, args.group)
+        return 0
     app = Workshop(args.root, state, Codex())
+    if args.command == "telegram":
+        group = configured_group(app, state.parent)
+        print("Запускается приём обращений Telegram. Ctrl+C останавливает процесс; история сохраняется.")
+        serve(group, once=args.once)
+        return 0
+    if args.command == "telegram-history":
+        print(json.dumps(group_history(app), ensure_ascii=False, indent=2))
+        return 0
     if args.command == "history":
         print(json.dumps(app.history(), ensure_ascii=False, indent=2))
         return 0
@@ -34,4 +52,13 @@ def main():
 if __name__ == "__main__":
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    raise SystemExit(main())
+        sys.stderr.reconfigure(encoding="utf-8")
+    try:
+        raise SystemExit(main())
+    except KeyboardInterrupt:
+        print("Остановлено. Состояние сохранено; неподтверждённая отправка будет видна в истории.")
+        raise SystemExit(130)
+    except (ValueError, RuntimeError, OSError, sqlite3.Error) as error:
+        print(str(error) if isinstance(error, (ValueError, RuntimeError)) else
+              "Не удалось открыть локальный файл или запустить процесс. Проверьте настройки.", file=sys.stderr)
+        raise SystemExit(1)
