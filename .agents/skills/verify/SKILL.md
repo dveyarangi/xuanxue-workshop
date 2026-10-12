@@ -60,8 +60,9 @@ uv run --offline --no-project python .agents/scripts/gw/mechanisms.py --check
 ```
 
 The harness check clones its announced source ref and requires network access.
-There is no application toolchain, typechecker, or application test suite in this
-repository yet. For documentation changes, verify claims against PRODUCT.md and
+The local Workshop application uses Python standard-library tests:
+`uv run --offline --no-project python -m unittest discover -s tests -v`.
+For documentation changes, verify claims against PRODUCT.md and
 the affected projects' authoritative sources, and verify referenced paths exist.
 When changing records, run the owning mechanism's validator for those records.
 </installed>
