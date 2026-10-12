@@ -5,6 +5,8 @@
 - **Authority:** the user, 2026-10-12, accepted the complete behavior shown in the
   Telegram discussion, with the amendments that the bot speaks in simple words
   and may change tasks and questions on reasonable, architecture-compatible requests.
+  The user's later amendment on the same date, «Всю переписку группы», includes
+  ordinary group discussion in retained history and agent context.
 - **Delivery:** [Telegram access question](../questions/q-0002.0012-how-should-telegram-provide-access-to-workshop.md).
 
 ## Purpose and responsibility
@@ -26,12 +28,19 @@ There is no required `/ask` command.
 
 A reply to a bot answer continues that conversation without another mention.
 Another group member can join the same conversation by replying. A separate new
-request starts a separate conversation. Its context consists of that conversation
-and relevant Workshop material, not all other Codex chats.
+request starts a separate conversation. Reply associations distinguish the active
+exchange within shared group discussion. Context includes available group history
+and relevant Workshop material, not other Codex chats.
 
-Ordinary group conversation is not sent to the agent and is not retained in the
-request journal. Processing is restricted to the configured group, even if Telegram
-delivers messages from another group or a private chat.
+Ordinary group discussion is retained locally and supplied as background; only
+addressed requests and replies to bot answers trigger processing. Collection is
+restricted to the configured group, even if Telegram delivers messages from another
+group or a private chat. History means received text/captions and recorded bot
+answers. Attachments without text have an unavailable-content marker; attachment
+interpretation is not implied. Pre-collection and undelivered messages are not
+claimed available. A bounded context prioritizes the replied-to message and the
+conversation's first request, then recent discussion, with omitted history explicit;
+the full received journal remains available to the operator.
 
 ## Information and authority
 
@@ -94,8 +103,9 @@ promised. Separate continuous hosting is outside the first-version scope.
 ## Operator visibility
 
 The journal is viewable from Codex and records sender, time, full request, processing
-state, answer or failure, and the group-message reference. It covers bot-addressed
-requests and their continuations and answers, not unrelated group discussion.
+state, answer or failure, and the group-message reference. It covers received group
+discussion, bot-addressed requests, continuations and confirmed answers. The exact
+conversation context used for a request is retained with that request.
 For requested changes it also identifies affected tasks/questions, the before/after
 change, its reason and whether it was applied, refused or left uncertain. A restart
 or reply-delivery failure cannot cause an already applied change to be blindly repeated.
@@ -105,7 +115,8 @@ Participants see the requests and public answers in the connected group.
 
 An actual group conversation demonstrates an account mention and account link,
 a follow-up without another mention, replies from another participant, separate
-contexts for independent questions, and plain-language answers grounded in Workshop.
+reply associations for independent questions, ordinary discussion used as background
+without unsolicited replies, and plain-language answers grounded in Workshop.
 The operator can inspect the same conversation in Codex. Restart and failure cases
 preserve the agreed history and distinguish processing from confirmed delivery.
 Acceptance also demonstrates an allowed task/question change, clarification of an

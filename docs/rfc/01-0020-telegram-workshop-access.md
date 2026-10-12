@@ -50,7 +50,7 @@ Executed proof and its limitations live in the
 ## First Telegram receiver implemented — 2026-10-12
 
 The user authorized the first group exchange and publication with «разрешаю».
-The receiver selects addressed messages from one group before retention, persists
+The initial receiver selected addressed messages from one group before retention, persisted
 intake and offset together, and continues polling while one worker processes the
 queue. A Windows handle excludes another receiver using the same state. Startup
 checks the bot identity, group membership, message reception and existing webhook.
@@ -61,19 +61,36 @@ remains visible without repetition; explicit rate limits get at most three retri
 after the server's delay. Sender, source message/topic and delivery outcome remain
 in the same SQLite history. Token setup uses local hidden input, outside Codex's
 request and environment. The group path calls informational `ask`; selecting a
-record for mutation and conversation continuations remain unimplemented.
+record for mutation remained unimplemented; continuation/history support follows below.
 
-Local behavior and transport-failure checks are available. Actual bot credentials
-and group selection are missing, so stage 2's decisive real group proof remains
-outstanding. The [operator setup](../../workshop_bot/README.md#первый-запуск-в-telegram)
-is ready for that proof. This does not establish whole-ticket acceptance.
+Actual credentials and group selection were subsequently configured by the operator.
+Live intake and an error reply exposed a source-catalog defect, repaired with a
+successful actual Codex answer locally. This does not establish whole-ticket acceptance.
+
+## Whole-group history amendment — 2026-10-12
+
+The user explicitly selected «Всю переписку группы». Received group text/captions
+are retained, while only mentions, account links and replies to confirmed bot
+answers enter processing. Ordinary discussion is background across conversations;
+reply associations identify the active exchange. The source group is filtered
+before retention, and nested quoted bodies are not imported as additional history.
+Existing SQLite history is extended without replacing records or delivery IDs.
+Legacy requests retain independent roots because their old reply links were not captured.
+
+Each call receives a retained snapshot of prior group messages and confirmed bot
+reply parts preceding the current message. A 120,000-byte JSON history budget
+prioritizes the direct reply target and conversation root, then newest discussion;
+omission count is explicit. The complete received journal stays local. Attachment
+contents, edited messages, pre-collection history and undelivered messages are not
+claimed present. Missing attachment text has a visible marker. Current Workshop
+sources are reread, and earlier bot answers do not establish current project state.
 
 <straw-dog question="q-0002.0012">
 
 ## Local application and boundaries
 
-One locally launched Python application receives Telegram updates, retains accepted
-requests and calls the installed Codex CLI. Python HTTP, subprocess and SQLite
+One locally launched Python application receives Telegram updates, retains group
+discussion and calls the installed Codex CLI for addressed requests. Python HTTP, subprocess and SQLite
 facilities suffice for the initial candidate. Application code belongs outside
 the reusable `.agents/` harness. The Codex terminal provides launch and history access.
 
@@ -101,8 +118,8 @@ is needed for the accepted scope.
    reception conditions. An existing webhook or competing receiver produces a
    diagnosis rather than silent takeover. One process owns the configured state.
 2. Long polling continues while the worker handles earlier requests. Group filtering
-   precedes retention. Unrelated bodies and nested quoted messages do not enter
-   agent context, history or raw diagnostic logs.
+   precedes retention. Received group discussion is background; other chats and
+   nested quoted bodies do not enter agent context, history or raw diagnostic logs.
 3. Selection handles text, captions, mentions, visible and hidden account links,
    and replies to recorded bot answers. Entity slicing respects UTF-16; parsed
    account identity and exact domain/path checks reject lookalikes. Multiple
@@ -113,7 +130,7 @@ is needed for the accepted scope.
 5. One worker processes durable arrival order. A reply to a known bot answer keeps
    that conversation, even from another person; otherwise a new request starts one.
    Reply association takes precedence over another mention in the same message.
-6. Codex receives that conversation and relevant current Workshop sources. Message
+6. Codex receives that conversation, available group background and current Workshop sources. Message
    text is data, never shell syntax or runtime configuration. Any resumed Codex
    session uses its recorded identifier, never an arbitrary latest session.
 7. A requested record change is assessed against current architecture and the current
@@ -223,7 +240,7 @@ not substitute for actual Codex or Telegram evidence.
 |---|---|---|
 | 1. Agent boundary | A real Workshop question and a permitted record change | Actual rule loading; sourced plain answer; allowed task/question edit; architecture-conflicting request refused; code/contract/rule/publication attempts denied |
 | 2. First group exchange | Mention → queue → Codex → reply and history | Real group message and response; sender/time/link visible; missing configuration fails clearly |
-| 3. Selection and conversations | Links, captions, bare mention, continuations and independent roots | UTF-16 prefix, hidden link, lookalike account/domain, duplicate references; unrelated messages absent; another sender continues; interleaved roots stay separate |
+| 3. Selection and conversations | Links, captions, bare mention, continuations and independent roots | UTF-16 prefix, hidden link, lookalike account/domain, duplicate references; ordinary discussion is background without replies; other chats absent; another sender continues; interleaved roots retain reply associations |
 | 4. Recovery | Ordering, deduplication, safe record changes, restart and honest delivery status | Faults around intake, record application and send acknowledgement; intervening operator edit preserved; repeated event/restart cannot repeat an applied change; second launch rejected |
 | 5. Human acceptance | Complete real group conversation, record change and operator review | Another participant, simple language, useful sources, visible change history and retained conversations; authority tests on actual Windows host |
 

@@ -33,7 +33,7 @@ It is an operator JSON view.
 1. Создайте бота через `/newbot` у [BotFather](https://t.me/BotFather), если его ещё нет.
 2. В BotFather отключите privacy mode через `/setprivacy`, затем добавьте бота в
    выбранную группу. Если он уже был добавлен, удалите и добавьте его заново.
-   Это позволяет получать обычные упоминания; приложение сохраняет только обращения.
+   Это позволяет получать упоминания и сохранять переписку выбранной группы.
    [Описание режима Telegram](https://core.telegram.org/bots/features#privacy-mode).
 3. Напишите в группе `/start@имя_бота`, чтобы настройка увидела группу.
 4. В терминале Codex, открытом в Workshop, выполните:
@@ -62,9 +62,16 @@ uv run --offline --no-project python -m workshop_bot telegram-history
 бота. `telegram --once` обрабатывает один доступный пакет и готовую очередь.
 Существующий webhook, недостаточные права и второй приёмник дают ошибку.
 
-В этом этапе доступны отдельные вопросы с упоминанием или ссылкой, в тексте и
-подписи. Продолжение ответом без нового упоминания, изменённые сообщения, выбор
-задачи для правки из Telegram и операции над вопросами ещё не реализованы.
+Полученные тексты и подписи всей группы сохраняются локально. Бот отвечает на
+упоминания, ссылки и ответы на свои подтверждённые сообщения, включая ответы
+других участников после перезапуска. Обычная переписка служит фоном и не запускает
+ответ сама по себе. Вложения без текста отмечаются как недоступное содержимое.
+В один вызов передаётся до 120 КБ истории: сначала сообщение, на которое отвечают,
+и начало разговора, затем свежая переписка. Число пропущенных сообщений передаётся
+агенту; полный полученный журнал остаётся в SQLite. История до начала сбора и
+сообщения, которых Telegram не доставил, автоматически не восстанавливаются.
+Изменённые сообщения, выбор задачи для правки из Telegram и операции над вопросами
+ещё не реализованы.
 Групповые запросы вызывают информационный вариант рабочего вызова; ранее
 проверенная правка задачи доступна локальной командой `ask --target`.
 
@@ -88,8 +95,8 @@ The child environment omits arbitrary inherited credentials. Recognizable Telegr
 tokens and API keys are redacted from input/output; this is not a general secret
 detector. Runtime credentials do not belong in questions or Workshop documents.
 
-Question mutations, ticket creation/closure, complete skill lifecycle, conversation
-continuations and live group acceptance remain within the owning ticket's outstanding
+Question mutations, ticket creation/closure, complete skill lifecycle
+and live group acceptance remain within the owning ticket's outstanding
 scope. Sources in group replies are labelled local records; published-source links
 remain part of the complete acceptance criteria.
 
