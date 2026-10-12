@@ -45,11 +45,14 @@ entry points, but retained host files and fresh-session discovery there are unve
 its inspected CI executed 114 passing tests and the repository guard. The
 [issue-9 completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6113936401)
 claims the structured-article pilot is deployed. Reception does not accept that
-application result. No Knowledge-specific installation assignment was found.
+application result. The initial review found no Knowledge-specific installation assignment.
 The user subsequently accepted [separate participation and addressing](agent-contract.md#accepted-knowledge-participation--2026-10-12);
 the inspected `project:daychi` installation is the baseline for the scoped
 recipient update, not evidence that the accepted label is installed.
-Remaining host proof and handoff belong to the [reception question](questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md).
+The scoped [Knowledge assignment, issue 10](https://github.com/dveyarangi/xuanxue-workshop/issues/10)
+was published on 2026-10-12; its body and `project:knowledge` label were read back
+and matched the approved brief. Recipient changes and fresh Knowledge-host proof
+remain pending under the [reception question](questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md).
 
 ## Native log-protection correction — reviewed 2026-10-11
 

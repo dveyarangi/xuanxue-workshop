@@ -15,6 +15,8 @@ define this reception outcome. The user approved the single HITL slice and
 assignment publication on 2026-10-12; its
 [impact assessment](../questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md#impact)
 keeps retained installation, actual discovery and reporting in one complete path.
+The [original Knowledge assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/10)
+was published and read back on 2026-10-12 with the `project:knowledge` label.
 
 ## What to build
 
@@ -33,7 +35,7 @@ the recipient evidence, reconciles the reception state and acknowledges acceptan
 ## Acceptance criteria
 
 - [x] Knowledge's participant identity, accountable operator, recipient address and responsibility boundary are accepted and registered. (2026-10-12)
-- [ ] A scoped Knowledge-addressed assignment is published with accessible immutable requirements, retained installation provenance, complete boundary context and actual dependencies; its body and label are read back.
+- [x] A scoped Knowledge-addressed assignment is published with accessible immutable requirements, retained installation provenance, complete boundary context and actual dependencies; its body and label are read back. ([Issue 10](https://github.com/dveyarangi/xuanxue-workshop/issues/10), 2026-10-12)
 - [ ] Inspectable recipient changes establish the accepted address and checked boundary in the retained installation and entry instructions without losing source provenance or existing invocation.
 - [ ] Fresh-session evidence establishes skill invocation, own-assignment discovery and boundary recognition in the actual authorized Knowledge checkout.
 - [ ] The authorized Knowledge environment reports its results and limits in the original assignment; Workshop reconciles the evidence and acknowledges acceptance there.

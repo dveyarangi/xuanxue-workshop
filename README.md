@@ -5,8 +5,9 @@
 The [/collaborate skill](skills/collaborate/SKILL.md) is the canonical entry point
 for project agents, including projects without an installation assignment.
 Each project's own assignment supplies its collaboration context. Existing assignments
-include [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
-and [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2).
+include [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1),
+[daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2)
+and [knowledge-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/10).
 
 ## Purpose
 
