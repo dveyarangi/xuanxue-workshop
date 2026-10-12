@@ -3,6 +3,7 @@
 - **record of** what it intends to become
 - **Status:** In progress (amended assignments published; recipient implementation and proof pending)
 - **Type:** HITL
+- **Minted:** 2026-10-06
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
 - **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
 - **Outcome:** Native Daychi signs in through Cabinet, securely restores and renews its session, reads the full current self-profile and signs out of that installation, with joint native proof and existing web/content behavior retained.

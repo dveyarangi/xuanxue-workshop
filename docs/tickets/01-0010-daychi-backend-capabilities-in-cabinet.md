@@ -3,6 +3,7 @@
 - **record of** what it intends to become
 - **Status:** Blocked (horizon)
 - **Type:** HITL
+- **Minted:** 2026-10-04
 - **Responsible projects:** Cabinet provides the target backend; Daychi owns consumer compatibility and source exports; Workshop coordinates the boundary agreement.
 - **Start condition:** The user authorizes a separate consolidation initiative after its data, compatibility, and rollout assessment.
 - **Answers:** [q-0002.0009](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)

@@ -3,6 +3,7 @@
 - **record of** what it intends to become
 - **Status:** Planned
 - **Type:** HITL
+- **Minted:** 2026-10-05
 - **Answers:** [q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
 - **Outcome:** A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence.
 
