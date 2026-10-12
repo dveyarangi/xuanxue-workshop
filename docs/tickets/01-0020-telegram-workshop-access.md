@@ -1,7 +1,7 @@
 # Telegram access to Workshop
 
 - **record of** what it intends to become
-- **Status:** In progress (local Codex stage implemented 2026-10-12; group connection pending)
+- **Status:** In progress (Telegram receiver implemented; actual group proof pending)
 - **Type:** HITL
 - **Minted:** 2026-10-12
 - **Plan:** [telegram-workshop-access RFC](../rfc/01-0020-telegram-workshop-access.md) — local conversation flow with scoped task/question changes and recovery.

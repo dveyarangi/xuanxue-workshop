@@ -40,11 +40,33 @@ The application compares source versions and holds a Windows handle denying
 competing writes/deletion while changing the selected ticket. Recovery compares
 actual bytes with the journal; an uncertain result never causes a blind repeat.
 This is a recoverable single-record operation, not a multi-record transaction.
-The local JSON history is the first operator view. Telegram queue, conversations
-and delivery state remain unimplemented.
+The local JSON history is the first operator view. At this stage Telegram queue,
+conversations and delivery state were unimplemented; the next section records
+the subsequently authorized receiver work.
 
 Executed proof and its limitations live in the
 [owning question](../questions/q-0002.0012-how-should-telegram-provide-access-to-workshop.md#local-implementation-evidence--2026-10-12).
+
+## First Telegram receiver implemented — 2026-10-12
+
+The user authorized the first group exchange and publication with «разрешаю».
+The receiver selects addressed messages from one group before retention, persists
+intake and offset together, and continues polling while one worker processes the
+queue. A Windows handle excludes another receiver using the same state. Startup
+checks the bot identity, group membership, message reception and existing webhook.
+It does not change an existing webhook.
+
+Prepared replies and per-part confirmations survive restart. An uncertain send
+remains visible without repetition; explicit rate limits get at most three retries
+after the server's delay. Sender, source message/topic and delivery outcome remain
+in the same SQLite history. Token setup uses local hidden input, outside Codex's
+request and environment. The group path calls informational `ask`; selecting a
+record for mutation and conversation continuations remain unimplemented.
+
+Local behavior and transport-failure checks are available. Actual bot credentials
+and group selection are missing, so stage 2's decisive real group proof remains
+outstanding. The [operator setup](../../workshop_bot/README.md#первый-запуск-в-telegram)
+is ready for that proof. This does not establish whole-ticket acceptance.
 
 <straw-dog question="q-0002.0012">
 
