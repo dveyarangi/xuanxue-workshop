@@ -74,6 +74,13 @@ same amended authority and carry fixed profile mapping, cookie/authority separat
 staging legacy cleanup and common same-browser proof. Daychi's prior summary
 adoption report is recorded in the RFC; it claims no implementation or deployment.
 
+The [2026-10-14 review](../rfc/01-0009-web-wiki-cabinet-session.md#assignment-review--2026-10-14)
+verifies Cabinet's profile and session-check source subsets and retains the
+missing deployment/browser proof,
+inspectable Daychi candidate, staging hosting and joint proof. Review resumes
+in original issues 12/13 when the corresponding source/runtime evidence arrives;
+the complete outcome remains in progress.
+
 ## Acceptance criteria
 
 - [ ] Production and staging use the accepted fixed environment profiles; same-browser proof covers separate cookies/authorities, independent renewal/logout, cross-environment refusal, legacy staging cleanup and staging original-page return at the actual mapped origins.

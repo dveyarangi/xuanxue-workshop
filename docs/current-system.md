@@ -23,6 +23,58 @@ collaboration installation is [accepted and issue 1 closed](https://github.com/d
 The newer provider review below supersedes the public-row conformance gap.
 Native integration and broader Workshop source publication remain incomplete.
 
+## Web-wiki assignment evidence — reviewed 2026-10-14
+
+Against [shared authority 25def59e](contracts/web-wiki-session.md),
+[Cabinet PR 591](https://github.com/gregoryKot/xuanxue-cabinet/pull/591)
+merged as `8c5a4b8b5b7712b1d01a512e3f31e7fe2f52680a`. Inspected
+[cookie profiles](https://github.com/gregoryKot/xuanxue-cabinet/blob/8c5a4b8b5b7712b1d01a512e3f31e7fe2f52680a/api/src/auth/session-cookie.ts)
+and AuthService implement active-name parsing, duplicate refusal, fixed shared
+attributes and separate legacy expiration. Staging logout does not expire the
+production shared cookie. The installed Cabinet boundary summary matches the
+amended assignment. [Merge CI](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/38435420201)
+executed both profile HTTP suites; 32 independent profile/signature/expiry probes
+passed. This establishes the profile subset, not the complete provider assignment.
+
+Before publication, [PR 593](https://github.com/gregoryKot/xuanxue-cabinet/pull/593)
+merged as `4e5cc1ddfee2dacec39227a1d44cdc53fbda3025`. Its
+[session-check controller](https://github.com/gregoryKot/xuanxue-cabinet/blob/4e5cc1ddfee2dacec39227a1d44cdc53fbda3025/api/src/auth/session-check.controller.ts)
+uses AuthGuard for current-account validation and empty 204, places no-store
+before guards and renews only the active cookie. Inspected
+[PR-head CI](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/38482963921)
+at `8feb44b` executed the session-check and both profile HTTP suites; 34
+independent profile/signature/expiry/active-renewal probes passed on the reviewed
+source. Merge CI and deployment are separate evidence; source success does not
+establish the running operation or the remaining entry/return/logout pages.
+
+The PR and merge source trees are identical (`a9f55d3`).
+[Session-check merge CI](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/38484480181)
+also completed successfully before publication.
+
+Read-only HTTPS observations at 2026-10-13 23:36 UTC (2026-10-14 Jerusalem)
+found production health at `fc2dee2` and staging at `4e5cc1d`, with Mongo up.
+Staging `/api/auth/session` returned 401 with no-store and no cookie fields for
+anonymous and invalid-fixture requests; production still returned 404 without
+no-store. This supersedes the earlier unavailable staging check, without proving
+valid-account or renewal behavior on the running deployment.
+`/wiki?returnTo=%2F` and `/logout`
+returned each origin's ordinary SPA HTML, with no redirect or cookie fields;
+this does not establish the accepted entry or logout page. Production wiki
+HTML was reachable; `wiki.staging.xuanxue.su` failed DNS resolution from this
+environment. Valid-account issuance, browser migration, distinct deployed
+keys/account stores and joint lifecycle proof were not exercised.
+
+[Daychi's reports](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6143866898)
+describe local implementation and controlled tests, followed by a
+[site/package update](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6144683862).
+The latest reported commit `4e9f68e2ce18c3c79c5add477f47258f6a1f765f` was
+unavailable through the repository API (422) and absent from the local clone;
+its candidate branch was absent remotely. Published Daychi main was `c7af6f6`.
+Consumer code/test conformance, release packaging and exposure/cache closure
+therefore remain recipient claims. The
+[owning web review](rfc/01-0009-web-wiki-cabinet-session.md#assignment-review--2026-10-14)
+holds the scoped comparison, remaining owner actions and resumption conditions.
+
 ## Knowledge reception evidence — inspected 2026-10-12
 
 At [Knowledge e400680](https://github.com/sleontenko/daychi-knowledge/tree/e4006807c3adaa373ad3a6f63396d0a2eaea66ef),

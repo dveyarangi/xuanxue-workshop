@@ -484,3 +484,27 @@ preserved. Amendment notices were read back in
 and [Daychi 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6142309732).
 No duplicate issue or recipient implementation/deployment change was made.
 Both origins' provisioning, profile implementation and joint proof remain work.
+
+## Assignment review — 2026-10-14
+
+The user authorized the provider/consumer comparison. The
+[scoped source, CI and runtime observations](../current-system.md#web-wiki-assignment-evidence--reviewed-2026-10-14)
+retain its evidence and limits. The accepted `25def59e` authority and all
+unchecked acceptance criteria remain unchanged.
+
+| Boundary | Provider / consumers | Promise | Evidence / revision | Delta and consequence | Disposition / assignment |
+|---|---|---|---|---|---|
+| Environment cookies | Cabinet / browser, Daychi | Active-name isolation, fixed attributes and legacy cleanup | Cabinet `8c5a4b8`; executed merge HTTP suites and 32 independent probes | Profile subset verified; real browser migration and separate deployed authorities unverified | Partial result in [Cabinet 12](https://github.com/dveyarangi/xuanxue-workshop/issues/12); no whole-assignment acceptance |
+| Current-session check | Cabinet / Daychi | Empty 204 current validation, no-store and active renewal only | PR 593 / `4e5cc1d`; executed PR-head HTTP suites, successful merge CI and 34 independent probes; staging 401/no-store, production 404 | Reviewed source and staging refusal; valid-account/renewal runtime proof and production deployment absent | Remaining account/deployment evidence in Cabinet 12; complete two-site proof and cutover still require browser operations |
+| Browser entry and logout | Cabinet / browser, Daychi | Original-page return and Cabinet-site logout | Entry/logout SPA fallback; PR 593 changes no browser routes | Remaining provider/browser operations unverified | Remaining implementation and proof in Cabinet 12 |
+| Reader enforcement and hosting | Daychi / browser | Per-read validation, refusal/failure distinction and fixed matching profile | Reports of local `47530f9` / `4e9f68e`; latest artifact inaccessible; staging wiki DNS failure | Consumer conformance and staging routing/TLS unverified | Inspectable candidate/QA and hosting evidence in [Daychi 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13) |
+| Anonymous-access transition | Daychi / web and existing native/public readers, Knowledge | No web bypass; retained content/owner/import compatibility | Daychi report identifies affected native/public readers and missing cache-owner inventory | Activation requires the actual exposure/cache inventory and coordinated affected-reader transition | Existing [article request 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9); native validation trust/capacity remain in [request 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11) |
+
+Stage: scoped comparison complete; recipient implementation/evidence and joint
+proof pending. Cabinet supplies real-account session-check and production
+deployment evidence, its remaining
+browser operations and authorized
+account/browser evidence in issue 12. Daychi supplies inspectable candidate/QA,
+staging hosting and exposure/cache evidence in issue 13. Workshop resumes review
+on those artifacts or changed runtime evidence. Neither issue is closed; no
+recipient edit, release, cache mutation or whole-outcome /verify is claimed.
