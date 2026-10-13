@@ -380,6 +380,16 @@ and explicitly affirmed the [automatic original-page return](contracts/web-wiki-
 Recipient changes, coordinated access cutover and joint deployed proof remain
 work; no sibling implementation is authorized by this record.
 
+### Accepted web-wiki environment separation
+
+Decision: the user, 2026-10-13, accepted staging wiki at
+`wiki.staging.xuanxue.su` and a distinct staging cookie. The
+[environment profile contract](contracts/web-wiki-session.md#accepted-production-and-staging-separation)
+owns fixed matching origins, cookie names/domains, signing-key/account isolation,
+legacy staging cleanup and independent lifecycle proof. Production credentials
+still reach trusted staging hosts; staging ignores them. Recipient implementation,
+DNS/HTTPS provisioning and deployed proof remain work.
+
 ### Accepted web-wiki sign-in handoff
 
 The earlier separate code-and-PKCE handoff was superseded on 2026-10-12 by the

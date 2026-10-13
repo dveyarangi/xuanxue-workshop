@@ -58,6 +58,13 @@ and [entry/migration/automatic return](contracts/web-wiki-session.md#accepted-br
 are accepted. Recipient implementation, coordinated access cutover and joint
 deployed proof remain work. The former separate wiki grant profile is superseded.
 
+The [environment profiles](contracts/web-wiki-session.md#accepted-production-and-staging-separation)
+pair production Cabinet/wiki and staging Cabinet/wiki with separate active cookie
+names, signing keys and account stores. Each wiki uses its fixed matching Cabinet
+authority; staging wiki is `wiki.staging.xuanxue.su`. Session lifecycle is independent
+across profiles, while production's parent-domain cookie still reaches trusted
+staging hosts. Hostnames do not establish deployed capability.
+
 ## Work and feedback
 
 The [agent interaction contract](agent-contract.md) is the sole authored home for

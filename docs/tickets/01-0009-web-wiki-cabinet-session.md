@@ -70,6 +70,7 @@ pending; publication checks only the brief/authority criterion.
 
 ## Acceptance criteria
 
+- [ ] Production and staging use the accepted fixed environment profiles; same-browser proof covers separate cookies/authorities, independent renewal/logout, cross-environment refusal, legacy staging cleanup and staging original-page return at the actual mapped origins.
 - [x] Cabinet and Daychi have published, read-back recipient briefs citing the same accessible immutable accepted contract, complete ownership/context and common conformance cases. ([Cabinet #12](https://github.com/dveyarangi/xuanxue-workshop/issues/12), [Daychi #13](https://github.com/dveyarangi/xuanxue-workshop/issues/13), revision `66b7b5a9c1096e6ac88550ea986a3026db2b2cd0`, 2026-10-13)
 - [ ] A valid existing Cabinet browser session reads wiki without fresh sign-in; migration removes competing legacy cookies and preserves the agreed expiry/renewal behavior.
 - [ ] Ordinary Cabinet sign-in automatically resumes the original wiki destination; destination validation, per-tab/another-tab behavior and ordinary/native navigation compatibility satisfy the accepted entry contract.

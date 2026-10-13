@@ -430,3 +430,44 @@ authorized releases/cache closure and actual two-site proof resume in issues
 12/13 under their operators; Workshop review resumes on their evidence. The
 owning ticket remains in progress, with no deployed-conformance or whole-outcome
 /verify claim. Separate native caller trust/capacity remain in original request 11.
+
+## Accepted staging amendment — 2026-10-13
+
+The user accepted the [environment profiles](../contracts/web-wiki-session.md#accepted-production-and-staging-separation)
+after asking how staging avoids production cookie collisions and where staging
+wiki maps. Staging wiki is `wiki.staging.xuanxue.su`, paired only with staging
+Cabinet and its distinct cookie. Production shared login remains unchanged.
+The existing recipient assignments carry this amendment; no new horizontal
+ticket or authentication mechanism is needed.
+
+Cabinet owns profile selection, cookie parsing/issuance/cleanup, independent
+signing/account authority and staging return routing. Daychi owns each wiki
+deployment/origin and its fixed matching provider/cookie/renewal selection.
+Both operators supply origin/TLS/routing evidence and exercise both environments
+in one browser: sign-in orders, renewal/logout independence, wrong-environment
+tokens, active-name duplicates, staging legacy cleanup and original-page return.
+The same reader route must be successful for its valid profile and refused for
+the wrong one, so a missing deployment cannot masquerade as access isolation.
+
+Existing production browser examples are interpreted through the exact profile
+table for staging; statuses, deadline, lifetime, no-store and failure behavior
+are unchanged. Staging ignores production's cookie without forwarding/logging or
+expiring it. Parent-domain delivery still reaches staging; no stronger domain
+isolation is claimed. Native issuer/grant contracts retain their scope.
+
+Daychi's [assignment readback](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6141959017)
+reports adoption of the earlier boundary summary and explicitly no shared-cookie
+implementation/cutover/deployment. This is adoption evidence, not joint acceptance.
+DNS/HTTPS and actual profile implementations remain recipient-owned proof work.
+
+Fresh independent recipient/set reading found no semantic publication blocker or
+allowed incompatible implementation pair. It covered active-name parsing, legacy
+staging cleanup, renewal-only headers, fixed origins/returns, separate authorities
+and common browser cases. The sole remaining publication operation is mechanical
+repinning to the committed amendment and exact issue readback. Required Workshop
+checks passed: harness at e5e74d6, installed rules, mechanisms, question/ticket
+validators and 25 application tests. These checks verify this documentation handoff,
+not Cabinet/Daychi implementations or deployed browser conformance. Default-branch
+cookie/wiki-app blobs still match the inspected frozen source; scoped references
+are checked before publication. The recipient adoption report remains scoped to
+the earlier summary, with no new-profile adoption or runtime acceptance claimed.

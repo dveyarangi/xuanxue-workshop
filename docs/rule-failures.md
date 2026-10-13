@@ -1,5 +1,22 @@
 # Rule failures
 
+## 2026-10-13 — Shared production cookie reviewed without staging coexistence
+
+Status: environment isolation accepted on 2026-10-13; recipient amendment prepared.
+
+The shared-cookie review covered production Cabinet and wiki, but did not exercise
+an existing staging login in the same browser. The accepted parent-domain cookie
+also reaches the documented staging host; the inspected staging cookie helper uses
+the same name. Independent implementation review therefore did not establish
+coexistence with that environment. The user's staging question exposed the gap.
+
+This was incomplete scenario coverage, not evidence that the shared production
+login requires a new authentication system. The resolved consequence is held in
+[the environment-isolation question](questions/done/q-0002.0008.0001.0001.0002-how-should-browser-sessions-remain-separate-between-production-and-staging.md).
+No additional workflow mechanism is proposed; the next agreed implementation
+coverage includes both environments in one browser and migration from old staging
+cookies.
+
 ## 2026-10-12 — Supplied evidence absent from the response source catalog
 
 Status: implementation repaired; regression and actual local model response pass.

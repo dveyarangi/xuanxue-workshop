@@ -32,6 +32,13 @@ production retains `fc2dee2`. Provider acknowledgement awaits record publication
 | [Daychi reminder delivery](boundaries.md#accepted-daychi-reminder-delivery) | Expose authoritative schedule and account selections for client refresh; retain existing delivery without cross-client deduplication. | Adapt existing refresh and local OS reminders; retain cached schedule and active reminders after refresh failure and preserve pending edits. Presentation belongs to Daychi; cross-client duplicates are allowed. | Verification; no new background refresh capability. |
 | [Removal of per-date skips](boundaries.md#accepted-removal-of-per-date-skips) | Keep per-date skip exceptions out of the target shared reminder contract. | Remove the option and its related behavior; include the accepted user rationale in the ticket text. | Assignment scope is held by the migration question. |
 
+The accepted [web-wiki environment profiles](contracts/web-wiki-session.md#accepted-production-and-staging-separation)
+also require separate production/staging cookie names and signing/account authority,
+fixed matching Cabinet/wiki origins, legacy staging cleanup and independent
+lifecycle proof. Cabinet owns provider profiles; Daychi owns reader mapping and
+matching validation. Both projects' existing web-wiki assignments carry this
+2026-10-13 amendment; provisioning and deployed proof remain work.
+
 The web-reader outcome is held by
 [01-0009 web-wiki-cabinet-session](tickets/01-0009-web-wiki-cabinet-session.md),
 minted as one HITL scope on 2026-10-13 after the user's approval. Recipient briefs,

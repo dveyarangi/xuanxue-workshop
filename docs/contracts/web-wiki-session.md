@@ -50,6 +50,75 @@ exchange, PKCE, client secret, stored wiki grant or credential-encryption key is
 required for this direction. User-owned content or editorial/native authority is
 a separate business scope; this agreement does not authorize deleting its records.
 
+## Accepted production and staging separation
+
+Decision: the user, 2026-10-13, replied "ok" to staging wiki at
+`wiki.staging.xuanxue.su`, a distinct staging cookie and independent environment
+validation/lifecycle. This extends the accepted production shared login.
+
+| Profile | Cabinet origin | Wiki origin | Active cookie name | Shared cookie Domain |
+|---|---|---|---|---|
+| Production | `https://xuanxue.su` | `https://wiki.xuanxue.su` | `session` | `xuanxue.su` |
+| Staging | `https://staging.xuanxue.su` | `https://wiki.staging.xuanxue.su` | `session_staging` | `staging.xuanxue.su` |
+
+Both cookies use Secure, HttpOnly, SameSite=Lax and Path=/. Name/domain/path stay
+the same through issuance, renewal and expiration within each profile. Staging
+wiki routes to Daychi's staging deployment, not a production alias. Cabinet and
+Daychi operators own their respective hosting, DNS/HTTPS and releases; accepted
+hostnames are not evidence of provisioned deployments.
+
+Each deployment uses one fixed profile from trusted deployment configuration,
+never browser parameters or received links. `NODE_ENV=production` alone cannot
+distinguish production from staging. Cabinet signing keys and account stores are
+distinct; their credentials/account identifiers are not interchangeable. Daychi
+receives neither Cabinet signing key. Every concrete URL, cookie name and domain
+in the browser/check sections below is a production example; staging applies the
+same methods/paths, validation, statuses, five-second deadline, no-store,
+lifetime/renewal and failure rules with the profile table's exact substitutions.
+
+Staging wiki checks only `GET https://staging.xuanxue.su/api/auth/session` with
+`Cookie: session_staging=<presented staging value>`, enters sign-in at
+`https://staging.xuanxue.su/wiki?returnTo=<wiki-relative destination>` and links
+to `https://staging.xuanxue.su/logout`. Staging Cabinet returns only to the fixed
+`https://wiki.staging.xuanxue.su` origin after the same relative returnTo validation.
+No failure switches to the other environment.
+
+Each participant reads only its active cookie; duplicate refusal counts only
+that name. Other-environment cookies are ignored and never forwarded, renewed,
+expired or accepted as fallback. Production `session` alone at staging means the
+staging session is missing. One valid value of each name permits independent
+authorization; a token from the other environment, even relabeled with the active
+name, fails signature/current-account validation. Renewal relay accepts only the
+active name with its profile's exact domain and shared attributes.
+
+Production retains the accepted legacy host-only `session` reuse/migration.
+Staging clears its old host-only `session` at staging Cabinet on browser
+entry/login/renewal/logout responses, in a separate expiration field with Path=/
+and no Domain. It uses no legacy `session` authority fallback: absent
+`session_staging` follows ordinary staging sign-in. This avoids interpreting the
+production parent-domain cookie as a staging legacy credential. Subsequent
+staging issuance uses only `session_staging; Domain=staging.xuanxue.su`.
+Both profiles' session-check responses emit only accepted active-cookie renewal,
+never legacy expiration fields. Staging never emits or expires production's
+`session; Domain=xuanxue.su`.
+
+This isolates normal session lifecycle, not browser delivery of production
+credentials. Domain=xuanxue.su includes staging and its children: they remain in
+the accepted trusted cookie namespace and ignore the received production cookie
+without logging it. Excluding staging from that delivery would need a different
+domain arrangement; no domain move is accepted.
+
+Common proof runs both profiles in one browser, in both sign-in orders. Each wiki
+succeeds only with its own valid session/account; production-cookie-only staging
+reads fail without calling production; relabeled cross-environment tokens fail;
+duplicate active values refuse while one value of each name does not. Renewal and
+logout affect only their own profile. Staging legacy cleanup removes only the
+host-only cookie, retains production's parent-domain cookie and leaves no fallback.
+Provider renewal contains no legacy cleanup headers. Staging sign-in returns to
+staging wiki with the original path/query/hash; external destinations refuse.
+Actual origins, TLS/routing, source and profile configuration accompany joint
+proof. Mock/local tests do not establish deployment or either profile's conformance.
+
 ## Compatibility and transition
 
 This acceptance supersedes the former separate wiki handoff, confidential consumer,
