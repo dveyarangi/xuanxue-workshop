@@ -6,8 +6,8 @@ reviewed published assignment. Publication is not implementation or deployed pro
 
 Accepted web-wiki shared-browser-session implementation assignment.
 
-Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/tickets/01-0009-web-wiki-cabinet-session.md).
-Shared contract revision: `66b7b5a9c1096e6ac88550ea986a3026db2b2cd0`.
+Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/tickets/01-0009-web-wiki-cabinet-session.md).
+Shared contract revision: `25def59e25fc847764cc43de8d963bf62a16512e`.
 Original coordination request: [app/wiki connection #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 
 ## Recipient and outcome
@@ -43,12 +43,12 @@ are not accepted or implemented by this web assignment.
 ## Shared contract and conformance
 
 The sole shared definition is the
-[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/contracts/web-wiki-session.md).
-Its shared-session, compatibility, browser entry/migration, Cabinet-site logout
+[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/contracts/web-wiki-session.md).
+Its shared-session, environment profiles, compatibility, browser entry/migration, Cabinet-site logout
 and current-session-check sections define exact wire, input validation, statuses,
 cookie lifecycle, common examples and proof cases. Use the same published revision
 as the [Daychi contribution](https://github.com/dveyarangi/xuanxue-workshop/issues/13).
-The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/rfc/01-0009-web-wiki-cabinet-session.md)
+The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/rfc/01-0009-web-wiki-cabinet-session.md)
 maps these obligations and adversarial cases to the whole outcome; it adds no
 alternate protocol. Content DTOs remain Daychi-owned.
 
@@ -61,6 +61,13 @@ retains its accepted scope; it is not a predecessor of this web contribution.
 
 ## Impact and required changes
 
+- Apply the contract's production/staging profiles. Configure distinct cookie
+  names/domains, signing keys and account stores; read only the active name and
+  ignore the other profile's cookie. Staging browser cleanup expires only its old
+  host-only `session`, never production's parent-domain cookie. Preserve the check's
+  renewal-only headers. Staging entry/return/logout use only the staging origins.
+  Configure by deployment profile, not `NODE_ENV` alone. Report provider hosting,
+  DNS/HTTPS and fixture readiness for both environments.
 - Issue and expire the accepted shared production session cookie throughout
   browser login, rolling renewal and logout. Migrate old Cabinet host-only values
   without leaving two competing sessions. Valid-session sharing preserves original
@@ -112,11 +119,11 @@ provider success does not finish the combined connection.
 Existing boundary: Cabinet backend ↔ Cabinet frontend, with local entry points
 `api/`, `web/` and `shared/`. Cabinet owns accounts and current account restrictions.
 Daychi retains its content backend; Knowledge supplies Daychi's editorial/import
-inputs. Current scope/evidence: [Workshop current system](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/current-system.md).
+inputs. Current scope/evidence: [Workshop current system](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/current-system.md).
 
 Accepted target boundaries, joint integration not established: Cabinet backend ↔
 Daychi clients for schedule/account capabilities; Daychi backend ↔ Cabinet backend
-for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/boundaries.md#target-connections)
+for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/boundaries.md#target-connections)
 and [native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/contracts/native-account-session.md) own
 their respective scopes; web-wiki work does not change native bearer/private access.
 
@@ -125,12 +132,20 @@ Cabinet owns issuance/current-account validation, browser entry/return and logou
 Daychi owns protected web delivery and per-request validation through Cabinet.
 All and only valid Cabinet-authenticated web readers receive the same content,
 without additional wiki eligibility or persisted wiki reader credentials/accounts.
-[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/contracts/web-wiki-session.md) owns this boundary.
+[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/contracts/web-wiki-session.md) owns this boundary.
+The contract's environment profiles fix matching production/staging origins and
+independent cookie/authority/lifecycle behavior.
 Implementation, coordinated anonymous-access cutover and deployed joint proof
 remain separate evidence from accepting the target.
 ```
 
 ## Acceptance evidence
+
+Include the contract's same-browser environment cases: both sign-in orders,
+independent renewal/logout, own-name duplicate refusal, ignored other-profile
+cookies, relabeled cross-environment token refusal, legacy staging cleanup and
+staging return routing. Identify matching profile configuration, distinct
+key/account authorities and origin/TLS evidence without disclosing secrets.
 
 Report in the original published assignment: commit/PR, exact shared authority,
 executed checks/counts and expected outcomes, changed instruction context,

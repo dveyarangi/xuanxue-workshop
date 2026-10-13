@@ -6,8 +6,8 @@ reviewed published assignment. Publication is not implementation or deployed pro
 
 Accepted web-wiki shared-browser-session implementation assignment.
 
-Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/tickets/01-0009-web-wiki-cabinet-session.md).
-Shared contract revision: `66b7b5a9c1096e6ac88550ea986a3026db2b2cd0`.
+Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/tickets/01-0009-web-wiki-cabinet-session.md).
+Shared contract revision: `25def59e25fc847764cc43de8d963bf62a16512e`.
 Original coordination request: [app/wiki connection #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 
 ## Recipient and outcome
@@ -49,13 +49,13 @@ question remain separate coordination work, not accepted by this assignment.
 ## Shared contract and conformance
 
 The sole shared definition is the
-[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/contracts/web-wiki-session.md).
+[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/contracts/web-wiki-session.md).
 Use the same published revision as the
 [Cabinet contribution](https://github.com/dveyarangi/xuanxue-workshop/issues/12).
-The contract fixes production cookie scope, exact session-check request/statuses,
+The contract fixes production/staging profiles, exact session-check request/statuses,
 deadline/redirect/retry rules, renewal-cookie relay, browser entry/destination
 validation, Cabinet-site logout, compatibility and common proof cases.
-The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/rfc/01-0009-web-wiki-cabinet-session.md)
+The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/rfc/01-0009-web-wiki-cabinet-session.md)
 maps the complete outcome and adversarial coverage; it defines no alternate wire.
 
 This is the shared browser cookie, not the superseded wiki handoff/token/secret
@@ -67,6 +67,12 @@ Business/editorial/native records and nonsecret bookmarks are not removed by thi
 
 ## Impact and required changes
 
+- Route `wiki.staging.xuanxue.su` to the staging reader deployment and production
+  wiki to production. Use the contract's fixed matching Cabinet origin, cookie
+  name/domain and entry/return/logout URLs in each profile. Staging forwards only
+  `session_staging` to staging Cabinet and ignores production's cookie; neither
+  profile falls back to the other. Apply exact profile attributes to renewal
+  relay and duplicate handling. Own/report reader DNS/HTTPS and hosting evidence.
 - Receive the browser session at the wiki-origin reader boundary, forwarding to
   the internal Daychi backend if hosting differs. Browser code uses cookie delivery
   without reading HttpOnly or attaching a wiki bearer. Replace the web invitation
@@ -120,7 +126,7 @@ Existing boundaries: native Daychi (`apps/practice-app`) and shared wiki reader
 (`apps/wiki-graph`) ↔ Daychi content backend (`practice_api`). Native schedule
 also retains its school-HTML and Telegram-correction path. Native/private reader,
 Zoom and owner/import access remain Daychi-owned; Cabinet web authentication does
-not replace them. [Current scope/evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/current-system.md#daychi).
+not replace them. [Current scope/evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/current-system.md#daychi).
 
 Knowledge→Daychi editorial/owner import and shared reader→Daychi article/concept/
 graph projections remain existing content boundaries. [Original article issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9)
@@ -130,7 +136,7 @@ or change editorial authority.
 
 Accepted target boundaries, joint integration not established: Daychi clients ↔
 Cabinet backend for schedule/account capabilities; Daychi backend ↔ Cabinet backend
-for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/boundaries.md#target-connections)
+for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/boundaries.md#target-connections)
 and [native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/contracts/native-account-session.md) own
 their distinct scopes.
 
@@ -138,12 +144,18 @@ Accepted web-wiki target: Cabinet owns the shared browser session and current-ac
 validation; Daychi owns protected web delivery and calls Cabinet for each protected
 read. All and only valid Cabinet-authenticated web readers receive the same content,
 without extra wiki eligibility or persisted reader credentials/accounts.
-[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0/docs/contracts/web-wiki-session.md) owns common cookie,
-entry/return, renewal/logout and failure guarantees. Coordinated anonymous-access
+[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/contracts/web-wiki-session.md) owns common cookie,
+entry/return, renewal/logout, environment separation and failure guarantees. Coordinated anonymous-access
 cutover, recipient implementation and deployed proof are separate from acceptance.
 ```
 
 ## Acceptance evidence
+
+Include the contract's same-browser environment cases: both sign-in orders,
+independent renewal/logout, active-name duplicates versus both distinct names,
+cross-environment refusal, staging legacy cleanup and staging original-page return.
+Identify fixed provider configuration and actual routing/TLS for both wiki origins;
+a DNS alias of production wiki does not establish staging isolation.
 
 Report in the original published assignment: frontend/backend commits/PRs, exact
 shared authority, check counts/outcomes, changed instruction context, actual

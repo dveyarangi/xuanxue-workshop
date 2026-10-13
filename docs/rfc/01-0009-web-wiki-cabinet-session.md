@@ -471,3 +471,16 @@ not Cabinet/Daychi implementations or deployed browser conformance. Default-bran
 cookie/wiki-app blobs still match the inspected frozen source; scoped references
 are checked before publication. The recipient adoption report remains scoped to
 the earlier summary, with no new-profile adoption or runtime acceptance claimed.
+
+### Staging amendment publication receipt
+
+The amended shared authority is published at
+[25def59e25fc847764cc43de8d963bf62a16512e](https://github.com/dveyarangi/xuanxue-workshop/commit/25def59e25fc847764cc43de8d963bf62a16512e).
+GitHub returned the exact contract blob `0841423bbb8aa79dab5c0b0cbf61bdec0eb8f71c`.
+Both existing assignment bodies were repinned to this revision and read back
+exactly, with `project:cabinet`/`project:daychi`, open state and companion links
+preserved. Amendment notices were read back in
+[Cabinet 12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6142308806)
+and [Daychi 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6142309732).
+No duplicate issue or recipient implementation/deployment change was made.
+Both origins' provisioning, profile implementation and joint proof remain work.

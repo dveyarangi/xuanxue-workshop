@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — Shared production cookie reviewed without staging coexistence
 
-Status: environment isolation accepted on 2026-10-13; recipient amendment prepared.
+Status: environment isolation accepted on 2026-10-13; recipient amendment published and read back.
 
 The shared-cookie review covered production Cabinet and wiki, but did not exercise
 an existing staging login in the same browser. The accepted parent-domain cookie
