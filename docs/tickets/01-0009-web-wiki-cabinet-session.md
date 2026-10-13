@@ -1,7 +1,7 @@
 # Cabinet sign-in for web wiki
 
 - **record of** what it intends to become
-- **Status:** In progress (recipient drafts reviewed; publication pending)
+- **Status:** In progress (assignments published; recipient implementation and proof pending)
 - **Type:** HITL
 - **Minted:** 2026-10-13
 - **Plan:** [web-wiki-cabinet-session RFC](../rfc/01-0009-web-wiki-cabinet-session.md) — shared-cookie integration, scoped recipient contributions, coordinated cutover and joint proof
@@ -55,17 +55,22 @@ supports transport feasibility but cannot substitute for recipient implementatio
 or deployed proof. Shared wire, routing, failure and compatibility details follow
 the accepted contract rather than a second definition in this ticket.
 
-The [Cabinet draft](../assignments/web-wiki-session-cabinet.draft.md) and
-[Daychi draft](../assignments/web-wiki-session-daychi.draft.md) were prepared and
-independently reviewed on 2026-10-13. The
+The [Cabinet assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/12) and
+[Daychi assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/13) were
+published and read back on 2026-10-13 against the same immutable contract at
+`66b7b5a9c1096e6ac88550ea986a3026db2b2cd0`. Their local
+[Cabinet](../assignments/web-wiki-session-cabinet.draft.md) and
+[Daychi](../assignments/web-wiki-session-daychi.draft.md) records retain the reviewed
+published bodies. The
 [preparation disposition](../rfc/01-0009-web-wiki-cabinet-session.md#assignment-preparation--2026-10-13)
 retains incoming request 11's browser scope and the common publication/proof
-conditions. Their immutable contract binding and recipient-issue publication
-remain pending; no assignment acceptance criterion is checked by preparing drafts.
+conditions. Original requests 11 and 9 hold publication/access-transition notices.
+Recipient implementation, operator-owned cutover and joint deployed proof remain
+pending; publication checks only the brief/authority criterion.
 
 ## Acceptance criteria
 
-- [ ] Cabinet and Daychi have published, read-back recipient briefs citing the same accessible immutable accepted contract, complete ownership/context and common conformance cases.
+- [x] Cabinet and Daychi have published, read-back recipient briefs citing the same accessible immutable accepted contract, complete ownership/context and common conformance cases. ([Cabinet #12](https://github.com/dveyarangi/xuanxue-workshop/issues/12), [Daychi #13](https://github.com/dveyarangi/xuanxue-workshop/issues/13), revision `66b7b5a9c1096e6ac88550ea986a3026db2b2cd0`, 2026-10-13)
 - [ ] A valid existing Cabinet browser session reads wiki without fresh sign-in; migration removes competing legacy cookies and preserves the agreed expiry/renewal behavior.
 - [ ] Ordinary Cabinet sign-in automatically resumes the original wiki destination; destination validation, per-tab/another-tab behavior and ordinary/native navigation compatibility satisfy the accepted entry contract.
 - [ ] Every valid Cabinet-authenticated web reader receives the same content; missing, forged, expired, duplicate or deleted-account sessions are refused, and blocked-account changes take effect on subsequent reads without an extra wiki eligibility check.

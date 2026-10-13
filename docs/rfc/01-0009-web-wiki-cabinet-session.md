@@ -405,3 +405,28 @@ teardown failed, so that rerun is not recorded as a passing routing check. Neith
 fixture establishes Cabinet/Daychi authentication or deployed conformance. The
 published provenance describes that bounded local evidence without inaccessible
 GitHub links to unpublished scripts.
+
+## Assignment publication — 2026-10-13
+
+The user authorized publication with "вперед". The verified shared authority was
+committed and published at
+[66b7b5a9c1096e6ac88550ea986a3026db2b2cd0](https://github.com/dveyarangi/xuanxue-workshop/commit/66b7b5a9c1096e6ac88550ea986a3026db2b2cd0).
+GitHub returned the exact expected contract blob. Both complete published bodies
+use that same accessible immutable web contract/RFC/context revision, retain
+existing native/source pins and have no relative or mutable HEAD references.
+
+[Cabinet assignment 12](https://github.com/dveyarangi/xuanxue-workshop/issues/12)
+has `project:cabinet`; [Daychi assignment 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13)
+has `project:daychi`. Both bodies and labels were read back exactly against the
+reviewed pinned text; companion/provider links name the actual paired issues.
+The [request 11 notice](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6141058581)
+retains the browser/native scope split, and the
+[original article access notice](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6141059880)
+records the prospective anonymous-reader change without regrading earlier content
+work. Both comments were read back. Those original requests stay open.
+
+Publication completes the coordinated assignment handoff. Recipient changes,
+authorized releases/cache closure and actual two-site proof resume in issues
+12/13 under their operators; Workshop review resumes on their evidence. The
+owning ticket remains in progress, with no deployed-conformance or whole-outcome
+/verify claim. Separate native caller trust/capacity remain in original request 11.
