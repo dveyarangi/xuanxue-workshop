@@ -46,6 +46,18 @@ requires one accessible immutable contract reference and common conformance case
 in coordinated implementation assignments. Readiness depends on completing the
 shared shape; proposal ownership alone supplies no compatible baseline.
 
+## Web wiki browser session
+
+Web wiki and Cabinet use the [accepted shared browser session](contracts/web-wiki-session.md#accepted-shared-browser-session).
+Cabinet owns identity and session verification; Daychi validates the presented
+shared cookie through Cabinet before reader delivery. Frontends/backends remain
+separate, with a common browser lifetime/logout and no wiki reader credential or
+account replica store. The [current-session check](contracts/web-wiki-session.md#accepted-current-session-check)
+and [Cabinet-site logout](contracts/web-wiki-session.md#accepted-cabinet-site-logout)
+and [entry/migration/automatic return](contracts/web-wiki-session.md#accepted-browser-entry-and-migration)
+are accepted. Recipient implementation, coordinated access cutover and joint
+deployed proof remain work. The former separate wiki grant profile is superseded.
+
 ## Work and feedback
 
 The [agent interaction contract](agent-contract.md) is the sole authored home for

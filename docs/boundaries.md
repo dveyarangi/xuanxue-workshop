@@ -44,6 +44,7 @@ observed source and deployment claims belong to [current evidence](current-syste
 | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
 | Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Protected schedule and account/reminder synchronization details remain unresolved. |
 | Cabinet admission check for Daychi content | Cabinet backend | Daychi backend | Apply the admission and credential-transport contract below. The server-to-server check schema, caller trust and integration verification require agreement. Native account renewal is defined in the separate accepted profile. |
+| Cabinet sign-in for web wiki | Cabinet backend | Daychi backend and web wiki | Shared browser session, session check, automatic entry/return and Cabinet-site logout are accepted below; implementation, coordinated cutover and deployed proof remain work. |
 | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
 
 The admission contract below owns the third row's failure behavior, removal
@@ -339,10 +340,85 @@ or settle the separate admission protocol.
 The current Cabinet cookie and Daychi bearer implementations are source evidence,
 not deployed support for this target cross-project contract.
 
+### Accepted web-wiki reader access
+
+Decision: the user, 2026-10-12, clarified: "все и только вошедшие в кабинет так же
+получают доступ к вики".
+
+Reading web wiki requires a valid Cabinet-authenticated account session. Every
+such user receives the same wiki content. Anonymous visitors cannot read wiki.
+There is no separate wiki admission status, reader role or per-material entitlement.
+For this web consumer, the existing admission obligation means authoritative
+validation of the Cabinet-authenticated session and account, not an additional
+wiki-specific eligibility decision.
+
+Cabinet remains the account/session authority. Wiki uses the
+[accepted shared browser session](contracts/web-wiki-session.md#accepted-shared-browser-session).
+The [current-session check](contracts/web-wiki-session.md#accepted-current-session-check)
+defines the accepted backend validation wire; a cookie or frontend check alone
+does not authorize protected reader delivery.
+
+### Accepted web-wiki shared browser session
+
+Decision: the user, 2026-10-12, replied "думаю да" after reviewing the simpler
+shared-cookie alternative and its common lifetime/logout and no wiki credential
+storage consequences. The authoritative home is the
+[shared browser-session contract](contracts/web-wiki-session.md#accepted-shared-browser-session).
+Cabinet issues the existing session cookie for xuanxue.su and its subdomains;
+Daychi validates the presented session/current account through Cabinet before
+serving protected wiki content. The websites retain separate frontends/backends.
+Cookie lifetime, renewal and browser logout are common. Wiki reader authentication
+requires no persisted token, local session or account replica in the wiki database.
+
+This replaces the earlier separate wiki-session direction and its associated
+client secret, code exchange, independent exit and 90-day renewal/storage policies.
+Native bearer/session contracts and other client installations retain their scope.
+The user accepted the [narrow validation interface](contracts/web-wiki-session.md#accepted-current-session-check)
+with "отлично" on 2026-10-12. On 2026-10-13 the user accepted
+[Cabinet-site logout](contracts/web-wiki-session.md#accepted-cabinet-site-logout)
+and explicitly affirmed the [automatic original-page return](contracts/web-wiki-session.md#accepted-browser-entry-and-migration).
+Recipient changes, coordinated access cutover and joint deployed proof remain
+work; no sibling implementation is authorized by this record.
+
+### Accepted web-wiki sign-in handoff
+
+The earlier separate code-and-PKCE handoff was superseded on 2026-10-12 by the
+[shared browser session](contracts/web-wiki-session.md#accepted-shared-browser-session).
+Its [former profile](contracts/web-wiki-session-separate-history.md) is historical.
+
+### Accepted web-wiki consumer authentication
+
+The earlier confidential wiki-consumer/code-exchange secret was superseded by the
+[shared browser session](contracts/web-wiki-session.md#accepted-shared-browser-session).
+The current direction requires Cabinet's authoritative validation of the
+presented browser session, with no separate wiki grant-issuance client secret.
+
+### Accepted web-wiki explicit sign-out
+
+The earlier independent wiki exit was superseded by the
+[shared browser-session logout](contracts/web-wiki-session.md#accepted-shared-browser-session).
+Cabinet and wiki now share this browser session's exit; native clients and other
+browser installations are not signed out by that operation. The user accepted
+[Cabinet-site logout](contracts/web-wiki-session.md#accepted-cabinet-site-logout)
+on 2026-10-13: wiki links to the Cabinet `/logout` page, with no wiki logout API
+or proxy. The action uses Cabinet's existing POST, clears the shared browser
+cookie and retains Cabinet's completion/error/retry behavior. Implementation
+and joint deployed proof remain work.
+
+### Accepted web-wiki lifetime and renewal
+
+The earlier independent wiki 90-day/seven-day lifecycle and predecessor recovery
+were superseded by the [shared browser session](contracts/web-wiki-session.md#accepted-shared-browser-session).
+Wiki follows Cabinet's existing browser-session lifetime and renewal. This does
+not change the separately accepted native credential lifetime/renewal.
+
 ### Accepted sign-out scope
 
-Decision: the user, 2026-10-05. Explicit sign-out ends authenticated use in the
-current client installation. Other Cabinet and Daychi clients remain signed in;
+Decision: the user, 2026-10-05; shared Cabinet/wiki browser scope amended by the
+user on 2026-10-12 at the [shared browser-session contract](contracts/web-wiki-session.md#accepted-shared-browser-session).
+Explicit sign-out ends authenticated use in the current client installation.
+Cabinet and web wiki share that browser-session exit; other browser installations
+and native clients remain signed in;
 ordinary sign-out does not terminate every session of the account. The accepted
 discard of that installation's unsynced reminder and lead-time edits still
 applies; Cabinet's already-accepted account state remains. The user accepted native
