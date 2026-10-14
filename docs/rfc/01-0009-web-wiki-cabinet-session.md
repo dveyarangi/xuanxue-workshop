@@ -587,3 +587,25 @@ source-publication request. The existing assignments remain open for the local
 finding and deployment/fixture/exposure conditions above. No merge, recipient
 source change, account mutation, release or complete acceptance is made by this
 review; eligibility for joint proof depends on the actual remaining conditions.
+
+## Board review — 2026-10-15
+
+All 13 original assignment bodies and full paginated timelines, including closed
+issues and cross-references, were reviewed. New actionable evidence is confined
+to original web-wiki issues 12/13; the other work retains its existing queue and
+conditions. The [follow-up observations](../current-system.md#follow-up--verified-2026-10-15)
+own source, CI, runtime and administrator evidence.
+
+| Changed condition | Disposition | Next action / owner / resumption |
+|---|---|---|
+| Daychi cp1252 failure | Resolved at `9677210`; 43 boundary tests pass on Windows without UTF-8 mode | Reuse scoped source evidence; no repeated fix or publication request |
+| Cabinet boundary-summary adoption | Exact supplied summary verified at `5ea9a8b`; surrounding rules unchanged | Original issue 12 acknowledgement is scoped to instruction adoption, not full provider acceptance |
+| Independent reader staging | Reported pinned deployment and separate synthetic data; sampled direct-host preview/refusals/redirects verified | Daychi supplies canonical TLS/runtime proof after zone setup; direct Railway hostname cannot substitute for browser cookie scope |
+| Canonical DNS/ownership | Still unavailable; operator identifies zone administrator `gregoryKot` | Original Cabinet issue 12 routes staging-only CNAME/ownership setup to him; Daychi operator or authorized Railway member supplies the private verification value outside public GitHub |
+| Joint browser and cutover | Not completed by the above subset results | After canonical DNS/TLS, Cabinet owns authorized account/status/renewal fixtures and Daychi owns reader/browser proof; native public-reader transition and complete alias/cache ownership remain in original 13/9 |
+
+Current stage: scoped correction and instruction-adoption review complete;
+staging infrastructure handoff is the next concrete action. Workshop returns
+verified evidence and administrator routing in the original assignments.
+No production change, DNS mutation, private-token publication, merge, account
+mutation or full assignment closure is part of this board review.

@@ -143,12 +143,12 @@ independent observations pass for GET/HEAD/trailing-slash/query refusal on
 canonical/direct/site hosts, forwarded-host non-authority, private identifiers,
 cookie isolation and streaming/nonempty/cache/redirect provider failures.
 
-One local portability finding remains: on Windows with default cp1252, six of
+The `bdc3cf7` review found a local portability defect: on Windows with default cp1252, six of
 those backend tests fail at `web_wiki_session.py:196`, where `Path.read_text()`
 reads the UTF-8 wiki HTML without an explicit encoding. Thirty-three pass;
 `python -X utf8` makes all 39 pass. This is an inspected local decoding failure,
 not evidence that the Linux deployment or session protocol fails. The remaining
-recipient action is reported in original issue 13; Workshop changed no recipient
+recipient action was reported in original issue 13; Workshop changed no recipient
 source. No shared-contract defect was found in the inspected source/test scope.
 
 Workshop's read-only HTTPS observations at 18:04 and 18:14 UTC establish:
@@ -165,6 +165,60 @@ still leaves independent staging hosting, authorized provider/account/browser
 fixtures, native public-reader transition and complete alias/cache ownership
 outstanding. Source conformance in this scope is not merged/deployed reader
 acceptance, production rollout or completed joint lifecycle proof.
+
+### Follow-up — verified 2026-10-15
+
+The [Daychi correction report](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6176093616)
+publishes `9677210c2d0e19222ba8d6a6eb1061f713233a1b`; draft PR 13 now has
+docs-only follow-up head `dfed3203c3c8b55ed077a07ed456d02704ae7e2a`.
+The source change makes the wiki-shell read explicitly UTF-8 and adds four
+production/staging and `/wiki`/`/wiki/graph` regressions. Workshop reran all 43
+boundary tests on native Windows/Python 3.12 with its default encoding, without
+`-X utf8`: all pass. The earlier cp1252 finding is resolved at this source.
+[Executed correction CI](https://github.com/sleontenko/daychi/actions/runs/38620185804)
+also shows 241 backend, 42 app and 23 wiki tests passing. Previously inspected
+preview/routes/browser source, HTML and compiled bundle are byte-unchanged, so
+their scoped evidence remains applicable; no new UX acceptance is inferred.
+
+The [independent staging deployment report](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6176592679)
+and [published configuration/bootstrap evidence](https://github.com/sleontenko/daychi/blob/dfed3203c3c8b55ed077a07ed456d02704ae7e2a/docs/qa-cabinet-staging-2026-10-14/README.md)
+identify a separate service, pinned source `9677210`, staging profile and one
+ephemeral synthetic material, without a production volume/corpus or copied
+Cabinet credentials. The bootstrap/runtime override is separate from source.
+These control-plane/source-pin/permission facts are recipient-reported; Workshop
+inspected the sanitized artifacts and independently sampled direct HTTPS behavior.
+
+At 2026-10-14 21:55 UTC (2026-10-15 00:55 Asia/Jerusalem), direct
+`daychi-wiki-staging.up.railway.app` health and restricted site preview return
+200/no-store. The preview contains one section, two nodes and one structural
+edge, with an empty material label and no original fixture identity/title.
+Sampled public categories/graph and private graph return 401/no-store; invalid
+staging/production cookie variants refuse without Set-Cookie. `/wiki` and
+`/wiki/graph` redirect 307/no-store to the fixed staging canonical hostname,
+preserving query. Canonical `wiki.staging.xuanxue.su` still fails DNS resolution;
+direct-host refusal and redirects do not establish canonical cookie delivery,
+TLS, valid-account checking, renewal or browser SSO.
+
+The [Cabinet instruction report](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6179162461)
+is verified at merged PR 598 / `5ea9a8ba16ecfdeecede086f6e35837f768f6994`:
+the current issue 12 BOUNDARY_SUMMARY appears exactly in `CLAUDE.md`; its diff
+changes only the supplied contract/context pins and homepage-exception paragraph.
+Surrounding rules and native authority pin remain unchanged. Applicable docs-only
+CI checks passed; skipped application jobs are not new application-test evidence.
+Staging health now reports `5ea9a8b`, with anonymous session 401/no-store;
+production remains `fc2dee2` and its check 404.
+
+The Workshop operator named `gregoryKot` as administrator of the `xuanxue.su`
+DNS zone on 2026-10-15. The [Daychi owner-handoff request](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6177062061)
+therefore routes to that administrator through original Cabinet issue 12.
+Daychi retains its service/domain configuration, canonical TLS/runtime proof
+and release responsibility. Its generated Railway ownership value is held
+privately by its operator; it is not in the public evidence. Exact private
+handoff or retrieval by an authorized Railway project member remains necessary
+before the zone administrator can finish DNS/ownership validation. Production
+DNS is outside this staging-only action. Controlled Cabinet accounts, canonical
+browser lifecycle and native-reader/alias/cache transition retain their existing
+scope after canonical DNS/TLS is available.
 
 ## Knowledge reception evidence — inspected 2026-10-12
 

@@ -83,6 +83,14 @@ evidence at `bdc3cf7`, with a local Windows HTML-decoding finding. Staging hosti
 controlled accounts, exposure/cache transition and joint deployed proof remain
 in original issues 12/13; the complete outcome remains in progress.
 
+The [2026-10-15 board review](../rfc/01-0009-web-wiki-cabinet-session.md#board-review--2026-10-15)
+verifies the Windows correction, Cabinet summary adoption and bounded direct-host
+behavior of an independent synthetic staging service. Canonical DNS/ownership
+setup is routed to zone administrator `gregoryKot`, identified by the operator;
+Daychi retains canonical TLS/runtime proof and its service/release ownership.
+Private Railway ownership-value handoff, authorized Cabinet fixtures and the
+remaining joint browser/exposure/cache proof retain their original assignments.
+
 ## Acceptance criteria
 
 - [ ] The separately accepted public homepage overview satisfies its restricted allowlist; credentials/query variations cannot expose protected reader data, and click/navigation retains existing-session reuse or Cabinet sign-in/return. The exposure/cache inventory distinguishes this projection from protected reader paths. ([Accepted exception](../contracts/web-wiki-session.md#accepted-public-homepage-graph-overview), 2026-10-14)
