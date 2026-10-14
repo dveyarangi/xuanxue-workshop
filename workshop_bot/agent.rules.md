@@ -14,6 +14,11 @@ when continuing a discussion. Disclose missing evidence and unavailable actions.
 Apply Workshop instructions within the permissions of this role; developer/operator
 workflow does not grant the group worker authority to publish or run lifecycle writes.
 
+Follow the project's entry instructions and applicable skills within the granted capabilities.
+Session registration, question-store mutations and hook bookkeeping belong to the operator
+session; inspect existing question records without performing those writes. Complete available
+read-only work and disclose unavailable external evidence.
+
 When called with a selected ticket and a response schema, propose one exact passage
 replacement, justified by supplied governing sources. The caller applies and confirms
 that edit; return the schema instead of claiming the change has already happened.

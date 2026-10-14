@@ -45,22 +45,28 @@ class Codex:
         home = Path.home()
         for path in (home / ".codex", home / ".ssh", home / ".aws"):
             entries.append(json.dumps(str(path)) + '="deny"')
+        # Native project discovery also checks the global entry before the repository.
+        for name in ("AGENTS.md", "AGENTS.override.md"):
+            entries.append(json.dumps(str(home / ".codex" / name)) + '="read"')
         for path, access in ((root, "read"), (private, "deny"), (memory, "write")):
             entries.append(json.dumps(str(path)) + "=" + json.dumps(access))
         settings.append("permissions.workshop.filesystem={" + ",".join(entries) + "}")
         return [part for setting in settings for part in ("-c", setting)]
 
     def chat(self, root, memory, private, question, conversation):
+        root = Path(root).resolve()
+        if not (root / "AGENTS.md").is_file() or not (root / ".agents/skills").is_dir():
+            raise RuntimeError("Workshop harness requires AGENTS.md and .agents/skills")
         rules = Path(__file__).with_name("agent.rules.md").read_text(encoding="utf-8")
         if '<installed by="local">' not in rules:
             raise RuntimeError("Bot instructions are not installed")
         with tempfile.TemporaryDirectory(prefix="workshop-chat-") as temporary:
             output = Path(temporary) / "answer.txt"
             command = [self.executable, "exec", "--ignore-user-config", "--ignore-rules", "--strict-config",
-                       "--ephemeral", "--skip-git-repo-check", "--cd", temporary,
+                       "--ephemeral", "--skip-git-repo-check", "--cd", str(root),
                        "--json", "--output-last-message", str(output),
-                       "-c", 'projects={' + json.dumps(temporary) + '={trust_level="trusted"}}',
-                       "-c", 'web_search="disabled"', "-c", "project_doc_max_bytes=0",
+                       "-c", 'projects={' + json.dumps(str(root)) + '={trust_level="trusted"}}',
+                       "-c", 'web_search="disabled"', "-c", "project_doc_max_bytes=65536",
                        "-c", "developer_instructions=" + json.dumps(rules, ensure_ascii=False)]
             command += self.permissions(root, memory, private)
             for feature in ("shell_tool", "code_mode", "code_mode_host"):
@@ -68,7 +74,7 @@ class Codex:
             # Group authority cannot inherit the operator's connectors, hooks or other agents.
             for feature in ("apps", "plugins", "hooks", "browser_use", "browser_use_external",
                             "computer_use", "image_generation", "multi_agent", "multi_agent_v2",
-                            "skill_search", "view_image"):
+                            "view_image"):
                 command += ["--disable", feature]
             command.append("-")
             prompt = (f"Workshop repository: {root}\nYour writable memory file: {memory}\n"
@@ -82,7 +88,7 @@ class Codex:
                        "COMSPEC", "PATHEXT", "HOMEDRIVE", "HOMEPATH", "CODEX_HOME"}
             environment = {k: v for k, v in os.environ.items() if k.upper() in allowed}
             completed = subprocess.run(command, input=prompt, capture_output=True, encoding="utf-8",
-                                       errors="replace", timeout=self.timeout, env=environment, cwd=temporary)
+                                       errors="replace", timeout=self.timeout, env=environment, cwd=root)
             events = []
             for line in completed.stdout.splitlines():
                 try:

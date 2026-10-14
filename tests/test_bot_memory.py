@@ -10,6 +10,14 @@ from workshop_bot.service import Workshop
 
 
 class MemoryTests(unittest.TestCase):
+    def test_missing_project_entry_fails_before_calling_codex(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            with patch("workshop_bot.codex.subprocess.run") as run:
+                with self.assertRaisesRegex(RuntimeError, "Workshop harness"):
+                    Codex().chat(root, root / "memory.md", root / "private", "Hello", None)
+                run.assert_not_called()
+
     def test_chat_reads_and_writes_plain_memory_without_a_source_bundle(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -38,6 +46,8 @@ class MemoryTests(unittest.TestCase):
     def test_codex_uses_plain_final_text_and_only_memory_is_writable(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
+            (root / "AGENTS.md").write_text("Project instructions", encoding="utf-8")
+            (root / ".agents/skills").mkdir(parents=True)
             memory = root / "MEMORY.md"
             private = root / "private"
             def run(command, **kwargs):
@@ -45,6 +55,9 @@ class MemoryTests(unittest.TestCase):
                 self.assertEqual(command[command.index("shell_tool") - 1], "--enable")
                 self.assertIn("--ignore-user-config", command)
                 self.assertIn("--ignore-rules", command)
+                self.assertEqual(Path(command[command.index("--cd") + 1]), root.resolve())
+                self.assertEqual(Path(kwargs["cwd"]), root.resolve())
+                self.assertNotIn("project_doc_max_bytes=0", command)
                 self.assertIn('approval_policy="never"', command)
                 profile = next(c for c in command if c.startswith("permissions.workshop.filesystem="))
                 self.assertIn(json.dumps(str(memory)) + '="write"', profile)
@@ -59,6 +72,8 @@ class MemoryTests(unittest.TestCase):
     def test_failed_turn_does_not_claim_memory_was_unchanged(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
+            (root / "AGENTS.md").write_text("Project instructions", encoding="utf-8")
+            (root / ".agents/skills").mkdir(parents=True)
             with patch("workshop_bot.codex.subprocess.run", return_value=subprocess.CompletedProcess([], 1, '', 'error: failed')):
                 with self.assertRaisesRegex(RuntimeError, "memory may have changed"):
                     Codex().chat(root, root / "MEMORY.md", root / "private", "Вопрос", None)
