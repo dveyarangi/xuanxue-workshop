@@ -1,5 +1,53 @@
 # Assignment review evidence — 2026-10-05
 
+## Periodic review implementation — 2026-10-15
+
+[workshop-board-review](../tickets/01-0006-workshop-board-review.md) implements the
+accepted same-chat periodic scope. The full agent remains responsible for semantic
+review; mechanical state detects candidates, guards local ownership and retains
+publication outcomes. Neither discovery nor a processing outcome accepts a project.
+
+The authenticated read-only adapter observed all thirteen currently addressed
+issues in every state, complete comments and timelines and one-hop linked GitHub
+evidence. Its saved run reports complete=true and no primary-read errors; unavailable
+linked artifacts remain evidence gaps. The initial state deliberately has no reviewed
+positions, so thirteen candidates mean an unprocessed baseline, not thirteen newly
+arrived or unanswered reports. No original assignment was changed by this read.
+
+Behavioral tests cover edits/deletions, source/check changes, due follow-ups, local
+lease conflicts, intervening manual replies, operation-identifier conflicts,
+external-author marker forgery, interrupted delivery and retained ambiguity.
+The external-comment fixture was created independently of the publication code.
+
+The local HTTP demonstration used five full-agent representative responses supplied
+after reading the current review, acceptance, alignment, security-authority and
+document-authority sources. Missing candidate/check evidence returned waiting;
+complete hypothetical evidence followed existing reconciliation/acknowledgement;
+protocol replacement returned an operator decision; issue-text instruction override
+was rejected; a new closed-issue report retained review. The complete questions,
+answers and processing outcomes are in `.local/board-review/proof-20261015/results.json`
+for operator grading. These are representative scenarios, not acceptance of a real
+contribution or an independent operator grade.
+
+On the first HTTP publication the fixture accepted the comment and closed the
+connection without a response. State retained uncertainty. A restarted reviewer
+confirmed the existing marker/body/author. Across five cases the server retained
+exactly five physical comments; the repeated scan was quiet.
+
+Automatic approval review rejected creating a clearly identified temporary control
+issue in GitHub because it did not find explicit authorization for that persistent
+publication. No control issue or real comment was created. Local HTTP proof was used
+as the safer alternative; real GitHub write/readback and operator grading remain
+incomplete. The fifteen-minute same-chat automation workshop-board-review is prepared
+in PAUSED state. No unattended execution is claimed.
+
+Scoped /verify on 2026-10-15 passed all 52 application tests (including 17 board
+behavior tests), the harness source check, installed-rule agreement, mechanism
+declarations and question/ticket/edge format checks. Existing local progress also
+passed its structural check with thirteen cases. This verifies the implementation
+and local demonstration; the ticket remains Partial while its live-write and
+operator-grade criteria remain open.
+
 ## Local unattended-review authority — 2026-10-14
 
 The user accepted periodic autonomous investigation and original-issue responses

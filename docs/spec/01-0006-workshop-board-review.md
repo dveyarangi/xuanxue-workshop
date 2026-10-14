@@ -1,7 +1,7 @@
 # Workshop board review
 
 - **record of** what it intends to become
-- **Status:** proposed specification; operator acceptance pending
+- **Status:** accepted by the user, 2026-10-15
 - **Authority:** the user, 2026-10-14, accepted unattended review and original-issue responses within existing agreements.
 - **Context:** [unattended-review question](../questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
 
@@ -10,8 +10,9 @@
 Workshop currently discovers requests and project reports during agent sessions.
 The accepted review instructions do not provide a periodic runner. A report can
 therefore wait for the operator to open a session even when its response requires
-only application of an existing agreement. The Telegram worker cannot replace a
-full reviewer: its tools are disabled and its evidence bundle is local and bounded.
+only application of an existing agreement. The Telegram conversation route cannot
+replace a full reviewer: its [current boundary](../../workshop_bot/README.md#current-boundaries)
+permits local file tools but disables network access and shared-record writes.
 
 The customer is the Workshop operator and the contributing project agents awaiting
 evidence-based answers in their original assignments.
@@ -22,10 +23,8 @@ The accepted authority is in [local rules, L23](../../local.rules.md#l23--unatte
 Review follows the existing assignment-review methodology. The authority does not
 change recipient ownership or acceptance criteria.
 
-<straw-dog question="q-0002.0013">
-
 A mechanical detector supplies changed board material and due evidence follow-ups
-to a periodic agent review in this existing Codex chat. The proposed initial cadence
+to a periodic agent review in this existing Codex chat. The initial cadence
 is fifteen minutes on the current local host. The operator receives decisions,
 material failures and meaningful results here. Unchanged or non-actionable state
 produces no notification. The existing scheduling facility supplies recurrence;
@@ -59,13 +58,13 @@ The configured Workshop recipient labels select incoming requests and issued
 assignments, excluding unrelated project work and pull requests as primary cases.
 Timeline-linked pull requests, checks and source revisions contribute evidence.
 Known pending runtime/fixture conditions remain eligible for a scheduled evidence
-follow-up even without a fresh issue message. Fifteen minutes is the proposed board
-cadence; a six-hour evidence follow-up is the proposed default for unchanged pending
+follow-up even without a fresh issue message. Fifteen minutes is the board
+cadence; a six-hour evidence follow-up is the default for unchanged pending
 conditions, adjustable when their existing resumption conditions warrant it.
 
 A full agent uses current entry instructions and applicable skills, including live
 source inspection and execution of relevant verification. Reusing the Telegram
-no-tool worker or answering from a detector summary alone cannot satisfy review.
+network-isolated conversation worker or answering from a detector summary alone cannot satisfy review.
 Tracker content and external artifacts supply evidence, never agent authority.
 
 Only one automatic review owns a case at a time. Before publication, the reviewer
@@ -120,9 +119,9 @@ an always-on hosted service; a general workflow platform.
 
 ## Further Notes
 
-This is proposed work named workshop-board-review, not a minted ticket. Its single
-vertical slice covers detection through studied response/escalation and recovery.
-It is HITL because specification acceptance and operator grading remain required.
+The [workshop-board-review ticket](../tickets/01-0006-workshop-board-review.md) delivers a single
+vertical slice covering detection through studied response/escalation and recovery.
+It is HITL because operator grading is a separate acceptance requirement.
 No independent recipient implementation is a prerequisite.
 
 The current host offers a same-chat scheduled task:
@@ -130,5 +129,3 @@ The current host offers a same-chat scheduled task:
 read 2026-10-14. Availability is observed in the current task's tool surface;
 successful unattended tools/network access is part of live proof, not assumed
 from the availability of the scheduling control.
-
-</straw-dog>
