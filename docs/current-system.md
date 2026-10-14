@@ -233,10 +233,10 @@ The retained collaboration skill matches Workshop `e209d27239391be3af2be71b898c7
 after the project-label/source-revision substitutions, Installation removal and
 blank-line normalization. Its companion matches after the pinned portable-link
 adaptation. AGENTS invokes it at startup and boundary work; CLAUDE points to
-AGENTS. Both currently retain `project:daychi`. GitHub confirms `sleontenko` has
+AGENTS. Both retained `project:daychi` at that inspected revision. GitHub confirms `sleontenko` has
 Workshop write permission; the original issue-9 report demonstrates that account's
 return path. Knowledge's migration record names a Mac Mini checkout and Claude/Codex
-entry points, but retained host files and fresh-session discovery there are unverified.
+entry points; that source inspection alone did not verify the actual host session.
 
 [Knowledge PR 4](https://github.com/sleontenko/daychi-knowledge/pull/4) is merged;
 its inspected CI executed 114 passing tests and the repository guard. The
@@ -248,8 +248,31 @@ the inspected `project:daychi` installation is the baseline for the scoped
 recipient update, not evidence that the accepted label is installed.
 The scoped [Knowledge assignment, issue 10](https://github.com/dveyarangi/xuanxue-workshop/issues/10)
 was published on 2026-10-12; its body and `project:knowledge` label were read back
-and matched the approved brief. Recipient changes and fresh Knowledge-host proof
-remain pending under the [reception question](questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md).
+and matched the approved brief. The reception's accepted result is recorded below.
+
+### Knowledge collaboration acceptance — 2026-10-15
+
+Workshop inspected [Knowledge PR 6](https://github.com/sleontenko/daychi-knowledge/pull/6)
+at `cc75bf1b1e48378d28ff3508a49ccd01353b0b34`: the scoped change sets
+`project:knowledge` and the supplied boundary summary while preserving source
+provenance, retained skill/companion and entry invocation. The PR remains open;
+the inspected default branch is not evidence of its merge or actual host adoption.
+
+The user stated that Knowledge had already been checked, then confirmed all three
+specified observations with "все так" on 2026-10-15: the working Knowledge checkout
+uses `project:knowledge` and the agreed boundary context; a fresh session discovers
+issue 10 through that label; reading and sending replies to Workshop work from
+that Knowledge environment. Workshop accepts this explicit operator-witnessed
+verification as the host evidence for the reception outcome and records it in
+original issue 10. No repeat host run or separate bot-authored report is required
+for this acceptance. An exact local checkout path/branch was not supplied, and
+Workshop does not claim it independently reran that session or that PR 6 merged.
+
+Knowledge's collaboration connection is accepted on that basis. The
+[reception question](questions/done/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md)
+retains its provenance; [structured-article issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9)
+remains a separate application-result review. No import, deployment, release or
+general instruction-source rollout is accepted by collaboration closure.
 
 ## Native log-protection correction — reviewed 2026-10-11
 

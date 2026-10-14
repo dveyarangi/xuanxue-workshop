@@ -40,9 +40,10 @@ The user accepted this participation model on 2026-10-12.
 
 Existing account permission and retained instructions are established in
 [the reception evidence](current-system.md#knowledge-reception-evidence--inspected-2026-10-12).
-Registration does not establish fresh-session invocation or collaboration acceptance
-in the Knowledge checkout. Remaining reception work belongs to
-[the reception question](questions/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md);
+Knowledge's collaboration connection was accepted on 2026-10-15 from the user's
+explicit confirmation of working-checkout context, fresh-session addressed-work
+discovery and Workshop read/reply access. The [acceptance evidence](current-system.md#knowledge-collaboration-acceptance--2026-10-15)
+and [reception question](questions/done/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md) retain its scope and provenance;
 structured-article implementation acceptance remains in
 [original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
 

@@ -2,8 +2,8 @@
 
 - **record of** what it intends to become
 - **state** open
-- **lean** Public pilot amendment 4aec5f8 and original provider/consumer issue updates are published and read back. Cabinet installation is accepted; amended provider conformance, Daychi installation/native proof and broader application contracts remain open. Native account-session scope is minted locally for alignment; unrelated readiness/source-rollout work remains separate. Session 2026-10-12: native account-session contract remains accepted; Cabinet encoded-query log correction verified and published at 93c3f5c. New-project reception rules and independent cold reading are published at cb86837. Knowledge reception is selected for a new session, starting from collaborate already installed according to the user.
-- **struck** 6, last 2026-10-12T05:56Z
+- **lean** Public pilot amendment 4aec5f8 and original provider/consumer issue updates are published and read back. Cabinet installation is accepted; amended provider conformance, Daychi installation/native proof and broader application contracts remain open. Native account-session scope is minted locally for alignment; unrelated readiness/source-rollout work remains separate. Session 2026-10-12: native account-session contract remains accepted; Cabinet encoded-query log correction verified and published at 93c3f5c. New-project reception rules and independent cold reading are published at cb86837. Knowledge collaboration is accepted on 2026-10-15 from the user-confirmed working context, fresh-session addressed-work discovery and Workshop read/reply access; issue 9 application review remains separate.
+- **struck** 7, last 2026-10-14T22:37Z
 
 ## Current decision context
 
