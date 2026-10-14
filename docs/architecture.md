@@ -100,6 +100,14 @@ the [agent contract](agent-contract.md#workshop-address); the
 holds readiness and adoption evidence. Publication and access
 from each operator's environment are dependencies of working agent integration.
 
+## Unattended board review
+
+The [accepted unattended-review authority](agent-contract.md#accepted-unattended-board-review--2026-10-14)
+allows board investigation and responses within existing agreements without approval
+of each response. Operator decisions and recipient ownership remain separate.
+Periodic execution is being shaped in the
+[unattended-review question](questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
+
 ## Telegram access
 
 The [Telegram contract](contracts/telegram-workshop.md) owns group access, replies,
