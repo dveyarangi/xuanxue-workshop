@@ -545,3 +545,22 @@ diff checks passed for this documentation amendment. Existing application-test
 evidence remains valid because no code changed. These results establish the
 contract/assignment handoff; they do not verify the unavailable Daychi candidate
 or the two-site deployed outcome.
+
+### Public-overview amendment publication receipt
+
+The immutable shared authority is published at
+[d689c24af9e848cae8db81e4cc5701f9cb7a610c](https://github.com/dveyarangi/xuanxue-workshop/commit/d689c24af9e848cae8db81e4cc5701f9cb7a610c).
+GitHub returned contract blob `c76a4476682d2b9feff01875fa748b52024d469a`, matching
+the reviewed local blob. Both original assignment bodies were read back against
+the validated drafts with the same immutable authority, companion links,
+`project:cabinet`/`project:daychi` labels and open state. The retained published
+briefs reflect those bodies.
+
+Amendment responses were read back exactly in
+[Cabinet 12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6172076994),
+[Daychi 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6172078770)
+and [article 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6172080608).
+The operator's accepted exception is handed off; inspectable Daychi source/QA,
+hosting/exposure/cache evidence, provider/account lifecycle and joint two-site
+proof remain recipient work. No application source, fixture, DNS or release was
+changed by this handoff.

@@ -1,13 +1,13 @@
 # xuanxue-cabinet: Cabinet session for web-wiki reading
 
-**Published, 2026-10-13:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/12). Recipient label: `project:cabinet`.
+**Published, amended 2026-10-14:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/12). Recipient label: `project:cabinet`.
 The original issue holds current recipient work and reports; this file retains the
 reviewed published assignment. Publication is not implementation or deployed proof.
 
 Accepted web-wiki shared-browser-session implementation assignment.
 
-Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/tickets/01-0009-web-wiki-cabinet-session.md).
-Shared contract revision: `25def59e25fc847764cc43de8d963bf62a16512e`.
+Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/tickets/01-0009-web-wiki-cabinet-session.md).
+Shared contract revision: `d689c24af9e848cae8db81e4cc5701f9cb7a610c`.
 Original coordination request: [app/wiki connection #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 
 ## Recipient and outcome
@@ -42,13 +42,21 @@ are not accepted or implemented by this web assignment.
 
 ## Shared contract and conformance
 
+The operator accepted the limited public homepage graph overview on 2026-10-14.
+The contract's **Accepted public homepage graph overview** section is the sole
+definition of that exception: section names/counts and anonymous structure only;
+material/subtopic names, original identifiers, dates, content and source/recording
+links stay excluded. Daychi owns this separate public projection. The Cabinet
+session wire and all protected reader obligations are unchanged. Acceptance of
+the exception does not verify the reported local candidate or authorize release.
+
 The sole shared definition is the
-[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/contracts/web-wiki-session.md).
+[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/contracts/web-wiki-session.md).
 Its shared-session, environment profiles, compatibility, browser entry/migration, Cabinet-site logout
 and current-session-check sections define exact wire, input validation, statuses,
 cookie lifecycle, common examples and proof cases. Use the same published revision
 as the [Daychi contribution](https://github.com/dveyarangi/xuanxue-workshop/issues/13).
-The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/rfc/01-0009-web-wiki-cabinet-session.md)
+The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/rfc/01-0009-web-wiki-cabinet-session.md)
 maps these obligations and adversarial cases to the whole outcome; it adds no
 alternate protocol. Content DTOs remain Daychi-owned.
 
@@ -93,6 +101,11 @@ retains its accepted scope; it is not a predecessor of this web contribution.
   POST action. GET does not mutate. Confirmed success clears shared and legacy
   cookies; absent/expired-session use, failure/lost-response retry and the normal
   Cabinet login destination retain the agreed behavior. No wiki logout API exists.
+- Retain the existing provider and browser-entry guarantees for Daychi's limited
+  public homepage overview followed by authenticated reader entry. The preview
+  needs no Cabinet auth check or new provider endpoint. Supply the provider side
+  of the existing-session/sign-in return proof; Daychi owns the public projection
+  and its privacy/exposure checks.
 - Supply the complete standing boundary summary below for the recipient's
   collaboration context, preserving surrounding collaboration rules. Own internal
   modules, libraries, tests and release mechanics within the fixed shared contract.
@@ -119,11 +132,11 @@ provider success does not finish the combined connection.
 Existing boundary: Cabinet backend ↔ Cabinet frontend, with local entry points
 `api/`, `web/` and `shared/`. Cabinet owns accounts and current account restrictions.
 Daychi retains its content backend; Knowledge supplies Daychi's editorial/import
-inputs. Current scope/evidence: [Workshop current system](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/current-system.md).
+inputs. Current scope/evidence: [Workshop current system](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/current-system.md).
 
 Accepted target boundaries, joint integration not established: Cabinet backend ↔
 Daychi clients for schedule/account capabilities; Daychi backend ↔ Cabinet backend
-for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/boundaries.md#target-connections)
+for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/boundaries.md#target-connections)
 and [native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/contracts/native-account-session.md) own
 their respective scopes; web-wiki work does not change native bearer/private access.
 
@@ -132,7 +145,12 @@ Cabinet owns issuance/current-account validation, browser entry/return and logou
 Daychi owns protected web delivery and per-request validation through Cabinet.
 All and only valid Cabinet-authenticated web readers receive the same content,
 without additional wiki eligibility or persisted wiki reader credentials/accounts.
-[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/25def59e25fc847764cc43de8d963bf62a16512e/docs/contracts/web-wiki-session.md) owns this boundary.
+[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/contracts/web-wiki-session.md) owns this boundary.
+Daychi's homepage may expose only the contract's separate limited public graph
+overview without a Cabinet session. Existing reader APIs remain protected;
+entering the reader reuses a valid session or signs in with original-page return.
+Daychi owns preview data/projection and exposure controls. This exception changes
+no Cabinet wire, account authority, native/private or editorial/import scope.
 The contract's environment profiles fix matching production/staging origins and
 independent cookie/authority/lifecycle behavior.
 Implementation, coordinated anonymous-access cutover and deployed joint proof
@@ -140,6 +158,14 @@ remain separate evidence from accepting the target.
 ```
 
 ## Acceptance evidence
+
+The same authority distinguishes the allowed homepage overview from protected
+reader delivery. Daychi supplies anonymous and empty-overview examples, absence
+of excluded content/original identities, cookie/query variations that cannot
+broaden exposure, protected-reader refusal, and click navigation with an existing
+session and through sign-in/original-page return. Cabinet supplies the unchanged
+provider/entry/return behavior for that joint proof; preview rendering introduces
+no Cabinet operation or credential dependency.
 
 Include the contract's same-browser environment cases: both sign-in orders,
 independent renewal/logout, own-name duplicate refusal, ignored other-profile
