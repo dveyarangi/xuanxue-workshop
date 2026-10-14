@@ -73,9 +73,30 @@ relevant Workshop documents itself and edits the permitted memory file directly.
 Responsibilities and architecture remain in the shared project documents.
 Group conversation supplies background; it does not expand write permissions.
 
-The running conversation grants direct writes only to the bot's memory file.
-Architecture-document editing is not implemented or granted by this clarification.
-The broader accepted task/question scope remains separately tracked below.
+The implemented conversation currently grants direct writes only to the bot's
+memory file. The accepted factual-correction and change-request scope below is
+not yet implemented; the broader task/question scope remains separately tracked.
+
+### Factual corrections and agreement-change requests
+
+Authority: the user, 2026-10-15: «исправление фактов. изменение договоренностей
+должно ложиться в лог запросов на изменение, который потом будет читаться сессией
+уже тут, со мной».
+
+The bot may correct factual information in Workshop's architectural documents
+when supported by evidence. This does not permit changing accepted obligations,
+ownership or guarantees. A discrepancy between observed implementation and an
+accepted agreement is evidence of a discrepancy, not permission to rewrite the
+agreement to match the implementation. Uncertain facts remain explicit rather
+than being presented as established.
+
+Proposals to change agreements belong in a readable text change-request log.
+Recording a proposal does not approve or apply it. Each entry preserves the
+request, its author and group-message reference, the affected agreement and why
+the change was requested. A later Workshop session with the user reads pending
+requests and records the user's disposition and any resulting decision. This
+review authority is not delegated to unattended board review or the Telegram bot.
+The group answer distinguishes a corrected fact from a proposal awaiting review.
 
 ### Existing task and question authority
 
@@ -101,8 +122,9 @@ and evidence requirements for that action. An unclear request is clarified in th
 conversation; a conflicting request receives an explanation rather than an applied
 change. The bot describes the actual result in simple words.
 
-Changes to code, architecture, agreements, agent rules, publication and assignments
-to other projects retain separate operator agreement in Codex. The granted task
+Changes to code, architectural decisions, agreements, agent rules, publication and
+assignments to other projects retain separate operator agreement in Codex; factual
+corrections and agreement proposals follow the boundary above. The granted task
 and question authority does not extend to those actions or to overwriting another
 session's intervening work. History and necessary conversation bookkeeping remain
 retained. Project documents are information, not an alternative source of authority.
@@ -156,5 +178,9 @@ The operator can inspect the same conversation in Codex. Restart and failure cas
 preserve the agreed history and distinguish processing from confirmed delivery.
 Acceptance also demonstrates an allowed task/question change, clarification of an
 unclear request, refusal of an architecture conflict and operator-visible results.
+Factual-correction acceptance demonstrates an evidenced correction without changing
+an agreed promise. An agreement-change request leaves that promise unchanged,
+survives restart in the text log and is surfaced in a later session with the user;
+the recorded disposition remains distinguishable from the original proposal.
 Executable evidence separately establishes the configured-group restriction and
 the boundary between permitted record changes and actions requiring the operator.

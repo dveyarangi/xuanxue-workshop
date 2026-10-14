@@ -105,7 +105,7 @@ from each operator's environment are dependencies of working agent integration.
 The [assignment-review mechanism](../.agents/mechanisms/review-assignments/review-assignments.md)
 uses locally supplied authority, including the
 [accepted periodic-review authorization](../local.rules.md#l23--unattended-board-review-authority).
-Periodic execution is being shaped in the
+Mechanical discovery and publication recovery are implemented; live activation evidence remains in the
 [unattended-review question](questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
 
 ## Telegram access
@@ -113,8 +113,11 @@ Periodic execution is being shaped in the
 The [Telegram contract](contracts/telegram-workshop.md) owns group access, replies,
 operator history and recovery. Participants may request reasonable task/question
 changes consistent with current architecture; the existing records remain their
-authoritative home. Code, architecture, agreement, agent-rule, publication and
-cross-project assignment changes retain separate operator authority. The bot's
+authoritative home. The contract's
+[factual-correction boundary](contracts/telegram-workshop.md#factual-corrections-and-agreement-change-requests)
+allows evidenced corrections and routes proposed agreement changes to a text log
+for a later session with the user. Code, architectural decisions, agreements,
+agent rules, publication and cross-project assignments retain operator authority. The bot's
 history distinguishes record application from reply delivery.
 
 ## Deferred decisions

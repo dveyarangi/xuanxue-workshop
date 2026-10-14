@@ -155,6 +155,38 @@ module and contact-registration command; keep ownership in the shared contract.
 
 <straw-dog question="q-0002.0012">
 
+## Factual corrections and agreement proposals — next implementation
+
+The user's 2026-10-15 [authority amendment](../contracts/telegram-workshop.md#factual-corrections-and-agreement-change-requests)
+permits evidenced factual corrections and defers agreement changes to a later
+session with the user. The running memory-only permission profile does not yet
+implement either path. This section supersedes earlier blanket architecture-write
+exclusions for factual corrections only.
+
+The candidate uses Codex's existing file tools and a Markdown request log, not
+structured memory updates or a separate classifier. The write boundary must
+distinguish allowed documentation from code, rules and publication; permission to
+write a document does not establish authority to change a promise within it.
+Evidence of implementation drift is recorded as drift, not an amended contract.
+
+The log retains the original request and group-message reference, author, affected
+agreement, reason and review disposition. Its exact home and the local session-entry
+pointer must be settled together so that pending requests reach an attended Codex
+session; writing an otherwise undiscovered file would not satisfy the requirement.
+Review records the user's decision without erasing the proposal. The unattended
+board-review route does not accept these changes on the user's behalf.
+
+Proof covers a supported factual correction, an agreement change disguised as a
+factual correction, an uncertain fact, a repeated request, a concurrent document
+edit, interrupted application and discovery of the pending proposal in a later
+session with the user. Existing delivery uncertainty must not trigger a second edit.
+
+The [two-pass astrobot study](../questions/q-0002.0012-how-should-telegram-provide-access-to-workshop.md#astrobot-study--2026-10-15)
+adds candidates for visible waiting, explicit current time and useful operator
+diagnostics. They are recommendations, not already implemented capabilities or
+new acceptance gates. A separate feedback classifier, remote prompt platform and
+automatic regeneration after failure are unnecessary for this scope.
+
 ## Local application and boundaries
 
 One locally launched Python application receives Telegram updates, retains group
