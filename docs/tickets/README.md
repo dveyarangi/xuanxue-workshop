@@ -2,11 +2,13 @@
 
 - **record of** what it intends to become
 
-**Last updated:** 2026-10-13
+**Last updated:** 2026-10-15
 
 The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
 migration changes and Workshop responsibility have separate homes. Both project
-collaboration installations are accepted; see the [agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
+collaboration installations are accepted; Knowledge's retained connection was
+also accepted on 2026-10-15 from the user's host verification. See the
+[agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
 
 Queue responsibility follows the [agent interaction contract](../agent-contract.md).
 The existing harness path is `docs/tickets/`, with the user's
@@ -39,4 +41,3 @@ assignment. Its proper tracker destination remains in the
 | [01-0009 web-wiki-cabinet-session](./01-0009-web-wiki-cabinet-session.md) | | | |
 | [daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md) | Blocked (horizon) | HITL | Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend. |
 | [telegram-workshop-access](./01-0020-telegram-workshop-access.md) | | | |
-| [knowledge-workshop-collaboration](./01-0030-knowledge-workshop-collaboration.md) | | | |
