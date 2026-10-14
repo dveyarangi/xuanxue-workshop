@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .local/workshop-bot/
+.local/workshop-bot-memory.md
 
 # Loader links are created locally by the harness.
 .claude/skills

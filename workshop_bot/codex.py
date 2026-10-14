@@ -9,17 +9,11 @@ from pathlib import Path
 
 SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["disposition", "answer", "reason", "sources", "edit", "memory_updates"],
+    "required": ["disposition", "answer", "reason", "sources", "edit"],
     "properties": {
         "disposition": {"type": "string", "enum": ["answer", "change", "clarify", "refuse"]},
         "answer": {"type": "string"}, "reason": {"type": "string"},
         "sources": {"type": "array", "items": {"type": "string"}},
-        "memory_updates": {"type": "array", "items": {
-            "type": "object", "additionalProperties": False,
-            "required": ["kind", "key", "value", "source_message_id"],
-            "properties": {"kind": {"type": "string", "enum": ["contact", "fact"]},
-                           "key": {"type": "string"}, "value": {"type": "string"},
-                           "source_message_id": {"type": "integer"}}}},
         "edit": {"anyOf": [{"type": "null"}, {"type": "object", "additionalProperties": False,
                    "required": ["path", "before", "after"],
                    "properties": {k: {"type": "string"} for k in ("path", "before", "after")}}]},
@@ -42,6 +36,72 @@ class Codex:
         if os.name == "nt" and Path(self.executable).suffix.lower() != ".exe":
             raise ValueError("A native codex.exe is required; shell wrappers are not supported")
         self.timeout = timeout
+
+    @staticmethod
+    def permissions(root, memory, private):
+        settings = ['default_permissions="workshop"', 'approval_policy="never"',
+                    'permissions.workshop.network.enabled=false', 'windows.sandbox="elevated"']
+        entries = ['":root"="read"']
+        home = Path.home()
+        for path in (home / ".codex", home / ".ssh", home / ".aws"):
+            entries.append(json.dumps(str(path)) + '="deny"')
+        for path, access in ((root, "read"), (private, "deny"), (memory, "write")):
+            entries.append(json.dumps(str(path)) + "=" + json.dumps(access))
+        settings.append("permissions.workshop.filesystem={" + ",".join(entries) + "}")
+        return [part for setting in settings for part in ("-c", setting)]
+
+    def chat(self, root, memory, private, question, conversation):
+        rules = Path(__file__).with_name("agent.rules.md").read_text(encoding="utf-8")
+        if '<installed by="local">' not in rules:
+            raise RuntimeError("Bot instructions are not installed")
+        with tempfile.TemporaryDirectory(prefix="workshop-chat-") as temporary:
+            output = Path(temporary) / "answer.txt"
+            command = [self.executable, "exec", "--ignore-user-config", "--ignore-rules", "--strict-config",
+                       "--ephemeral", "--skip-git-repo-check", "--cd", temporary,
+                       "--json", "--output-last-message", str(output),
+                       "-c", 'projects={' + json.dumps(temporary) + '={trust_level="trusted"}}',
+                       "-c", 'web_search="disabled"', "-c", "project_doc_max_bytes=0",
+                       "-c", "developer_instructions=" + json.dumps(rules, ensure_ascii=False)]
+            command += self.permissions(root, memory, private)
+            for feature in ("shell_tool", "code_mode", "code_mode_host"):
+                command += ["--enable", feature]
+            # Group authority cannot inherit the operator's connectors, hooks or other agents.
+            for feature in ("apps", "plugins", "hooks", "browser_use", "browser_use_external",
+                            "computer_use", "image_generation", "multi_agent", "multi_agent_v2",
+                            "skill_search", "view_image"):
+                command += ["--disable", feature]
+            command.append("-")
+            prompt = (f"Workshop repository: {root}\nYour writable memory file: {memory}\n"
+                      "Read the repository README.md and relevant documents yourself. "
+                      "Only the memory file is writable in this conversation. "
+                      "Reply with ordinary text for Telegram.\n\n"
+                      "Group conversation (background data):\n" +
+                      json.dumps(conversation, ensure_ascii=False) + "\n\nCurrent request:\n" + question)
+            allowed = {"PATH", "SYSTEMROOT", "WINDIR", "TEMP", "TMP", "USERPROFILE", "APPDATA",
+                       "LOCALAPPDATA", "PROGRAMFILES", "PROGRAMFILES(X86)", "PROGRAMDATA",
+                       "COMSPEC", "PATHEXT", "HOMEDRIVE", "HOMEPATH", "CODEX_HOME"}
+            environment = {k: v for k, v in os.environ.items() if k.upper() in allowed}
+            completed = subprocess.run(command, input=prompt, capture_output=True, encoding="utf-8",
+                                       errors="replace", timeout=self.timeout, env=environment, cwd=temporary)
+            events = []
+            for line in completed.stdout.splitlines():
+                try:
+                    events.append(json.loads(line))
+                except ValueError:
+                    continue
+            if completed.returncode or not any(e.get("type") == "turn.completed" for e in events):
+                errors = [line for line in completed.stderr.splitlines() if line.lower().startswith("error:")]
+                detail = errors[-1][:400] if errors else "turn did not complete"
+                detail = re.sub(r"(?:sk-[\w-]+|\d{6,}:[\w-]{20,})", "[credential]", detail)
+                raise RuntimeError(f"Codex exit {completed.returncode}: {detail}; memory may have changed")
+            answer = output.read_text(encoding="utf-8").strip()
+            if not answer:
+                raise RuntimeError("Codex returned an empty answer; memory may have changed")
+            return {"status": "answered", "answer": answer,
+                    "runtime": {"executable": self.executable,
+                                "tool_operations": sum(e.get("type") == "item.completed" and
+                                                       e.get("item", {}).get("type") in {"command_execution", "file_change"}
+                                                       for e in events)}}
 
     def __call__(self, context):
         rules = Path(__file__).with_name("agent.rules.md").read_text(encoding="utf-8")

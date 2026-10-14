@@ -9,7 +9,32 @@ from workshop_bot.telegram_api import TelegramError
 from tests.test_telegram import TelegramPeer, message
 
 
+def operators(root):
+    path = root / "docs/agent-contract.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("# Contract\n\n## Responsible operators\n\n"
+                    "| Scope | Responsible operator (Telegram) |\n|---|---|\n"
+                    "| cabinet | @kotlarewski |\n| dns | @kotlarewski |\n"
+                    "| daychi | @stnleo |\n| knowledge | @stnleo |\n", encoding="utf-8")
+    return path
+
+
 class OutboxTests(unittest.TestCase):
+    def test_memory_cannot_override_owner_and_document_change_takes_effect(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            group = Group(Workshop(root, root / "state.sqlite3", None), TelegramPeer(), -100123)
+            group.check_group()
+            path = operators(root)
+            group.workshop.memory.write_text("Knowledge belongs to @someone", encoding="utf-8")
+            self.assertEqual(group.outbox.send("one", "knowledge", "First")["username"], "@stnleo")
+            path.write_text(path.read_text(encoding="utf-8").replace("| knowledge | @stnleo |", "| knowledge | @newowner |"), encoding="utf-8")
+            self.assertEqual(group.outbox.send("two", "knowledge", "Second")["username"], "@newowner")
+            path.write_text(path.read_text(encoding="utf-8") + "| knowledge | @another |\n", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                group.outbox.send("three", "knowledge", "Third")
+            self.assertEqual(len(group.api.sent), 2)
+
     def test_lost_confirmation_and_process_interruption_never_resend(self):
         for error in (TimeoutError("lost"), SystemExit("crashed"), TelegramError(403)):
             with self.subTest(error=type(error).__name__), tempfile.TemporaryDirectory() as temporary:
@@ -25,7 +50,7 @@ class OutboxTests(unittest.TestCase):
                 peer = Faulty()
                 group = Group(Workshop(root, root / "state.sqlite3", None), peer, -100123)
                 group.check_group()
-                group.outbox.register("dns", "@kotlarewski")
+                operators(root)
                 try:
                     group.outbox.send("dns-1", "dns", "Нужен адрес")
                 except SystemExit:
@@ -52,7 +77,7 @@ class OutboxTests(unittest.TestCase):
 
             group = Group(Workshop(root, root / "state.sqlite3", None), Waiting(), -100123)
             group.check_group()
-            group.outbox.register("daychi", "@stnleo")
+            operators(root)
             results = []
             worker = threading.Thread(target=lambda: results.append(group.outbox.send("one", "daychi", "Вопрос")))
             worker.start()
@@ -98,7 +123,7 @@ class OutboxTests(unittest.TestCase):
             root = Path(temporary)
             group = Group(Workshop(root, root / "state.sqlite3", None), TelegramPeer(), -100123)
             group.check_group()
-            group.outbox.register("daychi", "@stnleo")
+            operators(root)
             for recipient, body in (("unknown", "Hello"), ("daychi", "😀" * 2000),
                                     ("daychi", "sk-" + "x" * 30)):
                 with self.subTest(recipient=recipient), self.assertRaises(ValueError):
@@ -117,7 +142,7 @@ class OutboxTests(unittest.TestCase):
 
             group = Group(Workshop(root, root / "state.sqlite3", agent), TelegramPeer(), -100123)
             group.start()
-            group.outbox.register("daychi", "@stnleo")
+            operators(root)
             sent = group.outbox.send("question-1", "daychi", "Когда можно проверить вход?")
             reply = message(200, "Завтра утром")
             reply["message"]["entities"] = []
@@ -129,14 +154,14 @@ class OutboxTests(unittest.TestCase):
             self.assertTrue(any("Когда можно проверить вход?" in item["text"]
                                 for item in contexts[0]["conversation"]["messages"]))
 
-    def test_registered_operator_gets_one_mention_and_duplicate_survives_restart(self):
+    def test_documented_operator_gets_one_mention_and_duplicate_survives_restart(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             app = Workshop(root, root / "state.sqlite3", None)
             peer = TelegramPeer()
             group = Group(app, peer, -100123)
             group.check_group()
-            group.outbox.register("cabinet", "@kotlarewski")
+            operators(root)
             result = group.outbox.send("cabinet-question-1", "cabinet", "Нужен ответ по входу <текст> 😀")
             self.assertEqual(result["status"], "sent")
             self.assertEqual(result["message_url"], "https://t.me/c/123/101")

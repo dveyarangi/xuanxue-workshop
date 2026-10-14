@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import re
 
 from .service import redact
 from .telegram_api import TelegramError
@@ -13,13 +14,29 @@ class Outbox:
                        "id TEXT PRIMARY KEY, recipient TEXT, username TEXT, body TEXT, text TEXT, "
                        "created TEXT, status TEXT, message_id INTEGER, error TEXT)")
 
-    def register(self, alias, username):
-        entry = {"kind": "contact", "key": alias, "value": username,
-                 "source": {"channel": "codex", "created": datetime.now(timezone.utc).isoformat()}}
-        result = self.workshop.memory.append([entry])
-        if result["conflict"]:
-            raise ValueError("Для этой роли уже записан другой контакт; сначала разрешите противоречие.")
-        return entry
+    def operator(self, scope):
+        path = self.workshop.path("docs/agent-contract.md")
+        if not path.is_file():
+            raise ValueError("Не найден договор Workshop с ответственными операторами.")
+        document = path.read_text(encoding="utf-8-sig")
+        sections = document.split("\n## Responsible operators\n")
+        if len(sections) != 2:
+            raise ValueError("Не найден однозначный раздел ответственных операторов.")
+        section = sections[1].split("\n## ", 1)[0]
+        operators = {}
+        for line in section.splitlines():
+            if not line.startswith("|"):
+                continue
+            cells = [cell.strip() for cell in line.strip("|").split("|")]
+            if cells == ["Scope", "Responsible operator (Telegram)"] or all(re.fullmatch(r":?-+:?", c) for c in cells):
+                continue
+            if (len(cells) != 2 or not re.fullmatch(r"[a-z][a-z0-9_-]{0,63}", cells[0]) or
+                    not re.fullmatch(r"@[A-Za-z][A-Za-z0-9_]{4,31}", cells[1]) or cells[0] in operators):
+                raise ValueError("Раздел ответственных операторов содержит неоднозначную запись.")
+            operators[cells[0]] = cells[1]
+        if scope not in operators:
+            raise ValueError("Ответственный не указан в договоре Workshop; отправка остановлена.")
+        return operators[scope]
 
     def send(self, request_id, recipient, body):
         if self.group.identity is None:
@@ -36,9 +53,7 @@ class Outbox:
                 if previous["recipient"] != recipient or previous["body"] != body:
                     raise ValueError("Этот идентификатор уже принадлежит другому сообщению.")
                 return self.record(previous)
-            username = self.workshop.memory.contact(recipient)
-            if not username:
-                raise ValueError("Ответственный не указан в памяти бота; отправка остановлена.")
+            username = self.operator(recipient)
             text = f"{username} · {recipient}\nСообщение от Workshop:\n\n{body}"
             if len(text.encode("utf-16-le")) // 2 > 4000:
                 raise ValueError("Сообщение слишком длинное; сократите его перед отправкой.")

@@ -1,71 +1,67 @@
+import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from workshop_bot.codex import Codex
 from workshop_bot.service import Workshop
-from workshop_bot.telegram import Group
-from tests.test_telegram import TelegramPeer, message
 
 
 class MemoryTests(unittest.TestCase):
-    def test_memory_conflict_and_invented_source_leave_existing_memory_unchanged(self):
-        for source_id in (11, 999):
-            with self.subTest(source_id=source_id), tempfile.TemporaryDirectory() as temporary:
-                root = Path(temporary)
-                app = Workshop(root, root / "state.sqlite3", lambda context: {
-                    "disposition": "answer", "answer": "Новые сведения.", "reason": "", "sources": [], "edit": None,
-                    "memory_updates": [{"kind": "fact", "key": "new-fact", "value": "Другое сведение", "source_message_id": source_id},
-                                       {"kind": "contact", "key": "daychi", "value": "@someone", "source_message_id": source_id}]})
-                group = Group(app, TelegramPeer([message()]), -100123)
-                group.outbox.register("daychi", "@stnleo")
-                before = app.memory.path.read_bytes()
-                group.start()
-                group.poll_once(0)
-                group.work_once()
-                self.assertEqual(app.memory.path.read_bytes(), before)
-                self.assertEqual(group.history()[0]["result"]["status"], "clarification" if source_id == 11 else "failed")
-
-    def test_failed_memory_replacement_preserves_the_existing_file(self):
+    def test_chat_reads_and_writes_plain_memory_without_a_source_bundle(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            app = Workshop(root, root / "state.sqlite3", None)
-            old = {"kind": "fact", "key": "one", "value": "Первый факт", "source": {"channel": "codex"}}
-            app.memory.append([old])
-            before = app.memory.path.read_bytes()
-            with patch("workshop_bot.memory.os.replace", side_effect=OSError("write failed")):
-                with self.assertRaises(OSError):
-                    app.memory.append([{**old, "key": "two", "value": "Второй факт"}])
-            self.assertEqual(app.memory.path.read_bytes(), before)
 
-    def test_group_fact_is_saved_with_source_and_reaches_the_next_answer(self):
+            class Agent:
+                def chat(self, repository, memory, private, question, conversation):
+                    self.assertions = (repository == root, conversation == {"messages": []})
+                    self.before = memory.read_text(encoding="utf-8")
+                    memory.write_text("# Память\nВстреча в четверг.\n", encoding="utf-8")
+                    return {"status": "answered", "answer": "Запомнил встречу."}
+
+            agent = Agent()
+            app = Workshop(root, root / "private/history.sqlite3", agent)
+            app.memory.write_text("# Память\nПредыдущая заметка.\n", encoding="utf-8")
+            with patch.object(app, "context", side_effect=AssertionError("fixed bundle used")):
+                result = app.ask("one", "Запомни встречу", conversation={"messages": []})
+            self.assertEqual(result["status"], "answered")
+            self.assertTrue(all(agent.assertions))
+            self.assertIn("Предыдущая заметка", agent.before)
+            self.assertIn("Встреча в четверг", app.memory.read_text(encoding="utf-8"))
+            app.memory.write_text("Изменено оператором", encoding="utf-8")
+            self.assertEqual(app.ask("one", "Запомни встречу", conversation={"messages": []}), result)
+            self.assertEqual(app.memory.read_text(encoding="utf-8"), "Изменено оператором")
+            self.assertFalse((root / "private/memory.json").exists())
+
+    def test_codex_uses_plain_final_text_and_only_memory_is_writable(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            contexts = []
+            memory = root / "MEMORY.md"
+            private = root / "private"
+            def run(command, **kwargs):
+                self.assertNotIn("--output-schema", command)
+                self.assertEqual(command[command.index("shell_tool") - 1], "--enable")
+                self.assertIn("--ignore-user-config", command)
+                self.assertIn("--ignore-rules", command)
+                self.assertIn('approval_policy="never"', command)
+                profile = next(c for c in command if c.startswith("permissions.workshop.filesystem="))
+                self.assertIn(json.dumps(str(memory)) + '="write"', profile)
+                self.assertEqual(profile.count('="write"'), 1)
+                self.assertIn(json.dumps(str(private)) + '="deny"', profile)
+                Path(command[command.index("--output-last-message") + 1]).write_text("Обычный ответ.", encoding="utf-8")
+                return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}\n', '')
+            with patch("workshop_bot.codex.subprocess.run", side_effect=run):
+                result = Codex().chat(root, memory, private, "Вопрос", None)
+            self.assertEqual(result["answer"], "Обычный ответ.")
 
-            def agent(context):
-                contexts.append(context)
-                return {"disposition": "answer", "answer": "За расписание отвечает Анна.",
-                        "reason": "", "sources": [], "edit": None,
-                        "memory_updates": [{"kind": "fact", "key": "schedule-owner",
-                                            "value": "За расписание отвечает Анна.", "source_message_id": 11}]
-                                          if len(contexts) == 1 else []}
-
-            app = Workshop(root, root / "state.sqlite3", agent)
-            ordinary = message(1, "За расписание отвечает Анна.")
-            ordinary["message"]["entities"] = []
-            peer = TelegramPeer([ordinary, message(2, "@workshop_bot Запомни, кто отвечает за расписание")])
-            group = Group(app, peer, -100123)
-            group.start()
-            group.poll_once(0)
-            group.work_once()
-            self.assertTrue((root / "memory.json").is_file())
-            remembered = app.memory.read()[0]
-            self.assertEqual(remembered["source"]["message_id"], 11)
-            self.assertEqual(remembered["source"]["sender"]["id"], 7)
-            self.assertIn("Запомнил", peer.sent[0]["text"])
-            app.ask("next-question", "Кто отвечает за расписание?")
-            self.assertEqual(contexts[1]["memory"], [remembered])
+    def test_failed_turn_does_not_claim_memory_was_unchanged(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            with patch("workshop_bot.codex.subprocess.run", return_value=subprocess.CompletedProcess([], 1, '', 'error: failed')):
+                with self.assertRaisesRegex(RuntimeError, "memory may have changed"):
+                    Codex().chat(root, root / "MEMORY.md", root / "private", "Вопрос", None)
 
 
 if __name__ == "__main__":

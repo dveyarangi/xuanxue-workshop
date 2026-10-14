@@ -28,9 +28,6 @@ def main():
     subcommands.add_parser("telegram-history")
     subcommands.add_parser("memory")
     subcommands.add_parser("telegram-outbox")
-    contact = subcommands.add_parser("telegram-contact")
-    contact.add_argument("alias")
-    contact.add_argument("username")
     send = subcommands.add_parser("telegram-send")
     send.add_argument("--to", required=True, dest="recipient")
     send.add_argument("--message-file", required=True, type=Path)
@@ -42,13 +39,11 @@ def main():
         return 0
     app = Workshop(args.root, state, Codex())
     if args.command == "memory":
-        print(json.dumps(app.memory.read(), ensure_ascii=False, indent=2))
+        print(app.memory.read_text(encoding="utf-8"))
         return 0
-    if args.command in {"telegram-contact", "telegram-send", "telegram-outbox"}:
+    if args.command in {"telegram-send", "telegram-outbox"}:
         group = configured_group(app, state.parent)
-        if args.command == "telegram-contact":
-            result = group.outbox.register(args.alias, args.username)
-        elif args.command == "telegram-outbox":
+        if args.command == "telegram-outbox":
             result = group.outbox.history()
         else:
             body = args.message_file.read_text(encoding="utf-8-sig")
