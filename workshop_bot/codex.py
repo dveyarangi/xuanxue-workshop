@@ -9,11 +9,17 @@ from pathlib import Path
 
 SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["disposition", "answer", "reason", "sources", "edit"],
+    "required": ["disposition", "answer", "reason", "sources", "edit", "memory_updates"],
     "properties": {
         "disposition": {"type": "string", "enum": ["answer", "change", "clarify", "refuse"]},
         "answer": {"type": "string"}, "reason": {"type": "string"},
         "sources": {"type": "array", "items": {"type": "string"}},
+        "memory_updates": {"type": "array", "items": {
+            "type": "object", "additionalProperties": False,
+            "required": ["kind", "key", "value", "source_message_id"],
+            "properties": {"kind": {"type": "string", "enum": ["contact", "fact"]},
+                           "key": {"type": "string"}, "value": {"type": "string"},
+                           "source_message_id": {"type": "integer"}}}},
         "edit": {"anyOf": [{"type": "null"}, {"type": "object", "additionalProperties": False,
                    "required": ["path", "before", "after"],
                    "properties": {k: {"type": "string"} for k in ("path", "before", "after")}}]},

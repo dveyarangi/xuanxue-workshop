@@ -12,6 +12,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from .records import exclusive_record
+from .memory import Memory
 
 
 def redact(value):
@@ -30,6 +31,7 @@ class Workshop:
         self.state = Path(state).resolve()
         self.agent = agent
         self.state.parent.mkdir(parents=True, exist_ok=True)
+        self.memory = Memory(self.state.parent / "memory.json")
         with self.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS requests "
                        "(id TEXT PRIMARY KEY, sender TEXT, created TEXT, question TEXT, target TEXT, result TEXT)")
@@ -82,6 +84,19 @@ class Workshop:
                       "source_versions": context["versions"]}
             if "runtime" in decision:
                 result["runtime"] = decision["runtime"]
+            updates = decision.get("memory_updates", [])
+            if updates:
+                if disposition not in {"answer", "clarify"}:
+                    raise ValueError("Memory and record changes require separate requests")
+                remembered = self.remember(updates, context)
+                result["memory"] = remembered
+                if remembered["conflict"]:
+                    conflict = remembered["conflict"]
+                    result.update(status="clarification", answer="В памяти записано: «" + conflict["previous"]["value"] +
+                                  "». Новое сведение: «" + conflict["proposed"]["value"] +
+                                  "». Уточните правильный вариант оператору Workshop; прежняя запись сохранена.")
+                elif remembered["added"]:
+                    result["answer"] += "\n\nЗапомнил: " + "; ".join(entry["value"] for entry in remembered["added"])
             if disposition == "change":
                 result = self.apply(request_id, context, decision, result)
         except Exception as error:
@@ -97,6 +112,27 @@ class Workshop:
         result = redact(result)
         self.save(request_id, result)
         return result
+
+    def remember(self, updates, context):
+        if not isinstance(updates, list) or len(updates) > 8:
+            raise ValueError("Invalid memory additions")
+        conversation = context.get("conversation", {})
+        sources = {message["message_id"]: message for message in conversation.get("messages", [])
+                   if message.get("role") == "user"}
+        current = conversation.get("current", {})
+        if "message_id" in current:
+            sources[current["message_id"]] = current
+        entries = []
+        for update in updates:
+            message_id = update.get("source_message_id")
+            if type(message_id) is not int or message_id not in sources or "chat_id" not in conversation:
+                raise ValueError("Memory source is not a supplied group message")
+            source = sources[message_id]
+            entries.append({"kind": update["kind"], "key": update["key"], "value": update["value"],
+                            "source": {"channel": "telegram", "chat_id": conversation["chat_id"],
+                                       "message_id": message_id, "sender": source.get("sender"),
+                                       "created": source.get("created")}})
+        return self.memory.append(redact(entries))
 
     def save(self, request_id, result):
         with self.connect() as db:
@@ -206,7 +242,7 @@ class Workshop:
         for name in instructions:
             versions[name] = hashlib.sha256(self.path(name).read_bytes()).hexdigest()
         context = {"question": question, "target": target, "documents": documents, "versions": versions,
-                   "instructions": instructions,
+                   "instructions": instructions, "memory": self.memory.read(),
                    "evidence_scope": "Selected local documents and question records in docs/questions only; "
                    "no live GitHub reads, complete question-store window or store operations in this stage."}
         if len(json.dumps(context, ensure_ascii=False).encode("utf-8")) > 750_000:

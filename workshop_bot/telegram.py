@@ -5,6 +5,7 @@ from urllib.parse import parse_qs, urlsplit
 
 from .service import redact
 from .telegram_api import TelegramError
+from .telegram_outbox import Outbox
 
 
 class Group:
@@ -32,8 +33,16 @@ class Group:
                 db.execute("ALTER TABLE telegram_requests ADD COLUMN context TEXT")
             db.execute("UPDATE telegram_requests SET conversation_id=message_id "
                        "WHERE conversation_id IS NULL AND status != 'observed'")
+        self.outbox = Outbox(self)
 
     def start(self):
+        self.check_group()
+        with self.workshop.connect() as db:
+            db.execute("UPDATE telegram_requests SET status='uncertain', error='Подтверждение отправки потеряно.' "
+                       "WHERE status='sending'")
+            db.execute("UPDATE telegram_requests SET status='queued' WHERE status='processing'")
+
+    def check_group(self):
         identity = self.api.call("getMe")
         if not identity.get("is_bot") or not identity.get("username"):
             raise ValueError("Telegram не подтвердил аккаунт бота.")
@@ -55,9 +64,6 @@ class Group:
             if old and old[0] != binding:
                 raise ValueError("Эта история принадлежит другому боту или группе.")
             db.execute("INSERT OR IGNORE INTO telegram_meta VALUES ('binding', ?)", (binding,))
-            db.execute("UPDATE telegram_requests SET status='uncertain', error='Подтверждение отправки потеряно.' "
-                       "WHERE status='sending'")
-            db.execute("UPDATE telegram_requests SET status='queued' WHERE status='processing'")
         self.identity = identity
 
     def poll_once(self, timeout=25):
@@ -109,6 +115,9 @@ class Group:
             with self.workshop.connect() as db:
                 parent = db.execute("SELECT * FROM telegram_requests WHERE EXISTS "
                                     "(SELECT 1 FROM json_each(sent_ids) WHERE value=?)", (reply_to,)).fetchone()
+                if parent is None:
+                    parent = db.execute("SELECT message_id AS conversation_id FROM telegram_outbox "
+                                        "WHERE status='sent' AND message_id=?", (reply_to,)).fetchone()
         addressed = bool(references) or parent is not None
         remaining = text
         for reference in references:
@@ -209,7 +218,11 @@ class Group:
         with self.workshop.connect() as db:
             rows = db.execute("SELECT * FROM telegram_requests WHERE message_id < ? ORDER BY message_id",
                               (request["message_id"],)).fetchall()
-        messages = []
+            outgoing = db.execute("SELECT * FROM telegram_outbox WHERE status='sent' AND message_id < ?",
+                                  (request["message_id"],)).fetchall()
+        messages = [{"message_id": row["message_id"], "role": "assistant", "text": row["text"],
+                     "created": row["created"], "conversation_id": row["message_id"],
+                     "recipient": row["recipient"]} for row in outgoing]
         for row in rows:
             messages.append({"message_id": row["message_id"], "role": "user", "text": row["body"],
                              "sender": json.loads(row["sender"]), "created": row["created"],
@@ -232,7 +245,7 @@ class Group:
             selected.append(message)
             size += length
         selected.sort(key=lambda message: message["message_id"])
-        return {"messages": selected, "omitted_messages": len(messages) - len(selected),
+        return {"chat_id": self.group_id, "messages": selected, "omitted_messages": len(messages) - len(selected),
                 "scope": "Received group text/captions and confirmed bot replies; no pre-collection archive, "
                          "attachment contents or messages Telegram did not deliver.",
                 "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),

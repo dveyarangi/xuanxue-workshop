@@ -26,12 +26,36 @@ def main():
     telegram = subcommands.add_parser("telegram")
     telegram.add_argument("--once", action="store_true")
     subcommands.add_parser("telegram-history")
+    subcommands.add_parser("memory")
+    subcommands.add_parser("telegram-outbox")
+    contact = subcommands.add_parser("telegram-contact")
+    contact.add_argument("alias")
+    contact.add_argument("username")
+    send = subcommands.add_parser("telegram-send")
+    send.add_argument("--to", required=True, dest="recipient")
+    send.add_argument("--message-file", required=True, type=Path)
+    send.add_argument("--request-id", required=True)
     args = parser.parse_args()
     state = args.state or args.root / ".local/workshop-bot/history.sqlite3"
     if args.command == "telegram-setup":
         setup(state.parent, args.group)
         return 0
     app = Workshop(args.root, state, Codex())
+    if args.command == "memory":
+        print(json.dumps(app.memory.read(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command in {"telegram-contact", "telegram-send", "telegram-outbox"}:
+        group = configured_group(app, state.parent)
+        if args.command == "telegram-contact":
+            result = group.outbox.register(args.alias, args.username)
+        elif args.command == "telegram-outbox":
+            result = group.outbox.history()
+        else:
+            body = args.message_file.read_text(encoding="utf-8-sig")
+            group.check_group()
+            result = group.outbox.send(args.request_id, args.recipient, body)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 1 if isinstance(result, dict) and result.get("status") in {"rejected", "uncertain"} else 0
     if args.command == "telegram":
         group = configured_group(app, state.parent)
         print("Запускается приём обращений Telegram. Ctrl+C останавливает процесс; история сохраняется.")
