@@ -374,6 +374,20 @@ decision, commit, publication and next-cycle checkpoints. Explicit user
 restrictions take precedence.
 </rule>
 
+## L23 — unattended board-review authority
+
+- **target** `AGENTS.md`
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **authority** the user, 2026-10-14, accepted periodic autonomous review; placement correction authorized in the same conversation
+
+<rule>
+For periodic Workshop board review, the operator's standing authorization covers
+investigation and original-issue responses within existing agreements and review
+requirements, without approval of each response. Escalate new shared decisions and
+actions outside this scope to the operator. Separate delivery work retains its
+existing checkpoints and recipient ownership.
+</rule>
+
 ## L16 — strict shared obligations with a lightweight process
 
 - **target** `AGENTS.md`

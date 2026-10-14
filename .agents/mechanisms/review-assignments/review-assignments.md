@@ -8,8 +8,10 @@
 
 The instruction discovers issued assignments and incoming requests at session
 entry and handles current reports under the coordinating project's contract.
-The project supplies tracker, responsibility, context and review obligations
-through local rules. Relevant findings return to the existing coordination
+The project supplies tracker, responsibility, context, review obligations and
+local review authority through local rules. A standing authorization can cover
+periodic review; changing its activation does not change the shared responsibility
+or acceptance contract. Relevant findings return to the existing coordination
 pass at the affected stage; an in-progress review is reused rather than restarted.
 The original issue conversation holds review history and acceptance evidence.
 Discovery follows timeline references to reports and artifacts, including reports
@@ -28,6 +30,7 @@ decisions and reviews but do not establish operational readiness.
 | reviewing cross-project work after session recovery | `.agents/skills/review-assignments/SKILL.md` | |
 | routing a blocker or changed obligation back into coordination | `.agents/skills/coordinate/SKILL.md` | |
 | handling a project report or incoming request | `.agents/skills/review-assignments/SKILL.md` | |
+| applying locally delegated authority during a periodic review | `.agents/skills/review-assignments/SKILL.md` | |
 | reading reports and artifacts linked through an issue's timeline | `.agents/skills/review-assignments/SKILL.md` | |
 | reassessing dependency necessity and fulfillment from observed conditions | `.agents/skills/review-assignments/SKILL.md` | |
 | reviewing relevant discussions when reconciliation begins or resumes | `.agents/skills/review-assignments/SKILL.md` | |

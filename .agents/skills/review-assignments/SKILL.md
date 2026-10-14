@@ -165,4 +165,10 @@ After handling the findings, report what changed, what remains blocked or undeci
 and where the existing queue stands. Preserve its order. Resume already-authorized
 work; use /align when a decision is needed and retain the next-cycle checkpoint.
 If nothing new requires action, continue the agreed work.
+
+**L23** For periodic Workshop board review, the operator's standing authorization covers
+investigation and original-issue responses within existing agreements and review
+requirements, without approval of each response. Escalate new shared decisions and
+actions outside this scope to the operator. Separate delivery work retains its
+existing checkpoints and recipient ownership.
 </installed>

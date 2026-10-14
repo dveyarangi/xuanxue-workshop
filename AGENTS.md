@@ -271,6 +271,12 @@ call. Preserve the original issue as the communication channel and the existing
 decision, commit, publication and next-cycle checkpoints. Explicit user
 restrictions take precedence.
 
+**L23** For periodic Workshop board review, the operator's standing authorization covers
+investigation and original-issue responses within existing agreements and review
+requirements, without approval of each response. Escalate new shared decisions and
+actions outside this scope to the operator. Separate delivery work retains its
+existing checkpoints and recipient ownership.
+
 **L16** Workshop coordinates shared obligations and compatibility between autonomous
 projects. Be strict about interfaces and light on process. Local work proceeds
 under the project's own authority; changes to shared promises require coordination.
