@@ -11,6 +11,7 @@
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/reconcile/SKILL.md` | `## Project context` |
 | `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
+| `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 | `skills/collaborate/SKILL.md` | `## Installation` |
@@ -374,6 +375,22 @@ investigation and original-issue responses within existing agreements and review
 requirements, without approval of each response. Escalate new shared decisions and
 actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
+</rule>
+
+## L25 — hourly board-review reports and wake visibility
+
+- **target** `AGENTS.md`
+- **target** `.agents/skills/recall/SKILL.md`
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **authority** the user, 2026-10-15, hourly review with a report after every run and the latest report shown at every wake in this chat
+
+<rule>
+In the board-review chat, run periodic review hourly and end every invocation with
+a short dated report of reviewed scope, results, pending operator actions and
+failures, including unchanged state. Distinguish incomplete reads from no changes.
+Retain reports in this chat's history. On every wake of this user chat, show the
+latest run report with its date; retrieve it from chat history if absent from
+context. If no run report exists, say so.
 </rule>
 
 ## L24 — directed Telegram messages from Codex

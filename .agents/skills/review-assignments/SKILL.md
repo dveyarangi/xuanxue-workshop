@@ -174,4 +174,11 @@ investigation and original-issue responses within existing agreements and review
 requirements, without approval of each response. Escalate new shared decisions and
 actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
+
+**L25** In the board-review chat, run periodic review hourly and end every invocation with
+a short dated report of reviewed scope, results, pending operator actions and
+failures, including unchanged state. Distinguish incomplete reads from no changes.
+Retain reports in this chat's history. On every wake of this user chat, show the
+latest run report with its date; retrieve it from chat history if absent from
+context. If no run report exists, say so.
 </installed>

@@ -15,9 +15,10 @@ Finish only after confirmed publication or a studied no-response outcome. Use wa
 evidence and operator for a decision requiring the operator; retain the concrete resumption
 condition. New shared decisions and actions outside authority remain with the operator.
 
-Return decisions, meaningful results and actionable failures to the originating chat. Stay quiet
-for unchanged or non-actionable state and previously reported uncertainty. Reassess due evidence
-conditions without inventing a new project requirement.
+Return decisions, meaningful results and actionable failures to the originating chat. Follow
+configured reporting requirements; otherwise stay quiet for unchanged or non-actionable state
+and previously reported uncertainty. Reassess due evidence conditions without inventing a new
+project requirement.
 
 ## Commands
 
