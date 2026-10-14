@@ -1,5 +1,24 @@
 # Rule failures
 
+## 2026-10-15 — File readability mistaken for harness integration
+
+Status: repaired; native entry, skill selection and scoped-write verification passed.
+
+The Telegram contract's existing task/question authority required Workshop's entry
+instructions and skills. The direct-Codex implementation proved file reading and
+memory writing, but retained a temporary working directory and a zero project-document
+limit. Those disabled native project entry. The missing behavior was found only
+when the user asked explicitly whether the bot had the whole harness.
+
+Rules in play: [verify, Check and repair](../.agents/skills/verify/SKILL.md#check-and-repair)
+requires comparing implementation to the accepted behavior;
+[L22 — Telegram conversation](../local.rules.md#l22--telegram-conversation) supplied
+the bot's role. The role now explicitly preserves project entry and applicable
+skills within its capabilities and assigns session mutations to the operator.
+The launch uses the actual project root; a native proof checks entry-only and
+skill-only values on an ordinary request. No general harness rule is added:
+the verification obligation already covered this behavior.
+
 ## 2026-10-14 — Local review authority published as an inter-agent contract change
 
 Status: corrected on 2026-10-14; local permission and checked installed binding

@@ -153,6 +153,38 @@ are unchanged. Stored conversation/delivery data is not agent memory.
 Use the existing Codex file tools and one Markdown file. Remove the structured-memory
 module and contact-registration command; keep ownership in the shared contract.
 
+## Project harness integration — 2026-10-15
+
+The user authorized connecting the existing harness to ordinary bot invocation.
+The earlier temporary working directory and zero project-document limit prevented
+native project instruction discovery. File readability alone did not prove entry
+or skill application. `--ignore-rules` affects command execution policy files,
+not `AGENTS.md`; it remains separate from project-instruction discovery.
+
+The conversation now starts at the supplied Workshop root with a 64 KiB project
+instruction budget and native skill discovery. Missing `AGENTS.md` or `.agents/skills`
+fails before invocation. The authored Telegram role supplements the project entry;
+no copied harness, generated skill index or fixed source bundle is introduced.
+The existing permission profile still grants only the memory file for direct writes.
+Native discovery also checks the global Codex entry. Its two entry-file paths are
+readable exceptions within the denied Codex profile directory; authentication and
+configuration files remain denied. A native start exposed this requirement even
+with an empty global `AGENTS.md`.
+
+Session-writing hooks remain disabled. The Telegram role follows available read-only
+entry and skill work, reads existing questions and reports inaccessible external
+evidence. Registration and question-store mutations remain with the operator
+session; the bot does not acquire publication, connector or network authority.
+Factual edits and the agreement-request log remain the separate unimplemented scope
+below. Loading instructions does not claim those capabilities.
+
+The decisive native proof uses a normal ownership question, an entry-only marker
+and an implicitly selected skill whose answer is absent from the request and README.
+It also exercises memory writing while preserving another document, then asks an
+ordinary Workshop status question and observes reading of recall and assignment-review
+skills. Tool events, not an agent's assertion about its own instructions, provide
+the execution evidence. This supplements the deterministic launch and failure tests.
+
 <straw-dog question="q-0002.0012">
 
 ## Factual corrections and agreement proposals — next implementation

@@ -111,11 +111,19 @@ Codex, недоступная рабочему вызову из Telegram. Те�
 
 Ordinary conversations invoke Codex with file tools and plain final text. The bot
 supplies the repository location, group background and current request; Codex chooses
-what to read. Direct writes are limited to the memory file by a named permissions
+what to read. Codex starts in the Workshop root and loads its `AGENTS.md` and local
+skill catalog through native project discovery. Missing entry or skill directory
+fails before a model call. The Telegram instruction supplements that harness with
+role permissions and plain language. Direct writes are limited to the memory file by a named permissions
 profile. Private bot state and operator Codex/SSH/AWS directories are denied to tool
-reads. Network commands, inherited connectors/hooks, browsers and delegation are
+reads, except the two global Codex entry paths (`AGENTS.md` and `AGENTS.override.md`)
+needed by native instruction discovery. Network commands, inherited connectors/hooks, browsers and delegation are
 disabled. The Windows sandbox requires root read access; this is not repository-only
 read isolation. Architecture and other project documents are read-only in this route.
+Session-writing hooks stay disabled; the bot follows entry and applicable skills
+through their available read-only work, including inspecting existing question records.
+Unavailable external evidence is disclosed. Operator session bookkeeping and
+publication are not inherited by the group worker.
 
 An interrupted conversation may already have changed memory. Failed answers do not
 claim that it was unchanged; the same request is not automatically executed again.
@@ -144,6 +152,7 @@ remain part of the complete acceptance criteria.
 ```powershell
 uv run --offline --no-project python -m unittest discover -s tests -v
 uv run --offline --no-project python -m tests.live_workshop_proof
+uv run --offline --no-project python -m tests.live_harness_proof
 ```
 
 The second command uses the signed-in Codex and creates an isolated copy under
@@ -152,3 +161,8 @@ checks refusals for an architecture conflict and a request to bypass authority.
 Its `results.json` and SQLite history retain the evidence. Canonical project
 records are checked for unchanged content. These checks do not prove Telegram
 reception or delivery.
+
+The third command exercises native project instruction loading and implicit skill
+selection using values absent from the user request, verifies the memory/document
+write boundary, then sends an ordinary status question against Workshop. Its local
+evidence includes Codex tool events and answers; no Telegram message is sent.

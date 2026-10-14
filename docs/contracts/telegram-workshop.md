@@ -102,6 +102,10 @@ The group answer distinguishes a corrected fact from a proposal awaiting review.
 
 The agent uses Workshop's current entry instructions, authored rules and applicable
 skills. Project documents remain information sources under the entry contract.
+Project instructions and skill discovery are part of ordinary Codex startup, not
+dependent on a group member asking to read them. The Telegram role narrows actions
+and presentation without replacing the project harness. Session bookkeeping and
+external actions remain constrained by that role's actual permissions.
 Answers use relevant project records and associated GitHub discussions, distinguish
 proposals, accepted agreements and demonstrated behavior, and disclose unavailable,
 contradictory or outdated evidence.
