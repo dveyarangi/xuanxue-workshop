@@ -11,7 +11,6 @@
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/reconcile/SKILL.md` | `## Project context` |
 | `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
-| `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 | `skills/collaborate/SKILL.md` | `## Installation` |
@@ -377,20 +376,18 @@ actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
 </rule>
 
-## L25 — hourly board-review reports and wake visibility
+## L25 — hourly board-review results
 
 - **target** `AGENTS.md`
-- **target** `.agents/skills/recall/SKILL.md`
 - **target** `.agents/skills/review-assignments/SKILL.md`
-- **authority** the user, 2026-10-15, hourly review with a report after every run and the latest report shown at every wake in this chat
+- **authority** the user, 2026-10-15, hourly review; report results when work finishes, silence unchanged runs and do not repeat reports on wake
 
 <rule>
-In the board-review chat, run periodic review hourly and end every invocation with
-a short dated report of reviewed scope, results, pending operator actions and
-failures, including unchanged state. Distinguish incomplete reads from no changes.
-Retain reports in this chat's history. On every wake of this user chat, show the
-latest run report with its date; retrieve it from chat history if absent from
-context. If no run report exists, say so.
+In the board-review chat, run periodic review hourly. When a run finishes with
+meaningful changes, completed actions, required operator decisions or actionable
+failures, leave a short dated report here. Keep unchanged or non-actionable runs
+silent, including previously reported unresolved conditions. Do not repeat reports
+on wake. Distinguish incomplete reads from no changes.
 </rule>
 
 ## L24 — directed Telegram messages from Codex

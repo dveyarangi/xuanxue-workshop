@@ -277,12 +277,11 @@ requirements, without approval of each response. Escalate new shared decisions a
 actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
 
-**L25** In the board-review chat, run periodic review hourly and end every invocation with
-a short dated report of reviewed scope, results, pending operator actions and
-failures, including unchanged state. Distinguish incomplete reads from no changes.
-Retain reports in this chat's history. On every wake of this user chat, show the
-latest run report with its date; retrieve it from chat history if absent from
-context. If no run report exists, say so.
+**L25** In the board-review chat, run periodic review hourly. When a run finishes with
+meaningful changes, completed actions, required operator decisions or actionable
+failures, leave a short dated report here. Keep unchanged or non-actionable runs
+silent, including previously reported unresolved conditions. Do not repeat reports
+on wake. Distinguish incomplete reads from no changes.
 
 **L24** During authorized Workshop work, the Codex operator may send relevant messages to
 responsible operators through the configured Telegram group without approval of each

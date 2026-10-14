@@ -34,12 +34,3 @@ estimate it, and place it with `at`. Re-rank nothing another running session is 
 <installed by="ticket">
 **P12** Read the live tickets with `tickets.py --list` before ordering the queue or minting a ticket.
 </installed>
-
-<installed by="local">
-**L25** In the board-review chat, run periodic review hourly and end every invocation with
-a short dated report of reviewed scope, results, pending operator actions and
-failures, including unchanged state. Distinguish incomplete reads from no changes.
-Retain reports in this chat's history. On every wake of this user chat, show the
-latest run report with its date; retrieve it from chat history if absent from
-context. If no run report exists, say so.
-</installed>

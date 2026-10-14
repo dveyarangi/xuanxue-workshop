@@ -27,8 +27,8 @@ Periodic activation uses mechanical change detection, local review leases and du
 recovery. The caller supplies a full reviewer; local snapshots and processing positions never
 replace the original issue or become acceptance evidence. The periodic procedure owns the
 local-progress record shape; the command's check validates its mechanical structure.
-The project supplies reporting cadence and wake visibility through local rules.
-The host's chat history retains run reports for the operator and the waking agent;
+The project supplies reporting cadence and conditions through local rules.
+The host's chat history retains run reports for the operator;
 this adds no repository report store or acceptance record.
 
 ## Moments
