@@ -347,6 +347,11 @@ Decision: the user, 2026-10-12, clarified: "все и только вошедш�
 
 Reading web wiki requires a valid Cabinet-authenticated account session. Every
 such user receives the same wiki content. Anonymous visitors cannot read wiki.
+The separate [public homepage graph overview](contracts/web-wiki-session.md#accepted-public-homepage-graph-overview)
+was accepted by the user on 2026-10-14: section names, node counts and anonymized
+structure only, with no protected material/subtopic text or identity, dates,
+source/recording links or credentials. Its canonical allowlist and proof are in
+the contract; web-wiki reading still requires the Cabinet session.
 There is no separate wiki admission status, reader role or per-material entitlement.
 For this web consumer, the existing admission obligation means authoritative
 validation of the Cabinet-authenticated session and account, not an additional

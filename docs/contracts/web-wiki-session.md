@@ -1,6 +1,7 @@
 # Cabinet session for web wiki
 
 **Status: web-wiki shared-browser-session contract accepted, 2026-10-13.
+Public homepage graph-overview exception accepted, 2026-10-14.
 Recipient implementation, coordinated access cutover and joint deployed proof
 remain work. Acceptance is not a claim of deployed capability.**
 
@@ -17,6 +18,8 @@ Cabinet owns user identity, session issuance, verification and current account
 state. Daychi owns wiki delivery; its frontend/backend remain separate projects.
 Every valid Cabinet-authenticated reader receives the same content. There is no
 anonymous web reading, additional reader role or wiki-specific eligibility check.
+The [limited public homepage overview](#accepted-public-homepage-graph-overview)
+is a separate exception; it does not authorize anonymous wiki content reading.
 
 The production browser namespace is `xuanxue.su` and its subdomains, treated as
 one trusted session namespace. Cabinet's existing `session` cookie uses
@@ -49,6 +52,45 @@ replica. Credentials are not persisted in logs or content records. No wiki code
 exchange, PKCE, client secret, stored wiki grant or credential-encryption key is
 required for this direction. User-owned content or editorial/native authority is
 a separate business scope; this agreement does not authorize deleting its records.
+
+## Accepted public homepage graph overview
+
+Decision: the user, 2026-10-14, replied "ок" to the proposed limited public
+overview, with authenticated web-wiki reading retained.
+
+> До входа главная показывает названия разделов, количества узлов и обезличенную
+> структуру графа. Публичный обзор не содержит названий материалов и подтем,
+> дат, исходных идентификаторов, текстов материалов или ссылок на источники
+> и записи. Чтение веб-вики требует действующей сессии Cabinet.
+
+Daychi owns this separate homepage projection and its implementation. Its public
+data is limited to section names and node counts, anonymous node identifiers,
+node types/section membership and structural/series relationships. Node identity
+and relationships reveal no original material/subtopic/source identifiers.
+Material/subtopic labels are absent or empty; dates, material bodies, annotations,
+source/recording URLs or identifiers, article/concept content and credentials
+are excluded. A cookie, query flag or other request input cannot broaden this
+public projection into a reader response. Its internal DTO, routing and visual
+layout belong to Daychi; no new Cabinet-to-Daychi wire is introduced.
+
+The homepage overview needs no Cabinet session or authorization check. Entering
+the web-wiki reader follows the existing fixed-profile session/entry contract:
+an already valid session is reused; a missing session uses Cabinet sign-in with
+original-page return. The public projection is no alternate credential or reader
+authority. Existing public/private material/graph/recent/semantic/article/concept
+reader APIs, aliases, embedded reader content and controlled old caches retain
+the accepted authenticated-reader enforcement and transition requirements.
+Native/private, Zoom and owner/import/Knowledge authority are unchanged.
+
+This is a compatible addition to the public site's exposure; Cabinet issuance,
+validation, profile selection, renewal and logout are unchanged. The anonymous
+access inventory distinguishes the allowed homepage projection from protected
+reader delivery. Proof includes anonymous/empty overview, no forbidden fields or
+original identities, unchanged public data with credentials/query variations,
+protected-reader refusal and valid-session/sign-in navigation on click.
+Inspectable source and deployed inventory establish compliance; the accepted
+exception does not accept the reported local candidate, deploy it or authorize
+release. Original issues 13 and 9 retain implementation and transition evidence.
 
 ## Accepted production and staging separation
 
@@ -129,7 +171,10 @@ retains provenance. The accepted native account-session protocol is unchanged.
 The web access transition still closes anonymous reader delivery across exposed
 origins, direct paths and controlled delivery caches. New no-store headers alone
 do not remove old public cache entries. Static login/application assets may be
-public when they contain no protected content. Native private invitation/content
+public when they contain no protected content. The
+[limited homepage overview](#accepted-public-homepage-graph-overview) may remain
+public within its allowlist; existing reader APIs are not reopened by that
+exception. Native private invitation/content
 and owner/import/Knowledge authority retain their existing scope and cannot be
 used as alternate web-reader authentication. The breaking anonymous-access change
 remains coordinated through original issue 9; this acceptance publishes no issue

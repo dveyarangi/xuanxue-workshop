@@ -518,10 +518,30 @@ remaining deployed browser/account and recipient-artifact proof.
 | Boundary | Provider / consumers | Promise | Evidence / revision | Delta and consequence | Disposition / assignment |
 |---|---|---|---|---|---|
 | Browser entry and logout | Cabinet / browser, Daychi | Fixed-origin entry, original-page return, preserved migration lifetime and Cabinet-site logout | PR 594 `92921a0`, PR 595 `e0e823c`; inspected source/green checks; staging guest 303/no-store | Entry source and staging guest path advanced; deployed authenticated return/logout and joint proof remain | Existing Cabinet 12 and dependent Daychi 13; no full acceptance |
-| Anonymous homepage overview | Daychi / site visitors, protected wiki readers | Accepted web reading remains authenticated; site assets contain no protected reader data | New local-candidate report `ec5a67c`; artifact API 422 | A separate public graph projection is proposed, not proven or accepted; earlier homepage-hiding choice is withdrawn by the recipient operator | [Public-preview decision](../questions/q-0002.0008.0001.0001.0001.0004.0001-may-daychi-show-a-public-graph-overview-before-cabinet-sign-in.md) for Workshop's operator; original issues 13/9 retain the exposure transition |
+| Anonymous homepage overview | Daychi / site visitors, protected wiki readers | [Accepted limited homepage projection](../contracts/web-wiki-session.md#accepted-public-homepage-graph-overview); web reading remains authenticated | User approval, 2026-10-14; local `ec5a67c` report, artifact API 422 | Exposure exception accepted; source/runtime compliance unverified | Existing Daychi 13 and article 9 retain implementation and exposure-transition proof |
 
-Stage: review proceeds within the existing assignments; the public-preview
-exception waits for the Workshop operator. That decision does not block unrelated
-accepted authentication work. Accessible Daychi source/QA, staging hosting,
-controlled accounts and exposure/cache evidence remain the original resumption
-conditions. No public-exposure amendment, recipient release or closure is made.
+Stage: the user accepted the limited public-preview exception on 2026-10-14.
+The canonical contract owns that decision; both existing assignments take the
+same amendment. Accessible Daychi source/QA, staging hosting, controlled accounts
+and exposure/cache evidence remain the original resumption conditions. Cabinet's
+[later staging report](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6171171619)
+adds reported guest/page witnesses at `e0e823c`, not real-account lifecycle or
+two-site acceptance. No recipient release or implementation closure is made.
+
+### Public-overview amendment validation
+
+The complete Cabinet and Daychi briefs were derived from the same accepted
+exception. A fresh independent recipient/set reading found no semantic blocker
+or allowed incompatible pair. It covered anonymous/empty projection, excluded
+content and identities, cookie/query non-expansion, protected API/cache closure,
+existing/missing/wrong-profile sessions and reader entry, unchanged Cabinet wire,
+recipient ownership and partial deployment. Preview routing, DTO and layout
+remain internal to Daychi; shared transport/time/state dimensions add no new
+cross-project protocol because the projection is not a Cabinet-Daychi exchange.
+The existing authenticated-reader contract retains those dimensions.
+
+Harness integrity, installed rules, mechanisms, question/ticket validation and
+diff checks passed for this documentation amendment. Existing application-test
+evidence remains valid because no code changed. These results establish the
+contract/assignment handoff; they do not verify the unavailable Daychi candidate
+or the two-site deployed outcome.

@@ -95,10 +95,18 @@ claims operator-requested restoration of an anonymous homepage graph overview,
 using a separate restricted site projection. The latest local candidate
 `ec5a67c16081dc972da58cad37629ffb00d2e87a` remains unavailable through the
 repository API (422); its 201 backend/21 web test and packaging claims are
-unverified. The proposed public exposure is not accepted by the existing web
-contract. The [public-preview question](questions/q-0002.0008.0001.0001.0001.0004.0001-may-daychi-show-a-public-graph-overview-before-cabinet-sign-in.md)
-holds the reported scope and operator decision. Existing protected readers and
-the Cabinet wire retain their accepted obligations.
+unverified. The user accepted the limited public overview on 2026-10-14;
+the [canonical exception](contracts/web-wiki-session.md#accepted-public-homepage-graph-overview)
+defines its allowlist and proof. This accepts the exposure boundary, not the
+local candidate or its deployment. Existing protected readers and the Cabinet
+wire retain their accepted obligations.
+
+[Cabinet's later staging report](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6171171619)
+claims staging `e0e823c` at 14:40–14:50 UTC, guest entry/session refusal,
+invalid-return rejection and the browser login/logout pages. It leaves production
+at `fc2dee2`, staging wiki DNS absent and real-account lifecycle/joint browser
+proof outstanding. This is recipient-reported deployment evidence; Workshop's
+earlier anonymous observation above is independently established.
 
 ## Knowledge reception evidence — inspected 2026-10-12
 
