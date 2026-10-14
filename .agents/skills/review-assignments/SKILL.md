@@ -23,6 +23,9 @@ assignment's criteria and the referenced artifacts and checks.
 
 ## Handle the findings
 
+For a periodic invocation, apply [PERIODIC.md](./PERIODIC.md) to discovery, local progress and
+publication recovery; the review and acceptance obligations below still govern its findings.
+
 Apply the installed review and continuation rule. Reuse evidence and an issue
 review already in progress. Keep the current reconciliation pass's scope and
 resumption point when a finding requires boundary-record changes.

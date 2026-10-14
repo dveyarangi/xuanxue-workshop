@@ -23,6 +23,11 @@ activity conditions; local review obligations bind reassessment and original-iss
 correction to evidence handling. Document claims and acknowledgements describe
 decisions and reviews but do not establish operational readiness.
 
+Periodic activation uses mechanical change detection, local review leases and durable publication
+recovery. The caller supplies a full reviewer; local snapshots and processing positions never
+replace the original issue or become acceptance evidence. The periodic procedure owns the
+local-progress record shape; the command's check validates its mechanical structure.
+
 ## Moments
 
 | moment | instructed by | kind, and why |
@@ -31,6 +36,7 @@ decisions and reviews but do not establish operational readiness.
 | routing a blocker or changed obligation back into coordination | `.agents/skills/coordinate/SKILL.md` | |
 | handling a project report or incoming request | `.agents/skills/review-assignments/SKILL.md` | |
 | applying locally delegated authority during a periodic review | `.agents/skills/review-assignments/SKILL.md` | |
+| detecting changes, claiming review and recovering publication | `.agents/skills/review-assignments/PERIODIC.md` | |
 | reading reports and artifacts linked through an issue's timeline | `.agents/skills/review-assignments/SKILL.md` | |
 | reassessing dependency necessity and fulfillment from observed conditions | `.agents/skills/review-assignments/SKILL.md` | |
 | reviewing relevant discussions when reconciliation begins or resumes | `.agents/skills/review-assignments/SKILL.md` | |
@@ -47,6 +53,10 @@ decisions and reviews but do not establish operational readiness.
 | review instruction | `.agents/skills/review-assignments/SKILL.md` |
 | declaration | `.agents/mechanisms/review-assignments/review-assignments.md` |
 | authored shared rules | `.agents/mechanisms/review-assignments/review-assignments.rules.md` |
+| periodic procedure and progress format | `.agents/skills/review-assignments/PERIODIC.md` |
+| mechanical discovery and delivery | `.agents/scripts/gw/board.py` |
+| behavioral verification | `tests/test_board.py` |
+| controlled HTTP demonstration | `tests/live_board_proof.py` |
 
 Retraction removes the review-entry and maintenance bindings through the shared installer. Project
 entry and context bindings are locally owned and are retracted at their source
@@ -68,8 +78,10 @@ when this instruction is removed.
 The responsible project agent and operator read responses and acceptance in the
 original issue. The coordinating operator reads the updated state and pending
 decisions. Reconciliation reads returned project evidence and dispositions.
-The mechanism emits no independent acknowledgement ledger or index; its outputs
-use the configured tracker and the project's existing records and formats.
+The mechanism emits no independent acknowledgement ledger or index; its review outputs
+use the configured tracker and the project's existing records and formats. Periodic execution
+also retains local snapshots and processing/delivery positions, read by the reviewer on
+resumption and the operator during recovery; these are working state, not another acceptance home.
 
 ## Not yet at the shape
 
