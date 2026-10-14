@@ -86,6 +86,17 @@ the same target chat and removal of the former silence clauses. The changed rule
 are installed at all three declared occasions. This verifies the amendment and
 does not substitute for the outstanding unattended-run and wake observation.
 
+The user subsequently clarified the reporting requirement on 2026-10-15: unchanged
+runs are silent, meaningful results are reported here when the run finishes, and
+wake does not repeat reports. This supersedes the earlier report-every-run and
+wake-display requirements. Local L25 was amended and reinstalled at entry and
+review; its recall binding and unused anchor were removed. The hourly same-chat
+automation remains ACTIVE and already reads the current entry instructions.
+The host confirmed the chat rename to Workshop — дежурство по борде. Reports stay
+in this chat's history for the user to read when opening it. No separate subagent
+or chat is created by this reporting change. Remaining acceptance concerns actual
+unattended execution and conditional reporting, not a wake-report demonstration.
+
 ## Local unattended-review authority — 2026-10-14
 
 The user accepted periodic autonomous investigation and original-issue responses

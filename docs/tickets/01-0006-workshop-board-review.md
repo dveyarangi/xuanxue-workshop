@@ -1,7 +1,7 @@
 # Workshop board review
 
 - **record of** what it intends to become
-- **Status:** Partial (live publication and operator grading accepted; hourly recurrence active; unattended-run and wake-report evidence pending)
+- **Status:** Partial (live publication and operator grading accepted; hourly recurrence active; unattended-run and conditional-report evidence pending)
 - **Type:** HITL
 - **Minted:** 2026-10-15
 - **Plan:** [workshop-board-review RFC](../rfc/01-0006-workshop-board-review.md) — mechanical discovery and recoverable publication with full agent review in the existing chat
@@ -26,9 +26,10 @@ decisions and out-of-scope actions return to the operator in this chat.
 Preserve pending work through restart, revalidate before publication and recover
 uncertain delivery by inspecting the remote issue. Intervening manual work and
 concurrent automatic reviewers cannot silently consume the same local review.
-The accepted cadence is hourly with six-hour unchanged-evidence follow-up; every
-run leaves a short dated chat report, including unchanged state, and every wake in
-this user chat shows the latest report. The host's chat history retains reports;
+The accepted cadence is hourly with six-hour unchanged-evidence follow-up. Meaningful
+results, required decisions and actionable failures receive a short dated chat
+report when the run finishes; unchanged runs remain silent and wake does not repeat
+reports. The host's chat history retains reports;
 the local computer and app provide the execution environment.
 
 ## Acceptance criteria
@@ -39,7 +40,7 @@ the local computer and app provide the execution environment.
 - [x] 2026-10-15 Competing automatic work and intervening manual changes leave pending work visible instead of publishing a stale response.
 - [x] 2026-10-15 The operator accepted all five representative full-review outcomes in control issue 14: missing evidence, complete result, protocol decision, instruction override and a closed-issue report.
 - [x] 2026-10-15 The read-only live-board pass and controlled issue 14 publication/recovery/operator-escalation example preceded recurring activation; operator grading remains separate.
-- [ ] The hourly same-chat recurrence is ACTIVE; observe an unattended invocation leaving its short dated report, including unchanged state, and display of the latest report at a subsequent wake in this user chat.
+- [ ] The hourly same-chat recurrence is ACTIVE; observe unattended execution with a short dated completion report for meaningful results, decisions or actionable failures, silence for unchanged state, and no report repetition on wake.
 - [ ] /verify passes against the ticket, RFC, governing instructions and scoped verification set.
 
 ## Out of scope

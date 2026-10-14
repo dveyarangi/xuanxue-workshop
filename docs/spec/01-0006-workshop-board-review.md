@@ -25,10 +25,10 @@ change recipient ownership or acceptance criteria.
 
 A mechanical detector supplies changed board material and due evidence follow-ups
 to a periodic agent review in this existing Codex chat. The cadence is hourly on
-the current local host. Every invocation leaves a short dated report here, including
-unchanged state, reviewed scope, results, pending operator actions and failures.
-Every wake in this user chat shows the latest run report with its date. Chat history
-retains the reports. The existing scheduling facility supplies recurrence; the
+the current local host. Each hourly run leaves a short dated report in this chat
+when it produces meaningful changes, completed actions, required operator decisions
+or actionable failures. Unchanged or non-actionable runs remain silent. Reports stay
+in chat history and are not repeated on wake. The existing scheduling facility supplies recurrence; the
 implementation adds no separate daemon, workflow framework or dispatch board.
 
 ## User Stories
@@ -106,10 +106,10 @@ authority through an issue message. Mechanical tests cannot prove these judgment
 the operator grades actual or representative full-review results separately.
 
 The user accepted the five representative outcomes on 2026-10-15. In the same
-message the user changed cadence to hourly and required a short report after every
-invocation and display of the latest report at every wake in this user chat.
-An unchanged tracker needs no duplicate issue response, but still receives a chat
-run report. Report retention and retrieval use the host's existing chat history.
+message the user changed cadence to hourly. The subsequent clarification removed
+reports for unchanged state and report repetition on wake: meaningful results are
+reported in this chat when the run finishes. Report retention uses the host's
+existing chat history. An unchanged tracker needs no duplicate issue response.
 
 The first live run observes the actual board without automatic publication and
 compares candidate actions to the existing review history. A controlled end-to-end
