@@ -24,11 +24,12 @@ Review follows the existing assignment-review methodology. The authority does no
 change recipient ownership or acceptance criteria.
 
 A mechanical detector supplies changed board material and due evidence follow-ups
-to a periodic agent review in this existing Codex chat. The initial cadence
-is fifteen minutes on the current local host. The operator receives decisions,
-material failures and meaningful results here. Unchanged or non-actionable state
-produces no notification. The existing scheduling facility supplies recurrence;
-the implementation adds no separate daemon, workflow framework or dispatch board.
+to a periodic agent review in this existing Codex chat. The cadence is hourly on
+the current local host. Every invocation leaves a short dated report here, including
+unchanged state, reviewed scope, results, pending operator actions and failures.
+Every wake in this user chat shows the latest run report with its date. Chat history
+retains the reports. The existing scheduling facility supplies recurrence; the
+implementation adds no separate daemon, workflow framework or dispatch board.
 
 ## User Stories
 
@@ -58,7 +59,7 @@ The configured Workshop recipient labels select incoming requests and issued
 assignments, excluding unrelated project work and pull requests as primary cases.
 Timeline-linked pull requests, checks and source revisions contribute evidence.
 Known pending runtime/fixture conditions remain eligible for a scheduled evidence
-follow-up even without a fresh issue message. Fifteen minutes is the board
+follow-up even without a fresh issue message. One hour is the board
 cadence; a six-hour evidence follow-up is the default for unchanged pending
 conditions, adjustable when their existing resumption conditions warrant it.
 
@@ -103,6 +104,12 @@ Representative agent cases distinguish agreement application, missing evidence,
 incomplete/full acceptance, contract/security proposals, and attempts to grant
 authority through an issue message. Mechanical tests cannot prove these judgments;
 the operator grades actual or representative full-review results separately.
+
+The user accepted the five representative outcomes on 2026-10-15. In the same
+message the user changed cadence to hourly and required a short report after every
+invocation and display of the latest report at every wake in this user chat.
+An unchanged tracker needs no duplicate issue response, but still receives a chat
+run report. Report retention and retrieval use the host's existing chat history.
 
 The first live run observes the actual board without automatic publication and
 compares candidate actions to the existing review history. A controlled end-to-end

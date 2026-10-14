@@ -60,6 +60,9 @@ existing mechanism. That instruction owns the mechanical command sequence and po
 to semantic review, rather than copying it. Only the responsible project agent performs
 question-store calls. Operator notifications stay in this chat under the accepted
 scope; the new Telegram sending authority adds no requirement to use Telegram here.
+Local L25 supplies hourly cadence and a short dated report after every invocation,
+including unchanged state. The host's chat history retains reports and supplies the
+latest one at every wake here; no additional local report record is introduced.
 
 ## Stages and verification
 

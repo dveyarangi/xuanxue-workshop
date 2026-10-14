@@ -56,21 +56,35 @@ No real project contribution was accepted. Local evidence is retained in
 The protocol-replacement example provides the concrete escalation: investigate the
 unmet requirement, compatibility consequences and affected owners, then ask the
 Workshop operator whether to authorize a specific replacement; the accepted protocol
-remains the baseline. The example requests no actual protocol change. Operator
-grading of all five published representative answers remains pending.
+remains the baseline. The example requests no actual protocol change. The operator
+accepted all five published representative answers on 2026-10-15.
 
 The native same-chat automation workshop-board-review was switched to ACTIVE on
-2026-10-15 at the accepted fifteen-minute cadence after the controlled proof. The
-first unattended invocation, its tools/network access and quiet/operator behavior
-remain unobserved; configuration alone establishes none of them.
+2026-10-15 at the initially accepted fifteen-minute cadence after the controlled proof.
+The user then amended cadence to hourly and required a short dated report after
+every invocation, including unchanged state, with the latest report displayed at
+every wake in this user chat. The existing automation was updated and read back
+ACTIVE with an hourly recurrence and its former silence clauses removed. Local
+L25 reaches entry, recall and review; the periodic procedure defers to configured
+reporting requirements. Native chat-history retrieval successfully recovered the
+preceding final response, so no separate repository report store was introduced.
+The first unattended invocation, its tools/network access, per-run report and later
+wake display remain unobserved; configuration alone establishes none of them.
 
 Scoped /verify on 2026-10-15 passed all 52 application tests (including 17 board
 behavior tests), the harness source check, installed-rule agreement, mechanism
 declarations and question/ticket/edge format checks. Existing local progress also
 passed its structural check with thirteen cases. This verifies the implementation
 and local demonstration. Real GitHub publication/recovery subsequently passed as
-described above; the ticket remains Partial for operator grading and unattended
-recurrence evidence.
+described above and the operator accepted its semantic examples. The ticket remains
+Partial for unattended recurrence and subsequent wake-report evidence.
+
+After the hourly/reporting amendment, scoped /verify again passed all 52 tests,
+the harness source check, installed-rule agreement, mechanism declarations and
+question/ticket/edge checks. Configuration readback confirmed ACTIVE, hourly,
+the same target chat and removal of the former silence clauses. The changed rules
+are installed at all three declared occasions. This verifies the amendment and
+does not substitute for the outstanding unattended-run and wake observation.
 
 ## Local unattended-review authority — 2026-10-14
 
