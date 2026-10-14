@@ -75,6 +75,31 @@ therefore remain recipient claims. The
 [owning web review](rfc/01-0009-web-wiki-cabinet-session.md#assignment-review--2026-10-14)
 holds the scoped comparison, remaining owner actions and resumption conditions.
 
+## Web-wiki board follow-up — reviewed 2026-10-14
+
+[Cabinet PR 594](https://github.com/gregoryKot/xuanxue-cabinet/pull/594)
+merged as `92921a0`; [PR 595](https://github.com/gregoryKot/xuanxue-cabinet/pull/595)
+merged as `e0e823c`. Inspected published source implements fixed-origin server
+entry, validated relative destinations, shared-cookie migration with remaining
+lifetime, per-tab login return/full-page resumption and a user-triggered logout
+page. PR checks are green; executed entry HTTP suites were inspected. At
+14:38 UTC, production health remained `fc2dee2` and staging reported `92921a0`.
+Staging guest entry returned 303/no-store to Cabinet login with the retained wiki
+destination; its session check retained 401/no-store. Production still returned
+404 for the check. Staging wiki DNS resolution failed from this environment.
+The latest browser deployment, real-account lifecycle and joint reader proof
+remain unverified; source progress does not establish whole-assignment acceptance.
+
+[Daychi's new report](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6167681279)
+claims operator-requested restoration of an anonymous homepage graph overview,
+using a separate restricted site projection. The latest local candidate
+`ec5a67c16081dc972da58cad37629ffb00d2e87a` remains unavailable through the
+repository API (422); its 201 backend/21 web test and packaging claims are
+unverified. The proposed public exposure is not accepted by the existing web
+contract. The [public-preview question](questions/q-0002.0008.0001.0001.0001.0004.0001-may-daychi-show-a-public-graph-overview-before-cabinet-sign-in.md)
+holds the reported scope and operator decision. Existing protected readers and
+the Cabinet wire retain their accepted obligations.
+
 ## Knowledge reception evidence — inspected 2026-10-12
 
 At [Knowledge e400680](https://github.com/sleontenko/daychi-knowledge/tree/e4006807c3adaa373ad3a6f63396d0a2eaea66ef),

@@ -508,3 +508,20 @@ account/browser evidence in issue 12. Daychi supplies inspectable candidate/QA,
 staging hosting and exposure/cache evidence in issue 13. Workshop resumes review
 on those artifacts or changed runtime evidence. Neither issue is closed; no
 recipient edit, release, cache mutation or whole-outcome /verify is claimed.
+
+## Board follow-up — 2026-10-14, afternoon
+
+The [new scoped observations](../current-system.md#web-wiki-board-follow-up--reviewed-2026-10-14)
+supersede the earlier source absence of entry/return/logout, while retaining the
+remaining deployed browser/account and recipient-artifact proof.
+
+| Boundary | Provider / consumers | Promise | Evidence / revision | Delta and consequence | Disposition / assignment |
+|---|---|---|---|---|---|
+| Browser entry and logout | Cabinet / browser, Daychi | Fixed-origin entry, original-page return, preserved migration lifetime and Cabinet-site logout | PR 594 `92921a0`, PR 595 `e0e823c`; inspected source/green checks; staging guest 303/no-store | Entry source and staging guest path advanced; deployed authenticated return/logout and joint proof remain | Existing Cabinet 12 and dependent Daychi 13; no full acceptance |
+| Anonymous homepage overview | Daychi / site visitors, protected wiki readers | Accepted web reading remains authenticated; site assets contain no protected reader data | New local-candidate report `ec5a67c`; artifact API 422 | A separate public graph projection is proposed, not proven or accepted; earlier homepage-hiding choice is withdrawn by the recipient operator | [Public-preview decision](../questions/q-0002.0008.0001.0001.0001.0004.0001-may-daychi-show-a-public-graph-overview-before-cabinet-sign-in.md) for Workshop's operator; original issues 13/9 retain the exposure transition |
+
+Stage: review proceeds within the existing assignments; the public-preview
+exception waits for the Workshop operator. That decision does not block unrelated
+accepted authentication work. Accessible Daychi source/QA, staging hosting,
+controlled accounts and exposure/cache evidence remain the original resumption
+conditions. No public-exposure amendment, recipient release or closure is made.
