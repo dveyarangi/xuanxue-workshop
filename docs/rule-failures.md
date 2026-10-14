@@ -1,5 +1,30 @@
 # Rule failures
 
+## 2026-10-14 — Local review authority published as an inter-agent contract change
+
+Status: corrected on 2026-10-14; local permission and checked installed binding
+replace the contract paragraph.
+
+Rules in play: [mechanism, Is it a mechanism](../.agents/skills/mechanism/SKILL.md#is-it-a-mechanism)
+and [project-local authorship](../AGENTS.md#project-local).
+The assistant treated permission to perform existing review work unattended as
+a shared role-contract change without identifying a changed inter-agent obligation.
+The pre-change contract already assigned review and responses to Workshop.
+
+The user's question requested the reason for the placement; it supplied no adverse
+evaluation. The assistant initially treated it as disapproval and reversed its
+classification before establishing the distinction from the existing contract.
+That unsupported inference was withdrawn. A subsequent source comparison established
+the internal-authority classification independently, and the user authorized repair.
+
+The concrete amendment is [L23](../local.rules.md#l23--unattended-board-review-authority),
+authored locally and installed at entry and review. It supplies the accepted
+operator permission at the reading occasions that apply it, preserving shared
+responsibilities and separate delivery checkpoints. The classification and source
+rules already express the distinction; no additional general classification rule
+is added. [Review evidence](mechanisms/review-assignments.evidence.md#local-unattended-review-authority--2026-10-14)
+holds the scoped correction and verification limits.
+
 ## 2026-10-13 — Shared production cookie reviewed without staging coexistence
 
 Status: environment isolation accepted on 2026-10-13; recipient amendment published and read back.

@@ -102,9 +102,9 @@ from each operator's environment are dependencies of working agent integration.
 
 ## Unattended board review
 
-The [accepted unattended-review authority](agent-contract.md#accepted-unattended-board-review--2026-10-14)
-allows board investigation and responses within existing agreements without approval
-of each response. Operator decisions and recipient ownership remain separate.
+The [assignment-review mechanism](../.agents/mechanisms/review-assignments/review-assignments.md)
+uses locally supplied authority, including the
+[accepted periodic-review authorization](../local.rules.md#l23--unattended-board-review-authority).
 Periodic execution is being shaped in the
 [unattended-review question](questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
 

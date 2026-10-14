@@ -18,7 +18,7 @@ evidence-based answers in their original assignments.
 
 ## Solution
 
-The accepted authority is in [the agent contract](../agent-contract.md#accepted-unattended-board-review--2026-10-14).
+The accepted authority is in [local rules, L23](../../local.rules.md#l23--unattended-board-review-authority).
 Review follows the existing assignment-review methodology. The authority does not
 change recipient ownership or acceptance criteria.
 

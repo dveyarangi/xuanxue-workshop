@@ -1,5 +1,29 @@
 # Assignment review evidence — 2026-10-05
 
+## Local unattended-review authority — 2026-10-14
+
+The user accepted periodic autonomous investigation and original-issue responses
+within existing agreements, escalating new shared decisions and actions outside
+authority. The first placement in agent-contract.md incorrectly represented this
+as a change to inter-agent obligations. The pre-change contract already assigned
+review, response and acceptance responsibility to Workshop. On the user's
+authorized correction, the permission moved to L23 in local.rules.md, installed
+at Workshop entry and assignment review. The existing review mechanism owns its
+application; no recipient obligation or global autonomy switch changed.
+
+The [unattended-review question](../questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md)
+holds the accepted permission and proposed execution work. Installing the local
+authority does not establish a periodic runner, unattended network access or
+operator acceptance of the proposed specification and breakdown.
+
+Verification on 2026-10-14: source/installed-rule agreement, mechanism declarations,
+the harness source check, question/ticket format checks and all 25 existing application
+tests passed. References to the removed contract section are absent from the current
+tree. Review of the local rule retains standing approval only for periodic review;
+new shared decisions, out-of-scope actions and separate delivery checkpoints remain
+with the operator. These checks establish placement and binding, not a running
+periodic reviewer or agent judgment on a real new report.
+
 ## Unrecorded participant discovery — 2026-10-12
 
 The local reception trigger is installed at ordinary Workshop entry and within

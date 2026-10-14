@@ -203,20 +203,6 @@ the claimed outcome; a bare completion claim is insufficient. Checks are repeate
 when necessary to resolve a gap or contradiction. This does not transfer recipient
 installation or release ownership to Workshop.
 
-### Accepted unattended board review — 2026-10-14
-
-The user accepted unattended review of Workshop's board: investigation and original-issue
-responses within existing agreements may proceed without approval of each response.
-New shared decisions and actions outside granted authority remain operator decisions.
-This includes application of existing evidence and acceptance requirements, not their amendment.
-The delegated scope covers review and responses; it does not grant authority over recipient
-implementation or releases, or remove checkpoints for separate delivery work.
-
-Authority: the user, 2026-10-14, accepted this mode with «принимаю».
-The [unattended-review question](questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md)
-holds implementation planning and unresolved delivery details. Acceptance of the mode is
-distinct from a working periodic runner or demonstrated unattended review.
-
 ## Contract evolution
 
 A project can work autonomously within the active boundary contract.
@@ -247,6 +233,5 @@ access and publication history; [current-system](current-system.md) holds observ
 project capabilities and source revisions.
 
 Source publication alone does not establish recipient adoption or release an
-unsatisfied dependency. The startup requirement alone implies no background service or
-unattended polling; the separately accepted unattended-review authority above
-does not establish an implemented runner.
+unsatisfied dependency. The startup requirement implies no background service or
+unattended polling.
