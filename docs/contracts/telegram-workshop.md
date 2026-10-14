@@ -44,6 +44,41 @@ the full received journal remains available to the operator.
 
 ## Information and authority
 
+### Directed operator messages
+
+The user requested directed messages to responsible operators on 2026-10-15,
+selected delivery «В группу Telegram с упоминанием оператора», and limited
+initiation to Codex: «пока отсюда. ты и будешь передавать, когда надо».
+This authorizes the Codex operator to send relevant messages during authorized
+Workshop work without confirmation of each message. Telegram requests do not
+grant this sending authority. Existing project assignment and shared-decision
+boundaries remain unchanged; a Telegram message does not replace an authoritative
+Workshop issue or prove that its recipient read or accepted the message.
+
+Recipients use the exact Telegram usernames identified by the user or learned
+from explicit group messages, with the source retained in the bot's local memory
+file. Project ownership and Telegram usernames are not inferred from GitHub names.
+Conflicting recipient information requires clarification; unknown recipients stop sending. Each outgoing message
+retains its recipient, text, time, stable request identity and delivery result.
+Confirmed delivery has a message reference; a missing confirmation stays uncertain
+and cannot cause a blind retry. The same request identity cannot send twice or be
+reused for another message. Replies to confirmed outgoing messages continue in
+the group's ordinary bot conversation and retained context.
+
+### Bot memory
+
+The user requested a separate bot memory file on 2026-10-15: «пусть это лежит в
+файле памяти бота. он будет дописывать по мере бесед в группе». Contacts,
+responsibilities and useful conversation facts live there with their provenance.
+During addressed conversations the bot can append compatible facts from supplied
+group messages. A conflicting value is surfaced for clarification rather than
+silently replacing the previous record. Ordinary group messages remain available
+as background without requiring an extra model call for every message.
+Memory is conversation evidence, not agent instructions or a replacement for
+Workshop's architectural records, project assignments or sending authority.
+
+### Existing task and question authority
+
 The agent uses Workshop's current entry instructions, authored rules and applicable
 skills. Project documents remain information sources under the entry contract.
 Answers use relevant project records and associated GitHub discussions, distinguish

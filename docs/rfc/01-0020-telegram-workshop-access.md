@@ -85,6 +85,43 @@ contents, edited messages, pre-collection history and undelivered messages are n
 claimed present. Missing attachment text has a visible marker. Current Workshop
 sources are reread, and earlier bot answers do not establish current project state.
 
+## Directed operator messages — 2026-10-15
+
+The accepted amendment adds a Codex-only outgoing path into the configured group.
+Impact is confined to local recipient registration, outgoing delivery/journal and
+reply context. Project assignments remain in Workshop Issues; the detached group
+worker gains no sending tool or recipient-registration authority. No sibling
+implementation, dashboard or independent message service is needed.
+
+The local CLI registers an explicitly identified project/operator alias and Telegram
+username in the local memory file. A send takes an alias, UTF-8 message file
+and required stable request ID. It uses the recorded username as an explicit mention.
+Recipient identity and text are frozen in SQLite before the network operation.
+Each request attempts delivery once; confirmed, rejected and uncertain results stay
+inspectable. Duplicate/concurrent invocations return the existing result and changed
+content under the same ID is rejected. A process lost during sending remains
+uncertain. The receiver is not restarted or its processing states reset by sending.
+
+Outgoing messages are single posts, at most 4,000 UTF-16 units including the prefix;
+longer messages fail before delivery. Confirmed outgoing posts enter group context
+and support replies without another mention. The decisive tests cover exact group
+and recipient, no duplicate after restart/concurrency, failed or lost acknowledgement,
+unknown recipients, escaped-as-text content, UTF-16 size boundaries,
+reply continuation and absence of receiver-state changes during sender startup.
+Actual group delivery requires a user-provided recipient and a real message need;
+local transport tests cannot establish that live outcome.
+
+The user's memory amendment selects a local `memory.json` beside the existing
+journal. Entries carry kind (contact or fact), key, value and source. Codex-origin
+registration and group-worker proposals use the same bounded append path with
+exclusive access and atomic replacement. Existing identical facts are idempotent;
+conflicting keys are returned for clarification, never silently overwritten.
+Each proposed group-memory addition must cite a supplied human group message ID.
+The worker receives memory as data and proposes additions during its ordinary
+answer; the caller validates and applies them and owns the result wording. Memory
+and ticket edits do not occur in the same decision. No extra background model loop
+or separate contact registry is needed.
+
 <straw-dog question="q-0002.0012">
 
 ## Local application and boundaries
