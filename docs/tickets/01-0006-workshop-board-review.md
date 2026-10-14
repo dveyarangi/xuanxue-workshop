@@ -1,7 +1,7 @@
 # Workshop board review
 
 - **record of** what it intends to become
-- **Status:** Partial (implementation verified; live publication and operator grading pending)
+- **Status:** Partial (live publication verified; recurrence active; operator grading and unattended-run evidence pending)
 - **Type:** HITL
 - **Minted:** 2026-10-15
 - **Plan:** [workshop-board-review RFC](../rfc/01-0006-workshop-board-review.md) — mechanical discovery and recoverable publication with full agent review in the existing chat
@@ -32,12 +32,12 @@ follow-up; the local computer and app provide the execution environment.
 ## Acceptance criteria
 
 - [x] 2026-10-15 Complete discovery distinguishes changed, unchanged, due and inaccessible material, including closed-issue reports, edited/deleted comments and linked checks/source.
-- [ ] A full reviewer can claim a case, study its sources, publish a revalidated original-issue response and retain its confirmed outcome.
-- [x] 2026-10-15 Interruption after remote publication is recovered without another comment; uncertain delivery remains explicit and cannot silently mark review complete. Proven with an independent comment fixture and local HTTP delivery; real GitHub write remains separate.
+- [x] 2026-10-15 A full reviewer studied the controlled issue and governing sources, published its revalidated response, recovered the receipt and retained the outcome; see [periodic review evidence](../mechanisms/review-assignments.evidence.md#periodic-review-implementation--2026-10-15).
+- [x] 2026-10-15 Interruption after remote publication is recovered without another comment; uncertain delivery remains explicit and cannot silently mark review complete. Proven with an independent comment fixture, local HTTP delivery and real GitHub comment 6180599165.
 - [x] 2026-10-15 Competing automatic work and intervening manual changes leave pending work visible instead of publishing a stale response.
 - [ ] Representative full-review cases distinguish existing decisions, missing evidence, incomplete/complete results and operator decisions; the operator grades the observed outcomes.
-- [ ] A read-only live-board pass and controlled publication/recovery/escalation demonstration precede recurring activation.
-- [ ] The fifteen-minute same-chat recurrence is configured, with quiet unchanged runs and meaningful operator notifications.
+- [x] 2026-10-15 The read-only live-board pass and controlled issue 14 publication/recovery/operator-escalation example preceded recurring activation; operator grading remains separate.
+- [ ] The fifteen-minute same-chat recurrence is ACTIVE; observe an unattended invocation, quiet unchanged runs and meaningful operator notifications.
 - [ ] /verify passes against the ticket, RFC, governing instructions and scoped verification set.
 
 ## Out of scope

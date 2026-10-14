@@ -34,19 +34,43 @@ connection without a response. State retained uncertainty. A restarted reviewer
 confirmed the existing marker/body/author. Across five cases the server retained
 exactly five physical comments; the repeated scan was quiet.
 
-Automatic approval review rejected creating a clearly identified temporary control
-issue in GitHub because it did not find explicit authorization for that persistent
-publication. No control issue or real comment was created. Local HTTP proof was used
-as the safer alternative; real GitHub write/readback and operator grading remain
-incomplete. The fifteen-minute same-chat automation workshop-board-review is prepared
-in PAUSED state. No unattended execution is claimed.
+Automatic approval review initially rejected creating a temporary GitHub control
+issue without explicit publication authorization. The user then explicitly approved
+creation, one response, recovery verification and closure on 2026-10-15.
+
+The reviewer read the complete controlled [issue 14](https://github.com/dveyarangi/xuanxue-workshop/issues/14)
+and the governing review, security-authority, alignment and local-authority sources.
+GitHub project automation added a timeline event after the initial claim; preparation
+correctly refused the changed basis. The reviewer reread and reclaimed it before
+preparing the representative answer.
+
+The real publication path persisted sending and posted the answer; the proof adapter
+then deliberately interrupted before the publication path could retain confirmation.
+A separate invocation recovered [comment 6180599165](https://github.com/dveyarangi/xuanxue-workshop/issues/14#issuecomment-6180599165)
+from exact body, author and marker. A repeated invocation returned the same receipt.
+Independent paginated GitHub readback found exactly one physical comment. The control
+issue was closed and its closed state was studied and retained without another reply.
+No real project contribution was accepted. Local evidence is retained in
+`.local/board-review/github-proof-result.json` and the interruption/claim artifacts.
+
+The protocol-replacement example provides the concrete escalation: investigate the
+unmet requirement, compatibility consequences and affected owners, then ask the
+Workshop operator whether to authorize a specific replacement; the accepted protocol
+remains the baseline. The example requests no actual protocol change. Operator
+grading of all five published representative answers remains pending.
+
+The native same-chat automation workshop-board-review was switched to ACTIVE on
+2026-10-15 at the accepted fifteen-minute cadence after the controlled proof. The
+first unattended invocation, its tools/network access and quiet/operator behavior
+remain unobserved; configuration alone establishes none of them.
 
 Scoped /verify on 2026-10-15 passed all 52 application tests (including 17 board
 behavior tests), the harness source check, installed-rule agreement, mechanism
 declarations and question/ticket/edge format checks. Existing local progress also
 passed its structural check with thirteen cases. This verifies the implementation
-and local demonstration; the ticket remains Partial while its live-write and
-operator-grade criteria remain open.
+and local demonstration. Real GitHub publication/recovery subsequently passed as
+described above; the ticket remains Partial for operator grading and unattended
+recurrence evidence.
 
 ## Local unattended-review authority — 2026-10-14
 
