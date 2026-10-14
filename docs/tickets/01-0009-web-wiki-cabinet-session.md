@@ -76,10 +76,12 @@ adoption report is recorded in the RFC; it claims no implementation or deploymen
 
 The [2026-10-14 review](../rfc/01-0009-web-wiki-cabinet-session.md#assignment-review--2026-10-14)
 verifies Cabinet's profile and session-check source subsets and retains the
-missing deployment/browser proof,
-inspectable Daychi candidate, staging hosting and joint proof. Review resumes
-in original issues 12/13 when the corresponding source/runtime evidence arrives;
-the complete outcome remains in progress.
+missing deployment/browser proof. The
+[published-consumer review](../rfc/01-0009-web-wiki-cabinet-session.md#published-consumer-review--2026-10-14-evening)
+now establishes inspectable Daychi source and scoped protocol/projection test
+evidence at `bdc3cf7`, with a local Windows HTML-decoding finding. Staging hosting,
+controlled accounts, exposure/cache transition and joint deployed proof remain
+in original issues 12/13; the complete outcome remains in progress.
 
 ## Acceptance criteria
 

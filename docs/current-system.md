@@ -108,6 +108,64 @@ at `fc2dee2`, staging wiki DNS absent and real-account lifecycle/joint browser
 proof outstanding. This is recipient-reported deployment evidence; Workshop's
 earlier anonymous observation above is independently established.
 
+## Published Daychi web-wiki candidate — inspected 2026-10-14
+
+The [publication report](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6173519859)
+and [draft PR 13](https://github.com/sleontenko/daychi/pull/13) make the former
+local-only source accessible at `bdc3cf76af45729f3e6f5186af10eff2e901398e`, based
+on `c7af6f6682d86618f258129b457db9c6c35698e6`. Workshop downloaded that exact
+revision and inspected its boundary, projection, actual routes, browser handling,
+deployment package, QA and installed summary against authority `d689c24`.
+
+The [reader boundary](https://github.com/sleontenko/daychi/blob/bdc3cf76af45729f3e6f5186af10eff2e901398e/practice_api/web_wiki_session.py)
+uses the fixed environment profile, raw active-cookie duplicate refusal,
+per-read empty Cabinet validation, total five-second deadline, no retries or
+redirects, refusal/failure distinction and scoped renewal relay. All public-reader
+aliases are gated regardless of host; canonical wiki private reads are gated
+while unrelated native/private/owner APIs retain their own authority elsewhere.
+The [separate homepage projection](https://github.com/sleontenko/daychi/blob/bdc3cf76af45729f3e6f5186af10eff2e901398e/practice_api/public_wiki.py)
+replaces section/node identities, exposes only section names/counts and structural/
+series relationships, empties material/subtopic labels and excludes reader layers.
+Cookie/query variations add no content or provider calls; canonical wiki refuses
+the site API. Browser source uses credential-free preview fetch and fixed-profile
+reader entry, cookie-only reads, request invalidation and protected-state teardown.
+Authenticated archive recording delivery and default projection redaction are
+covered by the merged candidate's actual-route tests; source publication adds no
+deployment or content-import proof.
+
+[PR CI 38600899781](https://github.com/sleontenko/daychi/actions/runs/38600899781)
+was inspected: 237 backend, 42 app and 23 wiki tests executed successfully;
+the wiki job rebuilt the committed bundle and checked for differences. Workshop
+reproduced all 23 wiki tests and the bundle byte-for-byte (SHA-256
+`d670ffb2d732e7335f42bf57c04425ecf700dd48c70dc658b123fa02f9c88179`).
+All 39 scoped backend boundary tests pass with Python 3.12 UTF-8 mode, and 119
+independent observations pass for GET/HEAD/trailing-slash/query refusal on
+canonical/direct/site hosts, forwarded-host non-authority, private identifiers,
+cookie isolation and streaming/nonempty/cache/redirect provider failures.
+
+One local portability finding remains: on Windows with default cp1252, six of
+those backend tests fail at `web_wiki_session.py:196`, where `Path.read_text()`
+reads the UTF-8 wiki HTML without an explicit encoding. Thirty-three pass;
+`python -X utf8` makes all 39 pass. This is an inspected local decoding failure,
+not evidence that the Linux deployment or session protocol fails. The remaining
+recipient action is reported in original issue 13; Workshop changed no recipient
+source. No shared-contract defect was found in the inspected source/test scope.
+
+Workshop's read-only HTTPS observations at 18:04 and 18:14 UTC establish:
+
+| Surface | Observed result | Scope and limit |
+|---|---|---|
+| Cabinet staging | Health `75a6262`, Mongo up; anonymous/invalid session 401/no-store; guest entry 303/no-store; logout page 200 | [Full source comparison from inspected `e0e823c`](https://github.com/gregoryKot/xuanxue-cabinet/compare/e0e823cb5588529739fe766df989cd93c64bd5c0...75a62625b7d62aec46c7e7e1576e96811e7c2d36) changes tooling only; valid-account lifecycle remains unexecuted |
+| Cabinet production | Health `fc2dee2`; session-check 404; entry is still the SPA | New provider profile/entry/check operations are not deployed there |
+| `wiki.staging.xuanxue.su` | DNS lookup fails | Independent reader hosting/TLS and two-site proof remain unavailable |
+| `wiki.xuanxue.su`, direct Railway and `app.xuanxue.su` | Anonymous `/api/public/wiki/categories` 200/no-store with the same body fingerprint; private `/api/wiki/graph` 401; new `/api/site/wiki-graph` 404 | Existing public-reader release remains live; candidate activation/cutover is not established. Sampling identifies these three exposed paths but does not enumerate every alias or controlled old cache |
+
+The source-access gap is resolved. The [recipient cutover inventory](https://github.com/sleontenko/daychi/blob/bdc3cf76af45729f3e6f5186af10eff2e901398e/docs/qa-web-wiki-cabinet-2026-10-13/CUTOVER.md)
+still leaves independent staging hosting, authorized provider/account/browser
+fixtures, native public-reader transition and complete alias/cache ownership
+outstanding. Source conformance in this scope is not merged/deployed reader
+acceptance, production rollout or completed joint lifecycle proof.
+
 ## Knowledge reception evidence — inspected 2026-10-12
 
 At [Knowledge e400680](https://github.com/sleontenko/daychi-knowledge/tree/e4006807c3adaa373ad3a6f63396d0a2eaea66ef),

@@ -564,3 +564,26 @@ The operator's accepted exception is handed off; inspectable Daychi source/QA,
 hosting/exposure/cache evidence, provider/account lifecycle and joint two-site
 proof remain recipient work. No application source, fixture, DNS or release was
 changed by this handoff.
+
+## Published consumer review — 2026-10-14 evening
+
+The [new source/runtime observations](../current-system.md#published-daychi-web-wiki-candidate--inspected-2026-10-14)
+resolve the unavailable-candidate condition at Daychi `bdc3cf7` / draft PR 13.
+Workshop inspected executed CI and reproduced the scoped protocol/projection and
+browser suites against unchanged accepted authority `d689c24`. No shared-contract
+defect was found in this source/test scope. The Windows cp1252 HTML-decoding failure
+is returned as a local recipient finding; UTF-8 mode passes all 39 boundary tests.
+It is not classified as a Linux deployment or cross-project protocol failure.
+
+| Boundary | Evidence now established | Remaining recipient action / proof |
+|---|---|---|
+| Reader enforcement and environment wire | Accessible source, 39 scoped backend tests in UTF-8 mode, 119 independent boundary observations and executed CI | Match deployed origins/configuration, real Cabinet account statuses/renewal and actual cookies/browser flow |
+| Homepage exception and existing archive | Restricted projection, no input expansion/provider dependency, authenticated archive recording retention and default redaction; 23 web tests and exact bundle rebuild | Deployed allowlist/empty/navigation evidence and complete exposure/cache inventory |
+| Reader HTML on Windows | Default cp1252 fails at the new unqualified HTML read; UTF-8 mode passes | Recipient addresses or explicitly bounds its supported local runtime; Linux CI remains valid evidence |
+| Hosting and cutover | Staging Cabinet `75a6262` retains inspected protocol; production `fc2dee2`; three known reader aliases still serve public categories | Daychi staging DNS/TLS and recipient release; Cabinet-owned controlled account/browser proof; native public-reader transition, full alias/cache ownership and coordinated issue 9 cutover |
+
+Stage: source review proceeds from accessible artifacts rather than repeating the
+source-publication request. The existing assignments remain open for the local
+finding and deployment/fixture/exposure conditions above. No merge, recipient
+source change, account mutation, release or complete acceptance is made by this
+review; eligibility for joint proof depends on the actual remaining conditions.
