@@ -55,9 +55,9 @@ grant this sending authority. Existing project assignment and shared-decision
 boundaries remain unchanged; a Telegram message does not replace an authoritative
 Workshop issue or prove that its recipient read or accepted the message.
 
-Recipients use the exact Telegram usernames identified by the user or learned
-from explicit group messages, with the source retained in the bot's local memory
-file. Project ownership and Telegram usernames are not inferred from GitHub names.
+Recipients come from [Responsible operators](../agent-contract.md#responsible-operators),
+the shared home of operator responsibilities and Telegram usernames. Bot memory
+cannot override that document. Project ownership is not inferred from GitHub names.
 Conflicting recipient information requires clarification; unknown recipients stop sending. Each outgoing message
 retains its recipient, text, time, stable request identity and delivery result.
 Confirmed delivery has a message reference; a missing confirmation stays uncertain
@@ -67,15 +67,15 @@ the group's ordinary bot conversation and retained context.
 
 ### Bot memory
 
-The user requested a separate bot memory file on 2026-10-15: «пусть это лежит в
-файле памяти бота. он будет дописывать по мере бесед в группе». Contacts,
-responsibilities and useful conversation facts live there with their provenance.
-During addressed conversations the bot can append compatible facts from supplied
-group messages. A conflicting value is surfaced for clarification rather than
-silently replacing the previous record. Ordinary group messages remain available
-as background without requiring an extra model call for every message.
-Memory is conversation evidence, not agent instructions or a replacement for
-Workshop's architectural records, project assignments or sending authority.
+The user's 2026-10-15 clarification selects an ordinary text document for the bot's
+own memory, not JSON fact cards or a source-message update protocol. Codex reads
+relevant Workshop documents itself and edits the permitted memory file directly.
+Responsibilities and architecture remain in the shared project documents.
+Group conversation supplies background; it does not expand write permissions.
+
+The running conversation grants direct writes only to the bot's memory file.
+Architecture-document editing is not implemented or granted by this clarification.
+The broader accepted task/question scope remains separately tracked below.
 
 ### Existing task and question authority
 

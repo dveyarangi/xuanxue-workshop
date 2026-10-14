@@ -46,6 +46,20 @@ in the Knowledge checkout. Remaining reception work belongs to
 structured-article implementation acceptance remains in
 [original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
 
+## Responsible operators
+
+These operator responsibilities and Telegram contacts were confirmed by the user
+on 2026-10-15. This is their authoritative home for Workshop, including bot replies
+and directed messages; conversation memory does not assign or override ownership.
+DNS is an operational responsibility, not a separate participating repository.
+
+| Scope | Responsible operator (Telegram) |
+|---|---|
+| cabinet | @kotlarewski |
+| dns | @kotlarewski |
+| daychi | @stnleo |
+| knowledge | @stnleo |
+
 ## Boundary scope and product language
 
 Workshop defines shared ownership, data semantics, consistency, failure obligations

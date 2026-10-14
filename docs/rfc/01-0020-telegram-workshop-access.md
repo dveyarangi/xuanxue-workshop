@@ -3,7 +3,7 @@
 - **record of** what it intends to become
 
 **Authored:** 2026-10-12
-**Last amended:** 2026-10-12
+**Last amended:** 2026-10-15
 
 Implements [telegram-workshop-access](../tickets/01-0020-telegram-workshop-access.md).
 
@@ -93,9 +93,10 @@ reply context. Project assignments remain in Workshop Issues; the detached group
 worker gains no sending tool or recipient-registration authority. No sibling
 implementation, dashboard or independent message service is needed.
 
-The local CLI registers an explicitly identified project/operator alias and Telegram
-username in the local memory file. A send takes an alias, UTF-8 message file
-and required stable request ID. It uses the recorded username as an explicit mention.
+A send resolves its scope from the Responsible operators table in
+`docs/agent-contract.md`, with no local contact-registration command or memory
+fallback. It takes a scope, UTF-8 message file and stable request ID, and uses the
+documented username as an explicit mention.
 Recipient identity and text are frozen in SQLite before the network operation.
 Each request attempts delivery once; confirmed, rejected and uncertain results stay
 inspectable. Duplicate/concurrent invocations return the existing result and changed
@@ -111,16 +112,46 @@ reply continuation and absence of receiver-state changes during sender startup.
 Actual group delivery requires a user-provided recipient and a real message need;
 local transport tests cannot establish that live outcome.
 
-The user's memory amendment selects a local `memory.json` beside the existing
-journal. Entries carry kind (contact or fact), key, value and source. Codex-origin
-registration and group-worker proposals use the same bounded append path with
-exclusive access and atomic replacement. Existing identical facts are idempotent;
-conflicting keys are returned for clarification, never silently overwritten.
-Each proposed group-memory addition must cite a supplied human group message ID.
-The worker receives memory as data and proposes additions during its ordinary
-answer; the caller validates and applies them and owns the result wording. Memory
-and ticket edits do not occur in the same decision. No extra background model loop
-or separate contact registry is needed.
+## Direct Codex conversation and text memory — 2026-10-15
+
+The [memory clarification](../contracts/telegram-workshop.md#bot-memory) replaces the
+structured fact store. A normal conversation invokes Codex with the request, group
+background, repository location and memory path. Codex reads project files with its
+own tools and returns plain final text. It edits `.local/workshop-bot-memory.md`
+directly; no memory schema, source-ID protocol or fixed document bundle participates
+in this route. The existing selected-ticket local operation remains separate.
+
+A named Codex permission profile grants filesystem reads and only the memory file
+write access. Private bot state and the operator's Codex, SSH and AWS credential
+directories are denied to tool reads. Network commands, inherited connectors, hooks,
+browser and other-agent tools are disabled; approvals are never escalated by a group
+request. The installed Windows sandbox requires root read access. Native checks must
+prove permitted reads/writes and refused out-of-scope writes/private reads.
+
+Memory is an ordinary mutable document. An interrupted Codex turn may have edited it;
+a failed reply is not proof of unchanged memory. The journal prevents automatically
+rerunning the same request. The group receiver continues to serialize conversations.
+
+### Impact
+
+The conversation call, prompt, memory storage and outgoing recipient lookup change.
+Telegram intake, journal, reply association and delivery recovery retain their contracts.
+
+### Hidden edges
+
+Actual Windows permissions, plain final-text extraction and direct file editing need
+real-host evidence; a mocked successful process does not establish these capabilities.
+Memory must remain outside the denied private-state directory.
+
+### Leave alone
+
+Sibling projects, architectural write authority and the local ticket application path
+are unchanged. Stored conversation/delivery data is not agent memory.
+
+### Recommendation
+
+Use the existing Codex file tools and one Markdown file. Remove the structured-memory
+module and contact-registration command; keep ownership in the shared contract.
 
 <straw-dog question="q-0002.0012">
 
