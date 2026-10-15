@@ -40,6 +40,14 @@ now requires actor, executable action, unavailable input and observable result,
 separating reviewer preparation from operator-only action. No new authority,
 tracker or general harness rule is introduced.
 
+Struck again, 2026-10-15, in Telegram: L22's “explain how” still allowed goals
+such as configuring DNS and jointly checking session renewal to stand in for
+executable steps. The bot omitted source-backed DNS parameters and left “together”
+without separate roles or a reason for simultaneous participation. L22 now defines
+the user-facing step, copy-ready delegation to an existing agent, sequential handoffs
+and explicit missing prerequisites. This is presentation of existing assignments,
+not a new assignment format or additional recipient authority.
+
 The user's follow-up in the same exchange identified why that amendment was still
 insufficient: an output-only actor field does not force capability assessment or
 retain the reviewer's own execution commitment. Review-assignments now assesses

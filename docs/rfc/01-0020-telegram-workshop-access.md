@@ -568,6 +568,28 @@ with no processing or delivery error. Its separate process remained running on
 subsequent inspection. Telegram client rendering of the indicator was not observed
 directly; renewal and request parameters were verified through transport tests.
 
+## Executable next steps — 2026-10-15
+
+The user supplied a second vague Telegram answer: named owners and issue links
+still left DNS configuration and a joint browser check as goals rather than steps.
+The local conversation rule now defines the presentation of an executable action,
+copy-ready direction to an already assigned agent, sequential result handoff and
+explicit missing prerequisites. It changes neither issue ownership nor permissions.
+
+Two real Codex answers in one continuing conversation were inspected at
+`.local/bot-actions-proof-20261015-102723/private/`. The first retained the exact
+CNAME target and private TXT handoff from issue 12, separated the DNS actor from
+recipient agents, supplied copy-ready agent requests and identified available versus
+blocked work. The follow-up on renewal requested a Cabinet-prepared eligible test
+session, refused to invent a waiting interval, and described the request, response,
+cookie forwarding and subsequent read that distinguish renewal from a simple reload.
+It explained why simultaneous owner participation was unnecessary. These are observed
+prompt outcomes, not evidence that the DNS or browser work was performed.
+
+Both answers completed in the same native session. No group message, issue comment
+or recipient mutation was made by the proof. Harness integrity, installed rules and
+mechanism validation passed. The running bot reads the amended role on its next turn.
+
 ## Evidence checked on 2026-10-12
 
 - Local `codex-cli 0.159.0` help exposes `exec`, JSON/final output, sandbox selection,

@@ -164,6 +164,12 @@ does not turn an otherwise successful answer into a failure.
 References in Telegram are verified repository/issue links or omitted. A necessary
 human action includes how to carry it out; an existing agent assignment is passed
 to the operator as a direction to their agent with the original issue link.
+The user's 2026-10-15 clarification defines a usable step as one named executor,
+an operation with its location and sourced inputs, and an observable result.
+Existing agent assignments receive copy-ready directions. Simultaneous participation
+has an explicit necessity and separate roles; ordinary dependencies are sequential
+handoffs. Missing procedures or access remain concrete questions, not invented steps
+or generic acceptance goals presented as instructions.
 Available checks belong to the bot. Missing facts or staging access are requested
 specifically. Compatible follow-up can be added to an existing addressed Workshop
 issue with confirmed publication; the bot does not assert an unconfirmed write.
