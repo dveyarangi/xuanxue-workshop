@@ -1,16 +1,19 @@
 # Cabinet: native account-session provider
 
-**Published amendment in [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7), 2026-10-10.** Recipient label: `project:cabinet`.
+**2026-10-10 wire/security amendment published in [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7), 2026-10-10.** Recipient label: `project:cabinet`.
 Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
 The accepted native profile includes full web self-profile parity with
 `homeHiddenTiles`, automatic continuation and the accepted client-impersonation
 risk. Its accepted security amendment fixes random/hash-only native credentials,
 database-backed browser-bound pending authorization and `/login/native` continuation.
-Implementation and joint native proof remain pending. The amendment pins
+Implementation and joint native proof remain pending. The wire/security amendment pins
 `3c98d4a5201710f8f777183dd7b61caefe47e2d5`, shared with
 [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
 The original issue holds the current recipient assignment and reports. Its body,
 recipient label and shared authority were read back against the reviewed text.
+
+The [2026-10-15 N11 live-evidence amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15)
+is accepted; the original issue identifies the current shared full-profile revision.
 
 ## Recipient and outcome
 
@@ -21,17 +24,9 @@ Daychi implements the consumer. Workshop reviews the shared outcome and evidence
 
 ## Expected / observed
 
-At Cabinet `f5036604a414f5e509ca3c9a73d5bcaaa72b3961`, the inspected auth guard is cookie-only,
-browser sessions roll after seven days with a 90-day credential lifetime, and
-logout clears the browser cookie. No native authorization grant, code exchange
-or native grant-revocation behavior was found in the scoped sources.
-[Current evidence](../current-system.md#native-account-session-source--2026-10-08)
-links those primary files and the independently owned Daychi client boundary.
-Existing account restrictions and browser login methods remain supported.
-The [2026-10-10 amendment source check](../current-system.md#native-security-amendment-source-check--2026-10-10)
-retains the inspected native-auth gap and full `MeDto`/normalized `homeHiddenTiles`
-baseline: the only change since `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5`
-is `CLAUDE.md`. No native implementation or deployment is inferred.
+Scoped provider implementation and log-protection evidence is reviewed in [the original provider review](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6103282345) and [the published correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6182910948). The former encoded-parameter log deviation is resolved. Cabinet's [current arrangement](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6194395822) identifies staging issuer `https://staging.xuanxue.su` at `5ea9a8b`, the responsible operator and owner-controlled account/status procedures. The [accepted request](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6197257048) narrows live N11 evidence only; it does not change provider behavior or accept the whole contribution.
+
+Workshop's reviewed tree comparison from `67d5cbd` to `5ea9a8b` finds only test support changed within `api/src/native-auth/`; shared browser/session/native-login changes remain in joint regression scope. These scoped source and anonymous-availability observations do not establish actual authenticated native integration.
 
 ## Shared contract and conformance
 
@@ -87,6 +82,8 @@ content endpoints or Cabinet staff operations.
 
 ## Execution dependencies
 
+The [published staging registration invitation](https://github.com/dveyarangi/xuanxue-workshop/blob/88fdfb7c01fea9a2672f65c9506286c2038cad49/docs/current-system.md#cabinet-staging-access--confirmed-2026-10-15) is available and may be shared openly. Registration may be performed personally or with the recipient's authorized agent; private invitation delivery is not a prerequisite. Registration is distinct from completed sign-in and separately authorized staff/status/fixture actions.
+
 Implementation uses the accepted, accessible pinned profile under Cabinet's own
 operator. No Workshop readiness confirmation, collaboration-installation acceptance,
 Daychi public pilot completion or consumer deployment gates this implementation.
@@ -100,6 +97,8 @@ it does not release Cabinet. Provider/source availability is reported as facts i
 this original issue, without requiring a separate permission ceremony.
 
 ## Acceptance evidence
+
+The user accepted Cabinet's [N11 request](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6197257048) on 2026-10-15. Under the [accepted N11 live-evidence amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15), live N11 uses two native grants and a browser session on the same account: revoke the first grant with its current credential and verify that the second grant and browser remain usable. N11 requires no live credential-aging arrangement, renewal or predecessor-token revocation. Provider N08/N09/N11 automated checks and client synthetic renewal/predecessor-recovery checks remain required. Credential lifetimes, renewal and grant-wide revocation behavior, N01/N15/N16/N17 and both-platform configuration/client coverage are unchanged.
 
 Report here commits/PRs, exact contract revision, executed check counts/outcomes,
 redacted failure results, deployment origin/revision and remaining limitations.

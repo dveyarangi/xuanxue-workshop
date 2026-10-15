@@ -9,8 +9,10 @@ without phone and automatic browser continuation remain binding, including the
 documented client-impersonation risk. No account-switching workflow is added.
 Prepared within
 [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
-The complete amended profile is published at Workshop
-`3c98d4a5201710f8f777183dd7b61caefe47e2d5`, the common authority cited by
+The wire/security amendment was published at Workshop
+`3c98d4a5201710f8f777183dd7b61caefe47e2d5`. The accepted N11 live-evidence
+amendment below narrows verification scope only. The current full-profile
+publication revision is shared by
 [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
 and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
 Recipient implementation evidence and joint native proof remain pending.
@@ -243,6 +245,19 @@ configuration and client checks cover both iOS and Android. Existing web,
 invitation, content and ordinary schedule/reminder behavior remain regression
 obligations. Expo Go or a fake provider alone cannot establish that joint proof.
 The detailed wire inputs of common cases below are part of the accepted profile.
+
+### Accepted N11 live-evidence amendment — 2026-10-15
+
+Decision: the user accepted [Cabinet's request](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6197257048)
+with "принять запрс" on 2026-10-15.
+
+Live N11 uses two native grants and a browser session on the same account:
+revoke the first grant with its current credential; the second grant and browser
+remain usable. N11 does not require live credential aging, renewal or
+predecessor-token revocation. Provider N08/N09/N11 automated checks and client synthetic
+renewal/predecessor-recovery checks remain required. Credential lifetimes,
+renewal and grant-wide revocation behavior, N01/N15/N16/N17 and both-platform
+configuration/client coverage are unchanged.
 
 ## Accepted web self-profile parity
 
@@ -695,7 +710,7 @@ provider and an actual native development/release build, not Expo Go.
 | N08 | Credential ages 604800 / 604801 seconds; expiry-1 / expiry | No renewal / renewal; valid / invalid_token; stable grant on renewal |
 | N09 | Lost renewal response, crash before persistence or secure write failure after server success | Old credential still usable; retry possible; no false completion |
 | N10 | Lost code-exchange response, crash after dispatch before durable credential installation, duplicate callback or write failure after exchange | No code replay; use a durably installed credential if present, otherwise a fresh browser attempt; prior valid session preserved on failure |
-| N11 | Two native grants plus a browser session; renew first, then revoke using its old token | All first-grant credentials refused; other grant and browser still usable |
+| N11 | Provider/synthetic: renew first, then revoke using its old token. Joint/native: two native grants plus a browser session; revoke first using its current credential, without aging/renewal | All first-grant credentials refused; other grant and browser still usable |
 | N12 | Concurrent revoke/renew/read; repeated/unknown-token revocation | No usable credential after acknowledged revoke; repeat/unknown yields 200 |
 | N13 | Block/unblock, account deletion, missing native bearer with browser cookie | 403 retained then recovery / 401 clearing only matching native credential / 401 |
 | N14 | Offline, timeout, 429, 503, malformed success; subsequent recovery | Retain current credential, distinguish unavailable from refused; no background poll requirement |
@@ -713,7 +728,8 @@ already required for changes to account-field meanings.
 
 Token/header leakage checks accompany the cases; test records include outcomes,
 revisions, environment and platform, never real credentials. N01/N11/N15/N16/N17
-need joint/native evidence; server/client interruption cases can supplement it.
+need joint/native evidence under the [accepted verification scope](#accepted-joint-verification-scope),
+including the N11 live-evidence amendment; server/client interruption cases can supplement it.
 One real supported native platform suffices for the joint integration record;
 callback configuration and client checks cover both supported iOS and Android.
 

@@ -9,6 +9,8 @@ Live read-only discovery inspected thirteen addressed issues. Controlled issue 1
 
 ## Results
 
+The Workshop operator accepted [Cabinet's N11 request](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6197257048) on 2026-10-15. The [accepted profile amendment](contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15) removes only live aging/renewal/predecessor-token revocation from N11. Provider N08/N09/N11 and client synthetic renewal/predecessor evidence remain required. Live current-credential revocation of one native grant must leave a second native grant and the browser usable. No credential-aging fixture or wait is a remaining dependency. Other native cases and runtime behavior remain unchanged; this decision does not accept the separate public-schedule case-10 request or complete native acceptance.
+
 Operator clarification — 2026-10-15: registration invitations may be shared openly under the [agent contract](agent-contract.md#registration-invitations--clarified-2026-10-15). Earlier descriptions of a required private invitation handoff are superseded. This permission does not establish registration, a teacher-role grant, test-class preparation or native execution. This scoped correction does not claim a fresh full-board review.
 
 [Controlled answer](https://github.com/dveyarangi/xuanxue-workshop/issues/14#issuecomment-6180599165) was published once and recovered after interruption. The operator accepted its five representative judgments on 2026-10-15.

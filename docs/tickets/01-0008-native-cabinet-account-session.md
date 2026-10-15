@@ -58,7 +58,7 @@ All three relayed security/continuation choices are settled, document-verified a
 published in the amended assignments. The settled public wire and earlier
 product decisions remain binding.
 
-The two recipient assignments are published against accepted Workshop revision
+The 2026-10-10 recipient assignments were published against accepted Workshop revision
 `3c98d4a5201710f8f777183dd7b61caefe47e2d5`:
 [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
 and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
@@ -81,6 +81,8 @@ not provider/client implementation, deployment or native proof.
   restoration, recovery and local exit; client evidence covers its N01–N17 obligations.
 - [ ] Joint N01/N11/N15/N16/N17 proof uses a real native build and a conforming
   reachable Cabinet provider, with controlled accounts, issuer and exact revisions.
+  N11 uses the [accepted live-evidence amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15):
+  current-credential revocation/isolation live, with automated aging/renewal/predecessor proof.
   One supported platform supplies joint proof; both iOS/Android configurations
   and client checks are covered.
 - [ ] /verify confirms the delivered contract behavior and retained Cabinet web,
@@ -576,3 +578,22 @@ work. The approved eventual result includes native sign-in, restoration, account
 agreed expiry/renewal, refusal versus temporary failure and recovery, and local sign-out;
 actual native proof and Cabinet web/Daychi ordinary-content regressions remain required.
 It does not complete the broader migration or the public schedule connection.
+
+## N11 live-evidence amendment — 2026-10-15
+
+The user accepted Cabinet's request to remove only live aging/renewal/predecessor
+revocation from N11. Its authoritative home is the
+[accepted verification amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15).
+The provider/client implementation obligations and remaining joint proof stay open.
+The amended full profile is the common authority for original assignments 7/8.
+Remaining recipient work is the actual authorized native proof; the live
+credential-aging arrangement is no longer a prerequisite.
+
+The scoped document review confirms byte-identical operational definitions from
+Authority and extent through the common-case section, and unchanged common-case
+rows outside N11. Provider/consumer briefs carry the same evidence split and
+public registration scope. Existing implementation obligations remain intact;
+no fresh independent implementation reader is required for this evidence-only
+amendment. Ticket, question, mechanism, installed-binding and shared-report checks
+pass. Provisional-text candidates describe accepted lifecycle or dated evidence,
+not unresolved replacement decisions. No application code changed or suite reran.
