@@ -1,7 +1,7 @@
 import importlib.util
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from pathlib import Path
 
 
@@ -54,6 +54,37 @@ class ReportTests(unittest.TestCase):
 
 
 class RunTests(unittest.TestCase):
+    def test_successful_process_without_required_report_is_a_failure(self):
+        runner, report = load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            worker = runner.CodexReviewer(root, root / 'local/state.sqlite3', path,
+                                          'school/workshop', ['project:workshop'], executable='controlled.exe')
+            with patch.object(runner.subprocess, 'run', return_value=Mock(returncode=0)), \
+                    self.assertRaisesRegex(RuntimeError, 'without publishing'):
+                worker([{'number': 1}])
+
+    def test_launcher_keeps_credentials_out_of_reviewer_environment(self):
+        runner, report = load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            worker = runner.CodexReviewer(root, root / 'local/state.sqlite3', path,
+                                          'school/workshop', ['project:workshop'], executable='controlled.exe')
+            def complete(*args, **kwargs):
+                self.assertNotIn('GH_TOKEN', kwargs['env'])
+                self.assertNotIn('GITHUB_TOKEN', kwargs['env'])
+                self.assertNotIn('CODEX_THREAD_ID', kwargs['env'])
+                report.operation(path, 'Controlled completed review')
+                return Mock(returncode=0)
+            with patch.dict(runner.os.environ, {'GH_TOKEN': 'control-only', 'GITHUB_TOKEN': 'control-only',
+                                               'CODEX_THREAD_ID': 'control-only'}), \
+                    patch.object(runner.subprocess, 'run', side_effect=complete):
+                worker([{'number': 1}])
+
     def test_quiet_scan_calls_no_model_and_leaves_report_unchanged(self):
         runner, report = load("board_run"), load("board_report")
         with tempfile.TemporaryDirectory() as directory:

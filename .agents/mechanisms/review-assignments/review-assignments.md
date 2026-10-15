@@ -32,6 +32,8 @@ The report instruction owns the shared snapshot's format and publication; the va
 checks shape and rejects stale replacements. Session recovery and conversation readers
 consume its dated facts without another acknowledgement ledger. A local external controller
 runs discovery before invoking a standalone reviewer, so quiet runs use no model.
+Scoped host capabilities retain authentication at the host: writes remain bound to selected
+issues and the existing lease/publication checks; evidence reads stay within configured repositories.
 
 ## Moments
 
@@ -68,6 +70,8 @@ runs discovery before invoking a standalone reviewer, so quiet runs use no model
 | detector-first controller | `.agents/scripts/gw/board_run.py` |
 | Windows user task adapter | `.agents/scripts/gw/board_task.ps1` |
 | controller and report verification | `tests/test_board_run.py` |
+| scoped authenticated host capabilities | `.agents/scripts/gw/board_tools.py` |
+| capability boundary verification | `tests/test_board_tools.py` |
 
 Retraction removes the review-entry and maintenance bindings through the shared installer. Project
 entry and context bindings are locally owned and are retracted at their source

@@ -19,6 +19,9 @@ Detector-first hosts make no model call for quiet or busy-only discovery. A conf
 shared snapshot follows the review mechanism's REPORT.md format; complete replacements
 reject a changed prior version. Operational updates preserve semantic results and
 unresolved matters. Readers do not treat its timestamp as a fresh board read.
+The standalone reviewer's authenticated host capabilities restrict writes to its selected
+issues and reads to the configured repository and trusted Repository map. Credentials
+remain at the host; changing issue content cannot enlarge that scope.
 
 ## Invariants
 
@@ -32,6 +35,7 @@ unresolved matters. Readers do not treat its timestamp as a fresh board read.
 - Quiet or busy-only controller discovery makes no reviewer call. *validated by:* `tests/test_board_run.py`
 - Invalid or stale shared-report replacement cannot destroy the prior report. *validated by:* `tests/test_board_run.py`
 - Controller failures preserve unresolved report matters. *validated by:* `tests/test_board_run.py`
+- A selected issue cannot authorize another issue's publication or reads outside the configured repositories. *validated by:* `tests/test_board_tools.py`
 
 ## Extending
 
@@ -45,14 +49,14 @@ unresolved matters. Readers do not treat its timestamp as a fresh board read.
 | extension | standing | sidecar |
 |---|---|---|
 | Current Codex chat | live conformance being observed | [codex-chat](board-review-hosts/codex-chat.md) |
-| Windows user task | discovery observed; authenticated review pending | [windows-task](board-review-hosts/windows-task.md) |
+| Windows user task | scheduled discovery and authenticated standalone read/report observed | [windows-task](board-review-hosts/windows-task.md) |
 
 ## Concerns
 
-The [owning question](../questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md)
+The [owning question](../questions/done/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md)
 retains live full-review, operator grading and recurring-run evidence. Local leases
 do not reserve a GitHub issue against independent human writes or other hosts.
 
 ## Roadmap
 
-[workshop-board-review](../tickets/01-0006-workshop-board-review.md) delivers the current host's end-to-end proof.
+None.
