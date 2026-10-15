@@ -954,6 +954,42 @@ longer than the sample; this verifies an exercised case, not uniform prose quali
 The trial sent no Telegram message. Both instruction loading and conversation
 continuity remain unchanged; no receiver restart or history reset accompanies it.
 
+## Telegram instruction review on 2026-10-15
+
+The operator requested a skill-up review of unclear wait notices, indirect actions,
+unsupported private handoffs, evidence jargon and the absent Lem voice, then required
+numbered steps and a disclosure prohibition rather than a public-information allowlist.
+Local L22, L27 and L28 and their installed full/quick role copies now reflect that
+presentation; the Telegram contract records the resulting behavior.
+
+The source review found later Cabinet arrangements in original issue 5 comment
+6194557568 and issue 7 comments 6194395822/6194472622 (14:23–14:31 UTC), beyond the
+12:30 UTC completed board review quoted by the bot. They establish an invitation,
+self-created staging account, teacher role and dedicated class arrangement. No actual
+invitation URL or completed provision was supplied. Current next-action answers read
+latest relevant discussions without repeating unchanged completed verification.
+
+An isolated native full-model trial supplied the installed rules, empty memory,
+project context, board review and original issue 5/7/9/12/13 discussions. It produced
+an explicit wait/next-message notice, dated sources, numbered addressed actions,
+invitation issuer and recipient, TXT handoff without unsupported privacy, concrete
+article-reading contents and a short subject-relevant ironic thought. Remaining
+verbosity and technical detail in the sample limit the claim: this is presentation
+evidence, not proof of uniformly concise responses. The final trial used the narrowed
+disclosure prohibition; neither invitation nor DNS handoff was required to be private.
+No URL was invented in place of the missing invitation.
+
+The actual native Luna quick trial offered topical help without the misleading
+fourteen-task count, and routed the accepted project continuation to the full role.
+All trials disabled tools and external delivery. They do not prove live Telegram
+behavior or fresh issue reads by the production executor. No bot restart, chat reset,
+external message or recipient-project change was performed by this amendment.
+
+Validation: 117 unit tests passed. Harness, installed rules, mechanism declarations,
+ticket records and the board report passed their checks; installed rules were checked
+again after the final wording amendment. Authored changes are confined to local rules;
+the common skill corpus is unchanged.
+
 ## Evidence checked on 2026-10-12
 
 

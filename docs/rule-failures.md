@@ -186,6 +186,22 @@ that distinction; it still produced some formal and longer-than-example prose.
 
 
 
+Struck again, 2026-10-15: the five-point Telegram review found that L22 still
+allowed an unclear wait notice, stale next actions, paragraph-sized procedures,
+unsupported private handoffs and internal evidence terminology; L28's optional
+humour disappeared from developed answers. Later Cabinet arrangements were already
+present in the original discussions but absent from the reused board summary.
+The skill-up pass consolidated L22 around dated current discussions, explicit
+wait-and-answer notices, one addressed action per numbered step, concrete materials
+and agent-owned technical preparation. Disclosure is a prohibition on credentials,
+account-access/recovery links and nonconsensual personal data, not a list of public
+exceptions. L28 makes a short subject-relevant ironic thought visible in developed
+answers. L27 prevents retained issue inventory from becoming a current task count.
+The amendments are installed; isolated native reply trials verify presentation,
+not live Telegram delivery or the production executor's fresh-reading behavior.
+
+
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
