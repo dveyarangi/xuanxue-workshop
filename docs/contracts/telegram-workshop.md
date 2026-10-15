@@ -24,12 +24,16 @@ The first version serves one configured Telegram group. Every member of that gro
 can address the bot. A mention of its actual account or a link to that account in
 message text or a caption is a request. Multiple references in one message make
 one request. Under the user's 2026-10-15 correction, a standalone reference with
-no explicit reply addresses the same author's most recent message in the same
-topic when that message was unaddressed and arrived within the preceding five
-minutes. Its original text remains in history, with the later reference recorded
-as the addressing event. Another person's text, another topic, an already addressed
-message or older history does not supply the implicit request. Without a matching
-message, the reference receives an invitation to ask a question.
+no explicit reply follows the same author's most recent meaningful message in
+the same topic. Earlier automatic invitations to ask a question do not count as
+answers or break that connection. An unaddressed message supplies the question
+and conversation root, with no elapsed-time cutoff; its original text remains
+in history and the later reference is the addressing event. An already addressed
+request continues its existing conversation without substituting its text as a
+new command. Another person's text or another topic is not selected implicitly.
+Every standalone reference reaches Codex with the available history. When its
+meaning is unclear, the bot asks a contextual clarification rather than returning
+a transport-level invitation. Explicit replies retain priority.
 There is no required `/ask` command.
 
 A reply to a bot answer continues that conversation without another mention.

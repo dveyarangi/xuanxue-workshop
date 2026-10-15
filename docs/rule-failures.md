@@ -1,5 +1,20 @@
 # Rule failures
 
+## 2026-10-15 — Fresh-message fixture missed stored failed conversations
+
+Status: repaired in [telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
+
+The first standalone-mention repair passed on a fresh question and mention, but
+the user's stored conversation already contained automatic invitations marked
+as answered. Those records hid the unanswered question; an invented five-minute
+cutoff also excluded later attempts. The [verification skill, Check and repair](../.agents/skills/verify/SKILL.md#check-and-repair)
+already requires fixtures produced as existing records came to be. That obligation
+was missed. The regression now inserts the old receiver's exact result shape and
+actual message ordering; a native Codex run uses a copy of the real journal.
+The automatic invitation shortcut and cutoff are removed. L22 now treats standalone
+references as contextual requests, clarifying ambiguity without replaying completed
+actions. No additional general harness rule is introduced.
+
 ## 2026-10-15 — Concurrent staging changed a reviewed commit
 
 Status: remaining bot rules recovered in a separate scoped commit; shared files retained.
