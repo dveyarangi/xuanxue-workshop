@@ -118,7 +118,7 @@ local transport tests cannot establish that live outcome.
 The [memory clarification](../contracts/telegram-workshop.md#bot-memory) replaces the
 structured fact store. A normal conversation invokes Codex with the request, group
 background, repository location and memory path. Codex reads project files with its
-own tools and returns plain final text. It edits `.local/workshop-bot-memory.md`
+own tools and returns plain final text. It edits `.workshop-bot-memory.md`
 directly; no memory schema, source-ID protocol or fixed document bundle participates
 in this route. The existing selected-ticket local operation remains separate.
 
@@ -837,6 +837,47 @@ The final suite passed 112 tests; harness, installed-rule, mechanism, board-repo
 and ticket checks passed. The existing receiver remained running. Both roles read
 their instruction files on invocation, so this instruction-only change needs no
 receiver restart and applies to subsequent requests.
+
+### Unquoted continuation and memory access — 2026-10-15
+
+The live 84–96 exchange distinguished a recognized implicit request from a confirmed
+continuation: quick processing recognized «и чем же?» and «рассказывай» but its ambient
+schema allowed only offer/ignore. The host now supplies the most recent confirmed bot
+answer to the current participant in the same topic as a possible continuation.
+Luna may select that identity and answer or request full work. The host rejects an
+invented identity, persists the original conversation root and direct addressing,
+and starts typing before executing. Another participant or topic has no implicit
+continuation target; an explicit Telegram reply retains its existing semantics.
+No extra model call, keyword classifier or age cutoff is added.
+
+The first test failed because no full executor was called. The corrected tests cover
+unquoted acceptance, durable linking, restart without replay, other participants and
+topics, invalid targets and bounded quick context. Native calls on the actual retained
+conversation acknowledged the greeting, answered the capability follow-up, and routed
+«рассказывай», «давай» and «и что делать?» to work; a named other addressee was ignored.
+One missing-board trial still offered help, prompting the explicit work requirement
+for missing data in a confirmed continuation. A refusal probe timed out once, and
+another rejected a malformed continuation; host failure handling remains quiet and
+does not authorize work. Private evidence is under `.local/bot-continuation-proof/`.
+
+The live memory failure came from a deny ACL on the shared `.local` parent left by
+an earlier permission probe. Memory now lives outside that ancestry in the ignored
+root file `.workshop-bot-memory.md`. Migration retains the legacy text and removes
+its old file after a successful first copy; an existing new memory takes precedence.
+No private-directory ACL is weakened. A fixed native sandbox command, without a
+model or network, confirmed memory read/write and rejected a document write and
+private-canary read. The memory remained empty after the user's earlier reset.
+
+The full suite passed 117 tests, with harness, installed-rule, mechanism, board-report
+and ticket validators passing. Local native routing/delivery probes use simulated
+Telegram delivery; they do not resend the real group messages.
+
+The final receiver replay of live message 88 used native Luna and a simulated full
+executor and Telegram peer: Luna selected the confirmed answer 87 in 4.54 seconds,
+the host retained root 86, invoked the executor once and delivered one simulated
+reply to message 88. A subsequent refusal returned ignore in 4.13 seconds without
+another executor call. This establishes routing and delivery integration, not a
+new full-model project answer or an actual group replay.
 
 ## Evidence checked on 2026-10-12
 

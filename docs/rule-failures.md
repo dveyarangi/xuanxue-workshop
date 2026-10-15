@@ -138,6 +138,33 @@ delivery; existing agent issues remain short handoffs rather than repeated instr
 
 
 
+Struck again, 2026-10-15: unquoted continuation was recognized by Luna but could only
+produce another offer or silence. Live messages 86/88/90 therefore did not reach the
+ordinary answer or project executor until a Telegram reply was used. L27 and its
+schema now permit a continuation selected from the host's latest confirmed answer
+to that participant in that topic. The host validates and persists the selected
+conversation before answering or working. A missing board snapshot routes a confirmed
+project continuation to work rather than another offer. A greeting is just a greeting.
+This restores the accepted follow-up behavior without treating every nearby message
+as addressed or using a phrase/time cutoff.
+
+## 2026-10-15 — Permission probe affected the live memory parent
+
+Status: corrected by separating writable memory from private runtime ancestry.
+
+A read-only native proof declared the shared `.local` parent private. Windows sandbox
+deny entries remained on that directory and reached the bot's memory file. A later
+live answer could read Workshop documents but reported memory access denied. The
+permission experiment therefore affected the runtime it was meant to observe.
+The writable memory now lives in the ignored root file `.workshop-bot-memory.md`;
+legacy text migrates without replacing an existing new file. Private runtime state
+retains its deny profile. No ACL restriction is removed or weakened. A fixed command
+under the bot's native sandbox profile read and rewrote the same memory bytes while
+document writes and private canary reads were denied. This is an isolation failure
+recorded at its observed scope, not a new general harness rule.
+
+
+
 ## 2026-10-15 — Quick-result rejection concealed a clear greeting
 
 Status: closed; the quick-output contract, diagnostic retention and greeting rule

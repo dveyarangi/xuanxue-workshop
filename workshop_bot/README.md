@@ -66,8 +66,9 @@ uv run --offline --no-project python -m workshop_bot telegram-history
 упоминания, ссылки и реплаи на сообщения своего Telegram-аккаунта, включая ответы
 других участников после перезапуска. Luna также оценивает новые сообщения без
 ссылки: при явном по контексту обращении к Workshop предлагает имеющуюся информацию.
-Разговор между людьми и неясный адресат оставляют бота молчать. Реплай на предложение
-помощи запускает обычный ответ. Вложения без текста отмечаются как недоступное содержимое.
+Разговор между людьми и неясный адресат оставляют бота молчать. Реплай или понятное
+продолжение собственного разговора с ботом запускает обычный ответ без нового предложения.
+Вложения без текста отмечаются как недоступное содержимое.
 Быстрый проход использует `gpt-6-luna` с `low`: отвечает по переданным сведениям
 либо передаёт запрос полноценному исполнителю. У Luna нет инструментов. Её правила
 устанавливаются из `local.rules.md` в `quick.rules.md`; правила исполнителя — в
@@ -90,7 +91,10 @@ uv run --offline --no-project python -m workshop_bot telegram-history
 
 ## Память и направленные сообщения
 
-Память бота — обычный Markdown-файл `.local/workshop-bot-memory.md`.
+Память бота — обычный Markdown-файл `.workshop-bot-memory.md`, исключённый из Git.
+Он расположен отдельно от приватного состояния приёмника. При первом запуске
+старый `.local/workshop-bot-memory.md` переносится без потери текста; существующая
+память в новом месте не заменяется старой.
 Codex сам читает нужные материалы Workshop и редактирует этот файл штатными
 инструментами. У памяти нет JSON-схемы, ключей фактов или специального протокола.
 Оператор может читать и редактировать тот же документ; изменения лучше делать
@@ -171,6 +175,10 @@ are transport state, not a structured memory protocol.
 Each Telegram conversation root that needs the full executor has a persistent Codex session, indexed by group
 and conversation ID in SQLite. Replies from any participant resume that exact
 session across receiver restarts; independent addressed requests start new ones.
+An unquoted continuation can join the latest confirmed bot answer to the same
+participant in the same topic when Luna recognizes the connection. The host supplies
+and validates that answer's identity, persists the conversation link and starts typing
+before full work. Unrelated messages retain the offer/ignore boundary.
 Codex stores its own conversation history. Each turn also receives the bounded
 group snapshot, which can overlap earlier background; native compaction may reduce
 old context. Standalone local requests remain ephemeral.

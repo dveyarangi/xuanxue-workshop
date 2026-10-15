@@ -50,8 +50,8 @@ the user's 2026-10-15 amendment, a quick model also considers new text without a
 explicit reference. A clear implicit request to Workshop, with relevant information
 available, receives one short offer saying what the bot can help with. Mere topical
 relevance, ambiguous addressing and exchanges between people do not trigger a reply.
-This offer does not start investigation or perform an action; replying to it is a
-direct request. A clear greeting or presence question addressed to the bot receives
+This offer does not start investigation or perform an action; an explicit reply or
+recognized continuation from its participant is a direct request. A clear greeting or presence question addressed to the bot receives
 a short acknowledgement without requiring a project topic. Collection is
 restricted to the configured group, even if Telegram delivers messages from another
 group or a private chat. History means received text/captions and recorded bot
@@ -183,6 +183,13 @@ Incomplete or invalid quick output falls back to that executor for direct reques
 an unaddressed message remains silent. Quick replies preserve the Telegram thread
 and history without creating a full Codex session. Routing never expands authority.
 The operator can inspect routing, elapsed time and supplied-source metadata locally.
+
+A clear continuation of the bot's confirmed answer to the same participant in the
+same topic does not require another mention or a Telegram reply. The quick model
+selects only a continuation supplied and validated by the host; that connection is
+retained for subsequent turns and restart. Acceptance proceeds to an answer or
+investigation rather than another offer. Unrelated discussion remains outside that
+conversation; explicit replies from other participants continue to work.
 
 Project status, responsibilities and next-action questions belong to the full
 executor even when previous chat answers could supply a summary and the participant
