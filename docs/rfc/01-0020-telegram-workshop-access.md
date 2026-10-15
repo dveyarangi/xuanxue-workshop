@@ -175,8 +175,10 @@ Session-writing hooks remain disabled. The Telegram role follows applicable read
 skill work, reads existing questions and reports inaccessible external
 evidence. Registration and question-store mutations remain with the operator
 session; the bot does not acquire publication, connector or network authority.
-Factual edits and the agreement-request log remain the separate unimplemented scope
-below. Loading instructions does not claim those capabilities.
+At this stage, factual edits and the agreement-request log were unimplemented.
+The board-aware amendment below implements the request log and scoped original-issue
+follow-up; factual document edits remain separate. Loading instructions alone does
+not establish those capabilities.
 
 The initial native proof used a normal ownership question, an entry-only marker
 and an implicitly selected skill whose answer is absent from the request and README.
@@ -192,9 +194,9 @@ scope while verifying the bot-specific entry and context across worker processes
 
 The user's 2026-10-15 [authority amendment](../contracts/telegram-workshop.md#factual-corrections-and-agreement-change-requests)
 permits evidenced factual corrections and defers agreement changes to a later
-session with the user. The running memory-only permission profile does not yet
-implement either path. This section supersedes earlier blanket architecture-write
-exclusions for factual corrections only.
+session with the user. Direct factual-document edits remain unimplemented. The
+board-aware amendment below implements the separate request-log path. This section
+supersedes earlier blanket architecture-write exclusions for factual corrections only.
 
 The candidate uses Codex's existing file tools and a Markdown request log, not
 structured memory updates or a separate classifier. The write boundary must
@@ -202,12 +204,11 @@ distinguish allowed documentation from code, rules and publication; permission t
 write a document does not establish authority to change a promise within it.
 Evidence of implementation drift is recorded as drift, not an amended contract.
 
-The log retains the original request and group-message reference, author, affected
-agreement, reason and review disposition. Its exact home and the local session-entry
-pointer must be settled together so that pending requests reach an attended Codex
-session; writing an otherwise undiscovered file would not satisfy the requirement.
-Review records the user's decision without erasing the proposal. The unattended
-board-review route does not accept these changes on the user's behalf.
+The implemented log at [Telegram requests](../requests/telegram.md) retains the
+proposal and group-message reference, author, kind and pending disposition. Operator
+recall discovers it under local L26. Review records the user's decision without
+erasing the proposal. The unattended board-review route does not accept these
+changes on the user's behalf.
 
 Proof covers a supported factual correction, an agreement change disguised as a
 factual correction, an uncertain fact, a repeated request, a concurrent document
@@ -483,6 +484,65 @@ lookup without automatic recall or assignment review. Local evidence is retained
 `.local/harness-proof-20261014-235748/private/`. Required harness, installed-rule,
 mechanism, question and ticket checks passed. This proves the scoped amendment,
 not the remaining factual-edit/log capability or whole-ticket group acceptance.
+
+## Board-aware answers and operator requests — accepted 2026-10-15
+
+Implements the [answer amendment](../contracts/telegram-workshop.md#answers-and-language)
+in the existing ticket. The user specified that mechanism requests reach the next
+operator wake rather than granting implementation authority inside Telegram.
+
+### Impact
+
+The host checks the existing board script before each addressed request, reuses its
+snapshots and completed review notes, and exposes scoped tools to the Codex worker.
+Those tools provide paged board evidence, fresh GitHub reads, public site checks,
+one short review notice, recoverable original-issue follow-up and append-only
+operator requests. The agent chooses relevance and performs the existing skills
+when no applicable review exists. The same plain-text role is reasserted on resume.
+
+### Hidden edges
+
+A fetched snapshot is not a completed review. Monitor leases and uncertain
+publication state remain authoritative. A notice has separate delivery state from
+the main answer; failure or restart cannot resend it blindly or confuse its reply
+association. Tool credentials remain in the host. Shell network and direct code
+writes stay unavailable; scoped tools do not transfer arbitrary host permissions.
+Public checks cannot establish authenticated staging behavior. Requests preserve
+trusted intake provenance and reach recall without authorizing themselves.
+
+### Leave alone
+
+The board reviewer, its existing script and active work remain owned by that
+reviewer. Reuse its publication recovery instead of building another comment
+sender. No duplicate board database, automatic code execution, copied harness or
+structured bot memory is introduced. Existing fact-edit work remains separate.
+
+### Recommendation
+
+Implement the scoped tools and durable notice delivery, then exercise changed,
+unchanged, absent and partially unavailable board evidence; original-issue
+publication recovery; request deduplication and next-wake discovery; and native
+Codex tool use. Live proof uses reads and isolated fixtures, not synthetic posts
+to the real group or project issues.
+
+### Verification on 2026-10-15
+
+Native Codex used the scoped tools to read current GitHub issue 14 and supplied a
+separate review notice before its answer with real issue/comment URLs. Evidence:
+`.local/harness-proof-tools-20261015-003153/private/`. An isolated native conversation
+recorded a mechanism request, actually read recall and review-assignments when the
+fixture lacked a completed review, and a fresh operator Codex process discovered
+that pending request through recall. Evidence:
+`.local/harness-proof-requests-20261015-003443/private/`.
+
+Host probes verified a published document URL, public staging health HTTP 200 and
+a DNS failure for the documented wiki staging host. They do not establish authenticated
+access. Tests cover original-issue follow-up recovery, changed evidence and reviewer
+conflicts, notice delivery/restart, missing monitor output and request provenance.
+No synthetic message or comment was posted to the real group or GitHub issues.
+The full standard-library suite passed 82 tests; harness, installed-rule, mechanism,
+question and ticket validation passed. The scoped provisional-text scan found no
+unbound candidate introduced by this amendment.
 
 ## Evidence checked on 2026-10-12
 

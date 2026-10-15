@@ -1,5 +1,34 @@
 # Rule failures
 
+## 2026-10-15 — Concurrent staging changed a reviewed commit
+
+Status: remaining bot rules recovered in a separate scoped commit; shared files retained.
+
+The [commit skill](../.agents/skills/commit/SKILL.md) limits a commit to the current
+work. After the staged diff was reviewed, another writer staged board-review files
+and replaced the shared rule blobs. Commit 3469526 therefore combined both code
+changes and left the bot rules outside it. Commit a15ca4b restored the missing bot
+rules without rewriting the other work. The combined tree passed 82 tests and its
+declared checks. Later writes use path-scoped commits or an isolated index while
+holding the shared index lock. The existing scope rule stands; this is an atomicity
+failure, not evidence for another ownership policy.
+
+## 2026-10-15 — Telegram references and next actions were not usable
+
+Status: repaired in the bot's scoped behavior amendment; verification recorded in
+[telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
+
+The Telegram answer contract required usable source links, but the reply formatter
+appended bare local paths and native replies repeated them. Verification had exercised
+answer delivery without checking whether a participant could open its sources.
+The user also identified operator work without instructions and checks delegated
+despite available automation. The existing
+[verification obligation](../.agents/skills/verify/SKILL.md#check-and-repair) covered
+the source-link failure. [L22 — Telegram conversation](../local.rules.md#l22--telegram-conversation)
+now requires verified links or no reference and actionable operator directions;
+scoped tools provide fresh evidence and compatible follow-up. No general harness
+rule is added. The user's new mechanism-request route reaches operator recall via L26.
+
 ## 2026-10-15 — File readability mistaken for harness integration
 
 Status: repaired; native entry, skill selection and scoped-write verification passed.

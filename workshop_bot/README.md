@@ -121,11 +121,38 @@ needed by native instruction discovery. Network commands, inherited connectors/h
 disabled. The Windows sandbox requires root read access; this is not repository-only
 read isolation. Architecture and other project documents are read-only in this route.
 Session-writing hooks stay disabled. The bot entry in `agent.rules.md`, authored
-as L22 in `local.rules.md`, replaces automatic operator wake/recall/assignment review
-and debug presentation. Shared principles and applicable skills remain available,
-including inspection of existing question records.
+as L22 in `local.rules.md`, replaces operator registration and debug presentation.
+Every addressed request checks the existing board script's retained status. Completed
+applicable reviews are reused; otherwise the bot uses recall and assignment review.
+Shared principles and applicable skills remain available, including question records.
 Unavailable external evidence is disclosed. Operator session bookkeeping and
-publication are not inherited by the group worker.
+general publication authority are not inherited by the group worker.
+
+The Telegram route exposes scoped host tools through a required stdio MCP server:
+board status/discovery, paged issue evidence and fresh GitHub reads, published
+document links, public HTTPS checks, a separate review notice, original-issue
+follow-up and operator requests. The existing board script owns discovery, leases
+and publication recovery. Its retained snapshots are not described as freshly read
+GitHub data; current facts can be checked with fresh reads. The model selects
+relevance and reuses completed reviews where their basis still holds.
+
+Read tools are classified as read-only; the three granted write tools (notice,
+request log and compatible issue follow-up) have explicit approval configuration.
+This does not enable general shell network or file writes. Public site checks
+use HTTPS hosts named in README, current-system or boundaries, reject credentials,
+query parameters and private addresses, and do not follow redirects. Authenticated
+staging checks require separately supplied access and an approved capability.
+
+New relevant evidence produces one short notice before the main answer. Notice
+delivery is journaled separately; an uncertain send is not repeated. Replies to
+confirmed notices preserve the conversation. Evidence seen by the group is retained
+across independent requests, so unchanged evidence does not produce another notice.
+
+Mechanism, access and agreement requests are appended to `docs/requests/telegram.md`
+with trusted message provenance and pending status. L26 in local.rules.md reaches
+operator recall through the normal installer. Recording a request never approves
+implementation. Bot memory remains ordinary text; MCP and private routing files
+are transport state, not a structured memory protocol.
 
 Each Telegram conversation root has a persistent Codex session, indexed by group
 and conversation ID in SQLite. Replies from any participant resume that exact
@@ -143,8 +170,9 @@ a receiver crash during an active call requires operator review of the retained
 request and session state before that conversation can continue. No arbitrary
 latest operator session is resumed. Every resume reasserts the bot permissions.
 
-An interrupted conversation may already have changed memory. Failed answers do not
-claim that it was unchanged; the same request is not automatically executed again.
+An interrupted conversation may already have changed memory, recorded a request or
+published a follow-up. Failed answers report that uncertainty; the same request is
+not automatically executed again.
 
 The separate local `ask --target` operation still uses a bounded source bundle and
 one proposed ticket passage. The caller checks the selected path, format and source
@@ -162,8 +190,8 @@ detector. Runtime credentials do not belong in questions or Workshop documents.
 
 Question mutations, ticket creation/closure, complete skill lifecycle
 and live group acceptance remain within the owning ticket's outstanding
-scope. Sources in group replies are labelled local records; published-source links
-remain part of the complete acceptance criteria.
+scope. Group replies use verified published links or omit references. When a person
+must act, the answer explains how, or points their agent to an existing assignment.
 
 ## Verification
 
@@ -171,6 +199,8 @@ remain part of the complete acceptance criteria.
 uv run --offline --no-project python -m unittest discover -s tests -v
 uv run --offline --no-project python -m tests.live_workshop_proof
 uv run --offline --no-project python -m tests.live_harness_proof
+uv run --offline --no-project python -m tests.live_bot_tools_proof
+uv run --offline --no-project python -m tests.live_bot_requests_proof
 ```
 
 The second command uses the signed-in Codex and creates an isolated copy under
@@ -183,6 +213,11 @@ reception or delivery.
 The third command exercises the bot entry and implicit skill selection, retains a
 conversation-only value across separate worker processes, verifies the memory/document
 write boundary on resume and checks a separate conversation cannot recall that value.
-It also asks an ordinary ownership question against Workshop and checks automatic
-operator entry was absent. Evidence includes native events and answers under the
+It also asks an ordinary ownership question against Workshop. Evidence includes native events and answers under the
 denied private proof directory; no Telegram message is sent.
+
+The tools proof reads a real GitHub control issue through the scoped MCP tools and
+captures a separate notice without sending it to Telegram. The requests proof
+records a mechanism proposal in an isolated fixture, checks recall/review fallback,
+then starts a fresh operator process and verifies recall discovers the pending
+request. Neither proof publishes to GitHub or the real Telegram group.

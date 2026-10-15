@@ -107,8 +107,9 @@ dependent on a group member asking to read them. The Telegram role narrows actio
 and presentation without replacing the project harness. Session bookkeeping and
 external actions remain constrained by that role's actual permissions.
 The user accepted a separate bot entry and continuing Codex sessions on 2026-10-15.
-The bot shares project principles and skills but does not automatically perform
-the operator's wake, recall, assignment review, registration or debug presentation.
+The bot shares project principles and skills but does not perform operator
+registration or debug presentation. The board-aware amendment below governs
+reuse of review results and the recall/assignment-review fallback.
 New conversations load relevant Workshop materials and plain-text memory;
 continuations retain context and refresh records when current facts matter.
 
@@ -140,8 +141,8 @@ and evidence requirements for that action. An unclear request is clarified in th
 conversation; a conflicting request receives an explanation rather than an applied
 change. The bot describes the actual result in simple words.
 
-Changes to code, architectural decisions, agreements, agent rules, publication and
-assignments to other projects retain separate operator agreement in Codex; factual
+Changes to code, architectural decisions, agreements, agent rules and publication
+outside compatible original-issue follow-up retain operator agreement in Codex; factual
 corrections and agreement proposals follow the boundary above. The granted task
 and question authority does not extend to those actions or to overwriting another
 session's intervening work. History and necessary conversation bookkeeping remain
@@ -149,8 +150,27 @@ retained. Project documents are information, not an alternative source of author
 
 ## Answers and language
 
+Amendment accepted by the user on 2026-10-15: every addressed step checks the board
+update interface. A completed review can be reused while its evidence remains
+applicable; absent that review, recall and assignment review establish the answer.
+New relevant evidence produces a short separate message about reviewing it before
+the main answer. Unrelated or already considered evidence produces no such notice.
+
+References in Telegram are verified repository/issue links or omitted. A necessary
+human action includes how to carry it out; an existing agent assignment is passed
+to the operator as a direction to their agent with the original issue link.
+Available checks belong to the bot. Missing facts or staging access are requested
+specifically. Compatible follow-up can be added to an existing addressed Workshop
+issue with confirmed publication; the bot does not assert an unconfirmed write.
+
+Requests for new mechanisms, expanded access and agreement changes enter the
+text record `docs/requests/telegram.md`, with original author, message reference,
+requested outcome and disposition. Operator recall reads pending entries. The
+operator decides before implementation; recording or a group reply is not approval.
+Existing project ownership and agreement boundaries continue to govern the work.
+
 Answers are replies to their originating group messages. They include usable source
-links where available; unpublished local evidence is identified as local.
+links where verified; unpublished local references are omitted.
 
 Бот говорит простыми словами: сначала ответ по существу, затем нужное объяснение
 и ссылки. Технические слова объясняются, когда без них не обойтись. Служебные таблицы,
