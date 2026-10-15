@@ -1165,6 +1165,39 @@ operator identities were supplied to the model proof, and no Telegram messages
 were sent. This verifies the scoped tool path and semantic boundary, not a fresh
 answer from the configured group receiver.
 
+## Conversational directions — 2026-10-15
+
+The user's fresh group log showed an unnecessary readiness confirmation before
+the DNS handoff and an issue-comment link in place of the registration URL. The
+follow-up rejects confirmation requests and abstract requests to configure a
+system: missing information is a conversation, and technical help explains how.
+L22 now numbers the technical operation rather than assigning people a list of
+tasks; questions for missing information sit outside that list. L28 keeps the
+requested Lem-inspired voice and narrows unsolicited explanations of the bot's
+own permissions and machinery.
+
+Existing reply routing already continues the same conversation across participants;
+no new confirmation protocol, parser or write capability was added. The full
+126-test application suite passed, including routing, continuation and factual
+correction boundaries. Installed rules, mechanism declarations, ticket records,
+board report and announced harness integrity passed. Telegram agreement proposals
+still require the existing operator review; a group answer does not expand authority.
+
+Native reply probes use publicly published role instructions with only these
+amendments and a wholly invented project, accounts and example.org links. Earlier
+samples supplied the direct invitation and DNS values but still produced commands
+or numbered a person's duty to provide information. Those counterexamples led to
+the distinction between numbered technical operations and conversational questions.
+The self-description sample retained generic capability and permission prose, so
+these probes do not establish literary fidelity to Lem. No real project documents,
+group history or operator identities enter them, and they send nothing to Telegram.
+
+The latest isolated launch, after making the user's preferred «Расскажи, …»
+wording explicit, failed before the turn started: the native sandbox could not
+load its temporary AGENTS.md (Access denied). There is no final native answer for
+that wording; installed-rule validation passed. Earlier samples are retained as
+counterexamples rather than relabelled as proof of the final conversational tone.
+
 ## Evidence checked on 2026-10-12
 
 

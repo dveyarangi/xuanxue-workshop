@@ -271,6 +271,19 @@ full native proof applies the fact and preserves a proposed agreement change.
 records 126 passing tests and source-linked before/after recovery. No general
 shell write or group approval of agreement changes was introduced.
 
+Struck again, 2026-10-15: the fresh group log inserted a readiness confirmation
+before an already agreed DNS handoff, supplied an issue-comment link instead of
+the available registration URL and retained a bureaucratic self-description.
+L22 now removes prerequisites that the action does not need and supplies the
+action link itself. The user's immediate clarification replaces requests to
+confirm anything with asking participants to explain missing information or their
+preferred option; directions explain concrete operations instead of asking them
+to configure or check a system in the abstract.
+L28 ties its existing Lem-inspired voice to the concrete situation and its causes,
+without generic self-presentation or promises of assistance. Telegram answers are
+context and evidence within existing authority; changing a shared agreement still
+requires operator review. This amends the same failed actionability and voice rules.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
