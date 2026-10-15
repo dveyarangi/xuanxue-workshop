@@ -936,6 +936,24 @@ conversation history, memory facts and session bindings cleared, and reception
 restarted. The Telegram offset and group binding were preserved; database integrity
 and empty history were verified. Existing Telegram group messages were not deleted.
 
+### Concrete action and observable result — 2026-10-15
+
+The user supplied an actor/action/result table as the desired level of clarity.
+L22 now permits the short sequence needed for an understandable plan, names the
+action's object and handoff, and separates the person's work from the agent's.
+The result describes what becomes available or what someone can do or observe.
+An issue link supplies detail without replacing this explanation. The sample does
+not itself establish project permissions, roles or test objects as approved facts.
+
+A tool-free native default-model trial used installed rules, project sources and
+the retained issue 5/7 evidence, without supplying the user's sample as facts.
+It separated Cabinet preparation from owner permission and named the remaining
+Daychi sign-in, restart, exit and schedule checks. It did not invent the sample's
+teacher role or class configuration. Some wording remained formal and the answer
+longer than the sample; this verifies an exercised case, not uniform prose quality.
+The trial sent no Telegram message. Both instruction loading and conversation
+continuity remain unchanged; no receiver restart or history reset accompanies it.
+
 ## Evidence checked on 2026-10-12
 
 

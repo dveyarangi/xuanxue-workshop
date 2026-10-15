@@ -223,15 +223,19 @@ References in Telegram are verified repository/issue links or omitted. A necessa
 human action includes how to carry it out; an existing agent assignment is passed
 to the operator as a direction to their agent with the original issue link.
 The user's latest 2026-10-15 clarification makes each next-action item identify
-its responsible person, immediate action and brief purpose for product users.
-That purpose follows the established scope, without promising unverified capability.
-It describes the eventual benefit for a learner, teacher or reader; enabling a
-check or another implementation step is an intermediate result, not that purpose.
+its responsible person, concrete actions, observable result and brief purpose for
+product users. A short sequence can make the work understandable without reading
+Workshop documents; the answer distinguishes human actions from agent work and
+identifies any handoff. The result describes what becomes available or what someone
+can do or observe, tied to the learner, teacher or reader benefit. Roles, permissions,
+objects and parameters remain grounded in evidence; a presentation example does not
+establish its illustrative details as project facts or authorization.
 For work already described in an agent's issue, the operator receives a short request
-for their agent's next remaining action, with the issue link. The current action is
+for their agent's concrete remaining actions, with the issue link. The current action is
 distinguished from accepted implementation using subsequent discussion; a topic or
-generic request to continue the issue does not identify that action. The answer does not repeat
-the issue's implementation instructions. Technical steps, location and sourced
+generic request to continue the issue does not identify that action. Delegation
+does not replace explaining the work, nor a link explaining the result. The answer
+does not reproduce the full technical procedure. Technical steps, location and sourced
 parameters are supplied for actions the human must perform personally or when
 explicitly requested. Simultaneous participation
 has an explicit necessity and separate roles; ordinary dependencies are sequential

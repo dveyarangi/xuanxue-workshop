@@ -175,6 +175,17 @@ retains open-issue discovery and distinguishes accepted work from remaining acti
 
 
 
+Struck again, 2026-10-15: the user's actor/action/result example showed that the
+short delegation rule still underexplained the work. L22 now permits the concise
+sequence needed to understand an action and its observable result, separating
+human and agent responsibilities. The issue remains the home of the full technical
+procedure. The example sets presentation quality; its roles, permissions and test
+objects are not automatically adopted as project facts. A native trial supplied
+the existing project evidence without the example's factual details and retained
+that distinction; it still produced some formal and longer-than-example prose.
+
+
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
