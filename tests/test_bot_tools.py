@@ -9,8 +9,10 @@ from tests.test_board import Tracker, board
 from tests.test_telegram import TelegramPeer, message
 from workshop_bot.service import Workshop
 from workshop_bot.telegram import Group
-from workshop_bot.tools import TurnTools, NOTICE, serve
+from workshop_bot.tools import TurnTools, serve
 from workshop_bot.telegram_api import TelegramError
+
+NOTICE = "Проверю новый отчёт Daychi о входе через Кабинет."
 
 
 class ToolTests(unittest.TestCase):
@@ -33,11 +35,11 @@ class ToolTests(unittest.TestCase):
         initial = self.tools.board_updates()
         self.assertTrue(initial["cases"][0]["review_current"])
         self.tools.read_issue(1)
-        self.tools.review_notice([1])
+        self.tools.review_notice([1], NOTICE)
         self.assertEqual(self.tools.notice(), NOTICE)
         self.tools.finish()
         self.tools = TurnTools({**self.context, "request_id": "two"})
-        self.assertEqual(self.tools.review_notice([1]), {"status": "unchanged"})
+        self.assertEqual(self.tools.review_notice([1], NOTICE), {"status": "unchanged"})
         self.assertIsNone(self.tools.notice())
         self.tracker.cases[1]["issue"]["body"] = "Changed work"
         self.review.scan()
@@ -59,13 +61,14 @@ class ToolTests(unittest.TestCase):
     def test_reused_review_notice_is_not_repeated_but_new_conclusion_is_visible(self):
         claim = self.review.claim(1)
         self.review.finish(claim["token"], "reviewed", "Evidence checked")
-        self.tools.review_notice([1])
+        self.tools.review_notice([1], NOTICE)
         self.tools.finish()
         other = TurnTools({**self.context, "request_id": "two"})
-        self.assertEqual(other.review_notice([1])["status"], "unchanged")
+        self.assertEqual(other.review_notice([1], NOTICE)["status"], "unchanged")
         claim = self.review.claim(1)
         self.review.finish(claim["token"], "reviewed", "Updated conclusion")
-        self.assertEqual(other.review_notice([1])["status"], "queued")
+        self.assertEqual(other.review_notice([1], "Сверю новое заключение по входу.")["status"], "queued")
+        self.assertEqual(other.notice(), "Сверю новое заключение по входу.")
 
     def test_missing_monitor_uses_existing_discovery_without_claiming_review(self):
         other = TurnTools({**self.context, "root": str(self.root / "other")})
@@ -93,7 +96,7 @@ class ToolTests(unittest.TestCase):
         self.tracker.cases[1]["issue"]["body"] = "Another update"
         with patch.object(other, "tracker", return_value=self.tracker):
             other.read_issue(1, fresh=True)
-        self.assertEqual(other.review_notice([1])["status"], "queued")
+        self.assertEqual(other.review_notice([1], NOTICE)["status"], "queued")
 
     def test_protocol_rejects_unlisted_capability(self):
         incoming = io.StringIO(json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/call",
@@ -101,6 +104,27 @@ class ToolTests(unittest.TestCase):
         outgoing = io.StringIO()
         serve(self.context, incoming, outgoing)
         self.assertTrue(json.loads(outgoing.getvalue())["result"]["isError"])
+
+    def test_notice_protocol_preserves_generated_text_and_first_delivery(self):
+        for text in (NOTICE, "Проверю другой отчёт."):
+            incoming = io.StringIO(json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call',
+                'params': {'name': 'review_notice', 'arguments': {'numbers': [1], 'text': text}}}) + '\n')
+            outgoing = io.StringIO()
+            serve(self.context, incoming, outgoing)
+            self.assertNotIn('isError', json.loads(outgoing.getvalue())['result'])
+            self.assertEqual(self.tools.notice(), NOTICE)
+
+    def test_notice_requires_brief_nonsecret_model_text(self):
+        for text in ('', '   ', 'x' * 321, None, '123456789:' + 'A' * 30):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                self.tools.review_notice([1], text)
+        self.assertIsNone(self.tools.notice())
+        incoming = io.StringIO(json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call',
+            'params': {'name': 'review_notice', 'arguments': {'numbers': [1]}}}) + '\n')
+        outgoing = io.StringIO()
+        serve(self.context, incoming, outgoing)
+        self.assertTrue(json.loads(outgoing.getvalue())['result']['isError'])
+        self.assertIsNone(self.tools.notice())
 
     def test_site_check_cannot_target_an_undocumented_host_or_send_credentials(self):
         (self.root / "docs").mkdir()
@@ -135,7 +159,7 @@ class ToolTests(unittest.TestCase):
 
             def chat(agent, *args, **kwargs):
                 tools = TurnTools(json.loads(Path(kwargs["tool_context"]).read_text(encoding="utf-8")))
-                tools.review_notice([1])
+                tools.review_notice([1], NOTICE)
                 kwargs["on_event"]({})
                 kwargs["on_event"]({})
                 return {"status": "answered", "answer": "Main answer"}
@@ -177,7 +201,7 @@ class ToolTests(unittest.TestCase):
 
             def chat(agent, *args, **kwargs):
                 tools = TurnTools(json.loads(Path(kwargs["tool_context"]).read_text(encoding="utf-8")))
-                tools.review_notice([1])
+                tools.review_notice([1], NOTICE)
                 kwargs["on_event"]({"type": "item.completed"})
                 observed.append(len(peer.sent))
                 return {"status": "answered", "answer": "Main answer"}

@@ -23,9 +23,6 @@ from .records import exclusive_record
 from .service import redact
 
 
-NOTICE = "Есть новые данные по вашему вопросу. Сейчас изучу их и отвечу отдельным сообщением."
-
-
 class TurnTools:
     def __init__(self, context):
         self.context = context
@@ -130,7 +127,10 @@ class TurnTools:
                 "section": section, "text": text[offset:offset + 24000],
                 "next_offset": offset + 24000 if len(text) > offset + 24000 else None}
 
-    def review_notice(self, numbers):
+    def review_notice(self, numbers, text):
+        if not isinstance(text, str) or not 1 <= len(text.strip()) <= 320 or redact(text) != text:
+            raise ValueError("Supply a brief notice without credentials (1–320 characters)")
+        text = text.strip()
         cases = self.board_updates()["cases"]
         new = {case["number"] for case in cases if case["new_to_conversation"]}
         if not numbers or any(type(number) is not int for number in numbers):
@@ -147,7 +147,7 @@ class TurnTools:
                     db.execute("INSERT OR IGNORE INTO bot_board_reads VALUES (?,?,?,?)",
                                (self.request_id, case["number"], case["version"], case["review_version"]))
             db.execute("INSERT OR IGNORE INTO bot_tool_events VALUES (?, 'notice', ?)",
-                       (self.request_id, json.dumps(NOTICE, ensure_ascii=False)))
+                       (self.request_id, json.dumps(text, ensure_ascii=False)))
         return {"status": "queued"}
 
     def notice(self):
@@ -294,8 +294,9 @@ TOOLS = [
     definition("scan_board", "Run existing board discovery when monitor output is absent or a fresh scan is needed. Never publishes or claims a review.", {}),
     definition("read_issue", "Read a Workshop issue section with pagination. fresh=true retrieves GitHub evidence.",
                {"number": INTEGER, "section": STRING, "offset": INTEGER, "fresh": {"type": "boolean"}}, ("number",)),
-    definition("review_notice", "Queue one short Telegram notice before studying new issues relevant to this request.",
-               {"numbers": {"type": "array", "items": INTEGER}}, ("numbers",)),
+    definition("review_notice", "Queue your brief, source-grounded description of what you are about to check in new relevant evidence.",
+               {"numbers": {"type": "array", "items": INTEGER},
+                "text": {"type": "string", "minLength": 1, "maxLength": 320}}, ("numbers", "text")),
     definition("request_operator", "Append a pending mechanism, access or agreement request for the next operator wake. Never grants approval.",
                {"title": STRING, "detail": STRING, "kind": STRING}, ("title", "detail")),
     definition("published_link", "Verify a local Markdown document matches an actually published repository file and return its URL.",
