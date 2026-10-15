@@ -32,6 +32,8 @@ The report instruction owns the shared snapshot's format and publication; the va
 checks shape and rejects stale replacements. Session recovery and conversation readers
 consume its dated facts without another acknowledgement ledger. A local external controller
 runs discovery before invoking a standalone reviewer, so quiet runs use no model.
+The report identifies executable next actions and separates reviewer preparation from
+recipient execution and operator-only decisions or access.
 Scoped host capabilities retain authentication at the host: writes remain bound to selected
 issues and the existing lease/publication checks; evidence reads stay within configured repositories.
 
@@ -119,6 +121,9 @@ review and discovering current addressed work. The operator also grades obstacle
 incomplete-result, complete-result and already-closed-result cases against the
 project contract. An unchanged coordinating-project answer produces no duplicate
 response. Missing evidence produces an explicit pending action, not false acceptance.
+For an operator-facing blocker, the reader can identify who acts, what they do, the
+unavailable input and the observable result without reconstructing the issue history.
+An unfinished review investigation is not presented as an operator decision.
 An inaccessible tracker is reported as unavailable, not as an empty inbox.
 An issue with no direct comments but a linked pull-request report or referenced
 commit must produce an artifact-based review. An incidental mention must not

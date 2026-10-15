@@ -11,6 +11,10 @@ publish complete replacements atomically, refusing a changed prior version.
 Use the heading “Board review”, the record kind “what happened”, a Reviewed timestamp with
 timezone or “none”, and these sections in order: Reviewed scope, Results, Open matters,
 Operations. Keep every section nonempty. Record only inspected scope and sourced outcomes.
+Open matters names the next executable action, responsible actor, unavailable input and
+observable result. Distinguish reviewer preparation, recipient execution and operator-only
+action. An operator decision includes a prepared recommendation; unfinished investigation
+remains reviewer work.
 Preserve unresolved matters until their sources resolve them. The controller owns Operations;
 preserve it during semantic replacement. Read the current version, prepare the complete
 replacement, then use board_report.py write with the expected version. A conflict requires
