@@ -60,6 +60,7 @@ DNS is an operational responsibility, not a separate participating repository.
 | dns | @kotlarewski |
 | daychi | @stnleo |
 | knowledge | @stnleo |
+| workshop | @Yarangi |
 
 ## Boundary scope and product language
 

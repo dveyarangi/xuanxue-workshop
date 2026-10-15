@@ -1127,6 +1127,44 @@ was unchanged and the earlier 120-test baseline was not rerun or relabelled fres
 The contract also removes its stale compulsory-irony sentence in agreement with
 the previously accepted optional Lem-inspired voice.
 
+## Implemented factual corrections and Workshop contact — 2026-10-15
+
+The user identified the gap after Telegram message 157: the bot retained Workshop's
+confirmed contact only in memory and logged an agreement request. Factual correction
+authority was already accepted, but the implementation exposed only memory writes
+and request recording. This pass implements that authority rather than adding a
+new approval checkpoint or delegating agreement decisions to the group.
+
+read_document supplies an existing canonical architectural document and its hash;
+correct_fact replaces one evidenced passage at that version. Host-controlled paths,
+Windows record exclusion and final-path/hard-link checks preserve the file boundary.
+A durable prepared receipt retains the original/replacement and source provenance;
+retries recognize an applied write, while intervening edits remain untouched and
+uncertain. Applied before/after and evidence are included in operator history.
+Direct file permissions still allow only memory; document corrections use the
+explicitly granted host tool. Saving and Git publication remain distinct outcomes.
+
+Workshop — @Yarangi is now in the canonical responsible-operator table from the
+user's direct confirmation of existing responsibility. The local request entry
+857e21c2a54161189c3f17af is marked applied. The separate mixed-row/repair acceptance
+proposal remains pending and was not applied by this pass.
+
+The first regression failed because no factual-read operation existed. Six focused
+checks then cover source-linked application, deduplicated retry, changed-version
+refusal, instruction/managed-record and hard-link refusal, interrupted receipt
+recovery, preserved intervening work and operator-visible history. All 126 tests
+passed after the final read-lock amendment. Harness integrity, installed rules,
+mechanism declarations, ticket records and the board report passed.
+
+An actual native Codex/MCP proof used public role instructions plus the displayed
+amendment and a wholly synthetic project. It saved a random confirmed contact in
+the canonical table with source message 17, rather than only memory. A second turn
+recorded a requested account-authority change as pending and left accepted
+architecture byte-identical. No real project documents, group history or actual
+operator identities were supplied to the model proof, and no Telegram messages
+were sent. This verifies the scoped tool path and semantic boundary, not a fresh
+answer from the configured group receiver.
+
 ## Evidence checked on 2026-10-12
 
 

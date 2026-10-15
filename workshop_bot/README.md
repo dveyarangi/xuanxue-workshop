@@ -141,7 +141,7 @@ profile. Private bot state and operator Codex/SSH/AWS directories are denied to 
 reads, except the two global Codex entry paths (`AGENTS.md` and `AGENTS.override.md`)
 needed by native instruction discovery. Network commands, inherited connectors/hooks, browsers and delegation are
 disabled. The Windows sandbox requires root read access; this is not repository-only
-read isolation. Architecture and other project documents are read-only in this route.
+read isolation. Direct file tools keep project documents read-only. The scoped read_document/correct_fact host tools apply corroborated factual corrections to canonical architectural documents with a version check, a durable receipt and source-linked before/after history. Accepted decisions and agreement changes retain operator review; the correction tool saves locally and does not publish Git changes.
 Session-writing hooks stay disabled. The bot entry in `agent.rules.md`, authored
 as L22 in `local.rules.md`, replaces operator registration and debug presentation.
 Every addressed request checks the existing board script's retained status. Completed
@@ -159,8 +159,8 @@ and publication recovery. Its retained snapshots are not described as freshly re
 GitHub data; current facts can be checked with fresh reads. The model selects
 relevance and reuses completed reviews where their basis still holds.
 
-Read tools are classified as read-only; the three granted write tools (notice,
-request log and compatible issue follow-up) have explicit approval configuration.
+Read tools are classified as read-only; the four granted write tools (notice,
+request log, compatible issue follow-up and factual correction) have explicit approval configuration.
 This does not enable general shell network or file writes. Public site checks
 use HTTPS hosts named in README, current-system or boundaries, reject credentials,
 query parameters and private addresses, and do not follow redirects. Authenticated

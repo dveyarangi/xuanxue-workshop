@@ -262,6 +262,15 @@ existing rule, preserving numbered actions and immediately available help. The
 [scoped native evidence](rfc/01-0020-telegram-workshop-access.md#respectful-participant-requests--2026-10-15)
 retains both the first sample's excess and the corrected sample's limited scope.
 
+Struck again, 2026-10-15: accepted factual-correction authority still had no
+executable write path. A directly confirmed Workshop contact was saved only in
+memory and misclassified as an agreement request. L22 now distinguishes factual
+records from changed obligations and uses versioned host document correction;
+full native proof applies the fact and preserves a proposed agreement change.
+[The scoped evidence](rfc/01-0020-telegram-workshop-access.md#implemented-factual-corrections-and-workshop-contact--2026-10-15)
+records 126 passing tests and source-linked before/after recovery. No general
+shell write or group approval of agreement changes was introduced.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.

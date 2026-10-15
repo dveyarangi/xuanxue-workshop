@@ -92,9 +92,10 @@ relevant Workshop documents itself and edits the permitted memory file directly.
 Responsibilities and architecture remain in the shared project documents.
 Group conversation supplies background; it does not expand write permissions.
 
-The implemented conversation currently grants direct writes only to the bot's
-memory file. The accepted factual-correction and change-request scope below is
-not yet implemented; the broader task/question scope remains separately tracked.
+Direct file writes remain limited to the memory file. Scoped host tools apply
+confirmed factual corrections to canonical architectural documents and retain
+agreement-change requests. The broader task/question scope remains separately
+tracked; this does not enable general document, code or instruction writes.
 
 ### Factual corrections and agreement-change requests
 
@@ -108,6 +109,21 @@ ownership or guarantees. A discrepancy between observed implementation and an
 accepted agreement is evidence of a discrepancy, not permission to rewrite the
 agreement to match the implementation. Uncertain facts remain explicit rather
 than being presented as established.
+
+Confirmed facts are changed in their authoritative document rather than only in
+bot memory. A participant's direct confirmation of their own name, contact or
+existing role supports correcting a missing record unless it contradicts accepted
+decisions. A record's contractual title does not turn every factual addition into
+an agreement change. New obligations, reassigned ownership and changed guarantees
+remain proposals under the boundary above.
+
+The host reads a selected existing canonical document with its version and applies
+one exact passage correction against that version. Redirected and hard-linked
+files, instructions and managed stores are outside this action. A prepared receipt
+precedes the write; retries recover a proved result without replaying it, while an
+intervening change is preserved and reported as uncertain. The operator history
+includes before/after, evidence and trusted source provenance. Saving locally and
+Git publication are distinct outcomes; this tool does not grant general publication.
 
 Proposals to change agreements belong in a readable text change-request log.
 Recording a proposal does not approve or apply it. Each entry preserves the
