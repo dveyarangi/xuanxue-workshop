@@ -545,6 +545,30 @@ The full standard-library suite passed 82 tests; harness, installed-rule, mechan
 question and ticket validation passed. The scoped provisional-text scan found no
 unbound candidate introduced by this amendment.
 
+## Specific review notices — 2026-10-15
+
+The user identified that the review notice named no subject. Its text was a fixed
+transport constant: the model selected relevant issues but could not describe the
+work. The review_notice capability now requires model-authored text alongside the
+issue numbers. L22 gives the subject of that text: what new relevant evidence will
+be examined, grounded in the available information rather than an asserted result.
+The host validates a nonempty notice of at most 320 characters without recognizable
+credentials, then stores and delivers that exact text. Existing freshness checks,
+one-notice-per-request delivery, restart recovery and uncertain-send handling
+remain. Repeated calls retain the first notice. Existing persisted notices are
+preserved; the new call has no fixed-text fallback and needs no extra model request.
+
+Verification: the 15 scoped tool tests and all 97 tests on the committed baseline
+plus this slice passed. Coverage includes model text through the MCP protocol,
+different text for changed evidence, invalid/missing text, first-notice retention,
+separate delivery, restart and uncertain-send handling. The declared harness,
+installed-rule, mechanism, board-report and ticket validators passed. A native
+Codex run generated a notice specifically naming new Daychi/Cabinet sign-in reports,
+source review and real native/browser evidence; it was captured locally with no
+Telegram send. Evidence belongs to the private
+`.local/bot-notice-proof-20261015-111651/private/` run. The updated rules and tool
+schema load on the next Codex invocation, without interrupting an active group turn.
+
 ## Silent receiver and typing correction — 2026-10-15
 
 The user reported missing answers and no visible typing activity. Inspection found

@@ -165,6 +165,10 @@ update interface. A completed review can be reused while its evidence remains
 applicable; absent that review, recall and assignment review establish the answer.
 New relevant evidence produces a short separate message about reviewing it before
 the main answer. Unrelated or already considered evidence produces no such notice.
+Under the user's later clarification of 2026-10-15, the model writes that notice
+from the available evidence, briefly naming what it will examine. The notice is
+at most 320 characters and does not claim a review result before examination.
+There is no fixed generic announcement or separate generation call.
 
 The user's visible-waiting correction of 2026-10-15 adds Telegram's typing status
 while an addressed answer is being prepared, in the originating topic when present.
