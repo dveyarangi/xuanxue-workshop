@@ -33,6 +33,8 @@ def decide(executable, root, memory, question, conversation):
     current = {"addressing": "direct", **conversation.get("current", {})}
     anchors = {current.get("reply_to"), current.get("conversation_id"),
                conversation.get("addressed_message", {}).get("message_id")}
+    continuations = conversation.get("continuations", [])
+    anchors.update(value for item in continuations for value in item.values())
     messages = conversation.get("messages", [])
     priority = [m for m in messages if m.get("message_id") in anchors]
     recent = [m for m in reversed(messages) if m.get("message_id") not in anchors and
@@ -52,16 +54,23 @@ def decide(executable, root, memory, question, conversation):
     data = {"sources": sources, "board": board_summary, "messages": selected,
             "omitted_messages": len(messages) - len(selected) + conversation.get("omitted_messages", 0),
             "addressed_message": conversation.get("addressed_message"),
-            "bot": conversation.get("bot", {}), "current": current, "question": question}
+            "bot": conversation.get("bot", {}), "continuations": continuations,
+            "current": current, "question": question}
     prompt = json.dumps(data, ensure_ascii=False)
     if len(prompt.encode()) > 65000:
         raise ValueError("Quick context exceeds its budget")
     ambient = current["addressing"] == "ambient"
     routes = ["offer", "ignore"] if ambient else ["answer", "work"]
-    answer_limit = 320 if ambient else 2000
+    if ambient and continuations:
+        routes += ["answer", "work"]
+    answer_limit = 320 if ambient and not continuations else 2000
     output_schema = {**SCHEMA, "properties": {**SCHEMA["properties"],
                     "route": {"type": "string", "enum": routes},
                     "answer": {"type": "string", "maxLength": answer_limit}}}
+    if ambient and continuations:
+        output_schema["required"] = [*SCHEMA["required"], "continue_with"]
+        output_schema["properties"]["continue_with"] = {
+            "type": ["integer", "null"], "enum": [None, *[item["message_id"] for item in continuations]]}
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix="workshop-quick-") as temporary:
         schema, output = Path(temporary) / "schema.json", Path(temporary) / "answer.json"
@@ -96,10 +105,19 @@ def decide(executable, root, memory, question, conversation):
         if completed.returncode or not turns or not output.is_file():
             raise RuntimeError("Quick conversation did not complete")
         decision = json.loads(output.read_text(encoding="utf-8"))
-    if set(decision) != {"route", "answer", "reason"} or not all(isinstance(v, str) for v in decision.values()):
+    if set(decision) != set(output_schema["required"]) or not all(
+            isinstance(decision.get(key), str) for key in ("route", "answer", "reason")):
         raise ValueError("Invalid quick decision")
     if decision["route"] not in routes:
         raise ValueError(f"Invalid quick route for addressing mode: {decision['route'][:40]}")
+    if ambient and decision["route"] in {"answer", "work"}:
+        if type(decision.get("continue_with")) is not int or decision["continue_with"] not in {
+                item["message_id"] for item in continuations}:
+            raise ValueError("Invalid conversation continuation")
+    elif decision.get("continue_with") is not None:
+        raise ValueError("Unexpected conversation continuation")
+    if decision["route"] == "offer":
+        answer_limit = 320
     if len(decision["answer"]) > answer_limit:
         raise ValueError(f"Quick answer exceeds {answer_limit} characters: {len(decision['answer'])}")
     decision["runtime"] = {"model": "gpt-6-luna", "effort": "low",

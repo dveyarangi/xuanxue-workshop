@@ -32,10 +32,16 @@ class Workshop:
         self.state = Path(state).resolve()
         self.agent = agent
         self.state.parent.mkdir(parents=True, exist_ok=True)
-        self.memory = self.path(".local/workshop-bot-memory.md")
-        self.memory.parent.mkdir(parents=True, exist_ok=True)
+        self.memory = self.path(".workshop-bot-memory.md")
         if not self.memory.exists():
-            self.memory.write_text("# Память Workshop Spirit\n", encoding="utf-8")
+            legacy = self.path(".local/workshop-bot-memory.md")
+            body = legacy.read_text(encoding="utf-8") if legacy.is_file() else "# Память Workshop Spirit\n"
+            try:
+                with self.memory.open("x", encoding="utf-8") as destination:
+                    destination.write(body)
+                legacy.unlink(missing_ok=True)
+            except FileExistsError:
+                pass
         with self.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS requests "
                        "(id TEXT PRIMARY KEY, sender TEXT, created TEXT, question TEXT, target TEXT, result TEXT)")
@@ -53,7 +59,8 @@ class Workshop:
         finally:
             db.close()
 
-    def ask(self, request_id, question, *, sender="operator", target=None, conversation=None, on_progress=None):
+    def ask(self, request_id, question, *, sender="operator", target=None, conversation=None, on_progress=None,
+            on_continuation=None):
         request_id, question, sender, target = (redact(value) for value in (request_id, question, sender, target))
         with self.connect() as db:
             added = db.execute("INSERT OR IGNORE INTO requests VALUES (?, ?, ?, ?, ?, NULL)",
@@ -70,7 +77,7 @@ class Workshop:
             return result
         try:
             if target is None and hasattr(self.agent, "chat"):
-                result = self.chat(request_id, question, redact(conversation), sender, on_progress)
+                result = self.chat(request_id, question, redact(conversation), sender, on_progress, on_continuation)
                 result = redact(result)
                 self.save(request_id, result)
                 return result
@@ -114,7 +121,7 @@ class Workshop:
         self.save(request_id, result)
         return result
 
-    def chat(self, request_id, question, conversation, sender, on_progress):
+    def chat(self, request_id, question, conversation, sender, on_progress, on_continuation=None):
         options = {}
         tools = None
         started = time.monotonic()
@@ -154,10 +161,15 @@ class Workshop:
             ambient = (conversation or {}).get("current", {}).get("addressing") == "ambient"
             quick_started = time.monotonic()
             decision = None
+            continuation = None
             try:
                 decision = self.agent.quick(self.root, self.memory, question, conversation or {})
                 route = decision["route"]
-                if route not in ({"ignore", "offer"} if ambient else {"answer", "work"}):
+                continued_id = decision.get("continue_with")
+                if ambient and route in {"answer", "work"} and type(continued_id) is int and on_continuation:
+                    continuation = next((item for item in conversation.get("continuations", [])
+                                         if item["message_id"] == continued_id), None)
+                if route not in ({"answer", "work"} if continuation or not ambient else {"ignore", "offer"}):
                     raise ValueError("Invalid quick route for addressing mode")
                 if route != "work" and (route != "ignore" and not decision["answer"].strip()):
                     raise ValueError("Empty quick answer")
@@ -168,6 +180,11 @@ class Workshop:
                             "rejected_route": decision.get("route") if isinstance(decision, dict) else None}
             timing["quick_seconds"] = round(time.monotonic() - quick_started, 3)
             timing["quick"] = decision
+            if continuation and decision["route"] in {"answer", "work"}:
+                conversation = {**conversation, "current": {**conversation["current"],
+                                "addressing": "direct", "continued_from": continuation["message_id"],
+                                "conversation_id": continuation["conversation_id"]}}
+                on_continuation(conversation)
             if decision["route"] != "work":
                 return {"status": {"answer": "answered", "offer": "offered", "ignore": "ignored"}[decision["route"]],
                         "answer": decision["answer"], "runtime": timing}

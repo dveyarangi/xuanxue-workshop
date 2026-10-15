@@ -10,6 +10,25 @@ from workshop_bot.quick import decide
 
 
 class QuickModelTests(unittest.TestCase):
+    def test_continuation_schema_and_context_keep_the_confirmed_answer(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            def invoke(command, **kwargs):
+                schema = json.loads(Path(command[command.index("--output-schema") + 1]).read_text())
+                self.assertEqual(schema["properties"]["continue_with"]["enum"], [None, 101])
+                self.assertIn("work", schema["properties"]["route"]["enum"])
+                data = json.loads(kwargs["input"])
+                self.assertIn(101, [m["message_id"] for m in data["messages"]])
+                Path(command[command.index("--output-last-message") + 1]).write_text(json.dumps({
+                    "route": "work", "answer": "", "reason": "accepted offer", "continue_with": 101}))
+                return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}\n', '')
+            with patch("workshop_bot.quick.subprocess.run", side_effect=invoke):
+                decision = decide("codex.exe", root, root / "memory.md", "рассказывай", {
+                    "current": {"addressing": "ambient"},
+                    "continuations": [{"message_id": 101, "conversation_id": 11}],
+                    "messages": [{"message_id": 101, "text": "Рассказать о задачах?"}]})
+            self.assertEqual(decision["continue_with"], 101)
+
     def test_implicit_greeting_schema_can_only_acknowledge_or_ignore(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

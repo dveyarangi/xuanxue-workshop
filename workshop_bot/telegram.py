@@ -2,7 +2,7 @@ import json
 import logging
 import threading
 import time
-from contextlib import contextmanager, nullcontext
+from contextlib import contextmanager, ExitStack
 from datetime import datetime, timezone
 from urllib.parse import parse_qs, urlsplit
 
@@ -232,10 +232,22 @@ class Group:
                            (json.dumps(context, ensure_ascii=False), time.time(), row["update_id"]))
         if row["status"] in {"queued", "candidate"}:
             question = context.get("addressed_message", {}).get("text", row["body"])
-            with self.typing(row) if row["addressing"] == "direct" else nullcontext():
+            with ExitStack() as activity:
+                if row["addressing"] == "direct":
+                    activity.enter_context(self.typing(row))
+
+                def continued(conversation):
+                    nonlocal row
+                    with self.workshop.connect() as db:
+                        db.execute("UPDATE telegram_requests SET addressing='direct',conversation_id=?,context=? "
+                                   "WHERE update_id=?", (conversation["current"]["conversation_id"],
+                                                         json.dumps(conversation, ensure_ascii=False), row["update_id"]))
+                        row = db.execute("SELECT * FROM telegram_requests WHERE update_id=?", (row["update_id"],)).fetchone()
+                    activity.enter_context(self.typing(row))
+
                 result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
                                            question, sender=row["sender"], conversation=context,
-                                           on_progress=lambda text: self.notice(row, text))
+                                           on_progress=lambda text: self.notice(row, text), on_continuation=continued)
             if result["status"] == "ignored" or (row["addressing"] == "ambient" and result["status"] != "offered"):
                 with self.workshop.connect() as db:
                     db.execute("UPDATE telegram_requests SET status='observed',result=?,completed_at=? WHERE update_id=?",
@@ -370,7 +382,20 @@ class Group:
         if quoted and not any(m["message_id"] == quoted["message_id"] for m in messages):
             messages.append(quoted)
             messages.sort(key=lambda message: message["message_id"])
+        continuations = []
+        sender = json.loads(request["sender"])
+        if request["addressing"] == "ambient" and sender.get("id") is not None:
+            for row in reversed(rows):
+                previous_sender = json.loads(row["sender"])
+                if (row["status"] == "sent" and row["thread_id"] == request["thread_id"] and
+                        previous_sender.get("id") == sender["id"] and
+                        previous_sender.get("type") == sender.get("type")):
+                    sent = json.loads(row["sent_ids"])
+                    if sent:
+                        continuations = [{"message_id": sent[-1], "conversation_id": row["conversation_id"]}]
+                        break
         anchors = {request["reply_to"], request["conversation_id"]}
+        anchors.update(value for item in continuations for value in item.values())
         priority = [m for m in messages if m["message_id"] in anchors]
         recent = [m for m in reversed(messages) if m["message_id"] not in anchors]
         selected, size = [], 2
@@ -384,6 +409,7 @@ class Group:
         result = {"chat_id": self.group_id,
                 "bot": {key: self.identity[key] for key in ("id", "username", "first_name") if key in self.identity},
                 "messages": selected, "omitted_messages": len(messages) - len(selected),
+                "continuations": continuations,
                 "scope": "Received group text/captions and confirmed bot replies; no pre-collection archive, "
                          "attachment contents or messages Telegram did not deliver.",
                 "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),

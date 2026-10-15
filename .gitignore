@@ -4,6 +4,7 @@ __pycache__/
 .local/board-review/
 .local/workshop-bot/
 .local/workshop-bot-memory.md
+.workshop-bot-memory.md
 .local/harness-proof-*/
 
 # Loader links are created locally by the harness.

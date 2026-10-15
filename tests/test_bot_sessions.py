@@ -14,6 +14,20 @@ from workshop_bot.telegram import Group
 
 
 class SessionTests(unittest.TestCase):
+    def test_memory_migrates_outside_private_state_without_replacing_new_facts(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            legacy = root / ".local/workshop-bot-memory.md"
+            legacy.parent.mkdir()
+            legacy.write_text("Existing fact", encoding="utf-8")
+            app = Workshop(root, root / ".local/private/history.sqlite3", object())
+            self.assertEqual(app.memory.parent, root)
+            self.assertEqual(app.memory.read_text(encoding="utf-8"), "Existing fact")
+            self.assertFalse(legacy.exists())
+            app.memory.write_text("New fact", encoding="utf-8")
+            resumed = Workshop(root, app.state, object())
+            self.assertEqual(resumed.memory.read_text(encoding="utf-8"), "New fact")
+
     def test_telegram_reply_from_another_member_resumes_after_restart(self):
         calls = []
         identity = str(uuid.uuid4())

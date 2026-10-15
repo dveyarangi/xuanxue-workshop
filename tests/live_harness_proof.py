@@ -52,8 +52,7 @@ def main():
     protected.write_text("Original document\n", encoding="utf-8")
     private = evidence / "private"
     private.mkdir()
-    memory = fixture / ".local/workshop-bot-memory.md"
-    memory.parent.mkdir()
+    memory = fixture / ".workshop-bot-memory.md"
     memory.write_text("# Memory\n", encoding="utf-8")
 
     def ask(number, request, conversation=10, repository=fixture):

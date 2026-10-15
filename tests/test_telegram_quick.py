@@ -28,6 +28,69 @@ class Agent:
 
 
 class QuickTelegramTests(unittest.TestCase):
+    def test_unquoted_acceptance_continues_confirmed_offer_and_survives_restart(self):
+        class ContinuingAgent(Agent):
+            def quick(self, root, memory, question, conversation):
+                self.quick_calls.append((question, conversation))
+                if question == "рассказывай":
+                    self.target = conversation["continuations"][0]
+                    return {"route": "work", "answer": "", "reason": "acceptance",
+                            "continue_with": self.target["message_id"]}
+                return {"route": self.route, "answer": self.answer, "reason": "test"}
+
+        with tempfile.TemporaryDirectory() as folder:
+            agent = ContinuingAgent("offer", "Есть информация о задачах. Рассказать?")
+            app = Workshop(folder, Path(folder) / "private/history.sqlite3", agent)
+            peer = TelegramPeer([message(text="Workshop, что происходит?")])
+            group = Group(app, peer, -100123)
+            group.start(); group.poll_once(); group.work_once()
+            peer.updates = [message(update=200, text="рассказывай")]
+            group.poll_once(); group.work_once()
+            self.assertEqual(len(agent.work_calls), 1)
+            self.assertEqual(len(peer.sent), 2)
+            current = agent.work_calls[0][4]["current"]
+            self.assertEqual(current["conversation_id"], 11)
+            self.assertEqual(current["addressing"], "direct")
+            self.assertEqual(current["continued_from"], 101)
+            stored = group.history()[-1]
+            self.assertEqual(stored["conversation_id"], 11)
+            self.assertEqual(stored["addressing"], "direct")
+            group = Group(app, peer, -100123)
+            group.start()
+            self.assertFalse(group.work_once())
+
+    def test_other_sender_or_topic_gets_no_continuation_target(self):
+        for field in ("sender", "topic"):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as folder:
+                agent = Agent("offer", "Рассказать?")
+                app = Workshop(folder, Path(folder) / "private/history.sqlite3", agent)
+                peer = TelegramPeer([message(text="Workshop, что происходит?")])
+                group = Group(app, peer, -100123)
+                group.start(); group.poll_once(); group.work_once()
+                following = message(update=200, text="давай")
+                if field == "sender":
+                    following["message"]["from"]["id"] = 8
+                else:
+                    following["message"]["message_thread_id"] = 10
+                agent.route, agent.answer = "ignore", ""
+                peer.updates = [following]
+                group.poll_once(); group.work_once()
+                self.assertEqual(agent.quick_calls[-1][1].get("continuations", []), [])
+                self.assertEqual(len(peer.sent), 1)
+
+    def test_made_up_continuation_cannot_start_work(self):
+        class InvalidAgent(Agent):
+            def quick(self, *args):
+                return {"route": "work", "answer": "", "reason": "bad anchor", "continue_with": 999}
+        with tempfile.TemporaryDirectory() as folder:
+            agent = InvalidAgent()
+            app = Workshop(folder, Path(folder) / "private/history.sqlite3", agent)
+            peer = TelegramPeer([message(text="давай")])
+            group = Group(app, peer, -100123)
+            group.start(); group.poll_once(); group.work_once()
+            self.assertFalse(agent.work_calls)
+            self.assertFalse(peer.sent)
+
     def test_implicit_offer_then_reply_is_answered_and_events_are_not_replayed(self):
         with tempfile.TemporaryDirectory() as folder:
             agent = Agent("offer", "Есть информация о входе в Кабинет. Рассказать?")
