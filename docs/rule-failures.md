@@ -122,6 +122,22 @@ actionability rule; it introduces no new workflow or recipient obligation. The f
 native trial still substituted enabling checks for user benefit; the amended wording
 explicitly identifies the end user and excludes intermediate verification steps.
 
+Struck again, 2026-10-15: the live quick pass answered message 82, «давай», by
+summarizing older chat after offering to explain project next steps. The original
+question and offer were present in its input. L27 permitted an answer whenever the
+supplied context looked sufficient, so L22's actionability requirements never reached
+the answering model. L27 now routes project status, responsibilities and next actions
+to the full executor regardless of an explicit freshness request; short acceptance
+inherits the original question, while refusal and topic changes retain their meaning.
+The saved live context, rather than an empty synthetic conversation, is the regression
+input. This corrects the routing boundary without copying the full role into Luna.
+The first full-executor replay then still described the domain's benefit as enabling
+a check and omitted the human DNS operation. L22 now makes the personal operation
+explicit and reviews each item's executable action and final user benefit before
+delivery; existing agent issues remain short handoffs rather than repeated instructions.
+
+
+
 ## 2026-10-15 — Quick-result rejection concealed a clear greeting
 
 Status: closed; the quick-output contract, diagnostic retention and greeting rule

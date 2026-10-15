@@ -184,6 +184,13 @@ an unaddressed message remains silent. Quick replies preserve the Telegram threa
 and history without creating a full Codex session. Routing never expands authority.
 The operator can inspect routing, elapsed time and supplied-source metadata locally.
 
+Project status, responsibilities and next-action questions belong to the full
+executor even when previous chat answers could supply a summary and the participant
+does not explicitly request fresh information. A short acceptance of the bot's
+offer retains the original question and its investigation requirement; refusal or
+a changed topic does not authorize the offered work. The quick path remains available
+for ordinary conversation, capabilities and confirmation of a recorded operator request.
+
 Amendment accepted by the user on 2026-10-15: every addressed step checks the board
 update interface. A completed review can be reused while its evidence remains
 applicable; when project evidence is required and that review is absent, recall and

@@ -798,6 +798,46 @@ presence acknowledgement for normal journaled delivery, preserving its original
 failure and timings in recovery metadata; no project action was replayed.
 Telegram confirmed the acknowledgement as message 69 in reply to message 68.
 
+### Project-next-action routing correction — 2026-10-15
+
+The live exchange 80 → 81 → 82 retained the original «так что делать?» request,
+the bot's offer and the user's «давай». Luna nevertheless chose `answer` in 4.906
+seconds, reasoning that fresh status had not been requested. Its old-chat summary
+bypassed the full role's responsible-person, immediate-action, issue-link and product
+purpose requirements. This was a routing defect, not missing conversation history.
+
+The quick role now sends project status, responsibility and next-action questions
+to the full executor even when a previous answer could be summarized. Acceptance
+inherits the offered question's scope; refusal and changed subjects do not activate
+the offered project work. No new persistent routing state or phrase-matching shortcut
+is introduced; the existing reply and conversation-root context contains the intent.
+
+Six native Luna calls using message 82's saved conversation routed the exact acceptance,
+a direct next-action question, owners and status to `work`; refusal and a new capability
+question remained quick `answer` results. Calls took 3.85–5.75 seconds. Private evidence
+is retained under `.local/bot-next-actions-proof/`; none of these tests sent group messages.
+
+Full-executor replay used an enforced read-only filesystem, denied private local
+state, disabled network and no MCP publication tools. Its first result supplied
+owners and issue handoffs but still used an intermediate check as the domain's
+purpose; the next result corrected the purpose but referred the human DNS operation
+to a link. L22 was clarified to include personal operations directly in the answer
+and review each item's immediate action and final user benefit. Agent-owned work
+continues to receive a short handoff to its existing issue.
+
+Final fresh-conversation replay routed the original acceptance to work in 4.62 seconds
+and completed in 75.61 seconds. It supplied the named operators, explicit CNAME/TXT
+human steps, short continuations of existing project issues and the learner/reader
+outcomes. The output was saved locally, without Telegram delivery or fresh external
+verification. A preceding resumed replay also reached the full executor; the final
+fresh run avoids relying on that test conversation's accumulated answers. Model routing
+and wording remain generative; these observations establish the exercised cases.
+
+The final suite passed 112 tests; harness, installed-rule, mechanism, board-report
+and ticket checks passed. The existing receiver remained running. Both roles read
+their instruction files on invocation, so this instruction-only change needs no
+receiver restart and applies to subsequent requests.
+
 ## Evidence checked on 2026-10-12
 
 
