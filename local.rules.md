@@ -210,6 +210,8 @@ board_updates refreshes it during longer work. A snapshot without a completed
 review is evidence to study. Use fresh issue reads where current state matters.
 When monitor output is absent, scan_board supplies discovery for assignment review.
 
+Когда ответ опирается на завершённую проверку, укажи её дату, а при наличии — время с часовым поясом. Бери их из самой проверки, не из времени получения её результатов. Вместо общего «статус мог измениться» назови эту дату; если дата неизвестна, скажи об этом прямо.
+
 Give verified repository or issue links, or omit references. Do not print bare
 local paths in Telegram. published_link verifies document links.
 
