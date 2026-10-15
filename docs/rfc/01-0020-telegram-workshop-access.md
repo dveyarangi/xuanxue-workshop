@@ -766,7 +766,40 @@ without startup errors. No queued requests or active Codex conversations were
 interrupted. A new real group exchange after deployment is separate from the local
 model/delivery simulation above.
 
+### Presence-message correction — 2026-10-15
+
+The live message 68, «дух воркшопа, ты здесь?», was received and processed, but
+quick-result validation raised ValueError and the ambient path stayed silent.
+Only the exception type survived, so the particular failed guard cannot be
+identified retrospectively. A repeat of the saved context returned a valid offer.
+
+The output schema now admits only the two routes available for the actual addressing
+mode and includes its answer-length bound. Host checks remain in place. Rejected
+route and bounded error detail survive in the local result. The quick entry explicitly
+allows a short presence acknowledgement without introducing a project topic.
+On a copy of the live journal, the exact message and retained conversation produced
+«Да, я здесь 🙂» in 6.81 seconds through the receiver and simulated delivery. The
+real group received no replay from that diagnostic test.
+
+An adversarial greeting to another person exposed a second addressing defect in
+the presence rule with the real conversation background. The quick input now ends
+with the explicitly distinguished current question and includes the verified bot
+identity from Telegram. Previous bot-directed messages cannot establish the current
+addressee; another person's name takes priority over that context. Native Luna low
+then acknowledged the bot's name and ignored the other person's name. Medium effort
+was also tried but was not needed or deployed. Model addressing remains a judgement,
+not an exact-match guarantee; explicit Telegram replies remain deterministic.
+
+Final verification: 112 tests and the required repository checks passed. Final
+native low-effort calls acknowledged the bot's name in 5.03 seconds and ignored
+another person's name and account reference in 3.79 and 3.81 seconds. The receiver
+was replaced while idle at 15:34 Jerusalem. The operator prepared only the failed
+presence acknowledgement for normal journaled delivery, preserving its original
+failure and timings in recovery metadata; no project action was replayed.
+Telegram confirmed the acknowledgement as message 69 in reply to message 68.
+
 ## Evidence checked on 2026-10-12
+
 
 - Local `codex-cli 0.159.0` help exposes `exec`, JSON/final output, sandbox selection,
   explicit-session resume and user-config isolation. This was the planning baseline;

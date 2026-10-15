@@ -51,7 +51,8 @@ explicit reference. A clear implicit request to Workshop, with relevant informat
 available, receives one short offer saying what the bot can help with. Mere topical
 relevance, ambiguous addressing and exchanges between people do not trigger a reply.
 This offer does not start investigation or perform an action; replying to it is a
-direct request. Collection is
+direct request. A clear greeting or presence question addressed to the bot receives
+a short acknowledgement without requiring a project topic. Collection is
 restricted to the configured group, even if Telegram delivers messages from another
 group or a private chat. History means received text/captions and recorded bot
 answers. Attachments without text have an unavailable-content marker; attachment

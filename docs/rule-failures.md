@@ -122,6 +122,32 @@ actionability rule; it introduces no new workflow or recipient obligation. The f
 native trial still substituted enabling checks for user benefit; the amended wording
 explicitly identifies the end user and excludes intermediate verification steps.
 
+## 2026-10-15 — Quick-result rejection concealed a clear greeting
+
+Status: closed; the quick-output contract, diagnostic retention and greeting rule
+were corrected within the user-authorized Telegram behavior.
+
+Rule in play: [quick Telegram conversation](../local.rules.md#l27--quick-telegram-conversation)
+restricts ambient processing to offer or ignore. The model-facing schema still
+offered all four routes and omitted the host's length bounds. The live greeting
+«дух воркшопа, ты здесь?» ended in ValueError and silence; its saved exception type
+does not establish which check failed. A repeated native call gave a valid response.
+
+The schema now expresses the actual mode's two routes and length bound; host
+validation is retained, with bounded diagnostic detail and any rejected route.
+The landed rule also makes a clear presence question eligible for a short
+acknowledgement without a project topic. Exact-message replay on a private journal
+copy and simulated delivery produced the acknowledgement; the original live failure
+remains historical evidence, not a retroactively successful send.
+
+The same pass exposed a false acknowledgement of a greeting to another named person.
+The final input separates the current question from prior bot-directed messages,
+ends with that question and supplies the verified bot identity. L27 gives a different
+addressee priority over conversation background; native low-effort cases then
+distinguished the two names without an effort increase.
+
+
+
 ## 2026-10-15 — Conversation paid for an unrelated project review
 
 Status: closed; the user accepted the quick conversation entry and scoped review
