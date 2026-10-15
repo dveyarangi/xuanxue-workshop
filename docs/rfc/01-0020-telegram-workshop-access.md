@@ -1093,6 +1093,21 @@ invented fixtures reached these proofs; no real group history or project documen
 were supplied and no Telegram messages were sent. These are scoped source/behavior
 checks, not proof of a fresh live group answer.
 
+## Numbered directions — 2026-10-15
+
+The user rejected continuous paragraphs for instructions. L22 is now itself a
+five-item numbered procedure and explicitly requires numbered participant steps,
+one executable action per step, with order and handoffs. Current access lookup,
+immediate available help and the existing Lem voice are retained. The bot contract
+now records the same presentation requirement.
+
+Installed rules and mechanism declarations passed; no application code changed.
+The prior 120-test result remains the application baseline, not a newly claimed run.
+A tool-free native trial used the publicly published role plus this amendment and
+only invented example.org data. It returned three numbered steps, the supplied
+registration invitation and exact DNS parameters. No group history, internal
+project documents, Telegram messages or live access changes were involved.
+
 ## Evidence checked on 2026-10-12
 
 

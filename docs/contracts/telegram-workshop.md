@@ -224,10 +224,10 @@ does not turn an otherwise successful answer into a failure.
 References in Telegram are verified repository/issue links or omitted. A necessary
 human action includes how to carry it out; an existing agent assignment is passed
 to the operator as a direction to their agent with the original issue link.
-The user's latest 2026-10-15 clarification keeps presentation flexible while
-requiring executable next actions: actor, action, place, known parameters or links,
-and an observable completion condition. Multiple actions show their order and
-handoff. Available help is supplied in the answer rather than delegated back to the
+The user's latest 2026-10-15 clarification requires numbered directions, one
+executable action per step. Each step identifies its actor, action, place, known
+parameters or link and an observable completion condition. Steps show their order
+and handoff. Available help is supplied in the answer rather than delegated back to the
 participant. Current access arrangements come from current-system and the latest
 discussion: an existing registration invitation is returned directly and supersedes
 an older request to provide it. Missing inputs have a specific owner. The author and

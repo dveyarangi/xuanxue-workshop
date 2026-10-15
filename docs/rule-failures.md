@@ -245,6 +245,14 @@ Luna overrides are removed and direct requests bypass screening. This restores
 template. [The verification evidence](rfc/01-0020-telegram-workshop-access.md#executable-actions-direct-execution-and-access-links--2026-10-15)
 records 120 passing tests and native synthetic source-reading proof.
 
+Struck again, 2026-10-15: the actionability amendment still allowed paragraphs
+where the user expected steps. L22 now presents its own procedure as five numbered
+items and explicitly requires numbered participant directions with one action per
+step. Immediate help, current access and the Lem voice remain. A synthetic native
+trial returned three numbered steps with the invitation and DNS values; the
+[evidence](rfc/01-0020-telegram-workshop-access.md#numbered-directions--2026-10-15)
+records that scope without claiming a new application test run.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
