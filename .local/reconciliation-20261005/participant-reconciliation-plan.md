@@ -50,7 +50,7 @@ that exchange under their own operators, not completion of the entire migration.
   are open and Planned, with no comments. The withdrawn broad investigations
   remain closed as not planned. No application assignment exists.
 - Workshop readiness is
-  [workshop-coordination-ready](../../docs/tickets/01-0005-workshop-coordination-ready.md),
+  [workshop-coordination-ready](../../docs/tickets/done/01-0005-workshop-coordination-ready.md),
   In progress. Fresh ordinary-session invocation, independent scenario grading,
   readiness publication and recipient release/adoption remain outstanding.
 - Cabinet's public decorator bypasses session verification; a public read does

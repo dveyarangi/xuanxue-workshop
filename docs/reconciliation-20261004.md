@@ -372,7 +372,7 @@ reconciliation satisfy its criteria. No later application pair is authorized.
   `e209d27239391be3af2be71b898c79f453851c01`. The local review skill and its
   after-recall and reconciliation bindings are installed; fresh-session review,
   independent grading and publication remain in
-  [workshop-coordination-ready](tickets/01-0005-workshop-coordination-ready.md).
+  [workshop-coordination-ready](tickets/done/01-0005-workshop-coordination-ready.md).
 - All issue states were read. Installation issues
   [cabinet-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/1)
   and [daychi-workshop-collaboration](https://github.com/dveyarangi/xuanxue-workshop/issues/2)
@@ -653,7 +653,7 @@ publication. No existing assignment covers this implementation pair.
 
 ### Existing work and release conditions
 
-[workshop-coordination-ready](tickets/01-0005-workshop-coordination-ready.md)
+[workshop-coordination-ready](tickets/done/01-0005-workshop-coordination-ready.md)
 remains the existing queue's first item. Startup review, readiness publication and
 acceptance wiring stay there. The two existing installation issues retain access,
 instruction installation and fresh-session proof; routine follow-up and acceptance
@@ -801,7 +801,7 @@ No new application assignments were issued. The agent contract requires confirme
 onboarding before application work; accepted targets do not establish an active
 implemented promise. The existing migration and credential questions hold the
 decisions needed to make those assignments precise. Workshop startup readiness
-remains in [workshop-coordination-ready](tickets/01-0005-workshop-coordination-ready.md).
+remains in [workshop-coordination-ready](tickets/done/01-0005-workshop-coordination-ready.md).
 No sibling edits, releases, commit or push were performed in this pass.
 
 ## Checks and limits

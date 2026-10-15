@@ -1,18 +1,17 @@
 # Workshop coordination ready
 
-- **record of** what it intends to become
-- **Status:** In progress
+- **record of** what happened
+- **Status:** Done (2026-10-16)
 - **Type:** HITL
 - **Minted:** 2026-10-04
-- **Plan:** [Workshop coordination ready RFC](../rfc/01-0005-workshop-coordination-ready.md) — one review skill after recall, sharing the installed feedback rule with reconciliation
-- **Responsible contributor:** Workshop agent under its operator
-- **Answers:** [q-0002.0005.0002](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
+- **Plan:** [Workshop coordination ready RFC](../../rfc/done/01-0005-workshop-coordination-ready.md) — one review skill after recall, sharing the installed feedback rule with reconciliation
+- **Answers:** [q-0002.0005.0002](../../questions/done/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
 - **Outcome:** Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement.
 
 ## Parent
 
-The agent-integration portion of the [first-stage goal](../stage-1.md), governed by
-the [agent contract](../agent-contract.md). The user approved this three-part
+The agent-integration portion of the [first-stage goal](../../stage-1.md), governed by
+the [agent contract](../../agent-contract.md). The user approved this three-part
 first-launch breakdown on 2026-10-04. This is Workshop's own inception work; the
 Cabinet and Daychi installations are separate issues in the Workshop GitHub tracker.
 
@@ -25,7 +24,7 @@ This coordinator outcome remains incomplete and does not gate their work.
 They are not local ticket copies. The user removed the readiness and
 installation-acceptance dependencies on 2026-10-08.
 
-The [recorded impact](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#impact)
+The [recorded impact](../../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#impact)
 traces the startup, publication, issue-review and independent-operator dependencies.
 
 ## What to build
@@ -51,7 +50,7 @@ records, acknowledge the result and close completed assignments. Verification
 must reject unsupported completion claims and must not infer deployment from
 GitHub issue state. Repeated startup review must not repeat completed responses.
 
-The [exchange contract](../agent-contract.md#exchange-through-github-issues) also
+The [exchange contract](../../agent-contract.md#exchange-through-github-issues) also
 owns review history, the startup/reconciliation connection and the accepted
 evidence standard. The outcome fulfils that contract through the installed review
 instruction and its shared bindings.
@@ -63,34 +62,37 @@ does not perform the sibling installations itself.
 
 ## Acceptance criteria
 
-- [x] The /reconcile skill is installed, declared and connected to the /maintain
+- [x] 2026-10-16 The /reconcile skill is installed, declared and connected to the /maintain
   skill through local rules; its shared issue format supplies BOUNDARY_SUMMARY.
-- [ ] The published README and installation issues point to the same distributable
+- [x] 2026-10-16 The published README and installation issues point to the same distributable
   project-agent skill, which owns discovery and communication instructions.
-- [ ] Each installation assignment supplies its project-specific boundary summary
+- [x] 2026-10-16 Each installation assignment supplies its project-specific boundary summary
   and requires installation, local-code reconciliation and verification of the
   instruction entry point under the agent contract.
-- [x] A dedicated skill is invoked at Workshop session startup, preserving recall,
+- [x] 2026-10-16 A dedicated skill is invoked at Workshop session startup, preserving recall,
   and uses the canonical Workshop rules without duplicating their authority.
-- [ ] Review finds relevant issued work and replies, including completion reports
+- [x] 2026-10-16 Review finds relevant issued work and replies, including completion reports
   on closed issues; repeating a review does not duplicate completed responses.
-- [ ] Beginning or resuming reconciliation incorporates relevant issue discussions
+- [x] 2026-10-16 Beginning or resuming reconciliation incorporates relevant issue discussions
   and returned project evidence before deriving remaining changes or assignments.
-- [ ] Representative issue evidence demonstrates the obstacle, incomplete-result,
+- [x] 2026-10-16 Representative issue evidence demonstrates the obstacle, incomplete-result,
   verified-result and already-closed-result paths against the accepted contract.
-- [ ] Verified results lead to the necessary record updates, acknowledgement and
+- [x] 2026-10-16 Verified results lead to the necessary record updates, acknowledgement and
   closure; missing evidence does not produce false acceptance or deployment claims.
-- [ ] Published instructions and review evidence are accessible from the repository
+- [x] 2026-10-16 Published instructions and review evidence are accessible from the repository
   entry and original installation issues; recipient execution follows its actual
   activity conditions and operator authority.
-- [ ] /verify confirms the implemented skill, startup wiring, publication and
-  issue-review behavior against the governing contract and project verification set.
+- [x] 2026-10-16 /verify confirms the implemented skill, startup wiring, publication and
+  issue-review behavior against the governing contract and project verification set; all 134 application tests and
+  the announced harness, installed-rule, mechanism, question, ticket, edge and shared-report
+  checks pass. [Closure evidence](../../mechanisms/review-assignments.evidence.md#coordinator-readiness-close--2026-10-16)
+  maps the retained proof and the operator-authorized close.
 
 ## Out of scope
 
 Project-local installations of the supplied /collaborate skill are performed by
 Cabinet and Daychi agents in their addressed GitHub issues. Application contracts and migration changes
-remain in [migration changes](../migration-changes.md). No application source,
+remain in [migration changes](../../migration-changes.md). No application source,
 credentials, deployment, data migration or backend consolidation is changed here.
 No new background polling service or mandatory sibling harness installation.
 

@@ -167,7 +167,7 @@ no duplicate response, issue edit, closure or recipient assignment was made.
 The local queue keeps readiness first and the joint connection second. Remote
 `master` still points to `e209d27239391be3af2be71b898c79f453851c01`; publication of
 the new local coordination sources and portable companion link remains part of
-[workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).
+[workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md).
 Commit/push, recipient installations, fixture writes and native proof were not
 performed by this exercise.
 
@@ -309,7 +309,7 @@ do not establish today's assignment or deployment state. The synthetic standard
 adopts no monitoring product. No live tracker operation, sibling implementation,
 recipient-host invocation or real application integration was performed here.
 Publication and host/adoption evidence remain with
-[workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md),
+[workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md),
 and application delivery with
 [cabinet-daychi-public-schedule-connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md).
 The distributed format retains its existing HEAD compatibility link; the new

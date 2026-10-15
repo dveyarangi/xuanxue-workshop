@@ -2,16 +2,16 @@
 
 **Authored:** 2026-10-05
 
-Implements [workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).
+Implements [workshop-coordination-ready](../../tickets/done/01-0005-workshop-coordination-ready.md).
 
 ## Governing decisions
 
-The [agent contract](../agent-contract.md#workshop-rules) owns Workshop's review,
+The [agent contract](../../agent-contract.md#workshop-rules) owns Workshop's review,
 verification, record-reconciliation and original-issue acknowledgement obligations.
-The [exchange contract](../agent-contract.md#exchange-through-github-issues) owns
+The [exchange contract](../../agent-contract.md#exchange-through-github-issues) owns
 the accepted conversation history and evidence standard. The user accepted
 session entry after recall and the reconciliation connection on 2026-10-05.
-The [entry contract](../../AGENTS.md#the-loop) retains decision, publication and
+The [entry contract](../../../AGENTS.md#the-loop) retains decision, publication and
 next-cycle checkpoints. Project setup and releases belong to recipient operators.
 
 ## Implementation
@@ -72,7 +72,7 @@ installation acknowledgements do not hold implementation against a settled share
 contract. Actual integration still requires its provider, fixtures and runtime.
 
 Current implementation and verification results are recorded in the
-[review evidence](../mechanisms/review-assignments.evidence.md#remaining-readiness-evidence).
+[review evidence](../../mechanisms/review-assignments.evidence.md#remaining-readiness-evidence).
 The readiness ticket retains independent grading and publication criteria;
 structural success alone does not satisfy its whole outcome.
 

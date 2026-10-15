@@ -251,8 +251,8 @@ or make prior Workshop approval a gate for introducing a coexisting version.
 
 The [adoption record](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md#current-disposition--2026-10-06)
 owns recipient adoption status and links to its evidence.
-[workshop-coordination-ready](tickets/01-0005-workshop-coordination-ready.md) owns remaining
-coordinator acceptance work. [Review evidence](mechanisms/review-assignments.evidence.md)
+[workshop-coordination-ready](tickets/done/01-0005-workshop-coordination-ready.md) records completed
+coordinator acceptance. [Review evidence](mechanisms/review-assignments.evidence.md)
 and [coordination evidence](mechanisms/coordinate.evidence.md) own observed
 instruction behavior and grading. The
 [reconciliation report](reconciliation-20261004.md) retains dated installation,

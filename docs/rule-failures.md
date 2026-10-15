@@ -1006,7 +1006,7 @@ action or requesting its start. The initial diagnosis incorrectly called the
 status-only stop itself a violation. The user clarified that a greeting means
 status, followed by a proposed action under step=ask or execution under step=auto.
 The later answer-only restriction was respected. The
-[fresh-entry diagnosis](questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md#discovery-stopped-before-review--2026-10-11)
+[fresh-entry diagnosis](questions/done/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md#discovery-stopped-before-review--2026-10-11)
 records the corrected diagnosis and fresh-session grading cases. Local L15 now
 defines that entry handoff and local L3 sets step=ask using the existing ask
 default. The earlier automatic-review proposal was withdrawn. Issues remain

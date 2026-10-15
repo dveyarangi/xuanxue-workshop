@@ -18,7 +18,7 @@ is recorded rather than treated as proof of maintenance.
 
 ## Continuation
 
-- [workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md)
+- [workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md)
   retains publication, recipient-source rollout and remaining operational proof.
   Local instruction grading is complete; it does not establish published adoption.
 - [cabinet-daychi-public-schedule-connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)

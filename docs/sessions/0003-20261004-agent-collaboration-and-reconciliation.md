@@ -53,7 +53,7 @@ authorize unresolved design choices. Existing issues must be reused when applica
   issues remain open and Planned, waiting for publication and Workshop readiness.
   The /reconcile skill does not replace startup review or acceptance of reports.
   Local inception work is held by
-  [workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).
+  [workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md).
 - q-0002.0004 — Where should shared tickets live, and how are they addressed and claimed?
   Tracker and recipient labels are settled and applied. Recipient access, claims,
   the user's `/tickets` spelling versus the harness's `docs/tickets/`, and the

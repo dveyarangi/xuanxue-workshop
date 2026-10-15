@@ -82,7 +82,7 @@ and publication checkpoints and retain useful rules when extracting instructions
 Application implementation and live integration belong to
 [cabinet-daychi-public-schedule-connection](../01-0007-cabinet-daychi-public-schedule-connection.md).
 Published entry/adoption and existing readiness proof remain with
-[workshop-coordination-ready](../01-0005-workshop-coordination-ready.md).
+[workshop-coordination-ready](01-0005-workshop-coordination-ready.md).
 This work supplies revised instructions and may supply evidence to those outcomes;
 it does not close them. Sibling implementation, choosing monitoring products,
 background scheduling and a general-purpose agent platform are outside this slice.

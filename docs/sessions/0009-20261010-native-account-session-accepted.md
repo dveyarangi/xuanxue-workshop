@@ -76,7 +76,7 @@ implementation, deployment or actual native proof.
 
 Earlier session-entry self-rechecking covered assignment timelines, source/CI
 evidence and public runtime. The
-[entry-review question](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
+[entry-review question](../questions/done/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
 retains the limits: an additional 555-test shipped harness suite had one
 ownership-fixture failure and two symlink skips; a proposed scoped environment
 repair passed all 555 in memory. No unrelated repair or readiness acceptance is
@@ -98,7 +98,7 @@ issues 1–5 were closed. No tracker writes were performed in this conclusion.
 - [q-0002.0008.0001.0001 — Which authentication standard should Cabinet and Daychi adopt?](../questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md):
   the accepted custom native profile does not establish full OIDC adoption;
   wider interoperability and admission caller trust remain open.
-- [q-0002.0005.0002 — Does ordinary Workshop session entry invoke and exercise assignment review?](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md):
+- [q-0002.0005.0002 — Does ordinary Workshop session entry invoke and exercise assignment review?](../questions/done/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md):
   self-recheck evidence is recorded; unrelated environment repair, independent
   grading and readiness closure are not completed by native-contract acceptance.
 

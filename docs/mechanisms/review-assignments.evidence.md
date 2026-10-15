@@ -1,5 +1,38 @@
 # Assignment review evidence — 2026-10-05
 
+## Coordinator readiness close — 2026-10-16
+
+The user authorized closing [workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md)
+and checking board news on 2026-10-16. This pass reconciles its original criteria
+with later evidence; it adds no recipient or application acceptance requirement.
+
+- README and original installations 1/2 reach the same distributable collaboration
+  skill; their project-specific summaries, retained artifacts and fresh-session
+  evidence are accepted in their original issues. Later published entry, review and
+  dependency corrections supersede the 2026-10-08 publication remainder.
+- Fresh ordinary entry, recall before review, complete issue discovery, unchanged
+  response suppression and actual installation/provider handling were observed in
+  the earlier fresh-entry sections. This chat again exercised the entry handoff;
+  the user's closure authorization resolves the retained greeting-grading remainder.
+- The operator accepted all five controlled review outcomes on 2026-10-15,
+  including missing evidence, complete evidence and a new closed-issue report.
+  [The original controlled answer](https://github.com/dveyarangi/xuanxue-workshop/issues/14#issuecomment-6180599165)
+  was independently read back. Existing original-issue reviews establish obstacle,
+  incomplete-result, record-before-acknowledgement and changed-dependency handling.
+- The [detector-first deployment session](../sessions/0011-20261015-detector-first-board-duty.md)
+  records actual unattended review and independently read-back original-issue
+  publications. These later observations supersede the earlier unobserved-run
+  remainders; application/native/browser acceptance remains separate.
+- Final /verify passed 134 application tests; the harness comparison at announced
+  e5e74d6, installed-rule agreement, mechanism declarations and live question,
+  ticket, edge and shared-report checks passed. The earlier broad harness-suite
+  ownership-fixture finding retains its historical scope; it is not a current
+  failed check in the project's verification set.
+
+Scope is the coordinator-readiness ticket, paired RFC, invocation question and
+their citations. No recipient source, deployment, fixture or accepted boundary
+changes. Existing unrelated working-tree changes are excluded from publication.
+
 ## Periodic review implementation — 2026-10-15
 
 The detector-first replacement, its shared report and actual Windows deployment
@@ -164,7 +197,7 @@ blockers, timeline references, changed prerequisites, resumption and evidence li
 This does not establish recipient-host invocation or publish the new instructions.
 
 Declared while implementing
-[workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).
+[workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md).
 The user accepted original-issue communication, conversation-held review history,
 inspectable recipient evidence, the after-recall entry sequence and returning to
 agreed work after handling findings. The
@@ -294,7 +327,7 @@ mechanism declarations with no diagnostics/core leaks. Both loader links resolve
 retains the executed results. Operator grading of the remaining representative
 cases and source publication remain distinct from these observations.
 
-A [verification question](../questions/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
+A [verification question](../questions/done/q-0002.0005.0002-does-ordinary-workshop-session-entry-invoke-and-exercise-assignment-review.md)
 holds the remaining grading proof and the dated invocation observations. The
 2026-10-06 observation above demonstrates entry-file loading, recall before review,
 skill invocation and actual addressed discovery. Independent grading

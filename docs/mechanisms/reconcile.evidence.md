@@ -147,7 +147,7 @@ broader detection and routing method. [Harness evidence](harness.evidence.md)
 holds the update verification and remaining installation limitations.
 
 2026-10-04. Scope: the reconciliation portion of
-[workshop-coordination-ready](../tickets/01-0005-workshop-coordination-ready.md).
+[workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md).
 
 The [/reconcile skill](../../.agents/skills/reconcile/SKILL.md) replaces the
 discussion draft. Its declaration is under `.agents/mechanisms/reconcile/`.

@@ -5,7 +5,7 @@
 **Status:** Planned
 **Type:** HITL
 **Answers:** [Which Workshop outcomes should the remaining reconciliation pass deliver?](../../docs/questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
-**Depends on:** [01-0005 workshop-coordination-ready](../../docs/tickets/01-0005-workshop-coordination-ready.md); accepted recipient collaboration onboarding before execution; immutable publication of the agreed contract before issuing implementation work.
+**Depends on:** [01-0005 workshop-coordination-ready](../../docs/tickets/done/01-0005-workshop-coordination-ready.md); accepted recipient collaboration onboarding before execution; immutable publication of the agreed contract before issuing implementation work.
 
 This is a review draft, not a minted ticket. Register its ticket ID and question assignment only after breakdown approval.
 

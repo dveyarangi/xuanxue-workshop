@@ -2,7 +2,7 @@
 
 - **record of** what it intends to become
 
-**Last updated:** 2026-10-15
+**Last updated:** 2026-10-16
 
 The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
 migration changes and Workshop responsibility have separate homes. Both project
@@ -35,7 +35,6 @@ assignment. Its proper tracker destination remains in the
 
 | Ticket | Status | Type | Outcome |
 |---|---|---|---|
-| [workshop-coordination-ready](./01-0005-workshop-coordination-ready.md) | In progress | HITL | Workshop provides a published agent entry point and reviews issued assignments at startup through verified completion and acknowledgement. |
 | [workshop-board-review](./done/01-0006-workshop-board-review.md) | | | |
 | [cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md) | Planned | HITL | A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence. |
 | [native-cabinet-account-session](./01-0008-native-cabinet-account-session.md) | In progress (amended assignments published; recipient implementation and proof pending) | HITL | Native Daychi signs in through Cabinet, securely restores and renews its session, reads the full current self-profile and signs out of that installation, with joint native proof and existing web/content behavior retained. |
