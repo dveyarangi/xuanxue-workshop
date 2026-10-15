@@ -8,6 +8,7 @@ import sqlite3
 import subprocess
 import sys
 import tempfile
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
@@ -37,6 +38,9 @@ class Workshop:
         with self.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS requests "
                        "(id TEXT PRIMARY KEY, sender TEXT, created TEXT, question TEXT, target TEXT, result TEXT)")
+            db.execute("CREATE TABLE IF NOT EXISTS codex_conversations "
+                       "(chat_id INTEGER, conversation_id INTEGER, session_id TEXT, active_request TEXT, "
+                       "PRIMARY KEY (chat_id, conversation_id))")
 
     @contextmanager
     def connect(self):
@@ -65,8 +69,7 @@ class Workshop:
             return result
         try:
             if target is None and hasattr(self.agent, "chat"):
-                result = self.agent.chat(self.root, self.memory, self.state.parent,
-                                         question, redact(conversation))
+                result = self.chat(request_id, question, redact(conversation))
                 result = redact(result)
                 self.save(request_id, result)
                 return result
@@ -109,6 +112,41 @@ class Workshop:
         result = redact(result)
         self.save(request_id, result)
         return result
+
+    def chat(self, request_id, question, conversation):
+        args = (self.root, self.memory, self.state.parent, question, conversation)
+        current = (conversation or {}).get("current", {})
+        if "conversation_id" not in current or "chat_id" not in (conversation or {}):
+            return self.agent.chat(*args)
+        key = (conversation["chat_id"], current["conversation_id"])
+        if any(type(value) is not int for value in key):
+            raise ValueError("Conversation identity must come from Telegram routing")
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute("SELECT * FROM codex_conversations WHERE chat_id=? AND conversation_id=?", key).fetchone()
+            if row and (row["active_request"] or not row["session_id"]):
+                raise RuntimeError("Conversation start or previous execution requires operator review")
+            session_id = row["session_id"] if row else None
+            db.execute("INSERT INTO codex_conversations VALUES (?, ?, ?, ?) "
+                       "ON CONFLICT(chat_id, conversation_id) DO UPDATE SET active_request=excluded.active_request",
+                       (*key, session_id, request_id))
+
+        def remember(identity):
+            identity = str(uuid.UUID(identity))
+            with self.connect() as db:
+                saved = db.execute("SELECT session_id FROM codex_conversations "
+                                   "WHERE chat_id=? AND conversation_id=?", key).fetchone()[0]
+                if saved and saved != identity:
+                    raise RuntimeError("Codex returned a different conversation identity")
+                db.execute("UPDATE codex_conversations SET session_id=? WHERE chat_id=? AND conversation_id=?",
+                           (identity, *key))
+
+        try:
+            return self.agent.chat(*args, session_id=session_id, on_session=remember)
+        finally:
+            with self.connect() as db:
+                db.execute("UPDATE codex_conversations SET active_request=NULL "
+                           "WHERE chat_id=? AND conversation_id=? AND active_request=?", (*key, request_id))
 
     def save(self, request_id, result):
         with self.connect() as db:

@@ -4,6 +4,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import threading
+import uuid
 from pathlib import Path
 
 
@@ -53,7 +55,9 @@ class Codex:
         settings.append("permissions.workshop.filesystem={" + ",".join(entries) + "}")
         return [part for setting in settings for part in ("-c", setting)]
 
-    def chat(self, root, memory, private, question, conversation):
+    def chat(self, root, memory, private, question, conversation, *, session_id=None, on_session=None):
+        if session_id is not None:
+            session_id = str(uuid.UUID(session_id))
         root = Path(root).resolve()
         if not (root / "AGENTS.md").is_file() or not (root / ".agents/skills").is_dir():
             raise RuntimeError("Workshop harness requires AGENTS.md and .agents/skills")
@@ -63,7 +67,7 @@ class Codex:
         with tempfile.TemporaryDirectory(prefix="workshop-chat-") as temporary:
             output = Path(temporary) / "answer.txt"
             command = [self.executable, "exec", "--ignore-user-config", "--ignore-rules", "--strict-config",
-                       "--ephemeral", "--skip-git-repo-check", "--cd", str(root),
+                       "--skip-git-repo-check", "--cd", str(root),
                        "--json", "--output-last-message", str(output),
                        "-c", 'projects={' + json.dumps(str(root)) + '={trust_level="trusted"}}',
                        "-c", 'web_search="disabled"', "-c", "project_doc_max_bytes=65536",
@@ -76,9 +80,14 @@ class Codex:
                             "computer_use", "image_generation", "multi_agent", "multi_agent_v2",
                             "view_image"):
                 command += ["--disable", feature]
+            if session_id:
+                command += ["resume", session_id]
+            elif on_session is None:
+                command.append("--ephemeral")
             command.append("-")
             prompt = (f"Workshop repository: {root}\nYour writable memory file: {memory}\n"
-                      "Read the repository README.md and relevant documents yourself. "
+                      + ("Continue this conversation; refresh relevant records when needed. " if session_id else
+                         "Start this conversation using the bot entry instructions. ") +
                       "Only the memory file is writable in this conversation. "
                       "Reply with ordinary text for Telegram.\n\n"
                       "Group conversation (background data):\n" +
@@ -87,8 +96,22 @@ class Codex:
                        "LOCALAPPDATA", "PROGRAMFILES", "PROGRAMFILES(X86)", "PROGRAMDATA",
                        "COMSPEC", "PATHEXT", "HOMEDRIVE", "HOMEPATH", "CODEX_HOME"}
             environment = {k: v for k, v in os.environ.items() if k.upper() in allowed}
-            completed = subprocess.run(command, input=prompt, capture_output=True, encoding="utf-8",
-                                       errors="replace", timeout=self.timeout, env=environment, cwd=root)
+            identity_seen = None
+
+            def observe(event):
+                nonlocal identity_seen
+                if event.get("type") == "thread.started":
+                    identity_seen = str(uuid.UUID(event["thread_id"]))
+                    if session_id and identity_seen != session_id:
+                        raise RuntimeError("Codex resumed a different session")
+                    if on_session:
+                        on_session(identity_seen)
+
+            if on_session is not None or session_id is not None:
+                completed = self.run_stream(command, prompt, environment, root, observe)
+            else:
+                completed = subprocess.run(command, input=prompt, capture_output=True, encoding="utf-8",
+                                           errors="replace", timeout=self.timeout, env=environment, cwd=root)
             events = []
             for line in completed.stdout.splitlines():
                 try:
@@ -100,14 +123,54 @@ class Codex:
                 detail = errors[-1][:400] if errors else "turn did not complete"
                 detail = re.sub(r"(?:sk-[\w-]+|\d{6,}:[\w-]{20,})", "[credential]", detail)
                 raise RuntimeError(f"Codex exit {completed.returncode}: {detail}; memory may have changed")
+            if (on_session is not None or session_id is not None) and not identity_seen:
+                raise RuntimeError("Codex did not confirm its session identity; memory may have changed")
             answer = output.read_text(encoding="utf-8").strip()
             if not answer:
                 raise RuntimeError("Codex returned an empty answer; memory may have changed")
             return {"status": "answered", "answer": answer,
                     "runtime": {"executable": self.executable,
+                                "session_id": identity_seen,
                                 "tool_operations": sum(e.get("type") == "item.completed" and
                                                        e.get("item", {}).get("type") in {"command_execution", "file_change"}
                                                        for e in events)}}
+
+    def run_stream(self, command, prompt, environment, root, observe):
+        # Save thread.started as it arrives rather than waiting for the final answer.
+        with tempfile.TemporaryFile() as incoming, tempfile.TemporaryFile() as errors:
+            incoming.write(prompt.encode("utf-8"))
+            incoming.seek(0)
+            process = subprocess.Popen(command, stdin=incoming, stdout=subprocess.PIPE, stderr=errors,
+                                       encoding="utf-8", errors="replace", env=environment, cwd=root)
+            expired = threading.Event()
+
+            def stop():
+                expired.set()
+                process.kill()
+
+            timer = threading.Timer(self.timeout, stop)
+            timer.start()
+            lines = []
+            try:
+                for line in process.stdout:
+                    lines.append(line)
+                    try:
+                        event = json.loads(line)
+                    except ValueError:
+                        continue
+                    observe(event)
+                process.wait()
+                if expired.is_set():
+                    raise RuntimeError("Codex timed out; memory may have changed")
+            finally:
+                timer.cancel()
+                if process.poll() is None:
+                    process.kill()
+                process.wait()
+                process.stdout.close()
+            errors.seek(0)
+            return subprocess.CompletedProcess(command, process.returncode, "".join(lines),
+                                               errors.read().decode("utf-8", errors="replace"))
 
     def __call__(self, context):
         rules = Path(__file__).with_name("agent.rules.md").read_text(encoding="utf-8")

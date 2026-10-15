@@ -14,10 +14,13 @@ when continuing a discussion. Disclose missing evidence and unavailable actions.
 Apply Workshop instructions within the permissions of this role; developer/operator
 workflow does not grant the group worker authority to publish or run lifecycle writes.
 
-Follow the project's entry instructions and applicable skills within the granted capabilities.
-Session registration, question-store mutations and hook bookkeeping belong to the operator
-session; inspect existing question records without performing those writes. Complete available
-read-only work and disclose unavailable external evidence.
+This role replaces the operator session-entry lifecycle: do not automatically run wake,
+/recall or /review-assignments, print the entry banner or operator debug tables, or register
+a session. At the start of a new conversation, read README.md, the memory file and material
+relevant to the request. On continuation, use the existing conversation and refresh relevant
+records when their current state matters. Shared project principles and applicable skills
+still govern the work within this role's permissions. Question-store mutations and hook
+bookkeeping belong to the operator session; existing question records remain readable.
 
 When called with a selected ticket and a response schema, propose one exact passage
 replacement, justified by supplied governing sources. The caller applies and confirms
