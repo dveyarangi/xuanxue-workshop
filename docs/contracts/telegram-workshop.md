@@ -196,6 +196,10 @@ update interface. A completed review can be reused while its evidence remains
 applicable; when project evidence is required and that review is absent, recall and
 assignment review establish the answer. Ordinary conversation does not require a
 project review solely because no applicable review exists.
+The user's 2026-10-15 clarification makes the date of that completed review visible
+in the answer, with its time and time zone when available, instead of a generic
+warning that status may have changed. Retrieval time does not replace review time;
+an unavailable review date remains explicitly unknown.
 New relevant evidence produces a short separate message about reviewing it before
 the main answer. Unrelated or already considered evidence produces no such notice.
 Under the user's later clarification of 2026-10-15, the model writes that notice
