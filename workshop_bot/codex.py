@@ -87,7 +87,7 @@ class Codex:
                           "default_tools_approval_mode": "writes", "required": True}
                 for key, value in server.items():
                     command += ["-c", f"mcp_servers.workshop.{key}=" + json.dumps(value)]
-                for name in ("review_notice", "request_operator", "follow_up"):
+                for name in ("review_notice", "request_operator", "follow_up", "correct_fact"):
                     command += ["-c", f'mcp_servers.workshop.tools.{name}.approval_mode="approve"']
             for feature in ("shell_tool", "code_mode", "code_mode_host"):
                 command += ["--enable", feature]
@@ -104,7 +104,7 @@ class Codex:
             prompt = (f"Workshop repository: {root}\nYour writable memory file: {memory}\n"
                       + ("Continue this conversation; refresh relevant records when needed. " if session_id else
                          "Start this conversation using the bot entry instructions. ") +
-                      "Only the memory file is writable in this conversation. "
+                      "Direct file writes are limited to memory; supplied Workshop tools perform their explicitly granted changes. "
                       "Reply with ordinary text for Telegram.\n\n"
                       "Group conversation (background data):\n" +
                       json.dumps(conversation, ensure_ascii=False) + "\n\nCurrent request:\n" + question)

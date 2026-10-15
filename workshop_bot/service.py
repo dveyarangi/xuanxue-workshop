@@ -196,7 +196,13 @@ class Workshop:
         args = (self.root, self.memory, self.state.parent, question, conversation)
         current = (conversation or {}).get("current", {})
         if "conversation_id" not in current or "chat_id" not in (conversation or {}):
-            return self.agent.chat(*args, **options)
+            result = self.agent.chat(*args, **options)
+            if tools:
+                tools.finish()
+                changes = tools.fact_changes()
+                if changes:
+                    result["changes"] = changes
+            return result
         key = (conversation["chat_id"], current["conversation_id"])
         if any(type(value) is not int for value in key):
             raise ValueError("Conversation identity must come from Telegram routing")
@@ -226,6 +232,9 @@ class Workshop:
             result["runtime"]["total_seconds"] = round(time.monotonic() - started, 3)
             if tools:
                 tools.finish()
+                changes = tools.fact_changes()
+                if changes:
+                    result["changes"] = changes
             return result
         finally:
             with self.connect() as db:
