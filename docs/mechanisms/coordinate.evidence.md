@@ -439,3 +439,37 @@ with titles, recipient labels, open states and counterpart links preserved.
 The owning native ticket and queue now record recipient implementation and joint
 proof as the next work. No further contract decision or publication approval is
 pending for this amendment.
+
+## Registration-invitation maintenance — 2026-10-15
+
+Scope: Cabinet/Daychi registration-invitation communication, its accepted access
+contract, current source evidence, shared board action list and the existing
+disclosure-failure entry. Recipient implementations, releases and unrelated
+Telegram work are outside this pass.
+
+The user reaffirmed that registration invitations can be shared openly. The
+[agent contract](../agent-contract.md#registration-invitations--clarified-2026-10-15)
+now holds that clarification. The already recorded
+[available staging invitation](../current-system.md#cabinet-staging-access--confirmed-2026-10-15)
+was retained as source evidence; no registration or account change was performed.
+The [shared board report](../board-review.md#open-matters) no longer treats a
+private invitation handoff as the next action. Its current action list separates
+registration, the offered teacher/class setup, the unarranged aged-credential
+method and the declined disposable mixed-row/repair environment. Dated review
+results and controller Operations are preserved, without claiming a fresh full
+board review. Original issue 7 was reread; its proposal is not a new shared rule.
+
+This restores maintain A1 against the user's landed clarification. The existing
+L22 disclosure wording already rejects unsupported private-handoff requirements;
+no new instruction, authentication promise or acceptance criterion was added.
+The recurrence is struck at its existing home in [rule failures](../rule-failures.md).
+
+Maintenance dueness reports no local due mechanisms; inherited core is maintained
+at its source, so no marks were written. Ticket, question, edge, mechanism,
+installed-binding and shared-report checks pass. Harness source comparison passes
+at e5e74d6 after a network-enabled retry. The scoped provisional-text scan found
+only historical wording in rule failures; it needs no wrapper. No record was
+judged finished and no record moved. No application code changed or suite reran.
+Shared working files also contain other sessions' work; only this pass's additions
+are eligible for its commit. Remaining native proof belongs to the original
+Cabinet/Daychi assignments; remote historical messages are not rewritten.

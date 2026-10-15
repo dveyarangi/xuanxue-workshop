@@ -100,6 +100,12 @@ internal implementation does not by itself delegate those choices.
 Decision: the user, 2026-10-10, clarified that selecting security principles and
 protocols belongs to Workshop even when the visible contract does not change.
 
+## Registration invitations — clarified 2026-10-15
+
+Registration invitations may be shared openly, including in the Workshop group.
+The user reaffirmed this on 2026-10-15. A restriction on publishing credentials
+does not make a registration invitation a required private handoff.
+
 ## Workshop address
 
 [dveyarangi/xuanxue-workshop](https://github.com/dveyarangi/xuanxue-workshop).

@@ -215,7 +215,15 @@ access facts before assigning a handoff, and uses a ready invitation directly.
 These amendments are installed; native and regression evidence is retained in the
 Telegram RFC. No chat reset accompanies deployment.
 
-
+Struck again, 2026-10-15, in the Codex operator's assignment-status reply: the
+assistant promoted Cabinet's issue-7 proposal to send a staging registration
+invitation privately into the user's next required action. The user explicitly
+reaffirmed that this invitation can be shared openly. The cited Workshop request
+excluded credentials from public issues; it did not establish that an invitation
+to register is an existing-account credential. L22's authored disclosure paragraph
+already rejects importing unsupported private-handoff requirements from summaries.
+The operator correction governs this case; no broader privacy requirement or
+additional rule is established. The erroneous next action is withdrawn.
 
 ## 2026-10-15 — Permission probe affected the live memory parent
 

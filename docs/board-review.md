@@ -9,6 +9,8 @@ Live read-only discovery inspected thirteen addressed issues. Controlled issue 1
 
 ## Results
 
+Operator clarification — 2026-10-15: registration invitations may be shared openly under the [agent contract](agent-contract.md#registration-invitations--clarified-2026-10-15). Earlier descriptions of a required private invitation handoff are superseded. This permission does not establish registration, a teacher-role grant, test-class preparation or native execution. This scoped correction does not claim a fresh full-board review.
+
 [Controlled answer](https://github.com/dveyarangi/xuanxue-workshop/issues/14#issuecomment-6180599165) was published once and recovered after interruption. The operator accepted its five representative judgments on 2026-10-15.
 
 ## Open matters
