@@ -1,11 +1,15 @@
 import json
+import threading
 import time
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from urllib.parse import parse_qs, urlsplit
 
 from .service import redact
 from .telegram_api import TelegramError
 from .telegram_outbox import Outbox
+
+TYPING_INTERVAL = 4
 
 
 class Group:
@@ -182,9 +186,10 @@ class Group:
                 db.execute("UPDATE telegram_requests SET status='processing', context=? WHERE update_id=?",
                            (json.dumps(context, ensure_ascii=False), row["update_id"]))
         if row["status"] == "queued":
-            result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
-                                       row["body"], sender=row["sender"], conversation=context,
-                                       on_progress=lambda text: self.notice(row, text))
+            with self.typing(row):
+                result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
+                                           row["body"], sender=row["sender"], conversation=context,
+                                           on_progress=lambda text: self.notice(row, text))
             text = result["answer"]
             parts = split_reply(text)
             with self.workshop.connect() as db:
@@ -220,6 +225,37 @@ class Group:
                 db.execute("UPDATE telegram_requests SET status=?, sent_ids=?, error=NULL WHERE update_id=?",
                            ("sent" if len(sent_ids) == len(parts) else "ready", json.dumps(sent_ids), row["update_id"]))
         return True
+
+    @contextmanager
+    def typing(self, row):
+        parameters = {"chat_id": self.group_id, "action": "typing"}
+        if row["thread_id"] is not None:
+            parameters["message_thread_id"] = row["thread_id"]
+        stop = threading.Event()
+
+        def indicate():
+            try:
+                self.api.call("sendChatAction", **parameters)
+            except TelegramError as error:
+                return max(TYPING_INTERVAL, error.retry_after)
+            except Exception:
+                pass  # A transient status failure must not prevent the durable answer.
+            return TYPING_INTERVAL
+
+        delay = indicate()
+
+        def renew():
+            interval = delay
+            while not stop.wait(interval):
+                interval = indicate()
+
+        worker = threading.Thread(target=renew, name="telegram-typing", daemon=True)
+        worker.start()
+        try:
+            yield
+        finally:
+            stop.set()
+            worker.join()
 
     def notice(self, row, text):
         with self.workshop.connect() as db:

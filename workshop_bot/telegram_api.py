@@ -28,13 +28,13 @@ class TelegramAPI:
         self._opener = opener or build_opener(ProxyHandler({}), NoRedirect())
 
     def call(self, method, **parameters):
-        if method not in {"getMe", "getWebhookInfo", "getChat", "getChatMember", "getUpdates", "sendMessage"}:
+        if method not in {"getMe", "getWebhookInfo", "getChat", "getChatMember", "getUpdates", "sendMessage", "sendChatAction"}:
             raise ValueError("Метод Telegram не поддерживается.")
         request = Request(f"https://api.telegram.org/bot{self._token}/{method}",
                           data=json.dumps(parameters).encode("utf-8"),
                           headers={"Content-Type": "application/json"}, method="POST")
         try:
-            with self._opener.open(request, timeout=40) as response:
+            with self._opener.open(request, timeout=3 if method == "sendChatAction" else 40) as response:
                 body = json.loads(response.read())
         except HTTPError as error:
             try:
