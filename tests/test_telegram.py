@@ -208,16 +208,34 @@ class GroupTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "webhook"):
                 group.start()
 
-    def test_bare_reference_invites_a_question_without_calling_the_agent(self):
+    def test_bare_reference_reaches_agent_with_history_and_typing(self):
+        received, actions = [], []
+
+        class Agent:
+            def chat(self, root, memory, private, question, conversation, **kwargs):
+                received.append((question, conversation))
+                self_typing = actions[-1]
+                assert self_typing == 'sendChatAction'
+                return {'status': 'answered', 'answer': 'Что вы хотите узнать?'}
+
+        class Peer(TelegramPeer):
+            def call(self, method, **parameters):
+                actions.append(method)
+                if method == 'sendChatAction':
+                    return True
+                return super().call(method, **parameters)
+
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            app = Workshop(root, root / "state.sqlite3", lambda context: self.fail("No question to answer"))
-            peer = TelegramPeer([message(text="@workshop_bot")])
+            app = Workshop(root, root / "state.sqlite3", Agent())
+            peer = Peer([message(text="@workshop_bot")])
             group = Group(app, peer, -100123)
             group.start()
             group.poll_once(0)
             group.work_once()
-            self.assertIn("Задайте", peer.sent[0]["text"])
+            self.assertEqual(received[0][0], '@workshop_bot')
+            self.assertEqual(received[0][1]['messages'], [])
+            self.assertEqual(peer.sent[0]['text'], 'Что вы хотите узнать?')
 
     def test_long_reply_survives_rate_limit_without_repeating_confirmed_parts(self):
         with tempfile.TemporaryDirectory() as temporary:

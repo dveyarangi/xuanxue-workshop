@@ -91,12 +91,6 @@ class Group:
                                 redact(selected["body"]), selected["thread_id"],
                                 "queued" if selected["addressed"] else "observed",
                                 selected["reply_to"], selected["conversation_id"], selected["addressed_message_id"]))
-                    if selected["bare"]:
-                        invitation = "Задайте вопрос о проектах Workshop — помогу разобраться."
-                        db.execute("UPDATE telegram_requests SET status='ready', result=?, parts=? "
-                                   "WHERE update_id=? AND status='queued'",
-                                   (json.dumps({"status": "answered", "answer": invitation, "sources": []}, ensure_ascii=False),
-                                    json.dumps([invitation], ensure_ascii=False), update["update_id"]))
                 db.execute("INSERT INTO telegram_meta VALUES ('offset', ?) "
                            "ON CONFLICT(key) DO UPDATE SET value=CAST(MAX(CAST(value AS INTEGER), "
                            "CAST(excluded.value AS INTEGER)) AS TEXT)",
@@ -145,8 +139,9 @@ class Group:
         if selected["bare"] and reply_to is None:
             previous = self.previous_message(selected)
             if previous:
-                selected.update(bare=False, addressed_message_id=previous["message_id"],
-                                conversation_id=previous["message_id"])
+                selected["conversation_id"] = previous["conversation_id"] or previous["message_id"]
+                if previous["status"] == "observed":
+                    selected["addressed_message_id"] = previous["message_id"]
         return selected
 
     def previous_message(self, selected):
@@ -154,15 +149,21 @@ class Group:
         if sender.get("id") is None:
             return None
         with self.workshop.connect() as db:
-            previous = db.execute(
+            rows = db.execute(
                 "SELECT * FROM telegram_requests WHERE message_id < ? AND thread_id IS ? "
                 "AND json_extract(sender,'$.id')=? AND COALESCE(json_extract(sender,'$.type'),'')=? "
-                "ORDER BY message_id DESC LIMIT 1",
-                (selected["message_id"], selected["thread_id"], sender["id"], sender.get("type", ""))).fetchone()
-        if previous is None or previous["status"] != "observed" or previous["body"].startswith("[Сообщение без текста:"):
-            return None
-        age = (datetime.fromisoformat(selected["created"]) - datetime.fromisoformat(previous["created"])).total_seconds()
-        return previous if 0 <= age <= 300 else None
+                "ORDER BY message_id DESC",
+                (selected["message_id"], selected["thread_id"], sender["id"], sender.get("type", "")))
+            for previous in rows:
+                # Older receivers stored this canned invitation as an answered request.
+                legacy = {"status": "answered", "answer": "Задайте вопрос о проектах Workshop — помогу разобраться.",
+                          "sources": []}
+                if previous["addressed_message_id"] is None and previous["result"] and json.loads(previous["result"]) == legacy:
+                    continue
+                if previous["body"].startswith("[Сообщение без текста:"):
+                    return None
+                return previous
+        return None
 
     def references(self, text, entities):
         references = []
@@ -322,7 +323,7 @@ class Group:
             messages.append({"message_id": row["message_id"], "role": "user", "text": row["body"],
                              "sender": json.loads(row["sender"]), "created": row["created"],
                              "thread_id": row["thread_id"], "reply_to": row["reply_to"],
-                             "conversation_id": row["conversation_id"]})
+                             "conversation_id": row["conversation_id"], "request_status": row["status"]})
             for message_id, part in zip(json.loads(row["sent_ids"]), json.loads(row["parts"])):
                 if message_id < request["message_id"]:
                     messages.append({"message_id": message_id, "role": "assistant", "text": part,

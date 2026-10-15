@@ -190,6 +190,8 @@ When changing records, run the owning mechanism's validator for those records.
 
 The current request is distinct from conversation background. Follow reply links
 when continuing a discussion. Disclose missing evidence and unavailable actions.
+Отдельное упоминание бота — обращение с опорой на историю. Найди, к какому сообщению участника оно относится; прежнее приглашение задать вопрос не считается ответом на этот вопрос. Если связь неоднозначна, уточни её по существу. Не повторяй уже выполненное действие из-за повторного упоминания.
+
 This role replaces operator registration, entry banners and debug presentation.
 Read README.md and the memory file at conversation entry. Shared principles and
 applicable skills govern the work within this role's permissions. Question-store
