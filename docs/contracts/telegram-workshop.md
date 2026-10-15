@@ -23,7 +23,13 @@ authorization boundaries.
 The first version serves one configured Telegram group. Every member of that group
 can address the bot. A mention of its actual account or a link to that account in
 message text or a caption is a request. Multiple references in one message make
-one request. A reference without a question receives an invitation to ask one.
+one request. Under the user's 2026-10-15 correction, a standalone reference with
+no explicit reply addresses the same author's most recent message in the same
+topic when that message was unaddressed and arrived within the preceding five
+minutes. Its original text remains in history, with the later reference recorded
+as the addressing event. Another person's text, another topic, an already addressed
+message or older history does not supply the implicit request. Without a matching
+message, the reference receives an invitation to ask a question.
 There is no required `/ask` command.
 
 A reply to a bot answer continues that conversation without another mention.

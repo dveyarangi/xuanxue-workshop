@@ -257,7 +257,8 @@ is needed for the accepted scope.
 3. Selection handles text, captions, mentions, visible and hidden account links,
    and replies to recorded bot answers. Entity slicing respects UTF-16; parsed
    account identity and exact domain/path checks reject lookalikes. Multiple
-   references select one request; a bare reference gets an invitation to ask.
+   references select one request; a bare reference first resolves the accepted
+   follow-up-addressing case, otherwise gets an invitation to ask.
 4. Accepted intake and the update checkpoint become durable together, before the
    next acknowledgement. Repeated delivery of an event creates no second request.
    Ignored events advance the checkpoint without retaining message bodies.
@@ -589,6 +590,27 @@ prompt outcomes, not evidence that the DNS or browser work was performed.
 Both answers completed in the same native session. No group message, issue comment
 or recipient mutation was made by the proof. Harness integrity, installed rules and
 mechanism validation passed. The running bot reads the amended role on its next turn.
+
+## Follow-up addressing — 2026-10-15
+
+The user corrected the two-message interaction: a question without a mention,
+followed two minutes later by a standalone bot mention, refers back to that question.
+The former bare-reference shortcut returned an invitation before Codex saw the
+question. The amended intake resolves the most recent same-author/same-topic
+unaddressed message within five minutes; explicit replies retain priority. Selection
+uses Telegram identity and message timestamps, not display names or worker time.
+
+A nullable addressed-message reference preserves both original journal entries.
+The later mention supplies the request identity and delivery target; the preceding
+message supplies the question and conversation root. Existing history gains the
+nullable field on startup. Duplicate updates retain one request; an additional bare
+mention cannot silently reuse an already addressed predecessor. No old delivered
+invitation is automatically reprocessed.
+
+The reported wording and two-minute gap are tested through intake, restart, agent
+input and delivery. Negative cases cover another sender, another topic, expired
+context, a previously addressed message and explicit reply precedence.
+The full suite passed 92 tests. No synthetic message was sent to the real group.
 
 ## Evidence checked on 2026-10-12
 
