@@ -202,6 +202,21 @@ not live Telegram delivery or the production executor's fresh-reading behavior.
 
 
 
+Struck again, 2026-10-15: the first post-reset agenda notice arrived about 96
+seconds after the Telegram question. L22 specified its wording but still delegated
+its timing to the full model. Fresh issue reading expanded all linked implementation
+evidence and the model abandoned the long-running reads, returning the old agenda.
+The repair sends Luna's generated work notice before full execution, with existing
+at-most-once delivery, and adds a discussion section that reads current comments
+without expanding linked evidence. Instructions select that section for arrangements.
+The operator also supplied the missing staging invitation again; it is now retained
+in current-system instead of erasable conversation memory. The bot reads those
+access facts before assigning a handoff, and uses a ready invitation directly.
+These amendments are installed; native and regression evidence is retained in the
+Telegram RFC. No chat reset accompanies deployment.
+
+
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.

@@ -990,6 +990,55 @@ ticket records and the board report passed their checks; installed rules were ch
 again after the final wording amendment. Authored changes are confined to local rules;
 the common skill corpus is unchanged.
 
+## Early notice and current arrangements — 2026-10-15
+
+The operator authorized repair after Telegram message 126: receipt at 15:15:42 UTC,
+processing 0.16 seconds later, but the full model called review_notice only at
+15:17:10 UTC. Luna had already selected work in 4.62 seconds. Wording changes alone
+could not provide early feedback. The model later terminated its parallel fresh
+issue reads and fell back to the completed 12:30 UTC review.
+
+The quick decision now includes a bounded generated notice for work, empty for other
+routes. The host attempts delivery before starting the full executor and passes the
+notice in conversation context. The existing delivery journal retains duplicate and
+uncertain-delivery suppression; no additional model invocation is needed. A failed
+quick pass preserves the existing full-worker fallback and typing, without inventing
+a supposedly generated notice. Ordinary quick answers and ambient offers remain
+unchanged. This is a timing correction within the existing bot boundary.
+
+read_issue adds section=discussion: issue plus newest-first comments, with a concurrent
+update check and existing output pagination, without linked PR/check/evidence
+expansion. It does not return or record a publication-authorizing evidence version;
+full evidence inspection and follow-up freshness checks remain unchanged. Instruction
+rules select this read for current arrangements and retain full evidence for actual
+verification/publication. No board-monitor implementation or recipient tree changes.
+
+The invitation resupplied by the operator is held at
+[current Cabinet staging access](../current-system.md#cabinet-staging-access--confirmed-2026-10-15),
+which survives conversation resets. Earlier original-issue requests for an invitation
+no longer establish that it is missing. Registration and separately granted staff
+permissions remain distinct; no account was created in this pass.
+
+Regression proof first failed with no notice at entry to the full worker, then passed
+with the generated notice already delivered and a later notice suppressed. Other
+checks cover bounded/credential-free notice output and a fresh discussion that keeps
+an invitation URL but never fetches a linked PR. A real GitHub discussion read took
+5.16 seconds. Native Luna plus a full-worker boundary probe delivered its notice in
+5.36 seconds; the complete native Codex/MCP trial delivered it at 5.38 seconds and
+successfully read new issue arrangements, including a comment newer than the earlier
+review. The full answer still took about 147 seconds; this does not claim instant
+investigation. Native probes send no messages to Telegram.
+
+A second complete native trial, after the invitation was recorded, returned the exact
+operator-supplied link as @stnleo's first registration step and explicitly removed the
+request to prepare access again. It read fresh discussions successfully; the early
+notice arrived at 7.29 seconds, while the full answer took 230 seconds. These are
+observed samples, not a latency guarantee. A timing-sensitive typing regression
+missed its wall-clock threshold under concurrent native work; all three typing tests
+passed in isolation without changing their thresholds or implementation.
+The final uncontented run passed all 120 tests. Harness, installed rules, mechanism,
+board-report and ticket checks passed.
+
 ## Evidence checked on 2026-10-12
 
 

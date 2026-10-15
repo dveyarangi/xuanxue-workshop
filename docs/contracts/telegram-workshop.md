@@ -206,13 +206,21 @@ applicable; when project evidence is required and that review is absent, recall 
 assignment review establish the answer. Ordinary conversation does not require a
 project review solely because no applicable review exists.
 For current next actions, the latest relevant issue discussions supplement the
-completed review. New arrangements supersede its older action list while unchanged
+completed review. Reading a discussion retrieves the issue and its comments, newest
+first, without expanding linked implementation evidence. This read does not establish
+the full evidence version required to publish a follow-up. New arrangements supersede its older action list while unchanged
 verification remains reusable; the answer distinguishes their evidence dates.
 The user's 2026-10-15 clarification makes the date of that completed review visible
 in the answer, with its time and time zone when available, instead of a generic
 warning that status may have changed. Retrieval time does not replace review time;
 an unavailable review date remains explicitly unknown.
-New relevant evidence produces a short separate message about reviewing it before
+When Luna routes an addressed request to investigation, its generated notice is
+delivered before the full executor starts. It describes the intended work, asks the
+person to wait and promises the main answer next; it does not claim new findings.
+Other quick routes carry no notice. Failed quick generation retains the full-worker
+fallback and typing indication without fabricating a generated notice. The existing
+delivery journal prevents a later full-worker notice from duplicating the early one.
+New relevant evidence can otherwise produce a short separate review notice before
 the main answer. Unrelated or already considered evidence produces no such notice.
 Under the user's later clarification of 2026-10-15, the model writes that notice
 from the available evidence, briefly naming what it will examine, asking the person
@@ -236,7 +244,9 @@ each step contains one action addressed directly to its confirmed participant.
 The sequence is visible rather than buried in a paragraph or table cell. The answer
 distinguishes human actions from agent work and identifies any handoff. A required
 entry link is verified; an unavailable invitation has a named issuer and recipient,
-not a made-up URL or a homepage represented as an invitation. The result describes what becomes available or what someone
+not a made-up URL or a homepage represented as an invitation. An available invitation
+goes directly to the participant who registers; a missing link does not become a
+request to prepare accounts, environments or data again. The result describes what becomes available or what someone
 can do or observe, tied to the learner, teacher or reader benefit. Roles, permissions,
 objects and parameters remain grounded in evidence; a presentation example does not
 establish its illustrative details as project facts or authorization.

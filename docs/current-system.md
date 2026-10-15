@@ -23,6 +23,18 @@ collaboration installation is [accepted and issue 1 closed](https://github.com/d
 The newer provider review below supersedes the public-row conformance gap.
 Native integration and broader Workshop source publication remain incomplete.
 
+## Cabinet staging access — confirmed 2026-10-15
+
+The Workshop operator supplied the [Cabinet staging invitation](https://staging.xuanxue.su/join/307eff9265324126fc0fbf0fc1d08bbd)
+on 2026-10-15 for @stnleo (Daychi) to register, personally or with their agent.
+This is the available registration link, superseding the earlier missing-link/private-
+handoff description in [issue 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6194395822).
+The operator explicitly permits sharing invitations in the group. Availability of
+this link does not establish completed registration, a granted teacher role or an
+already prepared test class. The latter arrangements remain separately recorded in
+[issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6194557568).
+The link was supplied by the operator; no registration was performed by Workshop.
+
 ## Web-wiki assignment evidence — reviewed 2026-10-14
 
 Against [shared authority 25def59e](contracts/web-wiki-session.md),
