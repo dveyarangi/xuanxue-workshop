@@ -253,6 +253,15 @@ trial returned three numbered steps with the invitation and DNS values; the
 [evidence](rfc/01-0020-telegram-workshop-access.md#numbered-directions--2026-10-15)
 records that scope without claiming a new application test run.
 
+Struck again, 2026-10-15: numbered action fields produced orders, a dictated
+message and basic browser directions. The user required respectful requests to
+capable, autonomous participants. L22 now asks without prescribing their words or
+explaining the obvious; an unconditional completion field that produced tautologies
+was removed. This restores [A capable reader](../AGENTS.md#general-rules) inside the
+existing rule, preserving numbered actions and immediately available help. The
+[scoped native evidence](rfc/01-0020-telegram-workshop-access.md#respectful-participant-requests--2026-10-15)
+retains both the first sample's excess and the corrected sample's limited scope.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.

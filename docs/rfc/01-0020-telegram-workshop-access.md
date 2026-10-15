@@ -1108,6 +1108,25 @@ only invented example.org data. It returned three numbered steps, the supplied
 registration invitation and exact DNS parameters. No group history, internal
 project documents, Telegram messages or live access changes were involved.
 
+## Respectful participant requests — 2026-10-15
+
+The user rejected the bot's imperative wording, dictated message to another
+participant and explanations of basic browser actions. L22 now presents remaining
+actions as respectful requests and preserves participant autonomy. Requests supply
+needed locations, parameters or links without prescribing replies or explaining
+the obvious. Numbered actions and immediate available help remain.
+
+A first synthetic native sample made polite requests but repeated obvious
+completion conditions. The unconditional completion field was removed from L22;
+the contract clarifies completion only when it is not apparent. A second sample
+kept the invitation and numbered requests without a dictated utterance, browser
+microsteps or tautological completion text. The sample used only public role text,
+the displayed amendment and invented example.org data, with tools and Telegram
+turned off. Installed rules and mechanism declarations passed; application code
+was unchanged and the earlier 120-test baseline was not rerun or relabelled fresh.
+The contract also removes its stale compulsory-irony sentence in agreement with
+the previously accepted optional Lem-inspired voice.
+
 ## Evidence checked on 2026-10-12
 
 
