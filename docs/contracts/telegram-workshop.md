@@ -46,7 +46,7 @@ exchange within shared group discussion. Context includes available group histor
 and relevant Workshop material, not other Codex chats.
 
 Ordinary group discussion is retained locally and supplied as background. Under
-the user's 2026-10-15 amendment, a quick model also considers new text without an
+the user's 2026-10-15 amendment, the full model also considers new text without an
 explicit reference. A clear implicit request to Workshop, with relevant information
 available, receives one short offer saying what the bot can help with. Mere topical
 relevance, ambiguous addressing and exchanges between people do not trigger a reply.
@@ -170,35 +170,29 @@ retained. Project documents are information, not an alternative source of author
 
 ## Answers and language
 
-### Quick conversation and investigation
+### Conversation routing and investigation
 
-Authority: the user, 2026-10-15, approved a quick answering/routing pass and added
-recognition of implicit requests and direct replies to bot messages.
+Authority: the user, 2026-10-15, removed Luna and retained implicit addressing.
 
-A tool-free Luna pass answers ordinary direct requests from bounded supplied
-conversation, memory, product information, recorded operator requests and board
-metadata. Additional reading, fresh verification and all actions pass to the full
-Workshop executor with its existing permissions and continuing conversation.
-Incomplete or invalid quick output falls back to that executor for direct requests;
-an unaddressed message remains silent. Quick replies preserve the Telegram thread
-and history without creating a full Codex session. Routing never expands authority.
-The operator can inspect routing, elapsed time and supplied-source metadata locally.
+Direct mentions, account links and replies go immediately to the full Workshop
+executor, including ordinary conversation. They bypass the preliminary pass.
+Implicit addressing uses a tool-free pass with the full executor's default model
+selection and timeout; there is no separate Luna or low-effort override. That pass
+may offer relevant help or answer a confirmed ordinary continuation; project facts
+and actions continue through the full executor's existing permissions. Failure to
+classify an unaddressed message leaves it silent. Routing never expands authority.
 
 A clear continuation of the bot's confirmed answer to the same participant in the
-same topic does not require another mention or a Telegram reply. The quick model
-selects only a continuation supplied and validated by the host; that connection is
-retained for subsequent turns and restart. Acceptance proceeds to an answer or
-investigation rather than another offer. Unrelated discussion remains outside that
-conversation; explicit replies from other participants continue to work.
+same topic does not require another mention or a Telegram reply. Its connection is
+selected from host-supplied candidates, validated and retained across restart.
+Acceptance proceeds to the original answer or investigation; unrelated discussion
+remains outside that conversation. Explicit replies from other participants work.
 
-Project status, responsibilities and next-action questions belong to the full
-executor even when previous chat answers could supply a summary and the participant
-does not explicitly request fresh information. A short acceptance of the bot's
-offer retains the original question and its investigation requirement; refusal or
-a changed topic does not authorize the offered work. The quick path remains available
-for ordinary conversation, capabilities and confirmation of a recorded operator request.
-An offer identifies the relevant topic without turning the retained issue inventory,
-which includes closed issues, into a count or status of current work.
+Project status, responsibilities and next actions belong to the full executor.
+An offer identifies a relevant topic without treating the inventory, which includes
+closed issues, as a count or status of current work. Routing and source metadata
+remain available to the operator; an inherited default is not reported as a measured
+model identity.
 
 Amendment accepted by the user on 2026-10-15: every addressed step checks the board
 update interface. A completed review can be reused while its evidence remains
@@ -214,20 +208,13 @@ The user's 2026-10-15 clarification makes the date of that completed review visi
 in the answer, with its time and time zone when available, instead of a generic
 warning that status may have changed. Retrieval time does not replace review time;
 an unavailable review date remains explicitly unknown.
-When Luna routes an addressed request to investigation, its generated notice is
-delivered before the full executor starts. It describes the intended work, asks the
-person to wait and promises the main answer next; it does not claim new findings.
-Other quick routes carry no notice. Failed quick generation retains the full-worker
-fallback and typing indication without fabricating a generated notice. The existing
-delivery journal prevents a later full-worker notice from duplicating the early one.
-New relevant evidence can otherwise produce a short separate review notice before
-the main answer. Unrelated or already considered evidence produces no such notice.
-Under the user's later clarification of 2026-10-15, the model writes that notice
-from the available evidence, briefly naming what it will examine, asking the person
-to wait and making clear that the main answer will arrive in the next message.
-It does not request approval to answer an already asked question. The notice is
-at most 320 characters and does not claim a review result before examination.
-There is no fixed generic announcement or separate generation call.
+Before examining new relevant evidence, the model can issue a brief notice naming
+what it will check. Direct requests receive it from the full executor; an implicit
+continuation can receive it from the addressing pass before handoff. Delivery is
+journaled, and the full executor does not duplicate an already attempted notice.
+The notice is at most 320 characters and claims neither findings nor a completion
+time. Its wording is flexible. Unrelated or already considered evidence requires
+no additional notice; no separate generation call is introduced.
 
 The user's visible-waiting correction of 2026-10-15 adds Telegram's typing status
 while an addressed answer is being prepared, in the originating topic when present.
@@ -237,19 +224,15 @@ does not turn an otherwise successful answer into a failure.
 References in Telegram are verified repository/issue links or omitted. A necessary
 human action includes how to carry it out; an existing agent assignment is passed
 to the operator as a direction to their agent with the original issue link.
-The user's latest 2026-10-15 clarification makes each next-action item identify
-its responsible person, concrete actions, observable result and brief purpose for
-product users. Each direction has a short heading, numbered steps and a result;
-each step contains one action addressed directly to its confirmed participant.
-The sequence is visible rather than buried in a paragraph or table cell. The answer
-distinguishes human actions from agent work and identifies any handoff. A required
-entry link is verified; an unavailable invitation has a named issuer and recipient,
-not a made-up URL or a homepage represented as an invitation. An available invitation
-goes directly to the participant who registers; a missing link does not become a
-request to prepare accounts, environments or data again. The result describes what becomes available or what someone
-can do or observe, tied to the learner, teacher or reader benefit. Roles, permissions,
-objects and parameters remain grounded in evidence; a presentation example does not
-establish its illustrative details as project facts or authorization.
+The user's latest 2026-10-15 clarification keeps presentation flexible while
+requiring executable next actions: actor, action, place, known parameters or links,
+and an observable completion condition. Multiple actions show their order and
+handoff. Available help is supplied in the answer rather than delegated back to the
+participant. Current access arrangements come from current-system and the latest
+discussion: an existing registration invitation is returned directly and supersedes
+an older request to provide it. Missing inputs have a specific owner. The author and
+known role are used; accepted implementation is not requested again. The existing
+Lem-inspired voice is retained, without compulsory irony.
 For work already described in an agent's issue, the operator receives a short request
 for their agent's concrete remaining actions, with the issue link. The current action is
 distinguished from accepted implementation using subsequent discussion; a topic or

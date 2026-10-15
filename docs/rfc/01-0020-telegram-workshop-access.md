@@ -1060,6 +1060,39 @@ native model trial was rejected before execution by automatic approval review ov
 transmission of project documents; no new live model or Telegram behavior is claimed.
 The unchanged application needs no receiver restart to read these instruction files.
 
+## Executable actions, direct execution and access links — 2026-10-15
+
+The user reported that the simplification again produced general descriptions.
+Actual Telegram messages 135/138 described DNS setup and access preparation without
+usable parameters or a registration link, then asked for a role already visible
+from the sender. The correction keeps presentation flexible but requires an action
+the recipient can carry out without asking how. Available results are supplied
+immediately; current-system access arrangements supersede stale requests. The
+existing Lem voice remains in L28; competing generic tone wording was removed.
+
+The user also removed Luna. Direct mentions, links and replies now bypass the
+preliminary pass and use the full executor. Implicit addressing and continuations
+remain, using the executor's default model selection and timeout without a Luna or
+low-effort override. Inherited selection is reported as executor_default rather
+than an asserted model identity. Direct typing and full-worker review notices
+remain; implicit handoff retains its generated notice and duplicate protection.
+
+Regression checks first failed against the old model override and direct routing,
+then all 120 tests passed. Coverage retains implicit continuations, direct reply
+context, silent ambient failures and notice delivery. Harness integrity, installed
+rules, mechanism declarations, ticket records and the board report passed.
+
+A tool-free native sample returned concrete DNS values, the supplied invitation
+and sequential handoffs from synthetic facts. A second native proof put a random
+example.org invitation only in an isolated current-system file: the actual worker
+read that file in its tool trace and returned the exact link with a registration
+step, replacing stale missing-access background. The first run returned the link
+but its observer was not enabled; rerunning with the observer and random link
+confirmed the source read. Only public instructions, the displayed amendments and
+invented fixtures reached these proofs; no real group history or project documents
+were supplied and no Telegram messages were sent. These are scoped source/behavior
+checks, not proof of a fresh live group answer.
+
 ## Evidence checked on 2026-10-12
 
 

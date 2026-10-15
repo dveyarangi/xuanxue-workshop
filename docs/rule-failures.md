@@ -235,6 +235,16 @@ and routing remain. This amends the bot's local instructions rather than adding 
 general rule. [Verification and its limits](rfc/01-0020-telegram-workshop-access.md#telegram-instruction-simplification--2026-10-15)
 include 120 passing tests and a native trial refused before execution.
 
+Struck again, 2026-10-15: simplifying L22 reduced executable actions to actor and
+result, and removed the canonical access lookup. Telegram then returned general
+work descriptions and omitted an existing invitation. The user required immediate
+available help and removed Luna. L22 now requires usable actions, current access
+sources and delivery of the available result itself. L28 alone owns the voice;
+Luna overrides are removed and direct requests bypass screening. This restores
+[A capable reader](../AGENTS.md#general-rules) without restoring a rigid response
+template. [The verification evidence](rfc/01-0020-telegram-workshop-access.md#executable-actions-direct-execution-and-access-links--2026-10-15)
+records 120 passing tests and native synthetic source-reading proof.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
