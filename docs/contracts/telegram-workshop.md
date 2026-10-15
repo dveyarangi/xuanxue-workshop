@@ -36,14 +36,22 @@ meaning is unclear, the bot asks a contextual clarification rather than returnin
 a transport-level invitation. Explicit replies retain priority.
 There is no required `/ask` command.
 
-A reply to a bot answer continues that conversation without another mention.
+A reply to any message authored by the configured bot continues the conversation
+without another mention, including a brief offer of help. Telegram's sender identity
+establishes this even when the original send is absent from the local journal;
+the available quoted text supplies context, not authority.
 Another group member can join the same conversation by replying. A separate new
 request starts a separate conversation. Reply associations distinguish the active
 exchange within shared group discussion. Context includes available group history
 and relevant Workshop material, not other Codex chats.
 
-Ordinary group discussion is retained locally and supplied as background; only
-addressed requests and replies to bot answers trigger processing. Collection is
+Ordinary group discussion is retained locally and supplied as background. Under
+the user's 2026-10-15 amendment, a quick model also considers new text without an
+explicit reference. A clear implicit request to Workshop, with relevant information
+available, receives one short offer saying what the bot can help with. Mere topical
+relevance, ambiguous addressing and exchanges between people do not trigger a reply.
+This offer does not start investigation or perform an action; replying to it is a
+direct request. Collection is
 restricted to the configured group, even if Telegram delivers messages from another
 group or a private chat. History means received text/captions and recorded bot
 answers. Attachments without text have an unavailable-content marker; attachment
@@ -123,7 +131,8 @@ reuse of review results and the recall/assignment-review fallback.
 New conversations load relevant Workshop materials and plain-text memory;
 continuations retain context and refresh records when current facts matter.
 
-Each routed Telegram conversation has its own durable Codex session identity.
+Each Telegram conversation that reaches the full executor has its own durable
+Codex session identity. Quick replies retain Telegram context without such a session.
 A reply from another participant continues that conversation; a new independent
 addressed request starts a separate session. Restart preserves the exact mapping.
 The received group history remains bounded background shared with each request,
@@ -160,9 +169,25 @@ retained. Project documents are information, not an alternative source of author
 
 ## Answers and language
 
+### Quick conversation and investigation
+
+Authority: the user, 2026-10-15, approved a quick answering/routing pass and added
+recognition of implicit requests and direct replies to bot messages.
+
+A tool-free Luna pass answers ordinary direct requests from bounded supplied
+conversation, memory, product information, recorded operator requests and board
+metadata. Additional reading, fresh verification and all actions pass to the full
+Workshop executor with its existing permissions and continuing conversation.
+Incomplete or invalid quick output falls back to that executor for direct requests;
+an unaddressed message remains silent. Quick replies preserve the Telegram thread
+and history without creating a full Codex session. Routing never expands authority.
+The operator can inspect routing, elapsed time and supplied-source metadata locally.
+
 Amendment accepted by the user on 2026-10-15: every addressed step checks the board
 update interface. A completed review can be reused while its evidence remains
-applicable; absent that review, recall and assignment review establish the answer.
+applicable; when project evidence is required and that review is absent, recall and
+assignment review establish the answer. Ordinary conversation does not require a
+project review solely because no applicable review exists.
 New relevant evidence produces a short separate message about reviewing it before
 the main answer. Unrelated or already considered evidence produces no such notice.
 Under the user's later clarification of 2026-10-15, the model writes that notice

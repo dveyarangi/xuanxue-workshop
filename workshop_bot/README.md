@@ -63,10 +63,23 @@ uv run --offline --no-project python -m workshop_bot telegram-history
 Существующий webhook, недостаточные права и второй приёмник дают ошибку.
 
 Полученные тексты и подписи всей группы сохраняются локально. Бот отвечает на
-упоминания, ссылки и ответы на свои подтверждённые сообщения, включая ответы
-других участников после перезапуска. Обычная переписка служит фоном и не запускает
-ответ сама по себе. Вложения без текста отмечаются как недоступное содержимое.
-В один вызов передаётся до 120 КБ истории: сначала сообщение, на которое отвечают,
+упоминания, ссылки и реплаи на сообщения своего Telegram-аккаунта, включая ответы
+других участников после перезапуска. Luna также оценивает новые сообщения без
+ссылки: при явном по контексту обращении к Workshop предлагает имеющуюся информацию.
+Разговор между людьми и неясный адресат оставляют бота молчать. Реплай на предложение
+помощи запускает обычный ответ. Вложения без текста отмечаются как недоступное содержимое.
+Быстрый проход использует `gpt-6-luna` с `low`: отвечает по переданным сведениям
+либо передаёт запрос полноценному исполнителю. У Luna нет инструментов. Её правила
+устанавливаются из `local.rules.md` в `quick.rules.md`; правила исполнителя — в
+`agent.rules.md`. Быстрый контекст ограничивает историю 16 КБ с приоритетом связей
+ответа и начала разговора; дополнительно передаёт назначение продукта, память,
+журнал запросов оператору и состояние доски. Пропуски источников обозначаются.
+`telegram-history` показывает выбранный путь, модель, время, объём и версии
+переданных файлов, а также отметки получения, начала обработки, готовности и доставки.
+Вызов Luna ограничен 25 секундами. Его сбой передаёт прямое обращение полному
+исполнителю; неадресованное сообщение остаётся без ответа.
+
+Полноценному исполнителю передаётся до 120 КБ истории: сначала сообщение, на которое отвечают,
 и начало разговора, затем свежая переписка. Число пропущенных сообщений передаётся
 агенту; полный полученный журнал остаётся в SQLite. История до начала сбора и
 сообщения, которых Telegram не доставил, автоматически не восстанавливаются.
@@ -123,7 +136,8 @@ read isolation. Architecture and other project documents are read-only in this r
 Session-writing hooks stay disabled. The bot entry in `agent.rules.md`, authored
 as L22 in `local.rules.md`, replaces operator registration and debug presentation.
 Every addressed request checks the existing board script's retained status. Completed
-applicable reviews are reused; otherwise the bot uses recall and assignment review.
+applicable reviews are reused; questions requiring project evidence use recall and
+assignment review when no applicable review is available.
 Shared principles and applicable skills remain available, including question records.
 Unavailable external evidence is disclosed. Operator session bookkeeping and
 general publication authority are not inherited by the group worker.
@@ -154,7 +168,7 @@ operator recall through the normal installer. Recording a request never approves
 implementation. Bot memory remains ordinary text; MCP and private routing files
 are transport state, not a structured memory protocol.
 
-Each Telegram conversation root has a persistent Codex session, indexed by group
+Each Telegram conversation root that needs the full executor has a persistent Codex session, indexed by group
 and conversation ID in SQLite. Replies from any participant resume that exact
 session across receiver restarts; independent addressed requests start new ones.
 Codex stores its own conversation history. Each turn also receives the bounded

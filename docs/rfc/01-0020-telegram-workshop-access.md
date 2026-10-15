@@ -70,8 +70,9 @@ successful actual Codex answer locally. This does not establish whole-ticket acc
 ## Whole-group history amendment — 2026-10-12
 
 The user explicitly selected «Всю переписку группы». Received group text/captions
-are retained, while only mentions, account links and replies to confirmed bot
-answers enter processing. Ordinary discussion is background across conversations;
+are retained. At that stage only mentions, account links and replies to confirmed
+bot answers entered processing; the quick-conversation amendment below extends
+address recognition. Ordinary discussion is background across conversations;
 reply associations identify the active exchange. The source group is filtered
 before retention, and nested quoted bodies are not imported as additional history.
 Existing SQLite history is extended without replacing records or delivery IDs.
@@ -708,6 +709,62 @@ next steps. Evidence is retained privately under
 with zero real group sends. The idle receiver was replaced at 13:58 Jerusalem;
 the new process remained running with no startup error. Previously sent invitations
 remain historical records, not requests retroactively answered by this proof.
+
+## Quick conversation and implicit addressing — 2026-10-15
+
+The user approved a fast pass that can answer directly or hand the request to
+the existing executor, then added recognition of requests without bot references
+and replies to any bot-authored message. This extends the same delivery slice.
+The bot's recorded latency request is accepted by that operator decision.
+
+`gpt-6-luna` with low effort runs without tools in an isolated temporary working
+directory. It receives the current request, bounded reply/root-prioritized recent
+history, product purpose, plain-text memory, recorded operator requests and board
+metadata. Sources are data, never instructions. The authored local rule is installed
+into the dedicated quick entry; full project discovery remains with the existing
+restricted Workshop executor. Each request still checks the saved board state.
+Relevant fresh project evidence and actions use that executor. Quick answers do
+not mark board evidence reviewed or create a full Codex conversation.
+
+The quick result is either an answer or a request for investigation for explicitly
+addressed messages. For unaddressed text it is either silence or one brief offer
+of relevant information; a classifier cannot start project work from ambient text.
+A malformed result or a 25-second timeout falls back to the executor only for a
+direct request. Telegram identity, not model judgement, establishes a direct reply.
+The quoted bot text can supply missing context without granting authority.
+
+Intake remains independent of model execution. New unaddressed messages enter a
+candidate queue, behind direct requests and prepared sends. Existing observed
+history is not retrospectively screened. A later explicit reference to a queued
+candidate answers the original question and suppresses a redundant late offer.
+An offered response uses the existing durable send journal; a reply resumes its
+Telegram conversation, starting a full Codex session only if investigation needs
+one. Restart retains candidate/direct addressing and confirmed delivery identities.
+
+The local history records receipt, processing, completion and confirmed-send times.
+Quick runtime metadata includes model, effort, elapsed time, input usage, bounded
+history size and supplied files with content versions. Full execution retains its
+native session identity and separate quick/board/total timing. The deployment
+comparison uses real model calls locally and simulated Telegram delivery, avoiding
+test messages in the group; production timings remain observable after deployment.
+
+Verification on 2026-10-15: 111 tests and the harness, installed-rule, mechanism,
+ticket and board-report validators passed. Eight native Luna scenarios covered
+capability answers, a recorded operator request, action handoff, named and contextual
+implicit addressing, another person's question, an ordinary statement and acceptance
+of an offer. The corrected complete offer/reply fixture retained the original question
+and routed its status request to investigation. Native decisions took 3.87–5.99
+seconds. One complete local intake/board/answer/send simulation took 6.85 seconds,
+including 0.64 seconds preparing board context and 5.41 seconds in Luna. No test
+messages were sent to the real group. Private evidence is under
+`.local/bot-quick-proof/` and `.local/bot-quick-integration-*/`; these measurements
+are not a production response-time guarantee.
+
+Implementation `e3edb98` replaced the idle receiver at 15:09 Jerusalem on 2026-10-15.
+The new Python process loaded the additive history migration and remained running
+without startup errors. No queued requests or active Codex conversations were
+interrupted. A new real group exchange after deployment is separate from the local
+model/delivery simulation above.
 
 ## Evidence checked on 2026-10-12
 

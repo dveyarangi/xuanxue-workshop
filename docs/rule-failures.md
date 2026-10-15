@@ -122,6 +122,25 @@ actionability rule; it introduces no new workflow or recipient obligation. The f
 native trial still substituted enabling checks for user benefit; the amended wording
 explicitly identifies the end user and excludes intermediate verification steps.
 
+## 2026-10-15 — Conversation paid for an unrelated project review
+
+Status: closed; the user accepted the quick conversation entry and scoped review
+fallback, installed in local L22 and L27.
+
+Rule in play: [Telegram conversation](../local.rules.md#l22--telegram-conversation)
+required recall and assignment review whenever no applicable review existed.
+Simple memory and acknowledgement questions consequently read project-entry and
+review material in new full sessions. Observed response preparation took 56–154
+seconds; scope, rather than a lower reasoning setting alone, needed correction.
+
+The landed amendment limits that fallback to questions requiring project evidence.
+The tool-free quick entry answers from supplied data or hands off, preserving the
+per-request board check and full-executor authority boundaries. Native quick cases
+and the simulated Telegram path are recorded in the
+[telegram-workshop-access RFC](rfc/01-0020-telegram-workshop-access.md#quick-conversation-and-implicit-addressing--2026-10-15).
+
+
+
 ## 2026-10-15 — File readability mistaken for harness integration
 
 Status: repaired; native entry, skill selection and scoped-write verification passed.
