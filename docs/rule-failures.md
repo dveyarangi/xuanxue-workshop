@@ -162,6 +162,19 @@ separate L28 presentation preference, not a new workflow or authority.
 
 
 
+Struck again, 2026-10-15: a generic request to continue an issue hid the remaining
+action after implementation acceptance. Cabinet correctly found the account-access
+remainder in open issue 7 but missed a later fixture request in closed issue 5
+through its normal open-issue search. The user rejected making recipients search
+closed assignments: Workshop owns reopening when recipient work remains. L29 now
+states that obligation at issue publication and assignment review; issue 5 was
+reopened and its state and recipient label read back. Earlier provider acceptance
+stands. L22 now identifies the next remaining action in a brief agent handoff,
+without repeating the issue's procedure. The distributable collaboration skill
+retains open-issue discovery and distinguishes accepted work from remaining action.
+
+
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.

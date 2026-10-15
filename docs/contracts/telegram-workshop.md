@@ -228,7 +228,9 @@ That purpose follows the established scope, without promising unverified capabil
 It describes the eventual benefit for a learner, teacher or reader; enabling a
 check or another implementation step is an intermediate result, not that purpose.
 For work already described in an agent's issue, the operator receives a short request
-to have their agent continue that issue, with its link. The answer does not repeat
+for their agent's next remaining action, with the issue link. The current action is
+distinguished from accepted implementation using subsequent discussion; a topic or
+generic request to continue the issue does not identify that action. The answer does not repeat
 the issue's implementation instructions. Technical steps, location and sourced
 parameters are supplied for actions the human must perform personally or when
 explicitly requested. Simultaneous participation

@@ -199,6 +199,11 @@ does not establish acceptance or the deployed state of a boundary. The
 
 The original issue's conversation and closure hold the review history;
 there is no separate local acknowledgement ledger.
+An outstanding recipient action keeps that assignment open. Workshop owns
+reopening when a later request requires recipient work, including a request found
+unanswered after closure. Earlier accepted contributions retain their acceptance;
+reopening represents the remaining action, not a demand to implement them again.
+Project agents discover active assignments through open issues with their label.
 An unchanged conversation and unchanged relevant evidence need no repeated
 response. A new project report requires review, including when the project agent
 has closed the issue before Workshop acceptance.

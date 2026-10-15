@@ -911,6 +911,31 @@ conditional workflow wording. Both instruction files are read on each invocation
 this amendment requires no receiver restart. The older quoted memory failure
 predates the separately verified memory-location repair.
 
+### Remaining-action handoff and issue visibility — 2026-10-15
+
+The user's fresh Cabinet conversation found issue 7 and correctly separated its
+verified implementation from remaining account arrangements. A bare instruction
+to continue the issue concealed that distinction. L22 now names the next remaining
+action, its issue and end-user purpose while leaving the detailed procedure there.
+A tool-free native trial with the current board review and complete supplied issues
+5/7 identified account/data preparation rather than repeating accepted API work.
+It was not a Telegram send or a recipient startup test.
+
+Issue 5 had remained closed after Workshop added a later request for test data.
+The user chose Workshop-owned reopening instead of searching closed issues in
+recipient sessions. L29 reaches assignment review and issue publication; the agent
+contract records the ownership. The issue was reread, including its full timeline,
+then reopened and read back as OPEN with project:cabinet. Accepted provider work
+remains accepted. The source collaboration skill still discovers open issues;
+no recipient installation or local implementation was modified.
+
+The ordinary open-issue query for project:cabinet returned 5, 7 and 12 after the
+reopening. All 117 tests and the harness, rule-installation, mechanism, board-report
+and ticket checks passed. On the user's request the idle receiver was stopped,
+conversation history, memory facts and session bindings cleared, and reception
+restarted. The Telegram offset and group binding were preserved; database integrity
+and empty history were verified. Existing Telegram group messages were not deleted.
+
 ## Evidence checked on 2026-10-12
 
 
