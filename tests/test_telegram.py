@@ -17,6 +17,8 @@ class TelegramPeer:
         self.sent = []
 
     def call(self, method, **parameters):
+        if method == "sendChatAction":
+            return True
         if method == "getMe":
             return {"id": 42, "is_bot": True, "username": "workshop_bot", "can_read_all_group_messages": True}
         if method == "getWebhookInfo":

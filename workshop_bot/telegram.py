@@ -1,4 +1,5 @@
 import json
+import logging
 import threading
 import time
 from contextlib import contextmanager
@@ -9,7 +10,8 @@ from .service import redact
 from .telegram_api import TelegramError
 from .telegram_outbox import Outbox
 
-TYPING_INTERVAL = 4
+TYPING_INTERVAL = 2
+logger = logging.getLogger(__name__)
 
 
 class Group:
@@ -257,13 +259,20 @@ class Group:
         stop = threading.Event()
 
         def indicate():
+            started = time.monotonic()
             try:
                 self.api.call("sendChatAction", **parameters)
             except TelegramError as error:
-                return max(TYPING_INTERVAL, error.retry_after)
+                logger.warning("typing message=%s result=failed code=%s retry_after=%s",
+                               row["message_id"], error.code, error.retry_after)
+                if error.retry_after:
+                    return max(TYPING_INTERVAL, error.retry_after)
             except Exception:
-                pass  # A transient status failure must not prevent the durable answer.
-            return TYPING_INTERVAL
+                logger.warning("typing message=%s result=failed code=unknown", row["message_id"])
+            else:
+                logger.info("typing message=%s result=accepted duration_ms=%d", row["message_id"],
+                            round((time.monotonic() - started) * 1000))
+            return max(0, TYPING_INTERVAL - (time.monotonic() - started))
 
         delay = indicate()
 

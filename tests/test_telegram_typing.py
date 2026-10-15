@@ -1,5 +1,6 @@
 import tempfile
 import threading
+import time
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -11,6 +12,36 @@ from workshop_bot.telegram_api import TelegramError
 
 
 class TypingTests(unittest.TestCase):
+    def test_slow_action_does_not_add_a_full_interval_after_network_delay(self):
+        starts = []
+        renewed = threading.Event()
+
+        class Peer(TelegramPeer):
+            def call(self, method, **parameters):
+                if method == 'sendChatAction':
+                    starts.append(time.monotonic())
+                    time.sleep(0.3)
+                    if len(starts) >= 2:
+                        renewed.set()
+                    return True
+                return super().call(method, **parameters)
+
+        class Agent:
+            def chat(self, *args, **kwargs):
+                if not renewed.wait(3):
+                    raise RuntimeError('Typing did not renew')
+                return {'status': 'answered', 'answer': 'Done'}
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            group = Group(Workshop(root, root / 'history.sqlite3', Agent()), Peer([message()]), -100123)
+            group.start()
+            group.poll_once(0)
+            with patch('workshop_bot.telegram.TYPING_INTERVAL', 0.4), self.assertLogs('workshop_bot.telegram', 'INFO') as logs:
+                group.work_once()
+            self.assertLess(starts[1] - starts[0], 0.6)
+            self.assertTrue(any('result=accepted' in line and 'message=11' in line for line in logs.output))
+
     def test_typing_renews_during_answer_in_the_same_topic_and_stops_afterwards(self):
         renewed = threading.Event()
         actions = []
@@ -67,6 +98,8 @@ class TypingTests(unittest.TestCase):
             self.assertEqual(actions, [])
             peer.updates.append(message(update=2))
             group.poll_once(0)
-            group.work_once()
+            with self.assertLogs('workshop_bot.telegram', 'WARNING') as logs:
+                group.work_once()
             self.assertEqual(peer.sent[0]['text'], 'Done')
             self.assertEqual(len(actions), 1)
+            self.assertIn('code=429 retry_after=30', logs.output[0])

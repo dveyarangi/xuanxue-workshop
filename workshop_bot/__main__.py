@@ -1,5 +1,6 @@
 import argparse
 import json
+import logging
 import sqlite3
 import sys
 import uuid
@@ -52,6 +53,7 @@ def main():
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 1 if isinstance(result, dict) and result.get("status") in {"rejected", "uncertain"} else 0
     if args.command == "telegram":
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
         group = configured_group(app, state.parent)
         print("Запускается приём обращений Telegram. Ctrl+C останавливает процесс; история сохраняется.")
         serve(group, once=args.once)
