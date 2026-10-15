@@ -178,9 +178,16 @@ does not turn an otherwise successful answer into a failure.
 References in Telegram are verified repository/issue links or omitted. A necessary
 human action includes how to carry it out; an existing agent assignment is passed
 to the operator as a direction to their agent with the original issue link.
-The user's 2026-10-15 clarification defines a usable step as one named executor,
-an operation with its location and sourced inputs, and an observable result.
-Existing agent assignments receive copy-ready directions. Simultaneous participation
+The user's latest 2026-10-15 clarification makes each next-action item identify
+its responsible person, immediate action and brief purpose for product users.
+That purpose follows the established scope, without promising unverified capability.
+It describes the eventual benefit for a learner, teacher or reader; enabling a
+check or another implementation step is an intermediate result, not that purpose.
+For work already described in an agent's issue, the operator receives a short request
+to have their agent continue that issue, with its link. The answer does not repeat
+the issue's implementation instructions. Technical steps, location and sourced
+parameters are supplied for actions the human must perform personally or when
+explicitly requested. Simultaneous participation
 has an explicit necessity and separate roles; ordinary dependencies are sequential
 handoffs. Missing procedures or access remain concrete questions, not invented steps
 or generic acceptance goals presented as instructions.

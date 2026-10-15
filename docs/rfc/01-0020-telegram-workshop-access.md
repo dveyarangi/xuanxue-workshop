@@ -619,7 +619,7 @@ logging enabled; Telegram-client rendering remains unobserved.
 
 The user supplied a second vague Telegram answer: named owners and issue links
 still left DNS configuration and a joint browser check as goals rather than steps.
-The local conversation rule now defines the presentation of an executable action,
+That amendment defined the presentation of an executable action,
 copy-ready direction to an already assigned agent, sequential result handoff and
 explicit missing prerequisites. It changes neither issue ownership nor permissions.
 
@@ -636,6 +636,37 @@ prompt outcomes, not evidence that the DNS or browser work was performed.
 Both answers completed in the same native session. No group message, issue comment
 or recipient mutation was made by the proof. Harness integrity, installed rules and
 mechanism validation passed. The running bot reads the amended role on its next turn.
+
+## Product purpose and existing agent assignments — 2026-10-15
+
+The user's review of the revised next-actions answer exposed overcorrection: the
+bot copied implementation directions from existing issues and described technical
+deliverables rather than why a user would benefit. L22 replaces the universal
+operation/parameters/result requirement with responsible person, immediate action
+and brief product purpose. Existing agent work is handed off by asking its operator
+to have the agent continue the linked issue. Detailed instructions remain in that
+issue; they appear in Telegram when a human must perform the action personally or
+explicitly asks for those details. Available bot checks and requests for missing
+access retain their previous ownership. This changes presentation, not assignments,
+permissions, acceptance or the evidence required to claim completion.
+
+The first native trial shortened the agent handoff but still described enabling
+checks as the purpose of several actions. It did not satisfy the user's criterion.
+The final wording identifies learners, teachers and readers as the beneficiaries
+and excludes intermediate verification steps from the explanation of purpose.
+Operator actions are limited to starting agent work, missing authorization/access
+and actions that the agent cannot perform.
+
+Verification: all 104 tests and the declared harness, installed-rule, mechanism,
+board-report and ticket checks passed. The first native result is retained under
+`.local/bot-product-actions-proof-20261015-112649/private/`. The corrected native
+result at `.local/bot-product-actions-proof-20261015-113033/private/` names learner
+sign-in, current schedules, readable wiki access and agreed learning materials as
+the purposes, and gives short requests to continue existing issues. It retains
+owner-only access and DNS prerequisites without copying recipient implementation
+procedures. Both calls used saved project evidence and completed without group
+messages, issue publications or file changes. The installed role is reread on the
+next bot turn; no receiver restart is needed for this instruction change.
 
 ## Follow-up addressing — 2026-10-15
 

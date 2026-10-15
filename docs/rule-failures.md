@@ -110,6 +110,18 @@ change (owner access and private TXT input), unprepared issue 11 proposal (revie
 and Cabinet fixture preparation (recipient agent under its operator). No execution
 or cross-project authority is expanded.
 
+Struck again, 2026-10-15, in the user's review of the revised Telegram answer:
+L22 required exact operations, parameters and results for every step, including
+work already assigned to a project agent. That wording produced redundant issue
+instructions in the operator's chat and technical results without product purpose.
+The amendment replaces that universal detail requirement with a brief user benefit
+and the immediate action. For an existing agent issue, that action is asking the
+operator to have their agent continue it, with its link. Technical directions remain
+for personal human actions or explicit requests for detail. This repairs the same
+actionability rule; it introduces no new workflow or recipient obligation. The first
+native trial still substituted enabling checks for user benefit; the amended wording
+explicitly identifies the end user and excludes intermediate verification steps.
+
 ## 2026-10-15 — File readability mistaken for harness integration
 
 Status: repaired; native entry, skill selection and scoped-write verification passed.
