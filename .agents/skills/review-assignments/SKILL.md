@@ -23,6 +23,9 @@ assignment's criteria and the referenced artifacts and checks.
 
 ## Handle the findings
 
+Maintain the configured shared review report under [REPORT.md](./REPORT.md) when findings
+change its state. The same writing and publication rules apply to periodic and manual review.
+
 For a periodic invocation, apply [PERIODIC.md](./PERIODIC.md) to discovery, local progress and
 publication recovery; the review and acceptance obligations below still govern its findings.
 
@@ -175,9 +178,9 @@ requirements, without approval of each response. Escalate new shared decisions a
 actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
 
-**L25** In the board-review chat, run periodic review hourly. When a run finishes with
-meaningful changes, completed actions, required operator decisions or actionable
-failures, leave a short dated report here. Keep unchanged or non-actionable runs
-silent, including previously reported unresolved conditions. Do not repeat reports
-on wake. Distinguish incomplete reads from no changes.
+**L25** Periodic review runs hourly, with mechanical discovery before model invocation.
+Use docs/board-review.md as the shared report; review-assignments owns its writing
+instructions and format. Operator wake reads it as context without repeating an
+unchanged report. The Telegram conversation role reads it when relevant to a request,
+without automatic distribution. Original issues and governing records remain authoritative.
 </installed>

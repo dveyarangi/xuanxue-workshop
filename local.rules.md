@@ -11,6 +11,7 @@
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/reconcile/SKILL.md` | `## Project context` |
 | `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
+| `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 | `skills/collaborate/SKILL.md` | `## Installation` |
@@ -161,6 +162,7 @@ Run from the repository root:
 uv run --offline --no-project python .agents/scripts/gw/harness.py . --check
 uv run --offline --no-project python .agents/scripts/gw/inject_rules.py --check
 uv run --offline --no-project python .agents/scripts/gw/mechanisms.py --check
+uv run --offline --no-project python .agents/scripts/gw/board_report.py check docs/board-review.md
 ```
 
 The harness check clones its announced source ref and requires network access.
@@ -388,14 +390,16 @@ existing checkpoints and recipient ownership.
 
 - **target** `AGENTS.md`
 - **target** `.agents/skills/review-assignments/SKILL.md`
+- **target** `.agents/skills/recall/SKILL.md`
+- **target** `workshop_bot/agent.rules.md`
 - **authority** the user, 2026-10-15, hourly review; report results when work finishes, silence unchanged runs and do not repeat reports on wake
 
 <rule>
-In the board-review chat, run periodic review hourly. When a run finishes with
-meaningful changes, completed actions, required operator decisions or actionable
-failures, leave a short dated report here. Keep unchanged or non-actionable runs
-silent, including previously reported unresolved conditions. Do not repeat reports
-on wake. Distinguish incomplete reads from no changes.
+Periodic review runs hourly, with mechanical discovery before model invocation.
+Use docs/board-review.md as the shared report; review-assignments owns its writing
+instructions and format. Operator wake reads it as context without repeating an
+unchanged report. The Telegram conversation role reads it when relevant to a request,
+without automatic distribution. Original issues and governing records remain authoritative.
 </rule>
 
 ## L24 — directed Telegram messages from Codex

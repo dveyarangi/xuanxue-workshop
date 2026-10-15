@@ -34,3 +34,11 @@ estimate it, and place it with `at`. Re-rank nothing another running session is 
 <installed by="ticket">
 **P12** Read the live tickets with `tickets.py --list` before ordering the queue or minting a ticket.
 </installed>
+
+<installed by="local">
+**L25** Periodic review runs hourly, with mechanical discovery before model invocation.
+Use docs/board-review.md as the shared report; review-assignments owns its writing
+instructions and format. Operator wake reads it as context without repeating an
+unchanged report. The Telegram conversation role reads it when relevant to a request,
+without automatic distribution. Original issues and governing records remain authoritative.
+</installed>

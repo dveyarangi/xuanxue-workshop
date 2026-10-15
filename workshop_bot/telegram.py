@@ -34,10 +34,14 @@ class Group:
             db.execute("UPDATE telegram_requests SET conversation_id=message_id "
                        "WHERE conversation_id IS NULL AND status != 'observed'")
         self.outbox = Outbox(self)
+        with self.workshop.connect() as db:
+            db.execute("CREATE TABLE IF NOT EXISTS telegram_notices "
+                       "(update_id INTEGER PRIMARY KEY, message_id INTEGER, text TEXT, status TEXT, error TEXT)")
 
     def start(self):
         self.check_group()
         with self.workshop.connect() as db:
+            db.execute("UPDATE telegram_notices SET status='uncertain' WHERE status='sending'")
             db.execute("UPDATE telegram_requests SET status='uncertain', error='Подтверждение отправки потеряно.' "
                        "WHERE status='sending'")
             db.execute("UPDATE telegram_requests SET status='queued' WHERE status='processing'")
@@ -116,6 +120,10 @@ class Group:
                 parent = db.execute("SELECT * FROM telegram_requests WHERE EXISTS "
                                     "(SELECT 1 FROM json_each(sent_ids) WHERE value=?)", (reply_to,)).fetchone()
                 if parent is None:
+                    parent = db.execute("SELECT r.* FROM telegram_requests r JOIN telegram_notices n "
+                                        "ON n.update_id=r.update_id WHERE n.status='sent' AND n.message_id=?",
+                                        (reply_to,)).fetchone()
+                if parent is None:
                     parent = db.execute("SELECT message_id AS conversation_id FROM telegram_outbox "
                                         "WHERE status='sent' AND message_id=?", (reply_to,)).fetchone()
         addressed = bool(references) or parent is not None
@@ -175,10 +183,9 @@ class Group:
                            (json.dumps(context, ensure_ascii=False), row["update_id"]))
         if row["status"] == "queued":
             result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
-                                       row["body"], sender=row["sender"], conversation=context)
+                                       row["body"], sender=row["sender"], conversation=context,
+                                       on_progress=lambda text: self.notice(row, text))
             text = result["answer"]
-            if result.get("sources"):
-                text += "\n\nИсточники — локальные записи Workshop:\n" + "\n".join(result["sources"])
             parts = split_reply(text)
             with self.workshop.connect() as db:
                 db.execute("UPDATE telegram_requests SET status='ready', result=?, parts=? WHERE update_id=?",
@@ -214,15 +221,45 @@ class Group:
                            ("sent" if len(sent_ids) == len(parts) else "ready", json.dumps(sent_ids), row["update_id"]))
         return True
 
+    def notice(self, row, text):
+        with self.workshop.connect() as db:
+            inserted = db.execute("INSERT OR IGNORE INTO telegram_notices VALUES (?,NULL,?,'sending',NULL)",
+                                  (row["update_id"], text)).rowcount
+        if not inserted:
+            return
+        parameters = {"chat_id": self.group_id, "text": text,
+                      "reply_parameters": {"message_id": row["message_id"]},
+                      "link_preview_options": {"is_disabled": True}}
+        if row["thread_id"] is not None:
+            parameters["message_thread_id"] = row["thread_id"]
+        try:
+            sent = self.api.call("sendMessage", **parameters)
+            if type(sent.get("message_id")) is not int or sent.get("chat", {}).get("id") != self.group_id:
+                raise TelegramError()
+            with self.workshop.connect() as db:
+                db.execute("UPDATE telegram_notices SET message_id=?,status='sent' WHERE update_id=?",
+                           (sent["message_id"], row["update_id"]))
+        except Exception as error:
+            with self.workshop.connect() as db:
+                db.execute("UPDATE telegram_notices SET status=?,error=? WHERE update_id=?",
+                           ("rejected" if isinstance(error, TelegramError) and not error.uncertain else "uncertain",
+                            str(error) if isinstance(error, TelegramError) else "Notice delivery unconfirmed", row["update_id"]))
+
     def conversation(self, request):
         with self.workshop.connect() as db:
             rows = db.execute("SELECT * FROM telegram_requests WHERE message_id < ? ORDER BY message_id",
                               (request["message_id"],)).fetchall()
             outgoing = db.execute("SELECT * FROM telegram_outbox WHERE status='sent' AND message_id < ?",
                                   (request["message_id"],)).fetchall()
+            notices = db.execute("SELECT n.*,r.message_id AS reply_to,r.conversation_id,r.thread_id "
+                                 "FROM telegram_notices n JOIN telegram_requests r ON r.update_id=n.update_id "
+                                 "WHERE n.status='sent' AND n.message_id < ?", (request["message_id"],)).fetchall()
         messages = [{"message_id": row["message_id"], "role": "assistant", "text": row["text"],
                      "created": row["created"], "conversation_id": row["message_id"],
                      "recipient": row["recipient"]} for row in outgoing]
+        messages.extend({"message_id": n["message_id"], "role": "assistant", "text": n["text"],
+                         "reply_to": n["reply_to"], "conversation_id": n["conversation_id"],
+                         "thread_id": n["thread_id"]} for n in notices)
         for row in rows:
             messages.append({"message_id": row["message_id"], "role": "user", "text": row["body"],
                              "sender": json.loads(row["sender"]), "created": row["created"],
@@ -255,9 +292,11 @@ class Group:
     def history(self):
         with self.workshop.connect() as db:
             rows = db.execute("SELECT * FROM telegram_requests ORDER BY update_id").fetchall()
+            notices = {row["update_id"]: dict(row) for row in db.execute("SELECT * FROM telegram_notices")}
         records = []
         for row in rows:
             record = dict(row)
+            record["notice"] = notices.get(row["update_id"])
             record.update(sender=json.loads(row["sender"]), result=json.loads(row["result"]) if row["result"] else None,
                           sent_ids=json.loads(row["sent_ids"]), parts=json.loads(row["parts"]), chat_id=self.group_id,
                           context=json.loads(row["context"]) if row["context"] else None)

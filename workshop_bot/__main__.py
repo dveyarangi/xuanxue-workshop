@@ -37,7 +37,7 @@ def main():
     if args.command == "telegram-setup":
         setup(state.parent, args.group)
         return 0
-    app = Workshop(args.root, state, Codex())
+    app = Workshop(args.root, state, Codex(timeout=360, tools_enabled=args.command == "telegram"))
     if args.command == "memory":
         print(app.memory.read_text(encoding="utf-8"))
         return 0

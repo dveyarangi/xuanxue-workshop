@@ -16,6 +16,7 @@ When maintaining cross-project assignment review, recheck the review-assignments
 instruction, declaration, project context and entry bindings with mechanisms.py
 --check and inject_rules.py --check. Confirm that entry recovery precedes review
 and that direct reconciliation enters the same review without repeating an active pass.
+Validate a configured shared report with board_report.py check at its configured path.
 Retain fresh-session invocation and operator grading as separate evidence;
 structural checks do not establish them.
 </rule>

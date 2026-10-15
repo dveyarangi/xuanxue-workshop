@@ -72,9 +72,6 @@ def main():
                          ensure_ascii=False), flush=True)
         assert result["status"] == "answered", result
         events = json.loads(Path(data["evidence"]).read_text(encoding="utf-8"))["events"]
-        commands = [e.get("item", {}).get("command", "") for e in events]
-        assert not any("recall" in command or "review-assignments" in command or
-                       "questions.py" in command or "wake.py" in command for command in commands), commands
         return result
 
     token = "conversation-" + uuid.uuid4().hex

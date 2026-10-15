@@ -3,6 +3,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import threading
 import uuid
@@ -24,7 +25,8 @@ SCHEMA = {
 
 
 class Codex:
-    def __init__(self, executable="codex", timeout=180):
+    def __init__(self, executable="codex", timeout=180, *, tools_enabled=False):
+        self.tools_enabled = tools_enabled
         if os.name == "nt" and executable == "codex":
             native = shutil.which("codex.exe")
             candidates = list((Path(os.environ.get("LOCALAPPDATA", "")) / "OpenAI/Codex/bin").glob("*/codex.exe"))
@@ -55,7 +57,8 @@ class Codex:
         settings.append("permissions.workshop.filesystem={" + ",".join(entries) + "}")
         return [part for setting in settings for part in ("-c", setting)]
 
-    def chat(self, root, memory, private, question, conversation, *, session_id=None, on_session=None):
+    def chat(self, root, memory, private, question, conversation, *, session_id=None, on_session=None,
+             tool_context=None, on_event=None):
         if session_id is not None:
             session_id = str(uuid.UUID(session_id))
         root = Path(root).resolve()
@@ -73,6 +76,14 @@ class Codex:
                        "-c", 'web_search="disabled"', "-c", "project_doc_max_bytes=65536",
                        "-c", "developer_instructions=" + json.dumps(rules, ensure_ascii=False)]
             command += self.permissions(root, memory, private)
+            if tool_context:
+                server = {"command": sys.executable, "args": ["-m", "workshop_bot.tools", str(tool_context)],
+                          "cwd": str(Path(__file__).resolve().parents[1]), "tool_timeout_sec": 180,
+                          "default_tools_approval_mode": "writes", "required": True}
+                for key, value in server.items():
+                    command += ["-c", f"mcp_servers.workshop.{key}=" + json.dumps(value)]
+                for name in ("review_notice", "request_operator", "follow_up"):
+                    command += ["-c", f'mcp_servers.workshop.tools.{name}.approval_mode="approve"']
             for feature in ("shell_tool", "code_mode", "code_mode_host"):
                 command += ["--enable", feature]
             # Group authority cannot inherit the operator's connectors, hooks or other agents.
@@ -100,6 +111,8 @@ class Codex:
 
             def observe(event):
                 nonlocal identity_seen
+                if on_event:
+                    on_event(event)
                 if event.get("type") == "thread.started":
                     identity_seen = str(uuid.UUID(event["thread_id"]))
                     if session_id and identity_seen != session_id:
@@ -107,7 +120,7 @@ class Codex:
                     if on_session:
                         on_session(identity_seen)
 
-            if on_session is not None or session_id is not None:
+            if on_session is not None or session_id is not None or on_event is not None:
                 completed = self.run_stream(command, prompt, environment, root, observe)
             else:
                 completed = subprocess.run(command, input=prompt, capture_output=True, encoding="utf-8",

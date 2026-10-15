@@ -52,7 +52,7 @@ class Workshop:
         finally:
             db.close()
 
-    def ask(self, request_id, question, *, sender="operator", target=None, conversation=None):
+    def ask(self, request_id, question, *, sender="operator", target=None, conversation=None, on_progress=None):
         request_id, question, sender, target = (redact(value) for value in (request_id, question, sender, target))
         with self.connect() as db:
             added = db.execute("INSERT OR IGNORE INTO requests VALUES (?, ?, ?, ?, ?, NULL)",
@@ -69,7 +69,7 @@ class Workshop:
             return result
         try:
             if target is None and hasattr(self.agent, "chat"):
-                result = self.chat(request_id, question, redact(conversation))
+                result = self.chat(request_id, question, redact(conversation), sender, on_progress)
                 result = redact(result)
                 self.save(request_id, result)
                 return result
@@ -106,18 +106,51 @@ class Workshop:
                           "status": "failed", "answer": "Не удалось подготовить ответ. Попробуйте задать вопрос ещё раз."}
             result["error"] = type(error).__name__
             if target is None and hasattr(self.agent, "chat"):
-                result.update(status="uncertain", answer="Не удалось завершить ответ. Если запрос менял память, её содержимое нужно проверить.")
+                result.update(status="uncertain", answer="Не удалось завершить ответ. Сохранённые изменения и отправленные поручения нужно проверить перед повтором.")
             if isinstance(error, (ValueError, RuntimeError)):
                 result["detail"] = str(error)
         result = redact(result)
         self.save(request_id, result)
         return result
 
-    def chat(self, request_id, question, conversation):
+    def chat(self, request_id, question, conversation, sender, on_progress):
+        options = {}
+        tools = None
+        if getattr(self.agent, "tools_enabled", False):
+            from .tools import TurnTools
+            current = (conversation or {}).get("current", {})
+            chat_id = (conversation or {}).get("chat_id")
+            message_id = current.get("message_id")
+            source = {"sender": sender, "message_id": message_id,
+                      "message_url": f"https://t.me/c/{str(chat_id)[4:]}/{message_id}" if
+                          str(chat_id).startswith("-100") and message_id else None}
+            try:
+                source["sender"] = json.loads(sender)
+            except (ValueError, TypeError):
+                pass
+            context = {"root": str(self.root), "state": str(self.state), "request_id": request_id,
+                       "conversation": f"group:{chat_id}" if chat_id else request_id, "source": source}
+            tools = TurnTools(context)
+            try:
+                updates = tools.board_updates()
+            except Exception as error:
+                updates = {"monitor_available": False, "error": redact(str(error))[:500]}
+            conversation = {**(conversation or {}), "board": updates}
+            directory = self.state.parent / "tool-context"
+            directory.mkdir(exist_ok=True)
+            path = directory / (hashlib.sha256(request_id.encode()).hexdigest() + ".json")
+            path.write_text(json.dumps(context, ensure_ascii=False), encoding="utf-8")
+
+            def progress(event):
+                notice = tools.notice()
+                if notice and on_progress:
+                    on_progress(notice)
+
+            options.update(tool_context=path, on_event=progress)
         args = (self.root, self.memory, self.state.parent, question, conversation)
         current = (conversation or {}).get("current", {})
         if "conversation_id" not in current or "chat_id" not in (conversation or {}):
-            return self.agent.chat(*args)
+            return self.agent.chat(*args, **options)
         key = (conversation["chat_id"], current["conversation_id"])
         if any(type(value) is not int for value in key):
             raise ValueError("Conversation identity must come from Telegram routing")
@@ -142,7 +175,10 @@ class Workshop:
                            (identity, *key))
 
         try:
-            return self.agent.chat(*args, session_id=session_id, on_session=remember)
+            result = self.agent.chat(*args, session_id=session_id, on_session=remember, **options)
+            if tools:
+                tools.finish()
+            return result
         finally:
             with self.connect() as db:
                 db.execute("UPDATE codex_conversations SET active_request=NULL "

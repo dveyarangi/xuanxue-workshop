@@ -57,6 +57,7 @@ not core's, and a redeploy preserves it.
 uv run --offline --no-project python .agents/scripts/gw/harness.py . --check
 uv run --offline --no-project python .agents/scripts/gw/inject_rules.py --check
 uv run --offline --no-project python .agents/scripts/gw/mechanisms.py --check
+uv run --offline --no-project python .agents/scripts/gw/board_report.py check docs/board-review.md
 ```
 
 The harness check clones its announced source ref and requires network access.

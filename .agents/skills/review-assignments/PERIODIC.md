@@ -22,6 +22,18 @@ project requirement.
 
 ## Commands
 
+External activation runs board_run.py before invoking the reviewer. Quiet and busy-only
+discovery makes no model call. Available work starts a fresh reviewer under the same entry
+and review instructions. The controller retains local execution receipts and updates
+operational failures in the shared report; it never completes an issue review on the agent's behalf.
+
+The external controller accepts `--root`, `--repo`, repeated `--label`, `--state` and
+`--report`. `--discover-only` observes candidates without starting a reviewer or claiming
+review completion. On Windows, board_task.ps1 installs, checks, disables or runs the configured
+current-user hourly task. Its help surface is its parameter block. Installation changes only
+the named task after verifying its action belongs to this root. Disable that task to stop
+recurrence; retain delivery state for recovery. Replace a previous trigger only after host proof.
+
 The mechanical interface is `.agents/scripts/gw/board.py`. Its `--help` describes arguments.
 Run it with the project's Python runtime, explicit `--repo` and repeated `--label` arguments
 before the command. Preserve the same `--state` across runs. The default is

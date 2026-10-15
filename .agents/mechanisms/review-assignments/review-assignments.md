@@ -27,9 +27,11 @@ Periodic activation uses mechanical change detection, local review leases and du
 recovery. The caller supplies a full reviewer; local snapshots and processing positions never
 replace the original issue or become acceptance evidence. The periodic procedure owns the
 local-progress record shape; the command's check validates its mechanical structure.
-The project supplies reporting cadence and conditions through local rules.
-The host's chat history retains run reports for the operator;
-this adds no repository report store or acceptance record.
+The project supplies reporting cadence, destination and reader bindings through local rules.
+The report instruction owns the shared snapshot's format and publication; the validator
+checks shape and rejects stale replacements. Session recovery and conversation readers
+consume its dated facts without another acknowledgement ledger. A local external controller
+runs discovery before invoking a standalone reviewer, so quiet runs use no model.
 
 ## Moments
 
@@ -40,6 +42,7 @@ this adds no repository report store or acceptance record.
 | handling a project report or incoming request | `.agents/skills/review-assignments/SKILL.md` | |
 | applying locally delegated authority during a periodic review | `.agents/skills/review-assignments/SKILL.md` | |
 | detecting changes, claiming review and recovering publication | `.agents/skills/review-assignments/PERIODIC.md` | |
+| maintaining the shared review snapshot | `.agents/skills/review-assignments/REPORT.md` | |
 | reading reports and artifacts linked through an issue's timeline | `.agents/skills/review-assignments/SKILL.md` | |
 | reassessing dependency necessity and fulfillment from observed conditions | `.agents/skills/review-assignments/SKILL.md` | |
 | reviewing relevant discussions when reconciliation begins or resumes | `.agents/skills/review-assignments/SKILL.md` | |
@@ -60,6 +63,11 @@ this adds no repository report store or acceptance record.
 | mechanical discovery and delivery | `.agents/scripts/gw/board.py` |
 | behavioral verification | `tests/test_board.py` |
 | controlled HTTP demonstration | `tests/live_board_proof.py` |
+| shared report instruction and format | `.agents/skills/review-assignments/REPORT.md` |
+| shared report validator and writer | `.agents/scripts/gw/board_report.py` |
+| detector-first controller | `.agents/scripts/gw/board_run.py` |
+| Windows user task adapter | `.agents/scripts/gw/board_task.ps1` |
+| controller and report verification | `tests/test_board_run.py` |
 
 Retraction removes the review-entry and maintenance bindings through the shared installer. Project
 entry and context bindings are locally owned and are retracted at their source
@@ -85,6 +93,9 @@ The mechanism emits no independent acknowledgement ledger or index; its review o
 use the configured tracker and the project's existing records and formats. Periodic execution
 also retains local snapshots and processing/delivery positions, read by the reviewer on
 resumption and the operator during recovery; these are working state, not another acceptance home.
+The configured shared report is a current snapshot under REPORT.md's format, validated
+by board_report.py. It links original outcomes and unresolved matters for the operator,
+session recovery and configured conversation readers. It does not replace those records.
 
 ## Not yet at the shape
 

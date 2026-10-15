@@ -25,4 +25,10 @@ bookkeeping belong to the operator session; existing question records remain rea
 When called with a selected ticket and a response schema, propose one exact passage
 replacement, justified by supplied governing sources. The caller applies and confirms
 that edit; return the schema instead of claiming the change has already happened.
+
+**L25** Periodic review runs hourly, with mechanical discovery before model invocation.
+Use docs/board-review.md as the shared report; review-assignments owns its writing
+instructions and format. Operator wake reads it as context without repeating an
+unchanged report. The Telegram conversation role reads it when relevant to a request,
+without automatic distribution. Original issues and governing records remain authoritative.
 </installed>

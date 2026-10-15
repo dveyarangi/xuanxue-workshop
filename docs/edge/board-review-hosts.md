@@ -15,6 +15,11 @@ claims a case, performs full review, prepares and confirms publication, then rec
 the processing position. Lost confirmation is recovered through the same publication
 identifier. Incomplete delivery remains distinct from finished review.
 
+Detector-first hosts make no model call for quiet or busy-only discovery. A configured
+shared snapshot follows the review mechanism's REPORT.md format; complete replacements
+reject a changed prior version. Operational updates preserve semantic results and
+unresolved matters. Readers do not treat its timestamp as a fresh board read.
+
 ## Invariants
 
 - Unchanged studied cases remain quiet across restart. *validated by:* `tests/test_board.py`
@@ -24,6 +29,9 @@ identifier. Incomplete delivery remains distinct from finished review.
 - A foreign author's copied marker cannot confirm publication. *validated by:* `tests/test_board.py`
 - Linked-evidence updates and due conditions do not require a new issue comment. *validated by:* `tests/test_board.py`
 - Primary tracker failure remains explicit and local status remains available offline. *validated by:* `tests/test_board.py`
+- Quiet or busy-only controller discovery makes no reviewer call. *validated by:* `tests/test_board_run.py`
+- Invalid or stale shared-report replacement cannot destroy the prior report. *validated by:* `tests/test_board_run.py`
+- Controller failures preserve unresolved report matters. *validated by:* `tests/test_board_run.py`
 
 ## Extending
 
@@ -37,6 +45,7 @@ identifier. Incomplete delivery remains distinct from finished review.
 | extension | standing | sidecar |
 |---|---|---|
 | Current Codex chat | live conformance being observed | [codex-chat](board-review-hosts/codex-chat.md) |
+| Windows user task | discovery observed; authenticated review pending | [windows-task](board-review-hosts/windows-task.md) |
 
 ## Concerns
 

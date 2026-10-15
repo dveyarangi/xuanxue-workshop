@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 import sqlite3
 import subprocess
@@ -286,7 +287,8 @@ class Gh:
             command += ["--input", "-"]
         try:
             response = self.run(command, input=None if payload is None else encoded(payload).encode("utf-8"),
-                                capture_output=True, timeout=90, check=True)
+                                capture_output=True, timeout=90, check=True,
+                                creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
             value = json.loads(response.stdout)
         except (subprocess.SubprocessError, OSError, ValueError) as error:
             raise RuntimeError(f"GitHub {method} failed: {path}") from error
