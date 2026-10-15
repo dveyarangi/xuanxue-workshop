@@ -33,7 +33,9 @@ checks shape and rejects stale replacements. Session recovery and conversation r
 consume its dated facts without another acknowledgement ledger. A local external controller
 runs discovery before invoking a standalone reviewer, so quiet runs use no model.
 The report identifies executable next actions and separates reviewer preparation from
-recipient execution and operator-only decisions or access.
+recipient execution and operator-only decisions or access. That separation also governs
+operator-facing replies: the reviewer first assesses actual capabilities and authority,
+performs available authorized work and retains its own concrete continuation.
 Scoped host capabilities retain authentication at the host: writes remain bound to selected
 issues and the existing lease/publication checks; evidence reads stay within configured repositories.
 
@@ -124,6 +126,8 @@ response. Missing evidence produces an explicit pending action, not false accept
 For an operator-facing blocker, the reader can identify who acts, what they do, the
 unavailable input and the observable result without reconstructing the issue history.
 An unfinished review investigation is not presented as an operator decision.
+An available automated check is performed rather than assigned to the operator; an actual
+operator request identifies their action and the reviewer's continuation after it.
 An inaccessible tracker is reported as unavailable, not as an empty inbox.
 An issue with no direct comments but a linked pull-request report or referenced
 commit must produce an artifact-based review. An incidental mention must not

@@ -24,7 +24,14 @@ assignment's criteria and the referenced artifacts and checks.
 ## Handle the findings
 
 Maintain the configured shared review report under [REPORT.md](./REPORT.md) when findings
-change its state. The same writing and publication rules apply to periodic and manual review.
+change its state. The same writing and publication rules apply to periodic and manual review;
+use its action separation in operator-facing replies.
+
+Before reporting next actions, check the tools, access and authority available to the reviewer
+and recipient agents. Perform available authorized work; name the concrete remaining work the
+reviewer will carry out and its resumption condition. Reserve operator requests for actions that
+actually require their decision, permission, access or personal participation. Complete available
+preparation before asking, and state what the reviewer will do after the operator acts.
 
 For a periodic invocation, apply [PERIODIC.md](./PERIODIC.md) to discovery, local progress and
 publication recovery; the review and acceptance obligations below still govern its findings.

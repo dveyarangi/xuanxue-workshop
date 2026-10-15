@@ -40,6 +40,17 @@ now requires actor, executable action, unavailable input and observable result,
 separating reviewer preparation from operator-only action. No new authority,
 tracker or general harness rule is introduced.
 
+The user's follow-up in the same exchange identified why that amendment was still
+insufficient: an output-only actor field does not force capability assessment or
+retain the reviewer's own execution commitment. Review-assignments now assesses
+reviewer and recipient-agent tools/access/authority before escalation, performs
+available authorized work and names its remaining action and resumption condition.
+REPORT.md applies that separation to the report and operator-facing replies.
+The actual counterexamples are the automated DNS/health check (reviewer), DNS-zone
+change (owner access and private TXT input), unprepared issue 11 proposal (reviewer)
+and Cabinet fixture preparation (recipient agent under its operator). No execution
+or cross-project authority is expanded.
+
 ## 2026-10-15 — File readability mistaken for harness integration
 
 Status: repaired; native entry, skill selection and scoped-write verification passed.
