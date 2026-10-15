@@ -1,5 +1,9 @@
 import copy
+import hashlib
 import importlib.util
+import json
+import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from unittest.mock import Mock
@@ -56,6 +60,33 @@ class BoardTests(unittest.TestCase):
             self.assertEqual("reviewed", result["status"])
         restarted = board.Board(self.state, self.tracker, clock=lambda: self.now)
         self.assertEqual([], restarted.scan()["candidates"])
+
+    def test_unrelated_repository_metadata_does_not_wake_a_studied_pull_request(self):
+        pull = {'number': 3, 'body': 'Implementation report', 'state': 'open',
+                'head': {'ref': 'feature', 'sha': 'abc',
+                         'repo': {'full_name': 'provider/api', 'pushed_at': 'before', 'stargazers_count': 1}},
+                'base': {'ref': 'main', 'sha': 'def',
+                         'repo': {'full_name': 'provider/api', 'pushed_at': 'before', 'stargazers_count': 1}}}
+        self.tracker.cases[1]['evidence'] = [{'url': 'https://github.com/provider/api/pull/3',
+                                             'data': {'pull': pull, 'checks': [{'conclusion': 'success'}]}}]
+        event = {'event': 'cross-referenced', 'source': {'issue': {
+            'number': 9, 'body': 'Related report', 'comments': 1,
+            'repository': {'full_name': 'school/workshop', 'pushed_at': 'before', 'updated_at': 'before'}}}}
+        self.tracker.cases[1]['timeline'] = [event]
+        self.tracker.cases[1]['evidence'][0]['data']['timeline'] = [copy.deepcopy(event)]
+        claim = self.review.claim(1)
+        self.review.finish(claim['token'], 'reviewed', 'Pinned source and checks studied')
+        pull['head']['repo'].update(pushed_at='unrelated push', stargazers_count=2)
+        pull['base']['repo']['pushed_at'] = 'unrelated push'
+        event['source']['issue']['repository']['pushed_at'] = 'unrelated push'
+        self.tracker.cases[1]['evidence'][0]['data']['timeline'][0]['source']['issue']['repository']['updated_at'] = 'unrelated push'
+        restarted = board.Board(self.state, self.tracker, clock=lambda: self.now)
+        self.assertNotIn(1, [c['number'] for c in restarted.scan()['candidates']])
+        event['source']['issue']['comments'] = 2
+        self.assertEqual('changed', next(c['reason'] for c in restarted.scan()['candidates'] if c['number'] == 1))
+        event['source']['issue']['comments'] = 1
+        pull['head']['sha'] = 'new-code'
+        self.assertEqual('changed', next(c['reason'] for c in restarted.scan()['candidates'] if c['number'] == 1))
 
     def test_publication_survives_interruption_after_remote_success(self):
         class Interruption(BaseException):
@@ -115,12 +146,99 @@ class BoardTests(unittest.TestCase):
 
     def test_due_condition_and_changed_linked_evidence_do_not_need_a_new_comment(self):
         claim = self.review.claim(1)
-        self.review.finish(claim["token"], "waiting", "Provider proof pending", follow_up=600)
+        self.review.finish(claim["token"], "waiting", "Provider proof pending", follow_up=21600)
         self.assertNotIn(1, [case["number"] for case in self.review.scan()["candidates"]])
-        self.now += 601
+        self.now += 21601
         self.assertEqual("follow_up", self.review.scan()["candidates"][0]["reason"])
         self.tracker.cases[1]["evidence"] = [{"url": "https://github.com/provider/api/pull/3", "head": "new"}]
         self.assertEqual("changed", self.review.scan()["candidates"][0]["reason"])
+
+    def test_waiting_and_operator_follow_ups_cannot_be_shortened_to_one_hour(self):
+        for number, outcome in ((1, 'waiting'), (2, 'operator')):
+            claim = self.review.claim(number)
+            self.review.finish(claim['token'], outcome, 'External action pending', follow_up=3600)
+        self.now += 3601
+        self.assertEqual([], self.review.scan()['candidates'])
+        self.now += 18000
+        self.assertEqual(['follow_up', 'follow_up'], [c['reason'] for c in self.review.scan()['candidates']])
+
+    def test_new_evidence_interrupts_the_six_hour_wait(self):
+        claim = self.review.claim(1)
+        self.review.finish(claim['token'], 'waiting', 'Provider evidence pending', follow_up=3600)
+        self.now += 3601
+        self.tracker.cases[1]['comments'].append({'id': 99, 'body': 'Provider is ready',
+                                                'user': {'login': 'provider'}})
+        case = next(c for c in self.review.scan()['candidates'] if c['number'] == 1)
+        self.assertEqual('changed', case['reason'])
+
+    def test_legacy_progress_upgrade_preserves_studied_and_unreviewed_material(self):
+        self.tracker.cases[1]['evidence'] = [{'data': {'pull': {
+            'head': {'sha': 'abc', 'repo': {'full_name': 'provider/api', 'pushed_at': 'old'}},
+            'base': {'sha': 'def', 'repo': {'full_name': 'provider/api', 'pushed_at': 'old'}}}}}]
+        def legacy_digest(snapshot):
+            value = {**snapshot, 'missing_publications': []}
+            return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True,
+                                              separators=(',', ':')).encode()).hexdigest()
+        second_reviewed = legacy_digest(self.tracker.cases[2])
+        self.tracker.cases[2]['issue']['body'] = 'A genuinely unreviewed change'
+        legacy = Path(self.directory.name) / 'legacy.sqlite3'
+        with closing(sqlite3.connect(legacy)) as db, db:
+            db.executescript('''
+                PRAGMA user_version=1;
+                CREATE TABLE meta (name TEXT PRIMARY KEY, value TEXT NOT NULL);
+                CREATE TABLE cases (number INTEGER PRIMARY KEY, observed TEXT NOT NULL,
+                    reviewed TEXT, snapshot TEXT NOT NULL, due REAL NOT NULL DEFAULT 0,
+                    token TEXT UNIQUE, expires REAL, basis TEXT, outcome TEXT, note TEXT);
+                CREATE TABLE publications (id TEXT PRIMARY KEY, number INTEGER NOT NULL,
+                    token TEXT NOT NULL, basis TEXT NOT NULL, body TEXT NOT NULL, author TEXT NOT NULL,
+                    status TEXT NOT NULL CHECK(status IN ('prepared','sending','sent','conflict','uncertain')),
+                    comment_id INTEGER, url TEXT);
+            ''')
+            identity = {'repo': self.tracker.repo, 'labels': list(self.tracker.labels), 'author': self.tracker.author}
+            db.execute('INSERT INTO meta VALUES (?,?)', ('identity', board.encoded(identity)))
+            for number, snapshot in self.tracker.cases.items():
+                observed = legacy_digest(snapshot)
+                db.execute('INSERT INTO cases VALUES (?,?,?,?,?,NULL,NULL,?,?,?)',
+                           (number, observed, observed if number == 1 else second_reviewed,
+                            json.dumps(snapshot), self.now + 3600 if number == 1 else 0,
+                            observed, 'waiting' if number == 1 else 'reviewed', 'Retained review'))
+        upgraded = board.Board(legacy, self.tracker, clock=lambda: self.now)
+        result = upgraded.upgrade(previous_follow_up=3600)
+        self.assertEqual(2, result['upgraded'])
+        self.now += 3601
+        self.assertEqual([2], [c['number'] for c in upgraded.scan()['candidates']])
+        first = next(c for c in upgraded.status()['cases'] if c['number'] == 1)
+        self.assertEqual(1000 + 21600, first['due'])
+        self.assertEqual('Retained review', first['note'])
+        self.assertEqual(0, upgraded.upgrade(previous_follow_up=3600)['upgraded'])
+        self.assertEqual(first['due'], next(c['due'] for c in upgraded.status()['cases'] if c['number'] == 1))
+
+    def test_progress_upgrade_keeps_a_legacy_preparation_recoverable_once(self):
+        snapshot = self.tracker.cases[1]
+        snapshot['evidence'] = [{'data': {'pull': {'head': {
+            'sha': 'abc', 'repo': {'full_name': 'provider/api', 'pushed_at': 'old'}}}}}]
+        old = hashlib.sha256(json.dumps({**snapshot, 'missing_publications': []},
+            ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+        body = '<!-- workshop-board:legacy-answer -->\nAnswer'
+        with closing(sqlite3.connect(self.state)) as db, db:
+            db.execute('INSERT INTO cases VALUES (?,?,?,?,?,?,?,?,?,?)',
+                       (1, old, old, json.dumps(snapshot), self.now+3600, 'old-lease', self.now-1,
+                        old, 'waiting', 'Retained review'))
+            db.execute('INSERT INTO publications VALUES (?,?,?,?,?,?,?,NULL,NULL)',
+                       ('legacy-answer', 1, 'old-lease', old, body, self.tracker.author, 'prepared'))
+        self.review.upgrade(previous_follow_up=3600)
+        claim = self.review.claim(1)
+        prepared = self.review.prepare(claim['token'], 'Answer', request_id='legacy-answer')
+        self.assertEqual(body, prepared['body'])
+        self.assertEqual('sent', self.review.publish('legacy-answer')['status'])
+        self.assertEqual('sent', self.review.publish('legacy-answer')['status'])
+        self.assertEqual(1, len(self.tracker.posts))
+
+    def test_progress_upgrade_refuses_to_steal_a_live_review(self):
+        claim = self.review.claim(1)
+        with self.assertRaisesRegex(ValueError, 'active review'):
+            self.review.upgrade(previous_follow_up=3600)
+        self.assertEqual(claim['token'], self.review.renew(claim['token'])['token'])
 
     def test_edits_deletions_and_missing_own_receipts_are_visible(self):
         self.tracker.cases[1]["comments"] = [{"id": 5, "body": "Before", "user": {"login": "contributor"}}]
@@ -212,6 +330,8 @@ class TransportTests(unittest.TestCase):
                    "state": "closed", "labels": [{"name": "project:workshop"}], "updated_at": "fixed",
                    "html_url": "https://github.com/school/workshop/issues/1"}
         timeline = [{"id": n, "event": "commented", "body": str(n)} for n in range(101)]
+        timeline[-1]['source'] = {'issue': {'body': 'Related report', 'repository': {
+            'full_name': 'provider/api', 'pushed_at': 'unrelated', 'stargazers_count': 100}}}
         checks = [{"id": 8, "status": "in_progress", "conclusion": None}]
         calls = []
 
@@ -233,7 +353,11 @@ class TransportTests(unittest.TestCase):
 
         tracker = board.GitHub("school/workshop", ["project:workshop"], api=api)
         self.assertEqual([1], tracker.discover())
-        self.assertEqual(101, len(tracker.snapshot(1)["timeline"]))
+        snapshot = tracker.snapshot(1)
+        self.assertEqual(101, len(snapshot["timeline"]))
+        linked = snapshot['timeline'][-1]['source']['issue']
+        self.assertEqual({'full_name': 'provider/api'}, linked['repository'])
+        self.assertEqual('Related report', linked['body'])
         with tempfile.TemporaryDirectory() as temporary:
             review = board.Board(Path(temporary) / "state.sqlite3", tracker)
             claim = review.claim(1)

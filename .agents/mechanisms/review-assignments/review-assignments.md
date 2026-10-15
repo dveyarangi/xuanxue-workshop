@@ -27,6 +27,11 @@ Periodic activation uses mechanical change detection, local review leases and du
 recovery. The caller supplies a full reviewer; local snapshots and processing positions never
 replace the original issue or become acceptance evidence. The periodic procedure owns the
 local-progress record shape; the command's check validates its mechanical structure.
+Linked pull-request fingerprints retain source repository identity, refs and commits,
+discussions, reviews and checks; unrelated repository metadata does not trigger review.
+Unchanged waiting/operator outcomes have a six-hour minimum follow-up; changed relevant
+evidence remains eligible at the next discovery. A one-time upgrade rebases only reviewed
+digests proved by their stored snapshots and preserves publication identity and delivery state.
 The project supplies reporting cadence, destination and reader bindings through local rules.
 The report instruction owns the shared snapshot's format and publication; the validator
 checks shape and rejects stale replacements. Session recovery and conversation readers

@@ -54,6 +54,28 @@ class ReportTests(unittest.TestCase):
 
 
 class RunTests(unittest.TestCase):
+    def test_repository_only_push_never_starts_the_reviewer(self):
+        import test_board
+        runner, report = load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tracker = test_board.Tracker()
+            reference = {'sha': 'abc', 'repo': {'full_name': 'provider/api', 'pushed_at': 'old'}}
+            tracker.cases[1]['evidence'] = [{'data': {'pull': {'head': reference}}}]
+            review = test_board.board.Board(root / 'state.sqlite3', tracker)
+            for number in (1, 2):
+                claim = review.claim(number)
+                review.finish(claim['token'], 'reviewed', 'Existing evidence studied')
+            path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            before = path.read_bytes()
+            reference['repo']['pushed_at'] = 'unrelated-push'
+            worker = Mock()
+            result = runner.ReviewRun(root, review.state, path, review.scan, worker).run()
+            self.assertEqual('quiet', result['status'])
+            worker.assert_not_called()
+            self.assertEqual(before, path.read_bytes())
+
     def test_successful_process_without_required_report_is_a_failure(self):
         runner, report = load('board_run'), load('board_report')
         with tempfile.TemporaryDirectory() as directory:

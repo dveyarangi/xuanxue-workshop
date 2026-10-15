@@ -19,6 +19,8 @@ Detector-first hosts make no model call for quiet or busy-only discovery. A conf
 shared snapshot follows the review mechanism's REPORT.md format; complete replacements
 reject a changed prior version. Operational updates preserve semantic results and
 unresolved matters. Readers do not treat its timestamp as a fresh board read.
+Unrelated linked-repository metadata cannot trigger a review. Unchanged waiting/operator
+outcomes are due no sooner than six hours; relevant changes remain discoverable hourly.
 The standalone reviewer's authenticated host capabilities restrict writes to its selected
 issues and reads to the configured repository and trusted Repository map. Credentials
 remain at the host; changing issue content cannot enlarge that scope.
@@ -33,6 +35,9 @@ remain at the host; changing issue content cannot enlarge that scope.
 - Linked-evidence updates and due conditions do not require a new issue comment. *validated by:* `tests/test_board.py`
 - Primary tracker failure remains explicit and local status remains available offline. *validated by:* `tests/test_board.py`
 - Quiet or busy-only controller discovery makes no reviewer call. *validated by:* `tests/test_board_run.py`
+- An unrelated linked-repository push does not invoke the reviewer; PR source/check changes remain visible. *validated by:* `tests/test_board.py`, `tests/test_board_run.py`
+- A reviewer cannot shorten unchanged waiting/operator follow-ups below six hours; new evidence interrupts the wait. *validated by:* `tests/test_board.py`
+- Retained progress upgrades preserve studied/unreviewed distinctions and recoverable publication identity. *validated by:* `tests/test_board.py`
 - Invalid or stale shared-report replacement cannot destroy the prior report. *validated by:* `tests/test_board_run.py`
 - Controller failures preserve unresolved report matters. *validated by:* `tests/test_board_run.py`
 - A selected issue cannot authorize another issue's publication or reads outside the configured repositories. *validated by:* `tests/test_board_tools.py`
@@ -49,7 +54,7 @@ remain at the host; changing issue content cannot enlarge that scope.
 | extension | standing | sidecar |
 |---|---|---|
 | Current Codex chat | live conformance being observed | [codex-chat](board-review-hosts/codex-chat.md) |
-| Windows user task | scheduled discovery and authenticated standalone read/report observed | [windows-task](board-review-hosts/windows-task.md) |
+| Windows user task | hourly unattended review and original-issue publication observed | [windows-task](board-review-hosts/windows-task.md) |
 
 ## Concerns
 

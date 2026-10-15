@@ -58,6 +58,11 @@ before the command. Preserve the same `--state` across runs. The default is
 | finish | token, `--outcome`, `--note`, optional `--follow-up` seconds | reviewed position or conflict |
 | status | existing local state | processing and publication positions, available offline |
 | check | existing local state | structural validation, available offline |
+| upgrade | existing local state, `--previous-follow-up` seconds | one-time fingerprint and deadline migration, available offline |
+
+Before upgrading retained progress, quiesce reviewer hosts and back up the database.
+Use `upgrade` with the known previous follow-up interval. Retain the backup until
+state validation and a real discovery pass succeed.
 
 ## Records
 

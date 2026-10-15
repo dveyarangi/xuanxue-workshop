@@ -1,6 +1,7 @@
 """Mechanical discovery and delivery; judgment belongs to assignment review."""
 
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -16,12 +17,35 @@ from types import SimpleNamespace
 from urllib.parse import quote, urlparse
 
 
+FOLLOW_UP_SECONDS = 6 * 60 * 60
+
+
 def encoded(value):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
 def digest(value):
     return hashlib.sha256(encoded(value).encode("utf-8")).hexdigest()
+
+
+def pull_reference(value):
+    if not isinstance(value, dict):
+        return value
+    result = {key: value[key] for key in ('ref', 'sha') if key in value}
+    if 'repo' in value:
+        repo = value['repo']
+        result['repo'] = {'full_name': repo.get('full_name')} if isinstance(repo, dict) else repo
+    return result
+
+
+def relevant_material(value):
+    if isinstance(value, dict):
+        return {key: {'full_name': item['full_name']}
+                if key in {'repo', 'repository'} and isinstance(item, dict) and 'full_name' in item
+                else relevant_material(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [relevant_material(item) for item in value]
+    return value
 
 
 class Board:
@@ -75,6 +99,9 @@ class Board:
         return self.tracker.snapshot(number, own_bodies=own_bodies, fresh=fresh)
 
     def fingerprint(self, snapshot):
+        return self._fingerprint(snapshot, relevant=True)
+
+    def _fingerprint(self, snapshot, *, relevant):
         with self.connect() as db:
             publications = list(db.execute("SELECT * FROM publications WHERE number=?", (snapshot["issue"]["number"],)))
 
@@ -83,13 +110,19 @@ class Board:
                     and comment.get("user", {}).get("login") == publication["author"]
                     and (publication["comment_id"] is None or comment.get("id") == publication["comment_id"]))
 
-        value = dict(snapshot)
+        value = copy.deepcopy(snapshot)
+        if relevant:
+            for evidence in value.get('evidence', []):
+                pull = evidence.get('data', {}).get('pull', {})
+                for side in ('head', 'base'):
+                    if side in pull:
+                        pull[side] = pull_reference(pull[side])
         value["comments"] = [c for c in snapshot["comments"] if not any(own(c, p) for p in publications)]
         value["timeline"] = [event for event in snapshot["timeline"] if not (
             event.get("event") == "commented" and any(own(event, p) for p in publications))]
         value["missing_publications"] = [p["id"] for p in publications if p["status"] == "sent"
                                          and not any(own(c, p) for c in snapshot["comments"])]
-        return digest(value)
+        return digest(relevant_material(value) if relevant else value)
 
     def scan(self):
         numbers = set(self.tracker.discover())
@@ -233,7 +266,7 @@ class Board:
         except (OSError, RuntimeError, ValueError):
             return self.publication_status(identifier, "uncertain")
 
-    def finish(self, token, outcome, note, *, follow_up=21600):
+    def finish(self, token, outcome, note, *, follow_up=FOLLOW_UP_SECONDS):
         if outcome not in {"reviewed", "waiting", "operator"} or not note.strip() or follow_up <= 0:
             raise ValueError("A review outcome and its resumption note are required")
         with self.connect() as db:
@@ -249,7 +282,7 @@ class Board:
             if version != row["basis"]:
                 db.execute("UPDATE cases SET token=NULL, expires=NULL WHERE token=?", (token,))
                 return {"status": "conflict", "number": row["number"]}
-            due = self.clock() + follow_up if outcome != "reviewed" else 0
+            due = self.clock() + max(follow_up, FOLLOW_UP_SECONDS) if outcome != "reviewed" else 0
             db.execute("""UPDATE cases SET reviewed=?, observed=?, snapshot=?, due=?, token=NULL,
                           expires=NULL, outcome=?, note=? WHERE token=?""",
                        (version, version, encoded(snapshot), due, outcome, note, token))
@@ -261,6 +294,33 @@ class Board:
                 "SELECT number, observed, reviewed, due, expires, outcome, note FROM cases ORDER BY number")],
                     "publications": [dict(row) for row in db.execute(
                         "SELECT id, number, status, comment_id, url FROM publications ORDER BY rowid")]}
+
+    def upgrade(self, *, previous_follow_up):
+        if previous_follow_up <= 0:
+            raise ValueError('The known previous follow-up interval is required')
+        with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            if db.execute("SELECT 1 FROM meta WHERE name='material_version' AND value='2'").fetchone():
+                return {'upgraded': 0}
+            if db.execute('SELECT 1 FROM cases WHERE token IS NOT NULL AND expires>?', (self.clock(),)).fetchone():
+                raise ValueError('Wait for active review leases before upgrading progress')
+            rows = list(db.execute('SELECT * FROM cases'))
+            for row in rows:
+                snapshot = json.loads(row['snapshot'])
+                old = self._fingerprint(snapshot, relevant=False)
+                current = self.fingerprint(snapshot)
+                # Rebase only a digest proved by its stored snapshot; retain unreviewed changes.
+                reviewed = current if row['reviewed'] == old else row['reviewed']
+                basis = current if row['basis'] == old else row['basis']
+                due = row['due']
+                if due and row['outcome'] in {'waiting', 'operator'}:
+                    due += max(0, FOLLOW_UP_SECONDS - previous_follow_up)
+                db.execute('UPDATE cases SET observed=?,reviewed=?,basis=?,due=? WHERE number=?',
+                           (current, reviewed, basis, due, row['number']))
+                db.execute('UPDATE publications SET basis=? WHERE number=? AND basis=?',
+                           (current, row['number'], old))
+            db.execute("INSERT OR REPLACE INTO meta VALUES ('material_version','2')")
+        return {'upgraded': len(rows)}
 
     def check(self):
         with self.connect() as db:
@@ -361,7 +421,8 @@ class GitHub:
                 except (RuntimeError, ValueError, KeyError) as error:
                     self.cache[link] = {"url": link, "unavailable": True, "reason": str(error)}
             evidence.append(self.cache[link])
-        return {"issue": self.issue(issue), "comments": comments, "timeline": timeline, "evidence": evidence}
+        return relevant_material({"issue": self.issue(issue), "comments": comments,
+                                  "timeline": timeline, "evidence": evidence})
 
     def reference(self, url):
         parts = urlparse(url).path.strip("/").split("/")
@@ -371,6 +432,9 @@ class GitHub:
         if kind == "pull":
             pull = self.api("GET", f"{prefix}/pulls/{identifier}")
             sha = pull["head"]["sha"]
+            for side in ('head', 'base'):
+                if side in pull:
+                    pull[side] = pull_reference(pull[side])
             return {"pull": {key: pull.get(key) for key in ("number", "title", "body", "state", "merged", "merged_at", "head", "base")},
                     "comments": self.api("GET", f"{prefix}/issues/{identifier}/comments?per_page=100", collection=""),
                     "reviews": self.api("GET", f"{prefix}/pulls/{identifier}/reviews?per_page=100", collection=""),
@@ -413,6 +477,8 @@ def main():
     sub.add_parser("scan")
     sub.add_parser("status")
     sub.add_parser("check")
+    upgrade = sub.add_parser('upgrade')
+    upgrade.add_argument('--previous-follow-up', type=int, required=True)
     claim = sub.add_parser("claim")
     claim.add_argument("number", type=int)
     claim.add_argument("--output", type=Path, required=True)
@@ -430,9 +496,9 @@ def main():
     finish.add_argument("token")
     finish.add_argument("--outcome", required=True, choices=("reviewed", "waiting", "operator"))
     finish.add_argument("--note", required=True)
-    finish.add_argument("--follow-up", type=int, default=21600)
+    finish.add_argument("--follow-up", type=int, default=FOLLOW_UP_SECONDS)
     args = parser.parse_args()
-    if args.command in {"status", "check", "cancel"}:
+    if args.command in {"status", "check", "cancel", "upgrade"}:
         review = Board(args.state)
         if review.tracker.repo != args.repo or sorted(review.tracker.labels) != sorted(args.label):
             raise ValueError("State belongs to another board or recipient selection")
@@ -453,6 +519,8 @@ def main():
         result = {key: operation[key] for key in ("id", "number", "status", "comment_id", "url")}
     elif args.command == "finish":
         result = review.finish(args.token, args.outcome, args.note, follow_up=args.follow_up)
+    elif args.command == 'upgrade':
+        result = review.upgrade(previous_follow_up=args.previous_follow_up)
     else:
         result = getattr(review, args.command)()
     print(json.dumps(result, ensure_ascii=False, indent=2))

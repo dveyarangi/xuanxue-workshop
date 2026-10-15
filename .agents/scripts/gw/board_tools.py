@@ -8,7 +8,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from board import Board, GitHub
+from board import Board, GitHub, FOLLOW_UP_SECONDS
 
 
 class ReviewTools:
@@ -42,7 +42,7 @@ class ReviewTools:
             if action == 'prepare':
                 return self.review.prepare(args['token'], args['body'], request_id=args.get('request_id'))
             return self.review.finish(args['token'], args['outcome'], args['note'],
-                                      follow_up=args.get('follow_up', 21600))
+                                      follow_up=args.get('follow_up', FOLLOW_UP_SECONDS))
         if action in {'publish', 'cancel'}:
             self.require_case(self.review.publication(args['id'])['number'])
             return getattr(self.review, action)(args['id'])
@@ -68,7 +68,9 @@ class ReviewTools:
 def definitions():
     properties = {'action': {'type': 'string', 'enum': ['identity', 'scan', 'status', 'check',
                     'claim', 'renew', 'prepare', 'publish', 'cancel', 'finish']},
-                  'number': {'type': 'integer'}, 'follow_up': {'type': 'integer'}}
+                  'number': {'type': 'integer'},
+                  'follow_up': {'type': 'integer', 'minimum': FOLLOW_UP_SECONDS,
+                                'description': 'Unchanged waiting/operator work is due no sooner than six hours.'}}
     properties.update({name: {'type': 'string'} for name in
                        ['token', 'body', 'request_id', 'id', 'outcome', 'note']})
     return [
