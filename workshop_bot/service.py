@@ -138,7 +138,8 @@ class Workshop:
             except (ValueError, TypeError):
                 pass
             context = {"root": str(self.root), "state": str(self.state), "request_id": request_id,
-                       "conversation": f"group:{chat_id}" if chat_id else request_id, "source": source}
+                       "conversation": f"group:{chat_id}" if chat_id else request_id, "source": source,
+                       "chat_id": chat_id}
             tools = TurnTools(context)
             try:
                 updates = tools.board_updates()

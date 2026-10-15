@@ -9,6 +9,7 @@ from urllib.parse import parse_qs, urlsplit
 from .service import redact
 from .telegram_api import TelegramError
 from .telegram_outbox import Outbox
+from .archive import Archive, public_message
 
 TYPING_INTERVAL = 2
 logger = logging.getLogger(__name__)
@@ -22,6 +23,7 @@ class Group:
         self.api = api
         self.group_id = group_id
         self.identity = None
+        self.archive = Archive(workshop.state)
         with workshop.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS telegram_meta (key TEXT PRIMARY KEY, value TEXT)")
             db.execute("CREATE TABLE IF NOT EXISTS telegram_requests ("
@@ -93,6 +95,7 @@ class Group:
             selected = self.select(update)
             with self.workshop.connect() as db:
                 if selected:
+                    self.archive.retain(db, self.group_id, selected)
                     db.execute("INSERT OR IGNORE INTO telegram_requests "
                                "(update_id,message_id,sender,created,body,thread_id,status,reply_to,conversation_id,addressed_message_id,addressing,reply_context,received_at) "
                                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
@@ -117,11 +120,20 @@ class Group:
             return None
         if message.get("from", {}).get("is_bot") and not message.get("sender_chat"):
             return None
+        attachments = []
+        if message.get("photo"):
+            photo = max(message["photo"], key=lambda p: p.get("width", 0) * p.get("height", 0))
+            attachments.append({"kind": "image", "file_id": photo["file_id"], "name": "Telegram photo"})
+        document = message.get("document", {})
+        if document:
+            image = document.get("mime_type") in {"image/png", "image/jpeg", "image/webp"}
+            attachments.append({"kind": "image" if image else "file", "name": document.get("file_name", "Telegram document"),
+                                **({"file_id": document["file_id"]} if image else {})})
         text = message.get("text", message.get("caption", ""))
         if not text:
             kind = next((key for key in ("photo", "video", "voice", "audio", "document", "sticker", "animation",
                                         "video_note", "poll", "contact", "location", "venue") if key in message), "service")
-            text = f"[Сообщение без текста: {kind}; содержимое недоступно]"
+            text = "[Изображение без подписи]" if any(a["kind"] == "image" for a in attachments) else f"[Сообщение без текста: {kind}; содержимое недоступно]"
         entities = message.get("entities", message.get("caption_entities", []))
         references = self.references(text, entities)
         reply = message.get("reply_to_message", {})
@@ -144,6 +156,7 @@ class Group:
         for reference in references:
             remaining = remaining.replace(reference, "", 1)
         selected = {"message_id": message["message_id"], "body": text,
+                "attachments": attachments,
                 "addressed": addressed, "reply_to": reply_to,
                 "conversation_id": (parent["conversation_id"] or reply_to) if parent else reply_to if reply_to_bot else message["message_id"],
                 "reply_context": {"message_id": reply_to, "role": "assistant" if reply_to_bot else "user",
@@ -378,6 +391,18 @@ class Group:
                                      "reply_to": row["message_id"], "thread_id": row["thread_id"],
                                      "conversation_id": row["conversation_id"]})
         messages.sort(key=lambda message: message["message_id"])
+        archive_messages = self.archive.messages(self.group_id)
+        retained = {m["message_id"]: m for m in archive_messages
+                    if m["message_id"] < request["message_id"]}
+        existing = {m["message_id"]: m for m in messages}
+        for number, record in retained.items():
+            archived = public_message(record)
+            if number in existing:
+                existing[number]["images"] = archived["images"]
+                existing[number]["other_attachments"] = archived["other_attachments"]
+            else:
+                messages.append({**archived, "role": archived.get("role", "user"), "request_status": "imported"})
+        messages.sort(key=lambda message: message["message_id"])
         quoted = json.loads(request["reply_context"]) if request["reply_context"] else None
         if quoted and not any(m["message_id"] == quoted["message_id"] for m in messages):
             messages.append(quoted)
@@ -410,12 +435,15 @@ class Group:
                 "bot": {key: self.identity[key] for key in ("id", "username", "first_name") if key in self.identity},
                 "messages": selected, "omitted_messages": len(messages) - len(selected),
                 "continuations": continuations,
-                "scope": "Received group text/captions and confirmed bot replies; no pre-collection archive, "
-                         "attachment contents or messages Telegram did not deliver.",
+                "scope": "Recent retained messages of this group, including its imported archive. "
+                         "search_history/read_message access older messages; read_image supplies selected image content.",
                 "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),
                             "created": request["created"], "thread_id": request["thread_id"],
                             "reply_to": request["reply_to"], "conversation_id": request["conversation_id"],
                             "addressing": request["addressing"]}}
+        current = next((m for m in archive_messages if m["message_id"] == request["message_id"]), None)
+        if current:
+            result["current"]["images"] = public_message(current)["images"]
         if request["addressed_message_id"] is not None:
             result["addressed_message"] = next(m for m in messages if m["message_id"] == request["addressed_message_id"])
         return result

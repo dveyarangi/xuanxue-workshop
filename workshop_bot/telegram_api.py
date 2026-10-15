@@ -28,7 +28,7 @@ class TelegramAPI:
         self._opener = opener or build_opener(ProxyHandler({}), NoRedirect())
 
     def call(self, method, **parameters):
-        if method not in {"getMe", "getWebhookInfo", "getChat", "getChatMember", "getUpdates", "sendMessage", "sendChatAction"}:
+        if method not in {"getMe", "getWebhookInfo", "getChat", "getChatMember", "getUpdates", "sendMessage", "sendChatAction", "getFile"}:
             raise ValueError("Метод Telegram не поддерживается.")
         request = Request(f"https://api.telegram.org/bot{self._token}/{method}",
                           data=json.dumps(parameters).encode("utf-8"),
@@ -54,3 +54,22 @@ class TelegramAPI:
         if "result" not in body:
             raise TelegramError()
         return body["result"]
+
+    def download(self, file_id, *, limit):
+        info = self.call("getFile", file_id=file_id)
+        path = info.get("file_path", "")
+        if not re.fullmatch(r"[A-Za-z0-9_/.-]+", path) or path.startswith("/") or ".." in path.split("/"):
+            raise ValueError("Telegram returned an unsupported file path")
+        if info.get("file_size", 0) > limit:
+            raise ValueError("Image exceeds the reading limit")
+        try:
+            with self._opener.open(f"https://api.telegram.org/file/bot{self._token}/{path}", timeout=40) as response:
+                data = response.read(limit + 1)
+        except HTTPError as error:
+            error.close()
+            raise TelegramError() from None
+        except (URLError, OSError):
+            raise TelegramError() from None
+        if len(data) > limit:
+            raise ValueError("Image exceeds the reading limit")
+        return data
