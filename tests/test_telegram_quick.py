@@ -143,12 +143,12 @@ class QuickTelegramTests(unittest.TestCase):
             group.start()
             group.poll_once()
             group.work_once()
-            self.assertEqual(agent.quick_calls[0][0], "что со входом?")
+            self.assertEqual(agent.work_calls[0][3], "что со входом?")
             group.work_once()
             self.assertEqual(len(peer.sent), 1)
-            self.assertEqual(len(agent.quick_calls), 1)
+            self.assertEqual(len(agent.quick_calls), 0)
 
-    def test_invalid_quick_reply_falls_back_to_full_worker_only_for_direct_request(self):
+    def test_direct_request_bypasses_routing_and_uses_full_worker(self):
         with tempfile.TemporaryDirectory() as folder:
             agent = Agent("ignore", "")
             app = Workshop(folder, Path(folder) / "private/history.sqlite3", agent)
@@ -158,6 +158,7 @@ class QuickTelegramTests(unittest.TestCase):
             group.poll_once()
             group.work_once()
             self.assertEqual(len(agent.work_calls), 1)
+            self.assertFalse(agent.quick_calls)
             self.assertEqual(peer.sent[0]["text"], "Проверенный ответ.")
 
     def test_candidate_survives_restart_and_silent_decision_never_types(self):
@@ -199,7 +200,8 @@ class QuickTelegramTests(unittest.TestCase):
             group.poll_once()
             self.assertTrue(group.work_once())
             self.assertEqual(len(peer.sent), 1)
-            self.assertEqual(agent.quick_calls[0][1]["current"]["addressing"], "direct")
-            self.assertEqual(agent.quick_calls[0][1]["bot"]["username"], "workshop_bot")
-            self.assertIn("информация о входе", agent.quick_calls[0][1]["messages"][0]["text"])
-            self.assertFalse(agent.work_calls)
+            context = agent.work_calls[0][4]
+            self.assertEqual(context["current"]["addressing"], "direct")
+            self.assertEqual(context["bot"]["username"], "workshop_bot")
+            self.assertIn("информация о входе", context["messages"][0]["text"])
+            self.assertFalse(agent.quick_calls)

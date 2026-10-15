@@ -16,7 +16,7 @@ SCHEMA = {"type": "object", "additionalProperties": False,
               "notice": {"type": "string", "maxLength": 320}}}
 
 
-def decide(executable, root, memory, question, conversation):
+def decide(executable, root, memory, question, conversation, *, timeout=180):
     root = Path(root)
     rules = Path(__file__).with_name("quick.rules.md").read_text(encoding="utf-8")
     if '<installed by="local">' not in rules:
@@ -78,7 +78,6 @@ def decide(executable, root, memory, question, conversation):
         schema.write_text(json.dumps(output_schema), encoding="utf-8")
         command = [executable, "exec", "--ignore-user-config", "--ignore-rules", "--strict-config",
                    "--skip-git-repo-check", "--cd", temporary, "--ephemeral", "--json",
-                   "--model", "gpt-6-luna", "-c", 'model_reasoning_effort="low"',
                    "-c", "project_doc_max_bytes=0", "-c", 'web_search="disabled"',
                    "-c", "developer_instructions=" + json.dumps(rules, ensure_ascii=False),
                    "--sandbox", "read-only", "-c", 'approval_policy="never"',
@@ -91,7 +90,7 @@ def decide(executable, root, memory, question, conversation):
                    "LOCALAPPDATA", "PROGRAMFILES", "PROGRAMFILES(X86)", "PROGRAMDATA",
                    "COMSPEC", "PATHEXT", "HOMEDRIVE", "HOMEPATH", "CODEX_HOME"}
         completed = subprocess.run(command + ["-"], input=prompt, capture_output=True, encoding="utf-8",
-                                   errors="replace", timeout=25, cwd=temporary,
+                                   errors="replace", timeout=timeout, cwd=temporary,
                                    env={k: v for k, v in os.environ.items() if k.upper() in allowed})
         events = []
         for line in completed.stdout.splitlines():
@@ -126,7 +125,7 @@ def decide(executable, root, memory, question, conversation):
         answer_limit = 320
     if len(decision["answer"]) > answer_limit:
         raise ValueError(f"Quick answer exceeds {answer_limit} characters: {len(decision['answer'])}")
-    decision["runtime"] = {"model": "gpt-6-luna", "effort": "low",
+    decision["runtime"] = {"model": "executor_default",
                            "seconds": round(time.monotonic() - started, 3),
                            "usage": turns[-1].get("usage"), "sources": inventory,
                            "prompt_bytes": len(prompt.encode()), "history_messages": len(selected)}

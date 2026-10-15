@@ -157,8 +157,8 @@ class Workshop:
 
             options.update(tool_context=path, on_event=progress)
         timing = {"board_seconds": round(time.monotonic() - started, 3)}
-        if getattr(self.agent, "quick_enabled", False):
-            ambient = (conversation or {}).get("current", {}).get("addressing") == "ambient"
+        ambient = (conversation or {}).get("current", {}).get("addressing") == "ambient"
+        if ambient and getattr(self.agent, "quick_enabled", False):
             quick_started = time.monotonic()
             decision = None
             continuation = None

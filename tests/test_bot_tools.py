@@ -202,28 +202,35 @@ class ToolTests(unittest.TestCase):
         self.assertEqual([item["text"] for item in peer.sent], [NOTICE, "Main answer"])
         self.assertEqual(group.history()[0]["notice"]["status"], "uncertain")
 
-    def test_quick_notice_arrives_before_full_work_and_is_not_repeated(self):
+    def test_implicit_continuation_notice_arrives_before_full_work_and_is_not_repeated(self):
         class Agent:
             tools_enabled = True
             quick_enabled = True
 
             def quick(agent, *args):
-                return {"route": "work", "answer": "", "reason": "project work", "notice": NOTICE}
+                continuations = args[3].get("continuations", [])
+                if not continuations:
+                    return {"route": "offer", "answer": "Могу проверить задачи.", "reason": "offer"}
+                return {"route": "work", "answer": "", "reason": "project work", "notice": NOTICE,
+                        "continue_with": continuations[0]["message_id"]}
 
             def chat(agent, *args, **kwargs):
-                self.assertEqual([item["text"] for item in peer.sent], [NOTICE])
+                self.assertEqual([item["text"] for item in peer.sent], ["Могу проверить задачи.", NOTICE])
                 self.assertEqual(args[4]["progress_notice"], NOTICE)
                 tools = TurnTools(json.loads(Path(kwargs["tool_context"]).read_text(encoding="utf-8")))
                 tools.review_notice([1], "A later notice")
                 kwargs["on_event"]({})
                 return {"status": "answered", "answer": "Main answer"}
 
-        peer = TelegramPeer([message()])
+        peer = TelegramPeer([message(text="Workshop, какие задачи?")])
         group = Group(Workshop(self.root, self.state, Agent()), peer, -100123)
         group.start()
         group.poll_once(0)
         group.work_once()
-        self.assertEqual([item["text"] for item in peer.sent], [NOTICE, "Main answer"])
+        peer.updates = [message(update=200, text="давай")]
+        group.poll_once(0)
+        group.work_once()
+        self.assertEqual([item["text"] for item in peer.sent], ["Могу проверить задачи.", NOTICE, "Main answer"])
 
     def test_follow_up_reuses_board_publication_and_never_repeats(self):
         version = self.tools.read_issue(1)["version"]

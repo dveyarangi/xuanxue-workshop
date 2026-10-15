@@ -68,8 +68,8 @@ class QuickModelTests(unittest.TestCase):
             def invoke(command, **kwargs):
                 self.assertNotEqual(Path(kwargs["cwd"]), root)
                 self.assertNotIn("TELEGRAM_BOT_TOKEN", kwargs["env"])
-                self.assertIn("gpt-6-luna", command)
-                self.assertIn('model_reasoning_effort="low"', command)
+                self.assertNotIn("--model", command)
+                self.assertFalse(any("model_reasoning_effort=" in arg for arg in command))
                 self.assertIn("--ephemeral", command)
                 self.assertNotIn("--enable", command)
                 schema = json.loads(Path(command[command.index("--output-schema") + 1]).read_text())

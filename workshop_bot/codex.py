@@ -44,7 +44,7 @@ class Codex:
 
     def quick(self, root, memory, question, conversation):
         from .quick import decide
-        return decide(self.executable, root, memory, question, conversation)
+        return decide(self.executable, root, memory, question, conversation, timeout=self.timeout)
 
     @staticmethod
     def permissions(root, memory, private):
