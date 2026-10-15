@@ -106,6 +106,20 @@ Project instructions and skill discovery are part of ordinary Codex startup, not
 dependent on a group member asking to read them. The Telegram role narrows actions
 and presentation without replacing the project harness. Session bookkeeping and
 external actions remain constrained by that role's actual permissions.
+The user accepted a separate bot entry and continuing Codex sessions on 2026-10-15.
+The bot shares project principles and skills but does not automatically perform
+the operator's wake, recall, assignment review, registration or debug presentation.
+New conversations load relevant Workshop materials and plain-text memory;
+continuations retain context and refresh records when current facts matter.
+
+Each routed Telegram conversation has its own durable Codex session identity.
+A reply from another participant continues that conversation; a new independent
+addressed request starts a separate session. Restart preserves the exact mapping.
+The received group history remains bounded background shared with each request,
+not a reason to merge independent Codex conversations. Native compaction may reduce
+older context. Failed or uncertain continuation is visible and cannot silently
+switch to a new session. Resume retains the role's capability restrictions.
+
 Answers use relevant project records and associated GitHub discussions, distinguish
 proposals, accepted agreements and demonstrated behavior, and disclose unavailable,
 contradictory or outdated evidence.

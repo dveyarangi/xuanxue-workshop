@@ -171,19 +171,20 @@ readable exceptions within the denied Codex profile directory; authentication an
 configuration files remain denied. A native start exposed this requirement even
 with an empty global `AGENTS.md`.
 
-Session-writing hooks remain disabled. The Telegram role follows available read-only
-entry and skill work, reads existing questions and reports inaccessible external
+Session-writing hooks remain disabled. The Telegram role follows applicable read-only
+skill work, reads existing questions and reports inaccessible external
 evidence. Registration and question-store mutations remain with the operator
 session; the bot does not acquire publication, connector or network authority.
 Factual edits and the agreement-request log remain the separate unimplemented scope
 below. Loading instructions does not claim those capabilities.
 
-The decisive native proof uses a normal ownership question, an entry-only marker
+The initial native proof used a normal ownership question, an entry-only marker
 and an implicitly selected skill whose answer is absent from the request and README.
-It also exercises memory writing while preserving another document, then asks an
-ordinary Workshop status question and observes reading of recall and assignment-review
-skills. Tool events, not an agent's assertion about its own instructions, provide
-the execution evidence. This supplements the deterministic launch and failure tests.
+It also exercised memory writing while preserving another document, then asked an
+ordinary Workshop status question and observed recall and assignment-review skills.
+That automatic operator entry is superseded by the accepted continuing-conversation
+amendment below. Its updated native proof retains implicit skill discovery and write
+scope while verifying the bot-specific entry and context across worker processes.
 
 <straw-dog question="q-0002.0012">
 
@@ -435,6 +436,53 @@ outcomes receive proof alongside message delivery, not after it.
 No acceptance criterion is weakened to make the integration appear ready.
 
 </straw-dog>
+
+## Continuing conversations — accepted 2026-10-15
+
+The user accepted a bot-specific entry into the same harness and one persistent
+Codex session per Telegram conversation. Native project discovery remains enabled;
+the role replaces automatic operator wake/recall/assignment review with reading
+the request's relevant materials. Later turns refresh facts as needed.
+
+### Impact
+
+The existing SQLite state owns the mapping from group and routed conversation root
+to an exact Codex session UUID. A new independent mention starts a new session;
+replies, including another participant's replies, resume that session after restart.
+Local requests without a Telegram conversation remain standalone. Session content
+is stored by Codex; the bot database holds routing and execution state, not a second
+memory format. Text memory remains the shared writable note.
+
+### Hidden edges
+
+Session identity is saved on the native thread-start event, before the turn completes.
+An unknown start, an interrupted active call, or an unavailable saved session cannot
+silently create a replacement. Exact request deduplication remains independent of
+session continuation. Every launch reasserts the same restricted capabilities.
+The bounded group snapshot is supplied as background on each turn; it may overlap
+earlier context. Native compaction and bounded snapshots do not promise unlimited recall.
+
+### Leave alone
+
+Group routing, operator outbox, selected-ticket edits, factual-correction authority,
+agreement-change review and sibling projects retain their existing boundaries.
+No copied harness, extra skill catalog or general session service is needed.
+
+### Recommendation
+
+Implement within the existing ticket. Prove context remembered across actual worker
+processes, exact UUID reuse, independent roots, unchanged permissions on resume and
+absence of automatic operator entry. Exercise failed starts and duplicate requests
+with deterministic tests, then restart the receiver after its queue is idle.
+
+Verification on 2026-10-15: 59 application tests passed, including six continuation
+cases. Four native calls passed in separate worker processes: implicit skill use;
+exact-session continuation recalling a conversation-only value with permitted memory
+write and refusal of another write; independent-root isolation; and Workshop ownership
+lookup without automatic recall or assignment review. Local evidence is retained at
+`.local/harness-proof-20261014-235748/private/`. Required harness, installed-rule,
+mechanism, question and ticket checks passed. This proves the scoped amendment,
+not the remaining factual-edit/log capability or whole-ticket group acceptance.
 
 ## Evidence checked on 2026-10-12
 

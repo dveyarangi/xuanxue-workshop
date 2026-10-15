@@ -120,10 +120,28 @@ reads, except the two global Codex entry paths (`AGENTS.md` and `AGENTS.override
 needed by native instruction discovery. Network commands, inherited connectors/hooks, browsers and delegation are
 disabled. The Windows sandbox requires root read access; this is not repository-only
 read isolation. Architecture and other project documents are read-only in this route.
-Session-writing hooks stay disabled; the bot follows entry and applicable skills
-through their available read-only work, including inspecting existing question records.
+Session-writing hooks stay disabled. The bot entry in `agent.rules.md`, authored
+as L22 in `local.rules.md`, replaces automatic operator wake/recall/assignment review
+and debug presentation. Shared principles and applicable skills remain available,
+including inspection of existing question records.
 Unavailable external evidence is disclosed. Operator session bookkeeping and
 publication are not inherited by the group worker.
+
+Each Telegram conversation root has a persistent Codex session, indexed by group
+and conversation ID in SQLite. Replies from any participant resume that exact
+session across receiver restarts; independent addressed requests start new ones.
+Codex stores its own conversation history. Each turn also receives the bounded
+group snapshot, which can overlap earlier background; native compaction may reduce
+old context. Standalone local requests remain ephemeral.
+Conversations received before this upgrade acquire a persistent session on their
+next addressed turn, using the retained Telegram background; former ephemeral
+Codex sessions cannot be resumed.
+
+Session identity is saved as soon as Codex announces it. An unavailable saved
+session is not replaced automatically. A start without a confirmed identity or
+a receiver crash during an active call requires operator review of the retained
+request and session state before that conversation can continue. No arbitrary
+latest operator session is resumed. Every resume reasserts the bot permissions.
 
 An interrupted conversation may already have changed memory. Failed answers do not
 claim that it was unchanged; the same request is not automatically executed again.
@@ -162,7 +180,9 @@ Its `results.json` and SQLite history retain the evidence. Canonical project
 records are checked for unchanged content. These checks do not prove Telegram
 reception or delivery.
 
-The third command exercises native project instruction loading and implicit skill
-selection using values absent from the user request, verifies the memory/document
-write boundary, then sends an ordinary status question against Workshop. Its local
-evidence includes Codex tool events and answers; no Telegram message is sent.
+The third command exercises the bot entry and implicit skill selection, retains a
+conversation-only value across separate worker processes, verifies the memory/document
+write boundary on resume and checks a separate conversation cannot recall that value.
+It also asks an ordinary ownership question against Workshop and checks automatic
+operator entry was absent. Evidence includes native events and answers under the
+denied private proof directory; no Telegram message is sent.
