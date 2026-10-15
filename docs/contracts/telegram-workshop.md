@@ -219,11 +219,10 @@ For current next actions, the latest relevant issue discussions supplement the
 completed review. Reading a discussion retrieves the issue and its comments, newest
 first, without expanding linked implementation evidence. This read does not establish
 the full evidence version required to publish a follow-up. New arrangements supersede its older action list while unchanged
-verification remains reusable; the answer distinguishes their evidence dates.
-The user's 2026-10-15 clarification makes the date of that completed review visible
-in the answer, with its time and time zone when available, instead of a generic
-warning that status may have changed. Retrieval time does not replace review time;
-an unavailable review date remains explicitly unknown.
+verification remains reusable. The user's later correction on 2026-10-15 removes
+routine review timestamps and statements that no new results have appeared from
+ordinary replies. Review freshness is discussed when asked directly; this replaces
+the earlier requirement to print the review date and time in each such answer.
 Before examining new relevant evidence, the model can issue a brief notice naming
 what it will check. Direct requests receive it from the full executor; an implicit
 continuation can receive it from the addressing pass before handoff. Delivery is

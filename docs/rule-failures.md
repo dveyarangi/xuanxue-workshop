@@ -284,6 +284,13 @@ without generic self-presentation or promises of assistance. Telegram answers ar
 context and evidence within existing authority; changing a shared agreement still
 requires operator review. This amends the same failed actionability and voice rules.
 
+Later on 2026-10-15 the user removed routine review timestamps and statements
+that no new results had appeared. These were explicitly required by L22, not an
+unprompted model addition. L22's English and Russian date-reporting requirements
+are removed together; ordinary replies omit this bookkeeping, with freshness
+discussed only on a direct question. Evidence collection and retained dates remain
+unchanged. This is a revised presentation preference, not new operational authority.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
