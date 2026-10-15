@@ -225,6 +225,16 @@ already rejects importing unsupported private-handoff requirements from summarie
 The operator correction governs this case; no broader privacy requirement or
 additional rule is established. The erroneous next action is withdrawn.
 
+Struck again, 2026-10-15: successive presentation repairs accumulated a mandatory
+answer template, case-specific recipes and compulsory irony. These instructions
+conflicted with [A capable reader](../AGENTS.md#general-rules) and
+[Occam](../AGENTS.md#general-rules). The user approved simplifying them with «чини».
+L22 now states the needed outcome and leaves form/detail to the question; L28 makes
+irony optional, and L22/L27 shorten the notice requirement. The existing boundaries
+and routing remain. This amends the bot's local instructions rather than adding a
+general rule. [Verification and its limits](rfc/01-0020-telegram-workshop-access.md#telegram-instruction-simplification--2026-10-15)
+include 120 passing tests and a native trial refused before execution.
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.

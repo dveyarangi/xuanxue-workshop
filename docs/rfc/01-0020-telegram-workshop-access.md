@@ -1039,6 +1039,27 @@ passed in isolation without changing their thresholds or implementation.
 The final uncontented run passed all 120 tests. Harness, installed rules, mechanism,
 board-report and ticket checks passed.
 
+## Telegram instruction simplification — 2026-10-15
+
+The user approved removal of the rigid answer template, case-specific presentation
+recipes and compulsory ironic thought with «чини» in the operator conversation.
+L22 now leaves answer form and detail to the question, retaining understandable
+next actions, current agreements and the division between agent work and personal
+actions. L28 retains the requested Lem-inspired voice with optional irony. L22/L27
+keep the early notice without prescribing a plea to wait or a next-message promise.
+
+The full executor instructions decreased from 8,990 to 5,884 characters; quick
+instructions decreased from 5,289 to 4,700 (LF-normalized text). Role permissions,
+secret protection, evidence freshness, request routing and notice delivery remain
+unchanged. Local rules were reinstalled into both bot instruction files.
+
+Verification: all 120 application tests passed; harness integrity, installed rules,
+mechanism declarations, ticket records and the board report passed. Source review
+confirmed that each invocation reads its instruction file. A proposed tool-free
+native model trial was rejected before execution by automatic approval review over
+transmission of project documents; no new live model or Telegram behavior is claimed.
+The unchanged application needs no receiver restart to read these instruction files.
+
 ## Evidence checked on 2026-10-12
 
 
