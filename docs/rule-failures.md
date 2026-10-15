@@ -29,6 +29,17 @@ now requires verified links or no reference and actionable operator directions;
 scoped tools provide fresh evidence and compatible follow-up. No general harness
 rule is added. The user's new mechanism-request route reaches operator recall via L26.
 
+Struck again, 2026-10-15, in the operator chat: the summary replaced the existing
+exact DNS handoff with “coordinate infrastructure” and presented an unprepared
+native content-admission question as operator work. The sources already identified
+the owner, CNAME target and private TXT handoff. The reviewer returned those facts,
+independently checked DNS/health, and marked the technical proposal as Workshop
+preparation. [Coordinate, Actions and resumption](../.agents/skills/coordinate/SKILL.md#actions-and-resumption)
+already owns actionable continuation. The [shared report format](../.agents/skills/review-assignments/REPORT.md#format)
+now requires actor, executable action, unavailable input and observable result,
+separating reviewer preparation from operator-only action. No new authority,
+tracker or general harness rule is introduced.
+
 ## 2026-10-15 — File readability mistaken for harness integration
 
 Status: repaired; native entry, skill selection and scoped-write verification passed.
