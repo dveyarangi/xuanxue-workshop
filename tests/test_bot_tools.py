@@ -98,6 +98,36 @@ class ToolTests(unittest.TestCase):
             other.read_issue(1, fresh=True)
         self.assertEqual(other.review_notice([1], NOTICE)["status"], "queued")
 
+    def test_fresh_discussion_reads_comments_without_linked_evidence(self):
+        calls = []
+        def api(method, path, payload=None, **kwargs):
+            calls.append(path)
+            if path == "user":
+                return {"login": "reviewer"}
+            if "/comments?" in path:
+                return [{"id": 1, "body": "old", "html_url": "https://github.com/school/workshop/issues/1#issuecomment-1"},
+                        {"id": 2, "body": "Open https://staging.school.example/?join=sample-invite",
+                         "html_url": "https://github.com/school/workshop/issues/1#issuecomment-2"}]
+            if path == "repos/school/workshop/issues/1":
+                return {"number": 1, "title": "Access", "body": "See https://github.com/school/app/pull/5",
+                        "labels": [], "updated_at": "now"}
+            raise AssertionError("Discussion must not expand linked evidence: " + path)
+        tracker = self.tools.board.GitHub("school/workshop", ["project:workshop"], api=api)
+        with patch.object(self.tools, "tracker", return_value=tracker):
+            result = self.tools.read_issue(1, section="discussion", fresh=True)
+        content = json.loads(result["text"])
+        self.assertEqual(content["comments"][0]["id"], 2)
+        self.assertIn("?join=sample-invite", content["comments"][0]["body"])
+        self.assertEqual(result["source"], "GitHub")
+        self.assertIn("checked_at", result)
+        self.assertNotIn("version", result)
+        self.assertEqual(len(calls), 4)
+        self.tools.finish()
+        other = TurnTools({**self.context, "request_id": "after-discussion"})
+        self.assertFalse(other.board_updates()["cases"][0]["new_to_conversation"])
+        with self.assertRaisesRegex(ValueError, "Read the current issue"):
+            self.tools.follow_up(1, "not-a-full-evidence-version", "Do work")
+
     def test_protocol_rejects_unlisted_capability(self):
         incoming = io.StringIO(json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/call",
                                           "params": {"name": "connect", "arguments": {}}}) + "\n")
@@ -171,6 +201,29 @@ class ToolTests(unittest.TestCase):
         group.work_once()
         self.assertEqual([item["text"] for item in peer.sent], [NOTICE, "Main answer"])
         self.assertEqual(group.history()[0]["notice"]["status"], "uncertain")
+
+    def test_quick_notice_arrives_before_full_work_and_is_not_repeated(self):
+        class Agent:
+            tools_enabled = True
+            quick_enabled = True
+
+            def quick(agent, *args):
+                return {"route": "work", "answer": "", "reason": "project work", "notice": NOTICE}
+
+            def chat(agent, *args, **kwargs):
+                self.assertEqual([item["text"] for item in peer.sent], [NOTICE])
+                self.assertEqual(args[4]["progress_notice"], NOTICE)
+                tools = TurnTools(json.loads(Path(kwargs["tool_context"]).read_text(encoding="utf-8")))
+                tools.review_notice([1], "A later notice")
+                kwargs["on_event"]({})
+                return {"status": "answered", "answer": "Main answer"}
+
+        peer = TelegramPeer([message()])
+        group = Group(Workshop(self.root, self.state, Agent()), peer, -100123)
+        group.start()
+        group.poll_once(0)
+        group.work_once()
+        self.assertEqual([item["text"] for item in peer.sent], [NOTICE, "Main answer"])
 
     def test_follow_up_reuses_board_publication_and_never_repeats(self):
         version = self.tools.read_issue(1)["version"]

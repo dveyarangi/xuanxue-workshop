@@ -112,11 +112,33 @@ class TurnTools:
         return {"scan": result, "board": self.board_updates()}
 
     def read_issue(self, number, section="issue", offset=0, fresh=False):
-        if type(number) is not int or number <= 0 or section not in {"issue", "comments", "timeline", "evidence"}:
+        if type(number) is not int or number <= 0 or section not in {"issue", "comments", "timeline", "evidence", "discussion"}:
             raise ValueError("Select an issue number and a supported section")
         if type(offset) is not int or offset < 0:
             raise ValueError("Offset must be nonnegative")
         row = next((r for r in self.rows() if r["number"] == number), None)
+        if section == "discussion":
+            if fresh or row is None:
+                tracker = self.tracker()
+                path = f"repos/{tracker.repo}/issues/{number}"
+                issue = tracker.api("GET", path)
+                comments = tracker.api("GET", path + "/comments?per_page=100", collection="")
+                after = tracker.api("GET", path)
+                if issue.get("updated_at") != after.get("updated_at"):
+                    raise RuntimeError("Issue changed while being read; retry discussion")
+                issue = tracker.issue(issue)
+            else:
+                snapshot = json.loads(row["snapshot"])
+                issue, comments = snapshot["issue"], snapshot["comments"]
+            # A discussion read does not establish the full evidence version required for publication.
+            text = json.dumps(redact({"comments": list(reversed(comments)), "issue": issue}), ensure_ascii=False, indent=2)
+            version = "discussion:" + self.board.digest([issue, comments])
+            with self.connect() as db:
+                db.execute("INSERT OR REPLACE INTO bot_board_reads VALUES (?,?,?,?)",
+                           (self.request_id, number, version, self.review_version(row) if row else None))
+            return {"number": number, "section": section, "source": "GitHub" if fresh or row is None else "monitor",
+                    "checked_at": datetime.now(timezone.utc).isoformat(), "text": text[offset:offset + 24000],
+                    "next_offset": offset + 24000 if len(text) > offset + 24000 else None}
         snapshot = self.tracker().snapshot(number) if fresh or row is None else json.loads(row["snapshot"])
         version = self.local_board().fingerprint(snapshot) if self.board_state.is_file() else self.board.digest(snapshot)
         with self.connect() as db:
@@ -292,7 +314,7 @@ INTEGER = {"type": "integer"}
 TOOLS = [
     definition("board_updates", "Read the board script's retained update/review status. Cached evidence is dated, not a fresh scan.", {}),
     definition("scan_board", "Run existing board discovery when monitor output is absent or a fresh scan is needed. Never publishes or claims a review.", {}),
-    definition("read_issue", "Read a Workshop issue section with pagination. fresh=true retrieves GitHub evidence.",
+    definition("read_issue", "Read a Workshop issue section with pagination. For current arrangements use section=discussion, fresh=true: newest comments first, without linked evidence. Other sections include the full evidence version required by follow_up.",
                {"number": INTEGER, "section": STRING, "offset": INTEGER, "fresh": {"type": "boolean"}}, ("number",)),
     definition("review_notice", "Queue your brief, source-grounded description of what you are about to check in new relevant evidence.",
                {"numbers": {"type": "array", "items": INTEGER},

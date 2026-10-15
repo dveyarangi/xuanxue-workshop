@@ -188,6 +188,11 @@ class Workshop:
             if decision["route"] != "work":
                 return {"status": {"answer": "answered", "offer": "offered", "ignore": "ignored"}[decision["route"]],
                         "answer": decision["answer"], "runtime": timing}
+            notice = decision.get("notice", "")
+            if isinstance(notice, str) and 0 < len(notice.strip()) <= 320 and redact(notice) == notice and on_progress:
+                on_progress(notice.strip())
+                conversation = {**conversation, "progress_notice": notice.strip()}
+                timing["notice_seconds"] = round(time.monotonic() - started, 3)
         args = (self.root, self.memory, self.state.parent, question, conversation)
         current = (conversation or {}).get("current", {})
         if "conversation_id" not in current or "chat_id" not in (conversation or {}):

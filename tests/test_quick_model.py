@@ -20,7 +20,7 @@ class QuickModelTests(unittest.TestCase):
                 data = json.loads(kwargs["input"])
                 self.assertIn(101, [m["message_id"] for m in data["messages"]])
                 Path(command[command.index("--output-last-message") + 1]).write_text(json.dumps({
-                    "route": "work", "answer": "", "reason": "accepted offer", "continue_with": 101}))
+                    "route": "work", "answer": "", "reason": "accepted offer", "notice": "Checking the tasks; answer follows.", "continue_with": 101}))
                 return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}\n', '')
             with patch("workshop_bot.quick.subprocess.run", side_effect=invoke):
                 decision = decide("codex.exe", root, root / "memory.md", "рассказывай", {
@@ -28,6 +28,18 @@ class QuickModelTests(unittest.TestCase):
                     "continuations": [{"message_id": 101, "conversation_id": 11}],
                     "messages": [{"message_id": 101, "text": "Рассказать о задачах?"}]})
             self.assertEqual(decision["continue_with"], 101)
+
+    def test_notice_is_required_only_for_work_and_rejects_credentials(self):
+        for route, notice in (("work", ""), ("answer", "Unexpected notice"),
+                              ("work", "123456789:" + "A" * 30), ("work", "x" * 321)):
+            with self.subTest(route=route, notice=notice), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                def invoke(command, **kwargs):
+                    Path(command[command.index("--output-last-message") + 1]).write_text(json.dumps({
+                        "route": route, "answer": "", "reason": "test", "notice": notice}))
+                    return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}\n', '')
+                with patch("workshop_bot.quick.subprocess.run", side_effect=invoke), self.assertRaisesRegex(ValueError, "notice"):
+                    decide("codex.exe", root, root / "memory.md", "Tasks?", {})
 
     def test_implicit_greeting_schema_can_only_acknowledge_or_ignore(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -37,7 +49,7 @@ class QuickModelTests(unittest.TestCase):
                 self.assertEqual(schema["properties"]["route"]["enum"], ["offer", "ignore"])
                 self.assertEqual(schema["properties"]["answer"]["maxLength"], 320)
                 Path(command[command.index("--output-last-message") + 1]).write_text(
-                    json.dumps({"route": "offer", "answer": "Да, я здесь.", "reason": "addressed greeting"}),
+                    json.dumps({"route": "offer", "answer": "Да, я здесь.", "reason": "addressed greeting", "notice": ""}),
                     encoding="utf-8")
                 return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}\n', '')
             with patch("workshop_bot.quick.subprocess.run", side_effect=invoke):
@@ -69,7 +81,7 @@ class QuickModelTests(unittest.TestCase):
                 self.assertGreater(data["omitted_messages"], 0)
                 self.assertLess(len(kwargs["input"]), 20000)
                 output = Path(command[command.index("--output-last-message") + 1])
-                output.write_text(json.dumps({"route": "answer", "answer": "Да", "reason": "available"}))
+                output.write_text(json.dumps({"route": "answer", "answer": "Да", "reason": "available", "notice": ""}))
                 return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed","usage":{}}\n', '')
 
             with patch.dict(os.environ, {"TELEGRAM_BOT_TOKEN": "must-not-reach-model"}), \

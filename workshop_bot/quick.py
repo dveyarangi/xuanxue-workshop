@@ -10,9 +10,10 @@ from pathlib import Path
 
 
 SCHEMA = {"type": "object", "additionalProperties": False,
-          "required": ["route", "answer", "reason"], "properties": {
+          "required": ["route", "answer", "reason", "notice"], "properties": {
               "route": {"type": "string", "enum": ["answer", "work", "offer", "ignore"]},
-              "answer": {"type": "string"}, "reason": {"type": "string"}}}
+              "answer": {"type": "string"}, "reason": {"type": "string"},
+              "notice": {"type": "string", "maxLength": 320}}}
 
 
 def decide(executable, root, memory, question, conversation):
@@ -106,10 +107,15 @@ def decide(executable, root, memory, question, conversation):
             raise RuntimeError("Quick conversation did not complete")
         decision = json.loads(output.read_text(encoding="utf-8"))
     if set(decision) != set(output_schema["required"]) or not all(
-            isinstance(decision.get(key), str) for key in ("route", "answer", "reason")):
+            isinstance(decision.get(key), str) for key in ("route", "answer", "reason", "notice")):
         raise ValueError("Invalid quick decision")
     if decision["route"] not in routes:
         raise ValueError(f"Invalid quick route for addressing mode: {decision['route'][:40]}")
+    from .service import redact
+    notice = decision["notice"]
+    if (len(notice) > 320 or redact(notice) != notice or
+            (decision["route"] == "work") != bool(notice.strip())):
+        raise ValueError("Invalid work notice")
     if ambient and decision["route"] in {"answer", "work"}:
         if type(decision.get("continue_with")) is not int or decision["continue_with"] not in {
                 item["message_id"] for item in continuations}:
