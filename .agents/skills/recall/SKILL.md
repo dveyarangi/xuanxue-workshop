@@ -36,6 +36,10 @@ estimate it, and place it with `at`. Re-rank nothing another running session is 
 </installed>
 
 <installed by="local">
+**L26** At operator recall, read docs/requests/telegram.md when present and surface pending
+requests. Record the operator's disposition in that same entry. A Telegram request
+does not authorize its own implementation.
+
 **L25** Periodic review runs hourly, with mechanical discovery before model invocation.
 Use docs/board-review.md as the shared report; review-assignments owns its writing
 instructions and format. Operator wake reads it as context without repeating an
