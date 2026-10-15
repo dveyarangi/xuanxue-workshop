@@ -3,7 +3,7 @@
 - **record of** what it intends to become
 - **Status:** accepted by the user, 2026-10-15
 - **Authority:** the user, 2026-10-14, accepted unattended review and original-issue responses within existing agreements.
-- **Context:** [unattended-review question](../questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
+- **Context:** [unattended-review question](../questions/done/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
 
 ## Problem Statement
 
@@ -23,13 +23,18 @@ The accepted authority is in [local rules, L23](../../local.rules.md#l23--unatte
 Review follows the existing assignment-review methodology. The authority does not
 change recipient ownership or acceptance criteria.
 
-A mechanical detector supplies changed board material and due evidence follow-ups
-to a periodic agent review in this existing Codex chat. The cadence is hourly on
-the current local host. Each hourly run leaves a short dated report in this chat
-when it produces meaningful changes, completed actions, required operator decisions
-or actionable failures. Unchanged or non-actionable runs remain silent. Reports stay
-in chat history and are not repeated on wake. The existing scheduling facility supplies recurrence; the
-implementation adds no separate daemon, workflow framework or dispatch board.
+Hourly mechanical discovery runs before any model invocation. Available work starts
+a separate full reviewer. Its shared report is readable by operator wake and the
+Telegram conversation role, without automatic distribution. The assignment-review
+mechanism owns the report. The local computer, signed-in account and command-line
+tools provide execution; Desktop is not required.
+
+The shared report is `docs/board-review.md`: dated reviewed scope, meaningful results,
+unresolved matters and current operational state, linked to their original records.
+Unresolved matters survive later summaries until resolved. Unchanged runs start no
+model and produce no report change. Incomplete reads remain explicit failures.
+The Windows user task runs hourly; one local controller holds ownership through
+review completion. The original issue remains the response and acceptance history.
 
 ## User Stories
 
@@ -88,8 +93,8 @@ Missing evidence goes to its responsible participant; operator escalation is for
 decision, an action outside authority, an unresolved collision, or an operational
 failure requiring operator intervention.
 
-The initial local host requires the computer and Codex application running, repository
-access and usable GitHub tools. An unavailable prerequisite is reported, not treated
+The local host requires the computer running, the user signed in, repository
+access and usable Codex/GitHub command-line tools. An unavailable prerequisite is reported, not treated
 as an empty board. A replacement trigger can invoke the same detector and reviewer;
 there is no server deployment or new credential-issuance mechanism in this scope.
 
@@ -105,11 +110,11 @@ incomplete/full acceptance, contract/security proposals, and attempts to grant
 authority through an issue message. Mechanical tests cannot prove these judgments;
 the operator grades actual or representative full-review results separately.
 
-The user accepted the five representative outcomes on 2026-10-15. In the same
-message the user changed cadence to hourly. The subsequent clarification removed
-reports for unchanged state and report repetition on wake: meaningful results are
-reported in this chat when the run finishes. Report retention uses the host's
-existing chat history. An unchanged tracker needs no duplicate issue response.
+The user accepted the five representative outcomes on 2026-10-15 and subsequently
+accepted detector-first activation, a separate reviewer and a shared report for
+wake and bot readers. Quiet detection must prove zero model calls; report replacement
+must preserve unresolved information and reject concurrent edits. A controlled real
+Codex invocation and scheduled-host execution precede replacement of the heartbeat.
 
 The first live run observes the actual board without automatic publication and
 compares candidate actions to the existing review history. A controlled end-to-end
@@ -126,13 +131,18 @@ an always-on hosted service; a general workflow platform.
 
 ## Further Notes
 
-The [workshop-board-review ticket](../tickets/01-0006-workshop-board-review.md) delivers a single
+The [workshop-board-review ticket](../tickets/done/01-0006-workshop-board-review.md) delivers a single
 vertical slice covering detection through studied response/escalation and recovery.
 It is HITL because operator grading is a separate acceptance requirement.
 No independent recipient implementation is a prerequisite.
 
-The current host offers a same-chat scheduled task:
+The previous host offered a same-chat scheduled task:
 [OpenAI scheduled-task documentation](https://learn.chatgpt.com/docs/automations?surface=app#schedule-a-task-inside-a-chat),
 read 2026-10-14. Availability is observed in the current task's tool surface;
 successful unattended tools/network access is part of live proof, not assumed
-from the availability of the scheduling control.
+from the availability of the scheduling control. That heartbeat is now paused.
+The Windows task replaces model-first activation with mechanical discovery. Its
+controlled discovery completed without a model. A real standalone Codex then read
+GitHub through scoped host capabilities and replaced a controlled report without
+losing its open matter. The full hourly task is enabled; the first complete unattended
+board batch remains an operational observation, not an already observed result.

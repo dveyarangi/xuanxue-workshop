@@ -2,7 +2,28 @@
 
 ## Periodic review implementation — 2026-10-15
 
-[workshop-board-review](../tickets/01-0006-workshop-board-review.md) implements the
+The detector-first replacement, its shared report and actual Windows deployment
+are observed in the [Windows host record](../edge/board-review-hosts/windows-task.md).
+The user accepted mechanical discovery before any model call, a separate reviewer
+and one shared report for wake/bot readers, with writing owned by review-assignments.
+There was no prior shared-report corpus when its validator was introduced. Invalid
+and stale replacements were exercised before creating the report. Controlled real
+Codex and bot readers passed; real scheduled discovery passed with zero reviewer
+invocations. The old heartbeat is paused. Direct sandbox authentication returned 401;
+a rejected raw-credential delegation patch was not applied. Scoped host MCP capabilities
+then passed actual standalone identity (dveyarangi), issue 14 read and report replacement
+with its open matter preserved. The authenticated broker retains credentials at the host,
+restricts mutations to selected issues and GET reads to configured repositories. Four
+capability tests also prove foreign lease/publication refusal and one physical delivery
+on retry. The full hourly task was enabled at 2026-10-15T01:02Z; its next run is
+05:02:27+03:00. First unattended full-batch review and standalone remote publication
+remain unobserved; earlier real delivery recovery and operator grading remain distinct.
+
+The system PowerShell execution policy refused the initial scheduled script action.
+The task now directly invokes windowless Python; no policy change or bypass was used.
+The remaining historical paragraphs record the prior native-chat host and its proofs.
+
+[workshop-board-review](../tickets/done/01-0006-workshop-board-review.md) implements the
 accepted same-chat periodic scope. The full agent remains responsible for semantic
 review; mechanical state detects candidates, guards local ownership and retains
 publication outcomes. Neither discovery nor a processing outcome accepts a project.
@@ -108,7 +129,7 @@ authorized correction, the permission moved to L23 in local.rules.md, installed
 at Workshop entry and assignment review. The existing review mechanism owns its
 application; no recipient obligation or global autonomy switch changed.
 
-The [unattended-review question](../questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md)
+The [unattended-review question](../questions/done/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md)
 holds the accepted permission and proposed execution work. Installing the local
 authority does not establish a periodic runner, unattended network access or
 operator acceptance of the proposed specification and breakdown.

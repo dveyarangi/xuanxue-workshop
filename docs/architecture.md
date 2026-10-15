@@ -105,8 +105,17 @@ from each operator's environment are dependencies of working agent integration.
 The [assignment-review mechanism](../.agents/mechanisms/review-assignments/review-assignments.md)
 uses locally supplied authority, including the
 [accepted periodic-review authorization](../local.rules.md#l23--unattended-board-review-authority).
+The accepted activation runs hourly mechanical discovery before any model invocation;
+available work starts a separate full reviewer. The assignment-review mechanism
+owns the shared `docs/board-review.md` report, read by operator wake and the Telegram
+conversation role without automatic distribution. Original issues and governing
+records retain authority. The host requires a running local computer, signed-in
+account and command-line tools; Desktop is not required.
+Authenticated reviewer operations run through scoped host capabilities: writes are
+restricted to host-selected issues and evidence reads to configured repositories.
+GitHub credentials remain at the host.
 Mechanical discovery and publication recovery are implemented; live activation evidence remains in the
-[unattended-review question](questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
+[unattended-review question](questions/done/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md).
 
 ## Telegram access
 

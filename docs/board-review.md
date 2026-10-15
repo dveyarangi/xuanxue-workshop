@@ -13,9 +13,9 @@ Live read-only discovery inspected thirteen addressed issues. Controlled issue 1
 
 ## Open matters
 
-The initial thirteen-case baseline is unprocessed in local review progress; consult original conversations before inferring unanswered work. Active manual scopes remain with their sessions. The [review activation question](questions/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md) retains remaining host verification.
+The initial thirteen-case baseline is unprocessed in local review progress; consult original conversations before inferring unanswered work. Active manual scopes remain with their sessions. The [review activation question](questions/done/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md) retains host proof and the unobserved first autonomous full-batch boundary.
 
 ## Operations
 
-2026-10-15T00:39:08+00:00
-Hourly Windows task WorkshopBoardReview is installed in discovery-only mode. Scheduled live discovery finished 2026-10-15T00:37:01Z with cases 1–13 pending, no read errors and no reviewer invocation. The native heartbeat is PAUSED. Autonomous responses await the operator choice on GitHub authorization: the standalone sandbox currently receives HTTP 401. The shared report and bot reader are verified; the report retains the prior reviewed scope and unresolved matters.
+2026-10-15T01:03:16+00:00
+Hourly Windows task WorkshopBoardReview is enabled for full review after mechanical discovery; next run 2026-10-15T05:02:27+03:00. The native heartbeat is PAUSED. Actual scheduled discovery completed without a model, and a real standalone Codex proved authenticated scoped host reads and report replacement with its open matter preserved. Credentials stay at the host. The first full unattended batch is not yet observed. Prior reviewed scope and open matters remain unchanged; no automatic Telegram distribution.
