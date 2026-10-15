@@ -544,6 +544,30 @@ The full standard-library suite passed 82 tests; harness, installed-rule, mechan
 question and ticket validation passed. The scoped provisional-text scan found no
 unbound candidate introduced by this amendment.
 
+## Silent receiver and typing correction — 2026-10-15
+
+The user reported missing answers and no visible typing activity. Inspection found
+no running receiver and no newly received messages in the local journal; its former
+execution handle no longer existed. The cause of that process exit was not retained.
+The transport also had no sendChatAction implementation.
+
+The worker now sends typing before preparing an addressed answer and renews it every
+four seconds in the same topic. It stops renewal before sending the answer, respects
+Telegram retry delays and isolates indicator failures. The action uses a short HTTP
+timeout. Ordinary group background messages do not start it. Tests exercise renewal,
+topic routing, cleanup and failure isolation through the group processing boundary.
+
+The local receiver was restarted as a hidden Windows process with separate retained
+stdout/stderr logs under its private runtime directory. This is a local launch, not
+automatic startup after reboot or a continuous-hosting guarantee.
+
+Verification: 90 tests passed, including both typing cases; the declared harness,
+installed-rule, mechanism, ticket and board-report checks passed. The restarted
+receiver recovered group message 43 and delivered a substantive answered result,
+with no processing or delivery error. Its separate process remained running on
+subsequent inspection. Telegram client rendering of the indicator was not observed
+directly; renewal and request parameters were verified through transport tests.
+
 ## Evidence checked on 2026-10-12
 
 - Local `codex-cli 0.159.0` help exposes `exec`, JSON/final output, sandbox selection,

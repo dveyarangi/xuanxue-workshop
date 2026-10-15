@@ -195,6 +195,12 @@ must act, the answer explains how, or points their agent to an existing assignme
 
 ## Verification
 
+During answer preparation the receiver renews Telegram's typing status every four
+seconds. This is independent of the separate notice about new board evidence.
+Local operation requires a running receiver process. Its lifetime is not guaranteed
+by a temporary Codex command handle; a hidden Windows launch can retain stdout/stderr
+logs outside that handle. Computer shutdown still stops the receiver.
+
 ```powershell
 uv run --offline --no-project python -m unittest discover -s tests -v
 uv run --offline --no-project python -m tests.live_workshop_proof

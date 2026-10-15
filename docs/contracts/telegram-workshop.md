@@ -156,6 +156,11 @@ applicable; absent that review, recall and assignment review establish the answe
 New relevant evidence produces a short separate message about reviewing it before
 the main answer. Unrelated or already considered evidence produces no such notice.
 
+The user's visible-waiting correction of 2026-10-15 adds Telegram's typing status
+while an addressed answer is being prepared, in the originating topic when present.
+It indicates activity, not progress or a completion estimate. An indicator failure
+does not turn an otherwise successful answer into a failure.
+
 References in Telegram are verified repository/issue links or omitted. A necessary
 human action includes how to carry it out; an existing agent assignment is passed
 to the operator as a direction to their agent with the original issue link.
