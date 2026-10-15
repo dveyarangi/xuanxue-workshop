@@ -1,5 +1,41 @@
 # Rule failures
 
+## 2026-10-15 — Repository metadata triggered unnecessary board review
+
+Status: corrected in discovery and follow-up enforcement; retained progress upgraded.
+
+The [host contract](edge/board-review-hosts.md#contract) promises detector-first quiet
+runs. Original PR fixtures exposed only a head SHA, while actual GitHub responses
+embedded mutable head/base repository metadata. An unrelated repo pushed_at change
+therefore changed a studied issue's fingerprint. The reviewer also explicitly chose
+one-hour waiting/operator follow-ups despite the engine's six-hour default, repeatedly
+creating work without new board evidence. The operator authorized the scoped repair
+on 2026-10-15 after the 13:02 run was found still active at 13:36.
+
+The corrected [review mechanism](../.agents/mechanisms/review-assignments/review-assignments.md)
+compares source identity/ref/SHA while excluding unrelated repository metadata,
+including metadata nested in cross-reference timelines,
+and enforces a six-hour minimum for unchanged waiting/operator work. Changed evidence
+still becomes eligible at the next hourly discovery. Regression coverage includes
+quiet controller behavior, real source changes, immediate new evidence, old-format
+progress preservation, live-lease refusal and one-time prepared-publication recovery.
+
+The old run hit its 40-minute timeout at 13:48:28+03:00, leaving no held lease and no
+new response. Fourteen records were upgraded under the controller lock after an SQLite
+backup; public delivery receipts were unchanged. Old one-hour deadlines were shifted
+by five hours, retaining the original review time. Only digests proved by their stored
+snapshot are rebased as reviewed; actual unreviewed changes stay pending. The
+[Windows host record](edge/board-review-hosts/windows-task.md#conformance) owns live
+verification and recurrence observations. No new general harness rule is proposed.
+
+The first live pass exposed that additional nested form; the completed repair was
+then checked against the original proved snapshots and a second real pass. At
+14:13:17+03:00 six unchanged cases were quiet and eight actual discussion/timeline
+changes remained pending, with no model call or primary read error. No current
+change was relabelled reviewed to manufacture an empty queue. The final full suite
+passed 102 tests; the original metadata-heavy fixture now exercises both context
+projection and meaningful source/comment changes.
+
 ## 2026-10-15 — Fresh-message fixture missed stored failed conversations
 
 Status: repaired in [telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
