@@ -552,8 +552,9 @@ no running receiver and no newly received messages in the local journal; its for
 execution handle no longer existed. The cause of that process exit was not retained.
 The transport also had no sendChatAction implementation.
 
-The worker now sends typing before preparing an addressed answer and renews it every
-four seconds in the same topic. It stops renewal before sending the answer, respects
+The worker sends typing before preparing an addressed answer and renews it every
+two seconds in the same topic, measured from the start of each network call rather
+than its completion. It stops renewal before sending the answer, respects
 Telegram retry delays and isolates indicator failures. The action uses a short HTTP
 timeout. Ordinary group background messages do not start it. Tests exercise renewal,
 topic routing, cleanup and failure isolation through the group processing boundary.
@@ -568,6 +569,27 @@ receiver recovered group message 43 and delivered a substantive answered result,
 with no processing or delivery error. Its separate process remained running on
 subsequent inspection. Telegram client rendering of the indicator was not observed
 directly; renewal and request parameters were verified through transport tests.
+
+The later 2026-10-15 report of disappearing typing occurred while message 57 was
+still processing; that request subsequently reached confirmed delivery. Telegram's
+indicator expires after at most five seconds and is cleared by a bot message,
+including a review notice. The previous four-second completion-based interval left
+little tolerance for network latency. Three live diagnostic actions succeeded in
+0.26–0.33 seconds, so the particular disappearance is not proven to be a network
+failure. The two-second start-based cadence increases that tolerance; safe local
+logs retain message ID, accepted calls and duration, or error code/retry delay,
+without message bodies, API URLs or credentials. Failure to refresh does not stop
+the answer. Telegram rate limits, network failures and client rendering can still
+interrupt the indicator; it is not a guarantee of continuous display.
+
+Verification of this amendment: 95 tests passed against the committed baseline
+plus these changes, including delayed-action cadence and safe failure logging.
+The shared 102-test run encountered a separate in-progress board transport
+expectation mismatch; its changes are excluded from this slice. The declared
+harness, rule, mechanism, board-report and ticket checks passed. Four actual
+sendChatAction calls were accepted at 14:10:46/48/50/52 Jerusalem, with no message
+sent by that diagnostic. The idle receiver was restarted at 14:12 with stderr
+logging enabled; Telegram-client rendering remains unobserved.
 
 ## Executable next steps — 2026-10-15
 

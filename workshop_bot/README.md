@@ -195,8 +195,11 @@ must act, the answer explains how, or points their agent to an existing assignme
 
 ## Verification
 
-During answer preparation the receiver renews Telegram's typing status every four
-seconds. This is independent of the separate notice about new board evidence.
+During answer preparation the receiver renews Telegram's typing status every two
+seconds, accounting for network-call duration and respecting Telegram retry delays.
+Its stderr log records accepted updates and failures without message text or credentials.
+This is independent of the separate notice about new board evidence; Telegram clears
+typing when a bot message arrives, and the next update restores it.
 Local operation requires a running receiver process. Its lifetime is not guaranteed
 by a temporary Codex command handle; a hidden Windows launch can retain stdout/stderr
 logs outside that handle. Computer shutdown still stops the receiver.
