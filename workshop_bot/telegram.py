@@ -30,7 +30,7 @@ class Group:
             columns = {row[1] for row in db.execute("PRAGMA table_info(telegram_requests)")}
             if not {"parts", "retry_at", "attempts"}.issubset(columns):
                 raise ValueError("Версия истории Telegram не поддерживается; исходная история сохранена.")
-            for name in ("reply_to", "conversation_id"):
+            for name in ("reply_to", "conversation_id", "addressed_message_id"):
                 if name not in columns:
                     db.execute(f"ALTER TABLE telegram_requests ADD COLUMN {name} INTEGER")
             if "context" not in columns:
@@ -84,13 +84,13 @@ class Group:
             with self.workshop.connect() as db:
                 if selected:
                     db.execute("INSERT OR IGNORE INTO telegram_requests "
-                               "(update_id,message_id,sender,created,body,thread_id,status,reply_to,conversation_id) "
-                               "VALUES (?,?,?,?,?,?,?,?,?)",
+                               "(update_id,message_id,sender,created,body,thread_id,status,reply_to,conversation_id,addressed_message_id) "
+                               "VALUES (?,?,?,?,?,?,?,?,?,?)",
                                (update["update_id"], selected["message_id"],
                                 json.dumps(redact(selected["sender"]), ensure_ascii=False), selected["created"],
                                 redact(selected["body"]), selected["thread_id"],
                                 "queued" if selected["addressed"] else "observed",
-                                selected["reply_to"], selected["conversation_id"]))
+                                selected["reply_to"], selected["conversation_id"], selected["addressed_message_id"]))
                     if selected["bare"]:
                         invitation = "Задайте вопрос о проектах Workshop — помогу разобраться."
                         db.execute("UPDATE telegram_requests SET status='ready', result=?, parts=? "
@@ -134,14 +134,35 @@ class Group:
         remaining = text
         for reference in references:
             remaining = remaining.replace(reference, "", 1)
-        return {"message_id": message["message_id"], "body": text,
+        selected = {"message_id": message["message_id"], "body": text,
                 "addressed": addressed, "reply_to": reply_to,
                 "conversation_id": parent["conversation_id"] if parent else message["message_id"] if addressed else None,
                 "bare": bool(references) and not remaining.strip(" \t\r\n,.;:!?—-"),
                 "sender": {k: v for k, v in message.get("sender_chat", message.get("from", {})).items()
                            if k in {"id", "first_name", "last_name", "username", "title", "type"}},
                 "created": datetime.fromtimestamp(message["date"], timezone.utc).isoformat(),
-                "thread_id": message.get("message_thread_id")}
+                "thread_id": message.get("message_thread_id"), "addressed_message_id": None}
+        if selected["bare"] and reply_to is None:
+            previous = self.previous_message(selected)
+            if previous:
+                selected.update(bare=False, addressed_message_id=previous["message_id"],
+                                conversation_id=previous["message_id"])
+        return selected
+
+    def previous_message(self, selected):
+        sender = selected["sender"]
+        if sender.get("id") is None:
+            return None
+        with self.workshop.connect() as db:
+            previous = db.execute(
+                "SELECT * FROM telegram_requests WHERE message_id < ? AND thread_id IS ? "
+                "AND json_extract(sender,'$.id')=? AND COALESCE(json_extract(sender,'$.type'),'')=? "
+                "ORDER BY message_id DESC LIMIT 1",
+                (selected["message_id"], selected["thread_id"], sender["id"], sender.get("type", ""))).fetchone()
+        if previous is None or previous["status"] != "observed" or previous["body"].startswith("[Сообщение без текста:"):
+            return None
+        age = (datetime.fromisoformat(selected["created"]) - datetime.fromisoformat(previous["created"])).total_seconds()
+        return previous if 0 <= age <= 300 else None
 
     def references(self, text, entities):
         references = []
@@ -186,9 +207,10 @@ class Group:
                 db.execute("UPDATE telegram_requests SET status='processing', context=? WHERE update_id=?",
                            (json.dumps(context, ensure_ascii=False), row["update_id"]))
         if row["status"] == "queued":
+            question = context.get("addressed_message", {}).get("text", row["body"])
             with self.typing(row):
                 result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
-                                           row["body"], sender=row["sender"], conversation=context,
+                                           question, sender=row["sender"], conversation=context,
                                            on_progress=lambda text: self.notice(row, text))
             text = result["answer"]
             parts = split_reply(text)
@@ -318,12 +340,15 @@ class Group:
             selected.append(message)
             size += length
         selected.sort(key=lambda message: message["message_id"])
-        return {"chat_id": self.group_id, "messages": selected, "omitted_messages": len(messages) - len(selected),
+        result = {"chat_id": self.group_id, "messages": selected, "omitted_messages": len(messages) - len(selected),
                 "scope": "Received group text/captions and confirmed bot replies; no pre-collection archive, "
                          "attachment contents or messages Telegram did not deliver.",
                 "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),
                             "created": request["created"], "thread_id": request["thread_id"],
                             "reply_to": request["reply_to"], "conversation_id": request["conversation_id"]}}
+        if request["addressed_message_id"] is not None:
+            result["addressed_message"] = next(m for m in messages if m["message_id"] == request["addressed_message_id"])
+        return result
 
     def history(self):
         with self.workshop.connect() as db:
