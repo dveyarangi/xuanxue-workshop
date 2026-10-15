@@ -2,7 +2,7 @@ import json
 import logging
 import threading
 import time
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime, timezone
 from urllib.parse import parse_qs, urlsplit
 
@@ -37,6 +37,13 @@ class Group:
                     db.execute(f"ALTER TABLE telegram_requests ADD COLUMN {name} INTEGER")
             if "context" not in columns:
                 db.execute("ALTER TABLE telegram_requests ADD COLUMN context TEXT")
+            if "addressing" not in columns:
+                db.execute("ALTER TABLE telegram_requests ADD COLUMN addressing TEXT DEFAULT 'direct'")
+            if "reply_context" not in columns:
+                db.execute("ALTER TABLE telegram_requests ADD COLUMN reply_context TEXT")
+            for name in ("received_at", "started_at", "completed_at", "sent_at"):
+                if name not in columns:
+                    db.execute(f"ALTER TABLE telegram_requests ADD COLUMN {name} REAL")
             db.execute("UPDATE telegram_requests SET conversation_id=message_id "
                        "WHERE conversation_id IS NULL AND status != 'observed'")
         self.outbox = Outbox(self)
@@ -50,7 +57,8 @@ class Group:
             db.execute("UPDATE telegram_notices SET status='uncertain' WHERE status='sending'")
             db.execute("UPDATE telegram_requests SET status='uncertain', error='Подтверждение отправки потеряно.' "
                        "WHERE status='sending'")
-            db.execute("UPDATE telegram_requests SET status='queued' WHERE status='processing'")
+            db.execute("UPDATE telegram_requests SET status=CASE WHEN addressing='ambient' THEN 'candidate' "
+                       "ELSE 'queued' END WHERE status='processing'")
 
     def check_group(self):
         identity = self.api.call("getMe")
@@ -86,13 +94,17 @@ class Group:
             with self.workshop.connect() as db:
                 if selected:
                     db.execute("INSERT OR IGNORE INTO telegram_requests "
-                               "(update_id,message_id,sender,created,body,thread_id,status,reply_to,conversation_id,addressed_message_id) "
-                               "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                               "(update_id,message_id,sender,created,body,thread_id,status,reply_to,conversation_id,addressed_message_id,addressing,reply_context,received_at) "
+                               "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
                                (update["update_id"], selected["message_id"],
                                 json.dumps(redact(selected["sender"]), ensure_ascii=False), selected["created"],
                                 redact(selected["body"]), selected["thread_id"],
-                                "queued" if selected["addressed"] else "observed",
-                                selected["reply_to"], selected["conversation_id"], selected["addressed_message_id"]))
+                                "queued" if selected["addressed"] else "candidate" if
+                                getattr(self.workshop.agent, "quick_enabled", False) and
+                                not selected["body"].startswith("[Сообщение без текста:") else "observed",
+                                selected["reply_to"], selected["conversation_id"], selected["addressed_message_id"],
+                                "direct" if selected["addressed"] else "ambient",
+                                json.dumps(redact(selected["reply_context"]), ensure_ascii=False), time.time()))
                 db.execute("INSERT INTO telegram_meta VALUES ('offset', ?) "
                            "ON CONFLICT(key) DO UPDATE SET value=CAST(MAX(CAST(value AS INTEGER), "
                            "CAST(excluded.value AS INTEGER)) AS TEXT)",
@@ -126,13 +138,17 @@ class Group:
                 if parent is None:
                     parent = db.execute("SELECT message_id AS conversation_id FROM telegram_outbox "
                                         "WHERE status='sent' AND message_id=?", (reply_to,)).fetchone()
-        addressed = bool(references) or parent is not None
+        reply_to_bot = reply.get("from", {}).get("id") == self.identity["id"] and reply.get("from", {}).get("is_bot")
+        addressed = bool(references) or parent is not None or bool(reply_to_bot)
         remaining = text
         for reference in references:
             remaining = remaining.replace(reference, "", 1)
         selected = {"message_id": message["message_id"], "body": text,
                 "addressed": addressed, "reply_to": reply_to,
-                "conversation_id": parent["conversation_id"] if parent else message["message_id"] if addressed else None,
+                "conversation_id": (parent["conversation_id"] or reply_to) if parent else reply_to if reply_to_bot else message["message_id"],
+                "reply_context": {"message_id": reply_to, "role": "assistant" if reply_to_bot else "user",
+                                  "sender": {"id": reply.get("from", {}).get("id")},
+                                  "text": reply.get("text", reply.get("caption", ""))[:20000]} if reply_to else None,
                 "bare": bool(references) and not remaining.strip(" \t\r\n,.;:!?—-"),
                 "sender": {k: v for k, v in message.get("sender_chat", message.get("from", {})).items()
                            if k in {"id", "first_name", "last_name", "username", "title", "type"}},
@@ -142,7 +158,7 @@ class Group:
             previous = self.previous_message(selected)
             if previous:
                 selected["conversation_id"] = previous["conversation_id"] or previous["message_id"]
-                if previous["status"] == "observed":
+                if previous["status"] in {"observed", "candidate"}:
                     selected["addressed_message_id"] = previous["message_id"]
         return selected
 
@@ -199,27 +215,37 @@ class Group:
 
     def work_once(self):
         with self.workshop.connect() as db:
-            row = db.execute("SELECT * FROM telegram_requests WHERE status IN ('queued','ready') "
-                             "ORDER BY update_id LIMIT 1").fetchone()
+            row = db.execute("SELECT * FROM telegram_requests WHERE status IN ('queued','ready','candidate') "
+                             "ORDER BY CASE WHEN status='candidate' THEN 1 ELSE 0 END, update_id LIMIT 1").fetchone()
             if row is None:
                 return False
             if row["retry_at"] > time.time():
                 return False
-            if row["status"] == "queued":
+            if row["status"] == "candidate" and db.execute(
+                    "SELECT 1 FROM telegram_requests WHERE addressed_message_id=? OR "
+                    "(reply_to=? AND addressing='direct') LIMIT 1", (row["message_id"], row["message_id"])).fetchone():
+                db.execute("UPDATE telegram_requests SET status='observed' WHERE update_id=?", (row["update_id"],))
+                return True
+            if row["status"] in {"queued", "candidate"}:
                 context = json.loads(row["context"]) if row["context"] else self.conversation(row)
-                db.execute("UPDATE telegram_requests SET status='processing', context=? WHERE update_id=?",
-                           (json.dumps(context, ensure_ascii=False), row["update_id"]))
-        if row["status"] == "queued":
+                db.execute("UPDATE telegram_requests SET status='processing', context=?,started_at=? WHERE update_id=?",
+                           (json.dumps(context, ensure_ascii=False), time.time(), row["update_id"]))
+        if row["status"] in {"queued", "candidate"}:
             question = context.get("addressed_message", {}).get("text", row["body"])
-            with self.typing(row):
+            with self.typing(row) if row["addressing"] == "direct" else nullcontext():
                 result = self.workshop.ask(f"telegram:{self.identity['id']}:{self.group_id}:{row['message_id']}",
                                            question, sender=row["sender"], conversation=context,
                                            on_progress=lambda text: self.notice(row, text))
+            if result["status"] == "ignored" or (row["addressing"] == "ambient" and result["status"] != "offered"):
+                with self.workshop.connect() as db:
+                    db.execute("UPDATE telegram_requests SET status='observed',result=?,completed_at=? WHERE update_id=?",
+                               (json.dumps(result, ensure_ascii=False), time.time(), row["update_id"]))
+                return True
             text = result["answer"]
             parts = split_reply(text)
             with self.workshop.connect() as db:
-                db.execute("UPDATE telegram_requests SET status='ready', result=?, parts=? WHERE update_id=?",
-                           (json.dumps(result, ensure_ascii=False), json.dumps(parts, ensure_ascii=False), row["update_id"]))
+                db.execute("UPDATE telegram_requests SET status='ready', result=?, parts=?,completed_at=? WHERE update_id=?",
+                           (json.dumps(result, ensure_ascii=False), json.dumps(parts, ensure_ascii=False), time.time(), row["update_id"]))
         else:
             parts = json.loads(row["parts"])
         sent_ids = json.loads(row["sent_ids"])
@@ -247,8 +273,9 @@ class Group:
                 return True
             sent_ids.append(sent["message_id"])
             with self.workshop.connect() as db:
-                db.execute("UPDATE telegram_requests SET status=?, sent_ids=?, error=NULL WHERE update_id=?",
-                           ("sent" if len(sent_ids) == len(parts) else "ready", json.dumps(sent_ids), row["update_id"]))
+                db.execute("UPDATE telegram_requests SET status=?, sent_ids=?, error=NULL,sent_at=? WHERE update_id=?",
+                           ("sent" if len(sent_ids) == len(parts) else "ready", json.dumps(sent_ids),
+                            time.time() if len(sent_ids) == len(parts) else None, row["update_id"]))
         return True
 
     @contextmanager
@@ -339,6 +366,10 @@ class Group:
                                      "reply_to": row["message_id"], "thread_id": row["thread_id"],
                                      "conversation_id": row["conversation_id"]})
         messages.sort(key=lambda message: message["message_id"])
+        quoted = json.loads(request["reply_context"]) if request["reply_context"] else None
+        if quoted and not any(m["message_id"] == quoted["message_id"] for m in messages):
+            messages.append(quoted)
+            messages.sort(key=lambda message: message["message_id"])
         anchors = {request["reply_to"], request["conversation_id"]}
         priority = [m for m in messages if m["message_id"] in anchors]
         recent = [m for m in reversed(messages) if m["message_id"] not in anchors]
@@ -355,7 +386,8 @@ class Group:
                          "attachment contents or messages Telegram did not deliver.",
                 "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),
                             "created": request["created"], "thread_id": request["thread_id"],
-                            "reply_to": request["reply_to"], "conversation_id": request["conversation_id"]}}
+                            "reply_to": request["reply_to"], "conversation_id": request["conversation_id"],
+                            "addressing": request["addressing"]}}
         if request["addressed_message_id"] is not None:
             result["addressed_message"] = next(m for m in messages if m["message_id"] == request["addressed_message_id"])
         return result

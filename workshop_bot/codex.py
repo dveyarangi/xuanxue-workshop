@@ -27,6 +27,7 @@ SCHEMA = {
 class Codex:
     def __init__(self, executable="codex", timeout=180, *, tools_enabled=False):
         self.tools_enabled = tools_enabled
+        self.quick_enabled = tools_enabled
         if os.name == "nt" and executable == "codex":
             native = shutil.which("codex.exe")
             candidates = list((Path(os.environ.get("LOCALAPPDATA", "")) / "OpenAI/Codex/bin").glob("*/codex.exe"))
@@ -40,6 +41,10 @@ class Codex:
         if os.name == "nt" and Path(self.executable).suffix.lower() != ".exe":
             raise ValueError("A native codex.exe is required; shell wrappers are not supported")
         self.timeout = timeout
+
+    def quick(self, root, memory, question, conversation):
+        from .quick import decide
+        return decide(self.executable, root, memory, question, conversation)
 
     @staticmethod
     def permissions(root, memory, private):

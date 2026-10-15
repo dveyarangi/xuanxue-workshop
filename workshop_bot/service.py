@@ -8,6 +8,7 @@ import sqlite3
 import subprocess
 import sys
 import tempfile
+import time
 import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -116,6 +117,7 @@ class Workshop:
     def chat(self, request_id, question, conversation, sender, on_progress):
         options = {}
         tools = None
+        started = time.monotonic()
         if getattr(self.agent, "tools_enabled", False):
             from .tools import TurnTools
             current = (conversation or {}).get("current", {})
@@ -147,6 +149,25 @@ class Workshop:
                     on_progress(notice)
 
             options.update(tool_context=path, on_event=progress)
+        timing = {"board_seconds": round(time.monotonic() - started, 3)}
+        if getattr(self.agent, "quick_enabled", False):
+            ambient = (conversation or {}).get("current", {}).get("addressing") == "ambient"
+            quick_started = time.monotonic()
+            try:
+                decision = self.agent.quick(self.root, self.memory, question, conversation or {})
+                route = decision["route"]
+                if route not in ({"ignore", "offer"} if ambient else {"answer", "work"}):
+                    raise ValueError("Invalid quick route for addressing mode")
+                if route != "work" and (route != "ignore" and not decision["answer"].strip()):
+                    raise ValueError("Empty quick answer")
+            except Exception as error:
+                decision = {"route": "ignore" if ambient else "work", "answer": "",
+                            "error": type(error).__name__}
+            timing["quick_seconds"] = round(time.monotonic() - quick_started, 3)
+            timing["quick"] = decision
+            if decision["route"] != "work":
+                return {"status": {"answer": "answered", "offer": "offered", "ignore": "ignored"}[decision["route"]],
+                        "answer": decision["answer"], "runtime": timing}
         args = (self.root, self.memory, self.state.parent, question, conversation)
         current = (conversation or {}).get("current", {})
         if "conversation_id" not in current or "chat_id" not in (conversation or {}):
@@ -176,6 +197,8 @@ class Workshop:
 
         try:
             result = self.agent.chat(*args, session_id=session_id, on_session=remember, **options)
+            result.setdefault("runtime", {}).update(timing)
+            result["runtime"]["total_seconds"] = round(time.monotonic() - started, 3)
             if tools:
                 tools.finish()
             return result

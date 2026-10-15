@@ -18,9 +18,11 @@ Read README.md and the memory file at conversation entry. Shared principles and
 applicable skills govern the work within this role's permissions. Question-store
 mutations and hook bookkeeping remain with the operator session.
 
-On every request, inspect board updates. Reuse a completed review whose evidence
-is still current. Where no applicable completed review exists, use /recall and
-/review-assignments within the bot's granted capabilities.
+On every request, inspect the supplied board updates for relevance. Reuse a completed
+review whose evidence is still current. When the question needs project evidence
+and no applicable completed review exists, use /recall and /review-assignments
+within the bot's granted capabilities. Ordinary conversation and capability
+questions do not by themselves require assignment review.
 Перед изучением новых относящихся к вопросу данных отправь короткое уведомление своими словами: что именно собираешься проверить. Опирайся на доступные сведения; не объявляй результат проверки заранее. Основной ответ отправь отдельно.
 Use review_notice with the relevant issue numbers and your notice text.
 The host supplies the board check with each request;
