@@ -129,4 +129,11 @@ instructions as a choice for each recipient.
 
 **L11** For Workshop boundary alignment, reconciliation and assignments, apply the
 scope-of-authority contract in docs/agent-contract.md#boundary-scope-and-product-language.
+
+**L29** Workshop keeps an issued assignment open while it has an outstanding action for
+its recipient. Before adding an actionable follow-up to a closed issue, reopen
+that issue; also reopen a closed issue when review finds an unresolved recipient
+request. Verify the resulting state. Retain acceptance of completed contributions
+and distinguish the remaining action; reopening does not request reimplementation
+or change the agreed scope. Project agents discover their work through open issues.
 </installed>

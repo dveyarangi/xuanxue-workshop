@@ -179,6 +179,13 @@ and where the existing queue stands. Preserve its order. Resume already-authoriz
 work; use /align when a decision is needed and retain the next-cycle checkpoint.
 If nothing new requires action, continue the agreed work.
 
+**L29** Workshop keeps an issued assignment open while it has an outstanding action for
+its recipient. Before adding an actionable follow-up to a closed issue, reopen
+that issue; also reopen a closed issue when review finds an unresolved recipient
+request. Verify the resulting state. Retain acceptance of completed contributions
+and distinguish the remaining action; reopening does not request reimplementation
+or change the agreed scope. Project agents discover their work through open issues.
+
 **L23** For periodic Workshop board review, the operator's standing authorization covers
 investigation and original-issue responses within existing agreements and review
 requirements, without approval of each response. Escalate new shared decisions and

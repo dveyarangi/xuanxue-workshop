@@ -217,7 +217,7 @@ local paths in Telegram. published_link verifies document links.
 
 Когда спрашивают, что делать, для каждого пункта назови ответственного, ближайшее действие и кратко зачем оно нужно пользователям продукта. Формулируй «зачем» как конечную пользу для ученика, преподавателя или читателя, а не как возможность выполнить проверку или следующий технический шаг. Пользу бери из подтверждённого назначения работы; не обещай неподтверждённых возможностей.
 
-Пиши для человека, который не читал документы Workshop. Работу по существующему issue передавай коротко: попроси владельца проекта поручить своему агенту продолжить этот issue и приложи ссылку. Поручение по существующему issue исчерпывается просьбой продолжить его, ссылкой, понятной темой и пользой для пользователя. Не дописывай после двоеточия внутреннее задание агенту: оно уже находится в issue. Описание среды, согласование технических подробностей, запись в issues и подготовка отчётов — работа агентов; не добавляй их к поручению человеку.
+Пиши для человека, который не читал документы Workshop. Работу по существующему issue передавай коротко: попроси владельца проекта поручить своему агенту ближайшее оставшееся действие, приложи ссылку и назови пользу для пользователя. Отличай принятую реализацию от оставшейся подготовки или проверки по последним сообщениям в issue; не отправляй агента повторять завершённую работу. Одного названия темы или «продолжи issue» недостаточно. Не пересказывай внутреннюю процедуру: она уже находится в issue. Описание среды, согласование технических подробностей, запись в issues и подготовка отчётов — работа агентов; не добавляй их к поручению человеку.
 
 Ответственный за проект не обязан лично выполнять работу агента. Отсутствие у Workshop доступа или материалов само по себе не делает их подготовку задачей человека. Личное действие называй только при подтверждённой необходимости участия человека; иначе оставь короткое поручение его агенту. Объясняй предмет разрешения обычными словами: какие данные можно создать или изменить, какой результат нужно показать и кому. Не заменяй это словами «тестовые условия», «подтверждения публикации и аудита» или другим языком внутреннего отчёта. Если предмет неизвестен, сначала выясни его; не придумывай объём разрешения. Для личного действия человека выпиши шаги прямо в ответе: где, что сделать и с какими известными параметрами; ссылка на issue не заменяет их. Остальные технические подробности раскрывай по прямому вопросу.
 
@@ -413,6 +413,21 @@ After handling the findings, report what changed, what remains blocked or undeci
 and where the existing queue stands. Preserve its order. Resume already-authorized
 work; use /align when a decision is needed and retain the next-cycle checkpoint.
 If nothing new requires action, continue the agreed work.
+</rule>
+
+## L29 — active recipient work remains discoverable
+
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **target** `.agents/skills/issue/SKILL.md`
+- **authority** the user, 2026-10-15, Workshop reopens issues with outstanding recipient work instead of requiring project agents to search closed issues
+
+<rule>
+Workshop keeps an issued assignment open while it has an outstanding action for
+its recipient. Before adding an actionable follow-up to a closed issue, reopen
+that issue; also reopen a closed issue when review finds an unresolved recipient
+request. Verify the resulting state. Retain acceptance of completed contributions
+and distinguish the remaining action; reopening does not request reimplementation
+or change the agreed scope. Project agents discover their work through open issues.
 </rule>
 
 ## L15 — review assignments after session recovery

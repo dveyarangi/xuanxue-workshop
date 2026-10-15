@@ -61,8 +61,9 @@ request; another project's installation assignment is not your project's context
 ## Check addressed work
 
 In [Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues), find
-issues carrying your project label. Read relevant assignments, discussions and
-dependencies, including follow-up on reported results. Follow your project's
+open issues carrying your project label. Read relevant assignments, discussions and
+dependencies, including follow-up on reported results. Distinguish accepted work
+from the current remaining action. Follow your project's
 operator instructions when choosing and executing work.
 Determine eligible work using the [issue format's dependency conditions](workshop-issue-format.md#dependencies).
 
