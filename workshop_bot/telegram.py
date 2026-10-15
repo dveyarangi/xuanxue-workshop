@@ -381,7 +381,9 @@ class Group:
             selected.append(message)
             size += length
         selected.sort(key=lambda message: message["message_id"])
-        result = {"chat_id": self.group_id, "messages": selected, "omitted_messages": len(messages) - len(selected),
+        result = {"chat_id": self.group_id,
+                "bot": {key: self.identity[key] for key in ("id", "username", "first_name") if key in self.identity},
+                "messages": selected, "omitted_messages": len(messages) - len(selected),
                 "scope": "Received group text/captions and confirmed bot replies; no pre-collection archive, "
                          "attachment contents or messages Telegram did not deliver.",
                 "current": {"message_id": request["message_id"], "sender": json.loads(request["sender"]),

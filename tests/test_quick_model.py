@@ -10,6 +10,23 @@ from workshop_bot.quick import decide
 
 
 class QuickModelTests(unittest.TestCase):
+    def test_implicit_greeting_schema_can_only_acknowledge_or_ignore(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            def invoke(command, **kwargs):
+                schema = json.loads(Path(command[command.index("--output-schema") + 1]).read_text())
+                self.assertEqual(schema["properties"]["route"]["enum"], ["offer", "ignore"])
+                self.assertEqual(schema["properties"]["answer"]["maxLength"], 320)
+                Path(command[command.index("--output-last-message") + 1]).write_text(
+                    json.dumps({"route": "offer", "answer": "Да, я здесь.", "reason": "addressed greeting"}),
+                    encoding="utf-8")
+                return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}\n', '')
+            with patch("workshop_bot.quick.subprocess.run", side_effect=invoke):
+                result = decide("codex.exe", root, root / "memory.md", "дух воркшопа, ты здесь?",
+                                {"current": {"addressing": "ambient"}})
+            self.assertEqual(result["route"], "offer")
+            self.assertEqual(result["answer"], "Да, я здесь.")
+
     def test_bounded_input_is_separate_from_tool_enabled_executor_and_environment(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
@@ -24,6 +41,9 @@ class QuickModelTests(unittest.TestCase):
                 self.assertIn('model_reasoning_effort="low"', command)
                 self.assertIn("--ephemeral", command)
                 self.assertNotIn("--enable", command)
+                schema = json.loads(Path(command[command.index("--output-schema") + 1]).read_text())
+                self.assertEqual(schema["properties"]["route"]["enum"], ["answer", "work"])
+                self.assertEqual(schema["properties"]["answer"]["maxLength"], 2000)
                 data = json.loads(kwargs["input"])
                 self.assertEqual(data["current"]["addressing"], "direct")
                 self.assertIn(0, [m["message_id"] for m in data["messages"]])

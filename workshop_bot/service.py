@@ -153,6 +153,7 @@ class Workshop:
         if getattr(self.agent, "quick_enabled", False):
             ambient = (conversation or {}).get("current", {}).get("addressing") == "ambient"
             quick_started = time.monotonic()
+            decision = None
             try:
                 decision = self.agent.quick(self.root, self.memory, question, conversation or {})
                 route = decision["route"]
@@ -162,7 +163,9 @@ class Workshop:
                     raise ValueError("Empty quick answer")
             except Exception as error:
                 decision = {"route": "ignore" if ambient else "work", "answer": "",
-                            "error": type(error).__name__}
+                            "error": type(error).__name__,
+                            "detail": redact(str(error))[:400] if isinstance(error, (ValueError, RuntimeError)) else "",
+                            "rejected_route": decision.get("route") if isinstance(decision, dict) else None}
             timing["quick_seconds"] = round(time.monotonic() - quick_started, 3)
             timing["quick"] = decision
             if decision["route"] != "work":

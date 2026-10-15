@@ -66,6 +66,10 @@ class QuickTelegramTests(unittest.TestCase):
                 self.assertFalse(peer.sent)
                 self.assertFalse(agent.work_calls)
                 self.assertEqual(group.history()[0]["status"], "observed")
+                if route != "ignore":
+                    diagnostic = group.history()[0]["result"]["runtime"]["quick"]
+                    self.assertEqual(diagnostic["rejected_route"], route)
+                    self.assertIn("addressing mode", diagnostic["detail"])
 
     def test_explicit_followup_takes_priority_and_suppresses_late_offer(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -133,5 +137,6 @@ class QuickTelegramTests(unittest.TestCase):
             self.assertTrue(group.work_once())
             self.assertEqual(len(peer.sent), 1)
             self.assertEqual(agent.quick_calls[0][1]["current"]["addressing"], "direct")
+            self.assertEqual(agent.quick_calls[0][1]["bot"]["username"], "workshop_bot")
             self.assertIn("информация о входе", agent.quick_calls[0][1]["messages"][0]["text"])
             self.assertFalse(agent.work_calls)

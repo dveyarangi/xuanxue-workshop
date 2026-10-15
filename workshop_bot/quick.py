@@ -49,17 +49,23 @@ def decide(executable, root, memory, question, conversation):
     board_summary["cases"] = [{key: case.get(key) for key in
                                 ("number", "title", "new_to_conversation", "review_current")}
                                for case in board.get("cases", [])]
-    data = {"question": question, "current": current, "messages": selected,
+    data = {"sources": sources, "board": board_summary, "messages": selected,
             "omitted_messages": len(messages) - len(selected) + conversation.get("omitted_messages", 0),
             "addressed_message": conversation.get("addressed_message"),
-            "sources": sources, "board": board_summary}
+            "bot": conversation.get("bot", {}), "current": current, "question": question}
     prompt = json.dumps(data, ensure_ascii=False)
     if len(prompt.encode()) > 65000:
         raise ValueError("Quick context exceeds its budget")
+    ambient = current["addressing"] == "ambient"
+    routes = ["offer", "ignore"] if ambient else ["answer", "work"]
+    answer_limit = 320 if ambient else 2000
+    output_schema = {**SCHEMA, "properties": {**SCHEMA["properties"],
+                    "route": {"type": "string", "enum": routes},
+                    "answer": {"type": "string", "maxLength": answer_limit}}}
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix="workshop-quick-") as temporary:
         schema, output = Path(temporary) / "schema.json", Path(temporary) / "answer.json"
-        schema.write_text(json.dumps(SCHEMA), encoding="utf-8")
+        schema.write_text(json.dumps(output_schema), encoding="utf-8")
         command = [executable, "exec", "--ignore-user-config", "--ignore-rules", "--strict-config",
                    "--skip-git-repo-check", "--cd", temporary, "--ephemeral", "--json",
                    "--model", "gpt-6-luna", "-c", 'model_reasoning_effort="low"',
@@ -92,10 +98,10 @@ def decide(executable, root, memory, question, conversation):
         decision = json.loads(output.read_text(encoding="utf-8"))
     if set(decision) != {"route", "answer", "reason"} or not all(isinstance(v, str) for v in decision.values()):
         raise ValueError("Invalid quick decision")
-    if decision["route"] not in SCHEMA["properties"]["route"]["enum"] or len(decision["answer"]) > 2000:
-        raise ValueError("Invalid quick route or answer length")
-    if decision["route"] == "offer" and len(decision["answer"]) > 320:
-        raise ValueError("Offer exceeds one short message")
+    if decision["route"] not in routes:
+        raise ValueError(f"Invalid quick route for addressing mode: {decision['route'][:40]}")
+    if len(decision["answer"]) > answer_limit:
+        raise ValueError(f"Quick answer exceeds {answer_limit} characters: {len(decision['answer'])}")
     decision["runtime"] = {"model": "gpt-6-luna", "effort": "low",
                            "seconds": round(time.monotonic() - started, 3),
                            "usage": turns[-1].get("usage"), "sources": inventory,
