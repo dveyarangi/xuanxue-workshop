@@ -879,6 +879,38 @@ reply to message 88. A subsequent refusal returned ignore in 4.13 seconds withou
 another executor call. This establishes routing and delivery integration, not a
 new full-model project answer or an actual group replay.
 
+### Human-facing work and voice — 2026-10-15
+
+The user identified another presentation failure in the 16:17 group answer:
+operators were asked to write issue arrangements and interpret publication/audit
+terminology, and an unrequested Workshop-operator action appeared in the group.
+L22 now distinguishes project responsibility from personally performing agent work.
+Existing assignments receive a short agent handoff, a link and product purpose;
+personal actions retain their concrete steps and permissions retain a specific
+plain-language object. The separate operator conversation owns ordinary Workshop
+operator directions. The contract records the same boundary.
+
+At the user's request, L28 supplies both roles with a Stanisław Lem-inspired voice:
+precise thought, restrained irony about machines and bureaucracy, and clear actions.
+It neither requires a joke in every reply nor changes routing or permissions.
+
+Native default-model trials used the retained conversation for message 96, the
+installed full-agent rules, the completed board review, product and ownership
+documents, and empty memory. Tools were disabled and no Telegram message was sent.
+Early trials still copied agent instructions and assigned evidence collection to
+the owner. The final trial, after clarifying responsibility, handed Cabinet,
+Daychi and Knowledge work to their agents, retained sourced DNS operations, named
+the completed review time and omitted unrequested Workshop-operator work. It still
+used formal wording in some explanatory clauses; the trial demonstrates the
+exercised response, not uniform prose quality or a live resumed conversation.
+Private trial output is under `.local/bot-human-language-proof/`.
+
+All 117 tests passed, together with harness, rule-installation, mechanism,
+board-report and ticket validators. The provisional-text scan found only existing
+conditional workflow wording. Both instruction files are read on each invocation;
+this amendment requires no receiver restart. The older quoted memory failure
+predates the separately verified memory-location repair.
+
 ## Evidence checked on 2026-10-12
 
 

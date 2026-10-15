@@ -148,6 +148,20 @@ project continuation to work rather than another offer. A greeting is just a gre
 This restores the accepted follow-up behavior without treating every nearby message
 as addressed or using a phrase/time cutoff.
 
+Struck again, 2026-10-15: human-facing delegation still included instructions to
+write issue arrangements and collect opaque publication/audit evidence. The bot also
+included Workshop operator work without a direct question about it. L22's ownership
+wording did not distinguish responsibility from personally performing agent work.
+The amendment limits existing-issue handoffs to the request, link, understandable
+topic and product purpose; personal actions require established human involvement
+and specific plain-language steps or permission. Ordinary Workshop operator directions
+remain in the separate Codex conversation. A tool-free native replay of the retained
+question exposed and then removed the owner-as-collector failure; detailed evidence
+and its limits are in the Telegram RFC. The user's requested literary voice is a
+separate L28 presentation preference, not a new workflow or authority.
+
+
+
 ## 2026-10-15 — Permission probe affected the live memory parent
 
 Status: corrected by separating writable memory from private runtime ancestry.
