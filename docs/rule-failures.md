@@ -1121,3 +1121,12 @@ existing implementations, and opened the concrete migration question.
 Proposed clarification: before proposing shared-capability ownership, compare
 the existing providers' implemented behavior and active consumers, not only route
 names or module inventories. No installed rule was changed.
+
+## 2026-10-15 — One-time migration grew into a permanent mechanism
+
+Status: simplified; additional import rules rejected by the user.
+
+Rule in play: [Occam](../AGENTS.md). A supplied archive to load once was expanded
+into a permanent import command and bot instructions. The user identified the
+unnecessary mechanism. Both were removed; only continuing history and image reads
+remain in the product. No new rule is installed: the user explicitly rejected one.

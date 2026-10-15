@@ -20,6 +20,12 @@ supports that single slice. Other queue items are not dependencies of this work.
 
 ## What to build
 
+The user's 2026-10-15 real-group migration amendment includes the supplied Telegram
+Desktop HTML archive, full-history search and reading supported still images from
+both the archive and new group messages. The [accepted boundary](../contracts/telegram-workshop.md#imported-history-and-images)
+retains the existing group and authority scope. Loading the supplied archive is
+a one-time mechanical operation, with no permanent import command or instructions.
+
 Дополнение пользователя от 2026-10-15: направленное сообщение ответственному
 оператору доставляется в Telegram-группу с его упоминанием. Отправка инициируется
 из Codex по необходимости в согласованной работе, без подтверждения каждого

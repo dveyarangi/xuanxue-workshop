@@ -1198,6 +1198,27 @@ load its temporary AGENTS.md (Access denied). There is no final native answer fo
 that wording; installed-rule validation passed. Earlier samples are retained as
 counterexamples rather than relabelled as proof of the final conversational tone.
 
+## Real-group history and image reading — 2026-10-15
+
+The [accepted archive amendment](../contracts/telegram-workshop.md#imported-history-and-images)
+extends this slice to the user's supplied HTML export and still images. It keeps
+the existing group and authority boundaries; no old mention enters the work queue.
+
+The supplied export is a one-time mechanical migration by the operator. It adds
+no permanent import command or bot instructions. The private source is preserved;
+old messages are retained as history without creating executable requests.
+
+The lasting capability is scoped search/read of the complete retained conversation
+and MCP image content from a selected original attachment. New Telegram photos and
+supported image documents retain file references for bounded host-side downloads.
+Credentials and private paths are not exposed through the tools.
+
+Verification covers group isolation, received-message priority, missing or changed
+image storage, actual MCP image blocks, photo ingestion without captions, lookup
+beyond the bounded snapshot, and absence of old-request execution. A native proof
+read six random digits present only in an invented image. No real group data was
+used and nothing was sent to Telegram. Migration activation remains separate.
+
 ## Evidence checked on 2026-10-12
 
 

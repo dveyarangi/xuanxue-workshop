@@ -54,14 +54,32 @@ This offer does not start investigation or perform an action; an explicit reply 
 recognized continuation from its participant is a direct request. A clear greeting or presence question addressed to the bot receives
 a short acknowledgement without requiring a project topic. Collection is
 restricted to the configured group, even if Telegram delivers messages from another
-group or a private chat. History means received text/captions and recorded bot
-answers. Attachments without text have an unavailable-content marker; attachment
-interpretation is not implied. Pre-collection and undelivered messages are not
-claimed available. A bounded context prioritizes the replied-to message and the
+group or a private chat. History includes received text/captions, recorded bot
+answers and the mechanically loaded archive described below. Supported images
+can be read explicitly; other attachments have an unavailable-content marker.
+Undelivered messages outside the supplied archive are not claimed available. A bounded context prioritizes the replied-to message and the
 conversation's first request, then recent discussion, with omitted history explicit;
 the full received journal remains available to the operator.
 
 ## Information and authority
+
+### Imported history and images
+
+Authority: the user, 2026-10-15, requested migration into the real group with its
+complete history, supplied a Telegram Desktop HTML export, and explicitly included
+image reading for both the archive and future conversation.
+
+The supplied history is loaded once by the operator, mechanically, without a
+permanent import command or additional bot instructions about import. It becomes
+retained conversation under the existing group and authority boundaries.
+
+The complete retained history is searchable beyond the bounded conversation
+snapshot. Supported PNG, JPEG and WebP images from retained and new messages are
+readable through a group-scoped host tool. Original image bytes reach the model;
+filenames and captions do not establish their contents. Missing, oversized and
+unsupported attachments remain visibly unavailable. This adds neither voice
+transcription nor arbitrary document execution. Existing credentials and write
+permissions remain unchanged.
 
 ### Directed operator messages
 

@@ -129,6 +129,11 @@ for a later session with the user. Code, architectural decisions, agreements,
 agent rules, publication and cross-project assignments retain operator authority. The bot's
 history distinguishes record application from reply delivery.
 
+The [imported-history and image boundary](contracts/telegram-workshop.md#imported-history-and-images)
+keeps retained messages and image reads scoped to their Telegram group. Full-history
+search complements the bounded conversation snapshot. Credentials and attachment
+file access remain at the host, behind scoped read capabilities.
+
 ## Deferred decisions
 
 - [Contract maintenance and verification](questions/q-0002.0002-how-should-workshop-maintain-and-verify-boundary-contracts.md): schema references and evidence required for a shared promise.
