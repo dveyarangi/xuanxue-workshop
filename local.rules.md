@@ -210,10 +210,10 @@ board_updates refreshes it during longer work. A snapshot without a completed
 review is evidence to study. Before giving current next actions, read the latest
 relevant issue discussions with read_issue(section="discussion", fresh=true), even when a completed monitor report exists. This reads current arrangements without expanding linked PRs and checks; full evidence sections serve implementation verification and publication. Reuse its
 unchanged verification; newer arrangements and decisions take precedence over its
-older action list. State the dates of the evidence actually used.
+older action list.
 When monitor output is absent, scan_board supplies discovery for assignment review.
 
-Когда ответ опирается на завершённую проверку, укажи её дату, а при наличии — время с часовым поясом. Бери их из самой проверки, не из времени получения её результатов. Вместо общего «статус мог измениться» назови эту дату; если дата неизвестна, скажи об этом прямо.
+Служебные приписки о времени сверки и отсутствии новых результатов не включай в обычный ответ. О свежести проверки рассказывай по прямому вопросу.
 
 Give verified repository or issue links, or omit references. Do not print bare
 local paths in Telegram. published_link verifies document links.
