@@ -28,8 +28,7 @@ membership or per-material entitlement is introduced.
 
 ## Shared contract and conformance
 
-Authority: [native-content-session](../contracts/native-content-session.md), at the
-single immutable Workshop revision supplied when this issue is published. The
+Authority: [native-content-session](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/native-content-session.md), at immutable Workshop revision `a07f08747aa7d97e4d3496e87e1d8319db413698`. The
 whole contract, pinned native profile and common C01–C16 cases govern both this
 consumer and the paired Cabinet provider. Read the complete authority: its native
 response is full-profile 200 JSON, not the browser check's empty 204.
@@ -65,6 +64,8 @@ Coordinate integration with those scopes; do not recreate already-valid work.
 
 ## Execution dependencies
 
+Paired provider: [cabinet-native-content-check #15](https://github.com/dveyarangi/xuanxue-workshop/issues/15). Its deployed conformance enables actual joint activation/proof, not consumer implementation.
+
 Consumer implementation, contract fixtures and local/synthetic tests can proceed
 under Daychi's operator against this settled accessible contract, concurrently
 with Cabinet. Neither provider acceptance nor full N11/browser completion is an
@@ -85,8 +86,8 @@ Cabinet owns account/session validity. Existing native/owner/import/meeting acce
 and content v1 remain fulfilled until their independently coordinated transition.
 
 Accepted schedule/native-account targets remain governed by the
-[target contracts](../boundaries.md#target-connections) and
-[native account profile](../contracts/native-account-session.md). Native sign-in,
+[target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/boundaries.md#target-connections) and
+[native account profile](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/native-account-session.md). Native sign-in,
 renewal, secure storage and installation-scoped sign-out remain their own scope.
 
 Accepted native content connection: each protected Cabinet-authenticated native
@@ -95,11 +96,11 @@ current native grant/account decision is sufficient; no additional reader role,
 invitation, account replica or positive cache is used. Daychi owns explicit
 coexistence with legacy native transport, downstream protected delivery and
 failure/recovery. Cabinet isolates validated GET me capacity per native grant.
-The [native content contract](../contracts/native-content-session.md) owns exact
+The [native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/native-content-session.md) owns exact
 wire, capacity, compatibility and common cases; activation and joint proof remain work.
 
 Accepted browser-wiki target remains separate under the
-[web-wiki contract](../contracts/web-wiki-session.md): shared Cabinet browser cookie,
+[web-wiki contract](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/web-wiki-session.md): shared Cabinet browser cookie,
 per-request authoritative check, fixed matching environment, renewal/return/logout,
 protected reader delivery and coordinated origin/path/cache transition. The
 limited public homepage graph overview remains its canonical exception. Native

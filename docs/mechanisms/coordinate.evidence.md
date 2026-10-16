@@ -17,8 +17,9 @@ Two fresh independent readers reconstructed the
 [Daychi brief](../assignments/native-content-daychi.draft.md) separately from the
 brief, cited authority and recipient sources, then checked paired coverage.
 Both found no semantic blocker or incompatible conforming pair. The one editorial
-direction label was corrected; publication must substitute immutable links and
-direct companion identities. Internal Daychi routing stays project-owned while
+direction label was corrected. Publication supplied immutable authority
+`a07f08747aa7d97e4d3496e87e1d8319db413698`, expanded summary links and direct
+companion identities; both remote bodies/labels/authority links matched exactly. Internal Daychi routing stays project-owned while
 Cabinet/legacy selection, failure isolation and browser-policy preservation are
 observable obligations. The [source baseline](../current-system.md#native-content-check-source-baseline--2026-10-16)
 holds the inspected revisions and remaining implementation gap.
@@ -28,6 +29,15 @@ harness comparison, installed-rule/mechanism agreement and question/ticket/edge/
 shared-report validation. This proves neither recipient implementation nor actual
 authenticated native content delivery. Publication and recipient joint proof have
 distinct outcomes in original issue 11; no account/fixture/release operation was performed.
+
+The paired contributions are published as
+[cabinet-native-content-check #15](https://github.com/dveyarangi/xuanxue-workshop/issues/15)
+and [daychi-native-content-access #16](https://github.com/dveyarangi/xuanxue-workshop/issues/16).
+The [original-11 coordination response](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6215262609)
+was independently read back exactly once. It identifies the settled technical
+connection, concurrent implementation eligibility and separate owner-authorized
+activation/joint proof. Issue 11 remains open for those outcomes. No recipient
+source, account, fixture, deployment or release was changed by publication.
 
 ## Project reception — 2026-10-12
 

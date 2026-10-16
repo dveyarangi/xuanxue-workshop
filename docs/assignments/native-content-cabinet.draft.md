@@ -26,8 +26,7 @@ trust and capacity definitions rather than choosing that policy again.
 
 ## Shared contract and conformance
 
-Authority: [native-content-session](../contracts/native-content-session.md), at the
-single immutable Workshop revision supplied when this issue is published. The
+Authority: [native-content-session](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/native-content-session.md), at immutable Workshop revision `a07f08747aa7d97e4d3496e87e1d8319db413698`. The
 entire contract, its pinned full native profile and C01–C16 cases govern both
 Cabinet and the paired Daychi contribution. The issue is a projection of that
 authority, not a second wire definition.
@@ -58,6 +57,8 @@ returns in [original #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7
 
 ## Execution dependencies
 
+Paired consumer: [daychi-native-content-access #16](https://github.com/dveyarangi/xuanxue-workshop/issues/16). The consumer can implement concurrently; its identified runtime enables joint proof after provider deployment and owner authorization.
+
 Provider implementation/synthetic checks need the accessible settled authority
 and Cabinet operator authorization, not Daychi completion or Workshop readiness.
 The Daychi companion can implement and test its consumer concurrently. Real joint
@@ -73,8 +74,8 @@ Existing boundary: Cabinet backend ↔ Cabinet frontend, with entry points api/,
 and shared/. Cabinet owns accounts, native grants and current account restrictions.
 Daychi retains its content backend; Knowledge owns editorial/import preparation.
 Accepted schedule/native-account targets and evidence remain in the
-[target contracts](../boundaries.md#target-connections) and
-[native account profile](../contracts/native-account-session.md); joint results
+[target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/boundaries.md#target-connections) and
+[native account profile](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/native-account-session.md); joint results
 remain distinct from source implementation. Native sign-in/lifecycle scope is unchanged.
 
 Accepted native content connection: Daychi backend forwards the presented native
@@ -82,14 +83,14 @@ bearer to Cabinet GET /api/auth/native/me before each protected native content r
 Cabinet remains the current session/account authority; validated GET me capacity
 is isolated per grant rather than shared by Daychi's server IP. Daychi adds no
 reader membership, account replica or positive authorization cache. The
-[native content contract](../contracts/native-content-session.md) owns exact wire,
+[native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/native-content-session.md) owns exact wire,
 failure, capacity, compatibility and common cases; implementation/joint proof remain work.
 
 Accepted browser-wiki target remains separate: shared Cabinet cookie, per-reader
 current validation, fixed matching production/staging authority, browser entry,
 return, renewal and logout. Daychi owns protected browser delivery and the accepted
 limited public homepage graph projection. The
-[web-wiki contract](../contracts/web-wiki-session.md) owns this scope; native bearer
+[web-wiki contract](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/web-wiki-session.md) owns this scope; native bearer
 checks do not bypass its cookie policy. Existing native/owner/import/Zoom consumers
 and independently coordinated cutovers retain their existing authority.
 ```
