@@ -1217,7 +1217,14 @@ Verification covers group isolation, received-message priority, missing or chang
 image storage, actual MCP image blocks, photo ingestion without captions, lookup
 beyond the bounded snapshot, and absence of old-request execution. A native proof
 read six random digits present only in an invented image. No real group data was
-used and nothing was sent to Telegram. Migration activation remains separate.
+used and nothing was sent to Telegram in that proof.
+
+On 2026-10-16, the real-group migration retained all 205 supplied messages and five
+original images under a verified fresh binding, preserving test state separately.
+All five images were read back and the active MCP image tool returned the selected
+original bytes. Search returned 206 messages after the new group event; the receiver
+was running with no pending direct requests. The interval between the supplied
+export and activation still needs a refreshed export; no completeness claim covers it.
 
 ## Evidence checked on 2026-10-12
 
