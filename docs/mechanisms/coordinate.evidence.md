@@ -2,6 +2,8 @@
 
 ## Native N01/N17 evidence clarification — 2026-10-16
 
+Publication: immutable full-profile revision `18cfe41db0203fa6fc72d429caa584960d0c2522` was pushed and read back against committed source. Original [Cabinet 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6221392509) and [Daychi 8](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6221393997) bodies cite that identical revision; exact body, labels, peer links and both decision comments were read back. Both assignments remain open for the remaining evidence review. The shared report records the resolved operator questions and deferred browser ownership. Validation passed: 139 tests, rules/mechanism/question/ticket/edge checks, board-report validation and harness integrity/link checks.
+
 The user accepted [Daychi's two live-evidence requests](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6220769307).
 The [native profile](../contracts/native-account-session.md#accepted-n01n17-live-evidence-clarification--2026-10-16)
 owns the clarification: actual persistent system-authentication reuse suffices
