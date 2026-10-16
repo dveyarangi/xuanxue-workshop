@@ -43,15 +43,16 @@ observed source and deployment claims belong to [current evidence](current-syste
 |---|---|---|---|
 | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
 | Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Protected schedule and account/reminder synchronization details remain unresolved. |
-| Cabinet admission check for Daychi content | Cabinet backend | Daychi backend | Apply the admission and credential-transport contract below. The server-to-server check schema, caller trust and integration verification require agreement. Native account renewal is defined in the separate accepted profile. |
+| Cabinet session validation for Daychi content | Cabinet backend | Daychi backend | Apply the [native content check](contracts/native-content-session.md) and the separate accepted browser check. Wire, caller authority and per-grant native capacity are accepted; implementation and joint proof remain work. Native renewal remains in its account profile. |
 | Cabinet sign-in for web wiki | Cabinet backend | Daychi backend and web wiki | Shared browser session, session check, automatic entry/return and Cabinet-site logout are accepted below; implementation, coordinated cutover and deployed proof remain work. |
 | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
 
 The admission contract below owns the third row's failure behavior, removal
 condition, and consolidation-ticket binding. The
 [native account-session profile](contracts/native-account-session.md) defines
-native acquisition, bearer lifecycle and account access. The executable content
-admission-check contract remains open; native account access does not complete it.
+native acquisition, bearer lifecycle and account access. The separate
+[native content-check contract](contracts/native-content-session.md) is accepted;
+native account access alone does not establish its implementation or joint proof.
 
 The first two rows share one provider. Identify the promises common to both
 consumers and the requirements specific to Cabinet web or Daychi clients; do not
@@ -313,7 +314,7 @@ and the current admission decision. A separate gateway was not selected.
 
 <straw-dog question="q-0002.0009">
 Daychi backend requests the current admission decision from Cabinet before serving
-protected content. Cabinet provides a narrow check using its authoritative session
+protected content. Cabinet provides the accepted native/browser checks using its authoritative session
 and user-validity rules; Daychi consumes the decision without owning user accounts
 or duplicating those rules. Invalid credentials produce an access refusal. Cabinet
 unavailability produces a temporary service error, while clients retain their
@@ -329,14 +330,18 @@ Daychi does not establish a separate account or session authority.
 
 The [native account-session profile](contracts/native-account-session.md) defines
 the accepted native credential, exact renewal wire and common conformance cases.
-Publication, implementation and native proof remain outstanding. The separate
-content-admission check's request/response, caller trust and integration verification
-remain open in the
-[credential question](questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md).
+The full profile is published at `c9c69c3`; implementation and native proof remain
+separate from acceptance of that wire. On 2026-10-16 the user reaffirmed the
+already accepted equal-content/current-session rule and approved completing the
+[native content-check contract](contracts/native-content-session.md): existing
+native GET me, presented-bearer caller authority, fixed matching issuer, per-read
+validation and grant-isolated capacity. This adds no separate reader entitlement.
+The connection is accepted, with implementation and integrated proof remaining
+in [original coordination issue 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 The user requested a separate
 [standardization question](questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md)
 on 2026-10-04; the accepted native profile does not establish full OIDC adoption
-or settle the separate admission protocol.
+or substitute for the separately accepted content-validation connection.
 The current Cabinet cookie and Daychi bearer implementations are source evidence,
 not deployed support for this target cross-project contract.
 

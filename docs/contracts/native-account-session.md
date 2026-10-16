@@ -345,7 +345,10 @@ revoking its native grant. Reading the full self-profile includes effective role
 but does not grant staff API operations or Daychi content access.
 Existing Cabinet browser cookies and Daychi invitation/content credentials remain
 independent. A Cabinet credential is never sent to the existing Daychi backend.
-The future Cabinet-to-Daychi admission check is outside this profile.
+The [accepted native content connection](native-content-session.md) separately permits
+Daychi to consume this profile's GET me for current-session validation and defines
+its grant-isolated capacity. Content integration and joint proof remain outside
+this account-session slice.
 
 The [accepted session isolation](#accepted-session-isolation-and-revocation-guarantees)
 governs the grant representation. Each successful code exchange creates a distinct native authorization grant.

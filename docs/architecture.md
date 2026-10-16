@@ -65,6 +65,18 @@ authority; staging wiki is `wiki.staging.xuanxue.su`. Session lifecycle is indep
 across profiles, while production's parent-domain cookie still reaches trusted
 staging hosts. Hostnames do not establish deployed capability.
 
+## Native content session validation
+
+The user reaffirmed Cabinet-session-based native content access on 2026-10-16.
+The [accepted native content connection](contracts/native-content-session.md)
+reuses Cabinet GET native/me for every protected Daychi native read. Cabinet owns
+current grant/account validity and grant-isolated check capacity; Daychi consumes
+the presented bearer decision without additional reader eligibility, account
+replication or positive authorization caching. Refusal and temporary failure keep
+their distinct recovery meanings. Legacy/native and browser consumer transitions
+remain scoped separately. Provider/consumer implementation and authorized joint
+proof return through [coordination issue 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
+
 ## Work and feedback
 
 The [agent interaction contract](agent-contract.md) is the sole authored home for

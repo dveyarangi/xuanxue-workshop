@@ -1,5 +1,30 @@
 # Current application structure and boundary evidence
 
+## Native content-check source baseline — 2026-10-16
+
+Fresh repository reads resolve Cabinet main to `5ea9a8ba16ecfdeecede086f6e35837f768f6994`
+and Daychi main to `c7af6f6682d86618f258129b457db9c6c35698e6`. Cabinet's
+[native controller](https://github.com/gregoryKot/xuanxue-cabinet/blob/5ea9a8ba16ecfdeecede086f6e35837f768f6994/api/src/native-auth/native-account.controller.ts)
+calls current credential/grant/account authentication and the shared full-profile
+mapper. Its GET me shares the 60/minute native IP budget; the global tracker
+recognizes browser cookies, not validated native grants. Thus the newly accepted
+[grant-isolated native content-check capacity](contracts/native-content-session.md)
+is an implementation delta, not an observed provider capability.
+
+The [Daychi local adapter report](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6124308245)
+retains its recipient-reported synthetic/invalid-session scope. The reported
+`practice_api/cabinet_session_http.py` is absent at published web-candidate
+`dfed3203c3c8b55ed077a07ed456d02704ae7e2a`; a read of that exact path/revision
+returned 404. This does not refute the local preparation or establish mounted
+content integration. No successful account/content read, new test run, deployment
+or accepted application result was established by this source pass.
+
+Independent recipient reading also inspected
+[the native wiki client at PR15 head d1a85fe](https://github.com/sleontenko/daychi/blob/d1a85fe28e86b60ca6271a2e75871d6360b9f25a/apps/practice-app/src/features/wiki/api.ts):
+it delegates to legacy privateRequest. PR15 explicitly excludes wiki/native-content
+work. The new connection therefore includes app/backend integration rather than
+treating the published account-session client as completed protected-content proof.
+
 Source inventory with separately scoped live checks below; not a claim of completed integration.
 Cabinet's general boundary inspection used revision
 `27f3e7bf50ac0a1e1f981519b7009fc2a19e7042`; reminder behavior was rechecked on

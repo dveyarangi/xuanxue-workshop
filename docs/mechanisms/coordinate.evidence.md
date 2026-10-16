@@ -1,5 +1,34 @@
 # Coordination loop evidence
 
+## Native content connection — 2026-10-16
+
+Scope: the remaining native server validation in
+[one-cabinet-login #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
+The user reaffirmed the accepted equal-access/current-session policy and approved
+completing its per-read connection and per-session capacity. The
+[native content contract](../contracts/native-content-session.md) fixes existing
+GET me wire, bearer caller authority, issuer/deadline, refusal/failure meanings,
+grant-isolated capacity, coexistence and common C01–C16 outcomes. Cabinet owns
+provider capacity/current validation; Daychi owns app/backend protected delivery;
+Knowledge's editorial/import responsibilities are unchanged.
+
+Two fresh independent readers reconstructed the
+[Cabinet brief](../assignments/native-content-cabinet.draft.md) and
+[Daychi brief](../assignments/native-content-daychi.draft.md) separately from the
+brief, cited authority and recipient sources, then checked paired coverage.
+Both found no semantic blocker or incompatible conforming pair. The one editorial
+direction label was corrected; publication must substitute immutable links and
+direct companion identities. Internal Daychi routing stays project-owned while
+Cabinet/legacy selection, failure isolation and browser-policy preservation are
+observable obligations. The [source baseline](../current-system.md#native-content-check-source-baseline--2026-10-16)
+holds the inspected revisions and remaining implementation gap.
+
+Document verification passed all 139 application tests, the announced e5e74d6
+harness comparison, installed-rule/mechanism agreement and question/ticket/edge/
+shared-report validation. This proves neither recipient implementation nor actual
+authenticated native content delivery. Publication and recipient joint proof have
+distinct outcomes in original issue 11; no account/fixture/release operation was performed.
+
 ## Project reception — 2026-10-12
 
 The user requested repair of reusable new-project reception before its execution
