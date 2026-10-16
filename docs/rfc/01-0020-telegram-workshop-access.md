@@ -1223,8 +1223,10 @@ On 2026-10-16, the real-group migration retained all 205 supplied messages and f
 original images under a verified fresh binding, preserving test state separately.
 All five images were read back and the active MCP image tool returned the selected
 original bytes. Search returned 206 messages after the new group event; the receiver
-was running with no pending direct requests. The interval between the supplied
-export and activation still needs a refreshed export; no completeness claim covers it.
+was running with no pending direct requests. A later refreshed export contained
+222 messages; 16 missing records were added without creating requests, preserving
+all five original images. All messages from both supplied exports are now retained
+alongside ongoing reception.
 
 ## Evidence checked on 2026-10-12
 
