@@ -1,5 +1,50 @@
 # Current application structure and boundary evidence
 
+## Native account-session provider acceptance — 2026-10-17
+
+Cabinet's native account-session provider contribution is accepted at `5ea9a8ba16ecfdeecede086f6e35837f768f6994` under profile `18cfe41db0203fa6fc72d429caa584960d0c2522`. No outstanding Cabinet action remains in this contribution. Daychi's remaining evidence review and complete joint native acceptance stay open in original issue 8.
+
+Scope: [Cabinet provider contribution 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
+in [native-cabinet-account-session](tickets/01-0008-native-cabinet-account-session.md).
+The accepted [native profile](contracts/native-account-session.md) and its N11 and
+N01/N17 evidence amendments are unchanged. Acceptance concerns the provider
+criterion; it does not accept Daychi's implementation, the complete joint outcome,
+production deployment, browser-wiki work or native-content capacity in issue 15.
+
+Evidence retained and reconciled:
+
+- [Provider source and executed-check review](#native-provider-evidence--reviewed-2026-10-11)
+  covers the native provider's N01–N17 obligations, including full profile parity,
+  code/attempt/PKCE binding, lifetime boundaries, predecessor recovery, grant-wide
+  revocation, account refusal and existing browser regressions. Its recorded test
+  counts remain the results of that exact historical run, not a new execution.
+- [Log-protection correction](#native-log-protection-correction--reviewed-2026-10-11)
+  at 67d5cbd resolves the only demonstrated provider deviation. Fresh comparison
+  through 5ea9a8b finds no later logging changes and only the already-reviewed test
+  support change under api/src/native-auth/. Shared browser/session changes retain
+  their own reviewed evidence and regression obligations.
+- A fresh read resolves Cabinet main to 5ea9a8b; all 30 returned check records on
+  that exact head completed successfully, including the [application verification
+  run](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/38642412159).
+  Source and successful checks supplement the inspected assertions; neither alone
+  establishes actual native UI behavior. No application suite reran in this pass.
+- [Cabinet's environment/account arrangement](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6194395822)
+  was fulfilled by the subsequently reported actual Daychi runs against staging
+  5ea9a8b. The [scoped native evidence review](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6224902214)
+  supports automatic system-context sign-in/reuse and current-credential native/
+  browser isolation, without assigning a remaining provider defect or fixture
+  action. Live aging was removed or deferred by the accepted evidence amendments.
+
+The outstanding accessible native UI/build-artifact subset belongs to
+[Daychi contribution 8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
+It does not require Cabinet implementation or an additional Cabinet arrangement.
+The ticket's separate client, joint-native and whole-verification criteria remain
+unchecked. Workshop reopens original 7 if that review demonstrates a concrete
+remaining Cabinet obligation, preserving this accepted contribution. The original
+issue holds the acknowledgement and closure state. No shared boundary changed;
+no fresh authenticated runtime, private image inspection, fixture write or release
+is claimed.
+
 ## Native content-check source baseline — 2026-10-16
 
 Fresh repository reads resolve Cabinet main to `5ea9a8ba16ecfdeecede086f6e35837f768f6994`

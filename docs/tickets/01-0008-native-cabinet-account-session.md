@@ -1,7 +1,7 @@
 # Native Cabinet account session
 
 - **record of** what it intends to become
-- **Status:** In progress (amended assignments published; recipient implementation and proof pending)
+- **Status:** In progress (Cabinet provider accepted; Daychi and joint native evidence review pending)
 - **Type:** HITL
 - **Minted:** 2026-10-06
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
@@ -75,8 +75,10 @@ not provider/client implementation, deployment or native proof.
   issues, with contract bytes, issue bodies, labels and dependency links read back.
 - [x] Both recipient assignments cite the same accessible immutable accepted
   contract and common conformance cases, with their original issue channels recorded.
-- [ ] Cabinet implements issuance, account read, renewal, revocation, errors and
+- [x] Cabinet implements issuance, account read, renewal, revocation, errors and
   web compatibility; provider evidence covers its N01–N17 obligations.
+  [Provider acceptance — 2026-10-17](../current-system.md#native-account-session-provider-acceptance--2026-10-17)
+  retains the separate client, joint-native and whole-verification remainder.
 - [ ] Daychi implements native handoff, full self-profile, secure persistence,
   restoration, recovery and local exit; client evidence covers its N01–N17 obligations.
 - [ ] Joint N01/N11/N15/N16/N17 proof uses a real native build and a conforming
