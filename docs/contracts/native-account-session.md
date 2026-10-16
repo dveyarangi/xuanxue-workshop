@@ -259,6 +259,37 @@ renewal/predecessor-recovery checks remain required. Credential lifetimes,
 renewal and grant-wide revocation behavior, N01/N15/N16/N17 and both-platform
 configuration/client coverage are unchanged.
 
+### Accepted N01/N17 live-evidence clarification — 2026-10-16
+
+Decision: the user replied "достаточно и можно отложить" on 2026-10-16 to
+[Daychi's acceptance questions](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6220769307).
+
+N01 live proof may use the selected persistent external system-authentication context; sharing its session with ordinary Safari is not required. Live browser-cookie renewal in N17 is deferred and does not block native assignment acceptance; automated renewal regression evidence and all other retained-behavior obligations remain required.
+
+For N01, actual sign-in and automatic return followed by a new native sign-in
+that reuses the valid session in the same system-authentication context satisfy
+the existing-session-reuse subcase. A manually reconstructed Safari continuation
+does not replace that actual system flow. The observed separation of ordinary
+Safari and ASWebAuthenticationSession on the reported iOS simulator does not by
+itself establish a provider/client defect or a cross-browser sharing guarantee. Other N01
+account/profile/restoration and evidence obligations remain in scope.
+
+For N17, only the age-dependent live demonstration of browser-cookie rolling
+renewal is deferred. Cabinet's existing automated renewal/boundary/regression
+checks remain required and reusable. Browser login/logout, native/browser grant
+isolation, working legacy Daychi content/invitations and ordinary selections,
+cache/reminders remain native regression obligations. This changes neither the
+browser session's runtime lifetime/renewal nor native acquisition/renewal wire.
+
+Deferred live browser renewal stays with Cabinet and Daychi in the existing
+[browser provider #12](https://github.com/dveyarangi/xuanxue-workshop/issues/12)
+and [browser consumer #13](https://github.com/dveyarangi/xuanxue-workshop/issues/13).
+Resume it with an owner-authorized eligible browser session during that joint
+browser work. Those assignments retain their original browser acceptance; no
+waiting period or aged-browser fixture is a prerequisite for native #7/#8 closure.
+The separate N11 amendment remains as accepted. This clarification accepts an
+evidence scope, not the reported implementation or the complete native outcome.
+
 ## Accepted web self-profile parity
 
 Decision: the user, 2026-10-09, required "все, что получает веб самого кабинета"
@@ -703,7 +734,7 @@ provider and an actual native development/release build, not Expo Go.
 
 | ID | Input/transition | Required outcome |
 |---|---|---|
-| N01 | Active existing account, PKCE sign-in with and without an existing browser session, account read, app restart; web/native self-profile comparison with email omitted/present, pending email, linked keys, bot chat, staff/student mode and empty/populated/normalized hidden home tiles | Valid browser session returns automatically; necessary login has no additional Cabinet confirmation after completion; same Cabinet account and grant restored; full account matches web MeDto for the same state; legacy content still works |
+| N01 | Active existing account, PKCE sign-in with and without an existing session in the selected persistent external system-authentication context, account read, app restart; web/native self-profile comparison with email omitted/present, pending email, linked keys, bot chat, staff/student mode and empty/populated/normalized hidden home tiles | Valid session in that context returns automatically; ordinary-Safari sharing is not required under the accepted N01/N17 clarification; necessary login has no additional Cabinet confirmation after completion; same Cabinet account and grant restored; full account matches web MeDto for the same state; legacy content still works |
 | N02 | RFC 7636 verifier `dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk` | Challenge `E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM`; correct exchange succeeds, wrong verifier fails |
 | N03 | Unknown client, altered redirect, malformed state, duplicate query | No redirect to an unregistered URI; no credential installed |
 | N04 | Wrong callback issuer/state/path, added authority/userinfo/port, encoded path, fragment, duplicate decoded fields, code+error | Ignored/refused without URI normalization; current session unchanged; fresh attempt remains possible |
@@ -719,7 +750,7 @@ provider and an actual native development/release build, not Expo Go.
 | N14 | Offline, timeout, 429, 503, malformed success; subsequent recovery | Retain current credential, distinguish unavailable from refused; no background poll requirement |
 | N15 | Offline logout, failed secure deletion, crash during cleanup, delayed request result | Durable local logout when delete succeeds; explicit incomplete logout when it fails; no stale restoration after completed cleanup |
 | N16 | Warm/cold callback; existing quietpractice invitation; separate issuer | Dedicated callback works; legacy invitation works; issuer credentials never mix |
-| N17 | Existing Cabinet login methods, web cookie renewal/logout; Daychi ordinary schedule/reminders/content | Existing behavior retained; no native staff/content privilege introduced |
+| N17 | Existing Cabinet login methods, web cookie renewal/logout; Daychi ordinary schedule/reminders/content | Existing behavior retained; automated browser renewal checks remain, with the age-dependent live browser-renewal demonstration deferred under the accepted N01/N17 clarification; no native staff/content privilege introduced |
 
 N01 hidden-home-tile source fixtures absent / `["notice"]` /
 `["events", "payment", "events", "gone"]` produce account values `[]` /
@@ -732,7 +763,7 @@ already required for changes to account-field meanings.
 Token/header leakage checks accompany the cases; test records include outcomes,
 revisions, environment and platform, never real credentials. N01/N11/N15/N16/N17
 need joint/native evidence under the [accepted verification scope](#accepted-joint-verification-scope),
-including the N11 live-evidence amendment; server/client interruption cases can supplement it.
+including the N11 amendment and N01/N17 live-evidence clarification; server/client interruption cases can supplement it.
 One real supported native platform suffices for the joint integration record;
 callback configuration and client checks cover both supported iOS and Android.
 

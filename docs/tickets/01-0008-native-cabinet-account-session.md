@@ -83,6 +83,9 @@ not provider/client implementation, deployment or native proof.
   reachable Cabinet provider, with controlled accounts, issuer and exact revisions.
   N11 uses the [accepted live-evidence amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15):
   current-credential revocation/isolation live, with automated aging/renewal/predecessor proof.
+  The [N01/N17 clarification](../contracts/native-account-session.md#accepted-n01n17-live-evidence-clarification--2026-10-16) accepts
+  persistent system-context reuse and defers only age-dependent live browser renewal;
+  automated renewal and all other regression/evidence obligations remain.
   One supported platform supplies joint proof; both iOS/Android configurations
   and client checks are covered.
 - [ ] /verify confirms the delivered contract behavior and retained Cabinet web,

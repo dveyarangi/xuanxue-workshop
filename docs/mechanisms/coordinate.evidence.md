@@ -1,5 +1,19 @@
 # Coordination loop evidence
 
+## Native N01/N17 evidence clarification — 2026-10-16
+
+The user accepted [Daychi's two live-evidence requests](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6220769307).
+The [native profile](../contracts/native-account-session.md#accepted-n01n17-live-evidence-clarification--2026-10-16)
+owns the clarification: actual persistent system-authentication reuse suffices
+for N01; age-dependent live browser-cookie renewal is deferred for native N17,
+while automated renewal and all other evidence/behavior obligations remain.
+Existing browser assignments 12/13 retain ownership of deferred live renewal and
+their original browser acceptance. No protocol, lifetime or recipient implementation
+change is introduced, so the affected review is a scoped consistency/authority
+check rather than a new independent implementation reconstruction. Both original
+native assignments retain one identical full-profile authority; no complete native
+result or recipient closure is inferred from this evidence-scope decision.
+
 ## Native content connection — 2026-10-16
 
 Scope: the remaining native server validation in
