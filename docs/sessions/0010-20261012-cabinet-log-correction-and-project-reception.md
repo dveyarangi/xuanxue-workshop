@@ -55,7 +55,7 @@ CI and independent request/parser/logger probes resolved the encoded-sensitive-n
 logging counterexample under the unchanged native contract. Staging reported the
 same revision during the review. The scoped result and outstanding proof are in
 [current-system](../current-system.md#native-log-protection-correction--reviewed-2026-10-11)
-and [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
+and [01-0008-native-cabinet-account-session](../tickets/done/01-0008-native-cabinet-account-session.md).
 Records were published at `93c3f5c`, followed by question evidence at `4cc7953`.
 No original-issue acknowledgement or full native acceptance was posted.
 
@@ -88,7 +88,7 @@ discoverability advice did not become accepted implementation work.
   and [trigger record](../questions/done/q-0002.0005.0004-when-and-how-should-workshop-start-receiving-a-new-project.md)
   retain the reasoning and scope.
 - **q-0002.0008.0001.0002 — How will native Daychi maintain a Cabinet account session without replacing its content access?**
-  remains open in [its record](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md).
+  remains open in [its record](../questions/done/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md).
   The log deviation is resolved; Daychi implementation, controlled account and
   joint native proof remain outstanding.
 - **q-0002.0011 — How should Daychi Knowledge participate in Workshop?** remains

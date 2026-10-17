@@ -887,7 +887,7 @@ The subsequent URL question further separates browser exposure from inter-projec
 dependency: an exact continuation pathname need not be chosen by Workshop merely
 because the browser visits it. The assistant's claim that choosing `/login/native`
 was itself required by the security correction was too broad. The
-[native ticket diagnostic](tickets/01-0008-native-cabinet-account-session.md#continuation-url-diagnostic--2026-10-10)
+[native ticket diagnostic](tickets/done/01-0008-native-cabinet-account-session.md#continuation-url-diagnostic--2026-10-10)
 holds the concrete distinction and independent material. The existing completeness
 criteria continue to govern shared behavior; no rule requiring Workshop to choose
 every browser-visible route is proposed.

@@ -109,7 +109,7 @@ remaining joint browser/exposure/cache proof retain their original assignments.
 ## Out of scope
 
 Native account-session implementation and proof belong to
-[01-0008 native-cabinet-account-session](./01-0008-native-cabinet-account-session.md).
+[01-0008 native-cabinet-account-session](./done/01-0008-native-cabinet-account-session.md).
 Native private-content and owner/import/Knowledge authority retain the
 [compatibility boundary](../contracts/web-wiki-session.md#compatibility-and-transition);
 this outcome neither replaces those authorities nor deletes their business records.

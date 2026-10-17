@@ -1,11 +1,49 @@
 # Current application structure and boundary evidence
 
+## Native client and joint acceptance — 2026-10-17
+
+The native account-session outcome is accepted under full profile `18cfe41`: Cabinet at `5ea9a8b` and Daychi tested source `d1a85fe`, native iOS Simulator Debug 1.0.0 (18), satisfy the provider, client and joint-native criteria within the accepted verification scope. Production release, browser-wiki acceptance and native-content validation remain separate outcomes.
+
+The [completed evidence review](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6233267073)
+inspected the immutable [40-file QA package](https://github.com/sleontenko/daychi/blob/bc8f1d5a23f732bdcf6b404f6242f5c5c68437f2/docs/qa-native-account-live-review-2026-10-16/README.md):
+all byte sizes/SHA-256 hashes matched and all 26 original PNGs were visually
+inspected. This completion pass reuses that scoped review, verifies the retained
+40-file package again and freshly confirms PR15 remains at d1a85fe with three
+successful exact-source checks. The existing 63/63 targeted client-test log,
+historical independent source/wrapper/configuration review and provider automation
+retain their original execution provenance. No recipient application suite,
+authenticated runtime, build, merge or release was repeated here.
+
+| Accepted obligation | Evidence and retained scope |
+|---|---|
+| N01 sign-in, profile and restoration | Actual system sign-in/automatic return, persistent-context reuse and restart frames; same-state web/native profile comparison. Populated/normalized profile variants retain automated proof. Ordinary-Safari sharing is not required. |
+| N11 grant isolation | Current-grant revoke 200 and subsequent refusal, with the second native grant and browser still usable. Provider/client renewal and predecessor recovery retain automated proof under the accepted live amendment. |
+| N15 durable local exit and recovery | Actual request failure, local sign-out, signed-out restart and non-resurrection by a late callback. Exact in-app cancellation and secure-delete failure retain source/synthetic coverage. |
+| N16 callback, issuer and invitation compatibility | Warm/cold native callback and ordinary legacy invitation evidence, both-platform configuration/wrapper checks and issuer-bound source/tests. Cold callback used the original request with manual Safari continuation; it is not automatic browser-reuse proof. |
+| N17 retained behavior | Separate browser/native logout, schedule sources, selections, two reminders and an actual Simulator local notification. Legacy HTTP records preserve the same protected-response hash and separate grant through Cabinet sign-in/logout/restart, with anonymous refusal and test-access cleanup. |
+| Remaining N02–N14 provider/client obligations | Previously inspected immutable implementation/assertions and executed checks cover PKCE/code binding, cancellation/replay, lifetime and renewal boundaries, invalid/blocked/unavailable categories, interrupted persistence and recovery; no new wire or exception is introduced. |
+
+Request-failure instrumentation is not OS airplane mode. Sampled encrypted host
+events are not a full decrypted lifetime trace. Private material pixels remain
+excluded; inspected nonsecret status/hash/link-presence and cleanup evidence
+support the agreed preservation scope. These disclosed limits create no additional
+unmet criterion under the accepted joint verification and N11/N01/N17 amendments.
+No recipient action remains in native account-session contributions 7/8.
+
+The [provider acceptance](#native-account-session-provider-acceptance--2026-10-17)
+and this client/joint acceptance complete
+[native-cabinet-account-session](tickets/done/01-0008-native-cabinet-account-session.md).
+The original issues hold acknowledgement/closure. Browser 12/13 retains deferred
+live browser-cookie renewal and its original browser acceptance; native-content
+15/16 and public-schedule 6 retain their separate contracts and remaining work.
+No shared boundary, credential lifetime or runtime behavior changed.
+
 ## Native account-session provider acceptance — 2026-10-17
 
 Cabinet's native account-session provider contribution is accepted at `5ea9a8ba16ecfdeecede086f6e35837f768f6994` under profile `18cfe41db0203fa6fc72d429caa584960d0c2522`. No outstanding Cabinet action remains in this contribution. Daychi's remaining evidence review and complete joint native acceptance stay open in original issue 8.
 
 Scope: [Cabinet provider contribution 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
-in [native-cabinet-account-session](tickets/01-0008-native-cabinet-account-session.md).
+in [native-cabinet-account-session](tickets/done/01-0008-native-cabinet-account-session.md).
 The accepted [native profile](contracts/native-account-session.md) and its N11 and
 N01/N17 evidence amendments are unchanged. Acceptance concerns the provider
 criterion; it does not accept Daychi's implementation, the complete joint outcome,
@@ -545,7 +583,7 @@ missing from the fixed native definition/example and N01 inputs. The user accept
 its addition on 2026-10-10; the
 [native contract](contracts/native-account-session.md#accepted-web-self-profile-parity)
 now defines that read-only parity field and its common cases. The
-[native ticket](tickets/01-0008-native-cabinet-account-session.md#recipient-revalidation--2026-10-10)
+[native ticket](tickets/done/01-0008-native-cabinet-account-session.md#recipient-revalidation--2026-10-10)
 owns affected revalidation and publication. This reconciles the accepted definition,
 not provider/client implementation. The 2026-10-09 profile baseline below
 does not establish the current complete field set.

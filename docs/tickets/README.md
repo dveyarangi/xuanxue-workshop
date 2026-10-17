@@ -37,7 +37,14 @@ assignment. Its proper tracker destination remains in the
 |---|---|---|---|
 | [workshop-board-review](./done/01-0006-workshop-board-review.md) | | | |
 | [cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md) | Planned | HITL | A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence. |
-| [native-cabinet-account-session](./01-0008-native-cabinet-account-session.md) | In progress (Cabinet provider accepted; Daychi and joint native evidence review pending) | HITL | Native Daychi signs in through Cabinet, securely restores and renews its session, reads the full current self-profile and signs out of that installation, with joint native proof and existing web/content behavior retained. |
 | [01-0009 web-wiki-cabinet-session](./01-0009-web-wiki-cabinet-session.md) | | | |
 | [daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md) | Blocked (horizon) | HITL | Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend. |
 | [telegram-workshop-access](./01-0020-telegram-workshop-access.md) | | | |
+
+## Completed native account session
+
+[native-cabinet-account-session](./done/01-0008-native-cabinet-account-session.md)
+completed on 2026-10-17 within the accepted joint verification scope. The
+[acceptance record](../current-system.md#native-client-and-joint-acceptance--2026-10-17)
+owns exact revisions and proof limits. Existing public-schedule, browser-wiki and
+native-content work retains its order and ownership; this completion starts no next cycle.

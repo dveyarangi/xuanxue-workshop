@@ -10,7 +10,7 @@ failed to advance that preparation, the existing
 [rule-failure entry](../rule-failures.md#2026-10-04--alignment-stopped-after-answering-a-clarification)
 was struck again; a redundant rule amendment was not adopted. Concrete preparation
 then produced the approved
-[native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md)
+[native-cabinet-account-session](../tickets/done/01-0008-native-cabinet-account-session.md)
 ticket, Ready for alignment. Its owning question holds the outcome; its
 [approved breakdown](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#approved-breakdown)
 holds source evidence and rationale. No authentication implementation assignment
@@ -59,7 +59,7 @@ deployment or the joint native connection. No sibling project was edited.
   account-session ticket follows it in the queue. Its contract preparation can
   proceed independently of public pilot proof, subject to the existing human
   decision and next-cycle checkpoints.
-- [q-0002.0008.0001.0002 — How will native Daychi maintain a Cabinet account session without replacing its content access?](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md):
+- [q-0002.0008.0001.0002 — How will native Daychi maintain a Cabinet account session without replacing its content access?](../questions/done/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md):
   the approved outcome is minted; acquisition, lifecycle, renewal, account-read,
   failures and executable sign-out definitions still need alignment. Cabinet
   authority, provisional handoff and existing Daychi content access stay fixed.

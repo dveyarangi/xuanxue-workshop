@@ -1,6 +1,6 @@
 # Native Cabinet account session
 
-**Status: accepted wire profile, 2026-10-09; self-profile parity and native security/continuation amended, document-verified and published 2026-10-10; implementation and native proof pending.**
+**Status: accepted wire profile, 2026-10-09; self-profile parity and native security/continuation amended, document-verified and published 2026-10-10; provider/client and joint-native outcome accepted 2026-10-17 within the agreed verification scope.**
 The user accepted the remaining technical protocol with "принимаем": the five
 operations and their exact request/response/error definitions, a code lifetime
 of 60 seconds after issuance and a 900-second native attempt lifetime. Earlier
@@ -8,14 +8,16 @@ accepted acquisition, lifecycle, recovery, isolation, full web self-profile pari
 without phone and automatic browser continuation remain binding, including the
 documented client-impersonation risk. No account-switching workflow is added.
 Prepared within
-[01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
+[01-0008-native-cabinet-account-session](../tickets/done/01-0008-native-cabinet-account-session.md).
 The wire/security amendment was published at Workshop
 `3c98d4a5201710f8f777183dd7b61caefe47e2d5`. The accepted N11 live-evidence
 amendment below narrows verification scope only. The current full-profile
 publication revision is shared by
 [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7)
 and [daychi-native-account-session #8](https://github.com/dveyarangi/xuanxue-workshop/issues/8).
-Recipient implementation evidence and joint native proof remain pending.
+The [native client/joint acceptance](../current-system.md#native-client-and-joint-acceptance--2026-10-17)
+and provider acceptance complete this account-session outcome; separate browser/content
+work and production release retain their own scope.
 The native-token, pending-login protection and continuation amendments below
 are included in that pinned revision and both recipient issues.
 The security choices follow
@@ -23,7 +25,8 @@ The security choices follow
 The [existing agreements](../boundaries.md#accepted-content-admission) fix Cabinet
 account ownership, separate Daychi content access and installation-scoped sign-out.
 [Scoped source evidence](../current-system.md#native-account-session-source--2026-10-08)
-explains the implementation gap; it does not establish deployed native support.
+records the earlier implementation gap; current acceptance is recorded in the linked
+client/joint and provider reviews.
 
 ## Accepted credential lifetime and renewal
 

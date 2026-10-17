@@ -1,7 +1,7 @@
 # Cabinet: native account-session provider
 
 **2026-10-10 wire/security amendment published in [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7), 2026-10-10.** Recipient label: `project:cabinet`.
-Prepared within [01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md).
+Prepared within [01-0008-native-cabinet-account-session](../tickets/done/01-0008-native-cabinet-account-session.md).
 The accepted native profile includes full web self-profile parity with
 `homeHiddenTiles`, automatic continuation and the accepted client-impersonation
 risk. Its accepted security amendment fixes random/hash-only native credentials,

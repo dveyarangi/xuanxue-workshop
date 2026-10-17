@@ -1,33 +1,33 @@
 # Native Cabinet account session
 
-- **record of** what it intends to become
-- **Status:** In progress (Cabinet provider accepted; Daychi and joint native evidence review pending)
+- **record of** what happened
+- **Status:** Done (2026-10-17)
 - **Type:** HITL
 - **Minted:** 2026-10-06
 - **Responsible contributor:** Workshop agent under its operator; Cabinet and Daychi agents own their recipient contributions
-- **Answers:** [q-0002.0008.0001.0002](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
+- **Answers:** [q-0002.0008.0001.0002](../../questions/done/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md)
 - **Outcome:** Native Daychi signs in through Cabinet, securely restores and renews its session, reads the full current self-profile and signs out of that installation, with joint native proof and existing web/content behavior retained.
 
 ## Parent
 
-The credential contribution in the [accepted migration delta](../migration-changes.md#changes-derived-from-accepted-contracts),
-within the [first-stage scope](../stage-1.md). The user approved this one-outcome
+The credential contribution in the [accepted migration delta](../../migration-changes.md#changes-derived-from-accepted-contracts),
+within the [first-stage scope](../../stage-1.md). The user approved this one-outcome
 breakdown and minting on 2026-10-06. Its
-[post-impact assessment](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#impact)
+[post-impact assessment](../../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#impact)
 recommends a complete native account-session path separated from the broader migration.
 
-The existing [credential agreement](../boundaries.md#accepted-content-admission),
-[agreed native acquisition](../contracts/native-account-session.md#accepted-native-credential-acquisition)
-and [sign-out scope](../boundaries.md#accepted-sign-out-scope) govern the result.
+The existing [credential agreement](../../boundaries.md#accepted-content-admission),
+[agreed native acquisition](../../contracts/native-account-session.md#accepted-native-credential-acquisition)
+and [sign-out scope](../../boundaries.md#accepted-sign-out-scope) govern the result.
 Cabinet remains the provider, account data owner and issuance/validation authority;
 native Daychi is the consumer. Both projects retain their own operators and internal
 design within accepted shared and security decisions. Workshop owns security
 principles and protocol selection under
-[Security authority](../agent-contract.md#security-authority).
+[Security authority](../../agent-contract.md#security-authority).
 
 ## What to build
 
-Implement the [accepted native account-session profile](../contracts/native-account-session.md)
+Implement the [accepted native account-session profile](../../contracts/native-account-session.md)
 through Cabinet's provider and Daychi's native consumer. Cabinet supplies browser
 authorization, atomic code/PKCE exchange, bearer validation, full web-equivalent
 self-profile, renewal and grant-wide revocation. Daychi supplies the registered
@@ -47,13 +47,13 @@ The user accepted the current web `homeHiddenTiles` field on 2026-10-10.
 Its required normalized value and N01 parity fixtures are defined in the same
 native profile; no home-tile UI or preference editing/synchronization is added.
 On 2026-10-10 the user accepted
-[native credential protection](../contracts/native-account-session.md#accepted-native-credential-protection):
+[native credential protection](../../contracts/native-account-session.md#accepted-native-credential-protection):
 random 32-byte bearer credentials and SHA-256 hash-only storage. The user also
 accepted database-backed pending authorization, browser binding, a fixed
 900-second server deadline and atomic single-use completion, recorded in
-[pending browser authorization protection](../contracts/native-account-session.md#accepted-pending-browser-authorization-protection).
+[pending browser authorization protection](../../contracts/native-account-session.md#accepted-pending-browser-authorization-protection).
 The user subsequently accepted
-[`/login/native` continuation](../contracts/native-account-session.md#accepted-native-browser-continuation-route).
+[`/login/native` continuation](../../contracts/native-account-session.md#accepted-native-browser-continuation-route).
 All three relayed security/continuation choices are settled, document-verified and
 published in the amended assignments. The settled public wire and earlier
 product decisions remain binding.
@@ -77,20 +77,20 @@ not provider/client implementation, deployment or native proof.
   contract and common conformance cases, with their original issue channels recorded.
 - [x] Cabinet implements issuance, account read, renewal, revocation, errors and
   web compatibility; provider evidence covers its N01–N17 obligations.
-  [Provider acceptance — 2026-10-17](../current-system.md#native-account-session-provider-acceptance--2026-10-17)
+  [Provider acceptance — 2026-10-17](../../current-system.md#native-account-session-provider-acceptance--2026-10-17)
   retains the separate client, joint-native and whole-verification remainder.
-- [ ] Daychi implements native handoff, full self-profile, secure persistence,
+- [x] Daychi implements native handoff, full self-profile, secure persistence,
   restoration, recovery and local exit; client evidence covers its N01–N17 obligations.
-- [ ] Joint N01/N11/N15/N16/N17 proof uses a real native build and a conforming
+- [x] Joint N01/N11/N15/N16/N17 proof uses a real native build and a conforming
   reachable Cabinet provider, with controlled accounts, issuer and exact revisions.
-  N11 uses the [accepted live-evidence amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15):
+  N11 uses the [accepted live-evidence amendment](../../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15):
   current-credential revocation/isolation live, with automated aging/renewal/predecessor proof.
-  The [N01/N17 clarification](../contracts/native-account-session.md#accepted-n01n17-live-evidence-clarification--2026-10-16) accepts
+  The [N01/N17 clarification](../../contracts/native-account-session.md#accepted-n01n17-live-evidence-clarification--2026-10-16) accepts
   persistent system-context reuse and defers only age-dependent live browser renewal;
   automated renewal and all other regression/evidence obligations remain.
   One supported platform supplies joint proof; both iOS/Android configurations
   and client checks are covered.
-- [ ] /verify confirms the delivered contract behavior and retained Cabinet web,
+- [x] /verify confirms the delivered contract behavior and retained Cabinet web,
   Daychi invitation/content and ordinary schedule/reminder behavior. No native
   proof or runtime acceptance is inferred from the contract's acceptance.
 
@@ -114,7 +114,7 @@ not provider/client implementation, deployment or native proof.
 
 Contract preparation/alignment can start without public-provider correction,
 public-pilot native proof or Daychi installation. There is no dependency on
-[cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md)
+[cabinet-daychi-public-schedule-connection](../01-0007-cabinet-daychi-public-schedule-connection.md)
 for this activity; existing queue order is preserved.
 
 Implementation publication requires settled definitions, common cases and an
@@ -125,11 +125,11 @@ controlled test account and actual native runtime, established by current eviden
 
 ## Evidence baseline
 
-The [refreshed source check](../current-system.md#native-account-session-source--2026-10-08)
+The [refreshed source check](../../current-system.md#native-account-session-source--2026-10-08)
 records Cabinet `868a4edb09926a950b78e8daa3ce495c6e8e256e` and Daychi
 `e1ab559c8d5db3dbd7db95aa7400941381ada12a`. Its linked primary sources own the
 observations; no native auth runtime or deployment is claimed.
-The [2026-10-10 scoped comparison](../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
+The [2026-10-10 scoped comparison](../../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
 uses Cabinet `fee65f3b8004d4ecac6c2d3da668cf966be0d0f5` and Daychi
 `0a3c824c1586eb7b3ca16ca0b3a365539076b025`. It retains unchanged auth/native
 observations and identifies the web hidden-home-tile field now included in the
@@ -138,11 +138,11 @@ accepted native definition.
 ## Technical preparation — 2026-10-08
 
 The user authorized technical preparation on 2026-10-08. The
-[proposed shared profile](../contracts/native-account-session.md) specifies
+[proposed shared profile](../../contracts/native-account-session.md) specifies
 browser authorization, PKCE/callback binding, code exchange, account read,
 renewal, revocation, local persistence/failure recovery and common cases N01–N17.
-The [Cabinet draft assignment](../assignments/native-session-cabinet.draft.md)
-and [Daychi draft assignment](../assignments/native-session-daychi.draft.md)
+The [Cabinet draft assignment](../../assignments/native-session-cabinet.draft.md)
+and [Daychi draft assignment](../../assignments/native-session-daychi.draft.md)
 derive their actions from that same proposal. These are reviewable preparation,
 not published implementation assignments. The lifecycle and local sign-out decisions
 and acquisition reaffirmation accept those parts, not the complete wire profile.
@@ -171,33 +171,33 @@ No device fingerprint, gateway, background polling or backend retirement is adde
 
 The user accepted the native credential lifetime/renewal policy on 2026-10-08.
 Its durable home is
-[accepted credential lifetime and renewal](../contracts/native-account-session.md#accepted-credential-lifetime-and-renewal).
+[accepted credential lifetime and renewal](../../contracts/native-account-session.md#accepted-credential-lifetime-and-renewal).
 The decision includes predecessor validity for interrupted-renewal recovery and
 the stated copied-bearer tradeoff. This policy is no longer a pending choice.
 
-The same day's [acquisition reaffirmation](../contracts/native-account-session.md#accepted-native-credential-acquisition)
+The same day's [acquisition reaffirmation](../../contracts/native-account-session.md#accepted-native-credential-acquisition)
 holds the browser/code-and-PKCE method fixed. The user also accepted
-[local sign-out and failure policy](../contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy):
+[local sign-out and failure policy](../../contracts/native-account-session.md#accepted-local-sign-out-and-failure-policy):
 immediate local exit, bounded best-effort remote revocation, no later token retry
 queue and explicit incomplete exit if local deletion fails. Their provenance lives
 in those contract sections. The user subsequently accepted
-[account-block recovery](../contracts/native-account-session.md#accepted-account-block-recovery):
+[account-block recovery](../../contracts/native-account-session.md#accepted-account-block-recovery):
 retain the credential while disabling account use; a successful authoritative
 check after unblock restores access if the credential remains valid. The user also
-accepted [the registered callback](../contracts/native-account-session.md#accepted-registered-callback)
+accepted [the registered callback](../../contracts/native-account-session.md#accepted-registered-callback)
 `su.xuanxue.daychi:/oauth/cabinet`, with invitation compatibility and the stated
 scheme-collision tradeoff. Exact endpoint/DTO/query definitions were accepted
 with the complete technical protocol on 2026-10-09.
 On 2026-10-09 the user accepted
-[interrupted exchange recovery](../contracts/native-account-session.md#accepted-interrupted-code-exchange-recovery):
+[interrupted exchange recovery](../../contracts/native-account-session.md#accepted-interrupted-code-exchange-recovery):
 after a dispatched exchange without durable installation of the new credential,
 start a fresh browser attempt while preserving any prior usable session.
 Normal restoration applies if the new credential was durably installed.
 
 The same day's acceptance of proposal items 3, 5 and 6 landed in
-[session isolation and revocation guarantees](../contracts/native-account-session.md#accepted-session-isolation-and-revocation-guarantees),
-[failure categories](../contracts/native-account-session.md#accepted-failure-categories)
-and [joint verification scope](../contracts/native-account-session.md#accepted-joint-verification-scope).
+[session isolation and revocation guarantees](../../contracts/native-account-session.md#accepted-session-isolation-and-revocation-guarantees),
+[failure categories](../../contracts/native-account-session.md#accepted-failure-categories)
+and [joint verification scope](../../contracts/native-account-session.md#accepted-joint-verification-scope).
 These accept independent client sessions, grant-wide revocation including renewal
 races, invalid/blocked/temporary distinctions, and real native proof on one platform
 with configuration/client checks on both. Exact wire values were subsequently
@@ -205,7 +205,7 @@ accepted with the complete technical protocol on 2026-10-09.
 
 The user challenged the extra Continue click, the omission of the bearer and
 current content consumers from the account-payload explanation, and an unproven
-account-switching story. [Current consumer evidence](../current-system.md#native-consumer-needs--2026-10-09)
+account-switching story. [Current consumer evidence](../../current-system.md#native-consumer-needs--2026-10-09)
 records protected wiki/Zoom consumers and the accepted target bearer transport
 to both backends. The account-session slice does not complete the admission bridge.
 The proposed previous-grant cleanup for in-place replacement was withdrawn as a
@@ -214,16 +214,16 @@ and secure-write protection remains binding. This slice's separation from the
 unified content-admission bridge remains material to complete-profile acceptance.
 The user subsequently required the complete web Cabinet self-profile, including
 email and roles, rather than the proposed ID/name subset. Its durable home is
-[accepted web self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity).
+[accepted web self-profile parity](../../contracts/native-account-session.md#accepted-web-self-profile-parity).
 The accepted account response specifies the full checked `MeDto`, including
 optional-email omission, linked-key/chat flags and effective roles/student mode;
 N01 includes profile-parity cases. Cabinet owns the meanings; no Daychi profile-edit
 UX or staff operations are added. The user subsequently excluded phone with
 "телефон не надо". The same turn accepted
-[automatic browser continuation](../contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
+[automatic browser continuation](../../contracts/native-account-session.md#accepted-browser-continuation-without-additional-confirmation)
 without any additional Cabinet account/consent/Continue screen, retaining necessary
 existing sign-in and all callback/PKCE bindings. The user accepted the
-[native client-impersonation risk](../contracts/native-account-session.md#accepted-risk--native-client-impersonation)
+[native client-impersonation risk](../../contracts/native-account-session.md#accepted-risk--native-client-impersonation)
 and requested its documentation. N01 now covers automatic reuse of a valid browser
 session and automatic continuation after necessary sign-in. These decisions do
 not themselves approve the complete wire profile or establish deployed/native
@@ -303,7 +303,7 @@ Fresh independent Cabinet and Daychi readers reconstructed obligations from thei
 own brief, cited authority and relevant repository sources without Workshop
 session history. Ownership, activity dependencies, internal freedom and N01–N17
 coverage passed their scoped reading. Both found one publication blocker from
-the [new source evidence](../current-system.md#assignment-and-native-profile-recheck--2026-10-10):
+the [new source evidence](../../current-system.md#assignment-and-native-profile-recheck--2026-10-10):
 current web `MeDto` requires `homeHiddenTiles`, whereas the accepted native
 field table, example and explicit N01 inputs omit its definition.
 
@@ -318,7 +318,7 @@ scope. The complete acquisition/lifecycle decisions remain accepted.
 
 The user accepted the amendment on 2026-10-10 with "думаю надо добавлять".
 Its durable home is the
-[accepted self-profile parity](../contracts/native-account-session.md#accepted-web-self-profile-parity).
+[accepted self-profile parity](../../contracts/native-account-session.md#accepted-web-self-profile-parity).
 The contract now includes the current required normalized field, its six keys,
 empty meaning and canonical order in the account definition/example, and compares
 empty/populated/normalized values in N01. Both recipient briefs identify their
@@ -412,9 +412,9 @@ The user clarified Workshop's security authority after Cabinet asked about signe
 versus random native credentials, pending authorization in a cookie versus the
 database, and a `/login/native` resumption page. Visible interoperability alone
 did not settle those security choices. The authority decision is recorded in
-[Security authority](../agent-contract.md#security-authority); its reasoning and
+[Security authority](../../agent-contract.md#security-authority); its reasoning and
 source observations are in
-[coordination evidence](../mechanisms/coordinate.evidence.md#native-recipient-implementation-questions--2026-10-10).
+[coordination evidence](../../mechanisms/coordinate.evidence.md#native-recipient-implementation-questions--2026-10-10).
 
 The user accepted the random-token/hash-only choice with "беседер". That decision
 is landed in the native profile and local provider brief. The user subsequently
@@ -476,10 +476,10 @@ same shared operations, formats, profile, timing, lifecycle, security, isolation
 failures and N01–N17 outcomes; neither found a semantic publication blocker or
 unrelated implementation scope. Local schema/indexes, transaction mechanics,
 libraries and presentation remain free within accepted guarantees. The
-[independent review record](../../.local/native-security-20261010/independent-review.md)
+[independent review record](../../../.local/native-security-20261010/independent-review.md)
 retains input hashes, source limits and concrete implementation hazards.
 
-The [current source check](../current-system.md#native-security-amendment-source-check--2026-10-10)
+The [current source check](../../current-system.md#native-security-amendment-source-check--2026-10-10)
 establishes Cabinet `f5036604a414f5e509ca3c9a73d5bcaaa72b3961`, unchanged relevant
 source since the previous provider baseline, and unchanged public Daychi
 `0a3c824c1586eb7b3ca16ca0b3a365539076b025`. The Daychi reader's local checkout is
@@ -494,7 +494,7 @@ passed with no diagnostics. Package checks validate resolving local/pinned-targe
 links, both JSON examples, all 15 account fields, N01–N17, token encoding/durations,
 the PKCE control vector and frozen artifacts. The token example was corrected to
 the accepted 32-byte/43-character encoding. The
-[check result](../../.local/native-security-20261010/package-check.json) records
+[check result](../../../.local/native-security-20261010/package-check.json) records
 the final counts. Scoped straw-dog candidates concern accepted lifecycle conditions
 and explicit implementation/proof status; they expose no unsettled contract choice.
 Workshop has no application suite; recipient checks and actual native proof remain
@@ -505,8 +505,8 @@ publication was prepared. Workshop's next action was to commit this reviewed pac
 accessible and update the existing paired issue bodies to the same full SHA.
 Commit and push require the user's per-change permission under L3; publication
 retains original issue identities, labels and contribution channels. Prepared
-[Cabinet issue body](../../.local/native-security-20261010/issue-7.body.md) and
-[Daychi issue body](../../.local/native-security-20261010/issue-8.body.md) contain
+[Cabinet issue body](../../../.local/native-security-20261010/issue-7.body.md) and
+[Daychi issue body](../../../.local/native-security-20261010/issue-8.body.md) contain
 revision placeholders for that mechanical substitution and are not published.
 Recipient implementation and joint native proof remain outstanding.
 
@@ -523,7 +523,7 @@ comments or edits before replacement.
 Both original issue bodies now pin that full revision. Readback confirmed exact
 reviewed text after revision substitution, unchanged titles, recipient labels,
 open states and direct counterpart links. The
-[publication receipt](../../.local/native-security-20261010/publication-receipt.json)
+[publication receipt](../../../.local/native-security-20261010/publication-receipt.json)
 records the authority and body hashes. Preparation snapshots remain historical
 review artifacts; the published bodies contain no revision placeholder.
 
@@ -540,12 +540,12 @@ deployment or native proof, and the delivery ticket remains open.
 Provider behavior and staging refusal paths are inspected at Cabinet
 `97642c734a0cc327d13bc58f193ac10a13b8d476`. The subsequent log-protection
 correction at `67d5cbd0041daa13c6973b657479e45a6716486f` is verified in the
-[scoped correction review](../current-system.md#native-log-protection-correction--reviewed-2026-10-11).
+[scoped correction review](../../current-system.md#native-log-protection-correction--reviewed-2026-10-11).
 The earlier encoded-name deviation is resolved. The controlled account,
 Daychi implementation and joint native proof remain unverified; neither
 assignment is acknowledged or closed by this correction review.
 
-The [current-system review](../current-system.md#native-provider-evidence--reviewed-2026-10-11)
+The [current-system review](../../current-system.md#native-provider-evidence--reviewed-2026-10-11)
 owns source, CI, runtime and counterexample evidence. It supersedes the former
 provider implementation gap within the reviewed scope while preserving the
 accepted authority `3c98d4a5201710f8f777183dd7b61caefe47e2d5` and the original
@@ -567,14 +567,14 @@ The operator subsequently authorized committing and publishing the review record
 ## Out of scope
 
 - Content-admission replacement and backend retirement: the
-  [content-admission agreement](../boundaries.md#accepted-content-admission) and
-  [consolidation deferral](../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)
+  [content-admission agreement](../../boundaries.md#accepted-content-admission) and
+  [consolidation deferral](../../questions/q-0002.0009-should-cabinet-serve-daychi-content.md)
   retain their existing scope and bindings.
 - Reminder synchronization and protected schedule cutover remain separate rows
-  in the [migration delta](../migration-changes.md#changes-derived-from-accepted-contracts).
-- Gateway implementation remains [deferred](../boundaries.md#accepted-gateway-deferral).
+  in the [migration delta](../../migration-changes.md#changes-derived-from-accepted-contracts).
+- Gateway implementation remains [deferred](../../boundaries.md#accepted-gateway-deferral).
 - New background polling and native server push remain outside the
-  [first-stage scope](../stage-1.md#scope-limits).
+  [first-stage scope](../../stage-1.md#scope-limits).
 
 ## Parent scope addressed
 
@@ -588,7 +588,7 @@ It does not complete the broader migration or the public schedule connection.
 
 The user accepted Cabinet's request to remove only live aging/renewal/predecessor
 revocation from N11. Its authoritative home is the
-[accepted verification amendment](../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15).
+[accepted verification amendment](../../contracts/native-account-session.md#accepted-n11-live-evidence-amendment--2026-10-15).
 The provider/client implementation obligations and remaining joint proof stay open.
 The amended full profile is the common authority for original assignments 7/8.
 Remaining recipient work is the actual authorized native proof; the live
@@ -602,3 +602,16 @@ no fresh independent implementation reader is required for this evidence-only
 amendment. Ticket, question, mechanism, installed-binding and shared-report checks
 pass. Provisional-text candidates describe accepted lifecycle or dated evidence,
 not unresolved replacement decisions. No application code changed or suite reran.
+
+## Delivered native outcome — 2026-10-17
+
+The [client/joint acceptance](../../current-system.md#native-client-and-joint-acceptance--2026-10-17)
+and the existing provider acceptance complete all delivery criteria under unchanged
+profile 18cfe41. Cabinet source/staging 5ea9a8b and Daychi tested source d1a85fe,
+iOS Simulator native Debug 1.0.0 (18), are tied to the inspected 40-file/26-image
+QA package at bc8f1d5. Earlier inspected source, both-platform configuration,
+automated provider/renewal/recovery checks and the existing 63-test client log
+retain their scope and original execution dates. The completed review identifies
+no further native recipient evidence or action. Publication/acknowledgement in
+original issues 7/8 records formal acceptance without changing a shared promise.
+Production release and browser/content/public-schedule contributions are separate.

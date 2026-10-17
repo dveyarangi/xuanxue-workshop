@@ -64,7 +64,7 @@ The contract, paired
 [Daychi brief](../assignments/native-session-daychi.draft.md), architecture,
 boundaries, migration delta and question summaries were reconciled to full
 acceptance. The existing
-[01-0008-native-cabinet-account-session](../tickets/01-0008-native-cabinet-account-session.md)
+[01-0008-native-cabinet-account-session](../tickets/done/01-0008-native-cabinet-account-session.md)
 ticket now carries implementation delivery criteria separately from its completed
 alignment criteria. No new breakdown or sibling implementation was performed.
 
@@ -89,7 +89,7 @@ issues 1–5 were closed. No tracker writes were performed in this conclusion.
 
 ## Open questions and continuation
 
-- [q-0002.0008.0001.0002 — How will native Daychi maintain a Cabinet account session without replacing its content access?](../questions/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md):
+- [q-0002.0008.0001.0002 — How will native Daychi maintain a Cabinet account session without replacing its content access?](../questions/done/q-0002.0008.0001.0002-how-will-native-daychi-maintain-a-cabinet-account-session-without-replacing-its-content-access.md):
   the complete contract is accepted and alignment verified. Publication,
   provider/client implementation and joint native proof remain outstanding.
 - [q-0002.0008.0001 — How will Daychi clients obtain and present Cabinet credentials?](../questions/q-0002.0008.0001-how-will-daychi-clients-obtain-and-present-cabinet-credentials.md):
