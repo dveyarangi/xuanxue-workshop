@@ -1,5 +1,22 @@
 # Current application structure and boundary evidence
 
+## Public-pilot evidence and test-lesson disposition — 2026-10-18
+
+The user reaffirmed the 15 October Telegram decision: only the live mixed-row/
+repair subcase of common case 10 is removed. The [accepted amendment](contracts/public-lessons.md#accepted-live-evidence-amendment--2026-10-18)
+retains provider CI, client source/synthetic checks, ordinary actual native
+creation/moves/cancellation/restoration, failed-refresh retention/recovery and
+ordinary-state preservation. No wire or implementation behavior changes.
+
+The [Cabinet operator confirmation](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6248164725)
+establishes authorization for the existing class and performed staff actions.
+The user then confirmed the existing test lesson in Codex on 2026-10-18;
+its use/disposition is accepted for this follow-up, not a fresh approval hold.
+No deletion or teacher-role removal is claimed. The existing class is not a
+deletion target. Teacher-role disposition and the separate reported TLS-path
+incident are not resolved by this decision. Historical provider acceptance
+at 868a4ed stands; no full Daychi or joint-pilot acceptance is added.
+
 ## Native client and joint acceptance — 2026-10-17
 
 The native account-session outcome is accepted under full profile `18cfe41`: Cabinet at `5ea9a8b` and Daychi tested source `d1a85fe`, native iOS Simulator Debug 1.0.0 (18), satisfy the provider, client and joint-native criteria within the accepted verification scope. Production release, browser-wiki acceptance and native-content validation remain separate outcomes.

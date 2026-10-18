@@ -68,9 +68,12 @@ remains under Cabinet's operator.
 - [ ] Daychi's pilot satisfies the consumer cases and preserves ordinary schedule,
   cache, selections, access credentials and OS reminders.
 - [ ] Actual native-to-provider evidence demonstrates dated results, controlled
-  reschedule/cancellation, mixed valid/invalid reads, repair recovery and
-  failed-refresh retention, with reproducible
-  environment and revision references; mock-only results are insufficient.
+  creation, moves within/outside the window, cancellation/restoration and
+  failed-refresh retention/recovery, with reproducible environment and revision
+  references; mock-only results are insufficient for those ordinary live cases.
+  The [accepted live-evidence amendment](../contracts/public-lessons.md#accepted-live-evidence-amendment--2026-10-18)
+  removes only live mixed-row/repair proof, retaining provider CI and client
+  source/synthetic checks for those behaviors.
 - [ ] Workshop reviews each contribution, records verified capability and remaining
   migration scope, publishes reconciled records and acknowledges accepted evidence
   in the original issues.
@@ -104,3 +107,14 @@ Broader account/reminder migration, authentication integration and schedule-sour
 cutover remain in [migration changes](../migration-changes.md). Gateway and backend
 consolidation retain their deferred scope. Later assignment pairs require their
 own scope authorization.
+
+## Accepted evidence disposition — 2026-10-18
+
+The user reaffirmed the 15 October decision to remove only the live mixed-row/
+repair demonstration. The [public lessons contract](../contracts/public-lessons.md#accepted-live-evidence-amendment--2026-10-18)
+owns that amendment; Cabinet's accepted provider behavior is unchanged.
+The user also confirmed the existing test lesson for this follow-up. No new
+approval or repeat setup is required for that lesson; physical deletion and
+teacher-role removal are not inferred from the confirmation. The existing class
+is not a cleanup target. Remaining native observations, role disposition and
+the independently reported TLS incident retain their actual evidence scope.

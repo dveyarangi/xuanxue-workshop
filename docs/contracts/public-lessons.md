@@ -307,10 +307,26 @@ Both recipients use these cases; internal test tools remain project-owned.
     provider, showing dated data, a reschedule/cancellation after refresh, failure
     retention and recovery. Fixture-only UI is insufficient. Record contract,
     provider/client commit references, API origin, platform/runtime, steps,
-    observed results and deployment status. Include a controlled mixed-source
-    result and repair/recovery in disposable development/test data. Corruption
-    fixtures do not belong in production. A disposable development provider is
-    sufficient for integration proof; do not claim production deployment from it.
+    observed results and deployment status. The separate live mixed-source
+    and repair/recovery demonstration is removed by the accepted live-evidence
+    amendment below; cases 6 and 8 retain provider and client synthetic proof.
+    A disposable development provider remains sufficient for the ordinary
+    integration proof; do not claim production deployment from it.
+
+## Accepted live-evidence amendment — 2026-10-18
+
+The user directed removal of the live native-to-provider mixed-row/repair
+demonstration in Telegram on 2026-10-15 and reaffirmed it in Codex on 2026-10-18.
+Only that live subcase of common case 10 is removed. Accepted provider checks
+on disposable data and client source/synthetic evidence for mixed-result
+replacement, all-invalid clearing and repair recovery remain required under
+cases 6 and 8. Ordinary actual native-to-provider creation, moves within/outside
+the window, cancellation/restoration, failed-refresh retention/recovery and
+ordinary-state preservation remain in scope. No corrupt-data integration
+environment or repeat provider implementation is required for this waiver.
+The API wire, omission/logging behavior, failure semantics and release authority
+are unchanged. This is a compatible reduction of acceptance evidence, not a
+runtime behavior change or acceptance of the unfinished Daychi contribution.
 
 ## Revision, publication and compatibility
 
