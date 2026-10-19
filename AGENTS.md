@@ -241,7 +241,7 @@ does not implicitly transfer their ownership or authorize changing them. Identif
 providers, consumers, data owners, responsible contributors, and affected projects
 when recording shared contracts or coordinated work.
 
-**L3** commit=auto · push=auto · next-cycle=ask · breakdown=ask · repair=ask · step=ask
+**L3** commit=auto · push=auto · next-cycle=ask · breakdown=ask · repair=report · step=ask
 
 **L4** The harness scripts require Python 3.12 or later and only the standard library.
 In this workspace, run them with uv run --offline --no-project python.

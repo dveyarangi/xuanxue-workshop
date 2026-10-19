@@ -114,10 +114,10 @@ when recording shared contracts or coordinated work.
 ## L3 — autonomy switches
 
 - **target** `AGENTS.md`
-- **authority** harness defaults and installation scope, 2026-10-03; the user, 2026-10-11, greeting status and next-action mode; automatic commit and push
+- **authority** harness defaults and installation scope, 2026-10-03; the user, 2026-10-11, greeting status and next-action mode; automatic commit and push; the user, 2026-10-19, automatic repair within authorized work
 
 <rule>
-commit=auto · push=auto · next-cycle=ask · breakdown=ask · repair=ask · step=ask
+commit=auto · push=auto · next-cycle=ask · breakdown=ask · repair=report · step=ask
 </rule>
 
 ## L4 — Python runtime
