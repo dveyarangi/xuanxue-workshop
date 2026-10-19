@@ -220,35 +220,39 @@ to Cabinet and Daychi's shared account selection; there is no implicit all-class
 subscription. This decision concerns lesson reminders, not the scope of Cabinet's
 other notification kinds.
 
-### Accepted offline reminder editing
+<a id="accepted-offline-reminder-editing"></a>
 
-Decision: the user, 2026-10-04. Signed-in Daychi users can change reminder
-selections offline. Preserve pending user changes through refreshes, connection
-failures and retries; receiving Cabinet state must not silently discard them.
-Cabinet remains the owner of shared account state. Reconciliation must preserve
-as much user intent as possible.
+### Accepted online-only reminder editing
 
-Decision: the user, 2026-10-04. Explicit sign-out discards unsynced reminder
-selection and lead-time edits for the signed-out account. They are not replayed
-on a later sign-in to that account or applied to a different account. This does
-not remove changes already accepted by Cabinet. Connection failures and retries
-continue to preserve pending edits; they are not explicit sign-out.
+Decision: the user, 2026-10-19. Changes to shared chosen classes, individual
+lesson reminders and reminder lead time require a successful Cabinet save.
+Offline shared editing is unavailable. A local draft is not confirmed shared
+state. Cached viewing and already scheduled local reminders remain available
+offline; Cabinet remains the owner of account settings.
 
-Decision: the user, 2026-10-04. Reconcile each reminder choice independently.
-Preserve edits to different choices: adding lesson A offline and removing lesson B
-in Cabinet preserves both changes. For conflicting edits to the same choice, the
-latest edit wins. A removal is an edit and participates in the same ordering;
-merging selections must not discard a winning removal. This rule applies to
-one-off lesson-date choices and recurring class subscriptions.
+Different choices remain independent: changing one class, lesson or lead time
+does not replace unrelated choices. Cabinet determines the order of successful
+saves; for the same choice, the last committed value wins. Device edit times
+and client-clock tie rules do not determine the shared result.
 
-Decision: the user, 2026-10-04. When conflicting edits have exactly equal update
-times, retain Cabinet's stored value. Apply this tie rule to reminder choices,
-including removals, and to the lead-time setting; clients apply the resolved
-account state.
+If a save response is lost or the connection fails during a save, its outcome
+can be unknown. Read Cabinet's current settings after reconnecting rather than
+assuming success or failure, undoing server state or silently resending the
+change. There is no durable offline-edit queue or automatic mutation replay.
+Network or authentication failures preserve last confirmed cached settings and
+active local reminders; they are not explicit sign-out.
 
-Clock handling, pending-edit
-tracking, retry behavior and verification remain open in the
-[synchronization question](questions/q-0002.0007.0002-how-should-daychi-reconcile-local-edits-with-cabinet-account-state.md).
+Explicit sign-out clears transient local drafts/request state and cancels
+account-owned local reminders. Old requests are not replayed into a later
+sign-in or another account. Changes already accepted by Cabinet are retained;
+local sign-out does not undo them. Existing account-session isolation and
+late-response protections remain applicable.
+
+This decision supersedes the 2026-10-04 offline-editing, pending-edit retention,
+client latest-edit-time ordering and equal-time tie requirements. It retains
+independent choices, shared account ownership and offline reading/delivery.
+The [synchronization question](questions/q-0002.0007.0002-how-should-daychi-reconcile-local-edits-with-cabinet-account-state.md)
+holds the history and remaining executable-interface/delivery preparation.
 
 ### Accepted reminder lead times
 
@@ -258,12 +262,11 @@ at the lesson start. Cabinet web and Daychi honor the same account setting.
 The supported options preserve the explicit lead times available in either
 existing client.
 
-Decision: the user, 2026-10-04. Daychi allows offline changes to the reminder
-lead-time setting and preserves pending changes under the offline-editing rule.
-Reconcile this setting independently of lesson-date choices and recurring
-subscriptions; its latest edited value wins, with equal times resolved by the
-Cabinet-value rule above. Timestamp mechanics remain open in the synchronization
-question above.
+Decision: the user, 2026-10-19. Lead-time changes follow the
+[online-only editing agreement](#accepted-online-only-reminder-editing),
+independently of lesson-date and recurring-class choices. This supersedes the
+4 October offline lead-time, client timestamp and equal-time reconciliation rule;
+the supported lead-time options remain unchanged.
 
 ### Accepted Daychi reminder delivery
 
@@ -282,8 +285,9 @@ the first-stage scope. Record stale-data behavior as a compatibility constraint.
 
 Decision: the user, 2026-10-04. When a schedule refresh fails, keep the cached
 schedule available and leave local reminders active. Reconcile received cancellations and transfers
-after a successful refresh. Failed refreshes do not discard pending reminder
-selection or lead-time edits. This preserves offline usefulness while accepting
+after a successful refresh. The 19 October online-only decision retains cached
+settings and offline delivery without a pending-edit queue or automatic replay.
+This preserves offline usefulness while accepting
 that an unseen cancellation or transfer can leave a reminder based on older data.
 Presentation of freshness and refresh failures belongs to Daychi under the
 [scope-of-authority contract](agent-contract.md#boundary-scope-and-product-language).

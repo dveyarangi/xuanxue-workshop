@@ -1,5 +1,20 @@
 # Current application structure and boundary evidence
 
+## Online-only reminder decision - 2026-10-19
+
+The user accepted [online-only shared reminder editing](boundaries.md#accepted-online-only-reminder-editing)
+on 19 October after reconsidering offline changes and device-clock ordering.
+Selections and lead time require Cabinet confirmation; Cabinet orders successful
+saves. Cached viewing and already scheduled reminders remain available offline.
+Uncertain saves recover by reading current server settings, without automatic
+mutation replay. The prior offline-edit preservation, timestamp tie, clock guard
+and timestamp-tombstone requirements are superseded; per-choice independence and
+chosen-only empty defaults remain accepted. The [proposal](contracts/reminder-sync.md)
+has been rewritten accordingly. These are changed requirements, not recipient
+implementation or deployment evidence. The earlier source comparison's offline
+ordering gaps no longer establish required work; its pinned observations remain
+historical evidence.
+
 ## Login-return test correction review - 2026-10-19
 
 The [Cabinet diagnosis in original 12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6261541656)
