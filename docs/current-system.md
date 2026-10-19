@@ -39,6 +39,12 @@ necessary; deletion or automatic guest import is not authorized. The
 wire/clock/transition/delivery choices under the existing accepted semantics.
 Those recommendations remain unaccepted and create no recipient assignment.
 
+The user subsequently clarified on 2026-10-19 that nobody currently uses Cabinet.
+Together with Daychi's test-only use, this removes an evidenced live-user migration
+or staged old-client rollout need. The proposal's initial-rollout section now
+reflects a direct Cabinet API/web update before shared editing is enabled.
+Existing data deletion is not authorized by the usage clarification.
+
 ## Provider closure and regional-network disposition - 2026-10-19
 
 At the user's direction, [Cabinet provider 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6260697241)

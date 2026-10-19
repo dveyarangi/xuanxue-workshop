@@ -4,8 +4,9 @@ Prepared 2026-10-19 for [original request 17](https://github.com/dveyarangi/xuan
 Status: proposed, neither an accepted contract nor an implementation assignment.
 The [source comparison](../current-system.md#reminder-synchronization-source-comparison---2026-10-19)
 records the inspected revisions and current gaps. The user confirmed on
-2026-10-19 that Daychi has only test users/data; this is migration evidence,
-not authorization to delete those data.
+2026-10-19 that Daychi has only test users/data and nobody currently uses Cabinet.
+There is no evidenced live-user migration or old-client rollout obligation.
+These facts do not authorize deleting existing data.
 
 ## Fixed requirements and open decisions
 
@@ -18,10 +19,12 @@ or 0/15/30/60/120 minutes. Native delivery uses local OS reminders and existing
 refresh occasions. Per-date skips are removed; cross-client duplicates are allowed.
 The [native account-session contract](native-account-session.md) remains unchanged.
 
-The proposal below makes the unresolved choices concrete. In dependency order:
-individual-choice writes and the breaking legacy-write transition; edit clocks
-and their accuracy limit; initial guest/account separation; the exact wire and
-delivery bounds. None is accepted by preparation or by the dated test-data fact.
+The proposal below makes the unresolved choices concrete: edit clocks and their
+accuracy limit; initial guest/account separation; the exact wire and delivery
+bounds. Individual-choice writes implement the accepted independent-edit rule.
+The dated absence of Cabinet users removes the separate old-client rollout
+decision; the two implementations can be updated before shared editing is enabled.
+This does not accept the remaining proposed wire or clock details.
 
 <straw-dog question="q-0002.0007.0002">
 
@@ -244,7 +247,6 @@ Validation or authorization failures perform no writes, including on retries.
 | 403 `forbidden` | Account refused/blocked; retain account-isolated queue without attempting to bypass refusal. |
 | 409 `clock_out_of_range` | Future timestamp outside the proposed bound; retain queue as above. |
 | 409 `selection_limit` | The merged positive class list would exceed 50; retain edits and require a deliberate selection correction. |
-| 409 `sync_upgrade_required` | Retired full-list write attempted; no write, require a current client. |
 | 413 `payload_too_large` | Over body bound; split a valid queue, retain intent. |
 | 415 `unsupported_media_type` | Wrong media type; correct the client, retain intent. |
 | 429 / 5xx, network failure or invalid response | Retain queue, snapshot and active reminders; retry on existing refresh occasions, respecting `Retry-After` when supplied. No new background retry service. |
@@ -291,7 +293,7 @@ platform limits and suspended-app behavior remain delivery limitations. Each
 project deduplicates its own account/lesson delivery; duplicates between Cabinet
 and Daychi remain allowed.
 
-## Breaking write transition
+## Initial write rollout
 
 Preserve Cabinet's existing account values at the initial schema transition.
 Seed timestamps of existing explicit scalar values and positive class choices
@@ -299,14 +301,15 @@ from that preference document's `updatedAt`; untouched defaults have null time.
 This is a one-time compatibility baseline, not recovered historical edit timing.
 The new timestamped writers begin only after this baseline is established.
 
-Cabinet web switches to individual-choice PATCH before account synchronization
-is enabled in Daychi. At that coordinated cutover, the old scope and reminder
-PUT routes return 409 `sync_upgrade_required` without mutation. Existing GET
-representation remains readable. An old browser tab therefore receives an
-upgrade failure rather than silently overwriting newer choices. This is an
-explicit breaking change to the old write interface. Keeping unrestricted old
-PUT saves active cannot satisfy independent-choice reconciliation. Rollback may
-disable new editing; it cannot re-enable unfenced old writers against shared state.
+Cabinet web and its API are updated together before account synchronization is
+enabled in Daychi. The old full-list scope and reminder PUT routes are removed
+and return Cabinet's ordinary 404 `not_found`, without mutation. Existing GET
+representation remains readable. This replaces the old write interface, but no
+active-user staged rollout, special upgrade error or refresh-approval checkpoint
+is required by the dated usage evidence. Full-list writers do not remain active
+against shared state. Existing account values are preserved by the baseline
+above; no data deletion is implied. Rollback may disable shared editing rather
+than restore unsafe whole-list writes against shared state.
 
 The version-1 shape is additive until activation; it neither activates unfinished
 schedule integration nor changes content, browser-wiki or native-session contracts.
@@ -335,7 +338,7 @@ passing independent suites alone do not establish deployed joint behavior.
 | Lead and delivery | Personal 0 and 120 and school-default 45 work on both ends; zero follows the stated window, with no cross-client exclusivity promise. |
 | Refresh failure | Cached schedule, pending edits and existing reminders survive failed reads; received moves/cancellations take effect on recovery. |
 | More than 60 | Earliest 60 are retained/scheduled deterministically; the complete plan is not rejected; later coverage depends on existing refill occasions. |
-| Old client | Old full-list PUT after cutover returns upgrade failure with no mutation; updated web and Daychi can edit the same account safely. |
+| Initial rollout | Updated Cabinet web and Daychi can edit the same account safely; retired full-list PUT routes return ordinary 404 with no mutation. No active-user transition is required. |
 | Other behavior | Non-reminder Cabinet notification preferences, legacy guest access/content, native credential lifecycle and browser flows remain compatible. |
 
 ## Ownership and acceptance evidence
