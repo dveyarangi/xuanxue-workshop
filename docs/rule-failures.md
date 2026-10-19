@@ -1,5 +1,19 @@
 # Rule failures
 
+## 2026-10-19 — Partial agreement updates left a competing work inventory
+
+Status: instruction amended; separate-session behavior grading belongs to the user.
+
+Agreement acceptance updated contracts and migration table rows but left earlier
+current-tense claims unresolved. A later recommendation promoted that older summary
+into a missing-contract claim without establishing an uncovered obligation.
+The affected duties were [coordinate Outputs](../.agents/skills/coordinate/SKILL.md#outputs),
+[reconcile Resolve the difference](../.agents/skills/reconcile/SKILL.md#resolve-the-difference)
+and [maintain One home per fact](../.agents/skills/maintain/SKILL.md#one-home-per-fact).
+The approved amendment is [local L31](../local.rules.md#l31--coordination-record-consistency).
+An added maintenance-caller phrase was removed after the user's challenge, restoring
+the originally proposed wording. Application records remain unchanged by this repair.
+
 ## 2026-10-19 — One coordinated outcome fragmented into work items and comments
 
 Status: approved instruction amendments applied; future behavior remains to be observed.

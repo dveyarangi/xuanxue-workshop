@@ -119,4 +119,9 @@ item cannot own it. Obtain breakdown approval before minting.
 Published project issues may be ticket outputs; their publication does not
 establish that the recipient's work is complete. Verify the ticket's own outcome:
 a published handoff and a working integration have different completion criteria.
+
+**L31** Before declaring an agreement or acceptance update complete, reconcile current
+claims about it in the affected records, including earlier sections of the same
+file. Replace repeated decisions and work status with links to their owning
+records. An unreconciled remaining-work summary cannot establish a new assignment.
 </installed>

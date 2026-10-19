@@ -1,5 +1,17 @@
 # Coordination loop evidence
 
+## Agreement claims and remaining-work consistency — 2026-10-19
+
+The [failure record](../rule-failures.md#2026-10-19--partial-agreement-updates-left-a-competing-work-inventory)
+holds the omission motivating the user-approved [local L31](../../local.rules.md#l31--coordination-record-consistency).
+Its original proposed text is installed in coordination, reconciliation and maintenance.
+Installation and mechanism checks pass with no diagnostics; added references resolve.
+
+The user will grade behavior through maintenance in a separate session. The result
+should reconcile current agreement/work claims to their owners without inferring a
+new agreement from missing implementation or proof. Application documents and issue
+bodies are deliberately untouched; structural checks do not establish that outcome.
+
 ## Outcome ownership and consolidated communication — 2026-10-19
 
 The operator approved the instruction amendment after reminder alignment produced

@@ -558,6 +558,20 @@ action, who performs it, and any condition required to proceed. Link to the
 existing owning work record.
 </rule>
 
+## L31 — coordination record consistency
+
+- **target** `.agents/skills/coordinate/SKILL.md`
+- **target** `.agents/skills/reconcile/SKILL.md`
+- **target** `.agents/skills/maintain/SKILL.md`
+- **authority** the user, 2026-10-19, approved coordination consistency amendment
+
+<rule>
+Before declaring an agreement or acceptance update complete, reconcile current
+claims about it in the affected records, including earlier sections of the same
+file. Replace repeated decisions and work status with links to their owning
+records. An unreconciled remaining-work summary cannot establish a new assignment.
+</rule>
+
 ## L27 — quick Telegram conversation
 
 - **target** `workshop_bot/quick.rules.md`
