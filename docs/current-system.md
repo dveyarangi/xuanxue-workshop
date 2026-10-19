@@ -1,5 +1,63 @@
 # Current application structure and boundary evidence
 
+## Native content provider capacity review — 2026-10-19
+
+Workshop reviewed [Cabinet's completion report in original 15](https://github.com/dveyarangi/xuanxue-workshop/issues/15#issuecomment-6263294915)
+against the accepted [native-content contract](contracts/native-content-session.md#capacity-and-identity).
+Merged [PR602](https://github.com/gregoryKot/xuanxue-cabinet/pull/602) is
+`ea4299606ef8a8e2091931645bf4d21c20c5a450`. Inspection covered its complete delta,
+real-AppModule e2e fixture, controller/limiter/filter composition, retained
+renew/revoke limits and exact installed BOUNDARY_SUMMARY, which matches issue 15.
+
+All 19 checks in [main CI 39223428645](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/39223428645)
+succeeded. Executed e2e logs show `native-me-budget.e2e-spec.ts` and existing
+account/revoke/parity suites; the two e2e shards passed 504 and 552 tests.
+API unit/coverage logs show the limiter suite in the passing 2791-test shard;
+the corresponding Australia/Sydney unit shard also passed. These are inspected
+CI executions, not a local rerun of all suites. Provider conformance for same-IP
+grant isolation, renewed/predecessor sharing, exact 60-second boundary, retry
+rounding and invalid-input isolation is supported within one process lifetime.
+
+Three independent credential-free GETs at 08:57 UTC observed staging health
+`200`, commit `ea42996`, Mongo up; staging native me `401 invalid_token`,
+`Cache-Control: no-store`, the expected Bearer WWW-Authenticate and no Set-Cookie;
+production health remained `fc2dee2`. No account, token, fixture, deployment or
+live process was changed. Health does not establish replica configuration or
+successful authenticated content delivery.
+
+One implementation deviation remains. The
+[limiter](https://github.com/gregoryKot/xuanxue-cabinet/blob/ea4299606ef8a8e2091931645bf4d21c20c5a450/api/src/native-auth/native-me-limiter.ts#L81)
+owns a new in-memory window per process; [ADR0184](https://github.com/gregoryKot/xuanxue-cabinet/blob/ea4299606ef8a8e2091931645bf4d21c20c5a450/docs/adr/0184-native-me-budget-per-grant.md)
+explicitly says deployment resets that history. The accepted deployment-wide
+rolling allowance has no reset exception. Workshop executed the exact pinned
+limiter/error source after TypeScript transpilation, with synthetic grant/time
+inputs: 60 successful checks at T0, 429 on the next check and again at T0+1s;
+a fresh limiter at T0+1s admitted 60 further checks for the same grant. That is
+120 successful admissions in two seconds across process-state replacement.
+This is a deterministic local state-loss reproduction, not a live restart or
+an observed customer incident. Single-replica operation alone does not preserve
+the history across replacement; overlapping processes would have separate windows.
+
+Disposition in existing 15: preserve the supported implementation/CI progress;
+restore the already accepted deployment-wide rolling bound through process
+replacement and provide executed conformance proof. Internal storage or admission
+mechanism remains Cabinet-owned. No contract amendment, new issue, mandatory
+production rollout, live restart, account deletion or live aging is requested.
+Full provider acceptance remains open for that correction and the existing joint
+outcome. Source/health success alone does not establish joint content acceptance.
+
+For [Daychi 16](https://github.com/dveyarangi/xuanxue-workshop/issues/16), the reviewed
+mounted/default-off adapter and synthetic full-parent navigation evidence stand.
+The old claim that the provider implementation is simply absent is superseded.
+Authorized functional joint staging checks can be arranged against identified
+ea42996 without waiting for issue closure, while reporting the known capacity
+gap; full conforming activation/acceptance still requires its correction.
+Daychi supplies the actual installed client/backend revision mapping; Cabinet
+and Daychi operators supply the matching authorized account/grant/status/outage
+arrangements. Those arrangements and actual protected material/recording,
+revocation/isolation and recovery proof are not established by the reports.
+Coordination 11, browser 12/13 and reminder 17 retain their separate scope.
+
 ## Native reminder guard provenance - 2026-10-19
 
 Daychi's pinned [reminder-plan.ts:22](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/schedule/reminder-plan.ts#L22)
