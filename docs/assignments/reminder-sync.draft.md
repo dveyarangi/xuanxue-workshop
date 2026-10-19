@@ -52,8 +52,20 @@ real IDs without writing ordinary reminder state. Lead persistence lacks
 are implementation gaps, not new shared product decisions. Its native account
 session is accepted. Native-content PR18 is separate and does not gate this work.
 
-The user confirmed test-only Daychi data and no current Cabinet users. No real-user
-migration or heuristic legacy import is assigned; existing guest/test data remain.
+The user confirmed test-only Daychi data. Cabinet's operator subsequently
+[reported real accounts and exam use](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6265787981)
+and explicitly accepted the initial reminder rollout as written, including empty
+reminder selections for accounts previously using the default all-classes filter.
+Existing explicit selected class IDs, personal lead values and other notice filters
+remain preserved. Exam data is outside this work. No heuristic guest import or
+existing-data deletion is assigned.
+
+[Daychi's new preparation report](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6264351647)
+describes local, unpublished protocol validation/encoding groundwork with eight
+new synthetic tests and 133 passing app tests. These are recipient-reported
+results; no immutable source or complete conformance acceptance is submitted yet.
+Cabinet reports implementation is starting. Both published main revisions remain
+the inspected baselines above.
 No agent-instruction or collaboration-summary replacement is supplied here.
 
 ## Cabinet responsibilities

@@ -1,5 +1,40 @@
 # Current application structure and boundary evidence
 
+## Reminder implementation updates — checked 2026-10-19
+
+An explicit fresh update check covered all 17 Workshop issues in every state.
+Only original 17 has new recipient reports since the previous scoped reviews;
+15/16's latest body changes are Workshop's accepted restart-reset amendment.
+No new recipient report was found for 6, 9, 11, 12 or 13; closed issue states
+remain unchanged. Issue 17's complete current body, eight comments and 13-event
+timeline were read, and both project main heads were independently checked.
+
+[Daychi reports](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6264351647)
+local, unmounted protocol groundwork: complete account-bound snapshot validation,
+canonical IDs/catalogue fields, arbitrary-precision revisions/equal-revision
+metadata and strict 1..64-key encoding. Eight new synthetic protocol tests and
+all 133 app tests reportedly pass alongside types/lint/artifact checks. These
+artifacts are unpublished; this is reported preparation, not independently
+inspected implementation or complete consumer conformance. Authenticated
+transport, confirmed saves/readback, fencing, account/guest state and OS/device
+work remain with Daychi.
+
+[Cabinet's operator correction](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6265787981)
+supersedes the earlier no-current-Cabinet-users assumption: production has real
+registered people and exams are in use. The operator explicitly accepts the
+existing initial reminder rollout for real accounts, including no reminder
+subscriptions inherited from a default all-classes filter. Explicit selected
+IDs, lead values and other notice filters are preserved by that same contract;
+exam data is outside the work. Cabinet reports implementation is starting and
+requests no contract change. The correction introduces no new migration choice,
+data deletion or staged-client protocol.
+
+Published heads remain Cabinet `ea4299606ef8a8e2091931645bf4d21c20c5a450` and
+Daychi `c146326c7ea552772d8c804b3a08ad5637ca5eb0`. No published reminder
+implementation or new installed native build is established by this check.
+The [reminder contract](contracts/reminder-sync.md) and original issue retain
+their accepted wire/behavior; their usage preface is corrected editorially.
+
 ## Native content provider capacity review — 2026-10-19
 
 Workshop reviewed [Cabinet's completion report in original 15](https://github.com/dveyarangi/xuanxue-workshop/issues/15#issuecomment-6263294915)

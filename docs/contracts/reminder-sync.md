@@ -6,9 +6,13 @@ accepted by the Workshop operator on 2026-10-19. Implementation and runtime
 acceptance remain work in the original issue; this is not a deployment claim.
 The [source comparison](../current-system.md#reminder-synchronization-source-comparison---2026-10-19)
 records the inspected revisions. The user confirmed on 2026-10-19 that Daychi
-has only test users/data and nobody currently uses Cabinet. No live-user
-migration or staged old-client rollout is required by that evidence; existing
-data deletion is not authorized.
+has only test users/data. Cabinet's operator subsequently clarified that Cabinet
+has real registered accounts and active exam use, and explicitly accepted the
+initial reminder rollout below for those accounts in
+[original issue 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6265787981).
+That correction changes the usage evidence, not the accepted reminder semantics
+or rollout. Exam data is outside this contract; existing data deletion is not
+authorized.
 
 ## Accepted behavior and contract authority
 
