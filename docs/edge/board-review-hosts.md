@@ -20,7 +20,8 @@ shared snapshot follows the review mechanism's REPORT.md format; complete replac
 reject a changed prior version. Operational updates preserve semantic results and
 unresolved matters. Readers do not treat its timestamp as a fresh board read.
 Unrelated linked-repository metadata cannot trigger a review. Unchanged waiting/operator
-outcomes are due no sooner than six hours; relevant changes remain discoverable hourly.
+outcomes are due no sooner than six hours; relevant changes remain discoverable at
+the next configured discovery.
 The standalone reviewer's authenticated host capabilities restrict writes to its selected
 issues and reads to the configured repository and trusted Repository map. Credentials
 remain at the host; changing issue content cannot enlarge that scope.
@@ -54,7 +55,7 @@ remain at the host; changing issue content cannot enlarge that scope.
 | extension | standing | sidecar |
 |---|---|---|
 | Current Codex chat | live conformance being observed | [codex-chat](board-review-hosts/codex-chat.md) |
-| Windows user task | hourly unattended review and original-issue publication observed | [windows-task](board-review-hosts/windows-task.md) |
+| Windows user task | unattended review and original-issue publication observed; recurrence follows the project cadence | [windows-task](board-review-hosts/windows-task.md) |
 
 ## Concerns
 

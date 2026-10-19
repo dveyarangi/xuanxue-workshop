@@ -277,7 +277,8 @@ requirements, without approval of each response. Escalate new shared decisions a
 actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
 
-**L25** Periodic review runs hourly, with mechanical discovery before model invocation.
+**L25** Periodic review runs every three hours, with mechanical discovery before model
+invocation.
 Use docs/board-review.md as the shared report; review-assignments owns its writing
 instructions and format. Operator wake reads it as context without repeating an
 unchanged report. The Telegram conversation role reads it when relevant to a request,

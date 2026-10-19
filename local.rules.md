@@ -493,16 +493,17 @@ actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
 </rule>
 
-## L25 — hourly board-review results
+## L25 — board-review cadence and results
 
 - **target** `AGENTS.md`
 - **target** `.agents/skills/review-assignments/SKILL.md`
 - **target** `.agents/skills/recall/SKILL.md`
 - **target** `workshop_bot/agent.rules.md`
-- **authority** the user, 2026-10-15, hourly review; report results when work finishes, silence unchanged runs and do not repeat reports on wake
+- **authority** the user, 2026-10-15, periodic review and reporting; 2026-10-19, three-hour cadence; report results when work finishes, silence unchanged runs and do not repeat reports on wake
 
 <rule>
-Periodic review runs hourly, with mechanical discovery before model invocation.
+Periodic review runs every three hours, with mechanical discovery before model
+invocation.
 Use docs/board-review.md as the shared report; review-assignments owns its writing
 instructions and format. Operator wake reads it as context without repeating an
 unchanged report. The Telegram conversation role reads it when relevant to a request,

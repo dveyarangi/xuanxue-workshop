@@ -568,3 +568,15 @@ Cabinet's operator and retains Workshop ownership of distributable-source
 portability. No new implementation gate, publication claim or application
 assignment was introduced. This changed-input response is distinct from the
 earlier unchanged-input read that produced no duplicate reply.
+
+## Three-hour recurrence — 2026-10-19
+
+The operator changed the existing Windows review cadence from one hour to three
+hours. Authored L25 and its installed targets now carry that cadence; the
+[Windows host observation](../edge/board-review-hosts/windows-task.md#conformance)
+records live trigger readback and preserved action, principal and settings.
+The current review was not interrupted, and the previous Codex heartbeat remains
+paused. Assignment review still reconciles affected evidence and records before
+acceptance; this cadence change adds no general repository-maintenance sweep,
+new shared decision authority or recipient work. The unchanged waiting/operator
+follow-up minimum remains six hours.

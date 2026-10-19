@@ -19,7 +19,7 @@ Telegram bot, without automatic distribution or repeated wake summaries. The
 [review-assignments mechanism](../../.agents/mechanisms/review-assignments/review-assignments.md)
 owns its format and writing; no separate review skill or acceptance ledger was added.
 [Architecture](../architecture.md#unattended-board-review) and
-[reporting configuration](../../local.rules.md#l25--hourly-board-review-results)
+[reporting configuration](../../local.rules.md#l25--board-review-cadence-and-results)
 hold the accepted result.
 
 ## Delivered and verified

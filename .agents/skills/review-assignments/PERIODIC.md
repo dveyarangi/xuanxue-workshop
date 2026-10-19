@@ -38,7 +38,7 @@ operational failures in the shared report; it never completes an issue review on
 The external controller accepts `--root`, `--repo`, repeated `--label`, `--state` and
 `--report`. `--discover-only` observes candidates without starting a reviewer or claiming
 review completion. On Windows, board_task.ps1 installs, checks, disables or runs the configured
-current-user hourly task. Its help surface is its parameter block. Installation changes only
+current-user task. Its help surface is its parameter block. Installation changes only
 the named task after verifying its action belongs to this root. Disable that task to stop
 recurrence; retain delivery state for recovery. Replace a previous trigger only after host proof.
 

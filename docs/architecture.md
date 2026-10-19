@@ -120,7 +120,8 @@ from each operator's environment are dependencies of working agent integration.
 The [assignment-review mechanism](../.agents/mechanisms/review-assignments/review-assignments.md)
 uses locally supplied authority, including the
 [accepted periodic-review authorization](../local.rules.md#l23--unattended-board-review-authority).
-The accepted activation runs hourly mechanical discovery before any model invocation;
+The accepted activation runs mechanical discovery at the
+[project cadence](../local.rules.md#l25--board-review-cadence-and-results) before any model invocation;
 available work starts a separate full reviewer. The assignment-review mechanism
 owns the shared `docs/board-review.md` report, read by operator wake and the Telegram
 conversation role without automatic distribution. Original issues and governing
