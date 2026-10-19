@@ -60,6 +60,35 @@ class CapabilityTests(unittest.TestCase):
             self.tools.board({'action': 'publish', 'id': prepared['id']})
         self.assertEqual([], self.tracker.posts)
 
+    def test_check_requires_the_whole_assigned_batch_and_ignores_other_cases(self):
+        self.tools.allowed_cases = {1, 2}
+        first = self.tools.board({'action': 'claim', 'number': 1})
+        self.tools.board({'action': 'finish', 'token': first['token'], 'outcome': 'reviewed', 'note': 'First studied'})
+        partial = self.tools.board({'action': 'check'})
+        self.assertTrue(partial['valid'])
+        self.assertFalse(partial['batch_complete'])
+        self.assertEqual([{'number': 2, 'reasons': ['not_reviewed']}], partial['pending'])
+        second = self.tools.board({'action': 'claim', 'number': 2})
+        self.assertIn('active_lease', self.tools.board({'action': 'check'})['pending'][0]['reasons'])
+        self.tools.board({'action': 'finish', 'token': second['token'], 'outcome': 'waiting', 'note': 'Owner evidence missing'})
+        self.assertTrue(self.tools.board({'action': 'check'})['batch_complete'])
+
+    def test_publication_disabled_still_allows_local_completion(self):
+        first = self.review.claim(1)
+        prepared = self.review.prepare(first['token'], 'Prepared before proof')
+        self.tools.no_publish = True
+        with self.assertRaisesRegex(ValueError, 'disabled'):
+            self.tools.board({'action': 'prepare', 'token': first['token'], 'body': 'New response'})
+        with self.assertRaisesRegex(ValueError, 'disabled'):
+            self.tools.board({'action': 'publish', 'id': prepared['id']})
+        pending = self.tools.board({'action': 'check'})['pending'][0]
+        self.assertIn('unconfirmed_publication', pending['reasons'])
+        self.tools.board({'action': 'cancel', 'id': prepared['id']})
+        self.tools.board({'action': 'finish', 'token': first['token'], 'outcome': 'operator',
+                          'note': 'Publication requires operator authorization'})
+        self.assertTrue(self.tools.board({'action': 'check'})['batch_complete'])
+        self.assertEqual([], self.tracker.posts)
+
 
 if __name__ == '__main__':
     unittest.main()

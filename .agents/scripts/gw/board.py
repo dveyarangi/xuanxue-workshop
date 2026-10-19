@@ -295,6 +295,33 @@ class Board:
                     "publications": [dict(row) for row in db.execute(
                         "SELECT id, number, status, comment_id, url FROM publications ORDER BY rowid")]}
 
+    def pending(self, numbers):
+        status = self.status()
+        rows = {row['number']: row for row in status['cases']}
+        publications = {row['number'] for row in status['publications']
+                        if row['status'] in {'prepared', 'sending', 'uncertain'}}
+        pending = []
+        now = self.clock()
+        for number in sorted(set(numbers)):
+            row = rows.get(number)
+            reasons = []
+            if row is None:
+                reasons.append('not_reviewed')
+            else:
+                if row['observed'] != row['reviewed']:
+                    reasons.append('changed_since_review')
+                if row['outcome'] not in {'reviewed', 'waiting', 'operator'}:
+                    reasons.append('no_outcome')
+                if row['expires'] and row['expires'] > now:
+                    reasons.append('active_lease')
+                if row['due'] and row['due'] <= now:
+                    reasons.append('follow_up_due')
+            if number in publications:
+                reasons.append('unconfirmed_publication')
+            if reasons:
+                pending.append({'number': number, 'reasons': reasons})
+        return pending
+
     def upgrade(self, *, previous_follow_up):
         if previous_follow_up <= 0:
             raise ValueError('The known previous follow-up interval is required')

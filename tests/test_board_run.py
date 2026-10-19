@@ -41,6 +41,8 @@ class ReportTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "changed"):
                 report.write_report(path, original, expected=old)
 
+
+
     def test_report_validator_rejects_missing_empty_and_ambiguous_fields(self):
         report = load("board_report")
         text = report.initial_report()
@@ -76,6 +78,46 @@ class RunTests(unittest.TestCase):
             worker.assert_not_called()
             self.assertEqual(before, path.read_bytes())
 
+    def test_finished_unchanged_review_does_not_require_report_rewrite(self):
+        from tests.test_board import Tracker, board
+        runner, report = load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            prior = report.initial_report().replace('**Reviewed:** none', '**Reviewed:** 2026-10-16T08:00:00+00:00')
+            prior = prior.replace('No new result recorded.', 'Existing waiting result: same missing evidence.')
+            report.write_report(path, prior, expected=report.version(path))
+            before = path.read_bytes()
+            review = board.Board(root / 'state.sqlite3', Tracker())
+            claim = review.claim(1)
+            review.finish(claim['token'], 'waiting', 'Same missing evidence')
+            worker = runner.CodexReviewer(root, review.state, path, 'school/workshop',
+                                          ['project:workshop'], executable='controlled.exe')
+            def completed(*args, **kwargs):
+                claim = review.claim(1)
+                review.finish(claim['token'], 'waiting', 'Same missing evidence')
+                return Mock(returncode=0)
+            with patch.object(runner.subprocess, 'run', side_effect=completed):
+                worker([{'number': 1}])
+            self.assertEqual(before, path.read_bytes())
+
+    def test_changed_report_does_not_establish_finished_review(self):
+        from tests.test_board import Tracker, board
+        runner, report = load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            review = board.Board(root / 'state.sqlite3', Tracker())
+            review.claim(1)
+            worker = runner.CodexReviewer(root, review.state, path, 'school/workshop',
+                                          ['project:workshop'], executable='controlled.exe')
+            def incomplete(*args, **kwargs):
+                report.operation(path, 'Reviewer wrote a report but did not finish the case')
+                return Mock(returncode=0)
+            with patch.object(runner.subprocess, 'run', side_effect=incomplete), self.assertRaisesRegex(RuntimeError, 'without completing'):
+                worker([{'number': 1}])
+
     def test_successful_process_without_required_report_is_a_failure(self):
         runner, report = load('board_run'), load('board_report')
         with tempfile.TemporaryDirectory() as directory:
@@ -85,7 +127,7 @@ class RunTests(unittest.TestCase):
             worker = runner.CodexReviewer(root, root / 'local/state.sqlite3', path,
                                           'school/workshop', ['project:workshop'], executable='controlled.exe')
             with patch.object(runner.subprocess, 'run', return_value=Mock(returncode=0)), \
-                    self.assertRaisesRegex(RuntimeError, 'without publishing'):
+                    self.assertRaisesRegex(RuntimeError, 'without completing'):
                 worker([{'number': 1}])
 
     def test_launcher_keeps_credentials_out_of_reviewer_environment(self):
@@ -96,7 +138,11 @@ class RunTests(unittest.TestCase):
             report.write_report(path, report.initial_report(), expected='absent')
             worker = runner.CodexReviewer(root, root / 'local/state.sqlite3', path,
                                           'school/workshop', ['project:workshop'], executable='controlled.exe')
+            from tests.test_board import Tracker, board
+            review = board.Board(worker.state, Tracker())
             def complete(*args, **kwargs):
+                claim = review.claim(1)
+                review.finish(claim['token'], 'reviewed', 'Controlled evidence checked')
                 self.assertNotIn('GH_TOKEN', kwargs['env'])
                 self.assertNotIn('GITHUB_TOKEN', kwargs['env'])
                 self.assertNotIn('CODEX_THREAD_ID', kwargs['env'])
@@ -150,7 +196,7 @@ class RunTests(unittest.TestCase):
         run = self.exercise({"complete": True, "errors": [], "candidates": [{"number": 1}]})
         other = load("board_run").ReviewRun(run.root, run.state, run.report, Mock(), Mock())
         observed = []
-        run.worker = lambda cases: observed.append(other.run())
+        run.worker = lambda cases, **kwargs: observed.append(other.run())
         self.assertEqual("completed", run.run()["status"])
         self.assertEqual("busy", observed[0]["status"])
         other.scan.assert_not_called()
@@ -184,7 +230,7 @@ class RunTests(unittest.TestCase):
             state = root / "state.sqlite3"
             review = board.Board(state, tracker)
             calls = []
-            def study(cases):
+            def study(cases, **kwargs):
                 calls.append(cases)
                 for case in cases:
                     claim = review.claim(case['number'])
@@ -194,6 +240,72 @@ class RunTests(unittest.TestCase):
             restarted = runner.ReviewRun(root, state, root / 'report.md', board.Board(state, tracker).scan, study)
             self.assertEqual('quiet', restarted.run()['status'])
             self.assertEqual(1, len(calls))
+
+    def test_a_successful_reviewer_cannot_finish_only_part_of_its_batch(self):
+        import test_board
+        board, runner, report = test_board.board, load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            review = board.Board(root / 'state.sqlite3', test_board.Tracker())
+            worker = runner.CodexReviewer(root, review.state, path, 'school/workshop',
+                                         ['project:workshop'], executable='controlled.exe')
+            def partial(*args, **kwargs):
+                claim = review.claim(1)
+                review.finish(claim['token'], 'reviewed', 'Only first case studied')
+                return Mock(returncode=0)
+            with patch.object(runner.subprocess, 'run', side_effect=partial):
+                with self.assertRaisesRegex(RuntimeError, '"number": 2.*not_reviewed'):
+                    worker([{'number': 1}, {'number': 2}])
+            self.assertEqual([{'number': 2, 'reasons': ['not_reviewed']}], review.pending([1, 2]))
+
+    def test_every_run_retains_its_result_and_earlier_reviewer_logs(self):
+        runner = load('board_run')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); state = root / 'state.sqlite3'
+            def fail(cases, *, run_directory):
+                (run_directory / 'reviewer.jsonl').write_text('partial execution', encoding='utf-8')
+                (run_directory / 'reviewer.stderr.log').write_text('retained error', encoding='utf-8')
+                raise RuntimeError('Unfinished second case')
+            first = runner.ReviewRun(root, state, root / 'report.md',
+                lambda: {'complete': True, 'errors': [], 'candidates': [{'number': 1}, {'number': 2}]}, fail).run()
+            self.assertEqual('failed', first['status'])
+            second = runner.ReviewRun(root, state, root / 'report.md',
+                lambda: {'complete': True, 'errors': [], 'candidates': []}, Mock()).run()
+            self.assertEqual('quiet', second['status'])
+            first_dir, second_dir = Path(first['run_directory']), Path(second['run_directory'])
+            self.assertNotEqual(first_dir, second_dir)
+            self.assertEqual('partial execution', (first_dir / 'reviewer.jsonl').read_text(encoding='utf-8'))
+            self.assertEqual('retained error', (first_dir / 'reviewer.stderr.log').read_text(encoding='utf-8'))
+            import json
+            self.assertEqual('failed', json.loads((first_dir / 'result.json').read_text())['status'])
+            self.assertEqual('quiet', json.loads((second_dir / 'result.json').read_text())['status'])
+            self.assertEqual(second, json.loads((root / 'last-run.json').read_text()))
+
+    def test_reviewer_logs_and_publication_mode_belong_to_the_controller_run(self):
+        import test_board
+        runner, report = load('board_run'), load('board_report')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); path = root / 'report.md'
+            report.write_report(path, report.initial_report(), expected='absent')
+            review = test_board.board.Board(root / 'state.sqlite3', test_board.Tracker())
+            worker = runner.CodexReviewer(root, review.state, path, 'school/workshop',
+                                         ['project:workshop'], executable='controlled.exe', no_publish=True)
+            def complete(*args, **kwargs):
+                kwargs['stdout'].write('execution output')
+                kwargs['stderr'].write('diagnostic output')
+                claim = review.claim(1)
+                review.finish(claim['token'], 'waiting', 'Existing dependency')
+                return Mock(returncode=0)
+            with patch.object(runner.subprocess, 'run', side_effect=complete):
+                result = runner.ReviewRun(root, review.state, path,
+                    lambda: {'complete': True, 'errors': [], 'candidates': [{'number': 1}]}, worker).run()
+            self.assertEqual('completed', result['status'])
+            run_dir = Path(result['run_directory'])
+            self.assertEqual('execution output', (run_dir / 'reviewer.jsonl').read_text())
+            self.assertEqual('diagnostic output', (run_dir / 'reviewer.stderr.log').read_text())
+            import json
+            self.assertTrue(json.loads((run_dir / 'request.json').read_text())['no_publish'])
 
 
 if __name__ == "__main__":

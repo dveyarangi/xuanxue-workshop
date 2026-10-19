@@ -12,21 +12,29 @@ from board import Board, GitHub, FOLLOW_UP_SECONDS
 
 
 class ReviewTools:
-    def __init__(self, review, *, allowed_cases, read_repos, read=None, read_only=False):
+    def __init__(self, review, *, allowed_cases, read_repos, read=None, read_only=False,
+                 no_publish=False):
         self.review = review
         self.allowed_cases = set(allowed_cases)
         self.read_repos = set(read_repos) | {review.tracker.repo}
         self.api_read = read or (lambda path, collection=None: review.tracker.api('GET', path, collection=collection))
         self.read_only = read_only
+        self.no_publish = no_publish
 
     def board(self, args):
         action = args['action']
         if action == 'identity':
             return {'author': self.review.tracker.author, 'repo': self.review.tracker.repo}
-        if action in {'status', 'check'}:
-            return getattr(self.review, action)()
+        if action == 'status':
+            return self.review.status()
+        if action == 'check':
+            result = self.review.check()
+            pending = self.review.pending(self.allowed_cases)
+            return {**result, 'batch_complete': not pending, 'pending': pending}
         if self.read_only:
             raise ValueError('This host proof is read-only')
+        if self.no_publish and action in {'prepare', 'publish'}:
+            raise ValueError('Publication is disabled for this invocation')
         if action == 'scan':
             result = self.review.scan()
             result['candidates'] = [c for c in result['candidates'] if c['number'] in self.allowed_cases]
@@ -76,7 +84,8 @@ def definitions():
     return [
         {'name': 'review_board', 'description': 'Authenticated board operations for the host-selected issues. '
              'Claim returns complete paginated source snapshots. Prepare accepts response text; publish recovers '
-             'the same stable operation ID. Identity returns the host GitHub login without credentials.',
+             'the same stable operation ID. Check reports pending cases and completion of the assigned batch. '
+             'Identity returns the host GitHub login without credentials.',
          'inputSchema': {'type': 'object', 'properties': properties, 'required': ['action'],
                          'additionalProperties': False}},
         {'name': 'github_read', 'description': 'GET a repos/owner/repository/... GitHub API resource from '
@@ -128,7 +137,8 @@ def main():
     config = json.loads(args.config)
     review = Board(config['state'], GitHub(config['repository'], config['recipient_labels']))
     serve(ReviewTools(review, allowed_cases=[c['number'] for c in config['cases']],
-                      read_repos=config.get('read_repos', []), read_only=config.get('read_only', False)))
+                      read_repos=config.get('read_repos', []), read_only=config.get('read_only', False),
+                      no_publish=config.get('no_publish', False)))
 
 
 if __name__ == '__main__':

@@ -36,6 +36,9 @@ remain at the host; changing issue content cannot enlarge that scope.
 - Linked-evidence updates and due conditions do not require a new issue comment. *validated by:* `tests/test_board.py`
 - Primary tracker failure remains explicit and local status remains available offline. *validated by:* `tests/test_board.py`
 - Quiet or busy-only controller discovery makes no reviewer call. *validated by:* `tests/test_board_run.py`
+- Every selected case must have a current outcome, no active lease, no due follow-up and no unconfirmed publication before its batch completes. The reviewer sees the same pending-case reasons as the controller. *validated by:* `tests/test_board_run.py`, `tests/test_board_tools.py`
+- Later runs retain earlier execution logs and results. *validated by:* `tests/test_board_run.py`
+- Publication-disabled host proof permits local review progress but blocks response preparation and publication. *validated by:* `tests/test_board_tools.py`
 - An unrelated linked-repository push does not invoke the reviewer; PR source/check changes remain visible. *validated by:* `tests/test_board.py`, `tests/test_board_run.py`
 - A reviewer cannot shorten unchanged waiting/operator follow-ups below six hours; new evidence interrupts the wait. *validated by:* `tests/test_board.py`
 - Retained progress upgrades preserve studied/unreviewed distinctions and recoverable publication identity. *validated by:* `tests/test_board.py`
