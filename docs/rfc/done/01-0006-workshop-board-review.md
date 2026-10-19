@@ -9,7 +9,7 @@ Implements [workshop-board-review](../../tickets/done/01-0006-workshop-board-rev
 
 ## Governing shape
 
-The accepted [specification](../../spec/01-0006-workshop-board-review.md), local L23 and
+The accepted [specification](../../spec/done/01-0006-workshop-board-review.md), local L23 and
 the assignment-review mechanism govern authority and semantic review. The detector
 does not decide acceptance. A separate full Codex CLI reviewer supplies tool access and
 applies /review-assignments; the network-isolated Telegram conversation worker is not invoked.

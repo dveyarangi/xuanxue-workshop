@@ -1,5 +1,16 @@
 # Rule failures
 
+## 2026-10-19 — Temporary instruction copies entered live validation
+
+Status: corrected and rechecked.
+
+Maintenance baselines kept instruction-file copies with Markdown names inside the
+repository. The installed-rule validator read those copies as live targets and
+reported orphan blocks. Renaming the temporary copies to `.snapshot` excluded
+them from the Markdown corpus; installed-rule validation then passed. The source
+instructions and validator were not weakened. This was an execution slip;
+no new rule is proposed.
+
 ## 2026-10-19 — Partial agreement updates left a competing work inventory
 
 Status: instruction amended; separate-session behavior grading belongs to the user.

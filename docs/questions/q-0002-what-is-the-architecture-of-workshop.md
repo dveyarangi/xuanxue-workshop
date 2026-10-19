@@ -2,7 +2,7 @@
 
 - **record of** what it intends to become
 - **state** open
-- **lean** Public pilot amendment 4aec5f8 and original provider/consumer issue updates are published and read back. Cabinet installation is accepted; amended provider conformance, Daychi installation/native proof and broader application contracts remain open. Native account-session scope is minted locally for alignment; unrelated readiness/source-rollout work remains separate. Session 2026-10-12: native account-session contract remains accepted; Cabinet encoded-query log correction verified and published at 93c3f5c. New-project reception rules and independent cold reading are published at cb86837. Knowledge collaboration is accepted on 2026-10-15 from the user-confirmed working context, fresh-session addressed-work discovery and Workshop read/reply access; issue 9 application review remains separate. Session 2026-10-15: hourly detector-first board duty is deployed independently of Desktop and this chat; actual eleven-case review and two original-issue publications are observed. Review output now separates concrete reviewer commitments from recipient work and operator-only actions; issue 11 still needs Workshop preparation before a human decision. Before conclusion the operator approved an economy repair: unrelated repository metadata, including nested timelines, is excluded and unchanged waits have an enforced six-hour minimum. Retained progress/publications are preserved; 102 tests and live no-model discovery passed, with genuine new discussion events left pending. Hourly duty is enabled independently of this ended operator session.
+- **lean** Accepted agreements live in boundaries and their linked contracts; current implementation and proof live in current-system. Native account-session acceptance and agent collaboration/readiness are complete within their recorded scopes. The public-schedule consumer, browser-wiki, native-content and reminder outcomes retain their owning work; the delivery queue and shared board review hold their current actions. Gateway and backend consolidation remain deferred.
 - **struck** 7, last 2026-10-14T22:37Z
 
 ## Current decision context
@@ -15,9 +15,10 @@ and [migration changes](../migration-changes.md) distinguish facts from required
 The open child questions hold contract maintenance, report-back and record updates,
 tracker addresses and claims, agent adoption, operational obligations, and the
 remaining migration contracts. The [public schedule connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
-has an accepted contract and published provider/consumer assignments. Cabinet
-installation is accepted; provider conformance, Daychi adoption and native proof
-remain incomplete. The [current-state record](../current-system.md) owns the
+has an accepted contract and published provider/consumer assignments. Its ticket
+records accepted provider evidence and the remaining consumer/native work;
+[agent adoption](q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md)
+is a separately accepted outcome. The [current-state record](../current-system.md) owns the
 observed capability and deployment, separately from the accepted targets.
 
 ## Discussion evidence, 2026-10-03

@@ -119,8 +119,8 @@ saves. Cached viewing and already scheduled reminders remain available offline.
 Uncertain saves recover by reading current server settings, without automatic
 mutation replay. The prior offline-edit preservation, timestamp tie, clock guard
 and timestamp-tombstone requirements are superseded; per-choice independence and
-chosen-only empty defaults remain accepted. The [proposal](contracts/reminder-sync.md)
-has been rewritten accordingly. These are changed requirements, not recipient
+chosen-only empty defaults remain accepted. The [accepted synchronization contract](contracts/reminder-sync.md)
+owns the resulting wire, behavior and common cases. These are changed requirements, not recipient
 implementation or deployment evidence. The earlier source comparison's offline
 ordering gaps no longer establish required work; its pinned observations remain
 historical evidence.
@@ -161,6 +161,10 @@ and Daychi main
 Daychi's separate draft PR18 at `bb7295f` is not merged reminder synchronization.
 These are source observations, not new deployment/native acceptance. No sibling
 working files were changed and no recipient suites were rerun for this comparison.
+The comparison predates the accepted online-only contract; its former clock-ordering
+requirements and rollout assumptions below are historical, superseded by the
+[accepted synchronization contract](contracts/reminder-sync.md) and
+[later usage correction](#reminder-implementation-updates--checked-2026-10-19).
 
 | Concern | Cabinet | Daychi | Shared gap |
 |---|---|---|---|
@@ -186,16 +190,14 @@ and [account lifecycle](https://github.com/sleontenko/daychi/blob/c146326c7ea552
 
 The user approved this preparation and confirmed only test users/data in Daychi
 on 2026-10-19. A real-user legacy migration is therefore not established as
-necessary; deletion or automatic guest import is not authorized. The
-[synchronization proposal](contracts/reminder-sync.md) records recommended
-wire/clock/transition/delivery choices under the existing accepted semantics.
-Those recommendations remain unaccepted and create no recipient assignment.
+necessary; deletion or automatic guest import is not authorized. The comparison informed the subsequently
+[accepted synchronization contract](contracts/reminder-sync.md); implementation
+and joint proof are held by [existing issue 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
 
-The user subsequently clarified on 2026-10-19 that nobody currently uses Cabinet.
-Together with Daychi's test-only use, this removes an evidenced live-user migration
-or staged old-client rollout need. The proposal's initial-rollout section now
-reflects a direct Cabinet API/web update before shared editing is enabled.
-Existing data deletion is not authorized by the usage clarification.
+The earlier no-current-Cabinet-users assumption was superseded by
+[Cabinet's operator correction](#reminder-implementation-updates--checked-2026-10-19).
+The accepted contract owns the rollout for those real accounts; the comparison
+does not authorize data deletion or establish implementation or deployment.
 
 ## Provider closure and regional-network disposition - 2026-10-19
 
@@ -373,6 +375,10 @@ this link does not establish completed registration, a granted teacher role or a
 already prepared test class. The latter arrangements remain separately recorded in
 [issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6194557568).
 The link was supplied by the operator; no registration was performed by Workshop.
+This dated invitation observation does not describe the later fixture state.
+[Subsequent lesson and role dispositions](#public-pilot-evidence-and-test-lesson-disposition--2026-10-18)
+and [provider closure](#provider-closure-and-regional-network-disposition---2026-10-19)
+own the later evidence and acceptance limits.
 
 ## Web-wiki assignment evidence — reviewed 2026-10-14
 

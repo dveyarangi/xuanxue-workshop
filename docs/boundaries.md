@@ -42,7 +42,7 @@ observed source and deployment claims belong to [current evidence](current-syste
 | Boundary | Provider | Consumer | Responsibility and unresolved contract |
 |---|---|---|---|
 | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
-| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Protected schedule and account/reminder synchronization details remain unresolved. |
+| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Broader protected-schedule compatibility remains migration work; the [accepted reminder synchronization contract](contracts/reminder-sync.md) fixes the shared account wire and behavior. |
 | Cabinet session validation for Daychi content | Cabinet backend | Daychi backend | Apply the [native content check](contracts/native-content-session.md) and the separate accepted browser check. Wire, caller authority and per-grant native capacity are accepted; implementation and joint proof remain work. Native renewal remains in its account profile. |
 | Cabinet sign-in for web wiki | Cabinet backend | Daychi backend and web wiki | Shared browser session, session check, automatic entry/return and Cabinet-site logout are accepted below; implementation, coordinated cutover and deployed proof remain work. |
 | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
@@ -211,7 +211,7 @@ and Daychi clients read and change that same selection; choosing a lesson in
 one client does not require choosing it again in the other.
 
 Decision: the user, 2026-10-04. On sign-in, Daychi pulls account data from Cabinet.
-Ongoing reconciliation follows the accepted rules below; ordering details remain open.
+Ongoing reconciliation follows the [online-only agreement](#accepted-online-only-reminder-editing) and [accepted synchronization contract](contracts/reminder-sync.md).
 
 Decision: the user, 2026-10-19. Lesson reminders cover only explicitly chosen
 recurring classes or individual lessons. A new account starts with no reminder
@@ -356,8 +356,8 @@ Daychi does not establish a separate account or session authority.
 
 The [native account-session profile](contracts/native-account-session.md) defines
 the accepted native credential, exact renewal wire and common conformance cases.
-The full profile is published at `c9c69c3`; implementation and native proof remain
-separate from acceptance of that wire. On 2026-10-16 the user reaffirmed the
+The [native account-session acceptance](current-system.md#native-client-and-joint-acceptance--2026-10-17)
+records the completed provider, client and joint outcome and its proof limits. On 2026-10-16 the user reaffirmed the
 already accepted equal-content/current-session rule and approved completing the
 [native content-check contract](contracts/native-content-session.md): existing
 native GET me, presented-bearer caller authority, fixed matching issuer, per-read
@@ -477,7 +477,8 @@ Native account credential lifetime and renewal were accepted by the
 user on 2026-10-08. Their authoritative definition is
 [accepted credential lifetime and renewal](contracts/native-account-session.md#accepted-credential-lifetime-and-renewal);
 the full native wire profile was accepted by the user on 2026-10-09.
-Implementation and native proof remain pending.
+The [native account-session acceptance](current-system.md#native-client-and-joint-acceptance--2026-10-17)
+records implementation and joint proof within the accepted scope.
 
 ### Accepted gateway deferral
 
@@ -499,5 +500,7 @@ That provisional disposition records the initial agreement. On 2026-10-08 the
 user reaffirmed the existing browser/code-and-PKCE method and corrected a repeated
 approval request. Its operative home is
 [accepted native credential acquisition](contracts/native-account-session.md#accepted-native-credential-acquisition).
-The method and full native wire profile are accepted; the separate admission-check
-schema remains unresolved. Gateway deferral remains unchanged.
+The method and full native wire profile are accepted. The separate
+[native content-check contract](contracts/native-content-session.md) fixes its
+validation wire, caller authority, capacity and failure behavior. Its joint proof
+and activation remain separate work; gateway deferral is unchanged.

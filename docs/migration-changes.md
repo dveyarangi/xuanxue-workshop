@@ -34,7 +34,7 @@ acknowledgement or temporary-role disposition is an additional gate to Daychi.
 | [Online-only reminder editing](boundaries.md#accepted-online-only-reminder-editing) | Apply independent per-choice saves in Cabinet commit order; expose current confirmed settings for recovery. | Disable offline shared edits, retain confirmed cache and scheduled reminders, and read back uncertain saves without automatic mutation replay or an offline queue. | Executable wire/recovery checks and verification; the 19 October decision supersedes offline/client-clock reconciliation. |
 | [Reminder lead times](boundaries.md#accepted-reminder-lead-times) | Support the agreed options and save lead time independently in Cabinet commit order. | Honor 0/15/30/60/120 and school default; save only through Cabinet and preserve confirmed values on failures. | Executable synchronization and delivery checks; no client-clock decision remains. |
 | [Daychi reminder delivery](boundaries.md#accepted-daychi-reminder-delivery) | Expose authoritative calendar and confirmed account settings; retain delivery without cross-client deduplication. | Adapt existing refresh/local OS reminders; retain confirmed cache and active reminders after read failures. Presentation belongs to Daychi; cross-client duplicates are allowed. | Zero-minute timing tolerance is accepted. Daychi verifies supported-device queue capacity within its implementation; no fixed shared 60-reminder cap or operator capacity choice. No new background refresh capability. |
-| [Removal of per-date skips](boundaries.md#accepted-removal-of-per-date-skips) | Keep per-date skip exceptions out of the target shared reminder contract. | Remove the option and its related behavior; include the accepted user rationale in the ticket text. | Assignment scope is held by the migration question. |
+| [Removal of per-date skips](boundaries.md#accepted-removal-of-per-date-skips) | Keep per-date skip exceptions out of the target shared reminder contract. | Remove the option and its related behavior; include the accepted user rationale in the ticket text. | Implementation and joint verification remain in [existing 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17) under the accepted synchronization contract. |
 
 The accepted [web-wiki environment profiles](contracts/web-wiki-session.md#accepted-production-and-staging-separation)
 also require separate production/staging cookie names and signing/account authority,
@@ -54,21 +54,24 @@ Native server push was rejected by the user as excessive for this scope on
 
 ## Unresolved compatibility details
 
-Compare the [current source inventory](current-system.md) with the target before
-selecting changes. The remaining decisions are:
+The [current source inventory](current-system.md) and accepted contracts distinguish
+remaining implementation and proof from unresolved shared decisions:
 
 - The [public pilot contract](contracts/public-lessons.md) settles its query,
   projection, identities and refresh/error semantics. The broader authenticated
-  schedule and account/reminder migration still needs executable compatibility
-  definitions and verification for the accepted school-HTML source removal at cutover.
-- The [native account-session profile](contracts/native-account-session.md) settles
-  acquisition, token transport, lifecycle and native sign-out. Its full profile is
-  published at c9c69c3; implementation and actual native proof remain work. The separate
-  [native content-check wire, caller trust, capacity and failure contract](contracts/native-content-session.md)
-  was accepted on 2026-10-16; its implementation and integrated content proof remain work. Gateway work is deferred; ordinary sign-out affects only
-  the current installation.
-- Ongoing reconciliation of new local edits and account changes. Initial migration
-  scope is held by the [migration question](questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md#initial-usage-and-ongoing-synchronization--2026-10-04).
+  schedule and source cutover retain their compatibility and verification work.
+  Account reminders use the accepted [synchronization contract](contracts/reminder-sync.md)
+  and [existing issue 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
+- The [native account-session outcome](current-system.md#native-client-and-joint-acceptance--2026-10-17)
+  is accepted within its recorded proof scope. The separate
+  [native content-check contract](contracts/native-content-session.md) is accepted;
+  its remaining joint proof and activation stay in existing issues 15/16. Gateway
+  work remains deferred.
+- Shared reminder edits, save ordering and uncertain-save readback are settled by
+  the [synchronization contract](contracts/reminder-sync.md). Recipient implementation
+  and actual joint proof remain in [existing 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
+  The [migration question](questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md#initial-usage-and-ongoing-synchronization--2026-10-04)
+  retains the dated initial-usage context.
 - Verification of accepted failed-refresh and independent-delivery behavior,
   preserving existing refresh and delivery facilities. Cross-client duplicates
   are allowed. Do not add a background-refresh project.

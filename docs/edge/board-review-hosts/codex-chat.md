@@ -4,8 +4,9 @@
 
 The host uses `.agents/scripts/gw/board.py`, the periodic review procedure in
 `.agents/skills/review-assignments/PERIODIC.md`, and retained progress under
-`.local/board-review/`. The same-chat scheduled task supplies recurrence. The local
-computer, app and authenticated GitHub tools must be available during execution.
+`.local/board-review/`. The former same-chat scheduled task is paused; the [Windows host](windows-task.md)
+owns current recurrence. This chat's observed runs required the local computer,
+app and authenticated GitHub tools.
 
 ## Conformance
 

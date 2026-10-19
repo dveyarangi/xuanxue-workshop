@@ -6,7 +6,10 @@ The accepted native profile includes full web self-profile parity with
 `homeHiddenTiles`, automatic continuation and the accepted client-impersonation
 risk. Its accepted security amendment fixes random/hash-only native credentials,
 database-backed browser-bound pending authorization and `/login/native` continuation.
-Implementation and joint native proof remain pending. The wire/security amendment pins
+Implementation and joint native proof were pending at that publication. The
+[subsequent acceptance](../current-system.md#native-client-and-joint-acceptance--2026-10-17)
+owns the completed outcome and its proof limits; this body retains publication
+history. The wire/security amendment pins
 `3c98d4a5201710f8f777183dd7b61caefe47e2d5`, shared with
 [cabinet-native-account-session #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7).
 The original issue holds the current recipient assignment and reports. Its body,

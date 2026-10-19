@@ -38,8 +38,11 @@ that a provider or consumer has implemented it.
 Executable schemas remain in their owning projects. The first public schedule
 pilot has a published [shared contract and conformance cases](contracts/public-lessons.md);
 its Cabinet-owned definitions and deployed evidence are referenced in
-[current-system](current-system.md#cabinet). Publication and verification for the
-remaining authentication and account/reminder boundaries retain their open questions.
+[current-system](current-system.md#cabinet). The
+[native account-session acceptance](current-system.md#native-client-and-joint-acceptance--2026-10-17)
+owns that completed slice. The
+[migration delta](migration-changes.md#changes-derived-from-accepted-contracts)
+links the accepted browser, native-content and reminder contracts to their remaining work.
 
 The [accepted scope clarification](agent-contract.md#boundary-scope-and-product-language)
 requires one accessible immutable contract reference and common conformance cases
@@ -152,4 +155,4 @@ file access remain at the host, behind scoped read capabilities.
 - [Tracker access and claims](questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md): operator access, claims, and handling of the legacy horizon record.
 - [Agent adoption](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md): instructions and demonstrable integration under each operator.
 - [Operational obligations](questions/q-0002.0006-what-visibility-and-error-monitoring-obligations-should-workshop-enforce.md): distinguish what initial coordination requires from the broader product goals.
-- [Gateway](boundaries.md#accepted-gateway-deferral): deferred by the user, 2026-10-05, until project contributions demonstrate a requirement that the accepted direct connections cannot satisfy. [Native browser/code-and-PKCE acquisition](contracts/native-account-session.md#accepted-native-credential-acquisition) and its complete [native-session profile](contracts/native-account-session.md) are accepted; implementation/native proof and the separate content-admission check remain pending.
+- [Gateway](boundaries.md#accepted-gateway-deferral): deferred by the user, 2026-10-05, until project contributions demonstrate a requirement that the accepted direct connections cannot satisfy. The [native account-session outcome](current-system.md#native-client-and-joint-acceptance--2026-10-17) is accepted within its recorded proof scope. The [native content-check contract](contracts/native-content-session.md) is also accepted; its remaining joint proof and activation are separate from gateway deferral.

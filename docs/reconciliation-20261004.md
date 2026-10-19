@@ -1,5 +1,28 @@
 # Boundary reconciliation — 2026-10-04
 
+## Agreement-record maintenance — 2026-10-19
+
+Scope: Workshop agreement records, current evidence and remaining-work summaries,
+their local consumers, installed bindings, live-record forms and archival eligibility.
+
+Current agreement summaries now point to accepted native-account, native-content
+and reminder contracts and their owning work. Historical source observations and
+acceptance limits remain explicit. This restores agreement under maintain A1/E1
+and the local reconciliation-source and record-consistency rules; no shared
+behavior or recipient acceptance criterion changes.
+
+The completed [workshop-board-review specification](spec/done/01-0006-workshop-board-review.md)
+is archived with its surviving obligations retained in maintained homes. The scoped
+record, binding, harness and reference checks pass; recipient runtime and application
+acceptance were not repeated. Five bound straw dogs have no diagnostics or due
+entries. No local mechanism is due or eligible for an instance maintenance mark.
+
+The user enabled automatic repair on 2026-10-19; its authored setting and provenance
+remain in [local autonomy switches](../local.rules.md#l3--autonomy-switches).
+The [delivery queue](tickets/README.md) and [shared board review](board-review.md)
+retain current recipient work and resumption conditions. No next delivery cycle
+or original-issue response starts from this maintenance.
+
 ## Public best-effort amendment — 2026-10-07
 
 The user changed the [public pilot agreement](boundaries.md#accepted-first-schedule-connection):
@@ -25,12 +48,16 @@ scoped commit/push and original-issue updates on 2026-10-07. The
 [Daychi assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/6) and
 [Cabinet amendment/review conversation](https://github.com/dveyarangi/xuanxue-workshop/issues/5)
 carry the exact published contract and current recipient obligations.
-Provider/client implementation,
-Daychi installation acceptance and native proof remain separate outstanding work.
-Dated sections below retain their original acceptance basis.
+That amendment preceded the subsequent
+[provider acceptance](current-system.md#assignment-evidence--reviewed-2026-10-08)
+and [agent adoption](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
+The [public-schedule outcome](tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+owns its remaining consumer and native evidence. Dated sections below retain
+their original acceptance basis.
 
-The [2026-10-06 maintenance report](maintenance-20261006.md) holds the latest
-scope, boundary dispositions and resumption point. Dated sections below retain
+The [2026-10-06 maintenance report](maintenance-20261006.md) records that pass
+only. The [delivery queue](tickets/README.md) and [shared board review](board-review.md)
+hold current work and resumption conditions. Dated sections below retain
 their inspection and publication history; older pending/availability statements
 are snapshots, not the current work queue. The
 [migration question](questions/q-0002.0007-how-will-daychi-migrate-schedule-users-and-reminders-to-cabinet-while-retaining-its-content-backend.md#initial-usage-and-ongoing-synchronization--2026-10-04)

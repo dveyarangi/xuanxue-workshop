@@ -10,7 +10,7 @@
 
 ## Parent
 
-The [accepted workshop-board-review specification](../../spec/01-0006-workshop-board-review.md)
+The [accepted workshop-board-review specification](../../spec/done/01-0006-workshop-board-review.md)
 covers this single vertical slice. The user accepted its scope and one-ticket
 breakdown on 2026-10-15. The [impact assessment](../../questions/done/q-0002.0013-how-should-workshop-review-and-answer-board-changes-without-an-operator-present.md#impact--proposed-single-slice-2026-10-14)
 established the slice; no recipient implementation is a prerequisite.
