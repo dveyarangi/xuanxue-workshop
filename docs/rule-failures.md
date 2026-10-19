@@ -1,5 +1,15 @@
 # Rule failures
 
+## 2026-10-19 — Scoped staging left an empty archive source
+
+Status: corrected and read back from the published tree.
+
+The maintenance-only staging patch represented a removed source record as zero
+content rather than a file deletion. The archive and rewritten links were correct,
+but Git retained an empty source path. Tree readback exposed the remainder;
+explicit removal completed the archive. This was an execution slip; no new rule
+is proposed.
+
 ## 2026-10-19 — Temporary instruction copies entered live validation
 
 Status: corrected and rechecked.
