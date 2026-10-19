@@ -11,6 +11,7 @@
 | `.agents/skills/maintain/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/reconcile/SKILL.md` | `## Project context` |
 | `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
+| `.agents/skills/review-assignments/PERIODIC.md` | `## Completion` |
 | `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
 | `.agents/skills/ticket/SKILL.md` | `### 3. Draft vertical slices` |
@@ -493,21 +494,30 @@ actions outside this scope to the operator. Separate delivery work retains its
 existing checkpoints and recipient ownership.
 </rule>
 
-## L25 — board-review cadence and results
+## L25 — shared board-review report
 
 - **target** `AGENTS.md`
 - **target** `.agents/skills/review-assignments/SKILL.md`
 - **target** `.agents/skills/recall/SKILL.md`
 - **target** `workshop_bot/agent.rules.md`
-- **authority** the user, 2026-10-15, periodic review and reporting; 2026-10-19, three-hour cadence; report results when work finishes, silence unchanged runs and do not repeat reports on wake
+- **authority** the user, 2026-10-15, shared reporting and quiet unchanged runs; 2026-10-19, host cadence and mechanical discovery removed from agent instructions
 
 <rule>
-Periodic review runs every three hours, with mechanical discovery before model
-invocation.
 Use docs/board-review.md as the shared report; review-assignments owns its writing
 instructions and format. Operator wake reads it as context without repeating an
 unchanged report. The Telegram conversation role reads it when relevant to a request,
 without automatic distribution. Original issues and governing records remain authoritative.
+</rule>
+
+## L32 — maintenance after periodic review changes
+
+- **target** `.agents/skills/review-assignments/PERIODIC.md`
+- **authority** the user, 2026-10-19, maintenance is the final step when a periodic review makes changes
+
+<rule>
+When a periodic review changes project records or issues, finish with /maintain at
+.agents/skills/maintain/SKILL.md over the changed scope and affected records.
+Reuse the current review and shared report.
 </rule>
 
 ## L24 — directed Telegram messages from Codex

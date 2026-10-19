@@ -1,5 +1,19 @@
 # Rule failures
 
+## 2026-10-19 — Host facts were installed as agent instructions
+
+Status: corrected; the approved maintenance completion rule is installed separately.
+
+The cadence amendment placed host scheduling and pre-invocation discovery facts
+in L25, paid by every agent session without an action for that agent. This missed
+[Tier is paid by every session](../AGENTS.md) and
+[Three homes, and the chain](../.agents/skills/mechanism/SKILL.md#three-homes-and-the-chain).
+The user identified the misplaced sentence. It is removed from authored L25 and
+its installed targets; the Windows host record retains the operational schedule.
+The user's separate requirement adds
+[maintenance after periodic review changes](../local.rules.md#l32--maintenance-after-periodic-review-changes)
+at the periodic completion step. No additional general rule was introduced.
+
 ## 2026-10-19 — Scoped staging left an empty archive source
 
 Status: corrected and read back from the published tree.

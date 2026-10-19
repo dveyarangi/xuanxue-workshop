@@ -32,7 +32,9 @@ discussions, reviews and checks; unrelated repository metadata does not trigger 
 Unchanged waiting/operator outcomes have a six-hour minimum follow-up; changed relevant
 evidence remains eligible at the next discovery. A one-time upgrade rebases only reviewed
 digests proved by their stored snapshots and preserves publication identity and delivery state.
-The project supplies reporting cadence, destination and reader bindings through local rules.
+The project supplies reporting, reader bindings and review-completion obligations through local rules.
+Host configuration owns activation cadence. Maintenance reconciles the scope changed
+by a periodic review; unchanged reviews retain their quiet completion path.
 The report instruction owns the shared snapshot's format and publication; the validator
 checks shape and rejects stale replacements. Session recovery and conversation readers
 consume its dated facts without another acknowledgement ledger. A local external controller
@@ -54,6 +56,7 @@ issues and the existing lease/publication checks; evidence reads stay within con
 | applying locally delegated authority during a periodic review | `.agents/skills/review-assignments/SKILL.md` | |
 | detecting changes, claiming review and recovering publication | `.agents/skills/review-assignments/PERIODIC.md` | |
 | maintaining the shared review snapshot | `.agents/skills/review-assignments/REPORT.md` | |
+| maintaining records affected by periodic review changes | `.agents/skills/maintain/SKILL.md` | |
 | reading reports and artifacts linked through an issue's timeline | `.agents/skills/review-assignments/SKILL.md` | |
 | reassessing dependency necessity and fulfillment from observed conditions | `.agents/skills/review-assignments/SKILL.md` | |
 | reviewing relevant discussions when reconciliation begins or resumes | `.agents/skills/review-assignments/SKILL.md` | |
@@ -134,6 +137,9 @@ An unfinished review investigation is not presented as an operator decision.
 An available automated check is performed rather than assigned to the operator; an actual
 operator request identifies their action and the reviewer's continuation after it.
 An inaccessible tracker is reported as unavailable, not as an empty inbox.
+For a periodic review that changes project records or issues, the operator can
+identify the affected maintenance scope and its disposition in the existing
+review report. An unchanged periodic review preserves its quiet outcome.
 An issue with no direct comments but a linked pull-request report or referenced
 commit must produce an artifact-based review. An incidental mention must not
 produce acceptance; an inaccessible reference must remain explicitly pending.

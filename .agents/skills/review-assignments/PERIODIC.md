@@ -21,6 +21,14 @@ configured reporting requirements; otherwise stay quiet for unchanged or non-act
 and previously reported uncertainty. Reassess due evidence conditions without inventing a new
 project requirement.
 
+## Completion
+
+<installed by="local">
+**L32** When a periodic review changes project records or issues, finish with /maintain at
+.agents/skills/maintain/SKILL.md over the changed scope and affected records.
+Reuse the current review and shared report.
+</installed>
+
 ## Commands
 
 When host capabilities are supplied, use `review_board` for scoped board operations and

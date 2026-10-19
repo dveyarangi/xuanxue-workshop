@@ -580,3 +580,20 @@ paused. Assignment review still reconciles affected evidence and records before
 acceptance; this cadence change adds no general repository-maintenance sweep,
 new shared decision authority or recipient work. The unchanged waiting/operator
 follow-up minimum remains six hours.
+
+## Agent-actionable periodic completion — 2026-10-19
+
+The operator removed host cadence and detector ordering from agent instructions:
+neither supplied an action to the invoked reviewer. The
+[Windows host record](../edge/board-review-hosts/windows-task.md#integration)
+retains the three-hour schedule; architecture points there instead of to L25.
+The shared-report rule retains only its reader and reporting duties.
+
+The operator also requires maintenance as the final step when periodic review
+changes project records or issues. Authored local L32 is installed only at the
+periodic procedure's Completion heading; it invokes the existing maintenance
+skill over the changed scope and affected records, reusing the review/report.
+The controller already invokes that procedure. This changes its completion
+instruction, without another scheduled task, launcher, maintenance ledger or
+whole-tree run on quiet discovery. Installation and source-path inspection are
+the evidence from this edit; no scheduled review was started for it.
