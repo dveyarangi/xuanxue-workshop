@@ -1,5 +1,61 @@
 # Current application structure and boundary evidence
 
+## Reminder synchronization source comparison - 2026-10-19
+
+This comparison inspects immutable Cabinet main
+[`5838fa5`](https://github.com/gregoryKot/xuanxue-cabinet/tree/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05)
+and Daychi main
+[`c146326`](https://github.com/sleontenko/daychi/tree/c146326c7ea552772d8c804b3a08ad5637ca5eb0).
+Daychi's separate draft PR18 at `bb7295f` is not merged reminder synchronization.
+These are source observations, not new deployment/native acceptance. No sibling
+working files were changed and no recipient suites were rerun for this comparison.
+
+| Concern | Cabinet | Daychi | Shared gap |
+|---|---|---|---|
+| Identity | Public lessons expose stable occurrence `id` and `classId`. | Ordinary schedule hashes weekday/title, then adds a date; the isolated public pilot already understands Cabinet IDs. | Account reminders need the authoritative Cabinet source and IDs, without heuristic legacy matching. |
+| Selection meaning | `all`/`selected` class scope, remembered class list, maximum 50 classes; no individual lesson choice. | Individual choices, recurring series with a start date and per-date skips. | Add one-off Cabinet lesson choices, agree scope compatibility and implement accepted skip removal. |
+| Writes | Scope PUT replaces mode and the complete list; lead PUT changes a separate field. | Whole device preference state saved locally; no account choice transport. | Whole-list writes can erase independent changes; both account writers need per-choice merge. |
+| Ordering | Preference document has an overall timestamp, without per-choice edit times or removal evidence. | No per-choice timestamps or tombstones. | Neither side yet implements accepted latest-edit/tie/removal rules. |
+| Lead time | Personal 15/30/60/120 or school default; school setting accepts integer 5..1440. | Local 0/15/30/60, initial 30; saved values outside that set restore to 30. | Zero and 120/default support must converge; defaults need not be preset values. |
+| Delivery | Scheduled-lesson filter, per-account/lesson deduplication; current planner excludes lessons at/past start. | Local OS planning, chosen future reminders; a plan over 60 throws before reconciliation. | Backend zero cannot work unchanged; native capacity needs defined partial coverage instead of whole-plan failure. |
+| Lifecycle | Current notification routes use browser authentication; native account credential lifecycle is separately implemented. | Native owner has issuer binding and late-response guards; ordinary reminder preferences use device-wide keys. | Add authenticated native reminder access and issuer/account isolation, distinguishing explicit logout from failures. |
+| Other notifications | Class scope also filters lesson cancellation, recording and class-linked material notices. | Device enablement and OS permission control local delivery. | Shared selections must not overwrite channel preferences or accidentally broaden other notification types. |
+
+Source anchors: Cabinet [shared types/routes](https://github.com/gregoryKot/xuanxue-cabinet/blob/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05/shared/src/lesson-notifications.ts),
+[scope persistence](https://github.com/gregoryKot/xuanxue-cabinet/blob/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05/api/src/notifications/lesson-scope.service.ts),
+[controller](https://github.com/gregoryKot/xuanxue-cabinet/blob/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05/api/src/notifications/lesson-notifications.controller.ts),
+[reminder planner](https://github.com/gregoryKot/xuanxue-cabinet/blob/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05/api/src/lessons/lesson-reminder-plan.ts)
+and [public lesson identity](https://github.com/gregoryKot/xuanxue-cabinet/blob/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05/shared/src/public-lessons.ts);
+Daychi [attendance](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/schedule/attendance.ts),
+[ordinary schedule/persistence](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/schedule/use-schedule.ts),
+[source identities](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/schedule/source.ts),
+[planner](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/schedule/reminder-plan.ts)
+and [account lifecycle](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/cabinet-account/session-core.ts).
+
+The user approved this preparation and confirmed only test users/data in Daychi
+on 2026-10-19. A real-user legacy migration is therefore not established as
+necessary; deletion or automatic guest import is not authorized. The
+[synchronization proposal](contracts/reminder-sync.md) records recommended
+wire/clock/transition/delivery choices under the existing accepted semantics.
+Those recommendations remain unaccepted and create no recipient assignment.
+
+## Provider closure and regional-network disposition - 2026-10-19
+
+At the user's direction, [Cabinet provider 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6260697241)
+is closed as completed, preserving its accepted `868a4ed` contribution. The regional
+staging-network incident is closed as non-blocking; further investigation or repair
+is deferred until an actual customer complaint about the related access problem.
+Probe-only failures and existing operator testing reports are not that trigger.
+The [Daychi 6 body and follow-up](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6260697771)
+explicitly exclude this network incident, provider issue status and temporary-role
+disposition from implementation or acceptance gates. Temporary teacher-role state
+remains unverified; closure establishes no cleanup or account mutation.
+
+Daychi's outstanding ordinary native evidence still needs a reachable conforming
+provider and authorized fixtures under the existing contract. The network
+disposition does not accept missing consumer evidence or alter API/session behavior.
+The [board review](board-review.md) retains the dated network measurements.
+
 ## Public-pilot evidence and test-lesson disposition — 2026-10-18
 
 The user reaffirmed the 15 October Telegram decision: only the live mixed-row/
