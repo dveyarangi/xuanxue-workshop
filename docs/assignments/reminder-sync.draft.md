@@ -10,8 +10,9 @@ remain in that issue, with `project:workshop`, `project:cabinet` and `project:da
 labels when the accepted implementation responsibilities are published. No new
 issue, local ticket or decomposition approval is needed for this existing outcome.
 
-Status: final review proposal for the existing issue body; implementation
-responsibilities become issued only after acceptance of the complete contract.
+Status: complete contract and this existing-issue update approved by the Workshop
+operator on 2026-10-19. This is the publication copy for original issue 17 with
+its accepted immutable contract reference and the three recipient labels above.
 The issue stays open for the outstanding owner actions and joint proof after
 contract publication. Publication alone does not establish a working integration.
 
@@ -19,9 +20,9 @@ contract publication. Publication alone does not establish a working integration
 
 The complete [reminder synchronization contract](../contracts/reminder-sync.md),
 its wire version 1 and common conformance outcomes govern both recipients. Its
-linked native-account and public-calendar authorities remain binding. The final
-published issue body will cite a full immutable Workshop commit for that contract;
-the relative draft link is review material, not an issued implementation authority.
+linked native-account and public-calendar authorities remain binding. The published
+issue body cites the full immutable accepted Workshop contract revision; relative
+links in this local publication copy are resolved to that revision before posting.
 
 Cabinet owns account settings; only explicitly selected classes/lessons are
 eligible, and new accounts start empty. Saves are online and Cabinet-confirmed;

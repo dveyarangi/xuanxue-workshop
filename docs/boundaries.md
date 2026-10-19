@@ -257,8 +257,11 @@ late-response protections remain applicable.
 This decision supersedes the 2026-10-04 offline-editing, pending-edit retention,
 client latest-edit-time ordering and equal-time tie requirements. It retains
 independent choices, shared account ownership and offline reading/delivery.
-The [synchronization question](questions/q-0002.0007.0002-how-should-daychi-reconcile-local-edits-with-cabinet-account-state.md)
-holds the history and remaining executable-interface/delivery preparation.
+The [synchronization question](questions/done/q-0002.0007.0002-how-should-daychi-reconcile-local-edits-with-cabinet-account-state.md)
+holds the decision history. The [accepted synchronization contract](contracts/reminder-sync.md)
+defines the complete executable interface, delivery bounds and common cases;
+both projects' remaining implementation and joint proof stay in
+[original issue 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
 
 ### Accepted reminder lead times
 

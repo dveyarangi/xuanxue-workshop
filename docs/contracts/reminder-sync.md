@@ -1,15 +1,16 @@
-# Account reminder synchronization proposal
+# Account reminder synchronization contract
 
 Revised 2026-10-19 for [original request 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
-Status: accepted product decisions with a proposed executable interface and
-delivery bounds; not an implementation assignment or deployed capability.
+Status: complete wire version 1, delivery bounds and common conformance outcomes
+accepted by the Workshop operator on 2026-10-19. Implementation and runtime
+acceptance remain work in the original issue; this is not a deployment claim.
 The [source comparison](../current-system.md#reminder-synchronization-source-comparison---2026-10-19)
 records the inspected revisions. The user confirmed on 2026-10-19 that Daychi
 has only test users/data and nobody currently uses Cabinet. No live-user
 migration or staged old-client rollout is required by that evidence; existing
 data deletion is not authorized.
 
-## Accepted behavior and remaining preparation
+## Accepted behavior and contract authority
 
 The [selection agreement](../boundaries.md#accepted-reminder-selections) fixes
 Cabinet ownership, stable lesson and class IDs, shared chosen-only selections
@@ -33,11 +34,10 @@ positive before-start lead times. The [lead-time agreement](../boundaries.md#acc
 owns the decision; there is no remaining zero-minute timing choice.
 
 The executable wire and conformance cases below have completed source comparison
-and independent Cabinet/Daychi recipient review. Complete-contract acceptance
-remains the next checkpoint; this review does not authorize recipient implementation
-or claim deployed capability. Device presentation belongs to its project.
-
-<straw-dog question="q-0002.0007.0002">
+and independent Cabinet/Daychi recipient review. The operator approved the complete
+contract and updating original issue 17 in place with both projects' responsibilities.
+Recipient operators retain implementation, fixture and release authority.
+Device presentation belongs to its project.
 
 ## Authority, identity and selection meaning
 
@@ -318,7 +318,7 @@ No active-user staged rollout, special upgrade error or refresh-approval checkpo
 is required. Whole-list writers do not remain active against shared reminder
 state. A rollback can disable shared editing, not restore unsafe whole-list saves.
 
-This proposed version does not activate unfinished schedule integration or alter
+This version does not activate unfinished schedule integration or alter
 native-session, content or browser-wiki contracts. Publishing implementation
 responsibilities in existing request 17 requires one accepted immutable wire and
 common cases. That issue retains Cabinet, Daychi and Workshop responsibilities
@@ -360,13 +360,11 @@ were removed: dismissing a notification suffices; the action informs no teacher
 and releases no reservation.
 
 Workshop owns final shared definitions, immutable accepted
-authority, common-case coverage and joint acceptance. This is not a delivery split
-or recipient authorization. Provider HTTP/concurrency checks and client offline,
+authority, common-case coverage and joint acceptance. Recipient operators retain
+implementation and release authority. Provider HTTP/concurrency checks and client offline,
 uncertain-response, cache/lifecycle and OS cases need exact revisions and executed
 results. Joint staging proof uses an authorized matching account, Cabinet web and
 an identified installed Daychi build, covering concurrent independent/same-key
 saves, lost-response readback, offline edit refusal with retained reminders,
 move/cancellation recovery and logout/isolation. Existing accepted native-account
 proof is reused; two independent local successes alone do not prove integration.
-
-</straw-dog>
