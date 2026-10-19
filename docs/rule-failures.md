@@ -1,5 +1,28 @@
 # Rule failures
 
+## 2026-10-19 — One coordinated outcome fragmented into work items and comments
+
+Status: approved instruction amendments applied; future behavior remains to be observed.
+
+During reminder-contract alignment, separate Cabinet/Daychi responsibilities were
+treated as requiring new issues and an additional local publication ticket, while
+each alignment answer prompted a separate original-issue update. No new issues
+were created. Local L13's unconditional decomposition route, the issue format's
+independent-owner separation and the ticket skill's many-thin-slices preference
+outweighed their existing reuse qualifications in the assistant's interpretation.
+Immediate decision capture was also conflated with immediate issue notification.
+
+The user approved narrowing these existing instructions on 2026-10-19.
+[L13](../local.rules.md#l13--reconciliation-assignments-use-the-approved-breakdown)
+now starts with existing outcome ownership;
+[L14](../local.rules.md#l14--issue-review-action-and-return-to-work)
+separates decision recording from consolidated recipient communication;
+[L30](../local.rules.md#l30--outcome-based-ticket-sizing)
+overrides the quantity preference. The
+[issue format](../skills/collaborate/workshop-issue-format.md) uses the same
+outcome test. Publication and recipient-action exceptions remain intact.
+The amendment adds no issue, ticket, approval stage or notification mechanism.
+
 ## 2026-10-15 — Repository metadata triggered unnecessary board review
 
 Status: corrected in discovery and follow-up enforcement; retained progress upgraded.

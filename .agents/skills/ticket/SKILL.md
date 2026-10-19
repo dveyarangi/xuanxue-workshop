@@ -94,6 +94,12 @@ it will deliver.
   outcome, not a failed decomposition
 </vertical-slice-rules>
 
+<installed by="local">
+**L30** Override the slicing preference "Prefer many thin slices over few thick ones":
+prefer the fewest work items that preserve independently deliverable and
+verifiable outcomes.
+</installed>
+
 ### 3.1 Impact the proposed split
 
 Run [/impact](../impact/SKILL.md) on the draft split. Record its output in

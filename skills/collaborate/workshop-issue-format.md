@@ -6,8 +6,10 @@ project's own rules.
 
 Use the tracker, recipient labels and responsibility rules from the
 [agent contract](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/agent-contract.md).
-Search for an existing issue covering the same action and continue it when found.
-Separate independently owned actions and link their dependencies.
+Continue an existing issue when the work advances its outcome. Identify each
+responsible party and its dependencies within that issue. Separate issues require
+independently verifiable outcomes that existing work cannot adequately cover;
+different owners or phases do not by themselves justify a split.
 
 ## New issue
 

@@ -110,12 +110,13 @@ questions and changed dependencies matter before completion reports arrive.
 **L11** For Workshop boundary alignment, reconciliation and assignments, apply the
 scope-of-authority contract in docs/agent-contract.md#boundary-scope-and-product-language.
 
-**L13** Use /ticket and its /impact pass to shape remaining cross-project work into
-local tickets for the coordinating project's outcomes. Obtain breakdown approval
-before minting. Slice by outcome, not automatically by finding or recipient.
+**L13** Continue the existing issue or ticket when the work advances its outcome.
+Alignment, implementation, verification and participation by different projects
+do not by themselves require new work items. Use /ticket and its /impact pass
+only for outcomes not adequately covered by existing work. Before proposing a
+new item, identify its independently verifiable outcome and why an existing
+item cannot own it. Obtain breakdown approval before minting.
 Published project issues may be ticket outputs; their publication does not
 establish that the recipient's work is complete. Verify the ticket's own outcome:
 a published handoff and a working integration have different completion criteria.
-Continue existing assignments covering the same action. Routine factual corrections
-and follow-up within an existing assignment need no additional local ticket.
 </installed>

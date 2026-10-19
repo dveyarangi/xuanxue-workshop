@@ -149,8 +149,12 @@ establish absence of a report; a mention alone does not establish completion.
 Report inaccessible referenced evidence explicitly.
 
 Act on the findings in the original issue. Investigate problems and request missing
-work or evidence there. Bring unresolved shared decisions to /align and return the
-agreed outcome to the issue. Accept complete, inspectable evidence against the
+work or evidence there. Bring unresolved shared decisions to /align.
+Recording a decision does not trigger an issue comment. Consolidate related
+alignment decisions into one issue update at the end of alignment or at an
+actionable handoff. Communicate earlier when a recipient must act, stop work or
+resolve a blocker before that point. Keep the issue body current; use the summary
+to explain the resulting change and next action. Accept complete, inspectable evidence against the
 assignment's criteria; repeat checks when needed to resolve gaps or contradictions.
 A bare completion claim or closed issue is insufficient.
 

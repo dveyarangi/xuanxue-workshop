@@ -13,6 +13,7 @@
 | `.agents/skills/review-assignments/SKILL.md` | `## Project context` |
 | `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
+| `.agents/skills/ticket/SKILL.md` | `### 3. Draft vertical slices` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 | `skills/collaborate/SKILL.md` | `## Installation` |
 | `workshop_bot/agent.rules.md` | `## Workshop rules` |
@@ -357,23 +358,35 @@ the result; they do not prescribe the agent's workflow or authorize action.
 
 - **target** `.agents/skills/coordinate/SKILL.md`
 - **target** `.agents/skills/reconcile/SKILL.md`
-- **authority** the user, 2026-10-05, local reconciliation outcomes and published project issues; preserved from local ticket/P12 during the harness update
+- **authority** the user, 2026-10-05, local reconciliation outcomes and published project issues; preserved from local ticket/P12 during the harness update; 2026-10-19, existing outcome ownership before decomposition
 
 <rule>
-Use /ticket and its /impact pass to shape remaining cross-project work into
-local tickets for the coordinating project's outcomes. Obtain breakdown approval
-before minting. Slice by outcome, not automatically by finding or recipient.
+Continue the existing issue or ticket when the work advances its outcome.
+Alignment, implementation, verification and participation by different projects
+do not by themselves require new work items. Use /ticket and its /impact pass
+only for outcomes not adequately covered by existing work. Before proposing a
+new item, identify its independently verifiable outcome and why an existing
+item cannot own it. Obtain breakdown approval before minting.
 Published project issues may be ticket outputs; their publication does not
 establish that the recipient's work is complete. Verify the ticket's own outcome:
 a published handoff and a working integration have different completion criteria.
-Continue existing assignments covering the same action. Routine factual corrections
-and follow-up within an existing assignment need no additional local ticket.
+</rule>
+
+## L30 — outcome-based ticket sizing
+
+- **target** `.agents/skills/ticket/SKILL.md`
+- **authority** the user, 2026-10-19, approved replacement of the many-thin-slices preference
+
+<rule>
+Override the slicing preference "Prefer many thin slices over few thick ones":
+prefer the fewest work items that preserve independently deliverable and
+verifiable outcomes.
 </rule>
 
 ## L14 — issue review, action and return to work
 
 - **target** `.agents/skills/review-assignments/SKILL.md`
-- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports; 2026-10-08, reassess dependencies from ground truth and remove readiness and installation-acceptance gates
+- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports; 2026-10-08, reassess dependencies from ground truth and remove readiness and installation-acceptance gates; 2026-10-19, consolidated alignment updates at an actionable handoff
 
 <rule>
 Review relevant assignments and discussions in Workshop GitHub Issues, including
@@ -389,8 +402,12 @@ establish absence of a report; a mention alone does not establish completion.
 Report inaccessible referenced evidence explicitly.
 
 Act on the findings in the original issue. Investigate problems and request missing
-work or evidence there. Bring unresolved shared decisions to /align and return the
-agreed outcome to the issue. Accept complete, inspectable evidence against the
+work or evidence there. Bring unresolved shared decisions to /align.
+Recording a decision does not trigger an issue comment. Consolidate related
+alignment decisions into one issue update at the end of alignment or at an
+actionable handoff. Communicate earlier when a recipient must act, stop work or
+resolve a blocker before that point. Keep the issue body current; use the summary
+to explain the resulting change and next action. Accept complete, inspectable evidence against the
 assignment's criteria; repeat checks when needed to resolve gaps or contradictions.
 A bare completion claim or closed issue is insufficient.
 

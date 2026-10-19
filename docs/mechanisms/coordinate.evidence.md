@@ -1,5 +1,28 @@
 # Coordination loop evidence
 
+## Outcome ownership and consolidated communication — 2026-10-19
+
+The operator approved the instruction amendment after reminder alignment produced
+per-answer comments and proposed extra work items for a single existing outcome.
+The [failure account](../rule-failures.md#2026-10-19--one-coordinated-outcome-fragmented-into-work-items-and-comments)
+records the interaction. Local L13 now makes existing ownership the first choice;
+local L14 distinguishes recording from notification; local L30 overrides the
+ticket quantity bias. The issue format applies the same outcome criterion.
+No recipient implementation, new issue, fixture mutation or release is included.
+
+Observable grading cases for a later independent reader: a second project joining
+an existing outcome does not alone produce a new issue; several alignment answers
+produce one end-of-alignment update; an urgent recipient action still receives
+an earlier message; a genuinely separate independently verifiable outcome can
+still justify a new item and its existing approval checkpoint. Structural checks
+establish installation integrity, not that future agents will make those judgments.
+
+Installed-rule, mechanism-declaration, announced upstream-harness and shared-board
+format checks passed on 2026-10-19. The scoped comparison confirms only the eight
+amendment/installed-copy/evidence files changed during this pass; unrelated working
+changes are excluded from its publication. Approved wording and whitespace checks
+passed. No application code changed or application test suite was needed.
+
 ## Native N01/N17 evidence clarification — 2026-10-16
 
 Publication: immutable full-profile revision `18cfe41db0203fa6fc72d429caa584960d0c2522` was pushed and read back against committed source. Original [Cabinet 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6221392509) and [Daychi 8](https://github.com/dveyarangi/xuanxue-workshop/issues/8#issuecomment-6221393997) bodies cite that identical revision; exact body, labels, peer links and both decision comments were read back. Both assignments remain open for the remaining evidence review. The shared report records the resolved operator questions and deferred browser ownership. Validation passed: 139 tests, rules/mechanism/question/ticket/edge checks, board-report validation and harness integrity/link checks.
