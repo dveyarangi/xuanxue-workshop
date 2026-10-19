@@ -1,6 +1,7 @@
 # Native content reads using the Cabinet session
 
-**Status: accepted boundary, 2026-10-16; implementation, activation and joint proof pending.**
+**Status: accepted boundary, 2026-10-16; restart-reset exception accepted 2026-10-19;
+joint proof and activation remain work.**
 
 The user reaffirmed the already accepted content-access rule and approved the
 per-read validation and session-isolated capacity plan on 2026-10-16 in response
@@ -116,6 +117,18 @@ At exact age 60 seconds the old check no longer counts. Refused over-budget
 requests do not extend the window. Enforcement spans the serving deployment;
 process distribution/storage design is Cabinet's choice.
 
+The Workshop operator accepted on 2026-10-19 that quota history may reset when
+the current single-instance provider process restarts or is replaced during a
+deployment. The new process can begin a fresh allowance without retaining the
+previous process's checks; the brief increase across that transition is an
+accepted, non-blocking operational limitation. Persisting or handing off that
+history is not required for provider or joint acceptance. This exception does
+not permit independently replenished quotas across concurrently serving replicas;
+a multi-instance deployment must still enforce one grant allowance across its
+serving processes. Authentication, revocation, per-grant separation and normal
+rolling-window behavior remain unchanged. Daychi's request, error and recovery
+behavior is unchanged; no consumer restart/reset signal is introduced.
+
 Never derive a valid budget key from unverified bearer text, request account/grant
 IDs or a caller-selected header. Distinct grants, including two grants belonging
 to one account, have independent budgets. One server egress IP does not aggregate
@@ -183,6 +196,7 @@ may differ; two local green suites alone do not establish joint acceptance.
 | C09 | Two active grants behind one Daychi IP; exhaust grant A with 60 checks | A's next check is 429; B's first valid check succeeds; no valid-grant IP aggregate |
 | C10 | Renewed and predecessor credentials of grant A; grant B for same account | A shares one allowance across credentials; B remains independent; native lifecycle unchanged |
 | C11 | Oldest counted check reaches exactly 60 seconds; retries during limit | Capacity becomes available at the boundary; refused retries do not prolong the window |
+| C11R | Current single-instance provider process restarts or is replaced | Its quota history may reset and grant a fresh allowance; no history-persistence/replacement test is an acceptance gate. Normal per-process rolling behavior and authentication remain binding; concurrently serving replicas do not each acquire a separate allowance. |
 | C12 | Invalid traffic on the shared IP and arbitrary claimed grant/account header | Existing invalid-input protection remains; no invented valid bucket or exhaustion of other grants |
 | C13 | Staging credential against production-selected consumer, or request-supplied issuer | Only the fixed configured issuer is contacted; unknown credentials refuse; no issuer override or fallback |
 | C14 | Credential replaced while earlier read returns 401/503; explicit native sign-out | Late outcome cannot delete replacement/legacy credential; native grant-scoped logout retained |

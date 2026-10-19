@@ -25,11 +25,12 @@ production health remained `fc2dee2`. No account, token, fixture, deployment or
 live process was changed. Health does not establish replica configuration or
 successful authenticated content delivery.
 
-One implementation deviation remains. The
+The following review finding was superseded by the operator's restart-reset
+exception on 2026-10-19; the observed source behavior remains unchanged. The
 [limiter](https://github.com/gregoryKot/xuanxue-cabinet/blob/ea4299606ef8a8e2091931645bf4d21c20c5a450/api/src/native-auth/native-me-limiter.ts#L81)
 owns a new in-memory window per process; [ADR0184](https://github.com/gregoryKot/xuanxue-cabinet/blob/ea4299606ef8a8e2091931645bf4d21c20c5a450/docs/adr/0184-native-me-budget-per-grant.md)
 explicitly says deployment resets that history. The accepted deployment-wide
-rolling allowance has no reset exception. Workshop executed the exact pinned
+rolling allowance at the time had no reset exception. Workshop executed the exact pinned
 limiter/error source after TypeScript transpilation, with synthetic grant/time
 inputs: 60 successful checks at T0, 429 on the next check and again at T0+1s;
 a fresh limiter at T0+1s admitted 60 further checks for the same grant. That is
@@ -38,20 +39,23 @@ This is a deterministic local state-loss reproduction, not a live restart or
 an observed customer incident. Single-replica operation alone does not preserve
 the history across replacement; overlapping processes would have separate windows.
 
-Disposition in existing 15: preserve the supported implementation/CI progress;
-restore the already accepted deployment-wide rolling bound through process
-replacement and provide executed conformance proof. Internal storage or admission
-mechanism remains Cabinet-owned. No contract amendment, new issue, mandatory
-production rollout, live restart, account deletion or live aging is requested.
-Full provider acceptance remains open for that correction and the existing joint
-outcome. Source/health success alone does not establish joint content acceptance.
+Current disposition in existing 15: the operator explicitly allowed quota resets
+on restart and removed this finding as a blocker. The
+[amended capacity contract](contracts/native-content-session.md#capacity-and-identity)
+accepts the current single-instance state-loss behavior as a non-blocking limitation.
+No persistence correction, replacement-proof requirement or consumer change remains.
+The already reviewed source/CI/staging progress stands. Actual joint content proof
+and owner-authorized runtime arrangements remain outstanding; source/health success
+alone does not establish that outcome. Concurrent multi-instance quotas retain
+the shared bound; this amendment adds no scaling requirement to the current setup.
 
 For [Daychi 16](https://github.com/dveyarangi/xuanxue-workshop/issues/16), the reviewed
 mounted/default-off adapter and synthetic full-parent navigation evidence stand.
 The old claim that the provider implementation is simply absent is superseded.
 Authorized functional joint staging checks can be arranged against identified
-ea42996 without waiting for issue closure, while reporting the known capacity
-gap; full conforming activation/acceptance still requires its correction.
+ea42996 without waiting for issue closure. Restart quota persistence is no longer
+a readiness or acceptance gate; the supported current provider can be used for
+the existing joint checks under the owners' authority.
 Daychi supplies the actual installed client/backend revision mapping; Cabinet
 and Daychi operators supply the matching authorized account/grant/status/outage
 arrangements. Those arrangements and actual protected material/recording,
