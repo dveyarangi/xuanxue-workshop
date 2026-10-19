@@ -27,6 +27,11 @@ The supported lead times, removal of per-date skips, existing pull occasions,
 native local delivery and allowed cross-client duplicate reminders remain fixed.
 The [native account-session contract](native-account-session.md) is unchanged.
 
+The user accepted on 2026-10-19 that the zero-minute reminder targets the start
+and may be sent up to one minute afterward. This tolerance does not shift the
+positive before-start lead times. The [lead-time agreement](../boundaries.md#accepted-reminder-lead-times)
+owns the decision; there is no remaining zero-minute timing choice.
+
 Workshop still finalizes the executable wire and delivery bounds below against
 those decisions. Preparing them does not authorize recipient implementation or
 accept every proposed transport detail. Device presentation belongs to its project.
@@ -234,9 +239,11 @@ native push, background refresh or cross-client delivery exclusivity.
 
 Effective lead time is personal value or current `schoolMinutes`, including an
 arbitrary supported default such as 45. Cabinet and Daychi add personal zero/120
-support where missing. Proposed Cabinet zero-lead eligibility is its first scheduler
-tick in `[startsAt, startsAt + 60 seconds)`, using existing account/lesson
-deduplication, with no hard real-time or missed-window catch-up guarantee. Daychi
+support where missing. Cabinet targets the start for zero lead and uses the first
+eligible scheduler tick in `[startsAt, startsAt + 60 seconds]`, within the accepted
+one-minute tolerance and existing account/lesson deduplication. This is not an
+intentional delay and does not move positive lead-time targets. Missed windows
+are not replayed as fresh reminders; delivery-channel limits remain. Daychi
 schedules zero at the start of a future lesson, not as catch-up after it starts.
 
 Proposed Daychi capacity is the earliest 60 eligible future local reminders within
@@ -285,7 +292,7 @@ addressed contributions. This document grants no fixture mutation or release.
 | Guest transition | Sign-in uses Cabinet, leaves guest data intact and uploads nothing automatically; sign-out restores guest state. |
 | Validation | Invalid kind/shape/ID, duplicate keys, unsupported version, 65 changes, body overflow or a 51st positive class cannot partially write the batch. |
 | Access | Browser CSRF, native grant revocation/account blocking, mixed credentials, no-store and account isolation match the access section. |
-| Lead/delivery | Personal 0/120 and school-default 45 work on both ends within the proposed zero window and capacity limits. |
+| Lead/delivery | Personal 0/120 and school-default 45 work on both ends. Zero targets the start with up to 60 seconds of accepted processing tolerance; positive lead targets remain before start. Native capacity remains proposed. |
 | Read failure/recovery | Last good calendar/settings and scheduled reminders survive; received cancellations/moves apply on recovery, without an offline edit queue. |
 | Capacity | More than 60 eligible reminders retains/schedules the earliest 60 deterministically; later coverage depends on existing refill occasions. |
 | Rollout/regressions | Updated web and Daychi edit the same account safely; retired lead PUT is 404, legacy scope PUT affects only other notices, and guest/content/session/browser obligations remain compatible. |

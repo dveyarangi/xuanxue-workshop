@@ -262,6 +262,12 @@ at the lesson start. Cabinet web and Daychi honor the same account setting.
 The supported options preserve the explicit lead times available in either
 existing client.
 
+Decision: the user, 2026-10-19. For the zero-minute option, the target is the
+lesson start and processing may send the reminder up to one minute afterward.
+This is an allowed tolerance, not an intentional after-start delay. Positive
+lead times retain their chosen before-start targets; the one-minute tolerance
+does not change those options. Existing delivery-channel limitations remain.
+
 Decision: the user, 2026-10-19. Lead-time changes follow the
 [online-only editing agreement](#accepted-online-only-reminder-editing),
 independently of lesson-date and recurring-class choices. This supersedes the
