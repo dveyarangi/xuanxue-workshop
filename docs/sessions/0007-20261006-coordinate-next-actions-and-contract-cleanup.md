@@ -37,7 +37,7 @@ records preservation of all twelve contract anchors and 98 checked local links.
 - [workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md)
   remains first in the queue: independent exercise of the new next-action behavior,
   publication and recipient-source rollout remain distinct from local text checks.
-- [cabinet-daychi-public-schedule-connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+- [cabinet-daychi-public-schedule-connection](../tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md)
   retains Cabinet's required-data correction and Daychi's installation/native proof
   in their original issues. Live evidence was reviewed at session entry, not
   refreshed during the final document cleanup.

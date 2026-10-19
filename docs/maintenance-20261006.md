@@ -90,7 +90,7 @@ required-data correction and Daychi's installation/native evidence.
 No ticket/RFC pair satisfies every acceptance criterion, so none was archived.
 No additional question subtree is ready to move. Queue order/status is preserved:
 [workshop-coordination-ready](tickets/done/01-0005-workshop-coordination-ready.md), then
-[cabinet-daychi-public-schedule-connection](tickets/01-0007-cabinet-daychi-public-schedule-connection.md),
+[cabinet-daychi-public-schedule-connection](tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md),
 then the deferred horizon. No rule or installed block was amended by this pass.
 
 ## Boundary comparison and issue review

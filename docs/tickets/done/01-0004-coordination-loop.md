@@ -80,7 +80,7 @@ and publication checkpoints and retain useful rules when extracting instructions
 ## Out of scope
 
 Application implementation and live integration belong to
-[cabinet-daychi-public-schedule-connection](../01-0007-cabinet-daychi-public-schedule-connection.md).
+[cabinet-daychi-public-schedule-connection](01-0007-cabinet-daychi-public-schedule-connection.md).
 Published entry/adoption and existing readiness proof remain with
 [workshop-coordination-ready](01-0005-workshop-coordination-ready.md).
 This work supplies revised instructions and may supply evidence to those outcomes;

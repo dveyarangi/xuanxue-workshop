@@ -184,7 +184,7 @@ contains a new unaccepted report.
 ## Proposed local outcome — post-impact, not minted
 
 Accepted on 2026-10-05 and minted as
-[cabinet-daychi-public-schedule-connection](../../docs/tickets/01-0007-cabinet-daychi-public-schedule-connection.md).
+[cabinet-daychi-public-schedule-connection](../../docs/tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md).
 The wording below records the proposal approved by the user; it is historical
 assessment, not a remaining approval gate.
 

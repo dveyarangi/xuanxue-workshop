@@ -1,18 +1,24 @@
 # Cabinet–Daychi public schedule connection
 
-- **record of** what it intends to become
-- **Status:** Partial (2026-10-19; consumer/native evidence remains)
+- **record of** what happened
+- **Status:** Done (2026-10-19, operator acceptance with evidence waiver)
 - **Type:** HITL
 - **Minted:** 2026-10-05
-- **Answers:** [q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
-- **Outcome:** A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence.
+- **Answers:** [q-0002.0002.0002](../../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
+- **Outcome:** An operator-accepted native Daychi public-schedule pilot, with reviewed evidence and explicit closure of its remaining evidence requests.
+
+## Closure — 2026-10-19
+
+The [accepted pilot closure](../../contracts/public-lessons.md#accepted-pilot-closure--2026-10-19) owns the operator acceptance, evidence waiver and reopen-on-problem disposition. No public-pilot recipient action remains.
+
+The earlier progress sections below describe their dated reviews; their outstanding-evidence statements are superseded by this closure.
 
 ## Parent
 
-The [first-stage goal](../stage-1.md) and existing
-[reconciliation pass](../reconciliation-20261004.md) supply the context.
-The accepted [first schedule connection](../boundaries.md#accepted-first-schedule-connection)
-and [public lessons contract](../contracts/public-lessons.md) govern the result.
+The [first-stage goal](../../stage-1.md) and existing
+[reconciliation pass](../../reconciliation-20261004.md) supply the context.
+The accepted [first schedule connection](../../boundaries.md#accepted-first-schedule-connection)
+and [public lessons contract](../../contracts/public-lessons.md) govern the result.
 
 ## What to build
 
@@ -27,7 +33,7 @@ A reachable conforming Cabinet provider, controlled fixtures and an actual nativ
 runtime are conditions of integration proof, assessed from current evidence.
 Publication can precede execution eligibility and does not finish this outcome.
 
-The [2026-10-06 environment check](../current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
+The [2026-10-06 environment check](../../current-system.md#cabinet-public-schedule-environments--checked-2026-10-06)
 identifies `https://staging.xuanxue.su` as the native test provider and links its
 runtime evidence and existing staff fixture controls. The latest check also
 confirms the original public route on production at `fc2dee2`. The user amended
@@ -46,7 +52,7 @@ protected Cabinet student route. Implementation and release remain with project
 operators.
 
 The production target is `https://xuanxue.su`, serving the
-[same public API](../boundaries.md#accepted-first-schedule-connection).
+[same public API](../../boundaries.md#accepted-first-schedule-connection).
 Native proof on staging is sufficient for this outcome. Production deployment
 remains under Cabinet's operator.
 
@@ -61,29 +67,18 @@ remains under Cabinet's operator.
   the amended shared agreement, including valid-only rows, error logs for omitted
   corrupt occurrences and genuine whole-read errors; reviewed evidence identifies
   reachable setup/runtime and deployment limits.
-  [Scoped review](../current-system.md#assignment-evidence--reviewed-2026-10-08):
+  [Scoped review](../../current-system.md#assignment-evidence--reviewed-2026-10-08):
   PR 570 / `868a4ed`, successful merge CI and staging runtime verified;
   production retains `fc2dee2`. Records were published at `48ddb32` and
   [Cabinet's contribution accepted](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6052988637).
-- [ ] Daychi's pilot satisfies the consumer cases and preserves ordinary schedule,
-  cache, selections, access credentials and OS reminders.
-- [ ] Actual native-to-provider evidence demonstrates dated results, controlled
-  creation, moves within/outside the window, cancellation/restoration and
-  failed-refresh retention/recovery, with reproducible environment and revision
-  references; mock-only results are insufficient for those ordinary live cases.
-  The [accepted live-evidence amendment](../contracts/public-lessons.md#accepted-live-evidence-amendment--2026-10-18)
-  removes only live mixed-row/repair proof, retaining provider CI and client
-  source/synthetic checks for those behaviors.
-- [ ] Workshop reviews each contribution, records verified capability and remaining
-  migration scope, publishes reconciled records and acknowledges accepted evidence
-  in the original issues.
-- [ ] /verify confirms this ticket's complete outcome against the governing
-  contract, contribution evidence and Workshop records.
+- [x] 2026-10-19: The operator accepts the current Daychi pilot results and waives the remaining consumer/native observations, build mapping and preservation evidence as closure requirements; these checks are not claimed to have passed. The [accepted closure](../../contracts/public-lessons.md#accepted-pilot-closure--2026-10-19) owns this decision.
+- [x] Workshop records reflect operator acceptance, the original issue is closed and the pilot is removed from the active queue. Reopen original issue 6 if problems emerge.
+- [x] /verify checked this closure against the operator decision, retained source/run evidence and reconciled records; this is documentation/acceptance verification, not a new device run.
 
 ## Progress review — 2026-10-10
 
 Daychi supplied new native and TestFlight 17 progress reports in the original
-issue. The [current evidence](../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
+issue. The [current evidence](../../current-system.md#assignment-and-native-profile-recheck--2026-10-10)
 distinguishes reported checks/native reads/release from inspectable implementation
 and verified integration. No additional acceptance criterion is checked by this
 review: published client/QA artifacts and controlled provider/native proof remain
@@ -104,14 +99,14 @@ under its own operator.
 ## Out of scope
 
 Broader account/reminder migration, authentication integration and schedule-source
-cutover remain in [migration changes](../migration-changes.md). Gateway and backend
+cutover remain in [migration changes](../../migration-changes.md). Gateway and backend
 consolidation retain their deferred scope. Later assignment pairs require their
 own scope authorization.
 
 ## Accepted evidence disposition — 2026-10-18
 
 The user reaffirmed the 15 October decision to remove only the live mixed-row/
-repair demonstration. The [public lessons contract](../contracts/public-lessons.md#accepted-live-evidence-amendment--2026-10-18)
+repair demonstration. The [public lessons contract](../../contracts/public-lessons.md#accepted-live-evidence-amendment--2026-10-18)
 owns that amendment; Cabinet's accepted provider behavior is unchanged.
 The user also confirmed the existing test lesson for this follow-up. No new
 approval or repeat setup is required for that lesson; physical deletion and

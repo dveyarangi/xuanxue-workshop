@@ -406,7 +406,7 @@ recipient-host invocation or real application integration was performed here.
 Publication and host/adoption evidence remain with
 [workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md),
 and application delivery with
-[cabinet-daychi-public-schedule-connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md).
+[cabinet-daychi-public-schedule-connection](../tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md).
 The distributed format retains its existing HEAD compatibility link; the new
 redirect and target must be published together before that published path changes.
 

@@ -21,7 +21,7 @@ is recorded rather than treated as proof of maintenance.
 - [workshop-coordination-ready](../tickets/done/01-0005-workshop-coordination-ready.md)
   retains publication, recipient-source rollout and remaining operational proof.
   Local instruction grading is complete; it does not establish published adoption.
-- [cabinet-daychi-public-schedule-connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+- [cabinet-daychi-public-schedule-connection](../tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md)
   retains the actual provider/client outcome. The existing source/runtime findings
   and issue dispositions are in the [reconciliation report](../reconciliation-20261004.md).
   This mechanism work made no live assignment or application change.

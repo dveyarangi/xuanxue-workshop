@@ -60,7 +60,7 @@ carry the exact published contract and current recipient obligations.
 That amendment preceded the subsequent
 [provider acceptance](current-system.md#assignment-evidence--reviewed-2026-10-08)
 and [agent adoption](questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
-The [public-schedule outcome](tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+The [public-schedule outcome](tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md)
 owns its remaining consumer and native evidence. Dated sections below retain
 their original acceptance basis.
 
@@ -323,7 +323,7 @@ closed by Workshop. Issue 5's prerequisite still requires Workshop acceptance
 of issue 1. The existing implementation is recorded without treating its merge
 as satisfaction of that prerequisite. Provider conformity/environment and actual
 Daychi proof remain incomplete under the existing
-[cabinet-daychi-public-schedule-connection](tickets/01-0007-cabinet-daychi-public-schedule-connection.md).
+[cabinet-daychi-public-schedule-connection](tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md).
 
 The [review amendment evidence](mechanisms/review-assignments.evidence.md#timeline-discovery-and-cabinet-replay--2026-10-06)
 records installed full-timeline discovery and its checks. This pass changed local
@@ -363,7 +363,7 @@ version-change approval gates; accepted API behavior and compatible-coexistence
 autonomy remain fixed. A new vote on the already-agreed contract is not required.
 The user approved the one-outcome breakdown and separately authorized its contract
 commit and push on 2026-10-05. The
-[cabinet-daychi-public-schedule-connection](tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+[cabinet-daychi-public-schedule-connection](tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md)
 is minted locally behind readiness. Commit
 [`e209d27`](https://github.com/dveyarangi/xuanxue-workshop/commit/e209d27239391be3af2be71b898c79f453851c01)
 publishes only the contract and accepted boundary scope. The addressed contributions
@@ -436,7 +436,7 @@ test executions. The reinspection establishes source behavior, not deployment.
 
 ### Agreed first outcome
 
-**[cabinet-daychi-public-schedule-connection](tickets/01-0007-cabinet-daychi-public-schedule-connection.md) — Planned, HITL.** A native Daychi
+**[cabinet-daychi-public-schedule-connection](tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md) — Planned, HITL.** A native Daychi
 read-only path displays actual Cabinet dated lessons for a complete fourteen-day
 window without credentials or Zoom fields. A refresh reflects a reschedule or
 cancellation. The path preserves the ordinary Daychi schedule, choices, cache and

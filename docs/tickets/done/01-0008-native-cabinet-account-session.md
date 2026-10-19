@@ -114,7 +114,7 @@ not provider/client implementation, deployment or native proof.
 
 Contract preparation/alignment can start without public-provider correction,
 public-pilot native proof or Daychi installation. There is no dependency on
-[cabinet-daychi-public-schedule-connection](../01-0007-cabinet-daychi-public-schedule-connection.md)
+[cabinet-daychi-public-schedule-connection](01-0007-cabinet-daychi-public-schedule-connection.md)
 for this activity; existing queue order is preserved.
 
 Implementation publication requires settled definitions, common cases and an

@@ -1,5 +1,11 @@
 # Current application structure and boundary evidence
 
+## Public-schedule pilot closure — 2026-10-19
+
+The [accepted pilot closure](contracts/public-lessons.md#accepted-pilot-closure--2026-10-19) owns the operator acceptance, evidence waiver and reopen-on-problem disposition. No public-pilot recipient action remains.
+
+The [original Daychi run](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6212524880) reports native move/cancel/restore observations and separate endpoint creation/outside-window observations. Existing source/synthetic checks remain reusable. This operator acceptance adds no claim of exhaustive device verification or production rollout. Earlier dated reviews below retain their historical evidence scope.
+
 ## Reminder implementation updates — checked 2026-10-19
 
 An explicit fresh update check covered all 17 Workshop issues in every state.
@@ -1041,7 +1047,7 @@ best-effort rows and error-level logs for omitted corrupt occurrences, without a
 version selector or public completeness metadata. The pinned projection findings
 remain invalid emitted data; allowing omission does not authorize malformed rows.
 Amended implementation and staging availability are verified above; amended
-production deployment and actual native recovery evidence remain outstanding.
+production deployment is not established by that review. The later [pilot closure](#public-schedule-pilot-closure--2026-10-19) waives remaining native recovery evidence as a closure requirement.
 Cabinet's existing error reporting uses a developer journal and Telegram:
 [ADR-0053](https://github.com/gregoryKot/xuanxue-cabinet/blob/af2dcc7542cef7f5f18edc9ab075965310cc453e/docs/adr/0053-server-errors-alert-admin-in-telegram.md)
 and [ADR-0132](https://github.com/gregoryKot/xuanxue-cabinet/blob/af2dcc7542cef7f5f18edc9ab075965310cc453e/docs/adr/0132-app-errors-journal-for-developer.md).

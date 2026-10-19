@@ -16,6 +16,12 @@ The field meanings and strict validation conventions were checked against those
 sources and Cabinet's installed validation libraries. A new route's conformance
 still requires implementation evidence; source conventions alone do not prove it.
 
+## Accepted pilot closure — 2026-10-19
+
+The user accepted the current public-schedule pilot results on 2026-10-19 and directed closure of [Daychi issue 6](https://github.com/dveyarangi/xuanxue-workshop/issues/6), reopening it if problems emerge. Outstanding native observations, build/source mapping and ordinary-state preservation evidence are waived as closure requirements, not recorded as passed. No further evidence collection or recipient response is pending for this assignment. API, refresh and preservation behavior are unchanged; other migration outcomes retain their own scope.
+
+The earlier common-case definitions remain the behavioral reference. Their uncompleted evidence requests no longer block this pilot's closure. This decision supersedes earlier statements requiring those observations before acceptance.
+
 ## Authority and scope
 
 Cabinet owns the school's dated lessons and class metadata and supplies the API.

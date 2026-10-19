@@ -2,7 +2,7 @@
 
 - **record of** what it intends to become
 - **state** open
-- **lean** Accepted agreements live in boundaries and their linked contracts; current implementation and proof live in current-system. Native account-session acceptance and agent collaboration/readiness are complete within their recorded scopes. The public-schedule consumer, browser-wiki, native-content and reminder outcomes retain their owning work; the delivery queue and shared board review hold their current actions. Gateway and backend consolidation remain deferred.
+- **lean** Accepted agreements live in boundaries and their contracts; implementation and proof live in current-system. The public-schedule pilot is closed by operator acceptance with remaining evidence waived. Native account-session acceptance and collaboration/readiness are complete within their scopes. Browser-wiki, native-content and reminder outcomes retain their existing work. Gateway and backend consolidation remain deferred.
 - **struck** 7, last 2026-10-14T22:37Z
 
 ## Current decision context
@@ -14,9 +14,9 @@ and [migration changes](../migration-changes.md) distinguish facts from required
 
 The open child questions hold contract maintenance, report-back and record updates,
 tracker addresses and claims, agent adoption, operational obligations, and the
-remaining migration contracts. The [public schedule connection](../tickets/01-0007-cabinet-daychi-public-schedule-connection.md)
+remaining migration contracts. The [public schedule connection](../tickets/done/01-0007-cabinet-daychi-public-schedule-connection.md)
 has an accepted contract and published provider/consumer assignments. Its ticket
-records accepted provider evidence and the remaining consumer/native work;
+records accepted provider evidence and the operator-accepted pilot closure with its remaining evidence waived;
 [agent adoption](q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md)
 is a separately accepted outcome. The [current-state record](../current-system.md) owns the
 observed capability and deployment, separately from the accepted targets.
