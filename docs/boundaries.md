@@ -213,6 +213,13 @@ one client does not require choosing it again in the other.
 Decision: the user, 2026-10-04. On sign-in, Daychi pulls account data from Cabinet.
 Ongoing reconciliation follows the accepted rules below; ordering details remain open.
 
+Decision: the user, 2026-10-19. Lesson reminders cover only explicitly chosen
+recurring classes or individual lessons. A new account starts with no reminder
+selections and receives no lesson reminders until a choice is made. This applies
+to Cabinet and Daychi's shared account selection; there is no implicit all-classes
+subscription. This decision concerns lesson reminders, not the scope of Cabinet's
+other notification kinds.
+
 ### Accepted offline reminder editing
 
 Decision: the user, 2026-10-04. Signed-in Daychi users can change reminder

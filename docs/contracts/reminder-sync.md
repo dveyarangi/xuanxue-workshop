@@ -19,6 +19,12 @@ or 0/15/30/60/120 minutes. Native delivery uses local OS reminders and existing
 refresh occasions. Per-date skips are removed; cross-client duplicates are allowed.
 The [native account-session contract](native-account-session.md) remains unchanged.
 
+The user accepted chosen-only reminders on 2026-10-19: new accounts have no
+reminder selections, and only explicitly chosen classes or individual lessons
+produce lesson reminders. The [selection agreement](../boundaries.md#accepted-reminder-selections)
+owns this decision. Cabinet's existing all-classes notification default is not
+a reminder subscription.
+
 The proposal below makes the unresolved choices concrete: edit clocks and their
 accuracy limit; initial guest/account separation; the exact wire and delivery
 bounds. Individual-choice writes implement the accepted independent-edit rule.
@@ -44,17 +50,19 @@ selection; restoring the same occurrence restores eligibility. Missing calendar
 rows do not constitute deselection. IDs are never reconstructed from names,
 weekdays, times, legacy hashes or calendar dates.
 
-Retain Cabinet's `scopeMode` (`all` or `selected`), including its existing `all`
-default and remembered class list while `all` is active. Reminder eligibility is
-the union of individually selected lessons and the recurring scope: every class
-in `all`, or selected class IDs in `selected`. Turning an individual lesson off
+Reminder eligibility is the union of individually selected lessons and the
+occurrences of explicitly selected class IDs. A new account has two empty
+selection lists and no lesson reminders. There is no all-classes mode or implicit
+subscription to newly created classes. Turning an individual lesson off
 removes only that explicit selection; it does not suppress a recurring reminder.
 There are no negative per-date exceptions. Devices may present these choices
 differently, while consuming the same account meaning.
 
 The individual-lesson extension affects lesson reminders only. Existing Cabinet
 class-scoped cancellation, recording and material notifications retain their
-existing scope and notification-kind preferences. Device notification permission
+existing scope and notification-kind preferences. Their legacy all/selected
+filter is separate from reminder selections; neither overwrites the other.
+Device notification permission
 and local delivery enablement remain device settings. No access entitlement,
 attendance record, reservation or teacher notification is created by a selection.
 
@@ -95,8 +103,6 @@ A snapshot is an object with these required fields, and no unspecified fields:
 | `accountId` | Current Cabinet account's opaque ID. |
 | `revision` | Canonical nonnegative decimal string, monotonically increasing for changes to this account's synchronization state. |
 | `serverTime` | Cabinet UTC time when composing the response, `YYYY-MM-DDTHH:mm:ss.SSSZ`. |
-| `scopeMode` | Register `{value: "all"\|"selected", editedAt: timestamp\|null}`. |
-| `scopeChosen` | Existing sticky boolean indicating an explicitly chosen scope; false for an untouched default. |
 | `classSelections` | Complete array of `{id: string, editedAt: timestamp}` for positive recurring choices, sorted lexicographically by ID. |
 | `lessonSelections` | Complete array of `{id: string, editedAt: timestamp}` for positive individual choices, sorted lexicographically by ID. |
 | `leadTime` | Register `{value: 0\|15\|30\|60\|120\|null, editedAt: timestamp\|null}`; null means school default. |
@@ -117,9 +123,6 @@ There is no pagination or silent truncation of account state.
 PATCH body is `{version: 1, edits: Edit[]}`. An edit is exactly one of:
 
 ```json
-{"kind":"scope","value":"selected","editedAt":"2026-10-19T10:00:00.000Z"}
-```
-```json
 {"kind":"class","id":"507f1f77bcf86cd799439011","value":true,"editedAt":"2026-10-19T10:00:01.000Z"}
 ```
 ```json
@@ -129,11 +132,11 @@ PATCH body is `{version: 1, edits: Edit[]}`. An edit is exactly one of:
 {"kind":"lead","value":null,"editedAt":"2026-10-19T10:00:03.000Z"}
 ```
 
-`scope` and `lead` edits have no `id`; selection edits require `id` and boolean
+`lead` edits have no `id`; selection edits require `id` and boolean
 `value`. All timestamps are valid Gregorian UTC instants with exactly three
 fractional digits and `Z`; local dates, offsets and numeric epoch values are not
-accepted. No field is optional, except that `id` is absent for the two scalar
-kinds. Unknown fields and duplicate keys in JSON objects are invalid. Unknown
+accepted. No field is optional, except that `id` is absent for `lead` edits.
+Unknown fields and duplicate keys in JSON objects are invalid. Unknown
 kinds, null selections, unsupported lead values and duplicate edited keys in one
 batch are invalid. A key is `(kind,id)` or just `kind` for scalar registers.
 
@@ -167,8 +170,6 @@ has this successful response (the revision is illustrative):
     "accountId": "507f1f77bcf86cd799439010",
     "revision": "1",
     "serverTime": "2026-10-19T10:00:01.000Z",
-    "scopeMode": {"value":"all","editedAt":null},
-    "scopeChosen": false,
     "classSelections": [],
     "lessonSelections": [],
     "leadTime": {"value":0,"editedAt":"2026-10-19T10:00:00.000Z"},
@@ -295,16 +296,22 @@ and Daychi remain allowed.
 
 ## Initial write rollout
 
-Preserve Cabinet's existing account values at the initial schema transition.
-Seed timestamps of existing explicit scalar values and positive class choices
-from that preference document's `updatedAt`; untouched defaults have null time.
+Preserve Cabinet's existing notification preferences at the initial schema
+transition. Existing explicit selected-mode class IDs seed the reminder class
+choices; an all-classes filter never expands into reminder subscriptions.
+The legacy filter, including remembered IDs, remains stored for other notification
+kinds. Seed timestamps of retained explicit lead values and positive reminder
+class choices from that preference document's `updatedAt`; untouched lead defaults
+have null time.
 This is a one-time compatibility baseline, not recovered historical edit timing.
 The new timestamped writers begin only after this baseline is established.
 
 Cabinet web and its API are updated together before account synchronization is
-enabled in Daychi. The old full-list scope and reminder PUT routes are removed
-and return Cabinet's ordinary 404 `not_found`, without mutation. Existing GET
-representation remains readable. This replaces the old write interface, but no
+enabled in Daychi. The old reminder-minutes PUT route is removed and returns
+Cabinet's ordinary 404 `not_found`, without mutation. The legacy scope PUT remains
+available solely for other class-scoped notification kinds; it cannot edit
+reminder selections. Existing GET representation remains readable with that
+same separation of meaning. This replaces the reminder write interface, but no
 active-user staged rollout, special upgrade error or refresh-approval checkpoint
 is required by the dated usage evidence. Full-list writers do not remain active
 against shared state. Existing account values are preserved by the baseline
@@ -327,8 +334,8 @@ passing independent suites alone do not establish deployed joint behavior.
 | Retry and concurrent local action | Exact retry is idempotent; reply to an older submitted edit never clears a newer local edit on that key. |
 | Concurrent writers | Two authenticated clients merge against current state atomically; a stale whole snapshot cannot erase another key. |
 | Response ordering | Lower-revision account snapshots and previous-session replies cannot regress current state; changed school metadata remains refreshable at equal account revision. |
-| Empty/default | Untouched all/default differs from selected-empty and explicitly chosen school default; a null lead edit participates in ordering. |
-| Mode and union | Switching all/selected preserves remembered class choices; a false individual choice cannot suppress its recurring selection. |
+| Empty/default | New accounts have no selected classes or lessons and no lesson reminders; an explicitly chosen school-default lead differs from an untouched default and participates in ordering. |
+| Selection union | Only explicit class or individual choices confer reminder eligibility. Removing an individual choice cannot suppress a recurring selection. Other notification kinds' all/selected filter cannot add or remove reminder choices. |
 | Identity and lifecycle | Moving a selected lesson across dates/windows retains its ID/choice; cancellation suppresses and restoration restores eligibility. |
 | Clock | Exactly five minutes ahead is admissible; greater skew rejects the entire batch without losing pending edits; old offline timestamps have no expiry. |
 | Isolation and logout | Production/staging and two accounts have isolated queues; explicit logout discards only that account's unsynced intent; automatic 401/network failure does not. |
@@ -338,7 +345,7 @@ passing independent suites alone do not establish deployed joint behavior.
 | Lead and delivery | Personal 0 and 120 and school-default 45 work on both ends; zero follows the stated window, with no cross-client exclusivity promise. |
 | Refresh failure | Cached schedule, pending edits and existing reminders survive failed reads; received moves/cancellations take effect on recovery. |
 | More than 60 | Earliest 60 are retained/scheduled deterministically; the complete plan is not rejected; later coverage depends on existing refill occasions. |
-| Initial rollout | Updated Cabinet web and Daychi can edit the same account safely; retired full-list PUT routes return ordinary 404 with no mutation. No active-user transition is required. |
+| Initial rollout | Updated Cabinet web and Daychi can edit the same account safely; the retired lead-time PUT returns ordinary 404, and legacy scope PUT edits only other notification kinds. No active-user transition is required. |
 | Other behavior | Non-reminder Cabinet notification preferences, legacy guest access/content, native credential lifecycle and browser flows remain compatible. |
 
 ## Ownership and acceptance evidence
