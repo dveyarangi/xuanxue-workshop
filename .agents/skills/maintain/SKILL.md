@@ -152,10 +152,10 @@ Reuse the current pass and issue review. Include changed facts, dispositions and
 remaining work in the existing report. Check declarations and installed bindings
 with mechanisms.py --check and inject_rules.py --check.
 
-**L31** Before declaring an agreement or acceptance update complete, reconcile current
-claims about it in the affected records, including earlier sections of the same
-file. Replace repeated decisions and work status with links to their owning
-records. An unreconciled remaining-work summary cannot establish a new assignment.
+**L31** Reconcile current claims about agreements with their owning decisions and evidence
+across the affected records, including earlier sections of the same file. Replace
+repeated decisions and work status with links to their owning records. An
+unreconciled remaining-work summary cannot establish a new assignment.
 </installed>
 
 ## Finish

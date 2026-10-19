@@ -4,7 +4,9 @@
 
 The [failure record](../rule-failures.md#2026-10-19--partial-agreement-updates-left-a-competing-work-inventory)
 holds the omission motivating the user-approved [local L31](../../local.rules.md#l31--coordination-record-consistency).
-Its original proposed text is installed in coordination, reconciliation and maintenance.
+Its caller-independent text is installed in coordination, reconciliation and maintenance.
+The user identified that the original completion-only trigger omitted existing
+contradictions; that trigger is removed, without naming a maintenance caller.
 Installation and mechanism checks pass with no diagnostics; added references resolve.
 
 The user will grade behavior through maintenance in a separate session. The result

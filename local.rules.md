@@ -566,10 +566,10 @@ existing owning work record.
 - **authority** the user, 2026-10-19, approved coordination consistency amendment
 
 <rule>
-Before declaring an agreement or acceptance update complete, reconcile current
-claims about it in the affected records, including earlier sections of the same
-file. Replace repeated decisions and work status with links to their owning
-records. An unreconciled remaining-work summary cannot establish a new assignment.
+Reconcile current claims about agreements with their owning decisions and evidence
+across the affected records, including earlier sections of the same file. Replace
+repeated decisions and work status with links to their owning records. An
+unreconciled remaining-work summary cannot establish a new assignment.
 </rule>
 
 ## L27 — quick Telegram conversation

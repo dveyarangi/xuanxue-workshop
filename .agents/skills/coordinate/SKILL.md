@@ -202,8 +202,8 @@ At a handoff or pause, explicitly state the current stage, the next concrete
 action, who performs it, and any condition required to proceed. Link to the
 existing owning work record.
 
-**L31** Before declaring an agreement or acceptance update complete, reconcile current
-claims about it in the affected records, including earlier sections of the same
-file. Replace repeated decisions and work status with links to their owning
-records. An unreconciled remaining-work summary cannot establish a new assignment.
+**L31** Reconcile current claims about agreements with their owning decisions and evidence
+across the affected records, including earlier sections of the same file. Replace
+repeated decisions and work status with links to their owning records. An
+unreconciled remaining-work summary cannot establish a new assignment.
 </installed>

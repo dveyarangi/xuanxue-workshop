@@ -11,8 +11,9 @@ The affected duties were [coordinate Outputs](../.agents/skills/coordinate/SKILL
 [reconcile Resolve the difference](../.agents/skills/reconcile/SKILL.md#resolve-the-difference)
 and [maintain One home per fact](../.agents/skills/maintain/SKILL.md#one-home-per-fact).
 The approved amendment is [local L31](../local.rules.md#l31--coordination-record-consistency).
-An added maintenance-caller phrase was removed after the user's challenge, restoring
-the originally proposed wording. Application records remain unchanged by this repair.
+The user rejected caller-specific wording and then identified the original
+completion-only trigger. The rule now covers existing claims without an update
+condition. Application records remain unchanged by this repair.
 
 ## 2026-10-19 — One coordinated outcome fragmented into work items and comments
 
