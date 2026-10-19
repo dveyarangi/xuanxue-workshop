@@ -927,6 +927,18 @@ application contract changes in this correction.
 
 Status: local clarification installed in /align; accepted application decisions unchanged.
 
+Struck again, 2026-10-19: an existing Daychi `plan.length > 60` guard was
+promoted into a shared reminder product limit and operator approval question
+without establishing its rationale or an interoperability obligation. The user
+challenged the question. The inspected source/history establishes the guard, not
+why exactly 60 is needed. The [boundary scope agreement](agent-contract.md#boundary-scope-and-product-language)
+and [coordinate RC1](../.agents/skills/coordinate/SKILL.md#project-context) already
+separate shared outcomes from local mechanisms. Correction: withdraw the
+unaccepted numerical policy and approval gate, retain complete shared selections
+and accepted delivery behavior, and leave platform queue handling/evidence with
+Daychi. A further escalation reminder would restate the existing explicit scope
+rule; no additional rule is proposed or installed.
+
 Struck again, 2026-10-08: during native-session alignment, the assistant read the
 agreed browser/code-and-PKCE method but treated its provisional wording as a reason
 to ask for the method again. The user corrected the repeated approval request.

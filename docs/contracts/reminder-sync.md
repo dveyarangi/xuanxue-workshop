@@ -32,7 +32,7 @@ and may be sent up to one minute afterward. This tolerance does not shift the
 positive before-start lead times. The [lead-time agreement](../boundaries.md#accepted-reminder-lead-times)
 owns the decision; there is no remaining zero-minute timing choice.
 
-Workshop still finalizes the executable wire and delivery bounds below against
+Workshop still finalizes the executable wire and conformance cases below against
 those decisions. Preparing them does not authorize recipient implementation or
 accept every proposed transport detail. Device presentation belongs to its project.
 
@@ -246,13 +246,15 @@ intentional delay and does not move positive lead-time targets. Missed windows
 are not replayed as fresh reminders; delivery-channel limits remain. Daychi
 schedules zero at the start of a future lesson, not as catch-up after it starts.
 
-Proposed Daychi capacity is the earliest 60 eligible future local reminders within
-the existing calendar window, ordered by fire time then lesson ID. A larger plan
-cannot reject the whole reconciliation or cancel all existing reminders. Refill
-uses existing successful refresh/reconciliation occasions; later reminders have
-no coverage guarantee without another reconciliation. OS permission, platform
-limits and suspended-app behavior remain delivery limitations. Duplicates between
-Cabinet and Daychi remain allowed.
+Local pending-notification capacity is a Daychi/platform implementation concern,
+not a fixed shared-account reminder limit. The complete account selection is not
+truncated to fit a device queue, and capacity handling cannot delete shared choices
+or prevent confirmed deselections and received cancellations/moves from being
+reconciled. Daychi owns queue sizing, scheduling and replenishment within existing
+refresh occasions, and supplies supported-device capacity/coverage evidence in its
+implementation contribution. There is no new background/push channel or implicit
+guarantee of unlimited device delivery. OS permission, platform constraints and
+suspended-app behavior remain limitations; cross-client duplicates remain allowed.
 
 ## Initial write rollout
 
@@ -292,9 +294,9 @@ addressed contributions. This document grants no fixture mutation or release.
 | Guest transition | Sign-in uses Cabinet, leaves guest data intact and uploads nothing automatically; sign-out restores guest state. |
 | Validation | Invalid kind/shape/ID, duplicate keys, unsupported version, 65 changes, body overflow or a 51st positive class cannot partially write the batch. |
 | Access | Browser CSRF, native grant revocation/account blocking, mixed credentials, no-store and account isolation match the access section. |
-| Lead/delivery | Personal 0/120 and school-default 45 work on both ends. Zero targets the start with up to 60 seconds of accepted processing tolerance; positive lead targets remain before start. Native capacity remains proposed. |
+| Lead/delivery | Personal 0/120 and school-default 45 work on both ends. Zero targets the start with up to 60 seconds of accepted processing tolerance; positive lead targets remain before start. |
 | Read failure/recovery | Last good calendar/settings and scheduled reminders survive; received cancellations/moves apply on recovery, without an offline edit queue. |
-| Capacity | More than 60 eligible reminders retains/schedules the earliest 60 deterministically; later coverage depends on existing refill occasions. |
+| Device capacity | Under verified supported-device queue constraints, the full account selection survives and confirmed deselections/received moves/cancellations reconcile. Queue size/refill are Daychi's implementation; evidence states the resulting coverage without imposing a shared 60-reminder cap. |
 | Rollout/regressions | Updated web and Daychi edit the same account safely; retired lead PUT is 404, legacy scope PUT affects only other notices, and guest/content/session/browser obligations remain compatible. |
 
 ## Ownership and evidence
@@ -308,7 +310,7 @@ skips and bounded OS reconciliation. Its recipient context includes why skips
 were removed: dismissing a notification suffices; the action informs no teacher
 and releases no reservation.
 
-Workshop owns final shared definitions, delivery alignment, immutable accepted
+Workshop owns final shared definitions, immutable accepted
 authority, common-case coverage and joint acceptance. This is not a delivery split
 or recipient authorization. Provider HTTP/concurrency checks and client offline,
 uncertain-response, cache/lifecycle and OS cases need exact revisions and executed

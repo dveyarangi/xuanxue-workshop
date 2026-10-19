@@ -1,5 +1,18 @@
 # Current application structure and boundary evidence
 
+## Native reminder guard provenance - 2026-10-19
+
+Daychi's pinned [reminder-plan.ts:22](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/apps/practice-app/src/features/schedule/reminder-plan.ts#L22)
+throws when `plan.length > 60`. Blame/history traces the guard to the available
+imported baseline [a8b53df](https://github.com/sleontenko/daychi/commit/a8b53df34b638247c183329881714f621548da42),
+dated 2026-09-17; this establishes its presence there, not its original rationale.
+The inspected source and repository documentation do not explain exactly 60 or
+establish that it is a current platform requirement. No supported-device capacity
+test was run by Workshop. The proposed fixed shared 60-reminder limit and its
+operator approval question are withdrawn. Daychi owns local queue/platform
+handling under the [scope agreement](agent-contract.md#boundary-scope-and-product-language);
+the complete shared account selection and accepted delivery behavior remain fixed.
+
 ## Online-only reminder decision - 2026-10-19
 
 The user accepted [online-only shared reminder editing](boundaries.md#accepted-online-only-reminder-editing)
