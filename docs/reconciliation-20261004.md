@@ -7,9 +7,13 @@ their local consumers, installed bindings, live-record forms and archival eligib
 
 Current agreement summaries now point to accepted native-account, native-content
 and reminder contracts and their owning work. Historical source observations and
-acceptance limits remain explicit. This restores agreement under maintain A1/E1
-and the local reconciliation-source and record-consistency rules; no shared
-behavior or recipient acceptance criterion changes.
+acceptance limits remain explicit. No shared behavior or recipient acceptance
+criterion changes. The later review found that the pass repaired selected stale
+claims but did not complete reconciliation of the duplicated work inventory and
+current statuses. Its completion claim was too broad. Workshop retains this
+unfinished maintenance under maintain A1/E1 and the local reconciliation-source
+and record-consistency rules; the scoped checks below do not establish that
+semantic reconciliation is complete.
 
 The completed [workshop-board-review specification](spec/done/01-0006-workshop-board-review.md)
 is archived with its surviving obligations retained in maintained homes. The scoped

@@ -39,6 +39,15 @@ The user then identified that affected-file discovery remained implicit. The
 existing L9 source bindings now require joint reading of the scoped target, state,
 delta and owning work, with discovery of referring and unlinked current claims.
 
+Repeat observed in maintenance on 2026-10-19: L9 and L31 were installed, but the
+pass corrected selected sentences while retaining a parallel action/status
+inventory in migration-changes and copied queue fields. It treated these as
+permitted live-record context rather than applying L31's specific requirement to
+replace repeated decisions and work status with pointers. The format validators
+passed; they did not assess content agreement. The completion claim is corrected
+in the [maintenance outcome](reconciliation-20261004.md#agreement-record-maintenance--2026-10-19).
+The existing amendment already forbids the result; no additional rule is proposed.
+
 ## 2026-10-19 — One coordinated outcome fragmented into work items and comments
 
 Status: approved instruction amendments applied; future behavior remains to be observed.
