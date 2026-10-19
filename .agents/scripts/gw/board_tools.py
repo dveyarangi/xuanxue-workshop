@@ -20,6 +20,7 @@ class ReviewTools:
         self.api_read = read or (lambda path, collection=None: review.tracker.api('GET', path, collection=collection))
         self.read_only = read_only
         self.no_publish = no_publish
+        self.claims = {}
 
     def board(self, args):
         action = args['action']
@@ -41,7 +42,16 @@ class ReviewTools:
             return result
         if action == 'claim':
             self.require_case(args['number'])
-            return self.review.claim(args['number'])
+            previous = self.claims.get(args['number'])
+            if previous:
+                with self.review.connect() as db:
+                    row = db.execute('SELECT expires FROM cases WHERE token=?',
+                                     (previous['token'],)).fetchone()
+                if row and row['expires'] > self.review.clock():
+                    return previous
+            receipt = self.review.claim(args['number'])
+            self.claims[args['number']] = receipt
+            return receipt
         if action in {'renew', 'prepare', 'finish'}:
             with self.review.connect() as db:
                 self.require_case(self.review.held(db, args['token'])['number'])
@@ -81,9 +91,13 @@ def definitions():
                                 'description': 'Unchanged waiting/operator work is due no sooner than six hours.'}}
     properties.update({name: {'type': 'string'} for name in
                        ['token', 'body', 'request_id', 'id', 'outcome', 'note']})
+    properties['outcome'] = {'type': 'string', 'enum': ['reviewed', 'waiting', 'operator'],
+        'description': 'Use reviewed for a studied no-response outcome, waiting for missing evidence, '
+                       'or operator for an operator decision.'}
     return [
         {'name': 'review_board', 'description': 'Authenticated board operations for the host-selected issues. '
-             'Claim returns complete paginated source snapshots. Prepare accepts response text; publish recovers '
+             'Claim returns complete paginated source snapshots; retry reuses this invocation\'s live receipt. '
+             'Prepare accepts response text; publish recovers '
              'the same stable operation ID. Check reports pending cases and completion of the assigned batch. '
              'Identity returns the host GitHub login without credentials.',
          'inputSchema': {'type': 'object', 'properties': properties, 'required': ['action'],

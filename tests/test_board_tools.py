@@ -73,6 +73,40 @@ class CapabilityTests(unittest.TestCase):
         self.tools.board({'action': 'finish', 'token': second['token'], 'outcome': 'waiting', 'note': 'Owner evidence missing'})
         self.assertTrue(self.tools.board({'action': 'check'})['batch_complete'])
 
+    def test_lost_claim_reply_can_be_retried_without_taking_another_workers_lease(self):
+        first = self.tools.board({'action': 'claim', 'number': 1})
+        self.tracker.cases[1]['issue']['body'] = 'Evidence changed after the lost reply'
+        recovered = self.tools.board({'action': 'claim', 'number': 1})
+        self.assertEqual(first, recovered)
+        other = self.module.ReviewTools(self.review, allowed_cases=[1], read_repos=['school/workshop'])
+        with self.assertRaisesRegex(ValueError, 'already claimed'):
+            other.board({'action': 'claim', 'number': 1})
+        self.assertEqual('conflict', self.tools.board({'action': 'finish', 'token': recovered['token'],
+            'outcome': 'reviewed', 'note': 'Studied original snapshot'})['status'])
+        fresh = self.tools.board({'action': 'claim', 'number': 1})
+        self.assertNotEqual(first['token'], fresh['token'])
+        self.assertEqual('Evidence changed after the lost reply', fresh['snapshot']['issue']['body'])
+
+    def test_expired_cached_claim_is_refreshed(self):
+        self.review.clock = lambda: 100
+        first = self.tools.board({'action': 'claim', 'number': 1})
+        self.review.clock = lambda: 100 + self.review.lease_seconds + 1
+        refreshed = self.tools.board({'action': 'claim', 'number': 1})
+        self.assertNotEqual(first['token'], refreshed['token'])
+
+    def test_invalid_outcome_keeps_claim_recoverable_with_documented_value(self):
+        claim = self.tools.board({'action': 'claim', 'number': 1})
+        with self.assertRaisesRegex(ValueError, 'reviewed, waiting or operator'):
+            self.tools.board({'action': 'finish', 'token': claim['token'],
+                              'outcome': 'no-response', 'note': 'No response required'})
+        self.assertFalse(self.tools.board({'action': 'check'})['batch_complete'])
+        schema = self.module.definitions()[0]['inputSchema']['properties']['outcome']
+        self.assertIn('reviewed', schema['enum'])
+        self.assertNotIn('no-response', schema['enum'])
+        self.tools.board({'action': 'finish', 'token': claim['token'],
+                          'outcome': 'reviewed', 'note': 'Studied no-response outcome'})
+        self.assertTrue(self.tools.board({'action': 'check'})['batch_complete'])
+
     def test_publication_disabled_still_allows_local_completion(self):
         first = self.review.claim(1)
         prepared = self.review.prepare(first['token'], 'Prepared before proof')

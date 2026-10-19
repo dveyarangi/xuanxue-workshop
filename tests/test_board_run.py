@@ -139,19 +139,23 @@ class RunTests(unittest.TestCase):
             worker = runner.CodexReviewer(root, root / 'local/state.sqlite3', path,
                                           'school/workshop', ['project:workshop'], executable='controlled.exe')
             from tests.test_board import Tracker, board
+            worker.timeout = 17
             review = board.Board(worker.state, Tracker())
             def complete(*args, **kwargs):
-                claim = review.claim(1)
-                review.finish(claim['token'], 'reviewed', 'Controlled evidence checked')
+                for number in (1, 2):
+                    claim = review.claim(number)
+                    review.finish(claim['token'], 'reviewed', 'Controlled evidence checked')
                 self.assertNotIn('GH_TOKEN', kwargs['env'])
                 self.assertNotIn('GITHUB_TOKEN', kwargs['env'])
                 self.assertNotIn('CODEX_THREAD_ID', kwargs['env'])
+                self.assertEqual(worker.timeout, kwargs['timeout'])
+                self.assertIn('mcp_servers.workshop_review.tool_timeout_sec=' + str(worker.timeout), args[0])
                 report.operation(path, 'Controlled completed review')
                 return Mock(returncode=0)
             with patch.dict(runner.os.environ, {'GH_TOKEN': 'control-only', 'GITHUB_TOKEN': 'control-only',
                                                'CODEX_THREAD_ID': 'control-only'}), \
                     patch.object(runner.subprocess, 'run', side_effect=complete):
-                worker([{'number': 1}])
+                worker([{'number': 1}, {'number': 2}])
 
     def test_quiet_scan_calls_no_model_and_leaves_report_unchanged(self):
         runner, report = load("board_run"), load("board_report")
@@ -290,22 +294,27 @@ class RunTests(unittest.TestCase):
             report.write_report(path, report.initial_report(), expected='absent')
             review = test_board.board.Board(root / 'state.sqlite3', test_board.Tracker())
             worker = runner.CodexReviewer(root, review.state, path, 'school/workshop',
-                                         ['project:workshop'], executable='controlled.exe', no_publish=True)
+                                         ['project:workshop'], executable='controlled.exe', no_publish=True,
+                                         case_timeout=17)
             def complete(*args, **kwargs):
                 kwargs['stdout'].write('execution output')
                 kwargs['stderr'].write('diagnostic output')
-                claim = review.claim(1)
-                review.finish(claim['token'], 'waiting', 'Existing dependency')
+                for number in (1, 2):
+                    claim = review.claim(number)
+                    review.finish(claim['token'], 'waiting', 'Existing dependency')
+                self.assertEqual(34, kwargs['timeout'])
+                self.assertIn('mcp_servers.workshop_review.tool_timeout_sec=17', args[0])
                 return Mock(returncode=0)
             with patch.object(runner.subprocess, 'run', side_effect=complete):
                 result = runner.ReviewRun(root, review.state, path,
-                    lambda: {'complete': True, 'errors': [], 'candidates': [{'number': 1}]}, worker).run()
+                    lambda: {'complete': True, 'errors': [], 'candidates': [{'number': 1}, {'number': 2}]}, worker).run()
             self.assertEqual('completed', result['status'])
             run_dir = Path(result['run_directory'])
             self.assertEqual('execution output', (run_dir / 'reviewer.jsonl').read_text())
             self.assertEqual('diagnostic output', (run_dir / 'reviewer.stderr.log').read_text())
             import json
             self.assertTrue(json.loads((run_dir / 'request.json').read_text())['no_publish'])
+            self.assertEqual(34, json.loads((run_dir / 'request.json').read_text())['batch_timeout_seconds'])
 
 
 if __name__ == "__main__":

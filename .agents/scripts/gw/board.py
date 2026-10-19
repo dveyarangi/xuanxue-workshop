@@ -267,7 +267,9 @@ class Board:
             return self.publication_status(identifier, "uncertain")
 
     def finish(self, token, outcome, note, *, follow_up=FOLLOW_UP_SECONDS):
-        if outcome not in {"reviewed", "waiting", "operator"} or not note.strip() or follow_up <= 0:
+        if outcome not in {"reviewed", "waiting", "operator"}:
+            raise ValueError("Outcome must be reviewed, waiting or operator")
+        if not note.strip() or follow_up <= 0:
             raise ValueError("A review outcome and its resumption note are required")
         with self.connect() as db:
             row = dict(self.held(db, token))

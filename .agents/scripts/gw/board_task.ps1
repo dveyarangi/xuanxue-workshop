@@ -62,7 +62,7 @@ if ($Mode -eq 'Disable') {
     $reviewAction = New-ScheduledTaskAction -Execute $reviewPython -Argument $reviewCommand -WorkingDirectory $reviewRoot
     $reviewTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddHours(1) -RepetitionInterval (New-TimeSpan -Hours 1)
     $reviewPrincipal = New-ScheduledTaskPrincipal -UserId ([Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive -RunLevel Limited
-    $reviewSettings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 55)
+    $reviewSettings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit ([TimeSpan]::Zero)
     Register-ScheduledTask -TaskName $TaskName -Action $reviewAction -Trigger $reviewTrigger -Principal $reviewPrincipal -Settings $reviewSettings -Description 'Mechanical assignment discovery before model activation' -Force | Out-Null
 }
 $reviewTask = Get-ScheduledTask -TaskName $TaskName -ErrorAction Stop

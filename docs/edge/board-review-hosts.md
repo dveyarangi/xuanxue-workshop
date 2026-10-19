@@ -37,6 +37,8 @@ remain at the host; changing issue content cannot enlarge that scope.
 - Primary tracker failure remains explicit and local status remains available offline. *validated by:* `tests/test_board.py`
 - Quiet or busy-only controller discovery makes no reviewer call. *validated by:* `tests/test_board_run.py`
 - Every selected case must have a current outcome, no active lease, no due follow-up and no unconfirmed publication before its batch completes. The reviewer sees the same pending-case reasons as the controller. *validated by:* `tests/test_board_run.py`, `tests/test_board_tools.py`
+- A lost claim reply can be replayed by the same broker while its lease is live; another broker's lease cannot be adopted and an expired receipt is refreshed. *validated by:* `tests/test_board_tools.py`
+- The default execution budget scales with the selected case count; an explicit overall timeout stays fixed. Scoped tool calls use the per-case allowance or explicit cap. *validated by:* `tests/test_board_run.py`
 - Later runs retain earlier execution logs and results. *validated by:* `tests/test_board_run.py`
 - Publication-disabled host proof permits local review progress but blocks response preparation and publication. *validated by:* `tests/test_board_tools.py`
 - An unrelated linked-repository push does not invoke the reviewer; PR source/check changes remain visible. *validated by:* `tests/test_board.py`, `tests/test_board_run.py`

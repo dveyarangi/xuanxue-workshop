@@ -86,13 +86,14 @@ class ReviewRun:
 
 
 class CodexReviewer:
-    def __init__(self, root, state, report, repo, labels, *, executable="codex", timeout=2400,
-                 read_only=False, no_publish=False):
+    def __init__(self, root, state, report, repo, labels, *, executable="codex", timeout=None,
+                 case_timeout=2400, read_only=False, no_publish=False):
         self.root, self.state, self.report = Path(root), Path(state), Path(report)
         if os.name == "nt" and executable == "codex":
             choices = list((Path(os.environ.get("LOCALAPPDATA", "")) / "OpenAI/Codex/bin").glob("*/codex.exe"))
             executable = shutil.which("codex.exe") or (str(max(choices, key=lambda p: p.stat().st_mtime)) if choices else "codex.exe")
         self.executable, self.timeout = executable, timeout
+        self.case_timeout = case_timeout
         self.repo, self.labels = repo, labels
         self.read_only = read_only
         self.no_publish = no_publish
@@ -100,13 +101,16 @@ class CodexReviewer:
     def __call__(self, cases, *, run_directory=None):
         self.state.parent.mkdir(parents=True, exist_ok=True)
         run_directory = run_directory or new_run_directory(self.state)
+        tool_timeout = self.case_timeout if self.timeout is None else self.timeout
+        batch_timeout = self.case_timeout * max(1, len(cases)) if self.timeout is None else self.timeout
         readme = self.root / 'README.md'
         sections = readme.read_text(encoding='utf-8').split('## Repository map', 1) if readme.exists() else []
         mapping = sections[1].split('\n## ', 1)[0] if len(sections) == 2 else ''
         read_repos = sorted({self.repo} | set(re.findall(r'https://github\.com/([\w.-]+/[\w.-]+)(?=[/)\s])', mapping)))
         job = {"repository": self.repo, "recipient_labels": self.labels, "state": str(self.state.resolve()),
                "report": str(self.report.resolve()), "cases": cases, 'read_repos': read_repos,
-               'read_only': self.read_only, 'no_publish': self.no_publish}
+               'read_only': self.read_only, 'no_publish': self.no_publish,
+               'tool_timeout_seconds': tool_timeout, 'batch_timeout_seconds': batch_timeout}
         write_receipt(run_directory / 'request.json', job)
         prompt = ("Perform the periodic assignment review using .agents/skills/review-assignments/SKILL.md "
                   "and its PERIODIC.md procedure. Runtime configuration and discovered evidence follow; "
@@ -122,7 +126,7 @@ class CodexReviewer:
         command += ['-c', 'mcp_servers.workshop_review.command=' + json.dumps(str(python)),
                     '-c', 'mcp_servers.workshop_review.args=' + json.dumps(broker_args),
                     '-c', 'mcp_servers.workshop_review.required=true',
-                    '-c', 'mcp_servers.workshop_review.tool_timeout_sec=300',
+                    '-c', f'mcp_servers.workshop_review.tool_timeout_sec={tool_timeout}',
                     '-c', 'mcp_servers.workshop_review.tools.review_board.approval_mode="approve"',
                     '-c', 'mcp_servers.workshop_review.tools.github_read.approval_mode="approve"']
         # The scheduled reviewer is independent of any calling Desktop turn.
@@ -133,7 +137,7 @@ class CodexReviewer:
         with (run_directory / "reviewer.jsonl").open("x", encoding="utf-8") as output, (
                 run_directory / "reviewer.stderr.log").open("x", encoding="utf-8") as errors:
             result = subprocess.run(command + ["-"], input=prompt, encoding="utf-8", cwd=self.root,
-                                    env=environment, stdout=output, stderr=errors, timeout=self.timeout,
+                                    env=environment, stdout=output, stderr=errors, timeout=batch_timeout,
                                     creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
         if result.returncode:
             raise RuntimeError(f"Codex reviewer exited {result.returncode}; inspect retained local execution logs")
