@@ -68,7 +68,13 @@ Reuse valid evidence; stage changes add no approval.
 </installed>
 
 <installed by="local">
-**L9** Use the sources relevant to the current scope:
+**L9** For each in-scope agreement, read its accepted target, observed state, remaining
+changes and owning work together through the bindings below. Follow references
+about that agreement, find records referring to it and search project documentation
+for other current claims about the same agreement or outcome, including unlinked
+claims. Read each matching section in full, including earlier statements in the
+same file.
+
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.
 - Accepted targets and consumers: docs/boundaries.md.

@@ -170,7 +170,13 @@ the existing owning record. Publishing the assignment resumes with the recipient
 operator; returned evidence resumes Workshop review. Keep collaboration acceptance
 separate from application-contract implementation and integration proof.
 
-**L9** Use the sources relevant to the current scope:
+**L9** For each in-scope agreement, read its accepted target, observed state, remaining
+changes and owning work together through the bindings below. Follow references
+about that agreement, find records referring to it and search project documentation
+for other current claims about the same agreement or outcome, including unlinked
+claims. Read each matching section in full, including earlier statements in the
+same file.
+
 - Project repositories: README.md, Repository map.
 - Observed boundaries and source revisions: docs/current-system.md.
 - Accepted targets and consumers: docs/boundaries.md.

@@ -14,6 +14,9 @@ The approved amendment is [local L31](../local.rules.md#l31--coordination-record
 The user rejected caller-specific wording and then identified the original
 completion-only trigger. The rule now covers existing claims without an update
 condition. Application records remain unchanged by this repair.
+The user then identified that affected-file discovery remained implicit. The
+existing L9 source bindings now require joint reading of the scoped target, state,
+delta and owning work, with discovery of referring and unlinked current claims.
 
 ## 2026-10-19 — One coordinated outcome fragmented into work items and comments
 

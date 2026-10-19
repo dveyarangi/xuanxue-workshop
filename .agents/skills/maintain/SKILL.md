@@ -152,6 +152,26 @@ Reuse the current pass and issue review. Include changed facts, dispositions and
 remaining work in the existing report. Check declarations and installed bindings
 with mechanisms.py --check and inject_rules.py --check.
 
+**L9** For each in-scope agreement, read its accepted target, observed state, remaining
+changes and owning work together through the bindings below. Follow references
+about that agreement, find records referring to it and search project documentation
+for other current claims about the same agreement or outcome, including unlinked
+claims. Read each matching section in full, including earlier statements in the
+same file.
+
+- Project repositories: README.md, Repository map.
+- Observed boundaries and source revisions: docs/current-system.md.
+- Accepted targets and consumers: docs/boundaries.md.
+- Remaining changes: docs/migration-changes.md, Changes derived from accepted contracts;
+  follow each row's cited agreement in docs/boundaries.md.
+- Current work and order: docs/tickets/README.md, Queue; the active ticket's
+  Outcome, Acceptance criteria and dependencies.
+- Scope limits: docs/stage-1.md.
+- Ownership, tracker discovery and acceptance: docs/agent-contract.md,
+  Accepted obligations and Entry and first assignment; use the original issues
+  returned by assignment review. Autonomy switches: AGENTS.md, Project-local.
+- Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
+
 **L31** Reconcile current claims about agreements with their owning decisions and evidence
 across the affected records, including earlier sections of the same file. Replace
 repeated decisions and work status with links to their owning records. An

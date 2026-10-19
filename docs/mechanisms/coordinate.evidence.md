@@ -7,6 +7,9 @@ holds the omission motivating the user-approved [local L31](../../local.rules.md
 Its caller-independent text is installed in coordination, reconciliation and maintenance.
 The user identified that the original completion-only trigger omitted existing
 contradictions; that trigger is removed, without naming a maintenance caller.
+The user also identified unspecified file coverage. Local L9 now binds the four
+record roles together and covers referring and unlinked current claims; its existing
+source bindings are installed directly in maintenance as well as the stage skills.
 Installation and mechanism checks pass with no diagnostics; added references resolve.
 
 The user will grade behavior through maintenance in a separate session. The result
