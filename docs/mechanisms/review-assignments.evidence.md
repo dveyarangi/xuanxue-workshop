@@ -597,3 +597,37 @@ The controller already invokes that procedure. This changes its completion
 instruction, without another scheduled task, launcher, maintenance ledger or
 whole-tree run on quiet discovery. Installation and source-path inspection are
 the evidence from this edit; no scheduled review was started for it.
+
+## Batch completion and retained execution logs — 2026-10-20
+
+The operator requested repair after the 2026-10-19T15:41Z reviewer returned
+with nine selected cases unfinished. The periodic procedure described per-case
+completion, while the available check exposed only database validity. The
+reviewer now has an explicit whole-batch ending condition and sees the same
+pending-case reasons used by the controller. Existing studied waiting/operator
+outcomes remain terminal; this repair introduces no recipient closure condition.
+
+Every controller execution retains its own start/result record. Reviewer
+executions additionally retain their request, JSON event stream and diagnostic
+output. A later quiet or successful run replaces only the latest pointer.
+The no-publication proof mode allows local completion and rejects response
+preparation/publication at the host as well as in the reviewer instruction.
+
+All 144 application tests passed. An isolated package excluding unrelated
+uncommitted report changes passed 47 board tests. Regressions cover a successful
+process leaving a second case unfinished, pending-case visibility, local
+waiting/operator completion, disabled publication and preservation of failed-run
+logs across a later successful run. Harness, installed-rule, mechanism, edge,
+ticket and shared-report checks passed.
+
+A real standalone reviewer processed original issues
+[public-schedule pilot 6](https://github.com/dveyarangi/xuanxue-workshop/issues/6)
+and [structured articles 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9)
+from 2026-10-19T21:33:44Z to 21:42:15Z using isolated state. Both retained their
+accepted closed outcomes; the final check returned `batch_complete=true` with
+no pending case. The controller returned `completed`, with no publication
+operations. Local evidence is under
+`.local/board-review/batch-proof-20261020/runs/20261019T213344.860854Z-e6baab1b/`.
+The proof reviewer noticed a generated package copy being mistaken for an
+installed instruction; its documentation copies were subsequently renamed to
+snapshots, outside live-record discovery. This did not affect batch completion.

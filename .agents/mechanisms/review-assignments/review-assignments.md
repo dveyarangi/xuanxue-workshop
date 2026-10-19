@@ -39,6 +39,10 @@ The report instruction owns the shared snapshot's format and publication; the va
 checks shape and rejects stale replacements. Session recovery and conversation readers
 consume its dated facts without another acknowledgement ledger. A local external controller
 runs discovery before invoking a standalone reviewer, so quiet runs use no model.
+The reviewer and controller use the same selected-batch completion predicate; the
+reviewer can see each unfinished case and its reason before ending. Per-run execution
+records preserve failure evidence across later runs; the latest receipt is a pointer,
+not a replacement for history. Their format belongs to the periodic procedure.
 The report identifies executable next actions and separates reviewer preparation from
 recipient execution and operator-only decisions or access. That separation also governs
 operator-facing replies: the reviewer first assesses actual capabilities and authority,

@@ -16,6 +16,13 @@ Finish only after confirmed publication or a studied no-response outcome. Use wa
 evidence and operator for a decision requiring the operator; retain the concrete resumption
 condition. New shared decisions and actions outside authority remain with the operator.
 
+Complete every case supplied for this invocation. Before ending, call `review_board`
+with `action=check` and resolve every pending case until `batch_complete` is true.
+A report update or final reply does not complete the assigned batch.
+
+When `no_publish` is true, send no external messages or mutations through any route.
+Retain required publication as an operator outcome without preparing a response.
+
 Record decisions, meaningful results and actionable failures at the configured report destination. Follow
 configured reporting requirements; otherwise stay quiet for unchanged or non-actionable state
 and previously reported uncertainty. Reassess due evidence conditions without inventing a new
@@ -44,7 +51,8 @@ and review instructions. The controller retains local execution receipts and upd
 operational failures in the shared report; it never completes an issue review on the agent's behalf.
 
 The external controller accepts `--root`, `--repo`, repeated `--label`, `--state` and
-`--report`. `--discover-only` observes candidates without starting a reviewer or claiming
+`--report`. `--no-publish` permits local review progress but disables response preparation
+and publication. `--discover-only` observes candidates without starting a reviewer or claiming
 review completion. On Windows, board_task.ps1 installs, checks, disables or runs the configured
 current-user task. Its help surface is its parameter block. Installation changes only
 the named task after verifying its action belongs to this root. Disable that task to stop
@@ -78,3 +86,9 @@ Local progress consists of one SQLite database and claim snapshot files. The pro
 fields and validates the database with check. The periodic reviewer and operator read them on
 resumption. Keep them until the periodic reviewer is retired and every uncertain publication is
 resolved; losing local state does not establish absence of prior delivery.
+
+Each controller run has a separate directory under the state's `runs/` directory.
+Its `result.json` retains the start, finish, status and directory; reviewer runs also
+retain `request.json`, `reviewer.jsonl` and `reviewer.stderr.log`. `last-run.json`
+points to the latest result and does not replace earlier run records. Keep these
+records for diagnosis until the periodic reviewer is retired.

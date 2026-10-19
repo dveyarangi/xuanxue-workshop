@@ -1231,3 +1231,20 @@ Rule in play: [Occam](../AGENTS.md). A supplied archive to load once was expande
 into a permanent import command and bot instructions. The user identified the
 unnecessary mechanism. Both were removed; only continuing history and image reads
 remain in the product. No new rule is installed: the user explicitly rejected one.
+
+## 2026-10-20 — Reviewer ended before its assigned batch was complete
+
+Status: amended; runtime verification is recorded in the
+[review mechanism evidence](mechanisms/review-assignments.evidence.md).
+
+Rule in play: [Periodic assignment review](../.agents/skills/review-assignments/PERIODIC.md)
+described finishing one claimed case without explicitly requiring completion of
+every supplied case. The 2026-10-19T15:41Z controller rejected a reviewer return
+with nine cases unfinished. Its available check validated database structure,
+not the assigned batch, and subsequent runs replaced the diagnostic logs.
+
+The procedure now requires every supplied case and a final successful batch
+check. That check exposes unfinished cases and their reasons using the same
+predicate as the controller. Per-run directories retain requests, execution logs
+and results across subsequent runs. Completion still requires studied outcomes;
+neither a changed report nor a successful process exit establishes them.

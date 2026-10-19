@@ -141,3 +141,17 @@ uncommitted changes.
 Proceed with the accepted single vertical slice. Reuse gh, SQLite, the existing
 review mechanism and the Windows user task scheduler. Do not introduce a separate agent runtime,
 daemon, queue service, generalized workflow engine or second dispatch board.
+
+## Batch completion and execution history repair — 2026-10-20
+
+The existing selected-case completion condition now has one implementation,
+shared by the reviewer's final check and controller verification. The periodic
+instruction explicitly covers the whole supplied batch and exposes pending
+cases before the reviewer ends. Each run retains separate execution records;
+the latest receipt no longer replaces diagnostic history.
+
+The [review mechanism evidence](../../mechanisms/review-assignments.evidence.md#batch-completion-and-retained-execution-logs--2026-10-20)
+records the regression checks and real two-case, publication-disabled completion.
+The [Windows host observation](../../edge/board-review-hosts/windows-task.md#conformance)
+owns scheduled-run evidence and the separately accepted three-hour cadence.
+The repair adds no assignment, acceptance gate or delivery cycle.
