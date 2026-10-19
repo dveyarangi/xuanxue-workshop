@@ -43,6 +43,10 @@ The reviewer and controller use the same selected-batch completion predicate; th
 reviewer can see each unfinished case and its reason before ending. Per-run execution
 records preserve failure evidence across later runs; the latest receipt is a pointer,
 not a replacement for history. Their format belongs to the periodic procedure.
+A broker replays only its own live claim receipt after a lost reply, preserving
+lease exclusion and fresh completion checks. The default batch budget scales
+with its selected cases; an explicit overall cap is preserved. Tool calls use
+the per-case allowance or explicit cap rather than an independently shorter limit.
 The report identifies executable next actions and separates reviewer preparation from
 recipient execution and operator-only decisions or access. That separation also governs
 operator-facing replies: the reviewer first assesses actual capabilities and authority,

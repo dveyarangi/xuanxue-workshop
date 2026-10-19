@@ -1248,3 +1248,20 @@ check. That check exposes unfinished cases and their reasons using the same
 predicate as the controller. Per-run directories retain requests, execution logs
 and results across subsequent runs. Completion still requires studied outcomes;
 neither a changed report nor a successful process exit establishes them.
+
+The full scheduled proof also exposed an unspecified outcome vocabulary: the
+reviewer attempted `no-response`, which the host correctly rejected. The tool
+schema now enumerates `reviewed`, `waiting` and `operator`; the procedure maps a
+studied no-response disposition to `reviewed`. Invalid-value errors name the
+accepted values, and a rejected finish leaves its claim available for correction.
+
+The same verification reproduced a broker timeout before its claim response
+arrived. The broker now replays its own live receipt on retry. Tool calls use the
+reviewer's per-case allowance or explicit cap, and the host no longer imposes a shorter
+combined discovery/review cutoff. The owning evidence distinguishes the stopped
+old configuration from the fresh replacement proof; no unprocessed case is
+declared complete as part of recovery.
+
+The default batch budget also scales with its selected cases instead of giving
+an entire batch the allowance of one review. Explicit overall timeouts keep
+their existing meaning. The execution request retains both calculated budgets.

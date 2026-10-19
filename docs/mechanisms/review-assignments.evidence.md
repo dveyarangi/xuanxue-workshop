@@ -631,3 +631,64 @@ operations. Local evidence is under
 The proof reviewer noticed a generated package copy being mistaken for an
 installed instruction; its documentation copies were subsequently renamed to
 snapshots, outside live-record discovery. This did not affect batch completion.
+
+The actual scheduled proof exposed a separate vocabulary ambiguity: its first
+finish attempted `no-response`, while the implementation accepts `reviewed`,
+`waiting` and `operator`. The attempt was rejected and the reviewer subsequently
+corrected it. The tool schema now enumerates those values, the procedure maps
+studied no-response work to `reviewed`, and invalid-value errors name the accepted
+values. A regression reproduces the rejection and completes the same retained
+claim with the documented value. All 145 application tests passed after this
+clarification; harness, installed-rule, mechanism and shared-report checks passed.
+
+The full-board pass discovered eleven available cases after 27.1 minutes, ending
+discovery at 2026-10-19T22:04:12Z. Its broker call for issue 7 exceeded the old
+300-second MCP limit. The case retained an active lease without a usable
+response reaching the reviewer; retry then collided with that lease. The superseded
+proof was stopped at 22:24:27Z with its logs and unprocessed positions retained.
+That run establishes the failure, not completion of its eleven-case batch.
+
+Broker retries now replay only their own live receipt; another broker's lease
+remains unavailable, and expired or conflicted receipts are refreshed. Each tool
+call receives the reviewer's configured budget instead of 300 seconds. The
+Windows task's 55-minute combined-phase cutoff was also shorter than the
+observed discovery plus the existing 40-minute reviewer budget. The task now
+leaves time bounds to the controller. Individual GitHub commands retain their
+90-second limit; the final reviewer allowance is described below. Readback returned
+`PT0S`; actions, principal and three-hour trigger were preserved. Microsoft
+[documents that definition edits do not change an already running instance](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/set-scheduledtask?view=windowsserver2025-ps),
+so the replacement proof uses a fresh invocation.
+
+All 147 application tests and 50 isolated board tests passed after these repairs.
+The added regressions reproduce a lost claim reply, refusal to take another
+broker's lease, fresh material after conflict/expiry and a tool budget matching
+the reviewer budget. PowerShell syntax validation passed; the installer's settings
+constructor returned `PT0S`. Harness, installed-rule, mechanism, edge and report
+checks passed. A misnamed conformance bullet introduced during the repair was
+merged into the existing Review check before final verification.
+
+A fresh manual invocation through the existing Windows task processed two real
+supplied cases, 6 and 9, from 2026-10-19T22:25:47Z to 22:48:55Z. The controller
+returned `completed`; the final batch check returned `batch_complete=true` and
+`pending=[]`, and the task returned to Ready with exit 0.
+Publication was disabled and its fresh database contained no publication
+operation. Both initially conflicting completion reads were refreshed before
+successful completion. Actual process arguments confirmed a 2400-second tool
+budget. The original action, principal and `PT3H` trigger were restored and
+verified; the next trigger was 2026-10-20T02:02:27+03:00.
+
+The second run shared the first proof's log parent. SHA-256 comparisons confirmed
+the first request, result, event stream and diagnostic log were byte-identical
+afterward. Both run directories remained present and the latest pointer matched
+the second result. The fresh run's evidence is under
+`.local/board-review/batch-proof-20261020/runs/20261019T222547.787870Z-2f6e4536/`.
+This controlled two-case proof does not establish a completed fresh review of
+every case on the board; the stopped eleven-case run remains a failure observation.
+
+The final default budget includes the existing 40-minute allowance for every
+selected case rather than one allowance for the entire batch. Explicit overall
+timeouts retain their previous meaning, and requests retain both calculated
+budgets. Regressions exercise a two-case batch with a 17-second allowance and
+34-second total, plus a two-case batch with an explicit 17-second overall cap.
+The live controlled run completed within the stricter former 40-minute overall
+cap, as well as the final default's allowance for two cases.

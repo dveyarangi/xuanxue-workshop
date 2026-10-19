@@ -8,12 +8,16 @@ Claim one available case and read its complete snapshot. Apply the parent review
 inspecting relevant source and executed evidence independently. Renew the lease during long
 investigations. Discovery alone never establishes acceptance.
 
+If a claim response is lost, repeat `claim` for the same case. The host reuses
+only this invocation's still-live receipt.
+
 Prepare the response, then publish its stable operation identifier. Recover the same
 identifier after interruption. Never resend an uncertain operation blindly or bypass the publication
 command with a direct comment write. Cancel only a definitely unsent preparation.
 
-Finish only after confirmed publication or a studied no-response outcome. Use waiting for missing
-evidence and operator for a decision requiring the operator; retain the concrete resumption
+Finish only after confirmed publication or a studied no-response outcome.
+Use `reviewed` for a studied no-response outcome, `waiting` for missing evidence and
+`operator` for a decision requiring the operator; retain the concrete resumption
 condition. New shared decisions and actions outside authority remain with the operator.
 
 Complete every case supplied for this invocation. Before ending, call `review_board`
