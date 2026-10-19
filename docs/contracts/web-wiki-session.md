@@ -177,8 +177,7 @@ public within its allowlist; existing reader APIs are not reopened by that
 exception. Native private invitation/content
 and owner/import/Knowledge authority retain their existing scope and cannot be
 used as alternate web-reader authentication. The breaking anonymous-access change
-remains coordinated through original issue 9; this acceptance publishes no issue
-assignment and changes no recipient source or deployment.
+remains coordinated through the existing [Daychi browser assignment 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13), paired with Cabinet 12. The [separate article acceptance](../current-system.md#structured-article-acceptance--2026-10-19) closes original issue 9 without accepting browser cutover. This changes no session wire, behavior, recipient source or deployment.
 
 ## Browser operations and proof
 

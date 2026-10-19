@@ -44,7 +44,7 @@ Workshop publishes one accessible immutable shared authority and complete recipi
 briefs for Cabinet and Daychi. Each project chooses its internal design within the
 accepted contract and provides inspectable implementation/runtime evidence. Workshop
 coordinates the breaking anonymous-reader transition through the
-[original article coordination issue](https://github.com/dveyarangi/xuanxue-workshop/issues/9),
+[existing Daychi browser assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/13),
 including exposed reader origins, direct content paths and controlled old caches,
 because the existing article work preserves active public access. Earlier article
 acceptance is not retroactively failed by this new access requirement.
@@ -102,7 +102,7 @@ remaining joint browser/exposure/cache proof retain their original assignments.
 - [ ] Provider timeout, rate limiting, transport failure and unexpected responses deliver no protected content, remain distinguishable from authentication refusal and retain the browser credential for subsequent checks.
 - [ ] Successful rolling renewal reaches the browser with the accepted shared cookie; validation is current per read, usable for multiple readers behind one backend and persists no reader credentials/account replicas or credential logs.
 - [ ] Cabinet-site logout, reached directly or from wiki, ends the common browser session on subsequent protected reads; normal mutation binding, absent/expired-session handling and failure/lost-response retry satisfy the accepted contract.
-- [ ] The anonymous-reader transition is coordinated in original issue 9; deployed exposed origins, direct/static content paths and controlled old delivery caches cannot bypass the accepted web-reader boundary.
+- [ ] The anonymous-reader transition is coordinated in existing Daychi issue 13; deployed exposed origins, direct/static content paths and controlled old delivery caches cannot bypass the accepted web-reader boundary.
 - [ ] Joint deployed browser evidence identifies matching recipient source/runtime/configuration and demonstrates the accepted entry, reading, renewal, refusal/failure and logout cases while preserving native/private-content and editorial/owner/import authority.
 - [ ] /verify passes against this complete outcome, its accepted contract, recipient evidence and the Workshop verification set; Workshop reconciles the result and acknowledges recipient acceptance in the original assignments.
 

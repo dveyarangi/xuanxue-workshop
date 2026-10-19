@@ -31,8 +31,7 @@ Knowledge owns source preparation, editorial review and its gated import tools.
 Daychi retains the API, persisted content, access control and readers. Knowledge
 prepares content for Daychi's provider-owned import definitions; separate project
 participation changes no wire format, access protocol or content identity.
-Existing content/semantics v1 remain active. Structured-article implementation and
-integration acceptance stay in [original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
+Existing content/semantics v1 remain active. The [structured-article acceptance](current-system.md#structured-article-acceptance--2026-10-19) records the completed original issue 9 and its verification limits.
 Accountability and addressing belong to
 [the participant agreement](agent-contract.md#accepted-knowledge-participation--2026-10-12);
 observed source and deployment claims belong to [current evidence](current-system.md#knowledge-reception-evidence--inspected-2026-10-12).

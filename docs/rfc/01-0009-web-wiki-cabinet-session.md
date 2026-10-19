@@ -7,6 +7,10 @@
 
 Implements [01-0009 web-wiki-cabinet-session](../tickets/01-0009-web-wiki-cabinet-session.md).
 
+## Article closure and current transition owner — 2026-10-19
+
+The [article acceptance](../current-system.md#structured-article-acceptance--2026-10-19) closes original issue 9. Its prospective browser exposure/cache and affected-reader transition remains in existing Daychi 13, paired with Cabinet 12; later references below to issue 9 as the transition channel are historical. No browser obligation, implementation or proof is waived by article closure.
+
 ## Governing scope
 
 The [accepted web-wiki contract](../contracts/web-wiki-session.md) owns shared

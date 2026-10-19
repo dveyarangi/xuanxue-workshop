@@ -44,8 +44,7 @@ Knowledge's collaboration connection was accepted on 2026-10-15 from the user's
 explicit confirmation of working-checkout context, fresh-session addressed-work
 discovery and Workshop read/reply access. The [acceptance evidence](current-system.md#knowledge-collaboration-acceptance--2026-10-15)
 and [reception question](questions/done/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md) retain its scope and provenance;
-structured-article implementation acceptance remains in
-[original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
+the separate [structured-article acceptance](current-system.md#structured-article-acceptance--2026-10-19) records original issue 9 closure and its verification limits.
 
 ## Responsible operators
 

@@ -1,5 +1,11 @@
 # Current application structure and boundary evidence
 
+## Structured-article acceptance — 2026-10-19
+
+The user accepted the [Daychi/Knowledge completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6113936401) and directed closure of [original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9), reopening it if problems emerge. Workshop independently verified merged source, matching executable definitions/common cases and successful applicable checks. The private batch/import/replay, deployed-reader and independent-audit artifacts were not independently inspected by Workshop; the additional evidence-access request is withdrawn as a closure requirement. No repeat import, test run, private-evidence submission or recipient acknowledgement is pending. This accepts the reported completion without adding independent verification claims. Active v1 remains supported.
+
+The separate Cabinet browser-access and anonymous-reader transition remain in [12](https://github.com/dveyarangi/xuanxue-workshop/issues/12)/[13](https://github.com/dveyarangi/xuanxue-workshop/issues/13). Earlier dated reviews below retain their historical scope; their private-evidence and keep-open requests are superseded by this acceptance.
+
 ## Public-schedule pilot closure — 2026-10-19
 
 The [accepted pilot closure](contracts/public-lessons.md#accepted-pilot-closure--2026-10-19) owns the operator acceptance, evidence waiver and reopen-on-problem disposition. No public-pilot recipient action remains.
@@ -634,8 +640,7 @@ Workshop does not claim it independently reran that session or that PR 6 merged.
 Knowledge's collaboration connection is accepted on that basis. The
 [reception question](questions/done/q-0002.0011-how-should-daychi-knowledge-participate-in-workshop.md)
 retains its provenance; [structured-article issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9)
-remains a separate application-result review. No import, deployment, release or
-general instruction-source rollout is accepted by collaboration closure.
+was a separate application-result review at that collaboration closure; its later [operator acceptance](#structured-article-acceptance--2026-10-19) is distinct. Collaboration closure itself accepted no import, deployment, release or general instruction-source rollout.
 
 ## Native log-protection correction — reviewed 2026-10-11
 
