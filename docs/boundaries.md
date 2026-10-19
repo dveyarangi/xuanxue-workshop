@@ -220,7 +220,13 @@ to Cabinet and Daychi's shared account selection; there is no implicit all-class
 subscription. This decision concerns lesson reminders, not the scope of Cabinet's
 other notification kinds.
 
-<a id="accepted-offline-reminder-editing"></a>
+### Accepted offline reminder editing
+
+Historical agreement, accepted 2026-10-04 and superseded on 2026-10-19 by the
+[online-only agreement](#accepted-online-only-reminder-editing) below. This stable
+reference retains the earlier decision's provenance; offline editing and replay
+are no longer required. Explicit sign-out still discards transient local edits
+without undoing accepted Cabinet settings.
 
 ### Accepted online-only reminder editing
 

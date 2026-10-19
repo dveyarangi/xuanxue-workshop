@@ -32,9 +32,10 @@ and may be sent up to one minute afterward. This tolerance does not shift the
 positive before-start lead times. The [lead-time agreement](../boundaries.md#accepted-reminder-lead-times)
 owns the decision; there is no remaining zero-minute timing choice.
 
-Workshop still finalizes the executable wire and conformance cases below against
-those decisions. Preparing them does not authorize recipient implementation or
-accept every proposed transport detail. Device presentation belongs to its project.
+The executable wire and conformance cases below have completed source comparison
+and independent Cabinet/Daychi recipient review. Complete-contract acceptance
+remains the next checkpoint; this review does not authorize recipient implementation
+or claim deployed capability. Device presentation belongs to its project.
 
 <straw-dog question="q-0002.0007.0002">
 
@@ -69,7 +70,8 @@ Selections do not change access, attendance, reservations or teacher notificatio
 
 HTTPS `GET /api/me/notifications/lessons/sync` returns a complete snapshot.
 `PATCH` on the same route changes specified keys and returns the complete
-post-save snapshot. There are no query parameters. Requests and responses use
+post-save snapshot. Both successful operations return HTTP 200. GET has no body;
+there are no query parameters. Requests and responses use
 UTF-8 `application/json`; responses include `Cache-Control: no-store`.
 There is no shared cache, redirect, conditional GET or delta protocol.
 
@@ -103,7 +105,7 @@ Both successful operations return the same snapshot object, with these fields:
 | `lessonIds` | Complete positive individual-selection string array, sorted lexicographically by ID. |
 | `leadMinutes` | `0`, `15`, `30`, `60`, `120` or `null`; null follows the school default. |
 | `schoolMinutes` | Current school default, preserving Cabinet's integer 5..1440 range. |
-| `classes` | Existing public-safe `LessonScopeClassDto[]`, sorted by ID, for the selectable class catalogue; no private meeting links. |
+| `classes` | Complete active class catalogue, unique and sorted by ID, with the public-safe shape below; no private meeting links. |
 
 The first two arrays are empty for a new account. Absence of an ID means false;
 empty arrays are complete empty selections, never a failed read. Account settings
@@ -115,6 +117,21 @@ revision is unchanged. Missing catalogue metadata does not deselect a saved ID.
 There is no pagination, hidden date-window filtering or silent truncation of
 account selections. No client edit timestamp, clock calibration, scope mode,
 per-choice timestamp or removal-history field exists in this wire.
+
+Each `classes` entry has required string fields `id`, `title`, `groupLabel`,
+`tz`, and required array `slots`. `id` is the Cabinet class ID; `title` and
+`groupLabel` are display labels (an empty group label is valid); `tz` is its IANA
+timezone. Each slot has required `weekday` (integer 0=Sunday through 6=Saturday),
+`time` (local 24-hour `HH:mm`), and positive integer `durationMin`; optional
+`everyWeeks` is 1 or 2, with omission meaning 1. Slot order has no meaning.
+These fields describe the existing `LessonScopeClassDto`; they are labels, not
+instructions to generate occurrences. The catalogue omits inactive classes but
+saved IDs remain selected and removable. Empty catalogues are valid. It exposes
+no recurrence anchor, meeting credential, teacher, channel or hidden tag.
+Calendar occurrence identity, UTC starts, school-day bounds, completeness and
+partial-read handling remain governed by the
+[accepted public calendar contract](public-lessons.md); no client reconstructs
+lessons from catalogue slots, especially for fortnightly rules or DST changes.
 
 PATCH is `{version: 1, changes: Change[]}`. A change is exactly one of:
 
@@ -137,9 +154,12 @@ is `(kind,id)` for a selection, or `lead` for the scalar setting.
 One request has 1..64 distinct keys and at most 128 KiB of uncompressed JSON.
 Larger deliberate saves use sequential batches; an error stops remaining batches
 without queuing them for replay. Already confirmed batches remain saved. IDs
-must use Cabinet's canonical encoding; adding requires an existing lesson/class,
-including an inactive existing class. Removing an unknown or retired ID succeeds
-as a no-op. At most 50 positive class choices remain, preserving the existing
+must be lowercase 24-character hexadecimal Cabinet ObjectId strings
+(`^[0-9a-f]{24}$`); clients copy them from Cabinet, without generating or normalizing
+legacy IDs. Adding requires an existing lesson/class,
+including an inactive existing class. Removal does not require the lesson/class
+to exist: it removes a stored choice, or succeeds as a no-op if already absent.
+At most 50 positive class choices remain, preserving the existing
 Cabinet bound; exceeding it rejects the whole batch. No extra numerical cap is
 introduced for individual choices, and selections survive calendar-window shifts.
 
@@ -167,11 +187,16 @@ have one Cabinet-defined order; for the same key, the last committed value wins.
 This is server save order, not device action time or a client timestamp tie.
 Different clients' unrelated choices survive in either commit order. The revision
 increments once if any value changes, and remains unchanged for a pure no-op.
+GET returns account settings from one point during that read; PATCH returns its
+own committed account snapshot and revision, even if a later commit has already
+occurred by response delivery. Selection arrays have no duplicates. Catalogue
+and school metadata need not share the account transaction, as their independent
+refresh/revision semantics above specify.
 No whole-snapshot precondition rejects an unrelated choice merely because another
 key changed. No offline merge, durable edit outbox, clock guard or timestamp
 tombstone history is required.
 
-Daychi makes shared edits unavailable when offline and marks a change saved only
+Both clients make shared edits unavailable when offline and mark a change saved only
 after a valid Cabinet save response or subsequent authoritative read confirms
 current settings. A local draft is not shared state and does not alter scheduled
 reminders before confirmation. Mutation requests are not automatically retried,
@@ -212,12 +237,21 @@ rollback. Trace request IDs are not idempotency keys or permission to replay.
 | 409 `selection_limit` | More than 50 positive class choices would result; no batch write. |
 | 413 `payload_too_large` | Body over bound; no write. Correct/split a new deliberate save. |
 | 415 `unsupported_media_type` | Wrong media type; no write. Correct the client. |
-| 429 | Respect `Retry-After` when supplied; no automatic mutation replay. Refresh before another deliberate save. |
+| 429 `rate_limited` | Respect `Retry-After` when supplied; no automatic mutation replay. Refresh before another deliberate save. |
 | 5xx, network failure, invalid/incomplete reply | Preserve confirmed cache and active reminders; recover by reading Cabinet, not resending the change. |
 
 Unknown errors are failures, never empty state. Read retries use existing refresh
 occasions; no new background retry service or polling is introduced. Account and
 issuer isolation remain enforced through all recovery and credential changes.
+Reminder-route errors use the envelope above even for native callers, rather than
+the native authentication endpoints' `{error: ...}` shape. A native 401 has the
+same invalid-credential lifecycle meaning; a 403 refuses the operation while
+retaining the credential. A reminder adapter maps these outcomes into the existing
+credential owner without changing its native-auth wire parser. Clients use HTTP
+status for an unknown error code and treat unrecognized/malformed successes as
+failures, never empty selections. On successful snapshots they require the
+documented fields/types/version, ignore additional response fields and reject
+duplicate or noncanonical IDs. Numeric response values must be JSON integers.
 
 ## Sign-in, guest state and delivery compatibility
 
@@ -236,6 +270,18 @@ data and scheduled reminders. Successful account changes can reconcile against
 retained calendar rows; received moves/cancellations take effect after a successful
 calendar refresh. An unseen change can leave a stale reminder. There is no new
 native push, background refresh or cross-client delivery exclusivity.
+The public calendar remains a best-effort array without a completeness marker.
+A successful result replaces the account's displayed calendar and the occurrence
+data eligible for its local reminder plan for that requested window. Pending
+account reminders whose occurrences are absent from that result are removed;
+`[]` therefore leaves no eligible local reminders for that window. This is local
+plan replacement, not evidence of cancellation or permission to deselect an ID.
+A failed read instead preserves the previous good rows and plan. This extension
+does not add historical-row merging, a per-lesson lookup or tombstone feed.
+Chosen IDs survive an omitted row or a move outside the window, and a subsequent
+valid returned occurrence can restore local eligibility. A corrupt omitted row
+can therefore cause a missed local reminder; provider omission logging remains
+the accepted public contract's diagnostic, without a new completeness guarantee.
 
 Effective lead time is personal value or current `schoolMinutes`, including an
 arbitrary supported default such as 45. Cabinet and Daychi add personal zero/120
@@ -273,9 +319,11 @@ is required. Whole-list writers do not remain active against shared reminder
 state. A rollback can disable shared editing, not restore unsafe whole-list saves.
 
 This proposed version does not activate unfinished schedule integration or alter
-native-session, content or browser-wiki contracts. Recipient implementation
-publication requires one accepted immutable wire, common cases and the approved
-addressed contributions. This document grants no fixture mutation or release.
+native-session, content or browser-wiki contracts. Publishing implementation
+responsibilities in existing request 17 requires one accepted immutable wire and
+common cases. That issue retains Cabinet, Daychi and Workshop responsibilities
+through implementation and joint acceptance; no additional ticket or recipient
+issue is required. This document grants no fixture mutation or release.
 
 ## Common conformance outcomes
 
@@ -296,6 +344,7 @@ addressed contributions. This document grants no fixture mutation or release.
 | Access | Browser CSRF, native grant revocation/account blocking, mixed credentials, no-store and account isolation match the access section. |
 | Lead/delivery | Personal 0/120 and school-default 45 work on both ends. Zero targets the start with up to 60 seconds of accepted processing tolerance; positive lead targets remain before start. |
 | Read failure/recovery | Last good calendar/settings and scheduled reminders survive; received cancellations/moves apply on recovery, without an offline edit queue. |
+| Successful calendar omission | A valid mixed/empty result replaces window rows and its local plan, removing pending reminders for absent occurrences without deselecting them or declaring cancellation. Failed reads retain the prior plan; repaired returned rows regain eligibility. A move outside the window retains the chosen lesson ID without a pending reminder from the old row. |
 | Device capacity | Under verified supported-device queue constraints, the full account selection survives and confirmed deselections/received moves/cancellations reconcile. Queue size/refill are Daychi's implementation; evidence states the resulting coverage without imposing a shared 60-reminder cap. |
 | Rollout/regressions | Updated web and Daychi edit the same account safely; retired lead PUT is 404, legacy scope PUT affects only other notices, and guest/content/session/browser obligations remain compatible. |
 
