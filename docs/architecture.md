@@ -30,10 +30,10 @@ deployed support are distinct kinds of evidence.
 
 The [current system](current-system.md) records observed structure and interface
 behavior with source revisions. The [initial target contracts](boundaries.md)
-hold accepted boundary decisions. [Migration changes](migration-changes.md)
-describe the delta and proposed contributions, with responsibility assigned to
-each project. These serve different purposes: an accepted target never proves
-that a provider or consumer has implemented it.
+hold accepted boundary decisions. [Migration compatibility](migration-changes.md)
+describes consequences across those agreements. Existing tickets and original
+issues own delivery scope and remaining work; the [queue](tickets/README.md#queue)
+owns order. An accepted target never proves that a provider or consumer has implemented it.
 
 Executable schemas remain in their owning projects. The first public schedule
 pilot has a published [shared contract and conformance cases](contracts/public-lessons.md);
@@ -41,8 +41,8 @@ its Cabinet-owned definitions and deployed evidence are referenced in
 [current-system](current-system.md#cabinet). The
 [native account-session acceptance](current-system.md#native-client-and-joint-acceptance--2026-10-17)
 owns that completed slice. The
-[migration delta](migration-changes.md#changes-derived-from-accepted-contracts)
-links the accepted browser, native-content and reminder contracts to their remaining work.
+[migration comparison](migration-changes.md#changes-derived-from-accepted-contracts)
+relates the accepted contracts without duplicating their delivery inventories.
 
 The [accepted scope clarification](agent-contract.md#boundary-scope-and-product-language)
 requires one accessible immutable contract reference and common conformance cases

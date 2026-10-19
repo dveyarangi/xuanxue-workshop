@@ -1,7 +1,7 @@
 # Cabinet–Daychi public schedule connection
 
 - **record of** what it intends to become
-- **Status:** Planned
+- **Status:** Partial (2026-10-19; consumer/native evidence remains)
 - **Type:** HITL
 - **Minted:** 2026-10-05
 - **Answers:** [q-0002.0002.0002](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)

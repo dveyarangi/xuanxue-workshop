@@ -1,50 +1,18 @@
-# Delivery status
+# Delivery order
 
 - **record of** what it intends to become
 
-**Last updated:** 2026-10-17
-
-The [first-stage goal](../stage-1.md) is accepted. Current evidence, target contracts,
-migration changes and Workshop responsibility have separate homes. Both project
-collaboration installations are accepted; Knowledge's retained connection was
-also accepted on 2026-10-15 from the user's host verification. See the
-[agent-adoption question](../questions/q-0002.0005-how-should-agents-adopt-workshop-rules-and-discover-addressed-work.md).
-
-Queue responsibility follows the [agent interaction contract](../agent-contract.md).
-The existing harness path is `docs/tickets/`, with the user's
-requested folder spelling being clarified. The broad contract contributions
-were withdrawn and closed as not planned on 2026-10-05 because they repeated
-completed Workshop investigation:
-[cabinet-contract-contribution #3](https://github.com/dveyarangi/xuanxue-workshop/issues/3)
-and [daychi-contract-contribution #4](https://github.com/dveyarangi/xuanxue-workshop/issues/4).
-Their [parent scope and corrected impact](../migration-changes.md#proposed-contribution-breakdown)
-record the work-selection error. Neither remains an active assignment. The next
-Workshop outcome breakdown was approved on 2026-10-05: one public schedule connection
-with two recipient contributions. Queue order is retained; coordinator readiness
-and installation acceptance do not gate recipient implementation. Each activity's
-actual dependencies follow current evidence under the agent contract.
-
-## Legacy horizon binding
-
-The record below predates that separation and anchors the accepted temporary
-content-admission contract. It is not a Workshop inception task or active migration
-assignment. Its proper tracker destination remains in the
-[tracker question](../questions/q-0002.0004-where-should-shared-tickets-live-and-how-are-they-addressed-and-claimed.md).
+The [agent interaction contract](../agent-contract.md) owns responsibility for
+addressed work. Ticket records own their status, type, outcome and acceptance;
+this queue holds order. The [first-stage goal](../stage-1.md) bounds the work.
 
 ## Queue
 
-| Ticket | Status | Type | Outcome |
-|---|---|---|---|
-| [workshop-board-review](./done/01-0006-workshop-board-review.md) | | | |
-| [cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md) | Planned | HITL | A verified native Daychi connection to Cabinet's public dated schedule, with separately reviewed provider/client contributions and Workshop records reconciled to their evidence. |
-| [01-0009 web-wiki-cabinet-session](./01-0009-web-wiki-cabinet-session.md) | | | |
-| [daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md) | Blocked (horizon) | HITL | Daychi clients receive their server capabilities from Cabinet without a separately operated Daychi application backend. |
-| [telegram-workshop-access](./01-0020-telegram-workshop-access.md) | | | |
+1. [cabinet-daychi-public-schedule-connection](./01-0007-cabinet-daychi-public-schedule-connection.md)
+2. [web-wiki-cabinet-session](./01-0009-web-wiki-cabinet-session.md)
+3. [telegram-workshop-access](./01-0020-telegram-workshop-access.md)
 
-## Completed native account session
+## Deferred horizon
 
-[native-cabinet-account-session](./done/01-0008-native-cabinet-account-session.md)
-completed on 2026-10-17 within the accepted joint verification scope. The
-[acceptance record](../current-system.md#native-client-and-joint-acceptance--2026-10-17)
-owns exact revisions and proof limits. Existing public-schedule, browser-wiki and
-native-content work retains its order and ownership; this completion starts no next cycle.
+[daychi-backend-capabilities-in-cabinet](./01-0010-daychi-backend-capabilities-in-cabinet.md)
+retains its separately authorized start condition.

@@ -8,12 +8,17 @@ their local consumers, installed bindings, live-record forms and archival eligib
 Current agreement summaries now point to accepted native-account, native-content
 and reminder contracts and their owning work. Historical source observations and
 acceptance limits remain explicit. No shared behavior or recipient acceptance
-criterion changes. The later review found that the pass repaired selected stale
-claims but did not complete reconciliation of the duplicated work inventory and
-current statuses. Its completion claim was too broad. Workshop retains this
-unfinished maintenance under maintain A1/E1 and the local reconciliation-source
-and record-consistency rules; the scoped checks below do not establish that
-semantic reconciliation is complete.
+criterion changes. The initial completion claim was too broad: the pass repaired
+selected stale claims but left a duplicated work inventory and copied statuses.
+The operator-authorized follow-up on 2026-10-19 removes the migration contribution/
+status inventory and repeated review scenarios, retaining cross-contract compatibility
+analysis and historical links. The queue now holds order and pointers only. The
+public-schedule ticket is Partial: its provider contribution is accepted while
+consumer/native evidence remains. Other live ticket headers were reviewed against
+their existing evidence; their active browser/Telegram work and deferred horizon
+remain in their owning records. No acceptance box is newly checked or ticket closed.
+This completes the remaining record maintenance under maintain A1/E1 and L9/L31;
+it does not establish a new application implementation or integration result.
 
 The completed [workshop-board-review specification](spec/done/01-0006-workshop-board-review.md)
 is archived with its surviving obligations retained in maintained homes. The scoped

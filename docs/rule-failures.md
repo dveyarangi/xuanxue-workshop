@@ -47,6 +47,10 @@ replace repeated decisions and work status with pointers. The format validators
 passed; they did not assess content agreement. The completion claim is corrected
 in the [maintenance outcome](reconciliation-20261004.md#agreement-record-maintenance--2026-10-19).
 The existing amendment already forbids the result; no additional rule is proposed.
+The operator-authorized follow-up removes the duplicate inventory and copied queue
+fields and reconciles the public-schedule header in the
+[completed maintenance outcome](reconciliation-20261004.md#agreement-record-maintenance--2026-10-19).
+This resolves the residual record repair, without claiming a second independent test.
 
 ## 2026-10-19 — One coordinated outcome fragmented into work items and comments
 
