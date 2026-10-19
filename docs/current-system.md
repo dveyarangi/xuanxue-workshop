@@ -220,8 +220,10 @@ is deferred until an actual customer complaint about the related access problem.
 Probe-only failures and existing operator testing reports are not that trigger.
 The [Daychi 6 body and follow-up](https://github.com/dveyarangi/xuanxue-workshop/issues/6#issuecomment-6260697771)
 explicitly exclude this network incident, provider issue status and temporary-role
-disposition from implementation or acceptance gates. Temporary teacher-role state
-remains unverified; closure establishes no cleanup or account mutation.
+disposition from implementation or acceptance gates. The
+[operator-confirmed account and Teacher-role grants](#cabinet-staging-access--confirmed-2026-10-15)
+stand; later role removal remains unverified. Closure establishes no cleanup or
+account mutation.
 
 Daychi's outstanding ordinary native evidence still needs a reachable conforming
 provider and authorized fixtures under the existing contract. The network
@@ -382,12 +384,17 @@ The Workshop operator supplied the [Cabinet staging invitation](https://staging.
 on 2026-10-15 for @stnleo (Daychi) to register, personally or with their agent.
 This is the available registration link, superseding the earlier missing-link/private-
 handoff description in [issue 7](https://github.com/dveyarangi/xuanxue-workshop/issues/7#issuecomment-6194395822).
-The operator explicitly permits sharing invitations in the group. Availability of
-this link does not establish completed registration, a granted teacher role or an
-already prepared test class. The latter arrangements remain separately recorded in
+The operator explicitly permits sharing invitations in the group.
+
+The Workshop operator confirmed in Codex on 2026-10-16 that @stnleo had a staging
+account. In retained Telegram group message 236, the operator confirmed the
+Teacher role was granted, superseding the earlier Developer-only description in
+messages 232–235. These are operator-reported account/role facts; Workshop
+performed no registration or role mutation. They establish neither later role
+removal nor completed joint browser/content proof. Test-class arrangements remain
+separately recorded in
 [issue 5](https://github.com/dveyarangi/xuanxue-workshop/issues/5#issuecomment-6194557568).
-The link was supplied by the operator; no registration was performed by Workshop.
-This dated invitation observation does not describe the later fixture state.
+
 [Subsequent lesson and role dispositions](#public-pilot-evidence-and-test-lesson-disposition--2026-10-18)
 and [provider closure](#provider-closure-and-regional-network-disposition---2026-10-19)
 own the later evidence and acceptance limits.
@@ -787,8 +794,11 @@ at `6fd2657b9dd66fe8a85947fc62f492280978856b`. Both installed files match Worksh
 and immutable companion-link adaptations. AGENTS.md has the existing/target
 boundary summary and invocation rule. The accessible verification record reports
 matching host hashes and fresh-session invocation/discovery; the original report
-demonstrates authenticated return. PR 7 remains open. These findings establish
-installation evidence, not a merge, application integration or release; the
+demonstrates authenticated return. PR 7 was open at that review; it subsequently
+merged on 2026-10-09 at
+[`0a3c824c1586eb7b3ca16ca0b3a365539076b025`](https://github.com/sleontenko/daychi/commit/0a3c824c1586eb7b3ca16ca0b3a365539076b025),
+confirmed by the PR metadata on 2026-10-19. Installation checks and the later
+merge do not establish application integration or release; the
 [original acceptance](https://github.com/dveyarangi/xuanxue-workshop/issues/2#issuecomment-6052903501)
 and completed closure satisfy issue 6's installation dependency.
 
