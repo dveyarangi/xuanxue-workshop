@@ -1,5 +1,32 @@
 # Current application structure and boundary evidence
 
+## Login-return test correction review - 2026-10-19
+
+The [Cabinet diagnosis in original 12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6261541656)
+is supported by the inspected [two-file test-only delta](https://github.com/gregoryKot/xuanxue-cabinet/compare/5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05...88794f67d45b2fd31c2bbbc796e0effa1591699d)
+in merged [PR601](https://github.com/gregoryKot/xuanxue-cabinet/pull/601).
+Both return suites now wait for the authenticated-state check to finish with
+`guest` before emitting focus/visibility events; rendering a login button did
+not establish that the return listener was subscribed. Application source is
+unchanged. The reported local race reproduction and three repeated local runs
+retain Cabinet provenance; Workshop did not rerun them.
+
+At Cabinet main `88794f67d45b2fd31c2bbbc796e0effa1591699d`, all 19 returned checks
+are completed/success and [main CI39211993560](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/39211993560)
+is successful. PR CI39211382196 is also successful. The prior failed-CI diagnosis
+request is satisfied within this source/check scope. Existing native-account
+acceptance stands; no new recipient action in closed original 7 is established.
+The [reminder comparison](contracts/reminder-sync.md) retains its historical
+5838fa5 baseline: this later test-only delta changes none of its application facts.
+
+The browser outcome in original 12 remains open for canonical host readiness and
+actual browser lifecycle proof. A fresh local CNAME lookup for
+`wiki.staging.xuanxue.su` returns DNS name does not exist; this is local resolver
+evidence, not an authoritative DNS audit. Staging auto-deployment is reported by
+Cabinet, not independently verified here; no production release or authenticated
+browser/native run was performed. Daychi main remains `c146326`, its draft PR18
+remains unmerged at `bb7295f`, and Knowledge remains `b9eb1684`.
+
 ## Reminder synchronization source comparison - 2026-10-19
 
 This comparison inspects immutable Cabinet main
