@@ -1,6 +1,6 @@
 # Account reminder synchronization contract
 
-Revised 2026-10-19 for [original request 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
+Revised 2026-10-20 for [original request 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
 Status: complete wire version 1, delivery bounds and common conformance outcomes
 accepted by the Workshop operator on 2026-10-19. Implementation and runtime
 acceptance remain work in the original issue; this is not a deployment claim.
@@ -241,7 +241,7 @@ rollback. Trace request IDs are not idempotency keys or permission to replay.
 | 409 `selection_limit` | More than 50 positive class choices would result; no batch write. |
 | 413 `payload_too_large` | Body over bound; no write. Correct/split a new deliberate save. |
 | 415 `unsupported_media_type` | Wrong media type; no write. Correct the client. |
-| 429 `rate_limited` | Respect `Retry-After` when supplied; no automatic mutation replay. Refresh before another deliberate save. |
+| 429 `rate_limited` | Respect `Retry-After` when supplied, subject to the [current-delivery acceptance scope](#current-delivery-acceptance-scope--2026-10-20); no automatic mutation replay. Refresh before another deliberate save. |
 | 5xx, network failure, invalid/incomplete reply | Preserve confirmed cache and active reminders; recover by reading Cabinet, not resending the change. |
 
 Unknown errors are failures, never empty state. Read retries use existing refresh
@@ -351,6 +351,16 @@ issue is required. This document grants no fixture mutation or release.
 | Successful calendar omission | A valid mixed/empty result replaces window rows and its local plan, removing pending reminders for absent occurrences without deselecting them or declaring cancellation. Failed reads retain the prior plan; repaired returned rows regain eligibility. A move outside the window retains the chosen lesson ID without a pending reminder from the old row. |
 | Device capacity | Under verified supported-device queue constraints, the full account selection survives and confirmed deselections/received moves/cancellations reconcile. Queue size/refill are Daychi's implementation; evidence states the resulting coverage without imposing a shared 60-reminder cap. |
 | Rollout/regressions | Updated web and Daychi edit the same account safely; retired lead PUT is 404, legacy scope PUT affects only other notices, and guest/content/session/browser obligations remain compatible. |
+
+## Current-delivery acceptance scope — 2026-10-20
+
+On 2026-10-20 the Workshop operator waived client rejection of an otherwise valid
+snapshot solely because it contains more than 50 class IDs, and handling of
+supplied retry delays exceeding one hour, as acceptance requirements for the
+current delivery. Existing server-side selection limits and rate limiting remain
+unchanged. These two observations are non-blocking; reconsider them on evidence
+of an effect on normal operation. Other validation, recovery and joint acceptance
+requirements remain in force.
 
 ## Ownership and evidence
 

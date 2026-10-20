@@ -1,4 +1,4 @@
-# Shared account reminders — consolidated update for existing issue 17
+# Shared account reminders — publication copy for existing issue 17
 
 ## Recipients and outcome
 
@@ -6,23 +6,29 @@ Existing work: [reminder synchronization 17](https://github.com/dveyarangi/xuanx
 Cabinet provides shared confirmed settings and uses them in web/backend reminders;
 Daychi uses the same settings and authoritative calendar in its native reminder
 path. Workshop owns contract compatibility and acceptance. All work and reports
-remain in that issue, with `project:workshop`, `project:cabinet` and `project:daychi`
-labels when the accepted implementation responsibilities are published. No new
+remain in this issue, addressed to `project:workshop`, `project:cabinet` and
+`project:daychi`. No new
 issue, local ticket or decomposition approval is needed for this existing outcome.
 
-Status: complete contract and this existing-issue update approved by the Workshop
-operator on 2026-10-19. This is the publication copy for original issue 17 with
-its accepted immutable contract reference and the three recipient labels above.
-The issue stays open for the outstanding owner actions and joint proof after
-contract publication. Publication alone does not establish a working integration.
+Status: implementation in progress. The complete contract and this existing-issue
+implementation assignment were approved by the Workshop operator on 2026-10-19.
+Workshop's contract/assignment preparation is complete. Cabinet's merged read/save
+API, delivery and cutover slices have reviewed source/check progress, and
+Daychi has a reviewed draft candidate. Deployment/rollout and remaining
+consumer/device and joint outcomes still require their existing evidence. The issue
+stays open for those existing owner actions; no new shared decision or Workshop
+readiness acknowledgement is required.
 
 ## Shared authority and accepted behavior
 
 The complete [reminder synchronization contract](../contracts/reminder-sync.md),
 its wire version 1 and common conformance outcomes govern both recipients. Its
-linked native-account and public-calendar authorities remain binding. The published
-issue body cites the full immutable accepted Workshop contract revision; relative
-links in this local publication copy are resolved to that revision before posting.
+linked native-account and public-calendar authorities remain binding.
+Publication resolves this contract link to the exact published immutable Workshop revision.
+This revision includes the operator-approved 20 October acceptance-scope
+amendment below. Existing server selection limits and rate limiting, wire
+version 1, reminder behavior and rollout remain unchanged.
+Both projects implement that exact wire and its common conformance outcomes.
 
 Cabinet owns account settings; only explicitly selected classes/lessons are
 eligible, and new accounts start empty. Saves are online and Cabinet-confirmed;
@@ -33,39 +39,65 @@ or 0/15/30/60/120; zero targets start with up to one minute processing tolerance
 Other notification filters remain separate. No fixed 60-reminder account cap,
 offline outbox, client-clock policy, native push or new background polling exists.
 
+## Current-delivery acceptance scope — 2026-10-20
+
+The Workshop operator approved the contract's
+[current-delivery acceptance scope](../contracts/reminder-sync.md#current-delivery-acceptance-scope--2026-10-20).
+Client rejection of an otherwise valid snapshot solely for containing more than
+50 class IDs, and handling of supplied retry delays exceeding one hour, are not
+acceptance requirements for this delivery. This supersedes the corresponding
+correction requests in the [20 October review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6281943775)
+and earlier supplied-delay follow-ups. No additional correction or regression
+evidence for these two observations is required to accept either contribution
+or close this issue. Reconsider them on evidence of an effect on normal operation.
+The server's existing 50-class limit and rate limiting remain; other malformed
+response, readback, no-replay, account-isolation and joint outcomes still apply.
+
 ## Observed state and scope
 
-The [source comparison](../current-system.md#reminder-synchronization-source-comparison---2026-10-19)
+The [source comparison](https://github.com/dveyarangi/xuanxue-workshop/blob/67bb5dde5489a8e6594a9d978e5ed8d3ad703724/docs/current-system.md#reminder-synchronization-source-comparison---2026-10-19)
 pins Cabinet application source `5838fa5fef3bbd7a0e22aa43b68cf7fd72397a05`;
 Main `88794f67d45b2fd31c2bbbc796e0effa1591699d` adds only browser tests;
 the final review also compared successor `ea4299606ef8a8e2091931645bf4d21c20c5a450`,
 whose native GET-me budget change does not alter reminder settings or the public
 calendar. This assignment neither changes nor reopens that separate capacity contract.
-Cabinet currently has all/selected class scope, full-list PUTs and separate lead
-updates; it lacks individual lesson choices and personal zero. The old scope
-also filters cancellation, recording and class-linked material notices.
+At that baseline, Cabinet used all/selected class scope, full-list PUTs and
+separate lead updates, without individual lesson choices or personal zero. That
+legacy scope also filters cancellation, recording and class-linked material notices.
 
-Daychi main `c146326c7ea552772d8c804b3a08ad5637ca5eb0` uses legacy identities
-and device-wide settings in its ordinary path; its separate Cabinet pilot has
-real IDs without writing ordinary reminder state. Lead persistence lacks
-120/null/default handling, and the local planner throws above 60 items. Those
-are implementation gaps, not new shared product decisions. Its native account
-session is accepted. Native-content PR18 is separate and does not gate this work.
+As reviewed overnight on 20 October, Cabinet PR607 (delivery) and PR608
+(seeding/legacy separation) are merged at e604adab and 9fc0703 respectively.
+The [progress review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6279637451)
+records inspected source and successful checks; actual deployment, migration
+outcomes and complete joint acceptance are not established by those merges.
+The observed migration preserves existing reminder choices first and caps the
+combined class list at 50; preservation of an arbitrary larger combined selection
+was not established.
+
+The [correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6281943775)
+inspected PR609 at 8d932249 and PR610 at d855ba5, both then open/unmerged.
+PR609 rejects the earlier invalid school-minute, slot and ID examples. Its two
+remaining observations are covered by the acceptance amendment above. PR610
+supplies reviewed source/check evidence for the separate StaffBoard test-mock
+diagnosis. These dated reviews do not claim either candidate is now merged,
+deployed or independently runtime-accepted.
+
+Daychi's published draft PR19 at ea464ef has reviewed protocol, confirmed-save,
+readback, account/guest, calendar and OS-queue source, six successful exact-source
+checks and seven hash-verified, visually inspected synthetic QA images. The
+159 app tests, native exports and queue receipts retain recipient provenance.
+At that review the candidate remained default-off/unmerged; real Cabinet joint
+saves and remaining consumer/device outcomes were not established. Reuse these
+results and their disclosed limits rather than repeating valid proof.
 
 The user confirmed test-only Daychi data. Cabinet's operator subsequently
-[reported real accounts and exam use](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6265787981)
-and explicitly accepted the initial reminder rollout as written, including empty
-reminder selections for accounts previously using the default all-classes filter.
-Existing explicit selected class IDs, personal lead values and other notice filters
-remain preserved. Exam data is outside this work. No heuristic guest import or
-existing-data deletion is assigned.
+[clarified that Cabinet has real registered accounts and active exam use](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6265787981)
+and explicitly accepted the initial reminder rollout as written for those accounts.
+Explicit selected class IDs, personal lead values and other notice filters remain
+preserved; default all-classes mode does not become reminder subscriptions. Exam
+data is outside this work. No heuristic guest import or existing-data deletion is
+assigned.
 
-[Daychi's new preparation report](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6264351647)
-describes local, unpublished protocol validation/encoding groundwork with eight
-new synthetic tests and 133 passing app tests. These are recipient-reported
-results; no immutable source or complete conformance acceptance is submitted yet.
-Cabinet reports implementation is starting. Both published main revisions remain
-the inspected baselines above.
 No agent-instruction or collaboration-summary replacement is supplied here.
 
 ## Cabinet responsibilities
@@ -209,8 +241,12 @@ in this existing issue under the relevant responsibility. Related alignment
 decisions are communicated in one consolidated update; urgent recipient action
 can be communicated earlier. No separate completion acknowledgement is a new gate.
 
-The remaining owner actions are Cabinet implementation/deployment evidence, Daychi
-implementation/installed-device evidence and joint staging proof. Reuse shared
+Workshop has completed contract/assignment preparation and reviewed the source,
+checks and synthetic progress linked above. It will review changed contributions
+and actual joint results against the amended contract, reusing valid prior proof.
+The remaining owner actions are Cabinet integration/deployment and actual rollout
+preservation/separation evidence; Daychi remaining consumer/device evidence; and
+joint staging proof. The two waived observations add no acceptance prerequisite. Reuse shared
 artifacts rather than running the same proof twice. The issue closes when these
 in-scope outcomes are accepted; already accepted account-session/public-provider
 work and unrelated browser/content work retain their own scope.
