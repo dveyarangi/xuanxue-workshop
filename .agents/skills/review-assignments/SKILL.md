@@ -142,10 +142,9 @@ same file.
   returned by assignment review. Autonomy switches: AGENTS.md, Project-local.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
 
-**L14** Include open first requests without a `project:` recipient label, even when they
-have topic labels. Workshop owns their discovery and classification. Read the
-request before assigning a configured recipient label; classification does not
-establish accepted participation or authorize project changes.
+**L14** Classify incoming requests by their content, preserving the original issue and
+current review context. Apply the project-reception route for an unknown school
+project's introduction.
 
 Review relevant assignments and discussions in Workshop GitHub Issues, including
 unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
@@ -181,8 +180,6 @@ acknowledgement alone does not establish either. Use the dependency conditions i
 skills/collaborate/workshop-issue-format.md; update the original issue to remove
 ceremonial or unsupported holds and retain only dependencies tied to a specific
 activity and observable condition. Changes to shared promises return to /align.
-Workshop readiness and collaboration-installation acceptance do not gate recipient
-implementation under its operator against an accessible settled shared contract.
 
 After accepting a prerequisite or reviewing changed relevant evidence, reassess
 affected dependent assignments and communicate changed eligibility or required

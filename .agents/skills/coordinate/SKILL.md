@@ -136,39 +136,11 @@ questions and changed dependencies matter before completion reports arrive.
 </installed>
 
 <installed by="local">
-**L20** For project reception, use the supplied repository or original incoming issue as the
-candidate input. Read README.md's Repository map, docs/agent-contract.md and
-docs/onboarding.md, and search Workshop Issues in every state for work already covering
-this project. Keep reception, installation context and evidence in the original
-introduction or installation issue. A separate installation issue is not required.
-If a chat introduction has no tracker issue or owning work record, retain its
-repository input, scope and pending action in the project-specific question opened
-under Q1. When approved work has an owning ticket or issue, link that record from
-the question.
-
-Establish the project's purpose, accountable operator, participating accounts, agent
-host, observed connections and proposed responsibilities from accessible sources and
-operator evidence. Inspect retained collaboration instructions and their provenance.
-Missing information is an explicit question or evidence request, not an inferred owner,
-new access mechanism or repeated installation.
-
-Use the coordinator's existing stage routes to resolve missing evidence, agree project
-identity, recipient label and shared responsibilities, and prepare the required work.
-Record observed facts in docs/current-system.md and accepted participation in README.md
-and docs/agent-contract.md; shared promises belong in docs/boundaries.md.
-
-Prepare the collaboration-installation context in that issue from docs/onboarding.md and
-skills/collaborate/workshop-issue-format.md#installation-assignments. Supply the
-project's exact recipient label, an accessible published source revision, its boundary
-summary, access grants owned by the Workshop repository owner, operator-owned host
-setup, and evidence of retained installation, fresh-session invocation and the
-original-issue return path. Reference the canonical installation procedure rather
-than copying it.
-
-Record the current stage, next action, responsible party and resumption condition in
-the existing owning record. Publishing the assignment resumes with the recipient
-operator; returned evidence resumes Workshop review. An empty addressed-work search
-is valid; collaboration acceptance does not block otherwise eligible project work.
+**L20** Conduct project reception under docs/onboarding.md. Compare the supplied context
+with available sources, resolve missing facts, and agree participation, boundaries
+and acceptance conditions with the Workshop operator. Prepare the connection
+context in the original issue. Assess returned evidence against the agreed
+criteria and reflect accepted outcomes in their existing homes.
 
 **L9** For each in-scope agreement, read its accepted target, observed state, remaining
 changes and owning work together through the bindings below. Follow references

@@ -497,6 +497,16 @@ rules already express the distinction; no additional general classification rule
 is added. [Review evidence](mechanisms/review-assignments.evidence.md#local-unattended-review-authority--2026-10-14)
 holds the scoped correction and verification limits.
 
+Struck again, 2026-10-20: the onboarding agreement mixed role-specific execution
+with connection requirements. A proposed repair would have installed a special
+acceptance-gate prohibition at four routine reading occasions. The operator
+identified both the authorship error and recurring cost. Under
+[A document informs](../AGENTS.md#general-rules),
+[A capable reader](../AGENTS.md#general-rules) and
+[Tier is paid by every session](../AGENTS.md#general-rules), the approved repair keeps
+the invariant in the agreement and the methods in their role instructions.
+Repeated prohibitions are removed; no additional rule or mechanism is added.
+
 ## 2026-10-13 — Shared production cookie reviewed without staging coexistence
 
 Status: environment isolation accepted on 2026-10-13; recipient amendment published and read back.

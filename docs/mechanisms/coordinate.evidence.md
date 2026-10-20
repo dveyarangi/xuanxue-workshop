@@ -660,3 +660,19 @@ and review instructions preserve the same original issue and scope. Installed-ru
 mechanism, question, ticket, edge and report checks pass; harness comparison passes
 at e5e74d6. This is source and fixture evidence, not an observed real reception or
 recipient rollout. Independent operator grading is not inferred from those checks.
+
+### Role-separated method - 2026-10-20
+
+The operator rejected an onboarding response whose opening and numbered sequence
+disagreed, then identified instructions for both roles mixed into the agreement.
+The proposed four-target prohibition on blocking work was also rejected as a
+rare concern paid by ordinary sessions. The operator selected the agreement-only
+invariant and approved the complete role-separated text for landing in English.
+
+The agreement now records context, ownership and acceptance outcomes. Reception
+and entry instructions remain at their applicable local-rule and collaboration
+skill homes; the installation method points to the agreement's criteria. Repeated
+acceptance-gate instructions are removed rather than moved into additional targets.
+Installed bindings, mechanism declarations, local links, question/edge form and
+the shared-report shape pass. No application code, intake behavior or recipient
+installation changed in this refinement.

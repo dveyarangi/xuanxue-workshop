@@ -18,48 +18,25 @@ project's own tracker and rules.
 
 ## Installation
 
-1. Read your project's original introduction or installation issue. It supplies the
-   agreed source revision, your project label and the explicitly
-   marked `BOUNDARY_SUMMARY` defined in the issue format. Use that block's content
-   as the supplied summary; do not reconstruct it from the issue's other prose.
-2. Install this file and [workshop-issue-format.md](workshop-issue-format.md)
-   together in the location supported by your agent host. Replace the project-label
-   placeholder in this file with the label from the issue. Request missing context
-   there rather than inventing it or using another project's issue.
-3. Prepare the short boundary summary supplied by the issue for the block below:
-   check which connections exist in the code and add the local module names or
-   paths. Keep planned connections explicitly labelled as targets. Report any
-   disagreement with the supplied description in the installation issue; this
-   step does not implement the planned connections.
-4. Add the following block to the project's `AGENTS.md` or `CLAUDE.md`, whichever
-   the project agent reads. Replace `BOUNDARY_SUMMARY` with the short description
-   from step 3 and its contract links, and `COLLABORATE_SKILL_PATH` with the path
-   to the installed skill, relative to that file. Preserve existing instructions.
+Install this skill and [workshop-issue-format.md](workshop-issue-format.md) from the
+revision supplied by Workshop, with the agreed project label. Record
+`Source revision: <full source commit>` directly below `Project label`.
+Exclude this Installation section from the installed copy.
 
-   > ## Workshop collaboration
-   >
-   > BOUNDARY_SUMMARY
-   >
-   > Use the [/collaborate skill](COLLABORATE_SKILL_PATH) at the start of every session,
-   > before work affecting any boundary described above, and whenever coordinating
-   > across projects or communicating with Workshop.
+Check the supplied `BOUNDARY_SUMMARY` against the code, add local entry points
+and preserve the distinction between existing connections and targets. Include
+the summary, skill link and invocation conditions in the project instructions
+read by the agent host.
 
-5. Add `Source revision: <full source commit>` immediately below the Project label
-   line in the installed skill, using the commit supplied in the original issue
-   for both files. Remove this Installation section from the installed copy.
-   Preserve the distributable source in Workshop.
-6. Verify in a fresh session that the agent invokes the skill, accesses Workshop,
-   searches for addressed work, and recognises boundary-related work from its
-   project instructions. Verify the installed format link resolves. Report in
-   the original introduction or installation issue. Apply the
-   [onboarding acceptance requirements](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/onboarding.md#collaboration-installation).
+Verify the connection in a fresh session against the
+[onboarding criteria](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/onboarding.md#collaboration-installation)
+and return the evidence in the original issue.
 
 <installed by="local">
-**L21** Begin with your project's original introduction or installation issue. If none was
-supplied, search Workshop Issues for an existing one. If none exists, follow
-Project introductions in the companion issue format, workshop-issue-format.md.
-Reuse the same issue for reception, installation and evidence;
-another project's issue is not your project's context.
+**L21** Use your project's original issue. If it is unknown, find an existing request;
+if none exists, introduce the project under Project introductions in the companion
+issue format, workshop-issue-format.md. Use an accepted connection without
+repeating installation.
 </installed>
 
 ## Check addressed work
@@ -69,7 +46,6 @@ open issues carrying your project label. Read relevant assignments, discussions 
 dependencies, including follow-up on reported results. Distinguish accepted work
 from the current remaining action. Follow your project's
 operator instructions when choosing and executing work.
-An empty search is a valid result; do not create work to demonstrate discovery.
 Determine eligible work using the [issue format's dependency conditions](workshop-issue-format.md#dependencies).
 
 When an assignment supplies `BOUNDARY_SUMMARY`, use its marked content to update
