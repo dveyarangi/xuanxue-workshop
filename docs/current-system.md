@@ -1,5 +1,43 @@
 # Current application structure and boundary evidence
 
+## Closure status against agreed acceptance — 2026-10-20
+
+At 2026-10-20T15:30:36.638836+00:00, a scoped read of originals 12/13, 15/16 and 17 found all five
+open. Their 59 comments and 128 paginated timeline events have no delta from the
+retained complete conversation review. Current bodies contain the operator's
+accepted amendments; no new completion report was found. Source/test findings
+below reuse the prior inspectable reviews; no suite, account, fixture or installed
+integration run was repeated. The contact/ownership home is
+[responsible operators](agent-contract.md#responsible-operators).
+
+A fresh credential-free Cabinet staging health read returned 200 at 20128fb,
+Mongo up, scheduler enabled/non-stale. The current environment could not resolve
+wiki.staging.xuanxue.su. Daychi PR18 remains draft/open at bb7295f and PR19 at
+ea464ef, retaining their reviewed source heads. These observations establish
+neither completed browser/native reads nor real shared reminder saves. A draft
+marker or lack of a merge is not independently a closure gate under the accepted
+test-runtime scopes.
+
+| Outcome and agreed proof | Already supported | Concrete remaining action and owner |
+|---|---|---|
+| [Browser 12/13](https://github.com/dveyarangi/xuanxue-workshop/issues/12), [consumer](https://github.com/dveyarangi/xuanxue-workshop/issues/13): real canonical staging; main scenarios live, remaining cases/isolation automated; production rollout non-blocking | Cabinet cookie/profile/check/entry/logout source and executed HTTP suites/probes; Daychi protected reader and restricted public projection, negative route/cache/profile checks, compiled bundle and resolved Windows finding (43 boundary tests). Independent direct-host synthetic staging behavior was inspected. Existing source/CI evidence remains reusable. | DNS operator @kotlarewski and Daychi @stnleo complete the existing private Railway ownership-value handoff and canonical staging DNS/TLS mapping. Daychi identifies the actual staging source/configuration and exposure/controlled-cache coverage for the accepted staging surface. With Cabinet's authorized account/session, both demonstrate valid-session protected material/recording reads, sign-in/original-page return and logout followed by next-read refusal. Workshop reconciles reused automated coverage and actual matching versions, then records acceptance in the originals. No production rollout or exhaustive live status/expiry/failure matrix is added. |
+| [Native content 15/16](https://github.com/dveyarangi/xuanxue-workshop/issues/15), [consumer](https://github.com/dveyarangi/xuanxue-workshop/issues/16): installed iOS Simulator Daychi, any Daychi backend, real Cabinet staging; only material/recording reads live | Cabinet PR602 grant-isolated capacity/source, real-HTTP composition and executed CI, plus identified staging deployment; restart-reset limitation is accepted. Daychi PR18 mounted native reader, source/checks and synthetic full-parent navigation/restoration/recording/recovery evidence are reviewed. No new implementation defect requiring correction is identified by this scoped unchanged-evidence read. | Daychi @stnleo supplies the installed Simulator build containing/enabling the native-content path and identifies its client/source/selected-backend mapping. Cabinet @kotlarewski supplies the authorized Cabinet staging account/native-grant arrangement as needed. Daychi returns the two actual content-read results through that chain. Workshop maps existing executed automated conformance evidence and those live reads to the common contract, then accepts/closes each contribution after its remaining action is complete. Browser DNS, reminder 17, physical hardware, Android and TestFlight add no prerequisite; no live revocation/status/outage fixture is required. |
+| [Reminders 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17): installed iOS Simulator Daychi and real Cabinet staging; existing joint common cases remain | Cabinet shared GET/PATCH and web recovery, delivery/seeding/legacy-writer separation source and executed checks are reviewed; PR609 corrections and PR610 diagnosis are reviewed/merged, and the current code is deployed on staging. Daychi PR19 protocol/confirmed writes/readback/fencing/guest/calendar/queue source and six successful source-specific checks are reviewed; synthetic installed QA includes 60-of-100 queue/cancellation/refill/empty-calendar/logout evidence. | Cabinet @kotlarewski returns actual rollout evidence for application of the accepted seeding and preservation/separation on the running revision, reusing the inspected Mongo/AppModule regression proof. Daychi @stnleo identifies an installed Simulator candidate connected to Cabinet staging and returns applicable installed queue/coverage results with their limits, reusing the existing evidence where valid. Both demonstrate the existing joint account/web/app cases: independent-key and same-key saves, lost-response readback without replay, offline edit refusal with retained reminders, received move/cancellation recovery and logout/account/issuer isolation. Workshop reconciles the current case mapping and shared artifacts, then records full acceptance in 17. Physical-device/Android delivery, client rejection solely for 51 returned class IDs and supplied delays over one hour remain non-blocking. No new screenshot, populated-guest cold-start or platform matrix is inferred from QA disclosures. |
+
+Evidence anchors: [browser provider review](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6171246714),
+[browser source/correction and hosting review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6179412624),
+[provider capacity review](#native-content-provider-capacity-review--2026-10-19),
+[mounted native reader](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6238564666),
+[full-parent native review](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6240310972),
+[reminder source/queue review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6279637451),
+[correction/diagnosis review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6281943775)
+and [subsequent deployed-version clarification](#reminder-runtime-clarification--2026-10-20).
+Their earlier stronger live-proof wording is superseded by the current accepted
+browser/native contracts and issue bodies. Source/automated support is not an
+unreported actual integration result. Absence of a complete case map at final
+review is an evidence question; it is not permission to invent a missing test or
+rerun accepted work without an identified gap.
+
 ## Reminder runtime clarification — 2026-10-20
 
 Fresh PR metadata confirms Cabinet [PR609](https://github.com/gregoryKot/xuanxue-cabinet/pull/609)

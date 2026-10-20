@@ -795,3 +795,21 @@ prepared bodies and retained open states, project labels and comment counts
 (15:3, 16:8); no extra comment or duplicate work was added. This confirms the
 current coordinator's propagation and readback, not independent recipient
 behavior under the revised rules. No live read or recipient deployment is claimed.
+
+### Accepted-scope closure status — 2026-10-20
+
+Producer: Workshop session 01a15874-1e56-7cc1-934f-4b050ecd8580. Rule basis:
+revised L9/L31 at a204a0b, observed under L34. The operator requested confirmed
+criteria, exact remaining closure actions and accountable owners for 12/13,
+15/16 and 17 after acceptance alignment.
+
+All five original conversations/timelines and relevant Daychi heads are unchanged.
+The current status mapping reuses valid source/automated results, preserves the
+narrow browser/native live matrices and all accepted exclusions, and distinguishes
+confirmed Cabinet staging deployment from actual migration/joint acceptance.
+Older board outcome phrases still describing environment alignment as a next
+decision were made consistent with the later accepted decisions in this pass.
+No operator correction, duplicate response or new acceptance gate arose. This
+is another coordinator reconciliation observation, not independent recipient
+behavior or proof that stale requirements cannot recur. Actual runtime reads and
+shared saves remain unclaimed; the owners and continuation are in current-system.
