@@ -176,6 +176,13 @@ same file.
 across the affected records, including earlier sections of the same file. Replace
 repeated decisions and work status with links to their owning records. An
 unreconciled remaining-work summary cannot establish a new assignment.
+
+**L34** Record each new maintenance or assignment-review case that exercises L9/L31 in
+docs/mechanisms/coordinate.evidence.md: date, producing session and rule revision,
+stale requirements or duplicate work, and any operator correction. Reuse normal
+work; unchanged reviews add no observation. Distinguish absence of observations
+from success and structural checks from behavior. Report recurrences to the
+Workshop operator. Retain observation until the operator grades the amendment.
 </installed>
 
 ## Finish

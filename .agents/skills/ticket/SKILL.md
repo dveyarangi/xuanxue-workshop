@@ -98,6 +98,14 @@ it will deliver.
 **L30** Override the slicing preference "Prefer many thin slices over few thick ones":
 prefer the fewest work items that preserve independently deliverable and
 verifiable outcomes.
+
+**L33** Make operator-agreed acceptance the primary outcome of Workshop alignment, including
+incoming project requests and issues. Present the observable criteria, required
+evidence and exclusions to the Workshop operator and obtain explicit agreement before
+treating them as binding. Additions, removals and waivers need that agreement too.
+Reuse agreed criteria without asking again. Project proposals and reviewer findings
+do not approve changes. Derive assignments and review results against the agreed
+acceptance scope.
 </installed>
 
 ### 3.1 Impact the proposed split

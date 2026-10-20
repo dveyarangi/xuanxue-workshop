@@ -163,6 +163,21 @@ assignment discussion, result reporting and duplicate checks for Workshop proble
 The project agent implements local work; Workshop retains shared-record maintenance
 and acceptance responsibility.
 
+## Acceptance authority
+
+The Workshop operator agrees every acceptance criterion for Workshop work and
+coordinated cross-project outcomes, including requests and issues originating in
+other projects. This authority covers required evidence, exclusions and subsequent
+additions, removals or waivers. A project request or reviewer finding is a proposal,
+not approval of a changed criterion.
+
+Acceptance alignment establishes what the shared boundary promises and what
+observable result is sufficient. Workshop derives assignments and reviews results
+against that agreed scope. Existing agreements remain valid across sessions and
+stages without renewed approval.
+
+Accepted by the Workshop operator, 2026-10-20.
+
 ## Workshop rules
 
 Workshop is accountable for addressed assignments, startup review, resolution of

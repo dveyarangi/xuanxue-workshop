@@ -195,4 +195,12 @@ consequence. An open migration detail does not reopen its governing decision.
 
 **L11** For Workshop boundary alignment, reconciliation and assignments, apply the
 scope-of-authority contract in docs/agent-contract.md#boundary-scope-and-product-language.
+
+**L33** Make operator-agreed acceptance the primary outcome of Workshop alignment, including
+incoming project requests and issues. Present the observable criteria, required
+evidence and exclusions to the Workshop operator and obtain explicit agreement before
+treating them as binding. Additions, removals and waivers need that agreement too.
+Reuse agreed criteria without asking again. Project proposals and reviewer findings
+do not approve changes. Derive assignments and review results against the agreed
+acceptance scope.
 </installed>

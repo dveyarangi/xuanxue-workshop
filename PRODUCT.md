@@ -22,6 +22,8 @@ Give new contributors and agents one entry point that connects their local worki
 
 Define the interfaces and behavior that projects promise each other: authentication, permissions, data formats, identifiers, time handling, errors, and supported client versions. Record proposed changes separately from accepted contracts and deployed capabilities.
 
+Workshop shapes and aligns shared boundaries through acceptance criteria agreed with its operator, including work requested by participating projects. These criteria define the promised observable outcome and sufficient evidence for acceptance.
+
 ### 4. Publish changes and track adoption
 
 Version shared instructions and agreements. For each published change, identify affected projects, required actions, and when adoption is required. Tell agents when they must reread instructions or repeat onboarding. Show which projects have adopted an update and which remain outstanding.

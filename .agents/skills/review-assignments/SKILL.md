@@ -206,4 +206,19 @@ existing checkpoints and recipient ownership.
 instructions and format. Operator wake reads it as context without repeating an
 unchanged report. The Telegram conversation role reads it when relevant to a request,
 without automatic distribution. Original issues and governing records remain authoritative.
+
+**L33** Make operator-agreed acceptance the primary outcome of Workshop alignment, including
+incoming project requests and issues. Present the observable criteria, required
+evidence and exclusions to the Workshop operator and obtain explicit agreement before
+treating them as binding. Additions, removals and waivers need that agreement too.
+Reuse agreed criteria without asking again. Project proposals and reviewer findings
+do not approve changes. Derive assignments and review results against the agreed
+acceptance scope.
+
+**L34** Record each new maintenance or assignment-review case that exercises L9/L31 in
+docs/mechanisms/coordinate.evidence.md: date, producing session and rule revision,
+stale requirements or duplicate work, and any operator correction. Reuse normal
+work; unchanged reviews add no observation. Distinguish absence of observations
+from success and structural checks from behavior. Report recurrences to the
+Workshop operator. Retain observation until the operator grades the amendment.
 </installed>

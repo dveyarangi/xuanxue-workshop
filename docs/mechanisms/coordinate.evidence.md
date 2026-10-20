@@ -1,5 +1,25 @@
 # Coordination loop evidence
 
+## Acceptance authority — 2026-10-20
+
+The operator identified alignment through acceptance criteria as a central Workshop
+capability, including incoming project requests and issues. The [acceptance authority](../agent-contract.md#acceptance-authority)
+owns the agreed responsibility; the product goal records the capability. Local L33
+supplies the instruction at alignment, coordination, issue preparation, decomposition,
+planning, assignment review and verification. Existing criteria are reused; their
+addition, removal or waiver remains the Workshop operator's decision.
+
+This pass registers the instruction and observation basis, not independent evidence
+that future agents follow it. A later case exposes a failure if a project proposal
+or review finding becomes a binding acceptance change without operator agreement,
+or a new session requests approval of unchanged, already-agreed criteria.
+
+Installed-rule validation first rejected the eight missing or outdated targets,
+then passed after installation. Mechanism, question-store and shared-report checks
+passed. The announced harness comparison passed at e5e74d6 after the network-enabled
+read. Scoped whitespace checks passed. No application code or recipient assignment
+changed, and no live integration or subsequent semantic observation was claimed.
+
 ## Agreement claims and remaining-work consistency — 2026-10-19
 
 The [failure record](../rule-failures.md#2026-10-19--partial-agreement-updates-left-a-competing-work-inventory)
@@ -16,6 +36,21 @@ The user will grade behavior through maintenance in a separate session. The resu
 should reconcile current agreement/work claims to their owners without inferring a
 new agreement from missing implementation or proof. Application documents and issue
 bodies are deliberately untouched; structural checks do not establish that outcome.
+
+### Recurrence observation — registered 2026-10-20
+
+The operator requested observation of the corrected rules in subsequent real work.
+[q-0002.0002.0006 — Do revised agreement-consistency rules prevent stale requirements and duplicate work from returning?](../questions/q-0002.0002.0006-do-revised-agreement-consistency-rules-prevent-stale-requirements-and-duplicate-work-from-returning.md)
+owns the unresolved assessment. Local L34 supplies observation during maintenance
+and assignment review; the producing session and published rule revision identify
+each observation's basis. A recurrence includes a stale acceptance requirement
+returning to pending work or a duplicate inventory creating already-settled work;
+operator intervention remains part of the observed result.
+
+At registration no subsequent qualifying observation is claimed. There is no
+agreed success-count threshold or automatic closure; the Workshop operator grades
+the amendment. Existing failure history remains evidence of failure, and clean
+structural checks remain installation evidence.
 
 ## Outcome ownership and consolidated communication — 2026-10-19
 

@@ -14,6 +14,7 @@
 | `.agents/skills/review-assignments/PERIODIC.md` | `## Completion` |
 | `.agents/skills/recall/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/align/SKILL.md` | `</supporting-info>` |
+| `.agents/skills/plan/SKILL.md` | `## Installed from other mechanisms` |
 | `.agents/skills/ticket/SKILL.md` | `### 3. Draft vertical slices` |
 | `.agents/skills/mechanism/SKILL.md` | `## Amend and retire` |
 | `skills/collaborate/SKILL.md` | `## Installation` |
@@ -589,6 +590,46 @@ across the affected records, including earlier sections of the same file. Replac
 repeated decisions and work status with links to their owning records. An
 unreconciled remaining-work summary cannot establish a new assignment.
 </rule>
+
+## L33 — operator-agreed acceptance
+
+- **target** `.agents/skills/align/SKILL.md`
+- **target** `.agents/skills/coordinate/SKILL.md`
+- **target** `.agents/skills/issue/SKILL.md`
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **target** `.agents/skills/ticket/SKILL.md`
+- **target** `.agents/skills/plan/SKILL.md`
+- **target** `.agents/skills/verify/SKILL.md`
+- **authority** the user, 2026-10-20, acceptance alignment and Workshop-operator approval for all criteria, including incoming project work
+
+<rule>
+Make operator-agreed acceptance the primary outcome of Workshop alignment, including
+incoming project requests and issues. Present the observable criteria, required
+evidence and exclusions to the Workshop operator and obtain explicit agreement before
+treating them as binding. Additions, removals and waivers need that agreement too.
+Reuse agreed criteria without asking again. Project proposals and reviewer findings
+do not approve changes. Derive assignments and review results against the agreed
+acceptance scope.
+</rule>
+
+<straw-dog question="q-0002.0002.0006">
+
+## L34 — agreement-consistency observation
+
+- **target** `.agents/skills/maintain/SKILL.md`
+- **target** `.agents/skills/review-assignments/SKILL.md`
+- **authority** the user, 2026-10-20, observe recurrence after the 19 October rule corrections
+
+<rule>
+Record each new maintenance or assignment-review case that exercises L9/L31 in
+docs/mechanisms/coordinate.evidence.md: date, producing session and rule revision,
+stale requirements or duplicate work, and any operator correction. Reuse normal
+work; unchanged reviews add no observation. Distinguish absence of observations
+from success and structural checks from behavior. Report recurrences to the
+Workshop operator. Retain observation until the operator grades the amendment.
+</rule>
+
+</straw-dog>
 
 ## L27 — quick Telegram conversation
 

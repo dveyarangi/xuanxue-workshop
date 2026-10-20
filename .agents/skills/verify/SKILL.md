@@ -66,6 +66,14 @@ The local Workshop application uses Python standard-library tests:
 For documentation changes, verify claims against PRODUCT.md and
 the affected projects' authoritative sources, and verify referenced paths exist.
 When changing records, run the owning mechanism's validator for those records.
+
+**L33** Make operator-agreed acceptance the primary outcome of Workshop alignment, including
+incoming project requests and issues. Present the observable criteria, required
+evidence and exclusions to the Workshop operator and obtain explicit agreement before
+treating them as binding. Additions, removals and waivers need that agreement too.
+Reuse agreed criteria without asking again. Project proposals and reviewer findings
+do not approve changes. Derive assignments and review results against the agreed
+acceptance scope.
 </installed>
 
 

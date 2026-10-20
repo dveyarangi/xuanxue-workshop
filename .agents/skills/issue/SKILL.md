@@ -142,4 +142,12 @@ that issue; also reopen a closed issue when review finds an unresolved recipient
 request. Verify the resulting state. Retain acceptance of completed contributions
 and distinguish the remaining action; reopening does not request reimplementation
 or change the agreed scope. Project agents discover their work through open issues.
+
+**L33** Make operator-agreed acceptance the primary outcome of Workshop alignment, including
+incoming project requests and issues. Present the observable criteria, required
+evidence and exclusions to the Workshop operator and obtain explicit agreement before
+treating them as binding. Additions, removals and waivers need that agreement too.
+Reuse agreed criteria without asking again. Project proposals and reviewer findings
+do not approve changes. Derive assignments and review results against the agreed
+acceptance scope.
 </installed>
