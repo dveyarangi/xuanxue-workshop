@@ -1,7 +1,7 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-10-20T10:37:09+00:00
+- **Reviewed:** 2026-10-20T10:45:15+00:00
 
 ## Reviewed scope
 
@@ -14,6 +14,8 @@ The retained 02:36 UTC periodic review covered all 12 host-selected originals: 2
 New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 and PR610 at d855ba573a3b876db056beefcf5d46ac363bb6d7, their complete deltas, relevant parser/reducer/hook/transport and test-support source, regression assertions and exact-head CI job steps. At that overnight source review Cabinet main was independently confirmed at 9fc0703d53d12d510c40c0981f985d10339ad63a and both candidates were open/unmerged. Fresh PR metadata now confirms PR609 merged at c60944f091bbeb96665a39cb0ae63f60332180a4 on 20 October at 07:08:06 UTC and PR610 at 20128fbdcda9a310f377f8d3c288ff47399c4f63 at 07:08:11 UTC, retaining the reviewed heads. This confirms merge state, not deployment or new merge-CI execution. A local exact-source Node probe stripped TypeScript and substituted imported shared constants from the inspected revision. No recipient suite, browser/account, device, fixture, DNS, deployment or release operation was run.
 
 ## Results
+
+- **Browser environments accepted, 20 October:** the operator accepted [real staging as sufficient for 12/13 acceptance and closure](contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20). Production rollout remains recipient-owned and non-blocking; isolation uses executed automated tests and inspectable configuration. The accepted live/automated evidence split remains in force. The common contract, boundary, ticket and plan are reconciled; the prepared paired original-body amendments also remove the stale dependency on closed article 9. Publication/readback remains in this same authorized pass. No runtime success is inferred.
 
 - **Browser evidence split accepted, 20 October:** the Workshop operator accepted [live main-scenario proof and executed automated boundary-case tests](contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20) for originals 12/13. Live proof covers valid-session protected material/recording reads, sign-in with original-page return, and logout followed by refusal of the next protected read. Renewal, expiry, account deletion/blocking, malformed responses, timeouts and remaining boundary cases do not each require a live run. Shared behavior remains binding; acceptance environments are the next operator decision. No new runtime proof was performed.
 
@@ -43,10 +45,10 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 **Reviewer commitments**
 
-- Continue browser 12/13 acceptance alignment and reconcile the affected existing issue bodies after the decisions. Reminder 17 runtime scope is already published in its original body; accepted implementation work continues under its current scope.
+- Publish/read back the consolidated 12/13 acceptance amendments against one immutable authority, correcting the stale original-9 dependency. Continue acceptance alignment for native-content 15/16. Reminder 17 runtime scope is already published; accepted implementation work continues under its current scope.
 - On changed Cabinet integration/deployment and rollout evidence or Daychi consumer/device evidence, review preservation, conformance and joint outcomes against the [amended reminder contract](contracts/reminder-sync.md), reusing valid source/account/public-provider proof. The two waived client observations are not waiting corrections; reconsider them on evidence of an effect on normal operation. PR610's scoped diagnosis evidence remains reviewed.
 - On actual owner-authorized native-content runtime and matching account/grant/status/failure evidence in 15/16, inspect protected delivery, revocation/isolation and recovery in 16/11. Restart persistence, reminder implementation and issue closure add no prerequisite.
-- After the canonical DNS/ownership/TLS handoff, verify the actual host and assess the agreed live browser scenarios plus executed automated conformance evidence in 12/13, including reader/alias/cache protection. The accepted 20 October evidence split governs proof form; acceptance environments remain under alignment. Existing valid source/check evidence remains reusable.
+- After the canonical DNS/ownership/TLS handoff, verify the actual host and assess the agreed live browser scenarios plus executed automated conformance evidence in 12/13, including reader/alias/cache protection. The accepted 20 October evidence split governs proof form; real staging suffices and production rollout is non-blocking. Existing valid source/check evidence remains reusable.
 - Original 17 now cites the amended immutable contract, distinguishes reviewed merged/candidate progress and records the two non-blocking observations. Its older-progress body follow-up is resolved by the in-place update.
 
 **Recipient-agent work**
@@ -57,7 +59,7 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 **Operator-only actions**
 
-- **Browser acceptance environments:** Workshop operator @Yarangi decides in the [current alignment](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) whether real Cabinet staging and canonical wiki.staging.xuanxue.su suffice for current 12/13 acceptance and closure, with production rollout retained as recipient-owned release work, or whether deployed production proof remains a closure gate. Recommendation: accept on real staging, retain both environment profiles and automated isolation/configuration evidence, and distinguish production rollout from current Workshop acceptance. This recommendation is not accepted yet. Workshop will record the decision and consolidate accepted browser changes with the stale original-9 reference correction in 12/13.
+- **Native-content acceptance:** Workshop operator @Yarangi decides in the [current alignment](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) which 15/16 outcomes must be demonstrated live. Existing staging, synthetic expiry/deletion/capacity and no-second-platform exclusions stay fixed. Recommendation: live protected material/recording reads and next-read refusal after native-grant revocation, while another session remains usable; prove block/unblock, outage/recovery and remaining boundaries with executed automated tests. This narrower live matrix is a proposal, not a native-content amendment. Workshop will land the decision and separately align the acceptable installed native runtime.
 
 - No fresh contract/publication decision is required for the existing canonical browser route or reminder implementation. Only if earlier browser access is required, Workshop operator @Yarangi may authorize preparation of the bounded same-origin alternative described in [original 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6237596407). Recommendation remains completing the accepted canonical handoff. Workshop would then prepare the exact alternative and common cases for alignment; no alternative is accepted or assigned.
 

@@ -90,7 +90,8 @@ original identities, unchanged public data with credentials/query variations,
 protected-reader refusal and valid-session/sign-in navigation on click.
 Inspectable source and deployed inventory establish compliance; the accepted
 exception does not accept the reported local candidate, deploy it or authorize
-release. Original issues 13 and 9 retain implementation and transition evidence.
+release. Original issue 13, paired with 12, retains browser implementation and
+transition evidence; closed article issue 9 adds no remaining browser action.
 
 ## Accepted production and staging separation
 
@@ -150,7 +151,8 @@ the accepted trusted cookie namespace and ignore the received production cookie
 without logging it. Excluding staging from that delivery would need a different
 domain arrangement; no domain move is accepted.
 
-Common proof runs both profiles in one browser, in both sign-in orders. Each wiki
+Automated environment-isolation proof covers both profiles and both sign-in
+orders in one browser context. Each wiki
 succeeds only with its own valid session/account; production-cookie-only staging
 reads fail without calling production; relabeled cross-environment tokens fail;
 duplicate active values refuse while one value of each name does not. Renewal and
@@ -158,8 +160,10 @@ logout affect only their own profile. Staging legacy cleanup removes only the
 host-only cookie, retains production's parent-domain cookie and leaves no fallback.
 Provider renewal contains no legacy cleanup headers. Staging sign-in returns to
 staging wiki with the original path/query/hash; external destinations refuse.
-Actual origins, TLS/routing, source and profile configuration accompany joint
-proof. Mock/local tests do not establish deployment or either profile's conformance.
+Actual staging origins, TLS/routing, source and profile configuration accompany
+joint proof. Automated tests establish profile/isolation behavior, not a claim
+of production deployment. The accepted current-delivery scope below governs
+which deployed environment is required for acceptance.
 
 ## Compatibility and transition
 
@@ -385,6 +389,23 @@ automated tests; a separate live run of every such case is not required.
 
 This changes evidence form, not the accepted behavior or environment profiles.
 No completed joint run is established by this decision.
+
+## Accepted acceptance environments — 2026-10-20
+
+Decision: the Workshop operator, 2026-10-20.
+
+Current Workshop acceptance and closure of originals 12/13 require the agreed
+live scenarios on real Cabinet staging and wiki.staging.xuanxue.su. Production
+rollout remains recipient-owned release work and does not block acceptance or
+closure.
+
+Environment isolation remains required and is established through executed
+automated tests and inspectable configuration. No live production run or
+simultaneous deployed production/staging run is required for current acceptance.
+
+The production/staging profile definitions and shared behavior remain binding.
+This acceptance scope establishes neither a completed staging run nor production
+deployment; production rollout is not a remaining acceptance action in 12/13.
 
 ## Superseded policy references
 

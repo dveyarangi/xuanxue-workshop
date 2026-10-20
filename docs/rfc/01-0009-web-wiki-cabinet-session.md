@@ -3,7 +3,7 @@
 - **record of** what it intends to become
 
 **Authored:** 2026-10-13
-**Last amended:** 2026-10-13
+**Last amended:** 2026-10-20
 
 Implements [01-0009 web-wiki-cabinet-session](../tickets/01-0009-web-wiki-cabinet-session.md).
 
@@ -12,6 +12,15 @@ Implements [01-0009 web-wiki-cabinet-session](../tickets/01-0009-web-wiki-cabine
 The [article acceptance](../current-system.md#structured-article-acceptance--2026-10-19) closes original issue 9. Its prospective browser exposure/cache and affected-reader transition remains in existing Daychi 13, paired with Cabinet 12; later references below to issue 9 as the transition channel are historical. No browser obligation, implementation or proof is waived by article closure.
 
 ## Governing scope
+
+The operator's 20 October [evidence split](../contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20)
+and [acceptance environments](../contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20)
+govern every proof stage and case below. Main scenarios run live on real staging:
+valid-session protected material/recording reads, sign-in/original-page return,
+and logout followed by next-read refusal. Remaining boundary cases and environment
+isolation use inspectable source/configuration and executed automated tests.
+Production rollout and live production proof do not block current acceptance or
+closure of 12/13. The common behavior and profile definitions remain unchanged.
 
 The [accepted web-wiki contract](../contracts/web-wiki-session.md) owns shared
 cookie scope, session-check wire, entry/migration/return, Cabinet-site logout,
@@ -230,14 +239,14 @@ release. Local implementation choices remain with each project.
 | Ticket criterion | Stage and evidence |
 |---|---|
 | Common immutable authority and briefs | Stage 1: revision, readable links, recipient labels/body readback and shared conformance coverage. |
-| Existing session/migration/lifetime | Stages 2/5: real HTTP/browser cookie state and controlled age/expiry boundaries. |
+| Existing session/migration/lifetime | Stages 2/5: live valid-session reading on staging; executed automated tests for migration and controlled age/expiry boundaries. |
 | Original-page/per-tab return | Stages 2/5: every enabled sign-in method, existing/native continuation, another-tab email and fallback. |
 | Valid/current-account/refusal rules | Stages 2/3/5: active, absent, forged, expired, deleted, blocked/unblocked and duplicate cases. |
 | Provider failure | Stages 3/5: 429, 5xx, timeout, TLS/transport, redirect and unexpected status/body with no protected response. |
 | Renewal/no persistence/multi-reader checks | Stages 2/3/5: renewed browser cookie, exact per-request validation, source/storage/log review and multiple-account traffic. |
 | Cabinet-site logout | Stages 2/3/5: side-effect-free page GET, bound POST, both cookie expirations, absent/expired session and lost response/retry. |
 | Anonymous-access cutover | Stages 3/4/5: complete origin/path/cache inventory, direct requests and prospective original-issue reconciliation. |
-| Joint proof and retained scopes | Stage 5 plus recipient regressions: versions/configuration, actual two-site flow and unaffected authority/projection cases. |
+| Joint proof and retained scopes | Stage 5 plus recipient regressions: matching staging versions/configuration and agreed live two-site scenarios; executed automated boundary/isolation/regression evidence. Production rollout is not a closure gate. |
 | /verify and acknowledgement | Stage 5: complete criteria, scoped Workshop checks, original-issue reconciliation and acceptance. |
 
 ## Shared-shape completeness

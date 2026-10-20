@@ -425,6 +425,15 @@ legacy staging cleanup and independent lifecycle proof. Production credentials
 still reach trusted staging hosts; staging ignores them. Recipient implementation,
 DNS/HTTPS provisioning and deployed proof remain work.
 
+On 2026-10-20 the Workshop operator accepted the
+[current evidence split](contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20)
+and [acceptance environments](contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20):
+main browser scenarios run live on real Cabinet staging and canonical staging
+wiki; remaining boundary cases and environment isolation use executed automated
+tests and inspectable source/configuration. Production rollout remains owned by
+the recipients and does not block acceptance or closure of 12/13. The fixed
+profiles and behavior are unchanged; this records no completed runtime proof.
+
 ### Accepted web-wiki sign-in handoff
 
 The earlier separate code-and-PKCE handoff was superseded on 2026-10-12 by the
