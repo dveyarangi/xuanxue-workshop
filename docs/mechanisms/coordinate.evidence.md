@@ -56,7 +56,7 @@ structural checks remain installation evidence.
 
 Producing session: 01a15874-1e56-7cc1-934f-4b050ecd8580. The audit started from
 46b2f9c with the installed L9/L31 bodies unchanged; L33/L34 are separately recorded
-above. The [acceptance audit](../questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md)
+above. The [acceptance audit](../questions/done/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md)
 read all six open originals and their complete conversations/timelines. It found
 an existing stale transition dependency in browser 12/13 pointing to closed 9,
 whose current closure explicitly leaves that transition with 12/13. No canceled
@@ -775,3 +775,23 @@ or duplicate work was observed in this pass. This is confirmed self-propagation,
 not independent evidence that recipient agents running the revised rules avoid
 recurrence. No new recipient runtime, production deployment or live acceptance
 success is claimed; native-content criteria remain under operator alignment.
+
+### Native-content acceptance propagated — 2026-10-20
+
+Producer: current Workshop operator session 01a15874-1e56-7cc1-934f-4b050ecd8580.
+Rule basis: revised L9/L31 at published Workshop 1fd3890, observed under L34.
+The operator explicitly selected installed Daychi in iOS Simulator, any Daychi
+backend and real Cabinet staging, with only material/recording delivery live.
+
+Full-body reconciliation removed the old mandatory live revocation/status/outage
+arrangements and any implication that Daychi must use a staging-hosted backend.
+The contract, boundary and current question/board claims agree with the runtime
+and executed automated evidence scope; accepted behavior and restart-reset
+exclusions remain. Existing accepted installation/native-account proof is reused.
+
+Originals 15/16 both cite immutable authority
+1fd3890b4a3b56b4a262dfa74e9929b4002d75aa. Fresh readback matched the complete
+prepared bodies and retained open states, project labels and comment counts
+(15:3, 16:8); no extra comment or duplicate work was added. This confirms the
+current coordinator's propagation and readback, not independent recipient
+behavior under the revised rules. No live read or recipient deployment is claimed.
