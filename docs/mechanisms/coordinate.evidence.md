@@ -714,6 +714,44 @@ tool operations; no Telegram transport is present. Installed-rule, mechanism,
 question and shared-report checks pass, as does the announced harness comparison.
 This is isolated response evidence, not a live onboarding or delivery claim.
 
+### Workshop-owned discovery and scoped endings - 2026-10-20
+
+The operator rejected the previously reported neutral probe: it assigned
+repository-derived technical context to the project agent and appended unasked
+qualifications. The preceding probe's criteria did not cover these failures.
+The agreement now names Workshop as the owner of technical discovery; L20 binds
+its reception work to that ownership. L22 attributes activities to their agreed
+owners and ends the requested explanation without general closing caveats.
+
+Before the next probe, success requires Workshop to collect technical context,
+the project agent to open the labelled request and install the supplied context,
+only the four initial facts to be requested, and no unrelated closing caveats.
+The answer-only worker has no tools or Telegram transport; the response is
+observed without editing it. This checks explanation, not live project reception.
+
+The first ownership probe assigns discovery to Workshop correctly but still
+appends the unrelated installation and application-readiness caveats. The general
+ending prohibition did not hold. L22 now gives process answers a structural end:
+the final step or handoff, with necessary conditions inside the step they affect.
+The same neutral request is repeated; the response is not trimmed by the caller.
+
+That repeat still added a general closing paragraph. The probe remains failed.
+L22 now specifies only numbered steps for a process answer, without prose before
+or after them, ending at the final handoff. Ownership and the request stay fixed.
+
+The numbered-only probe moved the qualifications into its last step rather than
+removing them, and introduced an unsupported implication that project work begins
+after acceptance. It is not a pass. L22 now limits each step to its own action,
+executor, parameters and necessary conditions, stops at process completion, and
+omits subsequent unrelated work and statements about what the result does not
+prove. The source contracts retain their accepted separation of outcomes.
+
+The final scope probe names Workshop as technical-discovery owner in step 3 and
+ends at Workshop's acceptance handoff in step 6. It contains no subsequent-work
+qualification, application-readiness caveat or closing assurance. The answer is
+retained unedited; the worker reports zero tool operations. Installed bindings,
+mechanism and record checks and the announced harness comparison pass.
+
 ### Browser acceptance propagated — 2026-10-20
 
 Producer: current Workshop operator session 01a15874-1e56-7cc1-934f-4b050ecd8580.

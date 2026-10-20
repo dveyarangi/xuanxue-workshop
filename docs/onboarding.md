@@ -12,10 +12,10 @@ The project agent owns the first connection request, addressed to `project:works
 Workshop owns its review and reception.
 
 The initial context consists of the repository, purpose, accountable operator and
-participating GitHub accounts. Technical context and cross-project connections
-come from the repository and existing evidence. Only facts unavailable from those
-sources require additional input. An existing installation and its provenance
-inform the work required for the connection.
+participating GitHub accounts. Workshop establishes the technical context and
+cross-project connections from the repository and existing evidence. Only facts
+unavailable from those sources require additional input. An existing installation
+and its provenance inform the work required for the connection.
 
 ## Access and communication
 

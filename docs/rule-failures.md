@@ -517,6 +517,14 @@ intake agreement and format now own the minimal context and Workshop label.
 The [response probe](mechanisms/coordinate.evidence.md#participant-actions-and-repository-derived-intake---2026-10-20)
 holds the behavioral verification scope. No additional global rule is added.
 
+Struck again, 2026-10-20: the neutral probe passed the narrow wording checks but
+assigned technical discovery to the project agent and retained unasked closing
+caveats. The operator rejected both. L20 and the onboarding agreement now name
+Workshop as discovery owner; L22 resolves activity ownership from the governing
+agreement and stops after the requested explanation. The
+[ownership and ending probe](mechanisms/coordinate.evidence.md#workshop-owned-discovery-and-scoped-endings---2026-10-20)
+tests these previously omitted outcomes. No new rule or reading occasion is added.
+
 ## 2026-10-13 — Shared production cookie reviewed without staging coexistence
 
 Status: environment isolation accepted on 2026-10-13; recipient amendment published and read back.

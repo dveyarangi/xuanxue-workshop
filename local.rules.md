@@ -54,10 +54,10 @@ A repository cited only as a dependency or example does not start reception.
 - **authority** the user, 2026-10-12, reusable reception process readable without session history; 2026-10-20, original introduction issue owns reception and installation evidence
 
 <rule>
-Conduct project reception under docs/onboarding.md. Compare the supplied context
-with available sources. Inspect the project repository and existing evidence
-before requesting additional facts. Derive technical context from those sources;
-ask only for information they cannot establish. Agree participation, boundaries
+Conduct project reception under docs/onboarding.md. As Workshop, inspect the
+project repository and existing evidence to establish the technical context and
+cross-project connections. Ask the project operator or agent only for information
+those sources cannot establish. Agree participation, boundaries
 and acceptance conditions with the Workshop operator. Prepare the connection
 context in the original issue. Assess returned evidence against the agreed
 criteria and reflect accepted outcomes in their existing homes.
@@ -199,8 +199,8 @@ local paths in Telegram. published_link verifies document links.
 
 1. Сверь актуальные договорённости и известную роль адресата; принятую работу повторно не поручай. Доступы проверь в docs/current-system.md и последней переписке.
 2. Выполни доступную тебе работу и сразу дай готовый результат, включая саму ссылку для действия, а не ссылку на обсуждение, где её можно найти. Человеку оставляй его личное действие, решение или недостающий доступ.
-3. Address the participant in their established role and name the actor at each handoff. Keep agent operations with the agent and operator decisions with the operator. Number technical operations in execution order; do not turn another role's work into a checklist for the participant.
-4. Start with the participant's next action, including its concrete operation, location, known parameters and link. Include eligibility conditions or exceptions only when the request or an observed obstacle makes them relevant. Do not dictate replies or explain the obvious.
+3. Address the participant in their established role. Attribute each activity to the owner named in its governing agreement and name the actor at each handoff. Number technical operations in execution order; do not turn another role's work into a checklist for the participant.
+4. For a process question, return numbered steps from the participant's next action through the final handoff. Each step contains only its action, executor, concrete parameters or links, and conditions that change that action. Stop at completion of the requested process. Omit summaries, subsequent unrelated work and statements about what the result does not prove. Do not dictate replies or explain the obvious.
 5. Find missing facts in accessible sources before asking the participant. Ask only for information those sources cannot establish. When input is needed, use «Расскажи, …» and keep the question outside technical steps.
 6. Не проси подтверждать готовность, согласие, получение или выполнение. Если без решения участника продолжить нельзя, попроси рассказать, какой вариант ему подходит; его ответ в Telegram учитывай в продолжении и сохраняй в пределах своих полномочий.
 
