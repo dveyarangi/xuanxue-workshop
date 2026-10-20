@@ -1,13 +1,13 @@
 # xuanxue-cabinet: Cabinet session for web-wiki reading
 
-**Published, amended 2026-10-14:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/12). Recipient label: `project:cabinet`.
+**Published, amended 2026-10-20:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/12). Recipient label: `project:cabinet`.
 The original issue holds current recipient work and reports; this file retains the
 reviewed published assignment. Publication is not implementation or deployed proof.
 
 Accepted web-wiki shared-browser-session implementation assignment.
 
-Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/tickets/01-0009-web-wiki-cabinet-session.md).
-Shared contract revision: `d689c24af9e848cae8db81e4cc5701f9cb7a610c`.
+Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/tickets/01-0009-web-wiki-cabinet-session.md).
+Shared contract revision: `ec3f17a7808f81a098e432958f89f1018368a32e`.
 Original coordination request: [app/wiki connection #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 
 ## Recipient and outcome
@@ -51,12 +51,12 @@ session wire and all protected reader obligations are unchanged. Acceptance of
 the exception does not verify the reported local candidate or authorize release.
 
 The sole shared definition is the
-[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/contracts/web-wiki-session.md).
+[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/contracts/web-wiki-session.md).
 Its shared-session, environment profiles, compatibility, browser entry/migration, Cabinet-site logout
 and current-session-check sections define exact wire, input validation, statuses,
 cookie lifecycle, common examples and proof cases. Use the same published revision
 as the [Daychi contribution](https://github.com/dveyarangi/xuanxue-workshop/issues/13).
-The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/rfc/01-0009-web-wiki-cabinet-session.md)
+The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/rfc/01-0009-web-wiki-cabinet-session.md)
 maps these obligations and adversarial cases to the whole outcome; it adds no
 alternate protocol. Content DTOs remain Daychi-owned.
 
@@ -75,7 +75,8 @@ retains its accepted scope; it is not a predecessor of this web contribution.
   host-only `session`, never production's parent-domain cookie. Preserve the check's
   renewal-only headers. Staging entry/return/logout use only the staging origins.
   Configure by deployment profile, not `NODE_ENV` alone. Report provider hosting,
-  DNS/HTTPS and fixture readiness for both environments.
+  DNS/HTTPS and authorized account readiness for staging; inspectable production
+  profile configuration remains required, while its release/readiness is non-blocking.
 - Issue and expire the accepted shared production session cookie throughout
   browser login, rolling renewal and logout. Migrate old Cabinet host-only values
   without leaving two competing sessions. Valid-session sharing preserves original
@@ -116,12 +117,15 @@ Implementation can start under Cabinet's operator against the published settled
 contract, independently of Daychi deployment and native issues 7/8. Workshop
 readiness or installation acknowledgement is not a further prerequisite.
 
-Provider proof needs authorized disposable account/status/time fixtures and an
-actual browser session. Cabinet's operator owns fixture changes and deployment
-approval. Joint proof additionally needs compatible deployed Cabinet and Daychi
-origins/source/configuration, actual browser execution and the prospective
-anonymous-access amendment in
-[original article issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9).
+Live provider proof needs an owner-authorized staging account and actual browser
+session. Cabinet's operator owns fixture changes and deployment approval. Joint
+proof needs compatible deployed Cabinet staging and canonical staging wiki,
+matching source/configuration, actual main-scenario execution and the reader
+exposure/cache transition owned by
+[Daychi original 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13), paired
+with this contribution. Closed article issue 9 adds no remaining browser action.
+Expiry, deletion, status and failure cases use executed automated tests; no new
+live aging/deletion/status fixture or production release is required.
 Cabinet exposes and reports its conforming provider before Daychi's web cutover;
 Daychi/Workshop own reader exposure/cache closure and shared acceptance. A local
 provider success does not finish the combined connection.
@@ -132,11 +136,11 @@ provider success does not finish the combined connection.
 Existing boundary: Cabinet backend ↔ Cabinet frontend, with local entry points
 `api/`, `web/` and `shared/`. Cabinet owns accounts and current account restrictions.
 Daychi retains its content backend; Knowledge supplies Daychi's editorial/import
-inputs. Current scope/evidence: [Workshop current system](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/current-system.md).
+inputs. Current scope/evidence: [Workshop current system](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/current-system.md).
 
 Accepted target boundaries, joint integration not established: Cabinet backend ↔
 Daychi clients for schedule/account capabilities; Daychi backend ↔ Cabinet backend
-for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/boundaries.md#target-connections)
+for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/boundaries.md#target-connections)
 and [native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/contracts/native-account-session.md) own
 their respective scopes; web-wiki work does not change native bearer/private access.
 
@@ -145,7 +149,7 @@ Cabinet owns issuance/current-account validation, browser entry/return and logou
 Daychi owns protected web delivery and per-request validation through Cabinet.
 All and only valid Cabinet-authenticated web readers receive the same content,
 without additional wiki eligibility or persisted wiki reader credentials/accounts.
-[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/d689c24af9e848cae8db81e4cc5701f9cb7a610c/docs/contracts/web-wiki-session.md) owns this boundary.
+[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/contracts/web-wiki-session.md) owns this boundary.
 Daychi's homepage may expose only the contract's separate limited public graph
 overview without a Cabinet session. Existing reader APIs remain protected;
 entering the reader reuses a valid session or signs in with original-page return.
@@ -157,37 +161,61 @@ Implementation, coordinated anonymous-access cutover and deployed joint proof
 remain separate evidence from accepting the target.
 ```
 
+## Accepted current-delivery acceptance — 2026-10-20
+
+Decision: the Workshop operator, 2026-10-20. The common immutable authority above
+includes the accepted evidence split and acceptance-environment amendment.
+
+Current acceptance and closure use real Cabinet staging and canonical
+wiki.staging.xuanxue.su. Production rollout remains recipient-owned release work
+and does not block either acceptance or closure; it is not a remaining acceptance
+action in these contributions. No completed live run or production deployment is
+claimed by this scope amendment.
+
+Live browser proof covers protected material and recording reads with a valid
+Cabinet session, sign-in with original-page return, and logout followed by refusal
+of the next protected read. Renewal, expiry, account deletion/blocking, malformed
+responses, timeouts and remaining boundary cases use inspectable source and
+executed automated tests; a separate live run of every such case is not required.
+
+Environment isolation remains required in executed automated tests and inspectable
+configuration: both profiles/sign-in orders, separate cookies and account/key
+authorities, active-name duplicates versus distinct names, cross-environment
+refusal, independent renewal/logout, staging legacy cleanup and return routing.
+No live production run or simultaneous deployed production/staging run is required.
+Actual staging origin/TLS/routing and matching source/runtime/configuration accompany
+the live proof; a production DNS alias does not establish a separate staging reader.
+
 ## Acceptance evidence
 
-The same authority distinguishes the allowed homepage overview from protected
-reader delivery. Daychi supplies anonymous and empty-overview examples, absence
-of excluded content/original identities, cookie/query variations that cannot
-broaden exposure, protected-reader refusal, and click navigation with an existing
-session and through sign-in/original-page return. Cabinet supplies the unchanged
-provider/entry/return behavior for that joint proof; preview rendering introduces
-no Cabinet operation or credential dependency.
+The same authority distinguishes the limited public homepage overview from
+protected delivery. Daychi supplies inspectable source and executed checks for
+anonymous/empty projection, excluded content/identities, cookie/query input
+variations, protected-reader refusal and all inventoried reader/alias/cache
+paths. The accepted live sign-in/return/read/logout scenarios use that reader;
+the preview introduces no new Cabinet endpoint or credential dependency.
 
-Include the contract's same-browser environment cases: both sign-in orders,
-independent renewal/logout, own-name duplicate refusal, ignored other-profile
-cookies, relabeled cross-environment token refusal, legacy staging cleanup and
-staging return routing. Identify matching profile configuration, distinct
-key/account authorities and origin/TLS evidence without disclosing secrets.
+Provider evidence covers current/missing/forged/expired/deleted/blocked/unblocked/
+duplicate sessions, exact empty success/refusal/failure, renewal thresholds/relay,
+multi-reader traffic, legacy migration, entry/return validation and enabled
+sign-in methods, side-effect-free logout GET, bound mutation, cookie expirations,
+absent/expired-session handling and lost-response retry. Use executed assembled
+HTTP/browser tests for these boundaries; an isolated formatter/controller unit
+test does not prove route/header/navigation composition. These cases do not each
+need a live deployed account or browser run.
 
-Report in the original published assignment: commit/PR, exact shared authority,
-executed checks/counts and expected outcomes, changed instruction context,
-deployment origin/revision/configuration, controlled fixture procedure and limits.
-Credentials and private account details remain outside issue/log evidence.
+Supply the authorized staging provider/account environment and observations
+needed for the common live scenarios. Reuse valid implementation/check evidence.
 
-Evidence covers the contract's provider cases: current/missing/forged/expired/
-deleted/blocked/unblocked/duplicate sessions, empty success versus refusal/failure,
-renewal threshold/expiry and multi-reader checks; original/legacy session migration
-and all enabled sign-in/return cases; side-effect-free logout page, bound mutation,
-both expirations, missing/expired-session logout and lost-response retry.
-Assembled HTTP/browser checks establish actual headers, routes and navigation;
-a formatter/controller unit test alone is insufficient.
+Report in this original contribution: immutable implementation commits/PRs,
+the shared authority, executed case mapping and outcomes, changed instruction
+context, actual staging origin/source/runtime/configuration, exposure/cache or
+provider evidence as applicable, authorized account procedure and disclosed limits.
+Credentials and private account data stay outside issue/log artifacts.
 
-Supply the authorized provider/account environment for joint browser reading,
-renewal, return, refusal/failure and logout proof. Workshop compares both recipients'
-evidence against the same cases and acknowledges acceptance in their original
-assignments. Keep this assignment open until that review; closing an issue or
-reporting green CI alone does not establish joint acceptance.
+Workshop compares both contributions against the agreed common scope and
+acknowledges acceptance in the original assignments. The reader exposure/cache
+transition remains in 13 paired with 12; article issue 9 has no remaining browser
+action. Keep this assignment open until outstanding recipient acceptance actions
+and the common review are complete. Green CI or issue closure alone is not joint
+acceptance; production rollout adds no hold after the agreed proof passes.

@@ -1,7 +1,7 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-10-20T10:45:15+00:00
+- **Reviewed:** 2026-10-20T10:47:24+00:00
 
 ## Reviewed scope
 
@@ -15,13 +15,13 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 ## Results
 
-- **Browser environments accepted, 20 October:** the operator accepted [real staging as sufficient for 12/13 acceptance and closure](contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20). Production rollout remains recipient-owned and non-blocking; isolation uses executed automated tests and inspectable configuration. The accepted live/automated evidence split remains in force. The common contract, boundary, ticket and plan are reconciled; the prepared paired original-body amendments also remove the stale dependency on closed article 9. Publication/readback remains in this same authorized pass. No runtime success is inferred.
+- **Browser environments accepted, 20 October:** the operator accepted [real staging as sufficient for 12/13 acceptance and closure](contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20). Production rollout remains recipient-owned and non-blocking; isolation uses executed automated tests and inspectable configuration. The accepted live/automated evidence split remains in force. The common contract, boundary, ticket and plan are reconciled; the prepared paired original-body amendments also remove the stale dependency on closed article 9. Both original bodies were updated against immutable authority ec3f17a and freshly read back: expected body matches, open state/project labels/comment counts unchanged (12:11, 13:19). Local published copies now match; no extra comment or issue was created. No runtime success is inferred.
 
 - **Browser evidence split accepted, 20 October:** the Workshop operator accepted [live main-scenario proof and executed automated boundary-case tests](contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20) for originals 12/13. Live proof covers valid-session protected material/recording reads, sign-in with original-page return, and logout followed by refusal of the next protected read. Renewal, expiry, account deletion/blocking, malformed responses, timeouts and remaining boundary cases do not each require a live run. Shared behavior remains binding; acceptance environments are the next operator decision. No new runtime proof was performed.
 
 - **Reminder proof runtime accepted, 20 October:** the operator explicitly accepted [installed Daychi in iOS Simulator with real Cabinet staging](contracts/reminder-sync.md#accepted-joint-proof-runtime--2026-10-20). Separate physical-device and Android runs do not block contribution or original-17 closure. Existing functional/common-case obligations remain; no completed real joint run is claimed. The simulator-runtime question is settled. Original 17 was updated in place against immutable authority 630120c; body/state/labels/comments were read back. Browser evidence alignment continues.
 
-- **Acceptance provenance, 20 October:** the [six-issue audit](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) found recorded operator agreement for the browser/native/reminder behavior and accepted-package support for their detailed contracts/common cases. The exact mandatory live/device matrix is not established by every later recipient QA disclosure. Browser 12/13 still refer an access-transition action to closed 9, whose closure retains that work in 12/13. This is an existing stale dependency, not grounds to reopen article acceptance. Explicit reminder client-bound/delay and native restart exclusions remain operative. No acceptance amendment is inferred from this audit.
+- **Acceptance provenance, 20 October:** the [six-issue audit](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) found recorded operator agreement for the browser/native/reminder behavior and accepted-package support for their detailed contracts/common cases. The exact mandatory live/device matrix is not established by every later recipient QA disclosure. At audit time browser 12/13 still referred an access-transition action to closed 9; the consolidated 20 October amendment resolves this stale dependency in place. Article acceptance remains closed. Explicit reminder client-bound/delay and native restart exclusions remain operative. No acceptance amendment is inferred from this audit.
 
 - **Cabinet runtime clarification, 20 October:** fresh credential-free GET /api/health returned 200 on staging with commit 20128fb, Mongo up and scheduler enabled/non-stale; production returned 200 at fc2dee2. The reviewed reminder implementation and correction commits are therefore deployed on staging; provider staging deployment is no longer unknown. This read does not establish actual account migration results or a real shared save. Daychi PR19 explicitly describes a default-off draft candidate, with merge/activation/mobile release excluded. Installed Android and physical delivery remain disclosed QA limits rather than acceptance blockers under the accepted Simulator scope; real Cabinet joint-save outcomes remain pending.
 
@@ -45,7 +45,7 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 **Reviewer commitments**
 
-- Publish/read back the consolidated 12/13 acceptance amendments against one immutable authority, correcting the stale original-9 dependency. Continue acceptance alignment for native-content 15/16. Reminder 17 runtime scope is already published; accepted implementation work continues under its current scope.
+- Continue acceptance alignment for native-content 15/16. The consolidated browser 12/13 acceptance amendments and stale original-9 correction are published and read back against one immutable authority. Reminder 17 runtime scope is already published; accepted implementation work continues under its current scope.
 - On changed Cabinet integration/deployment and rollout evidence or Daychi consumer/device evidence, review preservation, conformance and joint outcomes against the [amended reminder contract](contracts/reminder-sync.md), reusing valid source/account/public-provider proof. The two waived client observations are not waiting corrections; reconsider them on evidence of an effect on normal operation. PR610's scoped diagnosis evidence remains reviewed.
 - On actual owner-authorized native-content runtime and matching account/grant/status/failure evidence in 15/16, inspect protected delivery, revocation/isolation and recovery in 16/11. Restart persistence, reminder implementation and issue closure add no prerequisite.
 - After the canonical DNS/ownership/TLS handoff, verify the actual host and assess the agreed live browser scenarios plus executed automated conformance evidence in 12/13, including reader/alias/cache protection. The accepted 20 October evidence split governs proof form; real staging suffices and production rollout is non-blocking. Existing valid source/check evidence remains reusable.
@@ -65,7 +65,7 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 **Drift disposition**
 
-Earlier installation/source-access corrections remain resolved. Original 17's stale progress and acceptance-scope statements are reconciled with the reviewed evidence and the operator-approved amendment. Existing server limits, recipient ownership and other acceptance requirements remain. No instruction or unrelated record repair was performed.
+Earlier installation/source-access corrections remain resolved. Original 17's stale progress and acceptance-scope statements are reconciled with the reviewed evidence and the operator-approved amendment. Browser 12/13 now share the operator-approved evidence/environment scope and no longer depend on action in closed 9. Existing server limits, recipient ownership and other acceptance requirements remain. No instruction or unrelated record repair was performed.
 
 ## Operations
 

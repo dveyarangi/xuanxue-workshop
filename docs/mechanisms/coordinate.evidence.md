@@ -676,3 +676,23 @@ acceptance-gate instructions are removed rather than moved into additional targe
 Installed bindings, mechanism declarations, local links, question/edge form and
 the shared-report shape pass. No application code, intake behavior or recipient
 installation changed in this refinement.
+
+### Browser acceptance propagated — 2026-10-20
+
+Producer: current Workshop operator session 01a15874-1e56-7cc1-934f-4b050ecd8580.
+Rule basis: revised L9/L31 present at published Workshop ec3f17a; explicit
+operator acceptance on 20 October. L34 observation stays in this owning evidence.
+
+The live/automated split and staging sufficiency were reconciled through the
+browser contract, boundary, ticket, plan and paired originals 12/13. The full-body
+review caught and replaced the old live-both-profiles proof clause and production
+readiness wording before publication. The previously audited closed-9 dependency
+was corrected in both original bodies; article acceptance was not reopened.
+
+Both originals use immutable authority ec3f17a7808f81a098e432958f89f1018368a32e.
+Fresh readback matched prepared bodies and retained open states, project labels
+and comment counts (12:11, 13:19). No follow-up operator correction, extra comment
+or duplicate work was observed in this pass. This is confirmed self-propagation,
+not independent evidence that recipient agents running the revised rules avoid
+recurrence. No new recipient runtime, production deployment or live acceptance
+success is claimed; native-content criteria remain under operator alignment.
