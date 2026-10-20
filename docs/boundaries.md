@@ -511,4 +511,8 @@ approval request. Its operative home is
 The method and full native wire profile are accepted. The separate
 [native content-check contract](contracts/native-content-session.md) fixes its
 validation wire, caller authority, capacity and failure behavior. Its joint proof
-and activation remain separate work; gateway deferral is unchanged.
+and activation remain separate work; gateway deferral is unchanged. The operator's
+20 October [accepted evidence split](contracts/native-content-session.md#accepted-acceptance-evidence-split--2026-10-20)
+limits live native-content proof to material/recording reads on matching staging;
+all other cases, including revocation and failure/recovery, use executed automated
+tests and inspectable source. Native-client sufficiency remains under alignment.

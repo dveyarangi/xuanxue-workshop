@@ -1,7 +1,7 @@
 # Native content reads using the Cabinet session
 
 **Status: accepted boundary, 2026-10-16; restart-reset exception accepted 2026-10-19;
-joint proof and activation remain work.**
+live/automated evidence split accepted 2026-10-20; joint proof and activation remain work.**
 
 The user reaffirmed the already accepted content-access rule and approved the
 per-read validation and session-isolated capacity plan on 2026-10-16 in response
@@ -204,13 +204,26 @@ may differ; two local green suites alone do not establish joint acceptance.
 | C16 | Account/profile/contact data, cookies and provider errors during every outcome | No profile/credential persistence, downstream leakage, Set-Cookie or sensitive logs |
 
 Joint proof uses an owner-authorized matching staging deployment and an identified
-native client build/source mapping. Show valid protected material/recording delivery,
-next-read refusal after one native grant is revoked while another grant/browser
-remain usable, blocked/unblocked recovery where authorized, and temporary provider
-failure followed by recovery without losing the credential. Synthetic checks cover
-expiry, deletion and capacity boundaries; account deletion is not a mandatory live
-fixture. Existing accepted N11 evidence can be reused where its revisions and
-observations establish this content outcome; no live aged credential is required.
+native client build/source mapping. Its live scope is protected material/recording
+delivery under the accepted evidence split below. Executed automated checks cover
+next-read refusal after grant revocation, other native/browser sessions remaining
+usable, blocked/unblocked recovery, provider failure/recovery without credential
+loss, expiry, deletion and capacity boundaries. No live status, outage, revocation,
+aging or deletion fixture is required. Existing accepted N11 evidence can be reused
+where its revisions and observations establish the applicable content outcome.
+
+## Accepted acceptance-evidence split — 2026-10-20
+
+Decision: the Workshop operator, 2026-10-20.
+
+Live joint proof for originals 15/16 requires protected material and recording
+delivery on matching staging. All remaining cases, including revocation/next-read
+refusal, session isolation, block/unblock, provider failure/recovery, expiry,
+deletion and capacity boundaries, use inspectable source and executed automated
+tests; no separate live run is required.
+
+Shared behavior and the accepted restart-reset exception remain unchanged. This
+decision does not establish completed proof or select the sufficient native client.
 
 Implementation and synthetic proof can proceed against the accessible contract
 under each recipient's operator. Actual integrated activation requires provider
