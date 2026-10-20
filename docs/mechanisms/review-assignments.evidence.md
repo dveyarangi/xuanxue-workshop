@@ -692,3 +692,19 @@ budgets. Regressions exercise a two-case batch with a 17-second allowance and
 34-second total, plus a two-case batch with an explicit 17-second overall cap.
 The live controlled run completed within the stricter former 40-minute overall
 cap, as well as the final default's allowance for two cases.
+
+## First-request discovery and classification - 2026-10-20
+
+The operator approved Workshop-owned discovery and classification of first issues
+without recipient labels. The board now includes open first requests, including
+ones with topic labels, while excluding closed unrelated issues, pull requests and
+foreign recipient routing. Classification is additive, configured-recipient and
+host-case scoped, returns refreshed evidence, and reads back a previously applied
+label after lost confirmation instead of issuing another write.
+
+The board and capability suites pass 39 tests, covering original-issue continuation,
+stale or foreign routing, preserved topic labels, replayed claim evidence and
+read-only/publication-disabled hosts. The full working tree passes 154 tests.
+No real GitHub issue, label mutation or Telegram message was produced by these
+fixtures. The [host edge](../edge/board-review-hosts.md) retains the new obligations;
+the existing host-side live conformance observations are not rerun or expanded.

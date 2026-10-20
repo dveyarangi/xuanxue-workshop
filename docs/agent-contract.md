@@ -119,17 +119,16 @@ The [onboarding agreement](onboarding.md#access-and-communication) owns particip
 access and the original-issue communication requirement when another project joins.
 
 The operator gives the project agent the Workshop repository link. README points
-to installation assignments and the /collaborate skill, which owns installation
-and communication. Installation issues point to the same skill. This entry route belongs to Workshop,
-not to the installation ticket's outcome.
+to the /collaborate skill, which owns entry, installation and communication.
+The [onboarding agreement](onboarding.md#entry-and-project-reception) owns the
+entry for an unknown project and continuation in its original introduction or
+installation issue. This entry route belongs to Workshop, independently of any
+earlier project's installation outcome.
 
-The first assignment's outcome is collaboration installed and verified in the
-recipient project under its operator. The
-[onboarding agreement](onboarding.md#collaboration-installation) defines that
-installation and its evidence. Installation is a separately reviewable outcome;
-its acceptance and Workshop's internal coordination readiness do not gate application
-implementation. Recipient operators own authorization of their local work against
-an accessible settled shared contract. Posting does not establish adoption.
+The [onboarding agreement](onboarding.md#collaboration-installation) defines
+connection acceptance, evidence and its separation from real project work.
+Recipient operators own authorization of their local work against an accessible
+settled shared contract. Posting does not establish adoption.
 
 Dependencies distinguish starting work from integration proof and completion.
 Work against an agreed contract and proof requiring a conforming reachable
@@ -156,7 +155,7 @@ authoritative boundary contracts.
 
 ## Project-agent rules to install
 
-Cabinet, Daychi and Knowledge install
+Participating projects install
 the [/collaborate skill](../skills/collaborate/SKILL.md) under their own
 operators. That skill owns the procedures for discovery, installation, invocation,
 assignment discussion, result reporting and duplicate checks for Workshop problems.

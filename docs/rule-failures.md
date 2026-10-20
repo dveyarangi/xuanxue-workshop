@@ -461,6 +461,17 @@ The launch uses the actual project root; a native proof checks entry-only and
 skill-only values on an ordinary request. No general harness rule is added:
 the verification obligation already covered this behavior.
 
+Struck again, 2026-10-20: after the normal bot executor failed to start, an
+operator-side onboarding preview used the existing tool-free decision worker
+with README, PRODUCT, onboarding and agent-contract documents. The reduced
+mode was disclosed, but its input omitted the canonical collaboration skill
+and project-reception procedure. Its answer therefore did not exercise the
+new-project route and conflated discovery checks with having assignments.
+The user identified the missing route and the unsupported requirement to report
+into an issue that might not exist. This preview does not establish ordinary
+Telegram-executor behavior. The existing entry and verification obligations
+already cover the gap; no new rule or production repair is claimed.
+
 ## 2026-10-14 — Local review authority published as an inter-agent contract change
 
 Status: corrected on 2026-10-14; local permission and checked installed binding

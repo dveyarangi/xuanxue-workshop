@@ -603,3 +603,20 @@ judged finished and no record moved. No application code changed or suite reran.
 Shared working files also contain other sessions' work; only this pass's additions
 are eligible for its commit. Remaining native proof belongs to the original
 Cabinet/Daychi assignments; remote historical messages are not rewritten.
+
+## Generic project entry - 2026-10-20
+
+The operator accepted an entry for an unknown project through its own Workshop
+issue, without an author-applied recipient label. The original issue retains
+reception, installation context and evidence. Empty addressed-work results and
+unfinished connection acceptance do not block otherwise eligible project work.
+The [onboarding agreement](../onboarding.md) owns these requirements;
+[the resolved question](../questions/done/q-0002.0005.0005-how-should-an-unknown-project-enter-workshop-and-verify-collaboration-without-an-existing-assignment.md)
+holds the impact, scope and verification limits.
+
+The distributable collaboration skill and companion format now expose that entry
+without referring a newcomer to completed projects' installations. Local reception
+and review instructions preserve the same original issue and scope. Installed-rule,
+mechanism, question, ticket, edge and report checks pass; harness comparison passes
+at e5e74d6. This is source and fixture evidence, not an observed real reception or
+recipient rollout. Independent operator grading is not inferred from those checks.
