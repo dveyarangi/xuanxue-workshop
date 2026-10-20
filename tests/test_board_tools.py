@@ -50,6 +50,33 @@ class CapabilityTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'read-only'):
             self.tools.board({'action': 'claim', 'number': 1})
 
+    def test_first_request_classification_preserves_scope_and_refreshes_claim_replay(self):
+        self.tracker.cases[1]['issue']['labels'] = ['question']
+        claim = self.tools.board({'action': 'claim', 'number': 1})
+        other = self.review.claim(2)
+        with self.assertRaisesRegex(ValueError, 'scope'):
+            self.tools.board({'action': 'classify', 'token': other['token'], 'label': 'project:workshop'})
+        with self.assertRaisesRegex(ValueError, 'configured'):
+            self.tools.board({'action': 'classify', 'token': claim['token'], 'label': 'project:foreign'})
+        classified = self.tools.board({'action': 'classify', 'token': claim['token'], 'label': 'project:workshop'})
+        self.assertEqual(classified, self.tools.board({'action': 'claim', 'number': 1}))
+        self.assertEqual(['question', 'project:workshop'], classified['snapshot']['issue']['labels'])
+        self.assertEqual([(1, 'project:workshop')], self.tracker.classifications)
+        prepared = self.tools.board({'action': 'prepare', 'token': classified['token'], 'body': 'Reception here'})
+        self.assertEqual('sent', self.tools.board({'action': 'publish', 'id': prepared['id']})['status'])
+
+    def test_disabled_publication_and_read_only_hosts_cannot_classify(self):
+        self.tracker.cases[1]['issue']['labels'] = []
+        claim = self.tools.board({'action': 'claim', 'number': 1})
+        self.tools.no_publish = True
+        with self.assertRaisesRegex(ValueError, 'disabled'):
+            self.tools.board({'action': 'classify', 'token': claim['token'], 'label': 'project:workshop'})
+        self.tools.no_publish = False
+        self.tools.read_only = True
+        with self.assertRaisesRegex(ValueError, 'read-only'):
+            self.tools.board({'action': 'classify', 'token': claim['token'], 'label': 'project:workshop'})
+        self.assertEqual([], self.tracker.classifications)
+
     def test_preexisting_lease_and_publication_cannot_widen_dispatch_scope(self):
         claim = self.review.claim(1)
         prepared = self.review.prepare(claim['token'], 'Prepared before dispatch')

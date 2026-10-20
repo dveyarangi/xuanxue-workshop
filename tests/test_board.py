@@ -27,12 +27,18 @@ class Tracker:
                                    "labels": ["project:workshop"], "html_url": f"https://github.com/{self.repo}/issues/{n}"},
                           "comments": [], "timeline": [], "evidence": []} for n in (1, 2)}
         self.posts = []
+        self.classifications = []
 
     def discover(self):
         return list(self.cases)
 
     def snapshot(self, number, own_bodies=(), *, fresh=True):
         return copy.deepcopy(self.cases[number])
+
+    def classify(self, number, label):
+        self.classifications.append((number, label))
+        self.cases[number]['issue']['labels'].append(label)
+        self.cases[number]['timeline'].append({'event': 'labeled', 'label': {'name': label}})
 
     def post(self, number, body):
         comment = {"id": 100 + len(self.posts), "body": body, "user": {"login": self.author},
@@ -51,6 +57,56 @@ class BoardTests(unittest.TestCase):
         self.tracker = Tracker()
         self.now = 1000
         self.review = board.Board(self.state, self.tracker, clock=lambda: self.now)
+
+    def test_first_request_is_classified_and_answered_in_its_original_issue(self):
+        self.tracker.cases[1]['issue']['labels'] = ['question']
+        self.assertIn(1, [case['number'] for case in self.review.scan()['candidates']])
+        claim = self.review.claim(1)
+        with self.assertRaisesRegex(ValueError, 'addressed'):
+            self.review.prepare(claim['token'], 'Premature response')
+        classified = self.review.classify(claim['token'], 'project:workshop')
+        self.assertEqual(['question', 'project:workshop'], classified['snapshot']['issue']['labels'])
+        self.assertNotEqual(claim['fingerprint'], classified['fingerprint'])
+        prepared = self.review.prepare(classified['token'], 'Reception continues here')
+        self.assertEqual('sent', self.review.publish(prepared['id'])['status'])
+        self.review.finish(classified['token'], 'reviewed', 'Introduction handled in the original issue')
+        restarted = board.Board(self.state, self.tracker, clock=lambda: self.now)
+        self.assertNotIn(1, [case['number'] for case in restarted.scan()['candidates']])
+        self.assertEqual([(1, 'project:workshop')], self.tracker.classifications)
+
+    def test_classification_recovers_lost_confirmation_without_another_write(self):
+        self.tracker.cases[1]['issue']['labels'] = []
+        claim = self.review.claim(1)
+        original = self.tracker.classify
+
+        def lost_confirmation(number, label):
+            original(number, label)
+            self.tracker.cases[number]['issue']['body'] = 'New context during classification'
+            raise RuntimeError('Confirmation lost')
+
+        self.tracker.classify = lost_confirmation
+        with self.assertRaisesRegex(RuntimeError, 'Confirmation lost'):
+            self.review.classify(claim['token'], 'project:workshop')
+        recovered = self.review.classify(claim['token'], 'project:workshop')
+        self.assertEqual('New context during classification', recovered['snapshot']['issue']['body'])
+        self.assertEqual([(1, 'project:workshop')], self.tracker.classifications)
+        prepared = self.review.prepare(recovered['token'], 'Response using the returned context')
+        self.assertEqual('prepared', prepared['status'])
+
+    def test_classification_rejects_stale_foreign_or_unconfigured_routing(self):
+        self.tracker.cases[1]['issue']['labels'] = []
+        claim = self.review.claim(1)
+        with self.assertRaisesRegex(ValueError, 'configured'):
+            self.review.classify(claim['token'], 'project:newcomer')
+        self.tracker.cases[1]['issue']['body'] = 'Changed after claim'
+        with self.assertRaisesRegex(ValueError, 'changed'):
+            self.review.classify(claim['token'], 'project:workshop')
+        self.review.finish(claim['token'], 'reviewed', 'Stale claim')
+        self.tracker.cases[1]['issue']['labels'] = ['project:other']
+        fresh = self.review.claim(1)
+        with self.assertRaisesRegex(ValueError, 'recipient'):
+            self.review.classify(fresh['token'], 'project:workshop')
+        self.assertEqual([], self.tracker.classifications)
 
     def test_studied_open_and_closed_cases_are_quiet_after_restart(self):
         self.assertEqual([1, 2], [case["number"] for case in self.review.scan()["candidates"]])
@@ -305,6 +361,25 @@ class BoardTests(unittest.TestCase):
 
 
 class TransportTests(unittest.TestCase):
+    def test_classification_adds_a_label_without_replacing_existing_topic_labels(self):
+        api = Mock(return_value={'login': 'coordinator'})
+        tracker = board.GitHub('school/workshop', ['project:workshop'], api=api)
+        tracker.classify(7, 'project:workshop')
+        api.assert_called_with('POST', 'repos/school/workshop/issues/7/labels', {'labels': ['project:workshop']})
+
+    def test_discovery_includes_open_first_requests_with_or_without_topic_labels(self):
+        values = [
+            {'number': 1, 'state': 'open', 'labels': []},
+            {'number': 2, 'state': 'open', 'labels': [{'name': 'question'}]},
+            {'number': 3, 'state': 'closed', 'labels': [{'name': 'project:workshop'}]},
+            {'number': 4, 'state': 'open', 'labels': [{'name': 'project:other'}]},
+            {'number': 5, 'state': 'closed', 'labels': []},
+            {'number': 6, 'state': 'open', 'labels': [], 'pull_request': {}},
+        ]
+        api = Mock(side_effect=lambda method, path, **kwargs: {'login': 'coordinator'} if path == 'user' else values)
+        tracker = board.GitHub('school/workshop', ['project:workshop'], api=api)
+        self.assertEqual([1, 2, 3], tracker.discover())
+
     def test_all_slurped_pages_are_consumed_including_empty_pages(self):
         run = Mock(return_value=type("Response", (), {"stdout": b'[[{"id":1}],[],[{"id":2}]]'})())
         api = board.Gh(run=run)

@@ -16,6 +16,9 @@ different owners or phases do not by themselves justify a split.
 Title: `<recipient>: <required outcome>`; name the affected boundary when relevant.
 Apply the recipient label defined by the agent contract.
 
+For a first project introduction, use the entry below; its author need not apply
+a recipient label or supply an already agreed implementation contract.
+
 - **Recipient and outcome:** who must act and the observable result.
 - **Expected / observed:** governing contract, source revisions and evidence;
   distinguish confirmed facts from missing evidence.
@@ -38,7 +41,27 @@ For migration coordination, include old and new contract definitions, compatibil
 evidence, known consumers and readiness. For an evidence request, identify the
 missing proof and the question it must resolve; do not present uncertainty as a defect.
 
+## Project introductions
+
+Search all issue states for an introduction or installation issue for your own
+repository and continue it when found. Otherwise open an issue in
+[Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues/new), titled
+`Workshop: connect <project>`. Include the repository link, purpose, accountable
+operator, participating GitHub accounts, agent host and known connections to other
+projects. Identify missing facts explicitly; include retained collaboration
+instructions and their source revision when already installed.
+
+No recipient label is required from the author. Workshop discovers and classifies
+first requests and agrees the project-specific context. If the available connection
+cannot open or read the issue, ask the operator for that specific access action.
+Keep reception, installation context, evidence and review in the same original
+issue. Follow the [onboarding agreement](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/onboarding.md#entry-and-project-reception);
+introducing the project does not grant implementation or agreement authority.
+
 ## Installation assignments
+
+The original introduction issue can hold the installation context; a separate
+installation assignment is not required.
 
 Include the participating GitHub accounts, the owner of their Workshop access
 grants and access confirmation under the
@@ -80,7 +103,7 @@ changes to shared responsibilities or contracts. State the shared capability or
 exchange, the responsibility split and governing contract links; identify relevant
 local entry points.
 
-Installation and reconciliation assignments supplying a summary use the exact
+Issues supplying installation or reconciliation context use the exact
 heading `## BOUNDARY_SUMMARY` followed by one fenced Markdown block:
 
 ````markdown

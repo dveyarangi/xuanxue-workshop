@@ -180,6 +180,30 @@ class Board:
             db.execute("UPDATE cases SET expires=? WHERE token=?", (expiry, token))
         return {"token": token, "expires": expiry}
 
+    def classify(self, token, label):
+        if label not in self.tracker.labels:
+            raise ValueError("Recipient label is outside the configured selection")
+        with self.connect() as db:
+            case = dict(self.held(db, token))
+        snapshot = self.snapshot(case['number'])
+        issue = snapshot['issue']
+        if label not in issue['labels']:
+            if self.fingerprint(snapshot) != case['basis']:
+                raise ValueError("Case changed during review; reclaim current material")
+            if issue['state'] != 'open' or any(name.startswith('project:') for name in issue['labels']):
+                raise ValueError("Only an open first request without a recipient can be classified")
+            self.tracker.classify(case['number'], label)
+            snapshot = self.snapshot(case['number'])
+            if label not in snapshot['issue']['labels']:
+                raise RuntimeError("Recipient classification was not confirmed; inspect the issue before retrying")
+        version = self.fingerprint(snapshot)
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            self.held(db, token)
+            db.execute("UPDATE cases SET observed=?, snapshot=?, basis=? WHERE token=?",
+                       (version, encoded(snapshot), version, token))
+        return {'token': token, 'fingerprint': version, 'snapshot': snapshot}
+
     def prepare(self, token, body, *, request_id=None):
         if not body.strip() or len(body) > 60000 or "<!-- workshop-board:" in body:
             raise ValueError("A nonempty comment of at most 60000 characters without reserved markers is required")
@@ -403,8 +427,13 @@ class GitHub:
     def discover(self):
         self.cache.clear()
         values = self.api("GET", f"repos/{self.repo}/issues?state=all&per_page=100", collection="")
-        return [item["number"] for item in values if "pull_request" not in item
-                and set(self.labels).intersection(label["name"] for label in item["labels"])]
+        return [item["number"] for item in values if "pull_request" not in item and (
+                set(self.labels).intersection(label["name"] for label in item["labels"])
+                or (item['state'] == 'open' and not any(
+                    label['name'].startswith('project:') for label in item['labels'])))]
+
+    def classify(self, number, label):
+        self.api('POST', f'repos/{self.repo}/issues/{int(number)}/labels', {'labels': [label]})
 
     @staticmethod
     def issue(value):
@@ -513,6 +542,9 @@ def main():
     claim.add_argument("--output", type=Path, required=True)
     renew = sub.add_parser("renew")
     renew.add_argument("token")
+    classify = sub.add_parser("classify")
+    classify.add_argument("token")
+    classify.add_argument("--recipient", required=True)
     prepare = sub.add_parser("prepare")
     prepare.add_argument("token")
     prepare.add_argument("--message-file", type=Path, required=True)
@@ -540,6 +572,8 @@ def main():
         result = {"token": result["token"], "fingerprint": result["fingerprint"], "snapshot_file": str(args.output)}
     elif args.command == "renew":
         result = review.renew(args.token)
+    elif args.command == "classify":
+        result = review.classify(args.token, args.recipient)
     elif args.command == "prepare":
         operation = review.prepare(args.token, args.message_file.read_text(encoding="utf-8-sig"), request_id=args.request_id)
         result = {key: operation[key] for key in ("id", "number", "status")}

@@ -16,6 +16,9 @@ pass at the affected stage; an in-progress review is reused rather than restarte
 The original issue conversation holds review history and acceptance evidence.
 Discovery follows timeline references to reports and artifacts, including reports
 held in other repositories. Direct comments are only one evidence surface.
+Open first requests without a recipient also enter review. Classification adds a
+configured recipient label within the held case and returns refreshed evidence;
+it neither accepts participation nor expands the host's repository access.
 Dependency review tests necessity as well as fulfillment against current source,
 checks, runtime and operator evidence. Changed facts affect dependent assignments
 even when their own conversations have not changed. The shared issue format owns

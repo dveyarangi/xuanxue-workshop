@@ -15,6 +15,13 @@ claims a case, performs full review, prepares and confirms publication, then rec
 the processing position. Lost confirmation is recovered through the same publication
 identifier. Incomplete delivery remains distinct from finished review.
 
+Open first requests without a `project:` recipient label are discoverable even
+with other topic labels. A host-selected case can receive one configured recipient
+label under its active lease; existing recipient routing cannot be overwritten.
+Confirmed classification returns a refreshed snapshot for review. Retrying after a
+lost confirmation reads the current label state before another write. Classification
+retains the existing issue and does not establish acceptance or repository access.
+
 Detector-first hosts make no model call for quiet or busy-only discovery. A configured
 shared snapshot follows the review mechanism's REPORT.md format; complete replacements
 reject a changed prior version. Operational updates preserve semantic results and
@@ -47,6 +54,9 @@ remain at the host; changing issue content cannot enlarge that scope.
 - Invalid or stale shared-report replacement cannot destroy the prior report. *validated by:* `tests/test_board_run.py`
 - Controller failures preserve unresolved report matters. *validated by:* `tests/test_board_run.py`
 - A selected issue cannot authorize another issue's publication or reads outside the configured repositories. *validated by:* `tests/test_board_tools.py`
+- Open first requests enter discovery without an author-applied recipient label; closed unrelated issues, pull requests and foreign recipients remain excluded. *validated by:* `tests/test_board.py`
+- Classification preserves topic labels, rejects stale or foreign routing, and recovers confirmed state without a second write. *validated by:* `tests/test_board.py`
+- Classification cannot widen selected-case or configured-recipient scope, and is disabled by read-only or publication-disabled hosts. *validated by:* `tests/test_board_tools.py`
 
 ## Extending
 

@@ -139,8 +139,8 @@ questions and changed dependencies matter before completion reports arrive.
 **L20** For project reception, use the supplied repository or original incoming issue as the
 candidate input. Read README.md's Repository map, docs/agent-contract.md and
 docs/onboarding.md, and search Workshop Issues in every state for work already covering
-this project. Keep reception in the original request or existing owning work record;
-reuse an existing installation assignment.
+this project. Keep reception, installation context and evidence in the original
+introduction or installation issue. A separate installation issue is not required.
 If a chat introduction has no tracker issue or owning work record, retain its
 repository input, scope and pending action in the project-specific question opened
 under Q1. When approved work has an owning ticket or issue, link that record from
@@ -157,7 +157,7 @@ identity, recipient label and shared responsibilities, and prepare the required 
 Record observed facts in docs/current-system.md and accepted participation in README.md
 and docs/agent-contract.md; shared promises belong in docs/boundaries.md.
 
-Derive the collaboration-installation assignment from docs/onboarding.md and
+Prepare the collaboration-installation context in that issue from docs/onboarding.md and
 skills/collaborate/workshop-issue-format.md#installation-assignments. Supply the
 project's exact recipient label, an accessible published source revision, its boundary
 summary, access grants owned by the Workshop repository owner, operator-owned host
@@ -167,8 +167,8 @@ than copying it.
 
 Record the current stage, next action, responsible party and resumption condition in
 the existing owning record. Publishing the assignment resumes with the recipient
-operator; returned evidence resumes Workshop review. Keep collaboration acceptance
-separate from application-contract implementation and integration proof.
+operator; returned evidence resumes Workshop review. An empty addressed-work search
+is valid; collaboration acceptance does not block otherwise eligible project work.
 
 **L9** For each in-scope agreement, read its accepted target, observed state, remaining
 changes and owning work together through the bindings below. Follow references

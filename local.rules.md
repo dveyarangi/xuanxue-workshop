@@ -51,14 +51,14 @@ A repository cited only as a dependency or example does not start reception.
 ## L20 — project reception preparation
 
 - **target** `.agents/skills/coordinate/SKILL.md`
-- **authority** the user, 2026-10-12, reusable reception process readable without session history; existing onboarding and coordination agreements
+- **authority** the user, 2026-10-12, reusable reception process readable without session history; 2026-10-20, original introduction issue owns reception and installation evidence
 
 <rule>
 For project reception, use the supplied repository or original incoming issue as the
 candidate input. Read README.md's Repository map, docs/agent-contract.md and
 docs/onboarding.md, and search Workshop Issues in every state for work already covering
-this project. Keep reception in the original request or existing owning work record;
-reuse an existing installation assignment.
+this project. Keep reception, installation context and evidence in the original
+introduction or installation issue. A separate installation issue is not required.
 If a chat introduction has no tracker issue or owning work record, retain its
 repository input, scope and pending action in the project-specific question opened
 under Q1. When approved work has an owning ticket or issue, link that record from
@@ -75,7 +75,7 @@ identity, recipient label and shared responsibilities, and prepare the required 
 Record observed facts in docs/current-system.md and accepted participation in README.md
 and docs/agent-contract.md; shared promises belong in docs/boundaries.md.
 
-Derive the collaboration-installation assignment from docs/onboarding.md and
+Prepare the collaboration-installation context in that issue from docs/onboarding.md and
 skills/collaborate/workshop-issue-format.md#installation-assignments. Supply the
 project's exact recipient label, an accessible published source revision, its boundary
 summary, access grants owned by the Workshop repository owner, operator-owned host
@@ -85,20 +85,21 @@ than copying it.
 
 Record the current stage, next action, responsible party and resumption condition in
 the existing owning record. Publishing the assignment resumes with the recipient
-operator; returned evidence resumes Workshop review. Keep collaboration acceptance
-separate from application-contract implementation and integration proof.
+operator; returned evidence resumes Workshop review. An empty addressed-work search
+is valid; collaboration acceptance does not block otherwise eligible project work.
 </rule>
 
 ## L21 — first assignment discovery
 
 - **target** `skills/collaborate/SKILL.md`
-- **authority** the user, 2026-10-12, reception from a new session's available context; original-project communication and operator ownership
+- **authority** the user, 2026-10-12, reception from a new session's available context; 2026-10-20, generic entry and first contact through the project's own issue
 
 <rule>
-Use an installation assignment for your own project. If none was supplied, search
-Workshop Issues for an existing one. If none exists, ask your operator to introduce
-the repository to Workshop for project reception. Reuse an existing introduction
-request; another project's installation assignment is not your project's context.
+Begin with your project's original introduction or installation issue. If none was
+supplied, search Workshop Issues for an existing one. If none exists, follow
+Project introductions in the companion issue format, workshop-issue-format.md.
+Reuse the same issue for reception, installation and evidence;
+another project's issue is not your project's context.
 </rule>
 
 ## L2 — project boundaries
@@ -395,9 +396,14 @@ verifiable outcomes.
 ## L14 — issue review, action and return to work
 
 - **target** `.agents/skills/review-assignments/SKILL.md`
-- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports; 2026-10-08, reassess dependencies from ground truth and remove readiness and installation-acceptance gates; 2026-10-19, consolidated alignment updates at an actionable handoff
+- **authority** the user, 2026-10-05, reconciliation feedback and session continuation; 2026-10-06, discover and read issue mentions before assessing reports; 2026-10-08, reassess dependencies from ground truth and remove readiness and installation-acceptance gates; 2026-10-19, consolidated alignment updates at an actionable handoff; 2026-10-20, discovery and classification of first requests without recipient labels
 
 <rule>
+Include open first requests without a `project:` recipient label, even when they
+have topic labels. Workshop owns their discovery and classification. Read the
+request before assigning a configured recipient label; classification does not
+establish accepted participation or authorize project changes.
+
 Review relevant assignments and discussions in Workshop GitHub Issues, including
 unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
 review of the same issue. An unchanged conversation and unchanged relevant evidence

@@ -9,7 +9,7 @@ description: >-
 [Workshop](https://github.com/dveyarangi/xuanxue-workshop) coordinates development
 across the school's projects and maintains their shared boundary agreements.
 
-Project label: <set from your installation issue>
+Project label: <supplied by Workshop in your project's original issue>
 
 Use [Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues) for
 cross-project collaboration and messages to Workshop, following
@@ -18,12 +18,14 @@ project's own tracker and rules.
 
 ## Installation
 
-1. Read your installation issue. It supplies your project label and the explicitly
+1. Read your project's original introduction or installation issue. It supplies the
+   agreed source revision, your project label and the explicitly
    marked `BOUNDARY_SUMMARY` defined in the issue format. Use that block's content
    as the supplied summary; do not reconstruct it from the issue's other prose.
 2. Install this file and [workshop-issue-format.md](workshop-issue-format.md)
    together in the location supported by your agent host. Replace the project-label
-   placeholder in this file with the label from the issue.
+   placeholder in this file with the label from the issue. Request missing context
+   there rather than inventing it or using another project's issue.
 3. Prepare the short boundary summary supplied by the issue for the block below:
    check which connections exist in the code and add the local module names or
    paths. Keep planned connections explicitly labelled as targets. Report any
@@ -43,19 +45,21 @@ project's own tracker and rules.
    > across projects or communicating with Workshop.
 
 5. Add `Source revision: <full source commit>` immediately below the Project label
-   line in the installed skill, using the commit supplied by the installation issue
+   line in the installed skill, using the commit supplied in the original issue
    for both files. Remove this Installation section from the installed copy.
    Preserve the distributable source in Workshop.
 6. Verify in a fresh session that the agent invokes the skill, accesses Workshop,
-   finds its addressed issues, and recognises boundary-related work from its
+   searches for addressed work, and recognises boundary-related work from its
    project instructions. Verify the installed format link resolves. Report in
-   the original installation issue.
+   the original introduction or installation issue. Apply the
+   [onboarding acceptance requirements](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/onboarding.md#collaboration-installation).
 
 <installed by="local">
-**L21** Use an installation assignment for your own project. If none was supplied, search
-Workshop Issues for an existing one. If none exists, ask your operator to introduce
-the repository to Workshop for project reception. Reuse an existing introduction
-request; another project's installation assignment is not your project's context.
+**L21** Begin with your project's original introduction or installation issue. If none was
+supplied, search Workshop Issues for an existing one. If none exists, follow
+Project introductions in the companion issue format, workshop-issue-format.md.
+Reuse the same issue for reception, installation and evidence;
+another project's issue is not your project's context.
 </installed>
 
 ## Check addressed work
@@ -65,6 +69,7 @@ open issues carrying your project label. Read relevant assignments, discussions 
 dependencies, including follow-up on reported results. Distinguish accepted work
 from the current remaining action. Follow your project's
 operator instructions when choosing and executing work.
+An empty search is a valid result; do not create work to demonstrate discovery.
 Determine eligible work using the [issue format's dependency conditions](workshop-issue-format.md#dependencies).
 
 When an assignment supplies `BOUNDARY_SUMMARY`, use its marked content to update

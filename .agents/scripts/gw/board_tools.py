@@ -34,7 +34,7 @@ class ReviewTools:
             return {**result, 'batch_complete': not pending, 'pending': pending}
         if self.read_only:
             raise ValueError('This host proof is read-only')
-        if self.no_publish and action in {'prepare', 'publish'}:
+        if self.no_publish and action in {'classify', 'prepare', 'publish'}:
             raise ValueError('Publication is disabled for this invocation')
         if action == 'scan':
             result = self.review.scan()
@@ -52,11 +52,15 @@ class ReviewTools:
             receipt = self.review.claim(args['number'])
             self.claims[args['number']] = receipt
             return receipt
-        if action in {'renew', 'prepare', 'finish'}:
+        if action in {'renew', 'classify', 'prepare', 'finish'}:
             with self.review.connect() as db:
                 self.require_case(self.review.held(db, args['token'])['number'])
             if action == 'renew':
                 return self.review.renew(args['token'])
+            if action == 'classify':
+                receipt = self.review.classify(args['token'], args['label'])
+                self.claims[receipt['snapshot']['issue']['number']] = receipt
+                return receipt
             if action == 'prepare':
                 return self.review.prepare(args['token'], args['body'], request_id=args.get('request_id'))
             return self.review.finish(args['token'], args['outcome'], args['note'],
@@ -85,18 +89,19 @@ class ReviewTools:
 
 def definitions():
     properties = {'action': {'type': 'string', 'enum': ['identity', 'scan', 'status', 'check',
-                    'claim', 'renew', 'prepare', 'publish', 'cancel', 'finish']},
+                    'claim', 'renew', 'classify', 'prepare', 'publish', 'cancel', 'finish']},
                   'number': {'type': 'integer'},
                   'follow_up': {'type': 'integer', 'minimum': FOLLOW_UP_SECONDS,
                                 'description': 'Unchanged waiting/operator work is due no sooner than six hours.'}}
     properties.update({name: {'type': 'string'} for name in
-                       ['token', 'body', 'request_id', 'id', 'outcome', 'note']})
+                       ['token', 'label', 'body', 'request_id', 'id', 'outcome', 'note']})
     properties['outcome'] = {'type': 'string', 'enum': ['reviewed', 'waiting', 'operator'],
         'description': 'Use reviewed for a studied no-response outcome, waiting for missing evidence, '
                        'or operator for an operator decision.'}
     return [
         {'name': 'review_board', 'description': 'Authenticated board operations for the host-selected issues. '
              'Claim returns complete paginated source snapshots; retry reuses this invocation\'s live receipt. '
+             'Classify adds a configured recipient label to an open first request and returns updated evidence. '
              'Prepare accepts response text; publish recovers '
              'the same stable operation ID. Check reports pending cases and completion of the assigned batch. '
              'Identity returns the host GitHub login without credentials.',

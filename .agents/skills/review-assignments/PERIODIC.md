@@ -8,6 +8,12 @@ Claim one available case and read its complete snapshot. Apply the parent review
 inspecting relevant source and executed evidence independently. Renew the lease during long
 investigations. Discovery alone never establishes acceptance.
 
+For a first request without a recipient, read it before using `classify` with a
+configured recipient label. The returned snapshot replaces the pre-classification
+claim evidence; reassess its current content before preparing a response. A lost
+classification reply can be retried with the same token and label: confirmed label
+state is read before another write. Do not reassign an already addressed issue.
+
 If a claim response is lost, repeat `claim` for the same case. The host reuses
 only this invocation's still-live receipt.
 
@@ -24,7 +30,8 @@ Complete every case supplied for this invocation. Before ending, call `review_bo
 with `action=check` and resolve every pending case until `batch_complete` is true.
 A report update or final reply does not complete the assigned batch.
 
-When `no_publish` is true, send no external messages or mutations through any route.
+When `no_publish` is true, send no external messages or mutations through any route,
+including recipient classification.
 Retain required publication as an operator outcome without preparing a response.
 
 Record decisions, meaningful results and actionable failures at the configured report destination. Follow
@@ -72,6 +79,7 @@ before the command. Preserve the same `--state` across runs. The default is
 | scan | configured selection | candidates, busy scopes and read failures |
 | claim | issue number, `--output` claim file | lease token and complete snapshot file |
 | renew | token | renewed lease |
+| classify | token, `--recipient` configured label | confirmed recipient and refreshed claim snapshot |
 | prepare | token, `--message-file`, optional stable `--request-id` | publication identifier |
 | publish | identifier | confirmed receipt, conflict or uncertainty |
 | cancel | identifier | withdrawal of a definitely unsent preparation |

@@ -142,7 +142,12 @@ same file.
   returned by assignment review. Autonomy switches: AGENTS.md, Project-local.
 - Issue format and BOUNDARY_SUMMARY: skills/collaborate/workshop-issue-format.md.
 
-**L14** Review relevant assignments and discussions in Workshop GitHub Issues, including
+**L14** Include open first requests without a `project:` recipient label, even when they
+have topic labels. Workshop owns their discovery and classification. Read the
+request before assigning a configured recipient label; classification does not
+establish accepted participation or authorize project changes.
+
+Review relevant assignments and discussions in Workshop GitHub Issues, including
 unreviewed reports on closed issues. Use their evidence in collection and comparison. Reuse an in-progress
 review of the same issue. An unchanged conversation and unchanged relevant evidence
 need no repeated response; the original issue holds the review history.
