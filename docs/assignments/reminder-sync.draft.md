@@ -1,4 +1,4 @@
-# Shared account reminders — publication copy for existing issue 17
+# Shared account reminders
 
 ## Recipients and outcome
 
@@ -21,10 +21,10 @@ readiness acknowledgement is required.
 
 ## Shared authority and accepted behavior
 
-The complete [reminder synchronization contract](../contracts/reminder-sync.md),
+The complete [reminder synchronization contract](https://github.com/dveyarangi/xuanxue-workshop/blob/630120c1fb77cf0db2f23338b7631432110f2aa3/docs/contracts/reminder-sync.md),
 its wire version 1 and common conformance outcomes govern both recipients. Its
 linked native-account and public-calendar authorities remain binding.
-Publication resolves this contract link to the exact published immutable Workshop revision.
+Accepted immutable Workshop authority: `630120c1fb77cf0db2f23338b7631432110f2aa3`.
 This revision includes the operator-approved 20 October acceptance-scope
 amendment below. Existing server selection limits and rate limiting, wire
 version 1, reminder behavior and rollout remain unchanged.
@@ -42,7 +42,7 @@ offline outbox, client-clock policy, native push or new background polling exist
 ## Current-delivery acceptance scope — 2026-10-20
 
 The Workshop operator approved the contract's
-[current-delivery acceptance scope](../contracts/reminder-sync.md#current-delivery-acceptance-scope--2026-10-20).
+[current-delivery acceptance scope](https://github.com/dveyarangi/xuanxue-workshop/blob/630120c1fb77cf0db2f23338b7631432110f2aa3/docs/contracts/reminder-sync.md#current-delivery-acceptance-scope--2026-10-20).
 Client rejection of an otherwise valid snapshot solely for containing more than
 50 class IDs, and handling of supplied retry delays exceeding one hour, are not
 acceptance requirements for this delivery. This supersedes the corresponding
@@ -52,6 +52,16 @@ evidence for these two observations is required to accept either contribution
 or close this issue. Reconsider them on evidence of an effect on normal operation.
 The server's existing 50-class limit and rate limiting remain; other malformed
 response, readback, no-replay, account-isolation and joint outcomes still apply.
+
+## Accepted joint-proof runtime — 2026-10-20
+
+The Workshop operator explicitly accepted the contract's
+[installed iOS Simulator and real Cabinet staging scope](https://github.com/dveyarangi/xuanxue-workshop/blob/630120c1fb77cf0db2f23338b7631432110f2aa3/docs/contracts/reminder-sync.md#accepted-joint-proof-runtime--2026-10-20).
+
+For current-delivery joint acceptance, installed Daychi in iOS Simulator connected
+to real Cabinet staging is sufficient. Separate physical-device and Android runs
+do not block acceptance or closure of original issue 17. Existing functional/common-case
+obligations remain; this decision does not establish that the joint run has passed.
 
 ## Observed state and scope
 

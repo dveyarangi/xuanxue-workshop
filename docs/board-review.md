@@ -15,7 +15,7 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 ## Results
 
-- **Reminder proof runtime accepted, 20 October:** the operator explicitly accepted [installed Daychi in iOS Simulator with real Cabinet staging](contracts/reminder-sync.md#accepted-joint-proof-runtime--2026-10-20). Separate physical-device and Android runs do not block contribution or original-17 closure. Existing functional/common-case obligations remain; no completed real joint run is claimed. The simulator-runtime question is settled; browser evidence alignment continues.
+- **Reminder proof runtime accepted, 20 October:** the operator explicitly accepted [installed Daychi in iOS Simulator with real Cabinet staging](contracts/reminder-sync.md#accepted-joint-proof-runtime--2026-10-20). Separate physical-device and Android runs do not block contribution or original-17 closure. Existing functional/common-case obligations remain; no completed real joint run is claimed. The simulator-runtime question is settled. Original 17 was updated in place against immutable authority 630120c; body/state/labels/comments were read back. Browser evidence alignment continues.
 
 - **Acceptance provenance, 20 October:** the [six-issue audit](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) found recorded operator agreement for the browser/native/reminder behavior and accepted-package support for their detailed contracts/common cases. The exact mandatory live/device matrix is not established by every later recipient QA disclosure. Browser 12/13 still refer an access-transition action to closed 9, whose closure retains that work in 12/13. This is an existing stale dependency, not grounds to reopen article acceptance. Explicit reminder client-bound/delay and native restart exclusions remain operative. No acceptance amendment is inferred from this audit.
 
@@ -41,7 +41,7 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 **Reviewer commitments**
 
-- Complete the operator-requested acceptance alignment and then reconcile the affected existing issue bodies; accepted implementation work continues under its current scope. The audit does not itself add a recipient hold.
+- Continue browser 12/13 acceptance alignment and reconcile the affected existing issue bodies after the decisions. Reminder 17 runtime scope is already published in its original body; accepted implementation work continues under its current scope.
 - On changed Cabinet integration/deployment and rollout evidence or Daychi consumer/device evidence, review preservation, conformance and joint outcomes against the [amended reminder contract](contracts/reminder-sync.md), reusing valid source/account/public-provider proof. The two waived client observations are not waiting corrections; reconsider them on evidence of an effect on normal operation. PR610's scoped diagnosis evidence remains reviewed.
 - On actual owner-authorized native-content runtime and matching account/grant/status/failure evidence in 15/16, inspect protected delivery, revocation/isolation and recovery in 16/11. Restart persistence, reminder implementation and issue closure add no prerequisite.
 - After the canonical DNS/ownership/TLS handoff, verify the actual host and assess authorized browser entry/migration/status/renewal/logout plus reader/alias/cache transition in 12/13. Existing source/check evidence remains reusable.

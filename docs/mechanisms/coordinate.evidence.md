@@ -72,6 +72,26 @@ changed before alignment. The remaining explicit acceptance questions and planne
 consolidated correction are retained in that audit; the operator has not graded
 the consistency amendment.
 
+### Accepted reminder runtime propagated — 2026-10-20
+
+Producing session: 01a15874-1e56-7cc1-934f-4b050ecd8580; L9/L31 rule basis at
+08c443d, unchanged by this acceptance amendment. The operator accepted installed
+Daychi in iOS Simulator with real Cabinet staging, excluding separate physical
+hardware and Android runs as current-delivery blockers. The
+[runtime agreement](../contracts/reminder-sync.md#accepted-joint-proof-runtime--2026-10-20)
+is published at 630120c1fb77cf0db2f23338b7631432110f2aa3. Original 17 now cites
+that immutable authority and carries the agreed scope; fresh body readback matched
+the prepared replacement, retaining its open state, all three project labels and
+18 existing comments. No new comment or issue was created.
+
+During pre-publication self-review, two earlier board-result paragraphs still
+described physical/Android observations as pending. They were corrected before
+publication, along with the current question's lean and former pending choice.
+The operator needed no second correction or renewed agreement. This is observed
+decision capture and propagation by the current session, not independent grading
+of future or unattended behavior. The actual Cabinet/Daychi joint run remains
+unclaimed; browser evidence alignment continues.
+
 ## Outcome ownership and consolidated communication — 2026-10-19
 
 The operator approved the instruction amendment after reminder alignment produced
