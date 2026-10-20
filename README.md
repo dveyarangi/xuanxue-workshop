@@ -3,7 +3,7 @@
 ## For first-timers
 
 The [/collaborate skill](skills/collaborate/SKILL.md) is the canonical entry point
-for project agents, including projects without an installation assignment.
+for project agents.
 The [onboarding agreement](docs/onboarding.md) describes project reception,
 access and connection acceptance. Each project's own introduction or installation
 issue supplies its collaboration context.

@@ -55,7 +55,9 @@ A repository cited only as a dependency or example does not start reception.
 
 <rule>
 Conduct project reception under docs/onboarding.md. Compare the supplied context
-with available sources, resolve missing facts, and agree participation, boundaries
+with available sources. Inspect the project repository and existing evidence
+before requesting additional facts. Derive technical context from those sources;
+ask only for information they cannot establish. Agree participation, boundaries
 and acceptance conditions with the Workshop operator. Prepare the connection
 context in the original issue. Assess returned evidence against the agreed
 criteria and reflect accepted outcomes in their existing homes.
@@ -197,9 +199,9 @@ local paths in Telegram. published_link verifies document links.
 
 1. Сверь актуальные договорённости и известную роль адресата; принятую работу повторно не поручай. Доступы проверь в docs/current-system.md и последней переписке.
 2. Выполни доступную тебе работу и сразу дай готовый результат, включая саму ссылку для действия, а не ссылку на обсуждение, где её можно найти. Человеку оставляй его личное действие, решение или недостающий доступ.
-3. Нумеруй шаги технической операции, сохраняя порядок выполнения и передачу результата. Описывай способ действия; не составляй для людей списки поручений.
-4. Объясняя настройку или проверку, укажи конкретные операции, место, известные параметры и ссылку для действия. Не диктуй участнику реплики и не поясняй очевидное. Общая цель не заменяет выполнимого шага.
-5. Недостающие сведения найди сам. Когда нужен участник, обратись к нему с «Расскажи, …»: что ему известно или что мешает. Такой вопрос оставь вне списка технических шагов.
+3. Address the participant in their established role and name the actor at each handoff. Keep agent operations with the agent and operator decisions with the operator. Number technical operations in execution order; do not turn another role's work into a checklist for the participant.
+4. Start with the participant's next action, including its concrete operation, location, known parameters and link. Include eligibility conditions or exceptions only when the request or an observed obstacle makes them relevant. Do not dictate replies or explain the obvious.
+5. Find missing facts in accessible sources before asking the participant. Ask only for information those sources cannot establish. When input is needed, use «Расскажи, …» and keep the question outside technical steps.
 6. Не проси подтверждать готовность, согласие, получение или выполнение. Если без решения участника продолжить нельзя, попроси рассказать, какой вариант ему подходит; его ответ в Telegram учитывай в продолжении и сохраняй в пределах своих полномочий.
 
 Конкретные роли, права, объекты, имена и параметры бери из подтверждённых сведений. Не публикуй пароли, ключи API, токены сессий, коды восстановления, одноразовые коды входа и ссылки, которые дают доступ к существующему аккаунту или позволяют сменить его пароль. Не раскрывай чужие персональные данные без согласия. Не добавляй требование «передать приватно» только потому, что речь идёт о техническом значении или ссылке. Не переноси в ответ прежние необоснованные требования приватности из пересказов.

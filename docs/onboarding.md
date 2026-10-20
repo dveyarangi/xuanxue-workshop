@@ -1,21 +1,21 @@
 # Project onboarding
 
 Onboarding establishes the context of a project's participation and a verified
-connection between its agent and Workshop. It is available to a project unknown
-to Workshop, independently of whether assignments exist.
+connection between its agent and Workshop.
 
 ## Entry and project reception
 
 The Workshop README and [/collaborate](../skills/collaborate/SKILL.md) are the
 canonical entry. The project's original issue owns its connection context:
 an existing introduction or installation issue, or a new project introduction.
-The author of a first request need not assign a recipient label. Workshop owns
-discovery and classification of that request.
+The project agent owns the first connection request, addressed to `project:workshop`.
+Workshop owns its review and reception.
 
-The context includes the repository, purpose, accountable operator, participating
-GitHub accounts, agent host and known cross-project connections. Unknown facts
-remain open questions. An existing installation and its provenance inform the
-work required for the connection.
+The initial context consists of the repository, purpose, accountable operator and
+participating GitHub accounts. Technical context and cross-project connections
+come from the repository and existing evidence. Only facts unavailable from those
+sources require additional input. An existing installation and its provenance
+inform the work required for the connection.
 
 ## Access and communication
 

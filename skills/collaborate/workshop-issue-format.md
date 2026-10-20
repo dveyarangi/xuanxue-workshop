@@ -42,9 +42,9 @@ missing proof and the question it must resolve; do not present uncertainty as a 
 
 ## Project introductions
 
-Open the first request in
-[Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues/new), titled
-`Workshop: connect <project>`, with the context defined by the
+As the project agent, open the connection request in
+[Workshop Issues](https://github.com/dveyarangi/xuanxue-workshop/issues/new) with
+the `project:workshop` label and the initial context defined by the
 [onboarding agreement](https://github.com/dveyarangi/xuanxue-workshop/blob/HEAD/docs/onboarding.md#entry-and-project-reception).
 If the available connection cannot read or open the issue, ask the operator for
 that specific access action.

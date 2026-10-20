@@ -677,6 +677,43 @@ Installed bindings, mechanism declarations, local links, question/edge form and
 the shared-report shape pass. No application code, intake behavior or recipient
 installation changed in this refinement.
 
+### Participant actions and repository-derived intake - 2026-10-20
+
+The operator rejected the isolated bot response: its opening introduced an
+unasked concern, its audience and handoff actors were unclear, and it requested
+repository-derived facts while omitting the Workshop recipient label. The
+operator required source-rule repair, not an edited sample answer.
+
+The accepted correction keeps the initial context to repository, purpose,
+accountable operator and participating GitHub accounts. The project agent opens
+the request addressed to `project:workshop`; its title is not prescribed. Workshop
+derives technical context from the repository and asks only for unavailable facts.
+The existing explanation rules name the participant and handoff actors and omit
+hypothetical prerequisites; no onboarding-specific bot rule is added.
+
+Before the response probe, the observable criteria are: a clear operator-facing
+entry, an explicit project-agent author for the original issue, the Workshop
+recipient label, no title requirement, no request for repository-derived facts,
+and no opening reassurance about Workshop's prior knowledge or task availability.
+The probe uses the bot's answer-only worker with supplied documents and no
+Telegram transport; it cannot establish live reception or recipient adoption.
+
+The first probe named the roles, used the Workshop label and requested only the
+four initial facts, but opened with an unasked reassurance about not needing an
+installation assignment. The explanation rule now starts with the participant's
+next action and limits eligibility conditions or exceptions to relevant requests
+or observed obstacles. README's redundant installation-assignment exception is
+removed. A neutral onboarding request is then run against the corrected sources,
+without priming the response with Workshop's prior knowledge of the project.
+
+The final neutral probe starts with the operator's next action, explicitly names
+the project agent as issue author, supplies `project:workshop` and requests only
+the four initial facts. It prescribes no issue title and opens with no reassurance
+about Workshop knowledge or assignment availability. The worker reports zero
+tool operations; no Telegram transport is present. Installed-rule, mechanism,
+question and shared-report checks pass, as does the announced harness comparison.
+This is isolated response evidence, not a live onboarding or delivery claim.
+
 ### Browser acceptance propagated — 2026-10-20
 
 Producer: current Workshop operator session 01a15874-1e56-7cc1-934f-4b050ecd8580.

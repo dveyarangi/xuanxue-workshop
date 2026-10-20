@@ -507,6 +507,16 @@ identified both the authorship error and recurring cost. Under
 the invariant in the agreement and the methods in their role instructions.
 Repeated prohibitions are removed; no additional rule or mechanism is added.
 
+Struck again, 2026-10-20: the isolated onboarding response mixed the operator's
+actions with agent work, introduced hypothetical prerequisites and requested facts
+available from the repository. L22's explanation rules did not prevent it. The
+operator's correction was initially answered with an edited example rather than
+source repair. The repaired L22 names the audience and handoff actors and requires
+source discovery before questions; L20 applies that discovery to reception. The
+intake agreement and format now own the minimal context and Workshop label.
+The [response probe](mechanisms/coordinate.evidence.md#participant-actions-and-repository-derived-intake---2026-10-20)
+holds the behavioral verification scope. No additional global rule is added.
+
 ## 2026-10-13 — Shared production cookie reviewed without staging coexistence
 
 Status: environment isolation accepted on 2026-10-13; recipient amendment published and read back.

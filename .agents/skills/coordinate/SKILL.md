@@ -137,7 +137,9 @@ questions and changed dependencies matter before completion reports arrive.
 
 <installed by="local">
 **L20** Conduct project reception under docs/onboarding.md. Compare the supplied context
-with available sources, resolve missing facts, and agree participation, boundaries
+with available sources. Inspect the project repository and existing evidence
+before requesting additional facts. Derive technical context from those sources;
+ask only for information they cannot establish. Agree participation, boundaries
 and acceptance conditions with the Workshop operator. Prepare the connection
 context in the original issue. Assess returned evidence against the agreed
 criteria and reflect accepted outcomes in their existing homes.
