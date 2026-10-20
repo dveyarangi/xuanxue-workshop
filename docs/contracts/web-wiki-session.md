@@ -366,10 +366,25 @@ Browser cookie delivery was executed in an isolated Chrome 154.0.8037.99 context
 with reserved HTTPS fixtures and a simulated reader endpoint. The
 [scoped evidence](../questions/done/q-0002.0008.0001.0001.0001-how-should-web-wiki-reuse-an-existing-cabinet-sign-in.md#browser-delivery-evidence)
 establishes shared delivery and expiration, not production Cabinet/Daychi proof.
-Joint proof still needs actual issuance/migration, renewal, current account and
-expiry/refusal/failure validation, logout from either site, both delivery paths
-and closure of anonymous bypasses, including controlled caches. Source versions,
-the agreed interface and the deployed configuration must match that proof.
+Joint proof follows the accepted evidence split below. The shared behavior,
+including current-account validation, renewal, both delivery paths and closure
+of anonymous bypasses through controlled caches, remains binding. Source versions,
+the agreed interface and the deployed configuration must match the evidence.
+
+## Accepted acceptance-evidence split — 2026-10-20
+
+Decision: the Workshop operator, 2026-10-20.
+
+Live browser proof covers protected material and recording reads with a valid
+Cabinet session, sign-in with original-page return, and logout followed by refusal
+of the next protected read.
+
+Renewal, expiry, account deletion/blocking, malformed responses, timeouts and
+remaining boundary cases are established through inspectable source and executed
+automated tests; a separate live run of every such case is not required.
+
+This changes evidence form, not the accepted behavior or environment profiles.
+No completed joint run is established by this decision.
 
 ## Superseded policy references
 
