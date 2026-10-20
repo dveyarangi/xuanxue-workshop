@@ -362,6 +362,15 @@ unchanged. These two observations are non-blocking; reconsider them on evidence
 of an effect on normal operation. Other validation, recovery and joint acceptance
 requirements remain in force.
 
+## Accepted joint-proof runtime — 2026-10-20
+
+Decision: the Workshop operator, 2026-10-20.
+
+For current-delivery joint acceptance, installed Daychi in iOS Simulator connected
+to real Cabinet staging is sufficient. Separate physical-device and Android runs
+do not block acceptance or closure of original issue 17. Existing functional/common-case
+obligations remain; this decision does not establish that the joint run has passed.
+
 ## Ownership and evidence
 
 Cabinet owns authenticated GET/PATCH, validation, atomic ordered saves, state
