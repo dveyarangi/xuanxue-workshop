@@ -1,5 +1,28 @@
 # Current application structure and boundary evidence
 
+## Reminder runtime clarification — 2026-10-20
+
+Fresh PR metadata confirms Cabinet [PR609](https://github.com/gregoryKot/xuanxue-cabinet/pull/609)
+merged at `c60944f091bbeb96665a39cb0ae63f60332180a4` and
+[PR610](https://github.com/gregoryKot/xuanxue-cabinet/pull/610) at
+`20128fbdcda9a310f377f8d3c288ff47399c4f63`, retaining the source heads reviewed
+overnight. Credential-free health reads at approximately 07:46 UTC returned 200:
+staging reported `20128fb`, Mongo up and the scheduler enabled/non-stale;
+production reported `fc2dee2`. Cabinet's reminder code and corrections are deployed
+on staging. These reads do not establish account migration results or joint saves.
+
+Daychi [PR19](https://github.com/sleontenko/daychi/pull/19) remains draft/open at
+`ea464efefd93d700ad80860d9c39b3694b932597`. Its author describes a default-off
+native candidate, with source/tests and synthetic installed evidence supplied,
+while merge, activation and a mobile release are excluded. Real Cabinet joint
+saves, installed Android and physical-delivery results remain unclaimed. The
+draft marker alone does not prove defective or incomplete code; those explicit
+scope statements establish what delivery is still unclaimed. The current owner
+actions remain in [original 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17);
+the [operator-approved acceptance scope](contracts/reminder-sync.md#current-delivery-acceptance-scope--2026-10-20)
+removes the two specified client observations as blockers. Earlier reminder
+source-only observations below are dated history, superseded within this scope.
+
 ## Structured-article acceptance — 2026-10-19
 
 The user accepted the [Daychi/Knowledge completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6113936401) and directed closure of [original issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9), reopening it if problems emerge. Workshop independently verified merged source, matching executable definitions/common cases and successful applicable checks. The private batch/import/replay, deployed-reader and independent-audit artifacts were not independently inspected by Workshop; the additional evidence-access request is withdrawn as a closure requirement. No repeat import, test run, private-evidence submission or recipient acknowledgement is pending. This accepts the reported completion without adding independent verification claims. Active v1 remains supported.

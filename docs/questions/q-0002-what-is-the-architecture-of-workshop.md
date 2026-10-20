@@ -2,8 +2,8 @@
 
 - **record of** what it intends to become
 - **state** open
-- **lean** Accepted agreements live in boundaries and their contracts; implementation and proof live in current-system. The public-schedule pilot is closed by operator acceptance with remaining evidence waived. Native account-session acceptance and collaboration/readiness are complete within their scopes. Browser-wiki, native-content and reminder outcomes retain their existing work. Gateway and backend consolidation remain deferred.
-- **struck** 7, last 2026-10-14T22:37Z
+- **lean** Accepted interfaces and explicit operator scope remain authoritative. Reminder client 51-class and over-one-hour-delay observations are waived as current-delivery blockers; existing server bounds remain. Cabinet staging 20128fb is observed. Browser/native-content and actual Daychi joint outcomes remain in existing assignments; gateway/backend consolidation stays deferred.
+- **struck** 10, last 2026-10-19T05:22Z
 
 ## Current decision context
 
