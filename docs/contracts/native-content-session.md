@@ -203,9 +203,10 @@ may differ; two local green suites alone do not establish joint acceptance.
 | C15 | Existing native/owner/import/public content consumers and browser-wiki routes | Existing authority/content behavior retained; native addition cannot bypass browser cookie policy |
 | C16 | Account/profile/contact data, cookies and provider errors during every outcome | No profile/credential persistence, downstream leakage, Set-Cookie or sensitive logs |
 
-Joint proof uses an owner-authorized matching staging deployment and an identified
-native client build/source mapping. Its live scope is protected material/recording
-delivery under the accepted evidence split below. Executed automated checks cover
+Joint proof uses real Cabinet staging, any selected Daychi backend and an
+identified installed Daychi iOS Simulator build/source mapping under owner
+authorization. Its live scope is protected material/recording delivery under the
+accepted evidence split below. Executed automated checks cover
 next-read refusal after grant revocation, other native/browser sessions remaining
 usable, blocked/unblocked recovery, provider failure/recovery without credential
 loss, expiry, deletion and capacity boundaries. No live status, outage, revocation,
@@ -217,16 +218,34 @@ where its revisions and observations establish the applicable content outcome.
 Decision: the Workshop operator, 2026-10-20.
 
 Live joint proof for originals 15/16 requires protected material and recording
-delivery on matching staging. All remaining cases, including revocation/next-read
-refusal, session isolation, block/unblock, provider failure/recovery, expiry,
+delivery using Cabinet staging under the accepted runtime below. All remaining
+cases, including revocation/next-read refusal, session isolation, block/unblock,
+provider failure/recovery, expiry,
 deletion and capacity boundaries, use inspectable source and executed automated
 tests; no separate live run is required.
 
 Shared behavior and the accepted restart-reset exception remain unchanged. This
-decision does not establish completed proof or select the sufficient native client.
+decision does not establish completed proof.
+
+## Accepted joint-proof runtime — 2026-10-20
+
+Decision: the Workshop operator, 2026-10-20.
+
+Installed Daychi in iOS Simulator is sufficient for current acceptance and closure
+of originals 15/16, using any Daychi backend and real Cabinet staging.
+
+No particular Daychi backend hosting environment is required. Physical hardware,
+Android and TestFlight delivery do not block acceptance or closure. The live reads
+exercise the native content path through the selected Daychi backend and Cabinet
+staging; the client/backend/source mapping is reported.
+
+Only protected material and recording delivery require live proof; all remaining
+cases use executed automated tests. Existing behavior and accepted evidence remain
+binding; this decision does not establish that the actual reads have passed.
 
 Implementation and synthetic proof can proceed against the accessible contract
 under each recipient's operator. Actual integrated activation requires provider
-capacity/source/check evidence and matching authorized staging native/account
-access; release and production cutover remain with the recipient owners. Reports
-return through the linked contributions in original coordination issue 11.
+capacity/source/check evidence, Cabinet staging native/account access and a
+Daychi client/backend runtime under the accepted scope above; release and
+production cutover remain with the recipient owners. Reports return through the
+linked contributions in original coordination issue 11.

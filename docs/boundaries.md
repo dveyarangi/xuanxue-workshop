@@ -513,6 +513,11 @@ The method and full native wire profile are accepted. The separate
 validation wire, caller authority, capacity and failure behavior. Its joint proof
 and activation remain separate work; gateway deferral is unchanged. The operator's
 20 October [accepted evidence split](contracts/native-content-session.md#accepted-acceptance-evidence-split--2026-10-20)
-limits live native-content proof to material/recording reads on matching staging;
+limits live native-content proof to material/recording reads using Cabinet staging;
 all other cases, including revocation and failure/recovery, use executed automated
-tests and inspectable source. Native-client sufficiency remains under alignment.
+tests and inspectable source. The same day's
+[accepted runtime](contracts/native-content-session.md#accepted-joint-proof-runtime--2026-10-20)
+allows installed Daychi in iOS Simulator with any Daychi backend and real Cabinet
+staging; physical hardware, Android and TestFlight do not block acceptance or
+closure of 15/16. No particular Daychi hosting environment is required; actual
+read success remains to be evidenced.
