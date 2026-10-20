@@ -752,6 +752,10 @@ qualification, application-readiness caveat or closing assurance. The answer is
 retained unedited; the worker reports zero tool operations. Installed bindings,
 mechanism and record checks and the announced harness comparison pass.
 
+The operator accepted the complete unedited final response on 2026-10-20 after
+reviewing it in this conversation. This accepts the onboarding explanation under
+the corrected rules published at a24da82.
+
 ### Browser acceptance propagated — 2026-10-20
 
 Producer: current Workshop operator session 01a15874-1e56-7cc1-934f-4b050ecd8580.
