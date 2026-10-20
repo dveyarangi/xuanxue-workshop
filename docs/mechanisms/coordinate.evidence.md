@@ -52,6 +52,26 @@ agreed success-count threshold or automatic closure; the Workshop operator grade
 the amendment. Existing failure history remains evidence of failure, and clean
 structural checks remain installation evidence.
 
+### Operator-requested acceptance audit — 2026-10-20
+
+Producing session: 01a15874-1e56-7cc1-934f-4b050ecd8580. The audit started from
+46b2f9c with the installed L9/L31 bodies unchanged; L33/L34 are separately recorded
+above. The [acceptance audit](../questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md)
+read all six open originals and their complete conversations/timelines. It found
+an existing stale transition dependency in browser 12/13 pointing to closed 9,
+whose current closure explicitly leaves that transition with 12/13. No canceled
+reminder client bound/delay correction or native quota-persistence requirement
+was reinstated by the current issue bodies. Later recipient QA disclosures do
+not establish newly approved Workshop acceptance gates.
+
+This is a baseline residual discovered during an operator-requested audit, not
+proof of an independent unattended pass or a newly introduced recurrence after
+registration. The operator initiated the audit; no point-specific correction
+was needed to identify this residual. No criterion or tracker dependency was
+changed before alignment. The remaining explicit acceptance questions and planned
+consolidated correction are retained in that audit; the operator has not graded
+the consistency amendment.
+
 ## Outcome ownership and consolidated communication — 2026-10-19
 
 The operator approved the instruction amendment after reminder alignment produced

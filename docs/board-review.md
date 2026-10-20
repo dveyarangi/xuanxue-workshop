@@ -1,9 +1,11 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-10-20T07:46:44+00:00
+- **Reviewed:** 2026-10-20T09:33:25+00:00
 
 ## Reviewed scope
+
+The 20 October operator-requested acceptance-provenance audit freshly read all six open issue bodies, all 64 comments and all 143 timeline events, governing decision records and the linked Daychi reminder QA. It distinguishes individual decisions, accepted complete packages and recipient QA limits; no criterion or tracker entry was changed, and no source suite or runtime integration was rerun.
 
 This update records the Workshop operator's 20 October acceptance amendment, the confirmed original-17 update and a fresh read of all issue states, open-issue conversations and relevant PR metadata. There are six open issues (11, 12, 13, 15, 16, 17) and eleven closed issues. The source/runtime conclusions below reuse completed overnight reviews; no new recipient runtime test or deployment was performed.
 
@@ -12,6 +14,8 @@ The retained 02:36 UTC periodic review covered all 12 host-selected originals: 2
 New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 and PR610 at d855ba573a3b876db056beefcf5d46ac363bb6d7, their complete deltas, relevant parser/reducer/hook/transport and test-support source, regression assertions and exact-head CI job steps. At that overnight source review Cabinet main was independently confirmed at 9fc0703d53d12d510c40c0981f985d10339ad63a and both candidates were open/unmerged. Fresh PR metadata now confirms PR609 merged at c60944f091bbeb96665a39cb0ae63f60332180a4 on 20 October at 07:08:06 UTC and PR610 at 20128fbdcda9a310f377f8d3c288ff47399c4f63 at 07:08:11 UTC, retaining the reviewed heads. This confirms merge state, not deployment or new merge-CI execution. A local exact-source Node probe stripped TypeScript and substituted imported shared constants from the inspected revision. No recipient suite, browser/account, device, fixture, DNS, deployment or release operation was run.
 
 ## Results
+
+- **Acceptance provenance, 20 October:** the [six-issue audit](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) found recorded operator agreement for the browser/native/reminder behavior and accepted-package support for their detailed contracts/common cases. The exact mandatory live/device matrix is not established by every later recipient QA disclosure. Browser 12/13 still refer an access-transition action to closed 9, whose closure retains that work in 12/13. This is an existing stale dependency, not grounds to reopen article acceptance. Explicit reminder client-bound/delay and native restart exclusions remain operative. No acceptance amendment is inferred from this audit.
 
 - **Cabinet runtime clarification, 20 October:** fresh credential-free GET /api/health returned 200 on staging with commit 20128fb, Mongo up and scheduler enabled/non-stale; production returned 200 at fc2dee2. The reviewed reminder implementation and correction commits are therefore deployed on staging; provider staging deployment is no longer unknown. This read does not establish actual account migration results or a real shared save. Daychi PR19 explicitly describes a default-off draft candidate, with merge/activation/mobile release excluded and installed Android, physical delivery and real Cabinet joint-save outcomes still pending.
 
@@ -35,6 +39,7 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 
 **Reviewer commitments**
 
+- Complete the operator-requested acceptance alignment and then reconcile the affected existing issue bodies; accepted implementation work continues under its current scope. The audit does not itself add a recipient hold.
 - On changed Cabinet integration/deployment and rollout evidence or Daychi consumer/device evidence, review preservation, conformance and joint outcomes against the [amended reminder contract](contracts/reminder-sync.md), reusing valid source/account/public-provider proof. The two waived client observations are not waiting corrections; reconsider them on evidence of an effect on normal operation. PR610's scoped diagnosis evidence remains reviewed.
 - On actual owner-authorized native-content runtime and matching account/grant/status/failure evidence in 15/16, inspect protected delivery, revocation/isolation and recovery in 16/11. Restart persistence, reminder implementation and issue closure add no prerequisite.
 - After the canonical DNS/ownership/TLS handoff, verify the actual host and assess authorized browser entry/migration/status/renewal/logout plus reader/alias/cache transition in 12/13. Existing source/check evidence remains reusable.
@@ -47,6 +52,8 @@ New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 a
 - Cabinet and Daychi retain the matching native-content runtime/account/grant/status/outage arrangement and actual protected-material/recording, next-read revocation and recovery outcomes. The supported provider can be used under ce4aebc; no new live aging/deletion fixture or mobile upload is assigned.
 
 **Operator-only actions**
+
+- **Acceptance alignment:** Workshop operator @Yarangi decides in the [current alignment](questions/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) whether reminder 17 joint evidence may use an installed iOS Simulator runtime, without separate physical-device/Android runs as Workshop closure conditions. Recommendation: retain the real Cabinet joint outcomes and existing supported-device queue evidence, with those additional platform runs treated as disclosed recipient QA. After the decision, Workshop records its exact scope, continues the browser/native evidence questions and consolidates accepted changes plus the stale original-9 reference correction into the existing assignments. No criterion change is accepted yet.
 
 - No fresh contract/publication decision is required for the existing canonical browser route or reminder implementation. Only if earlier browser access is required, Workshop operator @Yarangi may authorize preparation of the bounded same-origin alternative described in [original 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6237596407). Recommendation remains completing the accepted canonical handoff. Workshop would then prepare the exact alternative and common cases for alignment; no alternative is accepted or assigned.
 
