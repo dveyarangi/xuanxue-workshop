@@ -91,6 +91,8 @@ Daychi retains canonical TLS/runtime proof and its service/release ownership.
 Private Railway ownership-value handoff, authorized Cabinet fixtures and the
 remaining joint browser/exposure/cache proof retain their original assignments.
 
+The operator-approved [essential acceptance](../contracts/web-wiki-session.md#essential-acceptance--2026-10-21) governs these criteria and evidence reuse; numeric quota/counter proof and extra runtime/report gates are excluded.
+
 ## Acceptance criteria
 
 - [ ] The separately accepted public homepage overview satisfies its restricted allowlist; credentials/query variations cannot expose protected reader data, and click/navigation retains existing-session reuse or Cabinet sign-in/return. The exposure/cache inventory distinguishes this projection from protected reader paths. ([Accepted exception](../contracts/web-wiki-session.md#accepted-public-homepage-graph-overview), 2026-10-14)

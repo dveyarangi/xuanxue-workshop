@@ -1,5 +1,18 @@
 # Initial target boundary contracts
 
+## Current acceptance scope — 2026-10-21
+
+The Workshop operator removed unnecessary acceptance gates for browser 12/13,
+native content 15/16 and reminders 17. Their governing essential-acceptance
+sections are [browser](contracts/web-wiki-session.md#essential-acceptance--2026-10-21),
+[native content](contracts/native-content-session.md#essential-acceptance--2026-10-21)
+and [reminders](contracts/reminder-sync.md#essential-acceptance--2026-10-21).
+Observable user outcomes, access/account isolation and compatible exchange remain;
+numeric quotas/counter machinery and selection/payload/retry boundary proof do
+not gate acceptance or closure. Existing compatible implementations/tests may
+remain without a new recipient implementation assignment. This decision
+supersedes earlier retained-capacity/limit acceptance wording below.
+
 Accepted decisions, with unresolved API details identified below. Scope is governed by
 [first-stage delivery](stage-1.md); [current behavior](current-system.md) and
 [required changes](migration-changes.md) are recorded separately.
@@ -42,7 +55,7 @@ observed source and deployment claims belong to [current evidence](current-syste
 |---|---|---|---|
 | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
 | Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Broader protected-schedule compatibility remains migration work; the [accepted reminder synchronization contract](contracts/reminder-sync.md) fixes the shared account wire and behavior. |
-| Cabinet session validation for Daychi content | Cabinet backend | Daychi backend | Apply the [native content check](contracts/native-content-session.md) and the separate accepted browser check. Wire, caller authority and per-grant native capacity are accepted; implementation and joint proof remain work. Native renewal remains in its account profile. |
+| Cabinet session validation for Daychi content | Cabinet backend | Daychi backend | Apply the [native content check](contracts/native-content-session.md) and the separate accepted browser check. Wire and caller authority remain accepted; the 21 October [essential acceptance](contracts/native-content-session.md#essential-acceptance--2026-10-21) removes prescribed quotas and counters. Actual content proof remains work. Native renewal remains in its account profile. |
 | Cabinet sign-in for web wiki | Cabinet backend | Daychi backend and web wiki | Shared browser session, session check, automatic entry/return and Cabinet-site logout are accepted below; implementation, coordinated cutover and deployed proof remain work. |
 | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
 
@@ -510,7 +523,9 @@ approval request. Its operative home is
 [accepted native credential acquisition](contracts/native-account-session.md#accepted-native-credential-acquisition).
 The method and full native wire profile are accepted. The separate
 [native content-check contract](contracts/native-content-session.md) fixes its
-validation wire, caller authority, capacity and failure behavior. Its joint proof
+validation wire, caller authority and failure behavior. Its current essential
+acceptance removes prescribed capacity/counter proof; existing implementation
+remains. Its joint proof
 and activation remain separate work; gateway deferral is unchanged. The operator's
 20 October [accepted evidence split](contracts/native-content-session.md#accepted-acceptance-evidence-split--2026-10-20)
 limits live native-content proof to material/recording reads using Cabinet staging;

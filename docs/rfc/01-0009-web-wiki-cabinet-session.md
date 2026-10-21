@@ -1,5 +1,13 @@
 # Cabinet sign-in for web wiki — implementation plan
 
+## Current acceptance scope — 2026-10-21
+
+The operator-approved [essential acceptance](../contracts/web-wiki-session.md#essential-acceptance--2026-10-21)
+governs closure. Existing wire/compatibility and access boundaries remain;
+numeric quota/counter and exact-limit proof, extra environments/devices and
+repeated accepted evidence add no closure gate. Detailed implementation and
+historical verification lists below do not enlarge that scope.
+
 - **record of** what it intends to become
 
 **Authored:** 2026-10-13

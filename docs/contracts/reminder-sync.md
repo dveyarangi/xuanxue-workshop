@@ -1,6 +1,41 @@
 # Account reminder synchronization contract
 
-Revised 2026-10-20 for [original request 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
+## Essential acceptance — 2026-10-21
+
+Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from
+acceptance, following the explicit review of required outcomes and excess gates.
+The operator reaffirmed preservation of existing implementation and staging;
+the purpose is to remove unnecessary ceremony and clear integration closure.
+This section governs current acceptance and closure of original 17.
+
+Cabinet web and installed Daychi in iOS Simulator with real Cabinet staging use
+the same confirmed reminder settings. Only selected classes/lessons generate
+reminders; new accounts start empty. Independent changes survive; the last
+Cabinet commit wins for the same key. Uncertain saves recover by reading current
+state without automatic mutation replay or false success. Offline editing is
+unavailable while confirmed cached viewing/reminders survive. Received moves and
+cancellations are applied; account/issuer/guest state stays separate. Agreed
+personal leads and the school default retain their product meanings.
+
+The previously agreed joint proof remains: different/same-key saves,
+committed/noncommitted lost-response readback, offline refusal with retained
+reminders, move/cancellation recovery and logout/account/issuer isolation.
+Preservation of existing choices and separation of legacy writers remain;
+reuse credited automated migration and regression evidence. Physical devices,
+Android, production mobile release and an exhaustive platform matrix are
+non-blocking. Existing source, automated and synthetic evidence remains credited.
+
+Technical quotas and exact counter/window, restart, replacement or replica
+behavior are not acceptance or closure requirements. Neither are the reminder
+50-class, 64-change and 128-KiB boundaries or exact retry-delay boundary tests.
+Existing compatible API values, working protections and useful tests may remain;
+no removal or reimplementation in recipient code is assigned. Malformed input
+must still cause no unauthorized content, partial save or false confirmation.
+No performance/stress target or expanded device/environment matrix is added.
+Already credited evidence is reused; neither a new report format nor repeating
+accepted builds, installation, account proof, CI or synthetic QA gates closure.
+
+Revised 2026-10-21 for [original request 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
 Status: complete wire version 1, delivery bounds and common conformance outcomes
 accepted by the Workshop operator on 2026-10-19. Implementation and runtime
 acceptance remain work in the original issue; this is not a deployment claim.
@@ -155,7 +190,11 @@ with null except `minutes`. Unknown fields/kinds, duplicate JSON object keys,
 unsupported versions and duplicate changed keys in a batch are invalid. A key
 is `(kind,id)` for a selection, or `lead` for the scalar setting.
 
-One request has 1..64 distinct keys and at most 128 KiB of uncompressed JSON.
+The current wire-version-1 compatibility baseline uses 1..64 distinct keys and
+at most 128 KiB of uncompressed JSON. These existing values may remain in API and
+client code. Exact boundary implementation, correction or proof is not a current
+acceptance/closure requirement under the 21 October operator decision; no client
+or provider rewrite is requested.
 Larger deliberate saves use sequential batches; an error stops remaining batches
 without queuing them for replay. Already confirmed batches remain saved. IDs
 must be lowercase 24-character hexadecimal Cabinet ObjectId strings
@@ -163,7 +202,7 @@ must be lowercase 24-character hexadecimal Cabinet ObjectId strings
 legacy IDs. Adding requires an existing lesson/class,
 including an inactive existing class. Removal does not require the lesson/class
 to exist: it removes a stored choice, or succeeds as a no-op if already absent.
-At most 50 positive class choices remain, preserving the existing
+The current server retains its 50-positive-class bound, preserving the existing
 Cabinet bound; exceeding it rejects the whole batch. No extra numerical cap is
 introduced for individual choices, and selections survive calendar-window shifts.
 
@@ -344,7 +383,7 @@ issue is required. This document grants no fixture mutation or release.
 | Identity | Moves across dates/windows retain a lesson choice; cancellation suppresses and restoration restores delivery eligibility. |
 | Logout/refusal | Explicit logout cancels account reminders/clears transient work; accepted server state survives. Refusal/network failures retain confirmed cache without cross-account replay. |
 | Guest transition | Sign-in uses Cabinet, leaves guest data intact and uploads nothing automatically; sign-out restores guest state. |
-| Validation | Invalid kind/shape/ID, duplicate keys, unsupported version, 65 changes, body overflow or a 51st positive class cannot partially write the batch. |
+| Validation | Malformed input, invalid identities and unsupported versions cause no unauthorized or partial batch write. Exact 50-class/64-change/128-KiB boundary proof is excluded by the current acceptance scope. |
 | Access | Browser CSRF, native grant revocation/account blocking, mixed credentials, no-store and account isolation match the access section. |
 | Lead/delivery | Personal 0/120 and school-default 45 work on both ends. Zero targets the start with up to 60 seconds of accepted processing tolerance; positive lead targets remain before start. |
 | Read failure/recovery | Last good calendar/settings and scheduled reminders survive; received cancellations/moves apply on recovery, without an offline edit queue. |
@@ -357,10 +396,11 @@ issue is required. This document grants no fixture mutation or release.
 On 2026-10-20 the Workshop operator waived client rejection of an otherwise valid
 snapshot solely because it contains more than 50 class IDs, and handling of
 supplied retry delays exceeding one hour, as acceptance requirements for the
-current delivery. Existing server-side selection limits and rate limiting remain
-unchanged. These two observations are non-blocking; reconsider them on evidence
-of an effect on normal operation. Other validation, recovery and joint acceptance
-requirements remain in force.
+current delivery. The 21 October essential-acceptance decision additionally
+removes numeric selection/payload/rate-counter and exact-delay boundaries as
+acceptance obligations. Existing compatible server/client behavior may remain;
+no corrective implementation or regression proof for these bounds gates closure.
+Other access, no-partial-save, recovery and joint outcomes remain in force.
 
 ## Accepted joint-proof runtime — 2026-10-20
 

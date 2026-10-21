@@ -1,5 +1,85 @@
 # Current application structure and boundary evidence
 
+## Essential acceptance and removed gates — 2026-10-21
+
+Decision: the Workshop operator explicitly approved removing all unnecessary
+conditions after reviewing required user outcomes and excess technical gates.
+The current authority is each contract's essential-acceptance section:
+[browser](contracts/web-wiki-session.md#essential-acceptance--2026-10-21),
+[native content](contracts/native-content-session.md#essential-acceptance--2026-10-21)
+and [reminders](contracts/reminder-sync.md#essential-acceptance--2026-10-21).
+This supersedes earlier statements retaining prescribed native capacity and
+numeric reminder bounds as acceptance guarantees, including the earlier audit's
+whole-plan inference. No independent need for the number 60 was established.
+
+Mandatory 60/60 quotas, all grant-counter/window/restart/replica proof, exact
+50-class/64-change/128-KiB boundaries and exact retry-delay proof are removed
+from acceptance and closure. Existing compatible API values and useful working
+protections/tests may remain; no recipient code rewrite or removal is requested.
+Access/account isolation, safe saves, content compatibility and reminder behavior
+remain. The accepted staging/Simulator forms and evidence reuse are unchanged.
+
+Remaining owners/actions stay narrow: @stnleo and @kotlarewski finish browser
+staging availability and its three main live scenarios; @stnleo supplies a working
+chosen native backend and the two actual content reads; Cabinet returns the
+missing reminder rollout/preservation result and both projects return the
+already agreed joint reminder outcomes. Workshop reconciles those results.
+No actual run, new recipient implementation, deployment or completed acceptance
+is asserted by this scope reduction. The later publication entry records which
+original bodies have been updated and verified.
+
+## Credited subsets and closure owners — updated 2026-10-21
+
+The operator requested in-place updates of originals 12/13, 15/16 and 17 showing
+credited work, exact remaining actions and responsible owners, without new criteria
+or repeat requests. Fresh reads covered all five bodies, 62 comments and 131
+paginated timeline events, with Daychi PR18/19 retaining bb7295f/ea464ef. The
+only new conversation material since the prior status read was original 16's
+runtime preparation, withdrawal of extra live fixtures and Workshop's review.
+
+- Browser 12/13: provider/consumer source and executed automated proof, the
+  installed Cabinet context, source accessibility and Windows correction remain
+  credited. Cabinet staging is running at 20128fb. Remaining work is the existing
+  private Daychi/DNS handoff (@stnleo / @kotlarewski), canonical staging TLS/routing,
+  the existing running-staging exposure/configuration evidence and the three
+  accepted browser scenarios. Production and full live fault/status matrices
+  remain non-blocking.
+- Native 15/16: Cabinet's source/HTTP/automated/deployed subset and accepted restart
+  exception remain credited. The [7be8dac installed-client/configuration preparation](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6300821580)
+  is now credited as identified installed Simulator/build/backend mapping; it is
+  not requested again. A 21 October read of the chosen backend still returns
+  Railway edge 404 Application not found. @stnleo retains a working selected
+  backend (or any suitable alternative) and the two actual protected reads through
+  Cabinet staging. @kotlarewski assists only for a real unresolved account/read need;
+  there is no new two-grant/browser, role/status/outage setup or account rerun.
+- Reminders 17: Cabinet source/automated checks/deployment and the reviewed correction/
+  diagnosis are credited. Daychi source/CI/synthetic QA, exports and queue receipts
+  remain credited at their declared scope. @kotlarewski retains the missing actual
+  migration/preservation/legacy-writer rollout receipt; @stnleo retains the identified
+  Cabinet-connected Simulator runtime. Both retain the previously agreed real
+  shared saves/readback/offline/calendar/logout/isolation outcomes. Existing proof,
+  two client waivers and all runtime exclusions are reused, not re-requested.
+- Workshop under @Yarangi owns final reconciliation and acceptance of only those
+  missing agreed outcomes. The five current issue bodies were updated in place
+  and freshly read back against the prepared text. Open states, recipient labels,
+  assignees, titles and comment counts are unchanged. No comment, duplicate issue,
+  source implementation, contract change, release or authenticated run was added.
+
+The original bodies are the actionable remaining-work home. Their immutable
+browser ec3f17a, native-content 1fd3890 and reminder 630120c authorities and accepted
+proof/exclusion sections remain unchanged. Technical scope is explicitly retained
+context, not a demand to repeat credited implementation/tests. The later Daychi
+[scope correction](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6299218976)
+withdraws the earlier stale live-fixture requests; they are not forwarded to Cabinet.
+
+On the operator's terminology query, [the 12 October Daychi report](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6124308245)
+identified an existing 60/minute server-IP check throttle; the 16 October Workshop
+contract moved successful-check accounting to the authenticated native grant.
+The [Cabinet result](https://github.com/dveyarangi/xuanxue-workshop/issues/15#issuecomment-6263294915)
+is already implemented/tested. No separately recorded operator selection of the
+number 60 was found beyond the recorded whole-plan agreement; this factual status
+update makes no numeric-policy decision or new limit/retest request.
+
 ## Closure status against agreed acceptance — 2026-10-20
 
 At 2026-10-20T15:30:36.638836+00:00, a scoped read of originals 12/13, 15/16 and 17 found all five
@@ -154,8 +234,9 @@ accepts the current single-instance state-loss behavior as a non-blocking limita
 No persistence correction, replacement-proof requirement or consumer change remains.
 The already reviewed source/CI/staging progress stands. Actual joint content proof
 and owner-authorized runtime arrangements remain outstanding; source/health success
-alone does not establish that outcome. Concurrent multi-instance quotas retain
-the shared bound; this amendment adds no scaling requirement to the current setup.
+alone does not establish that outcome. The later 21 October essential-acceptance
+decision removes mandatory quotas and replica/counter proof altogether while
+preserving the existing implementation; the old shared-bound criterion is retired.
 
 For [Daychi 16](https://github.com/dveyarangi/xuanxue-workshop/issues/16), the reviewed
 mounted/default-off adapter and synthetic full-parent navigation evidence stand.
@@ -164,10 +245,10 @@ Authorized functional joint staging checks can be arranged against identified
 ea42996 without waiting for issue closure. Restart quota persistence is no longer
 a readiness or acceptance gate; the supported current provider can be used for
 the existing joint checks under the owners' authority.
-Daychi supplies the actual installed client/backend revision mapping; Cabinet
-and Daychi operators supply the matching authorized account/grant/status/outage
-arrangements. Those arrangements and actual protected material/recording,
-revocation/isolation and recovery proof are not established by the reports.
+The later installed-client/backend mapping is credited in the 21 October status
+above. Only the actual material/recording reads through a working chosen backend
+remain live; applicable refusal/isolation/recovery proof uses existing automated
+evidence. No live status/outage/revocation arrangement is required.
 Coordination 11, browser 12/13 and reminder 17 retain their separate scope.
 
 ## Native reminder guard provenance - 2026-10-19

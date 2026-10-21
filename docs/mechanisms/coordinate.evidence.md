@@ -813,3 +813,53 @@ No operator correction, duplicate response or new acceptance gate arose. This
 is another coordinator reconciliation observation, not independent recipient
 behavior or proof that stale requirements cannot recur. Actual runtime reads and
 shared saves remain unclaimed; the owners and continuation are in current-system.
+
+### Credited-work body update and stale-fixture recurrence — 2026-10-21
+
+Producer of this reconciliation: session 01a15874-1e56-7cc1-934f-4b050ecd8580,
+Workshop rule basis 8e1cb19 with revised L9/L31 and observation L34. The operator
+explicitly requested updates to originals 12/13, 15/16 and 17 without new criteria
+or repeat requests for already supported work.
+
+New recipient evidence: Daychi 6297983407 repeated the superseded ce4aebc live
+multi-grant/browser/revocation/status/outage arrangements after accepted authority
+1fd3890 was published. Its 6299218976 correction withdrew them before Workshop's
+6300821580 review; no extra live setup is forwarded to Cabinet. This is an observed
+stale-acceptance recurrence in a recipient request, already resolved. The producing
+Daychi context is identified by 7be8dac/bb7295f/f8c28dc; its installed L9/L31 rule
+revision is not established, so this does not prove failure of the revised rule
+in a recipient known to be running it. No new operator correction was needed for
+that withdrawal.
+
+The operator also queried the unclear phrase about limit isolation. Source
+provenance was reread: Daychi's original-11 report identified existing 60/minute
+per-IP checking; Workshop's a07f087 introduced per-grant accounting, implemented
+in Cabinet ea42996. The record supports whole-plan acceptance but contains no
+separate located operator selection of 60. No numeric decision was inferred or
+changed, and no already completed limiter work/test is requested again.
+
+The five updated bodies retain immutable authorities and agreed proof/exclusion
+sections. They credit the newly identified installed native client/configuration,
+existing source/automated/adoption evidence, Cabinet deployment and reminder queue
+receipts. Only the recorded remaining runtime/actual shared outcomes are requested.
+Fresh readback matches all five bodies and retains state/labels/title/assignees and
+11/19/3/11/18 comments; no duplicate response or issue was added. This is confirmed
+coordinator propagation plus one resolved recipient recurrence, not evidence that
+stale requirements can no longer return. Actual live acceptance remains unclaimed.
+
+### Acceptance excess removed by operator decision — 2026-10-21
+
+Producer: Workshop session 01a15874-1e56-7cc1-934f-4b050ecd8580. The operator
+challenged inferred quota requirements and the failure to show exact acceptance
+before publication, then explicitly decided to remove everything unnecessary
+after the outcome/overhead comparison. The old 16 October whole-plan record did
+not locate a separate choice of 60. The 21 October contract amendments withdraw
+that mandatory quota and its counter/window/restart/replica obligations, and
+exclude numeric reminder selection/payload/retry boundary proof from closure.
+Compatible wire, core user behavior, accepted evidence and recipient ownership
+are preserved. No new implementation or installed-rule change is supplied.
+
+This is operator-driven correction of coordinator acceptance overreach, not
+evidence that the revised agreement rules prevented recurrence. The independent
+Daychi stale-fixture recurrence and its correction remain separately recorded
+above; no recipient behavior after this new reduction is yet observed.

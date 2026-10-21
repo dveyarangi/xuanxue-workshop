@@ -1,5 +1,31 @@
 # Cabinet session for web wiki
 
+## Essential acceptance — 2026-10-21
+
+Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from
+acceptance, following the explicit review of required outcomes and excess gates.
+The operator reaffirmed preservation of existing implementation and staging;
+the purpose is to remove unnecessary ceremony and clear integration closure.
+This section governs current acceptance and closure of originals 12/13.
+
+Live proof on real Cabinet staging and canonical wiki.staging.xuanxue.su covers:
+protected material and recording reads with a valid session; Cabinet sign-in
+returns to the original wiki page; logout refuses the next protected read.
+The already agreed remaining access, renewal, account-status, failure/recovery,
+environment-isolation and compatibility behavior uses inspectable source and
+executed automated tests. Existing protected/public exposure boundaries remain.
+Production rollout and live production proof are non-blocking.
+
+Technical quotas and exact counter/window, restart, replacement or replica
+behavior and exact retry-delay boundaries are not acceptance or closure
+requirements.
+Existing compatible API values, working protections and useful tests may remain;
+no removal or reimplementation in recipient code is assigned. Invalid input
+must still cause no unauthorized protected-content delivery.
+No performance/stress target or expanded device/environment matrix is added.
+Already credited evidence is reused; neither a new report format nor repeating
+accepted builds, installation, account proof, CI or synthetic QA gates closure.
+
 **Status: web-wiki shared-browser-session contract accepted, 2026-10-13.
 Public homepage graph-overview exception accepted, 2026-10-14.
 Recipient implementation, coordinated access cutover and joint deployed proof

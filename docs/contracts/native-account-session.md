@@ -380,8 +380,10 @@ but does not grant staff API operations or Daychi content access.
 Existing Cabinet browser cookies and Daychi invitation/content credentials remain
 independent. A Cabinet credential is never sent to the existing Daychi backend.
 The [accepted native content connection](native-content-session.md) separately permits
-Daychi to consume this profile's GET me for current-session validation and defines
-its grant-isolated capacity. Content integration and joint proof remain outside
+Daychi to consume this profile's GET me for current-session validation. Its
+[essential acceptance](native-content-session.md#essential-acceptance--2026-10-21)
+preserves existing implementation and removes mandatory numeric capacity/counter
+proof. Content integration and joint proof remain outside
 this account-session slice.
 
 The [accepted session isolation](#accepted-session-isolation-and-revocation-guarantees)

@@ -1,10 +1,37 @@
 # Native content reads using the Cabinet session
 
-**Status: accepted boundary, 2026-10-16; restart-reset exception accepted 2026-10-19;
-live/automated evidence split accepted 2026-10-20; joint proof and activation remain work.**
+## Essential acceptance — 2026-10-21
+
+Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from
+acceptance, following the explicit review of required outcomes and excess gates.
+The operator reaffirmed preservation of existing implementation and staging;
+the purpose is to remove unnecessary ceremony and clear integration closure.
+This section governs current acceptance and closure of originals 15/16.
+
+Only protected material and recording delivery require live proof: installed
+Daychi in iOS Simulator, any suitable Daychi backend and real Cabinet staging.
+Access refusal, revocation, session/account/issuer isolation, temporary-failure
+recovery without credential loss, response validation and compatibility use
+inspectable source and executed automated tests. No particular backend host,
+physical device, Android, TestFlight or production release gates closure.
+Ordinary users sharing Daychi's egress must be able to read; this does not
+prescribe a per-grant budget, counter algorithm or throughput number.
+
+Technical quotas and exact counter/window, restart, replacement or replica
+behavior and exact retry-delay boundaries are not acceptance or closure
+requirements.
+Existing compatible API values, working protections and useful tests may remain;
+no removal or reimplementation in recipient code is assigned. Invalid input
+must still cause no unauthorized protected-content delivery.
+No performance/stress target or expanded device/environment matrix is added.
+Already credited evidence is reused; neither a new report format nor repeating
+accepted builds, installation, account proof, CI or synthetic QA gates closure.
+
+**Status: accepted boundary with essential acceptance narrowed 2026-10-21.
+Existing implementation is preserved; joint content proof remains work.**
 
 The user reaffirmed the already accepted content-access rule and approved the
-per-read validation and session-isolated capacity plan on 2026-10-16 in response
+per-read validation plan on 2026-10-16 in response
 to [one-cabinet-login #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 The [existing access decision](../boundaries.md#accepted-content-admission) owns
 Cabinet authority and equal content access; this contract completes its native
@@ -106,45 +133,21 @@ Blocked and temporarily unavailable results do not sign the user out.
 
 ## Capacity and identity
 
-For `GET /api/auth/native/me` only, Cabinet authenticates the bearer using its
-current credential/grant/account rules before assigning a valid-request budget.
-The budget is **60 successful checks per validated native grant in any rolling
-60 seconds**, shared by that grant's predecessor and renewed credentials and by
-direct app reads and Daychi's server checks. The next valid request exceeding
-that budget receives the pinned 429, with integer Retry-After equal to the rounded-up
-seconds until the oldest counted check leaves the window, bounded to 1–60.
-At exact age 60 seconds the old check no longer counts. Refused over-budget
-requests do not extend the window. Enforcement spans the serving deployment;
-process distribution/storage design is Cabinet's choice.
+The 21 October operator decision removes the former mandatory 60-successful-
+checks-per-grant rolling-60-second budget and all quota counter, credential-
+sharing, exact-window, restart, replacement and concurrent-replica acceptance
+requirements. The older restart-reset exception is subsumed by this removal.
+No new limiter, persistence or distributed counter work is required.
 
-The Workshop operator accepted on 2026-10-19 that quota history may reset when
-the current single-instance provider process restarts or is replaced during a
-deployment. The new process can begin a fresh allowance without retaining the
-previous process's checks; the brief increase across that transition is an
-accepted, non-blocking operational limitation. Persisting or handing off that
-history is not required for provider or joint acceptance. This exception does
-not permit independently replenished quotas across concurrently serving replicas;
-a multi-instance deployment must still enforce one grant allowance across its
-serving processes. Authentication, revocation, per-grant separation and normal
-rolling-window behavior remain unchanged. Daychi's request, error and recovery
-behavior is unchanged; no consumer restart/reset signal is introduced.
+Ordinary authenticated readers sharing Daychi's egress must remain usable.
+Cabinet's current working resource protections may remain; they are not a new
+shared throughput promise. The refusal/unavailability wire and credential
+retention rules above remain compatible, including recoverable provider 429.
+No service secret, caller-selected authority or identity trust is introduced.
 
-Never derive a valid budget key from unverified bearer text, request account/grant
-IDs or a caller-selected header. Distinct grants, including two grants belonging
-to one account, have independent budgets. One server egress IP does not aggregate
-valid grants or expose them to the existing unauthenticated/IP API cap. Invalid
-or unauthenticated traffic retains Cabinet's existing IP abuse protections;
-invalid traffic must not exhaust a validated grant's allowance. No service-IP
-allowlist, trusted-forwarded-client override or throttle bypass is introduced.
-Issuance, renewal, revocation and browser-operation budgets retain their existing
-behavior; this amendment changes only validated `GET me` tracking.
-
-Account and grant identifiers retain the pinned profile's scope and continuity.
-The Daychi backend does not infer them from the opaque token. No source-table
-pagination, ordering, calendar/window, deduplication or synchronization contract
-is introduced: this operation validates one request. Time values are the native
-profile's whole-second durations; the capacity interval uses elapsed seconds,
-independent of timezone or DST.
+Account and grant identifiers retain the native profile's scope and continuity.
+Daychi does not infer them from the opaque token. This operation validates one
+request; it adds no pagination, ordering, calendar or synchronization protocol.
 
 ## Consistency, effects and coexistence
 
@@ -179,7 +182,7 @@ or permission to modify recipient accounts or fixtures.
 ## Common conformance outcomes
 
 Both recipients use these cases against the same immutable revision. Cabinet
-proves provider outcomes/budget isolation; Daychi proves downstream behavior and
+proves provider access outcomes; Daychi proves downstream behavior and
 absence of protected content on every refusal/failure. Project-owned test code
 may differ; two local green suites alone do not establish joint acceptance.
 
@@ -190,14 +193,11 @@ may differ; two local green suites alone do not establish joint acceptance.
 | C03 | Unknown/expired credential, deleted account or revoked grant | Provider 401 invalid_token; Daychi 401, no protected fields/recording links |
 | C04 | Valid credential for blocked account, then unblock | Provider/Daychi 403 while blocked; same retained credential can succeed after unblock |
 | C05 | Valid response followed by completed revocation, then a new read | Earlier success is not cached; new provider/Daychi read refuses |
-| C06 | Provider 429 with Retry-After 7; malformed/missing delay | Daychi 503, credential retained, retry delayed by 7 or fallback 60 seconds respectively |
+| C06 | Provider rate refusal with valid or invalid delay | Temporary unavailability, no protected content or credential loss; no immediate retry loop. Exact delay/counter boundary proof is not a closure gate |
 | C07 | 500/503, connection/TLS failure, response exceeding five seconds | Daychi 503, no protected content, one attempt; later healthy read can succeed |
 | C08 | Redirect, unexpected 204/HTML 200, malformed JSON, invalid/missing required field, bool duration, blocked 200 or mismatched 401/403 error | Daychi 503, no fallback, renewal, cookie relay or credential loss |
-| C09 | Two active grants behind one Daychi IP; exhaust grant A with 60 checks | A's next check is 429; B's first valid check succeeds; no valid-grant IP aggregate |
-| C10 | Renewed and predecessor credentials of grant A; grant B for same account | A shares one allowance across credentials; B remains independent; native lifecycle unchanged |
-| C11 | Oldest counted check reaches exactly 60 seconds; retries during limit | Capacity becomes available at the boundary; refused retries do not prolong the window |
-| C11R | Current single-instance provider process restarts or is replaced | Its quota history may reset and grant a fresh allowance; no history-persistence/replacement test is an acceptance gate. Normal per-process rolling behavior and authentication remain binding; concurrently serving replicas do not each acquire a separate allowance. |
-| C12 | Invalid traffic on the shared IP and arbitrary claimed grant/account header | Existing invalid-input protection remains; no invented valid bucket or exhaustion of other grants |
+| C09 | Ordinary authenticated reads by different users behind one Daychi egress | Both can read; no prescribed numeric quota, grant counter or stress-test threshold |
+| C12 | Invalid bearer or caller-supplied account/grant identity | No unauthorized read or caller-selected authority |
 | C13 | Staging credential against production-selected consumer, or request-supplied issuer | Only the fixed configured issuer is contacted; unknown credentials refuse; no issuer override or fallback |
 | C14 | Credential replaced while earlier read returns 401/503; explicit native sign-out | Late outcome cannot delete replacement/legacy credential; native grant-scoped logout retained |
 | C15 | Existing native/owner/import/public content consumers and browser-wiki routes | Existing authority/content behavior retained; native addition cannot bypass browser cookie policy |
@@ -209,7 +209,7 @@ authorization. Its live scope is protected material/recording delivery under the
 accepted evidence split below. Executed automated checks cover
 next-read refusal after grant revocation, other native/browser sessions remaining
 usable, blocked/unblocked recovery, provider failure/recovery without credential
-loss, expiry, deletion and capacity boundaries. No live status, outage, revocation,
+loss, expiry and deletion. No live status, outage, revocation,
 aging or deletion fixture is required. Existing accepted N11 evidence can be reused
 where its revisions and observations establish the applicable content outcome.
 
@@ -220,11 +220,12 @@ Decision: the Workshop operator, 2026-10-20.
 Live joint proof for originals 15/16 requires protected material and recording
 delivery using Cabinet staging under the accepted runtime below. All remaining
 cases, including revocation/next-read refusal, session isolation, block/unblock,
-provider failure/recovery, expiry,
-deletion and capacity boundaries, use inspectable source and executed automated
+provider failure/recovery, expiry
+and deletion, use inspectable source and executed automated
 tests; no separate live run is required.
 
-Shared behavior and the accepted restart-reset exception remain unchanged. This
+The essential-acceptance section removes quota/counter obligations; other shared
+behavior and existing valid evidence remain. This
 decision does not establish completed proof.
 
 ## Accepted joint-proof runtime — 2026-10-20
@@ -245,7 +246,7 @@ binding; this decision does not establish that the actual reads have passed.
 
 Implementation and synthetic proof can proceed against the accessible contract
 under each recipient's operator. Actual integrated activation requires provider
-capacity/source/check evidence, Cabinet staging native/account access and a
+access/source/check evidence, Cabinet staging native/account access and a
 Daychi client/backend runtime under the accepted scope above; release and
 production cutover remain with the recipient owners. Reports return through the
 linked contributions in original coordination issue 11.
