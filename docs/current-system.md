@@ -25,8 +25,13 @@ chosen native backend and the two actual content reads; Cabinet returns the
 missing reminder rollout/preservation result and both projects return the
 already agreed joint reminder outcomes. Workshop reconciles those results.
 No actual run, new recipient implementation, deployment or completed acceptance
-is asserted by this scope reduction. The later publication entry records which
-original bodies have been updated and verified.
+is asserted by this scope reduction. Contract authority
+`3c6ff8a7136483b3d266786fa8267eab4f2d2828` is published. Originals 12/13, 15/16 and 17
+were then updated in place and read back exactly against the prepared bodies;
+open states, titles, recipients, assignees and 11/19/3/11/18 comments are unchanged.
+All five local assignment copies match those verified published bodies, retaining
+their existing local prefixes. No comment, duplicate issue or recipient code
+change was added.
 
 ## Credited subsets and closure owners — updated 2026-10-21
 

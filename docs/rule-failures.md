@@ -1304,3 +1304,19 @@ declared complete as part of recovery.
 The default batch budget also scales with its selected cases instead of giving
 an entire batch the allowance of one review. Explicit overall timeouts keep
 their existing meaning. The execution request retains both calculated budgets.
+
+## 2026-10-21 — Status publication concealed disputed acceptance conditions
+
+Status: corrected by the operator's explicit acceptance reduction and verified
+five-issue propagation; no recipient runtime acceptance inferred.
+
+Rule in play: [Make operator-agreed acceptance the primary outcome](../.agents/skills/align/SKILL.md)
+requires presenting observable criteria, evidence and exclusions for explicit
+operator agreement. Workshop treated a body update as status-only, retained
+technical quota conditions through old contract references and continued the
+update after the operator challenged those conditions. Whole-plan provenance
+did not establish a separate choice of the number 60. The full criteria were
+then exposed; the operator removed unnecessary quota/counter/boundary proof,
+reaffirmed existing implementation and staging, and the governing contracts and
+all five bodies/local copies were reconciled. The existing explicit rule is
+sufficient for this case; no additional ceremony or instruction is introduced.

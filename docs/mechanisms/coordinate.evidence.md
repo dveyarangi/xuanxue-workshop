@@ -863,3 +863,14 @@ This is operator-driven correction of coordinator acceptance overreach, not
 evidence that the revised agreement rules prevented recurrence. The independent
 Daychi stale-fixture recurrence and its correction remain separately recorded
 above; no recipient behavior after this new reduction is yet observed.
+
+Independent recipient reading found no substantive compatibility or acceptance
+contradiction and identified one leftover "independent capacity" phrase; it was
+replaced with ordinary shared-egress usability before publication. The operator
+then reaffirmed preservation of existing implementation and staging. Authority
+3c6ff8a7136483b3d266786fa8267eab4f2d2828 is published. All five original bodies
+were updated and read back exactly, preserving open states, recipient labels,
+titles, assignees and 11/19/3/11/18 comments. Local published copies match.
+Checks of question/ticket/report form, added local references and the scoped
+diff passed. No runtime, deployment, recipient code or full delivery acceptance
+is claimed. No additional recipient response after this reduction is observed.

@@ -5,29 +5,95 @@
 Recipient: Cabinet agent under its operator, `project:cabinet`.
 Original coordination: [one-cabinet-login #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 Daychi can use Cabinet's existing native `GET me` to validate every protected
-native content read, with independent capacity for legitimate native grants
+native content read, with usable ordinary reads for users sharing Daychi's egress
 behind one Daychi backend. This is a new contribution to the accepted shared
 connection, not a reopening of previously accepted implementation evidence.
 
-## Expected / observed
+## Essential acceptance — 2026-10-21
 
-Cabinet's [completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/15#issuecomment-6263294915) implements the grant-keyed limiter in merged [PR602](https://github.com/gregoryKot/xuanxue-cabinet/pull/602), source `ea4299606ef8a8e2091931645bf4d21c20c5a450`. [Workshop's review](https://github.com/dveyarangi/xuanxue-workshop/blob/ce4aebcd5d0245288563b0a74df7b1dfef7aff4f/docs/current-system.md#native-content-provider-capacity-review--2026-10-19) inspected the complete delta, real-AppModule e2e composition and installed BOUNDARY_SUMMARY. All 19 [main CI checks](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/39223428645) passed; executed logs include the budget tests and existing account/revoke/parity suites. Supported progress includes per-grant isolation, predecessor/renewed sharing, independent grants behind one IP, boundary timing, retry rounding and invalid-input separation.
+Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from
+acceptance, following the explicit review of required outcomes and excess gates.
+The operator reaffirmed preservation of existing implementation and staging;
+the purpose is to remove unnecessary ceremony and clear integration closure.
+This section governs current acceptance and closure of originals 15/16.
 
-Independent credential-free reads at 08:57 UTC on 19 October confirmed staging health `ea42996`, Mongo up, and native me 401 `invalid_token` with expected WWW-Authenticate/no-store and no Set-Cookie. Production health remained `fc2dee2`. These observations do not establish live authenticated content delivery. Accepted native account-session evidence remains unchanged.
+Only protected material and recording delivery require live proof: installed
+Daychi in iOS Simulator, any suitable Daychi backend and real Cabinet staging.
+Access refusal, revocation, session/account/issuer isolation, temporary-failure
+recovery without credential loss, response validation and compatibility use
+inspectable source and executed automated tests. No particular backend host,
+physical device, Android, TestFlight or production release gates closure.
+Ordinary users sharing Daychi's egress must be able to read; this does not
+prescribe a per-grant budget, counter algorithm or throughput number.
 
-### Restart-reset disposition and remaining work
+Technical quotas and exact counter/window, restart, replacement or replica
+behavior and exact retry-delay boundaries are not acceptance or closure
+requirements.
+Existing compatible API values, working protections and useful tests may remain;
+no removal or reimplementation in recipient code is assigned. Invalid input
+must still cause no unauthorized protected-content delivery.
+No performance/stress target or expanded device/environment matrix is added.
+Already credited evidence is reused; neither a new report format nor repeating
+accepted builds, installation, account proof, CI or synthetic QA gates closure.
 
-On 19 October the Workshop operator explicitly allowed quota history to reset when the current single-instance provider restarts or is replaced during deployment, and removed the earlier persistence finding as a blocker. The temporary fresh allowance is a documented, non-blocking operational limitation. The previous request for persistent history, replacement-safe handoff or replacement-proof testing is withdrawn. No implementation correction is required for this reset. Concurrently serving replicas still share the normal deployment-wide allowance; no scaling project is assigned.
+Sole common authority: [native-content-session](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/native-content-session.md#essential-acceptance--2026-10-21), immutable revision `3c6ff8a7136483b3d266786fa8267eab4f2d2828`.
+The following technical sections preserve compatible exchange and credited work;
+they do not add acceptance gates beyond this operator-agreed section.
 
-Cabinet's reviewed implementation/CI/staging progress stands. The remaining paired live outcome is protected material and recording delivery from installed Daychi in iOS Simulator through any Daychi backend and real Cabinet staging. Cabinet supplies the authorized staging account/provider arrangement and provider-side observations as needed; Daychi supplies the client/backend/source mapping in 16. All other cases, including grant revocation, session isolation, block/unblock and outage/recovery, use executed automated tests. No live status/outage/revocation/aging/deletion fixture, quota-history correction or production release is requested. Full joint acceptance remains pending actual read evidence and the applicable executed automated proof.
+## Credited evidence and remaining closure actions — 2026-10-21
+
+The credited work below is retained under the operator-approved 21 October
+acceptance reduction above. The original issue remains the provider work/report channel.
+
+### Credited — provider implementation and automated proof
+
+- [Cabinet's completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/15#issuecomment-6263294915)
+  and the [review](https://github.com/dveyarangi/xuanxue-workshop/blob/ce4aebcd5d0245288563b0a74df7b1dfef7aff4f/docs/current-system.md#native-content-provider-capacity-review--2026-10-19)
+  establish PR602 / ea42996 source, actual mounted HTTP/limiter composition,
+  executed provider common-case tests and all 19 inspected CI checks. Existing
+  account/current-state/error/lifecycle behavior is retained. The change preventing
+  all Daychi readers from consuming one shared server-IP request allowance is
+  implemented and checked; it is not a new limit implementation or retest request.
+- Cabinet staging deployment is confirmed; fresh 21 October health returns 200 at
+  20128fb, Mongo up. No replacement deployment is requested to repeat this proof.
+- The supplied installed BOUNDARY_SUMMARY is accepted at ea42996; no reinstall or
+  adoption gate is outstanding for this evidence/runtime update.
+- The operator's accepted single-instance restart-reset exception stands. The old
+  persistence/replacement-history finding is closed as an acceptance blocker;
+  there is no history handoff correction, live restart or replacement-test request.
+
+The provider source/test/deployment subset is credited. The shared actual native
+material/recording reads have not been reported; that does not reopen this subset.
+
+### Remaining actions and responsible parties
+
+| Owner | Only remaining action | Completion evidence / condition |
+|---|---|---|
+| Daychi under @stnleo, in [16](https://github.com/dveyarangi/xuanxue-workshop/issues/16) | Make the selected Daychi backend usable, or use another suitable backend, then return the actual material and recording-bearing reads through the identified installed iOS Simulator client and real Cabinet staging. The client/build mapping and installation preparation are already reported and credited in 16. | An identified client/backend/provider chain and the two successful reads. This is the outstanding paired outcome, not a Cabinet implementation failure. |
+| Cabinet under @kotlarewski | Provide account/read-authority assistance only if an actual unresolved need is reported for those reads. Reuse the existing authorized staging account/native grant and accepted account evidence. | No new two-grant/browser arrangement, live revocation, block/unblock, outage, aging, deletion, role change or successful-account rerun is required. No new Cabinet code/test task is outstanding in this read. |
+| Workshop under @Yarangi | Reconcile the actual reads with credited provider/consumer executed automated evidence and accept/close the paired contribution when complete. | Reuse prior proof; no request to regenerate the implementation, suite or installed summary. |
+
+Physical hardware, Android, TestFlight, production release, browser DNS, reminder 17,
+and prior closure of this issue add no prerequisite for the reads. Only material/
+recording delivery is live; every other case uses executed automated evidence.
 
 ## Shared contract and conformance
 
-Authority: [native-content-session](https://github.com/dveyarangi/xuanxue-workshop/blob/1fd3890b4a3b56b4a262dfa74e9929b4002d75aa/docs/contracts/native-content-session.md), immutable Workshop revision `1fd3890b4a3b56b4a262dfa74e9929b4002d75aa`. This complete reference includes the operator-approved 19 October restart-reset exception/C11R and the 20 October evidence split and joint-proof runtime. Both recipients use this same amended authority. Wire, identity, security, ordinary rolling-window and C01–C16 behavior remain unchanged; the amendments define sufficient evidence and runtime.
+The sole common authority and current essential acceptance are linked above.
+The 21 October operator decision withdraws prescribed quota/counter/window/
+restart/replica obligations. The remaining wire, identity, access, refusal and
+recovery behavior stays compatible. No new provider or consumer implementation,
+reset signal, context-installation gate or rerun of credited checks is assigned.
+The already installed boundary context remains reusable; this issue's current
+authority supersedes earlier mandatory capacity wording.
 
-The existing installed BOUNDARY_SUMMARY and its baseline links remain accepted; these evidence/runtime amendments introduce no fresh installation/adoption gate. The current authority above governs the restart exception and acceptance scope. No Daychi reset signal, retry, cache or error-handling change is required.
+## Retained implementation scope
 
-## Impact and required changes
+This section states the accepted technical obligations and compatibility context.
+The current credited/remaining section above determines outstanding work; it is
+not a request to repeat the reviewed implementation, tests or installed context.
+
+### Accepted behavior retained
 
 Complete the provider obligations and prove the existing ones that already hold:
 
@@ -35,14 +101,12 @@ Complete the provider obligations and prove the existing ones that already hold:
   validation, error/no-store/WWW-Authenticate behavior and absence of Set-Cookie.
   Daychi's caller authority is the presented native bearer; there is no added
   service secret, service-IP trust or account replica. Reuse valid existing proof.
-- For validated GET me only, implement the contract's grant-keyed rolling budget,
-  shared across predecessor/renewed credentials and direct app/server checks.
-  Distinct grants behind the same egress IP, including one account's two grants,
-  remain independent; existing global/IP caps cannot aggregate validated grants.
-- Retain invalid-input/IP abuse protection and native acquisition/renewal/revocation
-  and browser budgets. Never assign a trusted bucket from unverified token text
-  or caller-supplied identity. Internal storage, distribution and module design
-  remain Cabinet-owned within the deployment-wide observable guarantee.
+- Preserve usable ordinary authenticated reads for users sharing Daychi's egress.
+  No fixed throughput, per-grant accounting, distributed counter or limiter
+  correction is required. Existing working resource protections may remain.
+- Retain native acquisition/renewal/revocation and access authority. Caller-supplied
+  identity cannot authorize a read. Internal storage, distribution and module
+  design remain Cabinet-owned; no new deployment or counter design is assigned.
 - Return exact immutable source, executed checks and deployment state. Identify
   owner-authorized staging/account arrangements needed for the paired content
   proof; retain installation-scoped revocation and other native/browser sessions.
@@ -53,18 +117,14 @@ returns in [original #7](https://github.com/dveyarangi/xuanxue-workshop/issues/7
 
 ## Execution dependencies
 
-Paired consumer: [daychi-native-content-access #16](https://github.com/dveyarangi/xuanxue-workshop/issues/16). The consumer can implement concurrently; its identified runtime enables joint proof after provider deployment and owner authorization.
-
-Provider implementation/synthetic checks need the accessible settled authority
-and Cabinet operator authorization, not Daychi completion or Workshop readiness.
-The Daychi companion can implement and test its consumer concurrently. Real joint
-proof needs real Cabinet staging at a reported conforming revision, an authorized
-account/native grant and installed Daychi in iOS Simulator using any selected
-Daychi backend. No particular Daychi hosting environment is required. Status,
-revocation and outage arrangements are automated test cases, not mandatory live
-fixtures. Cabinet owns the provider/account arrangement; Daychi owns its runtime;
-Workshop assesses the returned proof. Do not create
-an additional Ready gate or modify accounts/deployments without owner authority.
+Provider source/automated checks/deployment are credited. The paired actual read
+outcome comes from [16](https://github.com/dveyarangi/xuanxue-workshop/issues/16):
+installed Simulator Daychi, any working selected Daychi backend and real Cabinet
+staging using existing authorized account/native-grant access. Cabinet assists
+only for an actual unresolved account/read need. Status/revocation/outage and
+other agreed cases use applicable automated evidence, not new live fixtures.
+Neither closure of 15, browser DNS, reminder work nor a particular hosting service
+is an additional prerequisite. Workshop reconciles both contributions together.
 
 ## BOUNDARY_SUMMARY
 
@@ -79,11 +139,11 @@ remain distinct from source implementation. Native sign-in/lifecycle scope is un
 
 Accepted native content connection: Daychi backend forwards the presented native
 bearer to Cabinet GET /api/auth/native/me before each protected native content read.
-Cabinet remains the current session/account authority; validated GET me capacity
-is isolated per grant rather than shared by Daychi's server IP. Daychi adds no
+Cabinet remains the current session/account authority; ordinary users sharing
+Daychi's egress can read, with no prescribed numeric quota or grant counter. Daychi adds no
 reader membership, account replica or positive authorization cache. The
-[native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/1fd3890b4a3b56b4a262dfa74e9929b4002d75aa/docs/contracts/native-content-session.md) owns exact wire,
-failure, capacity, compatibility and common cases; implementation/joint proof remain work.
+[native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/native-content-session.md) owns exact wire,
+failure, compatibility and current common cases; implementation/joint proof remain work.
 
 Accepted browser-wiki target remains separate: shared Cabinet cookie, per-reader
 current validation, fixed matching production/staging authority, browser entry,
@@ -111,34 +171,21 @@ Only protected material and recording delivery require live proof. All remaining
 cases use inspectable source and executed automated tests, including revocation/
 next-read refusal, other native/browser sessions remaining usable, block/unblock,
 provider failure/recovery without credential loss, expiry/deletion, malformed
-responses, deadlines, issuer isolation and capacity boundaries. No separate live
+responses, deadlines and issuer isolation. No separate live
 run or revocation/status/outage/aging/deletion fixture is required.
 
-The accepted single-instance restart-reset exception/C11R remains: no quota-history
-persistence, replacement-safe handoff or restart/replacement test gate is added.
-All shared behavior remains binding; these amendments establish neither completed
+The 21 October essential acceptance removes quota, counter, exact-window,
+restart/replacement and replica requirements altogether. Other shared access and
+compatibility behavior remains binding; these amendments establish neither completed
 live reads nor deployment/acceptance of an untested runtime. Reuse valid accepted
 source/check/N11 evidence without repeating it.
 
-## Acceptance evidence
+## Closure review
 
-- Report immutable implementation, complete common-case mapping and executed
-  applicable provider checks. Prove same-IP different-grant isolation, same-account
-  different-grant isolation, predecessor/renewed sharing, exact 60-second boundary,
-  invalid-input protection and unchanged lifecycle/browser budgets. Exercise the
-  real HTTP route and actual tracker/limiter composition in executed tests,
-  rather than relying only on tracker-isolated checks.
-- Establish C01–C16 provider obligations and reuse existing source/check evidence
-  where unchanged. Preserve profile, expiry/revocation/account-status and error
-  semantics; no source/CI result alone establishes successful live content reads.
-- Return Cabinet staging deployment identity and provider-side observations for
-  the actual material/recording reads in installed iOS Simulator Daychi through
-  any Daychi backend. All remaining cases use executed automated evidence under
-  the common scope above; no separate live fixture is required.
-- Retain the accepted installed BOUNDARY_SUMMARY and valid revision evidence,
-  preserving surrounding collaboration instructions. No reinstall/adoption gate
-  is added solely by these evidence/runtime amendments.
-  Workshop reconciles source/deployment/joint evidence before full acknowledgement.
-
-Report in this original contribution and link coordination issue 11. Publication
-does not establish implementation, release, account authorization or acceptance.
+The current credited/remaining section above is the complete outstanding-action
+list under the agreed evidence form and exclusions. Existing source/CI/automated
+and installed-context evidence is reused at its valid revision. Report only the
+remaining runtime/shared outcomes in this original issue and link its companion.
+Workshop checks them against the same immutable authority; it does not require
+repeat accepted work or add a criterion from a later QA disclosure. This update
+records credited subsets, not completed live proof or full assignment acceptance.

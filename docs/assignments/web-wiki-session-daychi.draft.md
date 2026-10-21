@@ -1,13 +1,13 @@
 # daychi: Cabinet-authenticated web-wiki reading
 
-**Published, amended 2026-10-20:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/13). Recipient label: `project:daychi`.
+**Published, amended 2026-10-21:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/13). Recipient label: `project:daychi`.
 The original issue holds current recipient work and reports; this file retains the
 reviewed published assignment. Publication is not implementation or deployed proof.
 
 Accepted web-wiki shared-browser-session implementation assignment.
 
-Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/tickets/01-0009-web-wiki-cabinet-session.md).
-Shared contract revision: `ec3f17a7808f81a098e432958f89f1018368a32e`.
+Prepared within [01-0009 web-wiki-cabinet-session](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/tickets/01-0009-web-wiki-cabinet-session.md).
+Shared contract revision: `3c6ff8a7136483b3d266786fa8267eab4f2d2828`.
 Original coordination request: [app/wiki connection #11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
 
 ## Recipient and outcome
@@ -21,32 +21,71 @@ authority. Daychi owns frontend/backend reader delivery, scoped enforcement and
 content representations. Workshop coordinates the shared contract, anonymous-access
 transition and joint acceptance; Daychi's operator owns local implementation/release.
 
-## Expected / observed
+## Essential acceptance — 2026-10-21
 
-At inspected Daychi `d2cde6b93ef79734e4de0438ddc2e138698214af`,
-[graph.js](https://github.com/sleontenko/daychi/blob/d2cde6b93ef79734e4de0438ddc2e138698214af/apps/wiki-graph/src/graph.js)
-uses browser invitation-token storage and a distinct native-host request branch.
-[daychee_app.py](https://github.com/sleontenko/daychi/blob/d2cde6b93ef79734e4de0438ddc2e138698214af/practice_api/daychee_app.py)
-supplies an invitation authorizer to wiki and other capabilities;
-[wiki_app.py](https://github.com/sleontenko/daychi/blob/d2cde6b93ef79734e4de0438ddc2e138698214af/practice_api/wiki_app.py)
-also mounts public material/semantic/article readers. These source paths do not
-establish the accepted Cabinet web-reader integration.
+Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from
+acceptance, following the explicit review of required outcomes and excess gates.
+The operator reaffirmed preservation of existing implementation and staging;
+the purpose is to remove unnecessary ceremony and clear integration closure.
+This section governs current acceptance and closure of originals 12/13.
 
-The [original article completion report](https://github.com/dveyarangi/xuanxue-workshop/issues/9#issuecomment-6113936401)
-claims deployed public/private article projections, active v1, recording redaction
-and retained owner/import access. Those existing content obligations remain in
-scope for regressions; they are not proof of this new authentication transition.
-Compare actual implementation/deployment with the inspected baseline and report
-the delivered origin/source/configuration rather than assuming a branch equals runtime.
+Live proof on real Cabinet staging and canonical wiki.staging.xuanxue.su covers:
+protected material and recording reads with a valid session; Cabinet sign-in
+returns to the original wiki page; logout refuses the next protected read.
+The already agreed remaining access, renewal, account-status, failure/recovery,
+environment-isolation and compatibility behavior uses inspectable source and
+executed automated tests. Existing protected/public exposure boundaries remain.
+Production rollout and live production proof are non-blocking.
 
-[Original coordination request 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11)
-requests the same protected app/wiki content after Cabinet login, including
-recording links, without additional role/invitation/per-material approval. This
-assignment covers its accepted browser portion. Existing content representations
-remain Daychi-owned: retained public projections keep their redaction, while this
-scope adds no new recording entitlement within an authenticated wiki projection.
-The proposed native content-server adapter, native caller trust and its capacity
-question remain separate coordination work, not accepted by this assignment.
+Technical quotas and exact counter/window, restart, replacement or replica
+behavior and exact retry-delay boundaries are not acceptance or closure
+requirements.
+Existing compatible API values, working protections and useful tests may remain;
+no removal or reimplementation in recipient code is assigned. Invalid input
+must still cause no unauthorized protected-content delivery.
+No performance/stress target or expanded device/environment matrix is added.
+Already credited evidence is reused; neither a new report format nor repeating
+accepted builds, installation, account proof, CI or synthetic QA gates closure.
+
+Sole common authority: [web-wiki-session](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/web-wiki-session.md#essential-acceptance--2026-10-21), immutable revision `3c6ff8a7136483b3d266786fa8267eab4f2d2828`.
+The following technical sections preserve compatible exchange and credited work;
+they do not add acceptance gates beyond this operator-agreed section.
+
+## Credited evidence and remaining closure actions — 2026-10-21
+
+The credited work below is retained under the operator-approved 21 October
+acceptance reduction above. The original issue remains the work/report channel.
+
+### Credited — no repeat implementation or test request
+
+- Daychi's protected reader, per-read Cabinet check, restricted public homepage
+  projection, route/profile refusal and scoped browser/source checks are reviewed
+  in the [published-source review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6175265222).
+- The UTF-8/Windows defect and inspectable-source hold are resolved. The
+  [correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6179412624)
+  records all 43 boundary tests passing and executed CI (241 backend / 42 app /
+  23 wiki). The source and corrections are available at c146326; no repeat source
+  publication or Windows run is requested.
+- Separate reader service/configuration and bounded direct-host synthetic preview,
+  anonymous/invalid refusal and fixed canonical redirects were inspected in that
+  same review. This preparation is credited, within its reported source/runtime
+  limits; direct-host responses are not the unreported canonical browser result.
+- Cabinet's provider source/HTTP proof and current staging deployment are reusable.
+  Fresh 21 October Cabinet health is 200 at 20128fb; no new provider implementation
+  or deployment is a prerequisite.
+
+### Remaining actions and responsible parties
+
+| Owner | Only remaining action | Completion evidence / condition |
+|---|---|---|
+| Daychi @stnleo and DNS operator @kotlarewski | Complete the existing private ownership-value handoff and canonical staging DNS/TLS mapping, coordinated through [12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6179411400). | wiki.staging.xuanxue.su reaches the chosen independent staging reader with working TLS; the 21 October lookup still fails. This blocks the canonical live browser run, not completed source/test work. |
+| Daychi @stnleo | Identify the actual staging reader source/configuration and complete the existing exposure/controlled-cache inventory for the accepted staging surface. Reuse inspected route/alias/public-projection tests; return the remaining deployment/configuration evidence rather than repeat the implementation. | The accepted protected reader boundary and limited public overview correspond to the running staging revision; controlled old staging paths/caches provide no bypass. |
+| Daychi and Cabinet under @stnleo / @kotlarewski | Show the three agreed live staging scenarios with the existing authorized account/session: valid-session material/recording reads; sign-in/original-page return; logout then next-read refusal. | Matching provider/reader/runtime observations are linked once in 12/13; no live expiry/deletion/status/outage matrix is required. |
+| Workshop under @Yarangi | Reconcile those observations and staging coverage with credited source/executed automated proof, then record acceptance and close when the remaining contribution is complete. | No new case or repeated accepted check without an identified changed basis or concrete gap. |
+
+Production rollout and live production proof are non-blocking. Browser transition
+belongs here with 12; closed article 9 has no remaining action. Native content,
+reminder work, new platform screenshots and repeated account acceptance add no hold.
 
 ## Shared contract and conformance
 
@@ -61,13 +100,13 @@ the exception does not verify the reported local candidate or authorize release.
 Source and QA accessibility are resolved. [Workshop's published-source review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6175265222) and [correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6179412624) inspected the candidate; the browser source and follow-up corrections are now in Daychi main `c146326c7ea552772d8c804b3a08ad5637ca5eb0`. No repeat source/QA publication is requested. Canonical staging DNS/ownership/TLS and actual paired browser proof remain outstanding under this assignment's existing criteria; accessible source does not establish deployed acceptance.
 
 The sole shared definition is the
-[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/contracts/web-wiki-session.md).
+[accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/web-wiki-session.md).
 Use the same published revision as the
 [Cabinet contribution](https://github.com/dveyarangi/xuanxue-workshop/issues/12).
 The contract fixes production/staging profiles, exact session-check request/statuses,
 deadline/redirect/retry rules, renewal-cookie relay, browser entry/destination
 validation, Cabinet-site logout, compatibility and common proof cases.
-The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/rfc/01-0009-web-wiki-cabinet-session.md)
+The [implementation plan](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/rfc/01-0009-web-wiki-cabinet-session.md)
 maps the complete outcome and adversarial coverage; it defines no alternate wire.
 
 This is the shared browser cookie, not the superseded wiki handoff/token/secret
@@ -77,7 +116,13 @@ There is no wiki-specific role, reader registration, account replica, credential
 database, client secret, signing key or independent wiki session/logout lifecycle.
 Business/editorial/native records and nonsecret bookmarks are not removed by this scope.
 
-## Impact and required changes
+## Retained implementation scope
+
+This section states the accepted technical obligations and compatibility context.
+The current credited/remaining section above determines outstanding work; it is
+not a request to repeat the reviewed implementation, tests or installed context.
+
+### Accepted behavior retained
 
 - Route `wiki.staging.xuanxue.su` to the staging reader deployment. Retain the
   production profile for the recipient-owned production release, which is not a
@@ -124,23 +169,14 @@ Business/editorial/native records and nonsecret bookmarks are not removed by thi
 
 ## Execution dependencies
 
-Daychi can implement against the published settled contract under its operator
-before Cabinet deployment, using controlled provider behavior for local boundary
-tests. Native issue 8, public schedule pilot completion, Workshop readiness and
-installation acknowledgement do not gate this contribution.
-
-Actual two-site proof and web cutover need the conforming [Cabinet contribution #12](https://github.com/dveyarangi/xuanxue-workshop/issues/12),
-reachable origins/source/configuration, controlled accounts/browser and complete
-reader exposure/cache inventory. Cabinet's operator owns provider/account fixtures;
-Daychi's operator owns reader hosting, cache controls and deployment approval.
-Workshop accepts the common proof and coordinates the anonymous-access transition
-in this original 13, paired with 12. Closed article issue 9 retains accepted
-article work and adds no remaining browser action. The real deployed pair needed
-for current proof is Cabinet staging and canonical wiki.staging.xuanxue.su;
-production rollout and live boundary-case fixture changes are not prerequisites.
-Earlier article work is not retroactively failed by this new access requirement.
-After cutover, failure/rollback cannot silently restore anonymous access or an
-invitation-based web fallback. Report partial releases as partial.
+Source/automated reader work above is credited. Canonical staging DNS/TLS blocks
+the agreed live browser run. That run uses the existing authorized Cabinet
+staging session and matching actual reader/provider configuration; it does not
+need new live status/expiry/deletion/outage fixtures. Daychi owns running-reader
+and controlled staging exposure/cache coverage; Cabinet/DNS owns its named
+handoff, with Daychi's private ownership-value assistance. Browser transition
+remains in 13 paired with 12, not closed article 9. Production rollout, native
+content and reminder work do not gate current acceptance.
 
 ## BOUNDARY_SUMMARY
 
@@ -149,7 +185,7 @@ Existing boundaries: native Daychi (`apps/practice-app`) and shared wiki reader
 (`apps/wiki-graph`) ↔ Daychi content backend (`practice_api`). Native schedule
 also retains its school-HTML and Telegram-correction path. Native/private reader,
 Zoom and owner/import access remain Daychi-owned; Cabinet web authentication does
-not replace them. [Current scope/evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/current-system.md#daychi).
+not replace them. [Current scope/evidence](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/current-system.md#daychi).
 
 Knowledge→Daychi editorial/owner import and shared reader→Daychi article/concept/
 graph projections remain existing content boundaries. [Original article issue 9](https://github.com/dveyarangi/xuanxue-workshop/issues/9)
@@ -159,7 +195,7 @@ or change editorial authority.
 
 Accepted target boundaries, joint integration not established: Daychi clients ↔
 Cabinet backend for schedule/account capabilities; Daychi backend ↔ Cabinet backend
-for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/boundaries.md#target-connections)
+for authoritative access checks. [Target contracts](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/boundaries.md#target-connections)
 and [native account-session profile](https://github.com/dveyarangi/xuanxue-workshop/blob/3c98d4a5201710f8f777183dd7b61caefe47e2d5/docs/contracts/native-account-session.md) own
 their distinct scopes.
 
@@ -167,7 +203,7 @@ Accepted web-wiki target: Cabinet owns the shared browser session and current-ac
 validation; Daychi owns protected web delivery and calls Cabinet for each protected
 read. All and only valid Cabinet-authenticated web readers receive the same content,
 without extra wiki eligibility or persisted reader credentials/accounts.
-[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/ec3f17a7808f81a098e432958f89f1018368a32e/docs/contracts/web-wiki-session.md) owns common cookie,
+[Web-wiki session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/web-wiki-session.md) owns common cookie,
 entry/return, renewal/logout, environment separation and failure guarantees.
 Daychi's homepage may expose only the contract's separate limited public graph
 overview without a Cabinet session. Existing reader APIs remain protected;
@@ -203,37 +239,12 @@ No live production run or simultaneous deployed production/staging run is requir
 Actual staging origin/TLS/routing and matching source/runtime/configuration accompany
 the live proof; a production DNS alias does not establish a separate staging reader.
 
-## Acceptance evidence
+## Closure review
 
-The same authority distinguishes the limited public homepage overview from
-protected delivery. Daychi supplies inspectable source and executed checks for
-anonymous/empty projection, excluded content/identities, cookie/query input
-variations, protected-reader refusal and all inventoried reader/alias/cache
-paths. The accepted live sign-in/return/read/logout scenarios use that reader;
-the preview introduces no new Cabinet endpoint or credential dependency.
-
-Consumer evidence covers current/missing/forged/expired/deleted/blocked/unblocked/
-duplicate sessions, exact provider request and empty success, unexpected status/
-body/redirect, 429/5xx/deadline/transport/TLS failures without protected delivery,
-retained cookies, renewal relay and multiple readers. Source/storage/log review
-establishes per-read validation and absence of reader credential/account persistence.
-
-Executed boundary/regression checks cover stale responses, Back/restore/retry,
-anonymous requests across all inventoried delivery paths/caches, native/private,
-Zoom, owner/import authority, content projection/redaction and active v1. A blocked
-graph with anonymously readable protected content is not conforming. The live
-main-scenario proof runs against the actual staging reader with Cabinet staging;
-mock-only success cannot replace it.
-
-Report in this original contribution: immutable implementation commits/PRs,
-the shared authority, executed case mapping and outcomes, changed instruction
-context, actual staging origin/source/runtime/configuration, exposure/cache or
-provider evidence as applicable, authorized account procedure and disclosed limits.
-Credentials and private account data stay outside issue/log artifacts.
-
-Workshop compares both contributions against the agreed common scope and
-acknowledges acceptance in the original assignments. The reader exposure/cache
-transition remains in 13 paired with 12; article issue 9 has no remaining browser
-action. Keep this assignment open until outstanding recipient acceptance actions
-and the common review are complete. Green CI or issue closure alone is not joint
-acceptance; production rollout adds no hold after the agreed proof passes.
+The current credited/remaining section above is the complete outstanding-action
+list under the agreed evidence form and exclusions. Existing source/CI/automated
+and installed-context evidence is reused at its valid revision. Report only the
+remaining runtime/shared outcomes in this original issue and link its companion.
+Workshop checks them against the same immutable authority; it does not require
+repeat accepted work or add a criterion from a later QA disclosure. This update
+records credited subsets, not completed live proof or full assignment acceptance.
