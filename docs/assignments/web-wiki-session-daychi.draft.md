@@ -1,6 +1,6 @@
 # daychi: Cabinet-authenticated web-wiki reading
 
-**Published, amended 2026-10-21:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/13). Recipient label: `project:daychi`.
+**Published, amended 2026-11-04:** [original assignment](https://github.com/dveyarangi/xuanxue-workshop/issues/13). Recipient label: `project:daychi`.
 The original issue holds current recipient work and reports; this file retains the
 reviewed published assignment. Publication is not implementation or deployed proof.
 
@@ -51,7 +51,7 @@ Sole common authority: [web-wiki-session](https://github.com/dveyarangi/xuanxue-
 The following technical sections preserve compatible exchange and credited work;
 they do not add acceptance gates beyond this operator-agreed section.
 
-## Credited evidence and remaining closure actions — 2026-10-21
+## Credited evidence and remaining closure actions — 2026-11-04
 
 The credited work below is retained under the operator-approved 21 October
 acceptance reduction above. The original issue remains the work/report channel.
@@ -71,14 +71,15 @@ acceptance reduction above. The original issue remains the work/report channel.
   same review. This preparation is credited, within its reported source/runtime
   limits; direct-host responses are not the unreported canonical browser result.
 - Cabinet's provider source/HTTP proof and current staging deployment are reusable.
-  Fresh 21 October Cabinet health is 200 at 20128fb; no new provider implementation
+  27 October Cabinet health is 200 at 6f4cc15, Mongo up and scheduler enabled/non-stale; Telegram OIDC remains disabled. No new provider implementation
   or deployment is a prerequisite.
+
+- [Canonical staging HTTPS is available](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6455570325). Daychi reports unchanged deployment d8f2d41d / source 9677210 and a rendered Cabinet sign-in entry. Workshop independently observed certificate-verified canonical /health 200 and sampled anonymous reader 401/no-store responses at 23:13 UTC on 27 October. This resolves the earlier DNS/ownership/certificate handoff as an outstanding action; no repeat DNS change, domain recreation or issuance retry is requested. It does not establish the three authenticated browser outcomes or the complete exposure/cache inventory.
 
 ### Remaining actions and responsible parties
 
 | Owner | Only remaining action | Completion evidence / condition |
 |---|---|---|
-| Daychi @stnleo and DNS operator @kotlarewski | Complete the existing private ownership-value handoff and canonical staging DNS/TLS mapping, coordinated through [12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6179411400). | wiki.staging.xuanxue.su reaches the chosen independent staging reader with working TLS; the 21 October lookup still fails. This blocks the canonical live browser run, not completed source/test work. |
 | Daychi @stnleo | Identify the actual staging reader source/configuration and complete the existing exposure/controlled-cache inventory for the accepted staging surface. Reuse inspected route/alias/public-projection tests; return the remaining deployment/configuration evidence rather than repeat the implementation. | The accepted protected reader boundary and limited public overview correspond to the running staging revision; controlled old staging paths/caches provide no bypass. |
 | Daychi and Cabinet under @stnleo / @kotlarewski | Show the three agreed live staging scenarios with the existing authorized account/session: valid-session material/recording reads; sign-in/original-page return; logout then next-read refusal. | Matching provider/reader/runtime observations are linked once in 12/13; no live expiry/deletion/status/outage matrix is required. |
 | Workshop under @Yarangi | Reconcile those observations and staging coverage with credited source/executed automated proof, then record acceptance and close when the remaining contribution is complete. | No new case or repeated accepted check without an identified changed basis or concrete gap. |
@@ -97,7 +98,7 @@ links stay excluded. Daychi owns this separate public projection. The Cabinet
 session wire and all protected reader obligations are unchanged. Acceptance of
 the exception does not verify the reported local candidate or authorize release.
 
-Source and QA accessibility are resolved. [Workshop's published-source review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6175265222) and [correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6179412624) inspected the candidate; the browser source and follow-up corrections are now in Daychi main `c146326c7ea552772d8c804b3a08ad5637ca5eb0`. No repeat source/QA publication is requested. Canonical staging DNS/ownership/TLS and actual paired browser proof remain outstanding under this assignment's existing criteria; accessible source does not establish deployed acceptance.
+Source and QA accessibility are resolved. [Workshop's published-source review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6175265222) and [correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6179412624) inspected the candidate; the browser source and follow-up corrections are now in Daychi main `c146326c7ea552772d8c804b3a08ad5637ca5eb0`. No repeat source/QA publication is requested. Canonical staging HTTPS is now available as credited above; actual paired browser proof and existing staging exposure/configuration reconciliation remain outstanding under this assignment's existing criteria. Accessible source and anonymous health do not establish authenticated deployed acceptance.
 
 The sole shared definition is the
 [accepted web-wiki shared-browser-session contract](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/web-wiki-session.md).
@@ -169,14 +170,15 @@ not a request to repeat the reviewed implementation, tests or installed context.
 
 ## Execution dependencies
 
-Source/automated reader work above is credited. Canonical staging DNS/TLS blocks
-the agreed live browser run. That run uses the existing authorized Cabinet
+Source/automated reader work above is credited. Canonical staging HTTPS is now
+available. The agreed live browser run uses the existing authorized Cabinet
 staging session and matching actual reader/provider configuration; it does not
 need new live status/expiry/deletion/outage fixtures. Daychi owns running-reader
-and controlled staging exposure/cache coverage; Cabinet/DNS owns its named
-handoff, with Daychi's private ownership-value assistance. Browser transition
-remains in 13 paired with 12, not closed article 9. Production rollout, native
-content and reminder work do not gate current acceptance.
+and controlled staging exposure/cache coverage. Cabinet assists for an actual
+account/session need, and DNS assistance is needed only for a concrete DNS problem.
+No repeat DNS/ownership handoff, domain recreation or certificate retry is assigned.
+Browser transition remains in 13 paired with 12, not closed article 9. Production
+rollout, native content and reminder work do not gate current acceptance.
 
 ## BOUNDARY_SUMMARY
 
@@ -248,3 +250,8 @@ remaining runtime/shared outcomes in this original issue and link its companion.
 Workshop checks them against the same immutable authority; it does not require
 repeat accepted work or add a criterion from a later QA disclosure. This update
 records credited subsets, not completed live proof or full assignment acceptance.
+
+
+## Accepted Workshop policy disposition — 2026-11-04
+
+The Workshop operator accepted Cabinet ADR-0187's authorization-code/PKCE and direct-backend-TLS token-validation policy. The [accepted scoped policy](https://github.com/dveyarangi/xuanxue-workshop/blob/fed83f56c9c9d0f186c20fbf54a0534a57674598/docs/boundaries.md#accepted-cabinet-telegram-sign-in-policy--2026-11-04) resolves Workshop's pending security decision. Cabinet retains environment configuration, activation and release ownership; this amendment performs none of those actions and claims no successful Telegram-provider run. The browser wire, current essential acceptance and credited proof remain unchanged. No separate live Telegram run or production rollout is added as a closure gate.

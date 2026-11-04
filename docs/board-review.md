@@ -1,7 +1,7 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-11-04T17:18:10.970479+00:00
+- **Reviewed:** 2026-11-04T17:30:18.116542+00:00
 
 ## Reviewed scope
 
@@ -25,8 +25,15 @@ ignore allowance, using the agreed existing proof and exclusions. No new Daychi
 implementation or repeated account proof is required. The
 [Cabinet Telegram policy](boundaries.md#accepted-cabinet-telegram-sign-in-policy--2026-11-04)
 is accepted for the direct backend TLS token exchange; environment activation and
-release remain Cabinet-owned. Both policy/profile questions are resolved locally.
-Original 18 can close after the accepted revision is published and acknowledged.
+release remain Cabinet-owned. Both policy/profile questions are resolved and the accepted revision is
+published at [fed83f5](https://github.com/dveyarangi/xuanxue-workshop/commit/fed83f56c9c9d0f186c20fbf54a0534a57674598).
+[Original 18 is closed as completed](https://github.com/dveyarangi/xuanxue-workshop/issues/18#issuecomment-6637347041),
+with exact acceptance-comment, full-body and state readback. Originals 12/13
+have exactly read-back current bodies crediting HTTPS recovery and removing
+obsolete DNS/ownership/certificate tasks, while retaining their recipient labels
+and governing browser authority. Their local published copies match. Original
+11's body and [consolidated response](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6637396203)
+communicate the resolved policy and existing acceptance scope; both were read back.
 Browser/native-content/reminder proof remains separate; no unreported live outcome
 or blanket waiver is inferred from the operator's acceptance of these proposals.
 
@@ -43,15 +50,6 @@ Gateway/backend consolidation remain deferred; no next delivery cycle started.
 
 **Reviewer commitments**
 
-- Publish the scoped accepted profile/policy and question dispositions, preserving
-  all unrelated working-tree changes. Then acknowledge/close original 18 and
-  communicate the Telegram-policy disposition once in originals 12/11.
-- Publish and exactly read back the prepared factual replacements for originals
-  12/13, synchronizing their local published assignment copies. The latest complete
-  drafts are .cache/periodic-01a18947/issue-12.body.md and issue-13.body.md;
-  reconcile intervening changes first. The prior host rejected body replacement
-  because it required approval under policy never. This invocation will use its
-  available publication path and report the actual result.
 - When missing recipient results arrive in the original issues, compare only
   those outcomes with existing agreed acceptance and credited evidence. The
   retained unpublished 21 October–4 November observations and mechanism changes
@@ -77,9 +75,9 @@ Gateway/backend consolidation remain deferred; no next delivery cycle started.
 
 **Drift disposition**
 
-Original bodies 12/13 retain obsolete DNS rows; the prepared replacements and
-their existing conversations carry the corrected hosting disposition. Publication
-is outstanding, not a repeated recipient implementation task. The entry source
+The obsolete DNS rows in original bodies 12/13 are repaired and exactly read
+back; their local published copies match. No repeated recipient task follows.
+The entry source
 abbreviation mismatch remains recorded. The latest whole installed-rule audit
 was access-limited by a pre-existing tracked .local input; its earlier successful
 30 October result remains dated evidence, not a new clean audit.
