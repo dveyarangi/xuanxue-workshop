@@ -58,8 +58,9 @@ separate, with a common browser lifetime/logout and no wiki reader credential or
 account replica store. The [current-session check](contracts/web-wiki-session.md#accepted-current-session-check)
 and [Cabinet-site logout](contracts/web-wiki-session.md#accepted-cabinet-site-logout)
 and [entry/migration/automatic return](contracts/web-wiki-session.md#accepted-browser-entry-and-migration)
-are accepted. Recipient implementation, coordinated access cutover and joint
-deployed proof remain work. The former separate wiki grant profile is superseded.
+are accepted. The [final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05)
+owns implementation acceptance and closure with disclosed evidence exclusions;
+it does not establish unreported deployment or joint runtime behavior. The former separate wiki grant profile is superseded.
 
 The [environment profiles](contracts/web-wiki-session.md#accepted-production-and-staging-separation)
 pair production Cabinet/wiki and staging Cabinet/wiki with separate active cookie
@@ -77,8 +78,9 @@ current grant/account validity and grant-isolated check capacity; Daychi consume
 the presented bearer decision without additional reader eligibility, account
 replication or positive authorization caching. Refusal and temporary failure keep
 their distinct recovery meanings. Legacy/native and browser consumer transitions
-remain scoped separately. Provider/consumer implementation and authorized joint
-proof return through [coordination issue 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
+remain scoped separately. Provider/consumer acceptance and the disclosed live-proof exclusions are
+recorded in [final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05);
+[coordination issue 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11) closes on that scope.
 
 ## Work and feedback
 

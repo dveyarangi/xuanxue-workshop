@@ -1,5 +1,38 @@
 # Account reminder synchronization contract
 
+## Final operator acceptance — 2026-11-05
+
+The Workshop operator requested final closure of the six reviewed originals
+on 2026-11-05: “так закрываем все по цепочке?”, after the acceptance-reduction
+proposal and the operator's browser observations. This accepts the recorded
+implementation and evidence within the exclusions below and removes the remaining
+live-proof gates for this delivery. It is not a claim that unperformed tests
+passed. Shared behavior, access boundaries, compatibility and project release
+ownership remain unchanged; no deployment, configuration or account mutation is
+authorized or performed by issue closure. A later concrete defect is handled in
+its owning original without requiring repetition of already accepted work.
+
+For original 17, sufficient evidence is the credited Cabinet GET/PATCH,
+confirmed-save/readback/delivery/seeding/legacy-writer source and executed Mongo/
+AppModule regressions; merged corrections and inspected staging deployment;
+Daychi PR19 source and six successful source-specific checks, reported app tests,
+synthetic installed/queue/cancellation/refill/offline/logout evidence. Their
+provenance and inspected revision scopes remain as recorded.
+
+No further real two-way/shared save, different/same-key race, committed/noncommitted
+lost-response readback, offline, move/cancellation or account/issuer/logout joint
+run is required for closure. A newly identified Cabinet-connected Simulator and
+an additional actual rollout/preservation/legacy-writer receipt are also excluded.
+Those behavior promises remain in the contract and the existing automated/
+synthetic proof is accepted; actual shared saves and real-user migration outcomes
+are not independently established. Cabinet/Daychi release and activation remain
+recipient-owned. No recipient action remains in original 17 after acknowledgement.
+
+This section supersedes earlier mandatory joint-live and rollout-receipt closure
+conditions below, including the 20/21 October evidence scope, without changing
+wire version 1 or safe-save/preservation/isolation behavior.
+[The final scope](../boundaries.md#final-operator-acceptance--2026-11-05) owns set-wide closure.
+
 ## Essential acceptance — 2026-10-21
 
 Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from

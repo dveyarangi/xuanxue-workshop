@@ -1,5 +1,39 @@
 # Cabinet session for web wiki
 
+## Final operator acceptance — 2026-11-05
+
+The Workshop operator requested final closure of the six reviewed originals
+on 2026-11-05: “так закрываем все по цепочке?”, after the acceptance-reduction
+proposal and the operator's browser observations. This accepts the recorded
+implementation and evidence within the exclusions below and removes the remaining
+live-proof gates for this delivery. It is not a claim that unperformed tests
+passed. Shared behavior, access boundaries, compatibility and project release
+ownership remain unchanged; no deployment, configuration or account mutation is
+authorized or performed by issue closure. A later concrete defect is handled in
+its owning original without requiring repetition of already accepted work.
+
+For originals 12/13 and their browser portion of 11, sufficient evidence is:
+the operator-reported Cabinet-mediated sign-in/sign-out, original-page return,
+material reading and refusal after sign-out; the credited provider HTTP/source
+checks, Daychi source/43 boundary checks and CI, restricted public projection and
+route/cache/environment tests; and the dated canonical HTTPS observations.
+The [operator observation](../current-system.md#operator-browser-observation--reported-2026-11-05)
+retains its provenance: no hostname or deployed revision was supplied by the
+operator, and recording-bearing delivery was not separately confirmed.
+
+A separate live recording demonstration, repeated sign-in/read/logout run,
+additional environment/runtime matching report and exhaustive exposure/cache
+inventory are not closure gates. Their applicable behavior remains covered by
+the credited source/automated evidence; this acceptance makes no new deployed
+exposure or recording-playback claim. Production rollout is non-blocking.
+Cabinet's provider contribution can close separately; no recipient action remains
+in originals 12/13 after the acceptance is published and acknowledged.
+
+This section supersedes earlier proof/closure conditions below, including the
+20/21 October live matrix and environment-evidence conditions, without changing
+their protocol definitions. [The final scope](../boundaries.md#final-operator-acceptance--2026-11-05)
+owns the set-wide closure and disclosed runtime limits.
+
 ## Essential acceptance — 2026-10-21
 
 Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from

@@ -902,3 +902,18 @@ of asking for a repeated report. The requested recording example is identified
 from the existing content projection; no new field or playback test is assigned.
 The broader acceptance-reduction proposal remains separate and unapproved.
 This scoped case is retained for operator grading of L9/L31, not general success.
+
+### Final chain acceptance without repeated live proof — 2026-11-05
+
+Producer: Workshop session 01a19adb-c96e-7892-a4bc-d2e236109844; basis 3014dbb
+with current L9/L31/L33/L34. The operator asked “так закрываем все по цепочке?”
+after reviewing the acceptance-reduction proposal and confirming the browser
+journey. The [final scope](../boundaries.md#final-operator-acceptance--2026-11-05)
+and each contract explicitly accept existing proof and exclude the remaining
+live recording/native/reminder/rollout receipts from closure. Existing interface,
+access, preservation and release ownership remain. The selected native backend's
+dated 404 and unconfirmed actual saves remain disclosed; they are not claimed
+successful. Provider/consumer/parent holds are removed together rather than left
+as circular conditions. No additional recipient task, code change or repeated
+account/CI run is issued. This case remains for operator grading; it establishes
+no general success of the consistency rules.

@@ -1,5 +1,41 @@
 # Initial target boundary contracts
 
+## Final operator acceptance — 2026-11-05
+
+The Workshop operator requested closing all six remaining originals in sequence:
+“так закрываем все по цепочке?”, after reviewing the remaining work and the
+acceptance-reduction proposal, and reporting that Cabinet-mediated sign-in/out,
+return navigation, material reading and refusal after sign-out already work.
+Workshop accepts the delivered implementation on the recorded evidence with the
+explicit final exclusions in the owning contracts:
+[browser](contracts/web-wiki-session.md#final-operator-acceptance--2026-11-05),
+[native content](contracts/native-content-session.md#final-operator-acceptance--2026-11-05)
+and [reminders](contracts/reminder-sync.md#final-operator-acceptance--2026-11-05).
+
+The closure order is provider contributions 12/15, browser/native consumers
+13/16, reminder coordination 17, then parent coordination 11. Provider closure is
+not a prerequisite for using its already credited implementation; 11 depends on
+its two accepted content/browser outcomes, not on reminder 17. Existing source,
+executed CI and synthetic evidence are reused. No further live recording,
+native-read, reminder shared-save or rollout-receipt evidence blocks these issues.
+No additional recipient work remains within their accepted delivery scope.
+
+This is operator acceptance with disclosed evidence exclusions, not independent
+verification that every capability is deployed and works jointly. In particular,
+recording-bearing browser delivery was not separately reported, the selected
+native backend was last observed unavailable, and actual native delivery,
+shared reminder saves and real-user migration remain unconfirmed. These limits
+remain in [observed state](current-system.md#final-chain-acceptance--2026-11-05).
+Shared interface/authorization/data-preservation behavior remains binding. No
+recipient release, activation, account/data mutation or new delivery cycle follows
+from closing the accepted assignments. Concrete later defects retain an owner
+in the relevant original; accepted contributions are not repeated wholesale.
+
+This decision supersedes earlier remaining-proof and paired-closure requirements,
+including the 20/21 October essential-acceptance sections, only as specified in
+the three final sections. It does not reopen accepted account, public-pilot or
+article work, or the deferred gateway/backend-consolidation initiatives.
+
 ## Current acceptance scope — 2026-10-21
 
 The Workshop operator removed unnecessary acceptance gates for browser 12/13,
@@ -374,8 +410,9 @@ already accepted equal-content/current-session rule and approved completing the
 [native content-check contract](contracts/native-content-session.md): existing
 native GET me, presented-bearer caller authority, fixed matching issuer, per-read
 validation and grant-isolated capacity. This adds no separate reader entitlement.
-The connection is accepted, with implementation and integrated proof remaining
-in [original coordination issue 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11).
+The connection has final operator acceptance under the
+[final scope](#final-operator-acceptance--2026-11-05); original coordination 11
+closes on that evidence scope without a claim of unreported live delivery.
 The user requested a separate
 [standardization question](questions/q-0002.0008.0001.0001-which-authentication-standard-should-cabinet-and-daychi-adopt.md)
 on 2026-10-04; the accepted native profile does not establish full OIDC adoption

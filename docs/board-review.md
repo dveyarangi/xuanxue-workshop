@@ -1,97 +1,53 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-11-04T23:02:58.294817+00:00
+- **Reviewed:** 2026-11-04T23:12:20.056889+00:00
 
 ## Reviewed scope
 
-Operator disposition of the two presented decisions: teacher-mode native profile
-in [original 18](https://github.com/dveyarangi/xuanxue-workshop/issues/18) and Cabinet
-Telegram-provider policy affecting originals 12/11. The current original-18 body
-and both comments were read; Cabinet ADR-0187 at 6f4cc15 and the pinned 4bcd8ca
-profile mapper were independently read. Existing complete assignment reviews,
-provider CI and Daychi source/synthetic compatibility evidence are reused.
-No authenticated flow, account mutation, deployment or configuration change was
-performed. The preceding 4 November runtime/source observations retain their
-actual times in current-system; this is decision acceptance, not a fresh live run.
+Final operator disposition for originals 11/12/13/15/16/17. Current bodies and all
+76 comments were reread; earlier complete timeline/source/check reviews remain
+credited where unchanged. The only new evidence is the operator's browser report
+and final chain-closure request. No authenticated run, deployment, configuration,
+account/data mutation or recipient suite was performed.
 
 ## Results
 
-Operator evidence received on 5 November credits Cabinet-mediated sign-in/
-sign-out, return navigation, material reading and refusal after sign-out in the
-reported wiki journey. The [owning observation](current-system.md#operator-browser-observation--reported-2026-11-05)
-preserves the exact statements and their limits. These observed actions need no
-repeat solely for reporting. Recording-bearing delivery remains unreported; the
-operator asked what link was intended. The inspected source identifies existing
-YouTube/archive Drive material links, not a new UI feature or playback test.
-No hostname/revision or native/reminder result is inferred. The previously
-proposed acceptance reduction remains unapproved.
+The [final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05)
+accepts existing implementation/evidence and removes the remaining proof gates
+in the three owning contracts. [Observed state](current-system.md#final-chain-acceptance--2026-11-05)
+distinguishes credited source/CI/synthetic and operator evidence from excluded
+live proof. Operator-observed login/logout/return/material/refusal is credited;
+recording-bearing browser delivery, actual native reads, real shared reminder
+saves and rollout preservation remain unconfirmed. The last selected native
+backend 404 remains a known dated limitation. No recipient release is claimed.
 
-The Workshop operator accepted the presented decisions on 4 November with
-“принимаю все что поможет уже закрыть наши issues”. The
-[teacher-mode amendment](contracts/native-account-session.md#accepted-teacher-mode-amendment--2026-11-04)
-is applied: required provider flags, effective-role semantics and existing-client
-ignore allowance, using the agreed existing proof and exclusions. No new Daychi
-implementation or repeated account proof is required. The
-[Cabinet Telegram policy](boundaries.md#accepted-cabinet-telegram-sign-in-policy--2026-11-04)
-is accepted for the direct backend TLS token exchange; environment activation and
-release remain Cabinet-owned. Both policy/profile questions are resolved and the accepted revision is
-published at [fed83f5](https://github.com/dveyarangi/xuanxue-workshop/commit/fed83f56c9c9d0f186c20fbf54a0534a57674598).
-[Original 18 is closed as completed](https://github.com/dveyarangi/xuanxue-workshop/issues/18#issuecomment-6637347041),
-with exact acceptance-comment, full-body and state readback. Originals 12/13
-have exactly read-back current bodies crediting HTTPS recovery and removing
-obsolete DNS/ownership/certificate tasks, while retaining their recipient labels
-and governing browser authority. Their local published copies match. Original
-11's body and [consolidated response](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6637396203)
-communicate the resolved policy and existing acceptance scope; both were read back.
-Browser/native-content/reminder proof remains separate; no unreported live outcome
-or blanket waiver is inferred from the operator's acceptance of these proposals.
-
-The latest [runtime/source observation](current-system.md#cabinet-channel-routing-and-deployment-continuity---reviewed-2026-11-04)
-retains Cabinet e947db6 healthy on staging/production, canonical staging wiki
-health 200, 19 successful application jobs and unchanged Daychi candidates.
-The earlier source/check provenance, accepted public-pilot/account results and
-waivers remain credited. Delivery order remains
-[01-0009 web-wiki-cabinet-session](tickets/01-0009-web-wiki-cabinet-session.md), then
-[01-0020 telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
-Gateway/backend consolidation remain deferred; no next delivery cycle started.
+The six originals are accepted for sequential closure after publishing this
+reviewed authority: providers 12/15, consumers 13/16, reminders 17, then parent 11.
+No further implementation or proof action remains in their accepted scope.
+Public-pilot, account, article and teacher-mode acceptances remain unchanged.
+Gateway/backend consolidation remain deferred. No next delivery cycle starts.
 
 ## Open matters
 
 **Reviewer commitments**
 
-- When missing recipient results arrive in the original issues, compare only
-  those outcomes with existing agreed acceptance and credited evidence. The
-  retained unpublished 21 October–4 November observations and mechanism changes
-  remain separate from this scoped acceptance publication; preserve their state.
+- Publish the scoped final acceptance; acknowledge and close originals
+  12/15, 13/16, 17 and 11 against that immutable revision, and exactly read back
+  each resulting body, recipient label and closed/completed state.
+- Synchronize published assignment copies and archive the completed
+  [01-0009 web-wiki-cabinet-session](tickets/01-0009-web-wiki-cabinet-session.md)
+  ticket/RFC after scoped verification and actual tracker closure; close the
+  remaining-pass question against the final boundary decision. Preserve all
+  unrelated edits and retained unpublished observations/mechanism work.
 
-**Recipient-agent work**
+**Disclosed limits**
 
-- Browser 12/13: reuse the operator-observed sign-in/sign-out, return,
-  material read and post-sign-out refusal above. Daychi reconciles the existing
-  reader source/configuration and exposure evidence with the actual journey;
-  recording-bearing delivery remains unreported. Cabinet assists only for an
-  actual provider/account need. Canonical HTTPS recovery remains credited;
-  no renewed DNS handoff or issuance task exists.
-- Native content 15/16: Daychi supplies a suitable working backend and the two
-  protected reads from the credited installed iOS Simulator against real Cabinet
-  staging. Cabinet assists only for an actual account/read-authority need. The
-  last selected-backend observation is Railway edge 404; any suitable backend is
-  eligible. Existing provider, installation, CI and exclusions remain credited.
-- Reminders 17: Cabinet supplies actual rollout preservation/legacy-writer
-  separation evidence; Daychi identifies the installed Cabinet-connected
-  Simulator. Both supply the agreed joint save/readback/offline/calendar/logout
-  outcomes. Existing source/CI/synthetic/migration/queue proof and client waivers
-  remain credited; no repeat suite or expanded platform/live-fixture gate is added.
-
-**Drift disposition**
-
-The obsolete DNS rows in original bodies 12/13 are repaired and exactly read
-back; their local published copies match. No repeated recipient task follows.
-The entry source
-abbreviation mismatch remains recorded. The latest whole installed-rule audit
-was access-limited by a pre-existing tracked .local input; its earlier successful
-30 October result remains dated evidence, not a new clean audit.
+The excluded runtime outcomes above are not independently verified capabilities.
+A later concrete defect returns to its owning original; closure creates no
+standing request to rerun or supply the waived proof. Recipient operators retain
+activation/release responsibility. The known harness entry abbreviation mismatch
+remains separate from this scoped acceptance; no clean harness-ref audit is claimed.
 
 ## Operations
 

@@ -1,5 +1,38 @@
 # Native content reads using the Cabinet session
 
+## Final operator acceptance — 2026-11-05
+
+The Workshop operator requested final closure of the six reviewed originals
+on 2026-11-05: “так закрываем все по цепочке?”, after the acceptance-reduction
+proposal and the operator's browser observations. This accepts the recorded
+implementation and evidence within the exclusions below and removes the remaining
+live-proof gates for this delivery. It is not a claim that unperformed tests
+passed. Shared behavior, access boundaries, compatibility and project release
+ownership remain unchanged; no deployment, configuration or account mutation is
+authorized or performed by issue closure. A later concrete defect is handled in
+its owning original without requiring repetition of already accepted work.
+
+For originals 15/16 and their native-content portion of 11, sufficient
+evidence is the credited Cabinet PR602 source, mounted HTTP/common-case tests,
+19 CI checks and staging deployment; Daychi PR18 mounted-reader/source/CI and
+synthetic navigation/recording/refusal/recovery proof; and the credited installed
+Simulator/client/backend mapping. The provider and consumer contributions are
+accepted within that source/automated/synthetic scope.
+
+The two actual Simulator material/recording reads, a replacement or healthy
+selected backend, extra runtime identification and new account/build/platform
+work are not closure gates. Successful actual native delivery is not established.
+The selected backend's last observed Railway edge 404 remains a dated availability
+limit, not a successful deployment claim. Recipient-owned operation and release
+are outside this accepted evidence scope; closure assigns no further recipient
+action in originals 15/16. A concrete later access/availability defect can return
+to the relevant original without reopening accepted source work wholesale.
+
+This section supersedes earlier mandatory live-read/paired-closure conditions
+below, including the 20/21 October evidence split, without changing the wire,
+authorization or compatibility promises. [The final scope](../boundaries.md#final-operator-acceptance--2026-11-05)
+owns the set-wide closure and disclosed runtime limits.
+
 ## Essential acceptance — 2026-10-21
 
 Decision: the Workshop operator, 2026-10-21: remove everything unnecessary from

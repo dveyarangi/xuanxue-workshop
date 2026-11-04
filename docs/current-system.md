@@ -1,5 +1,25 @@
 # Current application structure and boundary evidence
 
+## Final chain acceptance — 2026-11-05
+
+The [final operator scope](boundaries.md#final-operator-acceptance--2026-11-05)
+accepts the recorded implementation and evidence for originals 12/15, 13/16, 17
+and 11 and authorizes their sequential closure. Publication and tracker readback
+follow this acceptance; no completed tracker mutation is claimed by this section.
+
+| Accepted contribution | Sufficient recorded evidence | Disclosed live/runtime limit |
+|---|---|---|
+| Browser 12/13 and browser portion of 11 | [Operator report](#operator-browser-observation--reported-2026-11-05), [provider HTTP/source review](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6171246714), [Daychi source/43 boundary checks and CI](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6179412624), existing restricted-projection/route/cache/environment proof and dated canonical HTTPS | Operator supplied no hostname/revision; recording delivery was not separately confirmed. Further live recording/mapping/inventory evidence is excluded by the final scope, not claimed performed. |
+| Native content 15/16 and native portion of 11 | [Cabinet PR602/provider review](#native-content-provider-capacity-review--2026-10-19), [mounted Daychi reader](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6238564666), [full-parent source/CI/synthetic review](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6240310972), [installed runtime preparation](#native-content-runtime-preparation--reviewed-2026-10-20) | No actual protected Simulator reads are established; the selected native backend last returned Railway edge 404. New backend/read/runtime proof is excluded from closure, not represented as working. |
+| Shared reminders 17 | [Source/migration/queue review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6279637451), [merged correction review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6281943775), dated Cabinet staging deployment and credited Daychi PR19 checks/synthetic installed evidence | Actual shared saves, connected-runtime joint cases and real-user rollout/preservation are not independently established. Further live/rollout receipts are excluded; behavior remains binding. |
+
+No authenticated flow, deployment, configuration, account/data mutation or
+recipient suite was performed for this acceptance. Source inspection, executed
+checks, operator observation and waived evidence remain distinct. A known
+unavailable backend is not silently reclassified as a successful deployment.
+The original issues retain recipient ownership for a later concrete defect;
+their previously listed proof actions are no longer outstanding acceptance work.
+
 ## Operator browser observation — reported 2026-11-05
 
 The Workshop operator reported in this Codex conversation: “я вижу что вход и
@@ -20,10 +40,10 @@ This names the existing content field, not a request to add a link or test video
 playback. No concrete material example has been supplied to the operator.
 
 The existing [browser contribution 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13)
-owns the evidence and remaining scoped acceptance. The earlier proposal to close
-provider contributions separately and narrow reminder joint proof remains a
-proposal; these observations do not approve that separate amendment or establish
-native-content/reminder results. Existing source/CI proof remains credited.
+owns the evidence and remaining scoped acceptance. The operator subsequently requested final chain closure; the
+[final scope](boundaries.md#final-operator-acceptance--2026-11-05) owns acceptance
+and its explicit evidence exclusions. These observations themselves establish
+no native-content/reminder result. Existing source/CI proof remains credited.
 
 ## Cabinet channel routing and deployment continuity - reviewed 2026-11-04
 
@@ -136,7 +156,9 @@ certificate retry or recipient-suite rerun was performed.
 
 Decision: the Workshop operator explicitly approved removing all unnecessary
 conditions after reviewing required user outcomes and excess technical gates.
-The current authority is each contract's essential-acceptance section:
+That dated authority was each contract's essential-acceptance section;
+[final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05)
+now owns closure and supersedes its remaining-proof gates:
 [browser](contracts/web-wiki-session.md#essential-acceptance--2026-10-21),
 [native content](contracts/native-content-session.md#essential-acceptance--2026-10-21)
 and [reminders](contracts/reminder-sync.md#essential-acceptance--2026-10-21).
@@ -202,7 +224,9 @@ runtime preparation, withdrawal of extra live fixtures and Workshop's review.
   assignees, titles and comment counts are unchanged. No comment, duplicate issue,
   source implementation, contract change, release or authenticated run was added.
 
-The original bodies are the actionable remaining-work home. Their immutable
+The final accepted original bodies own the disposition; the dated owner
+list above no longer assigns outstanding proof under
+[final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05). Their immutable
 browser ec3f17a, native-content 1fd3890 and reminder 630120c authorities and accepted
 proof/exclusion sections remain unchanged. Technical scope is explicitly retained
 context, not a demand to repeat credited implementation/tests. The later Daychi
@@ -272,8 +296,9 @@ native candidate, with source/tests and synthetic installed evidence supplied,
 while merge, activation and a mobile release are excluded. Real Cabinet joint
 saves, installed Android and physical-delivery results remain unclaimed. The
 draft marker alone does not prove defective or incomplete code; those explicit
-scope statements establish what delivery is still unclaimed. The current owner
-actions remain in [original 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17);
+scope statements establish what delivery is still unclaimed. The final operator acceptance in
+[original 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17) supersedes
+the earlier remaining live-proof and rollout-receipt actions;
 the [operator-approved acceptance scope](contracts/reminder-sync.md#current-delivery-acceptance-scope--2026-10-20)
 removes the two specified client observations as blockers. Earlier reminder
 source-only observations below are dated history, superseded within this scope.
