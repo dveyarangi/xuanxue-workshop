@@ -28,6 +28,21 @@ account ownership, separate Daychi content access and installation-scoped sign-o
 records the earlier implementation gap; current acceptance is recorded in the linked
 client/joint and provider reviews.
 
+## Accepted teacher-mode amendment — 2026-11-04
+
+Decision: the Workshop operator, 2026-11-04, accepted the prepared amendment and
+evidence scope for [original 18](https://github.com/dveyarangi/xuanxue-workshop/issues/18),
+in response to the two pending decisions: “принимаю все что поможет уже закрыть наши issues”.
+The two required provider booleans, effective-role semantics and existing-client
+ignore allowance below are accepted. This is a compatible additive amendment;
+Cabinet owns the profile and Daychi retains its existing content authority.
+
+The [reviewed provider source/parity CI and Daychi unaffected confirmation](https://github.com/dveyarangi/xuanxue-workshop/issues/18#issuecomment-6610671203)
+are sufficient evidence for ordinary admin, teacher-mode admin and student-mode
+profiles. A live teacher-mode run, production rollout, new client UI/decoder work
+and repeated native-account proof are excluded. Existing account-session
+acceptance and browser/content/reminder obligations remain unchanged.
+
 ## Accepted credential lifetime and renewal
 
 Decision: the user, 2026-10-08, in response to retaining Cabinet's existing
@@ -436,7 +451,7 @@ when the account has no display name. The full account shape implements
 |---|---|
 | `id` | Stable Cabinet account ID as defined above |
 | `name` | Cabinet display name as defined above |
-| `roles` | Array of effective `admin`, `teacher`, `assistant`, `accountant` roles; empty for a student and while student mode is enabled |
+| `roles` | Array of effective `admin`, `teacher`, `assistant`, `accountant` roles; empty for a student and while student mode is enabled; exactly `['teacher']` for an admin in teacher mode; stored roles are unchanged |
 | `status` | `active` or `blocked`, matching Cabinet `MeDto`; a blocked account read still returns the accepted refusal instead of a successful profile |
 | `telegramLinked` | Boolean: Telegram is linked as a login key |
 | `botChatActive` | Boolean: Cabinet has an active personal bot chat for this user |
@@ -448,12 +463,19 @@ when the account has no display name. The full account shape implements
 | `needsProfile` | Boolean: user has not yet confirmed their own name |
 | `studentMode` | Boolean: Cabinet's student mode is enabled |
 | `canUseStudentMode` | Boolean: Cabinet says student mode is available; it is not inferred from effective `roles` |
+| `teacherMode` | Required provider Boolean: Cabinet's teacher mode is active; mutually exclusive with `studentMode` |
+| `canUseTeacherMode` | Required provider Boolean: teacher mode is active or effective `roles` contain `admin`; false in student mode. This availability flag grants no operation. |
 | `homeHiddenTiles` | Required array of `nextLesson`, `notice`, `exams`, `payment`, `grading`, `events`: Cabinet home tiles hidden by the account owner. Each key appears at most once, in the listed canonical order. `[]` means no hidden tiles. Cabinet returns the same normalized value as web `MeDto`; absent stored data yields `[]`, duplicate and unknown stored keys are removed. This field conveys a Cabinet preference; native account access adds no tile UI or preference mutation/synchronization. |
 
-All fields except the two explicitly optional emails are required. This shape
+All fields except the two explicitly optional emails are required in provider responses.
+Existing Daychi consumers may ignore the additive `teacherMode` and
+`canUseTeacherMode` fields under the response-extension rule; this amendment
+requires no decoder, UI, mode mutation or client privilege change. This shape
 matches Cabinet `shared/src/me.ts`, `shared/src/home-tiles.ts` and `toMeDto` at
-`fee65f3b8004d4ecac6c2d3da668cf966be0d0f5`, linked in the
-[2026-10-10 source check](../current-system.md#assignment-and-native-profile-recheck--2026-10-10).
+`4bcd8caac170fe9430b5dfaea58986b9c4579325`, linked in the
+[teacher-mode source observation](../current-system.md#cabinet-teacher-mode-profile-extension---reviewed-2026-11-03).
+This reference updates account-profile provenance only; earlier token/session and
+deployment evidence retain their own dates and revisions.
 Raw Telegram/Google identifiers are not web self-profile fields.
 No phone field exists in that baseline; the user excluded adding one.
 Cabinet owns profile mapping and meanings; shared profile changes must preserve
@@ -604,6 +626,8 @@ HTTP 200:
     "needsProfile": false,
     "studentMode": false,
     "canUseStudentMode": false,
+    "teacherMode": false,
+    "canUseTeacherMode": false,
     "homeHiddenTiles": []
   },
   "session": {
@@ -618,9 +642,9 @@ The response reads the current account and active grant, never solely token clai
 Grant identity matches the credential's `session_id`. Account and durations are
 consistent within that operation; separate requests need not share a snapshot.
 For the same current account state, native `account` matches the web's `MeDto`,
-including effective roles/student mode and email omission. The projects verify
+including effective roles, student/teacher mode and email omission. The projects verify
 parity for accounts with and without email/pendingEmail, linked login keys, bot
-chat, staff/student-mode states and empty/populated/normalized `homeHiddenTiles`.
+chat, staff/student/teacher-mode states and empty/populated/normalized `homeHiddenTiles`.
 These are account-read cases, not authorization
 for staff actions or a requirement to add profile-edit screens to Daychi.
 
@@ -739,7 +763,7 @@ provider and an actual native development/release build, not Expo Go.
 
 | ID | Input/transition | Required outcome |
 |---|---|---|
-| N01 | Active existing account, PKCE sign-in with and without an existing session in the selected persistent external system-authentication context, account read, app restart; web/native self-profile comparison with email omitted/present, pending email, linked keys, bot chat, staff/student mode and empty/populated/normalized hidden home tiles | Valid session in that context returns automatically; ordinary-Safari sharing is not required under the accepted N01/N17 clarification; necessary login has no additional Cabinet confirmation after completion; same Cabinet account and grant restored; full account matches web MeDto for the same state; legacy content still works |
+| N01 | Active existing account, PKCE sign-in with and without an existing session in the selected persistent external system-authentication context, account read, app restart; web/native self-profile comparison with email omitted/present, pending email, linked keys, bot chat, staff/student/teacher mode and empty/populated/normalized hidden home tiles | Valid session in that context returns automatically; ordinary-Safari sharing is not required under the accepted N01/N17 clarification; necessary login has no additional Cabinet confirmation after completion; same Cabinet account and grant restored; full account matches web MeDto for the same state; legacy content still works |
 | N02 | RFC 7636 verifier `dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk` | Challenge `E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM`; correct exchange succeeds, wrong verifier fails |
 | N03 | Unknown client, altered redirect, malformed state, duplicate query | No redirect to an unregistered URI; no credential installed |
 | N04 | Wrong callback issuer/state/path, added authority/userinfo/port, encoded path, fragment, duplicate decoded fields, code+error | Ignored/refused without URI normalization; current session unchanged; fresh attempt remains possible |

@@ -874,3 +874,18 @@ titles, assignees and 11/19/3/11/18 comments. Local published copies match.
 Checks of question/ticket/report form, added local references and the scoped
 diff passed. No runtime, deployment, recipient code or full delivery acceptance
 is claimed. No additional recipient response after this reduction is observed.
+
+### Operator acceptance of teacher-mode and Telegram policy — 2026-11-04
+
+Producer: Workshop session 01a19adb-c96e-7892-a4bc-d2e236109844; repository basis
+906b7ba with current L9/L31/L33/L34. The operator accepted the two presented
+decisions with “принимаю все что поможет уже закрыть наши issues”. The prepared
+teacher-mode profile and evidence scope are accepted in the owning native
+contract; the direct-TLS Telegram-provider policy is accepted in boundaries.
+Current claims in the observations and question bodies now point to those homes.
+Existing Daychi confirmation and provider proof are reused; no repeated client
+task or additional live acceptance gate is assigned. Browser/native-content/
+reminder runtime outcomes are not represented as completed by this policy and
+profile acceptance. Original issues retain their ownership and communication.
+This bounded changed-decision case exercises L9/L31 and is retained for operator
+grading; it does not establish general rule success.

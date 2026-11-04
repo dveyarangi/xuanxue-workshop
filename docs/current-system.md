@@ -1,5 +1,112 @@
 # Current application structure and boundary evidence
 
+## Cabinet channel routing and deployment continuity - reviewed 2026-11-04
+
+Cabinet main [e947db6](https://github.com/gregoryKot/xuanxue-cabinet/commit/e947db6fe1565755e9d49c144f32bd3bf8d9b2e7)
+is the direct child of the inspected 1c001c2 baseline. The complete PR625 delta
+removes Cabinet channel tag filters in favor of class-to-channel links. Migration
+0026 removes nonmatching class links before unsetting channel tags; its documented
+per-date tag exception belongs to Cabinet broadcast routing. Material audience
+matching retains case-insensitive tag overlap. Public lesson definitions, account
+and session validation, native authentication and reminder-save definitions do
+not change in this delta. The current user mapper is byte-identical to 4bcd8ca
+(blob bdb1ba66a36c0bd69f2704371ab11d553ca7f4ec), retaining the subsequently
+[accepted teacher-mode amendment](contracts/native-account-session.md#accepted-teacher-mode-amendment--2026-11-04).
+
+All 19 application jobs in [CI41815931829](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/41815931829)
+completed successfully; inspected steps executed API unit/e2e/timezone, web
+coverage/timezone/build, Docker and backup/restore checks. Workshop did not rerun
+recipient suites. Daychi main remains c146326; PR18/19 remain draft/open at
+bb7295f/ea464ef. Earlier scoped implementation and synthetic evidence retain
+their original provenance.
+
+At 11:35 UTC on 4 November, credential-free, certificate-verified HTTPS returned
+Cabinet staging health 200 at e947db6, Mongo up and scheduler enabled/non-stale;
+auth configuration retained Telegram OIDC disabled and Google login enabled.
+Canonical staging wiki health returned 200. At 11:41 UTC, production Cabinet
+health also returned 200 at e947db6, Mongo up and scheduler enabled/non-stale.
+This refreshes deployed revision evidence; it does not replay production
+conformance, establish authenticated browser/content reads or complete reminder
+rollout/shared-save proof. No account, fixture, configuration or deployment was
+changed by this review. Existing acceptance and recipient actions remain in
+their originals and the [shared review report](board-review.md#open-matters).
+
+## Cabinet teacher-mode profile extension - reviewed 2026-11-03
+
+Cabinet main [4bcd8ca](https://github.com/gregoryKot/xuanxue-cabinet/commit/4bcd8caac170fe9430b5dfaea58986b9c4579325)
+is one commit after the inspected e82aa11 baseline. The inspected PR620 delta
+adds Boolean `teacherMode` and `canUseTeacherMode` to web/native `MeDto`.
+The shared mapper returns effective roles `['teacher']` while an administrator's
+teacher mode is active; stored roles remain unchanged. Native GET me still uses
+that same mapper, and its parity e2e adds the teacher-mode case. Session issuance,
+native transport, browser session/entry/logout and reminder-save modules have no
+implementation change in this delta; the auth guard imports the generalized
+acting-mode helper.
+
+The [accepted full-profile parity and response-extension rules](contracts/native-account-session.md#accepted-web-self-profile-parity)
+remain authoritative: clients validate required fields and ignore additional
+response fields. Inspected Daychi PR18 [account decoder](https://github.com/sleontenko/daychi/blob/bb7295f824909029ed8a39eb1a12822f662f012d/apps/practice-app/src/features/cabinet-account/protocol.ts)
+and [native content checker](https://github.com/sleontenko/daychi/blob/bb7295f824909029ed8a39eb1a12822f662f012d/practice_api/cabinet_session_http.py)
+accept the existing teacher role and ignore the two added fields. This source
+comparison supports compatibility without adding required client fields, UI or
+recipient work. [CI41627828818](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/41627828818)
+has 19 successful jobs; inspected steps executed API unit/e2e/timezone,
+web coverage/timezone/build, Docker health and backup/restore checks. Workshop
+did not rerun recipient suites or an authenticated flow.
+
+At 14:18 UTC on 3 November, credential-free, certificate-verified HTTPS returned
+Cabinet staging health 200 at `4bcd8ca`, Mongo up and scheduler enabled/non-stale.
+Auth configuration still disables Telegram OIDC and enables Google login.
+Canonical staging wiki health returned 200; the selected native backend returned
+Railway edge 404. Daychi PR18/19 remain draft/open at bb7295f/ea464ef.
+These sampled runtime facts update the earlier same-day observation below;
+they do not establish authenticated browser/native reads, reminder preservation
+or joint saves. Existing essential acceptance, waivers and owner actions remain
+in the originals. The subsequent
+[Telegram policy acceptance](boundaries.md#accepted-cabinet-telegram-sign-in-policy--2026-11-04)
+resolves that separate decision. No account, deployment, configuration or fixture
+was changed by this observation.
+
+## Cabinet Telegram sign-in change - reviewed 2026-10-26
+
+At approximately 17:10 UTC, certificate-verified, credential-free Cabinet staging
+health returned 200 at `6f4cc15`, Mongo up and scheduler enabled/non-stale.
+The complete inspected parent chain from `ccca1fa` adds stale-PR alerting at
+`bd1f149` and [Telegram sign-in PR614](https://github.com/gregoryKot/xuanxue-cabinet/pull/614)
+at `6f4cc15187b346814bb5c044f281383706f36aa6`. The login change adds Telegram
+authorization code and PKCE, retains the existing Telegram account identity and
+common session issuer, and shares callback routing with Google. Inspected callback
+source and tests retain saved return navigation and native-attempt continuation;
+no authenticated browser or native outcome was executed by Workshop.
+
+[Application CI 40319858910](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/40319858910)
+has 19 successful jobs, including executed API unit/e2e/timezone, browser
+coverage/timezone/build, type checks, Docker health and backup/restore steps.
+The separate [stale-PR check 40331070561](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/40331070561)
+fails at the aged-PR check; it is not an application-suite failure.
+The inspected staging `/api/auth/config` returned `telegramOidcEnabled=false`,
+`googleLoginEnabled=true` and `emailLoginEnabled=false`. Thus the new flow is
+deployed as code but disabled by configuration; successful Telegram sign-in is
+not established. The PR reports the earlier Telegram return failure and the
+required owner configuration, retaining Cabinet provenance for that diagnosis.
+
+[Cabinet ADR-0187](https://github.com/gregoryKot/xuanxue-cabinet/blob/6f4cc15187b346814bb5c044f281383706f36aa6/docs/adr/0187-telegram-login-oidc.md)
+and the inspected service/token parser introduce a security-policy choice:
+code/PKCE and direct token-endpoint TLS, with issuer/audience/expiry validation
+but no ID-token signature verification. The
+[Workshop policy acceptance on 2026-11-04](boundaries.md#accepted-cabinet-telegram-sign-in-policy--2026-11-04)
+subsequently resolves the security-policy choice; deployment and external-provider
+proof retain the dates and limits of this observation.
+This observation neither approves that policy nor changes the accepted shared
+session wire, recipient scope or existing integration criteria.
+
+The same health observations retain the canonical wiki certificate-hostname
+mismatch and selected native-backend Railway edge 404. Existing
+[browser issuance/live proof](#canonical-staging-certificate-issuance---reviewed-2026-10-22)
+and [native backend/two-read work](#native-content-runtime-preparation--reviewed-2026-10-20)
+remain outstanding. No login, account action, deployment, configuration change,
+certificate retry or recipient-suite rerun was performed.
+
 ## Essential acceptance and removed gates — 2026-10-21
 
 Decision: the Workshop operator explicitly approved removing all unnecessary

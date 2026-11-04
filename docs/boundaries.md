@@ -383,6 +383,31 @@ or substitute for the separately accepted content-validation connection.
 The current Cabinet cookie and Daychi bearer implementations are source evidence,
 not deployed support for this target cross-project contract.
 
+### Accepted Cabinet Telegram sign-in policy — 2026-11-04
+
+Decision: the Workshop operator, 2026-11-04, accepted the presented Cabinet
+ADR-0187 protocol and token-validation policy in response to the two presented
+decisions: “принимаю все что поможет уже закрыть наши issues”.
+The scope is Cabinet's Telegram provider login, preserving Cabinet account and
+session authority; it does not adopt OIDC as the native Daychi wire protocol.
+
+Cabinet may use authorization code with PKCE S256 and validate an ID token
+obtained directly by its backend from Telegram's authenticated token endpoint
+over certificate-verified TLS without separately verifying the ID-token
+signature. The accepted flow retains its state/CSRF binding, client authentication,
+code verifier, issuer/audience/expiry validation and existing Telegram account
+identity. This exception applies only to that direct backend token exchange;
+it does not authorize trusting an ID token supplied by a browser or another caller.
+The precise accepted implementation policy is
+[Cabinet ADR-0187 at 6f4cc15](https://github.com/gregoryKot/xuanxue-cabinet/blob/6f4cc15187b346814bb5c044f281383706f36aa6/docs/adr/0187-telegram-login-oidc.md).
+
+This resolves Workshop's security-policy decision under
+[Security authority](agent-contract.md#security-authority). Environment configuration,
+activation and release remain Cabinet-operator work. No configuration was changed
+by this acceptance and no successful Telegram-provider run is claimed. Existing
+browser/native-content/reminder acceptance remains in its owning contracts;
+the policy decision adds no live Telegram or production rollout gate to them.
+
 ### Accepted web-wiki reader access
 
 Decision: the user, 2026-10-12, clarified: "все и только вошедшие в кабинет так же

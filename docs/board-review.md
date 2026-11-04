@@ -1,87 +1,90 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-10-21T08:51:42+00:00
+- **Reviewed:** 2026-11-04T17:18:10.970479+00:00
 
 ## Reviewed scope
 
-The 21 October operator-requested five-body status update read originals 12/13, 15/16 and 17, 62 comments and 131 paginated timeline events, PR18/19 metadata and public Cabinet/wiki/native-backend health. The new native runtime-preparation/correction reports are incorporated; unchanged source/check evidence is reused. No account/fixture/source/deployment operation or authenticated acceptance run was performed.
-
-This scoped closure-status update freshly reads originals 12/13, 15/16 and 17, all 59 comments and 128 timeline events, Daychi PR18/19 metadata and Cabinet/canonical-wiki health surfaces. Conversations and linked source heads are unchanged; current accepted proof forms and exclusions govern the mapping. Existing source/CI/synthetic findings are reused. No account/fixture mutation, suite rerun or actual installed integration test was performed.
-
-The 20 October operator-requested acceptance-provenance audit freshly read all six open issue bodies, all 64 comments and all 143 timeline events, governing decision records and the linked Daychi reminder QA. It distinguishes individual decisions, accepted complete packages and recipient QA limits; no criterion or tracker entry was changed, and no source suite or runtime integration was rerun.
-
-This update records the Workshop operator's 20 October acceptance amendment, the confirmed original-17 update and a fresh read of all issue states, open-issue conversations and relevant PR metadata. There are six open issues (11, 12, 13, 15, 16, 17) and eleven closed issues. The source/runtime conclusions below reuse completed overnight reviews; no new recipient runtime test or deployment was performed.
-
-The retained 02:36 UTC periodic review covered all 12 host-selected originals: 2, 5, 6, 7, 8, 9, 11, 12, 13, 15, 16 and 17. Current bodies, comments and complete paginated timelines, including closed assignments and relevant cross-references, were studied against retained immutable source/check/acceptance evidence. All supplied cases finished; the final board check confirmed batch_complete with no pending cases.
-
-New source scope was Cabinet PR609 at 8d93224926fccee3046974fce9fbb8c11c13d174 and PR610 at d855ba573a3b876db056beefcf5d46ac363bb6d7, their complete deltas, relevant parser/reducer/hook/transport and test-support source, regression assertions and exact-head CI job steps. At that overnight source review Cabinet main was independently confirmed at 9fc0703d53d12d510c40c0981f985d10339ad63a and both candidates were open/unmerged. Fresh PR metadata now confirms PR609 merged at c60944f091bbeb96665a39cb0ae63f60332180a4 on 20 October at 07:08:06 UTC and PR610 at 20128fbdcda9a310f377f8d3c288ff47399c4f63 at 07:08:11 UTC, retaining the reviewed heads. This confirms merge state, not deployment or new merge-CI execution. A local exact-source Node probe stripped TypeScript and substituted imported shared constants from the inspected revision. No recipient suite, browser/account, device, fixture, DNS, deployment or release operation was run.
+Operator disposition of the two presented decisions: teacher-mode native profile
+in [original 18](https://github.com/dveyarangi/xuanxue-workshop/issues/18) and Cabinet
+Telegram-provider policy affecting originals 12/11. The current original-18 body
+and both comments were read; Cabinet ADR-0187 at 6f4cc15 and the pinned 4bcd8ca
+profile mapper were independently read. Existing complete assignment reviews,
+provider CI and Daychi source/synthetic compatibility evidence are reused.
+No authenticated flow, account mutation, deployment or configuration change was
+performed. The preceding 4 November runtime/source observations retain their
+actual times in current-system; this is decision acceptance, not a fresh live run.
 
 ## Results
 
-- **Essential acceptance reduced by operator decision, 21 October:** the operator removed unnecessary closure gates after reviewing their necessity. The current [browser](contracts/web-wiki-session.md#essential-acceptance--2026-10-21), [native-content](contracts/native-content-session.md#essential-acceptance--2026-10-21) and [reminder](contracts/reminder-sync.md#essential-acceptance--2026-10-21) contracts supersede earlier retained-limit and whole-plan acceptance wording below. Mandatory native 60/60 counters/window/restart/replica proof and exact reminder 50-class/64-change/128-KiB/retry-boundary proof no longer gate closure. Existing compatible code/tests may remain without a new recipient implementation. Core user outcomes, accepted staging/Simulator scope, evidence credits and remaining owners/actions are preserved. No actual shared result or full delivery acceptance is claimed. Authority 3c6ff8a7136483b3d266786fa8267eab4f2d2828 is published; all five original bodies were updated and exactly read back, with states/recipients/assignees/titles/comments unchanged. The five local published copies match. No comment, duplicate issue or recipient code change was added.
+The Workshop operator accepted the presented decisions on 4 November with
+“принимаю все что поможет уже закрыть наши issues”. The
+[teacher-mode amendment](contracts/native-account-session.md#accepted-teacher-mode-amendment--2026-11-04)
+is applied: required provider flags, effective-role semantics and existing-client
+ignore allowance, using the agreed existing proof and exclusions. No new Daychi
+implementation or repeated account proof is required. The
+[Cabinet Telegram policy](boundaries.md#accepted-cabinet-telegram-sign-in-policy--2026-11-04)
+is accepted for the direct backend TLS token exchange; environment activation and
+release remain Cabinet-owned. Both policy/profile questions are resolved locally.
+Original 18 can close after the accepted revision is published and acknowledged.
+Browser/native-content/reminder proof remains separate; no unreported live outcome
+or blanket waiver is inferred from the operator's acceptance of these proposals.
 
-- **Credited subsets and remaining owner actions published, 21 October:** [the current status mapping](current-system.md#credited-subsets-and-closure-owners--updated-2026-10-21) is reflected in all five original bodies. Each now distinguishes credited source/automated/installed preparation, exact missing outcomes, named owner and completion evidence. Native client installation/mapping is credited from the newer receipt; a working selected backend and actual reads remain, with no new build/upload or extra live fixtures requested. Cabinet deployment and reminder queue/source evidence are credited rather than re-requested. Original bodies were freshly read back: text matches; open states, labels, assignees, titles and 11/19/3/11/18 comments are retained. Contracts and agreed evidence/waiver sections are unchanged; no extra comment or issue was created.
-
-- **Closure status against agreed acceptance, 20 October:** the [evidence/remaining-action matrix](current-system.md#closure-status-against-agreed-acceptance--2026-10-20) identifies accepted reusable source/automated support and each outstanding owner action. Fresh Cabinet staging health is 200 at 20128fb; the current environment cannot resolve canonical staging wiki. Daychi PR18/19 retain reviewed draft heads bb7295f/ea464ef. Browser 12/13 need canonical DNS/TLS and three agreed live scenarios plus actual staging exposure/configuration reconciliation. Native 15/16 need an identified installed Simulator/native-content/backend mapping and actual material/recording reads; all other cases are automated. Reminder 17 needs actual rollout preservation/separation evidence, an installed Cabinet-connected client and the existing shared-save/readback/offline/calendar/logout/isolation proof. No new recipient completion or source defect was found, no extra acceptance gate was inferred, and no duplicate issue response was posted.
-
-- **Native-content runtime accepted, 20 October:** the operator accepted [installed Daychi in iOS Simulator with any Daychi backend and real Cabinet staging](contracts/native-content-session.md#accepted-joint-proof-runtime--2026-10-20) for 15/16 acceptance and closure. No particular Daychi backend hosting environment is required; physical hardware, Android and TestFlight do not block either. Only material/recording reads require live proof; all remaining cases use executed automated tests and inspectable source. Fresh original 15/16 reads retain open states, project labels and 3/8 comments. The common contract and related current claims are reconciled; both original bodies are updated against immutable authority 1fd3890 and freshly read back: bodies match, open states/project labels/comment counts retained (15:3, 16:8). Local published copies match; no extra comment or issue was added. No actual read or recipient runtime was tested here.
-
-- **Native-content evidence split accepted, 20 October:** the operator accepted [only protected material and recording reads live on staging](contracts/native-content-session.md#accepted-acceptance-evidence-split--2026-10-20) for 15/16. Every other case uses inspectable source and executed automated tests, including revocation/next-read refusal, other-session isolation, block/unblock, outage/recovery and expiry/deletion. Numeric capacity/counter proof is withdrawn by the later 21 October decision. The prior live-revocation recommendation was not accepted. Shared behavior and restart-reset exclusions remain fixed. The sufficient native-client runtime is now accepted below; no new live run is claimed. The consolidated original-body amendments include that runtime.
-
-- **Browser environments accepted, 20 October:** the operator accepted [real staging as sufficient for 12/13 acceptance and closure](contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20). Production rollout remains recipient-owned and non-blocking; isolation uses executed automated tests and inspectable configuration. The accepted live/automated evidence split remains in force. The common contract, boundary, ticket and plan are reconciled; the prepared paired original-body amendments also remove the stale dependency on closed article 9. Both original bodies were updated against immutable authority ec3f17a and freshly read back: expected body matches, open state/project labels/comment counts unchanged (12:11, 13:19). Local published copies now match; no extra comment or issue was created. No runtime success is inferred.
-
-- **Browser evidence split accepted, 20 October:** the Workshop operator accepted [live main-scenario proof and executed automated boundary-case tests](contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20) for originals 12/13. Live proof covers valid-session protected material/recording reads, sign-in with original-page return, and logout followed by refusal of the next protected read. Renewal, expiry, account deletion/blocking, malformed responses, timeouts and remaining boundary cases do not each require a live run. Shared behavior remains binding; acceptance environments were subsequently accepted below. No new runtime proof was performed.
-
-- **Reminder proof runtime accepted, 20 October:** the operator explicitly accepted [installed Daychi in iOS Simulator with real Cabinet staging](contracts/reminder-sync.md#accepted-joint-proof-runtime--2026-10-20). Separate physical-device and Android runs do not block contribution or original-17 closure. Existing functional/common-case obligations remain; no completed real joint run is claimed. The simulator-runtime question is settled. Original 17 was updated in place against immutable authority 630120c; body/state/labels/comments were read back. Browser evidence alignment is subsequently settled by the accepted split/environment decisions.
-
-- **Acceptance provenance, 20 October:** the [six-issue audit](questions/done/q-0002.0002.0007-what-evidence-is-sufficient-for-accepting-the-open-workshop-outcomes.md) found recorded operator agreement for the browser/native/reminder behavior and accepted-package support for their detailed contracts/common cases. The exact mandatory live/device matrix is not established by every later recipient QA disclosure. At audit time browser 12/13 still referred an access-transition action to closed 9; the consolidated 20 October amendment resolves this stale dependency in place. Article acceptance remains closed. Explicit reminder client-bound/delay and native restart exclusions remain operative. No acceptance amendment is inferred from this audit.
-
-- **Cabinet runtime clarification, 20 October:** fresh credential-free GET /api/health returned 200 on staging with commit 20128fb, Mongo up and scheduler enabled/non-stale; production returned 200 at fc2dee2. The reviewed reminder implementation and correction commits are therefore deployed on staging; provider staging deployment is no longer unknown. This read does not establish actual account migration results or a real shared save. Daychi PR19 explicitly describes a default-off draft candidate, with merge/activation/mobile release excluded. Installed Android and physical delivery remain disclosed QA limits rather than acceptance blockers under the accepted Simulator scope; real Cabinet joint-save outcomes remain pending.
-
-- **Current board status:** fresh state-filtered issue discovery returns six open originals and eleven closed; open-issue conversations contain no newer completion beyond the retained reviews. Cabinet [PR609](https://github.com/gregoryKot/xuanxue-cabinet/pull/609) and [PR610](https://github.com/gregoryKot/xuanxue-cabinet/pull/610) are now merged at the reviewed heads. Daychi [PR18](https://github.com/sleontenko/daychi/pull/18) remains draft/open at bb7295f and [PR19](https://github.com/sleontenko/daychi/pull/19) draft/open at ea464ef. Browser 12/13 await canonical hosting and actual browser proof; native-content 15/16 await identified live-content runtime and matching owner-authorized paired observations; reminder 17 awaits actual rollout outcomes and remaining consumer/device/joint results; current Cabinet staging deployment is confirmed below. Coordination 11 aggregates browser/native-content completion and adds no independent protocol task. No new original-issue response is warranted by these merge-state updates.
-
-- **Reminder correction review and operator disposition:** the [20 October review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6281943775) records PR609/610 evidence. The Workshop operator subsequently approved the [current-delivery acceptance scope](contracts/reminder-sync.md#current-delivery-acceptance-scope--2026-10-20): client rejection solely for more than 50 class IDs and handling supplied delays over one hour are non-blocking, without required correction/regression evidence for this delivery. Existing server limits and other recovery/joint obligations remain. The original issue body is updated in place with the amended immutable authority; no new comment or issue is added.
-
-- **PR609 progress and non-blocking observations:** at reviewed head 8d932249, the [candidate](https://github.com/gregoryKot/xuanxue-cabinet/pull/609) rejects earlier invalid school-minute, slot and ID examples. Synthetic exact-source probes also observed an 86400-second delay capped to 3600 and acceptance of a response containing 51 canonical class IDs. Neither established a normal-operation user failure. Under the operator-approved acceptance scope these two observations no longer require a correction or block either contribution or joint acceptance. Existing server bounds/rate limiting may remain for compatibility; the later 21 October decision removes their exact boundary/counter proof as a closure gate. All 19 inspected exact-head CI checks succeeded; the 842 local tests retain Cabinet provenance. No deployment or full provider acceptance is inferred.
-
-- **StaffBoard diagnosis:** [PR610](https://github.com/gregoryKot/xuanxue-cabinet/pull/610) changes only the shared API test mock helper, adding beforeEach call-history clearing. The inspected adjacent assistant/student tests and global cleanup support Cabinet's explanation of calls leaking between tests; detailed historical scheduling was not independently reproduced. [CI39344708179](https://github.com/gregoryKot/xuanxue-cabinet/actions/runs/39344708179) has 12 successful checks and four skipped API checks; actual web typecheck, coverage, timezone and coverage-ratchet steps succeeded. The ac85bbc diagnosis request now has a source-supported explanation and inspected test-only correction/check evidence within that scope. Fresh metadata confirms this reviewed candidate is now merged; the correction changes no application behavior.
-
-- **Retained reminder evidence:** [the earlier review](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6279637451) remains the source for merged Cabinet delivery PR607 and cutover PR608, selected-mode seeding without all-mode subscriptions, retained lead/other notices, retired lead PUT and isolated legacy scope PUT. The observed seed preserves existing reminder choices first and caps the merged class list at 50; preservation of an arbitrary larger combined preexisting selection and actual migration outcomes remain unestablished. Daychi draft PR19 ea464ef remains default-off/unmerged with previously inspected protocol/controller/owner, account/guest/calendar/queue source, six successful exact-source checks, synthetic QA and seven hash-verified visually inspected JPEGs. The 159 app tests, native exports, 60-of-100 pending queue and cancellation/refill/empty-calendar/logout receipts retain recipient provenance. Physical delivery/suspension, installed Android, populated-guest cold-start and other unclaimed device observations retain their disclosed limits. Separate physical-device and Android runs are not acceptance blockers under the accepted runtime scope; no real Cabinet joint-save outcome is established.
-
-- **Browser and native content:** originals [11](https://github.com/dveyarangi/xuanxue-workshop/issues/11), [12](https://github.com/dveyarangi/xuanxue-workshop/issues/12), [13](https://github.com/dveyarangi/xuanxue-workshop/issues/13), [15](https://github.com/dveyarangi/xuanxue-workshop/issues/15) and [16](https://github.com/dveyarangi/xuanxue-workshop/issues/16) contain no new recipient completion requiring another response. Browser source/Windows access and the 88794f6 test-only correction stay resolved; canonical DNS/ownership/TLS and actual browser lifecycle/exposure/cache proof remain. Earlier public-DNS observations are reused as dated evidence, not refreshed here. Native-content source/CI and mounted/full-parent synthetic progress remain reusable under [ce4aebc](contracts/native-content-session.md); accepted single-instance restart resets create no persistence hold. External TestFlight18 lacks the content path. An authorized client/backend mapping and live material/recording reads remain; revocation/isolation/recovery and all other cases use executed automated evidence under the accepted 20 October split.
-
-- **Accepted work:** refreshed originals [2](https://github.com/dveyarangi/xuanxue-workshop/issues/2), [5](https://github.com/dveyarangi/xuanxue-workshop/issues/5), [6](https://github.com/dveyarangi/xuanxue-workshop/issues/6), [7](https://github.com/dveyarangi/xuanxue-workshop/issues/7), [8](https://github.com/dveyarangi/xuanxue-workshop/issues/8) and [9](https://github.com/dveyarangi/xuanxue-workshop/issues/9) retain installation, provider, operator-accepted pilot, native account/joint and article acceptance in their respective scopes. No later problem, recipient request or customer complaint was found. Public-pilot and article evidence waivers remain waivers, not passed checks. Network investigation remains closed/non-blocking until an actual related customer complaint. Other unselected installation/withdrawn cases were not freshly claimed; their retained state stays in [current-system](current-system.md). No duplicate acknowledgement or accepted-proof rerun was requested.
-
-- **Queue and scoped maintenance:** order remains [web-wiki-cabinet-session](tickets/01-0009-web-wiki-cabinet-session.md), then [telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md); gateway/backend consolidation remain deferred. This review starts no next delivery cycle. Maintenance covers this report and original 17's new review against the existing reminder contract, ownership and linked records, reusing the current coordination/review pass. Harness alignment, declarations, installed bindings, question/ticket/edge form, straw-dog and report checks passed without diagnostics. No due local mechanism/mark or eligible finished record required a move. Operations is preserved from the controller's prior report. Unrelated working-tree changes are outside this pass.
+The latest [runtime/source observation](current-system.md#cabinet-channel-routing-and-deployment-continuity---reviewed-2026-11-04)
+retains Cabinet e947db6 healthy on staging/production, canonical staging wiki
+health 200, 19 successful application jobs and unchanged Daychi candidates.
+The earlier source/check provenance, accepted public-pilot/account results and
+waivers remain credited. Delivery order remains
+[01-0009 web-wiki-cabinet-session](tickets/01-0009-web-wiki-cabinet-session.md), then
+[01-0020 telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
+Gateway/backend consolidation remain deferred; no next delivery cycle started.
 
 ## Open matters
 
 **Reviewer commitments**
 
-- Review only the missing outcomes named in the updated original bodies, against credited existing evidence. Browser work resumes on canonical staging DNS/TLS and the three live scenarios; native content resumes on a working chosen backend and two actual reads; reminder work resumes on the missing actual rollout/shared outcomes. No repeated accepted build, deployment, context installation, CI, account run or synthetic QA is requested without an identified changed basis or gap.
-
-- Native 15/16 evidence/runtime amendments are published and read back against one immutable authority. Acceptance evidence alignment is complete; actual recipient delivery/read proof remains in the originals. The consolidated browser 12/13 acceptance amendments and stale original-9 correction are published and read back against one immutable authority. Reminder 17 runtime scope is already published; accepted implementation work continues under its current scope.
-- On changed Cabinet integration/deployment and rollout evidence or Daychi consumer/device evidence, review preservation, conformance and joint outcomes against the [amended reminder contract](contracts/reminder-sync.md), reusing valid source/account/public-provider proof. The two waived client observations are not waiting corrections; reconsider them on evidence of an effect on normal operation. PR610's scoped diagnosis evidence remains reviewed.
-- On installed Daychi in iOS Simulator with any Daychi backend and an authorized Cabinet staging account in 15/16, inspect live protected material/recording delivery and executed automated conformance evidence for revocation/isolation/recovery and remaining cases in 16/11. No live revocation/status/outage fixture is required. Restart persistence, reminder implementation and issue closure add no prerequisite.
-- After the canonical DNS/ownership/TLS handoff, verify the actual host and assess the agreed live browser scenarios plus executed automated conformance evidence in 12/13, including reader/alias/cache protection. The accepted 20 October evidence split governs proof form; real staging suffices and production rollout is non-blocking. Existing valid source/check evidence remains reusable.
-- Original 17 now cites the amended immutable contract, distinguishes reviewed merged/candidate progress and records the two non-blocking observations. Its older-progress body follow-up is resolved by the in-place update.
+- Publish the scoped accepted profile/policy and question dispositions, preserving
+  all unrelated working-tree changes. Then acknowledge/close original 18 and
+  communicate the Telegram-policy disposition once in originals 12/11.
+- Publish and exactly read back the prepared factual replacements for originals
+  12/13, synchronizing their local published assignment copies. The latest complete
+  drafts are .cache/periodic-01a18947/issue-12.body.md and issue-13.body.md;
+  reconcile intervening changes first. The prior host rejected body replacement
+  because it required approval under policy never. This invocation will use its
+  available publication path and report the actual result.
+- When missing recipient results arrive in the original issues, compare only
+  those outcomes with existing agreed acceptance and credited evidence. The
+  retained unpublished 21 October–4 November observations and mechanism changes
+  remain separate from this scoped acceptance publication; preserve their state.
 
 **Recipient-agent work**
 
-- Cabinet and Daychi retain the existing reminder outcome in original 17. Cabinet staging deployment is now confirmed; Cabinet owns actual rollout preservation/separation evidence on the already deployed revision; Daychi owns the installed Cabinet-connected runtime and actual shared outcomes; existing queue/coverage receipts are credited under the accepted iOS Simulator scope; separate physical-device/Android runs are not blockers. Matching authorized running ends enable actual shared saves, uncertain readback, offline preservation, calendar recovery and account/issuer/logout proof. The two waived client observations add no correction or regression-evidence prerequisite. Reviewed source/check and synthetic progress remain reusable with their disclosed limits.
-- Cabinet/DNS operator @kotlarewski and Daychi owner @stnleo retain the [staging handoff](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6179411400): CNAME wiki.staging to om0wj6tn.up.railway.app, initially DNS-only, plus private Railway ownership-value exchange for _railway-verify.wiki.staging. Daychi owns canonical TLS/runtime and exposure/cache proof; Cabinet owns authorized browser/account/lifecycle conditions. The private value stays outside public records.
-- Daychi @stnleo retains a working selected native-content backend (or any suitable alternative) and the two actual protected material/recording reads through the credited installed Simulator/client configuration and real Cabinet staging. Cabinet @kotlarewski assists only for an actual unresolved account/read need. The installed build/source/backend mapping is already identified at 7be8dac; no repeat build or installation is requested. The selected Railway origin still returns edge 404 on 21 October; its platform is not a criterion. Extra live fixtures and role changes remain withdrawn; all other conformance uses credited executed automated evidence.
-
-**Operator-only actions**
-
-- No fresh contract/publication decision is required for the existing canonical browser route or reminder implementation. Only if earlier browser access is required, Workshop operator @Yarangi may authorize preparation of the bounded same-origin alternative described in [original 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6237596407). Recommendation remains completing the accepted canonical handoff. Workshop would then prepare the exact alternative and common cases for alignment; no alternative is accepted or assigned.
+- Browser 12/13: Daychi identifies the running reader source/configuration and
+  exposure/controlled-cache reconciliation, then supplies valid-session material/
+  recording reads, sign-in/original-page return and logout/next-read refusal.
+  Cabinet assists only for an actual provider/account need. Canonical HTTPS
+  recovery is already credited; no renewed DNS handoff or issuance task exists.
+- Native content 15/16: Daychi supplies a suitable working backend and the two
+  protected reads from the credited installed iOS Simulator against real Cabinet
+  staging. Cabinet assists only for an actual account/read-authority need. The
+  last selected-backend observation is Railway edge 404; any suitable backend is
+  eligible. Existing provider, installation, CI and exclusions remain credited.
+- Reminders 17: Cabinet supplies actual rollout preservation/legacy-writer
+  separation evidence; Daychi identifies the installed Cabinet-connected
+  Simulator. Both supply the agreed joint save/readback/offline/calendar/logout
+  outcomes. Existing source/CI/synthetic/migration/queue proof and client waivers
+  remain credited; no repeat suite or expanded platform/live-fixture gate is added.
 
 **Drift disposition**
 
-Earlier installation/source-access corrections remain resolved. Original 17's stale progress and acceptance-scope statements are reconciled with the reviewed evidence and the operator-approved amendment. Browser 12/13 now share the operator-approved evidence/environment scope and no longer depend on action in closed 9. Existing server behavior and recipient ownership remain; current essential acceptance excludes numeric boundary/counter proof and repeated accepted work. Native 15/16 now share the operator-approved runtime/evidence scope throughout the original bodies and related current claims. No instruction or unrelated record repair was performed.
+Original bodies 12/13 retain obsolete DNS rows; the prepared replacements and
+their existing conversations carry the corrected hosting disposition. Publication
+is outstanding, not a repeated recipient implementation task. The entry source
+abbreviation mismatch remains recorded. The latest whole installed-rule audit
+was access-limited by a pre-existing tracked .local input; its earlier successful
+30 October result remains dated evidence, not a new clean audit.
 
 ## Operations
 
-2026-10-19T23:36:56+00:00
+2026-11-02T11:26:40+00:00
 Controller completed; review results and open matters are recorded above.
