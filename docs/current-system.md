@@ -1513,3 +1513,43 @@ and staging/production public-route availability. Other running configurations, 
 versions, production datasets and deployment acceptance have not been verified.
 Current-state updates require new evidence; accepting a target or closing an
 implementation issue alone is insufficient.
+
+## Architecture and document agreement — inspected 2026-11-05
+
+This is a source/document comparison, not new deployment, CI or runtime proof.
+The shared ownership remains Cabinet accounts/schedule/settings, Daychi content
+backend and clients, Knowledge editorial preparation/import tools, and Workshop
+cross-project agreements. The [final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05)
+owns closure scope; the excluded live outcomes remain unconfirmed.
+
+- Cabinet main is [fa79f7c](https://github.com/gregoryKot/xuanxue-cabinet/tree/fa79f7c27b3622d71fa79c865f8f717a2205a350),
+  three commits after the previous e8011e5 observation. The changed class/group
+  model uses ordered `groupIds` for broadcast routing, with a derived `groupLabel`;
+  [ADR 0196](https://github.com/gregoryKot/xuanxue-cabinet/blob/fa79f7c27b3622d71fa79c865f8f717a2205a350/docs/adr/0196-class-many-groups.md)
+  owns the internal model. The inspected public projection retains class identity
+  and the `groupLabel` field; the native account mapper is unchanged. This does
+  not certify all changed Cabinet behavior or deployment.
+- Daychi main remains [c146326](https://github.com/sleontenko/daychi/tree/c146326c7ea552772d8c804b3a08ad5637ca5eb0).
+  [PR 18](https://github.com/sleontenko/daychi/pull/18) at bb7295f and
+  [PR 19](https://github.com/sleontenko/daychi/pull/19) at ea464ef remain draft,
+  open and unmerged. Their dated activation/release conditions are recipient-owned;
+  they neither establish deployed support nor reopen waived Workshop proof.
+- Knowledge main is [a717753](https://github.com/sleontenko/daychi-knowledge/tree/a7177536520a35f96fe80fdf72ef337c6f8ed9b9).
+  The two commits since b9eb168 change README/work-plan documentation only.
+  The [README](https://github.com/sleontenko/daychi-knowledge/blob/a7177536520a35f96fe80fdf72ef337c6f8ed9b9/README.md)
+  reports the accepted Neidan archive import and production checks; this audit
+  does not independently rerun those checks or establish new wire behavior.
+
+The local architecture's acceptance update had failed silently while its published
+version was correct. The [existing failure case](rule-failures.md#2026-10-19--partial-agreement-updates-left-a-competing-work-inventory)
+records the reproduced newline mismatch and incomplete content review. The local
+copy and residual Workshop boundary summaries now refer to the owning acceptance.
+Telegram contract/ticket/RFC now reflect the existing 21 October specific-send
+authorization, rather than the superseded blanket authority. No message was sent.
+
+Recipient collaboration text still pins older Workshop snapshots. In particular,
+Cabinet's [collaboration block](https://github.com/gregoryKot/xuanxue-cabinet/blob/fa79f7c27b3622d71fa79c865f8f717a2205a350/CLAUDE.md)
+describes implementation/joint proof as remaining without the final closure scope.
+The unchanged contract pins are not themselves incompatible wire definitions.
+This is recipient documentation drift, not authority to alter that repository or
+assign new implementation. Full estate documentation synchronization is not certified.

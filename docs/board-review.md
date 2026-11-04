@@ -1,7 +1,7 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-11-04T23:21:49.288458+00:00
+- **Reviewed:** 2026-11-04T23:52:04.025923+00:00
 
 ## Reviewed scope
 
@@ -25,11 +25,16 @@ The selected native backend's dated 404 remains disclosed. Shared behavior,
 access boundaries, data preservation and recipient release ownership remain.
 
 The completed [01-0009 web-wiki-cabinet-session](tickets/done/01-0009-web-wiki-cabinet-session.md)
-ticket and RFC are eligible for paired archival under that acceptance scope;
-the remaining-pass question closes against the owning boundary decision.
+ticket and RFC are archived under that acceptance scope;
+the remaining-pass question is closed against the owning boundary decision.
 The remaining queue keeps [01-0020 telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
 No next delivery cycle was started. Public-pilot/account/article/teacher-mode
 acceptances remain unchanged; gateway/backend consolidation remain deferred.
+
+The [5 November architecture/document comparison](current-system.md#architecture-and-document-agreement--inspected-2026-11-05)
+records newer Cabinet/Knowledge source, unchanged Daychi main/draft consumers and
+repaired Workshop status/Telegram-authority drift. It is source-only evidence,
+not an additional runtime or full-estate synchronization certification.
 
 ## Open matters
 
@@ -42,6 +47,10 @@ authorize recipient activation/release or account/data changes. Previously retai
 unpublished observations and unrelated mechanism work remain preserved. The known
 harness entry abbreviation mismatch remains separate; no clean harness-ref audit
 is claimed. No recipient action or operator decision remains for this accepted pass.
+
+Cabinet collaboration documentation still describes superseded remaining proof
+without the final acceptance scope. Recipient documentation ownership remains
+with that project; no recipient code, release or new proof assignment is authorized.
 
 ## Operations
 

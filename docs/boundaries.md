@@ -90,9 +90,9 @@ observed source and deployment claims belong to [current evidence](current-syste
 | Boundary | Provider | Consumer | Responsibility and unresolved contract |
 |---|---|---|---|
 | Cabinet API for its frontend | Cabinet backend | Cabinet frontend | Preserve existing school workflows. Identify which schedule, identity, access, and reminder promises are also consumed by Daychi, and which routes remain specific to Cabinet. |
-| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation and joint proof remain separately tracked. Broader protected-schedule compatibility remains migration work; the [accepted reminder synchronization contract](contracts/reminder-sync.md) fixes the shared account wire and behavior. |
-| Cabinet session validation for Daychi content | Cabinet backend | Daychi backend | Apply the [native content check](contracts/native-content-session.md) and the separate accepted browser check. Wire and caller authority remain accepted; the 21 October [essential acceptance](contracts/native-content-session.md#essential-acceptance--2026-10-21) removes prescribed quotas and counters. Actual content proof remains work. Native renewal remains in its account profile. |
-| Cabinet sign-in for web wiki | Cabinet backend | Daychi backend and web wiki | Shared browser session, session check, automatic entry/return and Cabinet-site logout are accepted below; implementation, coordinated cutover and deployed proof remain work. |
+| Cabinet API for Daychi | Cabinet backend | Daychi clients | Provide schedule, identity, and reminder capabilities. The public lessons contract and native account-session profile define their accepted shapes; implementation acceptance and disclosed proof exclusions are owned by [final operator acceptance](#final-operator-acceptance--2026-11-05). Broader protected-schedule compatibility remains migration work; the [accepted reminder synchronization contract](contracts/reminder-sync.md) fixes the shared account wire and behavior. |
+| Cabinet session validation for Daychi content | Cabinet backend | Daychi backend | Apply the [native content check](contracts/native-content-session.md) and the separate accepted browser check. Wire and caller authority remain accepted; the 21 October [essential acceptance](contracts/native-content-session.md#essential-acceptance--2026-10-21) removes prescribed quotas and counters. Content implementation acceptance and live-proof exclusions are owned by [final operator acceptance](#final-operator-acceptance--2026-11-05). Native renewal remains in its account profile. |
+| Cabinet sign-in for web wiki | Cabinet backend | Daychi backend and web wiki | Shared browser session, session check, automatic entry/return and Cabinet-site logout are accepted below; implementation acceptance and disclosed deployment-proof exclusions are owned by [final operator acceptance](#final-operator-acceptance--2026-11-05). |
 | Daychi content API | Daychi backend | Daychi clients | Retain content ownership above. Apply Cabinet-issued bearer transport for native clients and identify which content calls require adaptation. |
 
 The admission contract below owns the third row's failure behavior, removal
@@ -308,8 +308,8 @@ independent choices, shared account ownership and offline reading/delivery.
 The [synchronization question](questions/done/q-0002.0007.0002-how-should-daychi-reconcile-local-edits-with-cabinet-account-state.md)
 holds the decision history. The [accepted synchronization contract](contracts/reminder-sync.md)
 defines the complete executable interface, delivery bounds and common cases;
-both projects' remaining implementation and joint proof stay in
-[original issue 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
+the [final operator acceptance](#final-operator-acceptance--2026-11-05) owns implementation acceptance and live-proof exclusions.
+[Original issue 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17) records the completed delivery.
 
 ### Accepted reminder lead times
 
@@ -487,8 +487,8 @@ The user accepted the [narrow validation interface](contracts/web-wiki-session.m
 with "отлично" on 2026-10-12. On 2026-10-13 the user accepted
 [Cabinet-site logout](contracts/web-wiki-session.md#accepted-cabinet-site-logout)
 and explicitly affirmed the [automatic original-page return](contracts/web-wiki-session.md#accepted-browser-entry-and-migration).
-Recipient changes, coordinated access cutover and joint deployed proof remain
-work; no sibling implementation is authorized by this record.
+Implementation acceptance and disclosed deployed-proof exclusions are owned by
+[final operator acceptance](#final-operator-acceptance--2026-11-05); recipient activation/release retains its separate ownership.
 
 ### Accepted web-wiki environment separation
 
@@ -497,8 +497,8 @@ Decision: the user, 2026-10-13, accepted staging wiki at
 [environment profile contract](contracts/web-wiki-session.md#accepted-production-and-staging-separation)
 owns fixed matching origins, cookie names/domains, signing-key/account isolation,
 legacy staging cleanup and independent lifecycle proof. Production credentials
-still reach trusted staging hosts; staging ignores them. Recipient implementation,
-DNS/HTTPS provisioning and deployed proof remain work.
+still reach trusted staging hosts; staging ignores them. The [final operator acceptance](#final-operator-acceptance--2026-11-05)
+owns implementation acceptance and disclosed deployed-proof exclusions.
 
 On 2026-10-20 the Workshop operator accepted the
 [current evidence split](contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20)
@@ -507,7 +507,8 @@ main browser scenarios run live on real Cabinet staging and canonical staging
 wiki; remaining boundary cases and environment isolation use executed automated
 tests and inspectable source/configuration. Production rollout remains owned by
 the recipients and does not block acceptance or closure of 12/13. The fixed
-profiles and behavior are unchanged; this records no completed runtime proof.
+profiles and behavior are unchanged. This dated evidence split is superseded for
+closure by [final operator acceptance](#final-operator-acceptance--2026-11-05); unreported runtime outcomes remain unconfirmed.
 
 ### Accepted web-wiki sign-in handoff
 
@@ -532,7 +533,7 @@ browser installations are not signed out by that operation. The user accepted
 on 2026-10-13: wiki links to the Cabinet `/logout` page, with no wiki logout API
 or proxy. The action uses Cabinet's existing POST, clears the shared browser
 cookie and retains Cabinet's completion/error/retry behavior. Implementation
-and joint deployed proof remain work.
+acceptance and disclosed live-proof exclusions are owned by [final operator acceptance](#final-operator-acceptance--2026-11-05).
 
 ### Accepted web-wiki lifetime and renewal
 
@@ -587,8 +588,9 @@ The method and full native wire profile are accepted. The separate
 [native content-check contract](contracts/native-content-session.md) fixes its
 validation wire, caller authority and failure behavior. Its current essential
 acceptance removes prescribed capacity/counter proof; existing implementation
-remains. Its joint proof
-and activation remain separate work; gateway deferral is unchanged. The operator's
+remains. The [final operator acceptance](#final-operator-acceptance--2026-11-05)
+owns implementation acceptance and live-proof exclusions; activation retains
+recipient ownership and gateway deferral is unchanged. The operator's
 20 October [accepted evidence split](contracts/native-content-session.md#accepted-acceptance-evidence-split--2026-10-20)
 limits live native-content proof to material/recording reads using Cabinet staging;
 all other cases, including revocation and failure/recovery, use executed automated
@@ -597,4 +599,5 @@ tests and inspectable source. The same day's
 allows installed Daychi in iOS Simulator with any Daychi backend and real Cabinet
 staging; physical hardware, Android and TestFlight do not block acceptance or
 closure of 15/16. No particular Daychi hosting environment is required; actual
-read success remains to be evidenced.
+read success remains unconfirmed and is excluded from closure by
+[final operator acceptance](#final-operator-acceptance--2026-11-05).

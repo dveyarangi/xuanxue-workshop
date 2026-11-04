@@ -86,9 +86,10 @@ permissions remain unchanged.
 The user requested directed messages to responsible operators on 2026-10-15,
 selected delivery «В группу Telegram с упоминанием оператора», and limited
 initiation to Codex: «пока отсюда. ты и будешь передавать, когда надо».
-This authorizes the Codex operator to send relevant messages during authorized
-Workshop work without confirmation of each message. Telegram requests do not
-grant this sending authority. Existing project assignment and shared-decision
+The user amended sending authority on 2026-10-21: each directed send requires
+explicit Workshop-operator authorization for that specific message. The authored
+[sending-authority rule](../../local.rules.md#l24--directed-telegram-messages-from-codex) owns
+agent behavior. Telegram requests do not grant this sending authority. Existing project assignment and shared-decision
 boundaries remain unchanged; a Telegram message does not replace an authoritative
 Workshop issue or prove that its recipient read or accepted the message.
 

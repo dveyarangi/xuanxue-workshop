@@ -89,6 +89,8 @@ sources are reread, and earlier bot answers do not establish current project sta
 ## Directed operator messages — 2026-10-15
 
 The accepted amendment adds a Codex-only outgoing path into the configured group.
+The 2026-10-21 [specific-send authorization](../contracts/telegram-workshop.md#directed-operator-messages)
+constrains each use; existence of the outgoing path does not grant sending authority.
 Impact is confined to local recipient registration, outgoing delivery/journal and
 reply context. Project assignments remain in Workshop Issues; the detached group
 worker gains no sending tool or recipient-registration authority. No sibling

@@ -917,3 +917,19 @@ successful. Provider/consumer/parent holds are removed together rather than left
 as circular conditions. No additional recipient task, code change or repeated
 account/CI run is issued. This case remains for operator grading; it establishes
 no general success of the consistency rules.
+
+### Closure-document consistency recurrence — 2026-11-05
+
+Producer: Workshop session 01a19adb-c96e-7892-a4bc-d2e236109844; basis 9191ed1
+with current L9/L31/L34. The operator asked why verification closure had not
+updated architecture. Published architecture already held final acceptance; the
+working copy did not, because unchecked LF replacements did not match CRLF input.
+Publication readback and structural checks missed that difference and remaining
+superseded proof summaries. The [existing failure case](../rule-failures.md#2026-10-19--partial-agreement-updates-left-a-competing-work-inventory)
+records the recurrence and root-cause evidence. The scoped repair restores local
+acceptance, replaces residual boundary-status claims with the owning decision,
+and reconciles Telegram documentation with existing specific-send authority.
+The [source comparison](../current-system.md#architecture-and-document-agreement--inspected-2026-11-05)
+retains recipient-document drift and source/runtime limits. No recipient code or
+accepted evidence scope changed. This is an observed failure of applying L9/L31;
+it cannot grade the earlier amendment successful. No new general rule is proposed.

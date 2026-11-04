@@ -66,6 +66,22 @@ fields and reconciles the public-schedule header in the
 [completed maintenance outcome](reconciliation-20261004.md#agreement-record-maintenance--2026-10-19).
 This resolves the residual record repair, without claiming a second independent test.
 
+Repeat observed on 2026-11-05 after final integration closure: the published
+architecture included the final acceptance, but its working copy still described
+proof as pending. The preparation helper decoded CRLF bytes and matched LF-only
+multiline strings without asserting a match. The Git-derived publication text
+matched; the working-file replacements silently did not. Inspection of the saved
+baseline reproduces zero raw matches and one normalized match, and the working
+file timestamp predates the acceptance commit. There is no evidence of a later
+rollback by another session. Publication-only readback missed the local divergence;
+other current boundary summaries also retained superseded proof tasks. The user
+identified the inconsistency. The earlier completion claim therefore did not
+establish record agreement. L9/L31 already prohibit this outcome; their general
+behavioral success remains unestablished. The repair normalizes both inputs,
+requires exact replacement counts and reads back both views. The local architecture
+was restored to published acceptance before the residual summaries were repaired.
+This is a recurrence of this case, not a separate successful trial or a new rule.
+
 ## 2026-10-19 — One coordinated outcome fragmented into work items and comments
 
 Status: approved instruction amendments applied; future behavior remains to be observed.
