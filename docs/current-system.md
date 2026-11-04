@@ -4,8 +4,13 @@
 
 The [final operator scope](boundaries.md#final-operator-acceptance--2026-11-05)
 accepts the recorded implementation and evidence for originals 12/15, 13/16, 17
-and 11 and authorizes their sequential closure. Publication and tracker readback
-follow this acceptance; no completed tracker mutation is claimed by this section.
+and 11. The reviewed authority was published at
+[8149678](https://github.com/dveyarangi/xuanxue-workshop/commit/8149678f4542a9d87cb916cdb57137394f32b2a2).
+All six originals were then acknowledged and closed as completed in the order
+12, 15, 13, 16, 17, 11, with exact final-body/comment/state readback and preserved
+recipient labels. Acceptance receipts: [12](https://github.com/dveyarangi/xuanxue-workshop/issues/12#issuecomment-6644710589), [15](https://github.com/dveyarangi/xuanxue-workshop/issues/15#issuecomment-6644715397), [13](https://github.com/dveyarangi/xuanxue-workshop/issues/13#issuecomment-6644720136), [16](https://github.com/dveyarangi/xuanxue-workshop/issues/16#issuecomment-6644733076), [17](https://github.com/dveyarangi/xuanxue-workshop/issues/17#issuecomment-6644737753), [11](https://github.com/dveyarangi/xuanxue-workshop/issues/11#issuecomment-6644742193).
+No recipient action remains in this accepted pass; the disclosed runtime limits
+below remain distinct from issue completion.
 
 | Accepted contribution | Sufficient recorded evidence | Disclosed live/runtime limit |
 |---|---|---|
@@ -752,7 +757,7 @@ unavailable through the repository API (422) and absent from the local clone;
 its candidate branch was absent remotely. Published Daychi main was `c7af6f6`.
 Consumer code/test conformance, release packaging and exposure/cache closure
 therefore remain recipient claims. The
-[owning web review](rfc/01-0009-web-wiki-cabinet-session.md#assignment-review--2026-10-14)
+[owning web review](rfc/done/01-0009-web-wiki-cabinet-session.md#assignment-review--2026-10-14)
 holds the scoped comparison, remaining owner actions and resumption conditions.
 
 ## Web-wiki board follow-up — reviewed 2026-10-14

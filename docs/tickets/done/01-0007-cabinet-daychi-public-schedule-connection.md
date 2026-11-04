@@ -4,7 +4,7 @@
 - **Status:** Done (2026-10-19, operator acceptance with evidence waiver)
 - **Type:** HITL
 - **Minted:** 2026-10-05
-- **Answers:** [q-0002.0002.0002](../../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
+- **Answers:** [q-0002.0002.0002](../../questions/done/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md)
 - **Outcome:** An operator-accepted native Daychi public-schedule pilot, with reviewed evidence and explicit closure of its remaining evidence requests.
 
 ## Closure — 2026-10-19

@@ -1320,3 +1320,15 @@ then exposed; the operator removed unnecessary quota/counter/boundary proof,
 reaffirmed existing implementation and staging, and the governing contracts and
 all five bodies/local copies were reconciled. The existing explicit rule is
 sufficient for this case; no additional ceremony or instruction is introduced.
+
+## 2026-11-05 — A publication fixture entered the installed-rule scan
+
+Status: corrected before final publication.
+
+Producing session: 01a19adb-c96e-7892-a4bc-d2e236109844. A temporary HEAD-only
+publication snapshot inside the repository included copies of installed agent
+instructions. The installed-rule scan treated those copies as orphan blocks.
+The snapshot was moved to the system temporary directory and its publication
+manifest updated, preserving both the scoped changes and unrelated work. This
+was a fixture-placement slip; no governing rule or validator was changed and
+no new rule is proposed.

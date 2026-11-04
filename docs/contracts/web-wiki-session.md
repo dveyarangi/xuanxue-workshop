@@ -62,8 +62,9 @@ accepted builds, installation, account proof, CI or synthetic QA gates closure.
 
 **Status: web-wiki shared-browser-session contract accepted, 2026-10-13.
 Public homepage graph-overview exception accepted, 2026-10-14.
-Recipient implementation, coordinated access cutover and joint deployed proof
-remain work. Acceptance is not a claim of deployed capability.**
+Provider/consumer contributions and the browser delivery ticket have final
+operator acceptance under the 2026-11-05 scope above; no unreported recording,
+environment or exposure result is claimed.**
 
 ## Accepted shared browser session
 

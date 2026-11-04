@@ -70,8 +70,9 @@ accepted builds, installation, account proof, CI or synthetic QA gates closure.
 
 Revised 2026-10-21 for [original request 17](https://github.com/dveyarangi/xuanxue-workshop/issues/17).
 Status: complete wire version 1, delivery bounds and common conformance outcomes
-accepted by the Workshop operator on 2026-10-19. Implementation and runtime
-acceptance remain work in the original issue; this is not a deployment claim.
+accepted by the Workshop operator on 2026-10-19. Implementation has final
+operator acceptance under the 2026-11-05 scope above; unconfirmed runtime/shared
+save/migration outcomes are not represented as verified deployment.
 The [source comparison](../current-system.md#reminder-synchronization-source-comparison---2026-10-19)
 records the inspected revisions. The user confirmed on 2026-10-19 that Daychi
 has only test users/data. Cabinet's operator subsequently clarified that Cabinet

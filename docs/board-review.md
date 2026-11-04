@@ -1,53 +1,47 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-11-04T23:12:20.056889+00:00
+- **Reviewed:** 2026-11-04T23:21:49.288458+00:00
 
 ## Reviewed scope
 
-Final operator disposition for originals 11/12/13/15/16/17. Current bodies and all
-76 comments were reread; earlier complete timeline/source/check reviews remain
-credited where unchanged. The only new evidence is the operator's browser report
-and final chain-closure request. No authenticated run, deployment, configuration,
-account/data mutation or recipient suite was performed.
+Final operator acceptance and sequential closure of originals 12/15/13/16/17/11.
+Each original was reread before mutation and its final body, acknowledgement,
+closed/completed state and unchanged recipient labels read back exactly. Existing
+source/CI/synthetic evidence and the operator's browser observations were reused;
+no new authenticated run, deployment, configuration, account/data mutation or
+recipient suite was performed.
 
 ## Results
 
-The [final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05)
-accepts existing implementation/evidence and removes the remaining proof gates
-in the three owning contracts. [Observed state](current-system.md#final-chain-acceptance--2026-11-05)
-distinguishes credited source/CI/synthetic and operator evidence from excluded
-live proof. Operator-observed login/logout/return/material/refusal is credited;
-recording-bearing browser delivery, actual native reads, real shared reminder
-saves and rollout preservation remain unconfirmed. The last selected native
-backend 404 remains a known dated limitation. No recipient release is claimed.
+All six originals are closed as completed under
+[published final acceptance](boundaries.md#final-operator-acceptance--2026-11-05),
+revision 8149678. The [acceptance receipts](current-system.md#final-chain-acceptance--2026-11-05)
+retain the exact order and links. Local published assignment copies match their
+read-back final bodies. Browser login/logout/return/material/refusal uses operator
+evidence. Separate recording delivery, actual native reads and shared reminder/
+migration outcomes were excluded from closure and remain unconfirmed, not passed.
+The selected native backend's dated 404 remains disclosed. Shared behavior,
+access boundaries, data preservation and recipient release ownership remain.
 
-The six originals are accepted for sequential closure after publishing this
-reviewed authority: providers 12/15, consumers 13/16, reminders 17, then parent 11.
-No further implementation or proof action remains in their accepted scope.
-Public-pilot, account, article and teacher-mode acceptances remain unchanged.
-Gateway/backend consolidation remain deferred. No next delivery cycle starts.
+The completed [01-0009 web-wiki-cabinet-session](tickets/done/01-0009-web-wiki-cabinet-session.md)
+ticket and RFC are eligible for paired archival under that acceptance scope;
+the remaining-pass question closes against the owning boundary decision.
+The remaining queue keeps [01-0020 telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
+No next delivery cycle was started. Public-pilot/account/article/teacher-mode
+acceptances remain unchanged; gateway/backend consolidation remain deferred.
 
 ## Open matters
 
-**Reviewer commitments**
-
-- Publish the scoped final acceptance; acknowledge and close originals
-  12/15, 13/16, 17 and 11 against that immutable revision, and exactly read back
-  each resulting body, recipient label and closed/completed state.
-- Synchronize published assignment copies and archive the completed
-  [01-0009 web-wiki-cabinet-session](tickets/01-0009-web-wiki-cabinet-session.md)
-  ticket/RFC after scoped verification and actual tracker closure; close the
-  remaining-pass question against the final boundary decision. Preserve all
-  unrelated edits and retained unpublished observations/mechanism work.
-
 **Disclosed limits**
 
-The excluded runtime outcomes above are not independently verified capabilities.
-A later concrete defect returns to its owning original; closure creates no
-standing request to rerun or supply the waived proof. Recipient operators retain
-activation/release responsibility. The known harness entry abbreviation mismatch
-remains separate from this scoped acceptance; no clean harness-ref audit is claimed.
+The excluded live outcomes above are not independently verified capabilities.
+A concrete later defect returns to its owning original without a standing request
+to supply waived evidence or repeat accepted source work. Closure does not
+authorize recipient activation/release or account/data changes. Previously retained
+unpublished observations and unrelated mechanism work remain preserved. The known
+harness entry abbreviation mismatch remains separate; no clean harness-ref audit
+is claimed. No recipient action or operator decision remains for this accepted pass.
 
 ## Operations
 

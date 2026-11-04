@@ -61,7 +61,8 @@ Already credited evidence is reused; neither a new report format nor repeating
 accepted builds, installation, account proof, CI or synthetic QA gates closure.
 
 **Status: accepted boundary with essential acceptance narrowed 2026-10-21.
-Existing implementation is preserved; joint content proof remains work.**
+Existing implementation is preserved and accepted under the final 2026-11-05
+source/automated evidence scope; actual native delivery remains unconfirmed.**
 
 The user reaffirmed the already accepted content-access rule and approved the
 per-read validation plan on 2026-10-16 in response

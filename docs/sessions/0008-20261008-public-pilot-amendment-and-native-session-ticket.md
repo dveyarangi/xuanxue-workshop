@@ -12,7 +12,7 @@ was struck again; a redundant rule amendment was not adopted. Concrete preparati
 then produced the approved
 [native-cabinet-account-session](../tickets/done/01-0008-native-cabinet-account-session.md)
 ticket, Ready for alignment. Its owning question holds the outcome; its
-[approved breakdown](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#approved-breakdown)
+[approved breakdown](../questions/done/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#approved-breakdown)
 holds source evidence and rationale. No authentication implementation assignment
 was published, and minting did not settle credential lifecycle or wire choices.
 
@@ -54,7 +54,7 @@ deployment or the joint native connection. No sibling project was edited.
   the amended public agreement is settled and published. Cabinet omission/logging
   conformance and Daychi client/native proof remain in the original issues.
   Account/reminder synchronization and broader source cutover retain their scope.
-- [q-0002.0002.0002 — Which Workshop outcomes should the remaining reconciliation pass deliver?](../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md):
+- [q-0002.0002.0002 — Which Workshop outcomes should the remaining reconciliation pass deliver?](../questions/done/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md):
   the public schedule connection remains the current delivery outcome; the native
   account-session ticket follows it in the queue. Its contract preparation can
   proceed independently of public pilot proof, subject to the existing human

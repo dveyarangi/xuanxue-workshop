@@ -2,7 +2,7 @@
 
 - **record of** what it intends to become
 - **state** open
-- **lean** Accepted interfaces and explicit operator scope remain authoritative. Reminder client 51-class and over-one-hour-delay observations are waived as current-delivery blockers; existing server bounds remain. Cabinet staging 20128fb is observed. Browser/native-content and actual Daychi joint outcomes remain in existing assignments; gateway/backend consolidation stays deferred.
+- **lean** The six final integration originals 11/12/13/15/16/17 are accepted and closed under the 2026-11-05 final operator scope. Credited source/CI/synthetic and browser operator evidence are distinct from waived native/reminder/recording runtime proof. Gateway/backend consolidation remain deferred; no next cycle started.
 - **struck** 10, last 2026-10-19T05:22Z
 
 ## Current decision context

@@ -13,7 +13,7 @@
 The credential contribution in the [accepted migration delta](../../migration-changes.md#changes-derived-from-accepted-contracts),
 within the [first-stage scope](../../stage-1.md). The user approved this one-outcome
 breakdown and minting on 2026-10-06. Its
-[post-impact assessment](../../questions/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#impact)
+[post-impact assessment](../../questions/done/q-0002.0002.0002-which-workshop-outcomes-should-the-remaining-reconciliation-pass-deliver.md#impact)
 recommends a complete native account-session path separated from the broader migration.
 
 The existing [credential agreement](../../boundaries.md#accepted-content-admission),

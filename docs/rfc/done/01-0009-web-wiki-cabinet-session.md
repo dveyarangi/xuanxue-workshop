@@ -1,28 +1,43 @@
 # Cabinet sign-in for web wiki — implementation plan
 
+- **record of** what happened
+
+## Final disposition — 2026-11-05
+
+The [final browser acceptance](../../contracts/web-wiki-session.md#final-operator-acceptance--2026-11-05)
+and [set-wide decision](../../boundaries.md#final-operator-acceptance--2026-11-05)
+accept the implemented browser boundary on credited source/checks and operator
+login/logout/return/material/refusal evidence, with the stated recording,
+environment/runtime and exhaustive inventory proof exclusions. Originals 12/13
+and parent 11 are closed/completed. No unperformed test or recipient release is
+claimed. This disposition governs closure; the original plan below records the
+earlier implementation and review stages and adds no current action or gate.
+
+<details>
+<summary>Original implementation plan and dated review history</summary>
+
 ## Current acceptance scope — 2026-10-21
 
-The operator-approved [essential acceptance](../contracts/web-wiki-session.md#essential-acceptance--2026-10-21)
+The operator-approved [essential acceptance](../../contracts/web-wiki-session.md#essential-acceptance--2026-10-21)
 governs closure. Existing wire/compatibility and access boundaries remain;
 numeric quota/counter and exact-limit proof, extra environments/devices and
 repeated accepted evidence add no closure gate. Detailed implementation and
 historical verification lists below do not enlarge that scope.
 
-- **record of** what it intends to become
 
 **Authored:** 2026-10-13
 **Last amended:** 2026-10-20
 
-Implements [01-0009 web-wiki-cabinet-session](../tickets/01-0009-web-wiki-cabinet-session.md).
+Implements [01-0009 web-wiki-cabinet-session](../../tickets/done/01-0009-web-wiki-cabinet-session.md).
 
 ## Article closure and current transition owner — 2026-10-19
 
-The [article acceptance](../current-system.md#structured-article-acceptance--2026-10-19) closes original issue 9. Its prospective browser exposure/cache and affected-reader transition remains in existing Daychi 13, paired with Cabinet 12; later references below to issue 9 as the transition channel are historical. No browser obligation, implementation or proof is waived by article closure.
+The [article acceptance](../../current-system.md#structured-article-acceptance--2026-10-19) closes original issue 9. Its prospective browser exposure/cache and affected-reader transition remains in existing Daychi 13, paired with Cabinet 12; later references below to issue 9 as the transition channel are historical. No browser obligation, implementation or proof is waived by article closure.
 
 ## Governing scope
 
-The operator's 20 October [evidence split](../contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20)
-and [acceptance environments](../contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20)
+The operator's 20 October [evidence split](../../contracts/web-wiki-session.md#accepted-acceptance-evidence-split--2026-10-20)
+and [acceptance environments](../../contracts/web-wiki-session.md#accepted-acceptance-environments--2026-10-20)
 govern every proof stage and case below. Main scenarios run live on real staging:
 valid-session protected material/recording reads, sign-in/original-page return,
 and logout followed by next-read refusal. Remaining boundary cases and environment
@@ -30,11 +45,11 @@ isolation use inspectable source/configuration and executed automated tests.
 Production rollout and live production proof do not block current acceptance or
 closure of 12/13. The common behavior and profile definitions remain unchanged.
 
-The [accepted web-wiki contract](../contracts/web-wiki-session.md) owns shared
+The [accepted web-wiki contract](../../contracts/web-wiki-session.md) owns shared
 cookie scope, session-check wire, entry/migration/return, Cabinet-site logout,
-failure behavior and compatibility. [Architecture](../architecture.md#web-wiki-browser-session)
+failure behavior and compatibility. [Architecture](../../architecture.md#web-wiki-browser-session)
 owns the separation of Cabinet authority and Daychi reader delivery. The
-[responsibility agreement](../agent-contract.md#boundary-scope-and-product-language)
+[responsibility agreement](../../agent-contract.md#boundary-scope-and-product-language)
 keeps internal implementation and releases with each project's operator.
 
 Workshop's implementation contribution is the common immutable authority,
@@ -259,7 +274,7 @@ release. Local implementation choices remain with each project.
 
 ## Shared-shape completeness
 
-This comparison applies the [shared-contract dimensions](../../.agents/skills/coordinate/CONTRACT-SHAPE.md)
+This comparison applies the [shared-contract dimensions](../../../.agents/skills/coordinate/CONTRACT-SHAPE.md)
 to the accepted authority, not to recipient-local file/module choices.
 
 | Dimension | Governing definition and scope |
@@ -348,8 +363,8 @@ no stronger account-wide revocation or downloaded-content erasure is promised.
 
 ## Assignment preparation — 2026-10-13
 
-[Cabinet draft](../assignments/web-wiki-session-cabinet.draft.md) and
-[Daychi draft](../assignments/web-wiki-session-daychi.draft.md) project the same
+[Cabinet draft](../../assignments/web-wiki-session-cabinet.draft.md) and
+[Daychi draft](../../assignments/web-wiki-session-daychi.draft.md) project the same
 accepted contract. Scoped tracker search found no existing recipient web-session
 assignment; native issues 7/8 and content issue 9 retain their separate scopes.
 The incoming [original coordination request 11](https://github.com/dveyarangi/xuanxue-workshop/issues/11)
@@ -454,7 +469,7 @@ owning ticket remains in progress, with no deployed-conformance or whole-outcome
 
 ## Accepted staging amendment — 2026-10-13
 
-The user accepted the [environment profiles](../contracts/web-wiki-session.md#accepted-production-and-staging-separation)
+The user accepted the [environment profiles](../../contracts/web-wiki-session.md#accepted-production-and-staging-separation)
 after asking how staging avoids production cookie collisions and where staging
 wiki maps. Staging wiki is `wiki.staging.xuanxue.su`, paired only with staging
 Cabinet and its distinct cookie. Production shared login remains unchanged.
@@ -509,7 +524,7 @@ Both origins' provisioning, profile implementation and joint proof remain work.
 ## Assignment review — 2026-10-14
 
 The user authorized the provider/consumer comparison. The
-[scoped source, CI and runtime observations](../current-system.md#web-wiki-assignment-evidence--reviewed-2026-10-14)
+[scoped source, CI and runtime observations](../../current-system.md#web-wiki-assignment-evidence--reviewed-2026-10-14)
 retain its evidence and limits. The accepted `25def59e` authority and all
 unchecked acceptance criteria remain unchanged.
 
@@ -532,14 +547,14 @@ recipient edit, release, cache mutation or whole-outcome /verify is claimed.
 
 ## Board follow-up — 2026-10-14, afternoon
 
-The [new scoped observations](../current-system.md#web-wiki-board-follow-up--reviewed-2026-10-14)
+The [new scoped observations](../../current-system.md#web-wiki-board-follow-up--reviewed-2026-10-14)
 supersede the earlier source absence of entry/return/logout, while retaining the
 remaining deployed browser/account and recipient-artifact proof.
 
 | Boundary | Provider / consumers | Promise | Evidence / revision | Delta and consequence | Disposition / assignment |
 |---|---|---|---|---|---|
 | Browser entry and logout | Cabinet / browser, Daychi | Fixed-origin entry, original-page return, preserved migration lifetime and Cabinet-site logout | PR 594 `92921a0`, PR 595 `e0e823c`; inspected source/green checks; staging guest 303/no-store | Entry source and staging guest path advanced; deployed authenticated return/logout and joint proof remain | Existing Cabinet 12 and dependent Daychi 13; no full acceptance |
-| Anonymous homepage overview | Daychi / site visitors, protected wiki readers | [Accepted limited homepage projection](../contracts/web-wiki-session.md#accepted-public-homepage-graph-overview); web reading remains authenticated | User approval, 2026-10-14; local `ec5a67c` report, artifact API 422 | Exposure exception accepted; source/runtime compliance unverified | Existing Daychi 13 and article 9 retain implementation and exposure-transition proof |
+| Anonymous homepage overview | Daychi / site visitors, protected wiki readers | [Accepted limited homepage projection](../../contracts/web-wiki-session.md#accepted-public-homepage-graph-overview); web reading remains authenticated | User approval, 2026-10-14; local `ec5a67c` report, artifact API 422 | Exposure exception accepted; source/runtime compliance unverified | Existing Daychi 13 and article 9 retain implementation and exposure-transition proof |
 
 Stage: the user accepted the limited public-preview exception on 2026-10-14.
 The canonical contract owns that decision; both existing assignments take the
@@ -588,7 +603,7 @@ changed by this handoff.
 
 ## Published consumer review — 2026-10-14 evening
 
-The [new source/runtime observations](../current-system.md#published-daychi-web-wiki-candidate--inspected-2026-10-14)
+The [new source/runtime observations](../../current-system.md#published-daychi-web-wiki-candidate--inspected-2026-10-14)
 resolve the unavailable-candidate condition at Daychi `bdc3cf7` / draft PR 13.
 Workshop inspected executed CI and reproduced the scoped protocol/projection and
 browser suites against unchanged accepted authority `d689c24`. No shared-contract
@@ -614,7 +629,7 @@ review; eligibility for joint proof depends on the actual remaining conditions.
 All 13 original assignment bodies and full paginated timelines, including closed
 issues and cross-references, were reviewed. New actionable evidence is confined
 to original web-wiki issues 12/13; the other work retains its existing queue and
-conditions. The [follow-up observations](../current-system.md#follow-up--verified-2026-10-15)
+conditions. The [follow-up observations](../../current-system.md#follow-up--verified-2026-10-15)
 own source, CI, runtime and administrator evidence.
 
 | Changed condition | Disposition | Next action / owner / resumption |
@@ -630,3 +645,5 @@ staging infrastructure handoff is the next concrete action. Workshop returns
 verified evidence and administrator routing in the original assignments.
 No production change, DNS mutation, private-token publication, merge, account
 mutation or full assignment closure is part of this board review.
+
+</details>
