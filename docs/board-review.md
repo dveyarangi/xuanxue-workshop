@@ -1,7 +1,7 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-11-04T17:30:18.116542+00:00
+- **Reviewed:** 2026-11-04T23:02:58.294817+00:00
 
 ## Reviewed scope
 
@@ -16,6 +16,16 @@ performed. The preceding 4 November runtime/source observations retain their
 actual times in current-system; this is decision acceptance, not a fresh live run.
 
 ## Results
+
+Operator evidence received on 5 November credits Cabinet-mediated sign-in/
+sign-out, return navigation, material reading and refusal after sign-out in the
+reported wiki journey. The [owning observation](current-system.md#operator-browser-observation--reported-2026-11-05)
+preserves the exact statements and their limits. These observed actions need no
+repeat solely for reporting. Recording-bearing delivery remains unreported; the
+operator asked what link was intended. The inspected source identifies existing
+YouTube/archive Drive material links, not a new UI feature or playback test.
+No hostname/revision or native/reminder result is inferred. The previously
+proposed acceptance reduction remains unapproved.
 
 The Workshop operator accepted the presented decisions on 4 November with
 “принимаю все что поможет уже закрыть наши issues”. The
@@ -57,11 +67,12 @@ Gateway/backend consolidation remain deferred; no next delivery cycle started.
 
 **Recipient-agent work**
 
-- Browser 12/13: Daychi identifies the running reader source/configuration and
-  exposure/controlled-cache reconciliation, then supplies valid-session material/
-  recording reads, sign-in/original-page return and logout/next-read refusal.
-  Cabinet assists only for an actual provider/account need. Canonical HTTPS
-  recovery is already credited; no renewed DNS handoff or issuance task exists.
+- Browser 12/13: reuse the operator-observed sign-in/sign-out, return,
+  material read and post-sign-out refusal above. Daychi reconciles the existing
+  reader source/configuration and exposure evidence with the actual journey;
+  recording-bearing delivery remains unreported. Cabinet assists only for an
+  actual provider/account need. Canonical HTTPS recovery remains credited;
+  no renewed DNS handoff or issuance task exists.
 - Native content 15/16: Daychi supplies a suitable working backend and the two
   protected reads from the credited installed iOS Simulator against real Cabinet
   staging. Cabinet assists only for an actual account/read-authority need. The

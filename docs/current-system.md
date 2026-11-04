@@ -1,5 +1,30 @@
 # Current application structure and boundary evidence
 
+## Operator browser observation — reported 2026-11-05
+
+The Workshop operator reported in this Codex conversation: “я вижу что вход и
+выход через кабинет уже работают”, then “чтение материала и возврат тоже работают
+как надо (точнее материал нечитается если мы вышли”. Within the current wiki
+discussion, this credits operator-observed Cabinet-mediated sign-in/sign-out,
+return navigation, material reading and material refusal after sign-out.
+These observed actions do not need repeating solely to produce another report.
+This is operator evidence, not an independently instrumented Workshop run;
+the messages do not identify the hostname or deployed revisions.
+
+Recording-bearing delivery was not reported. The operator asked which recording
+link was meant. In the inspected Daychi
+[material-link projection at c146326](https://github.com/sleontenko/daychi/blob/c146326c7ea552772d8c804b3a08ad5637ca5eb0/practice_api/public_wiki.py#L39-L78),
+recording sources include YouTube links and archive-marked Google Drive links;
+the returned material links carry their existing label, defaulting to “Оригинал”.
+This names the existing content field, not a request to add a link or test video
+playback. No concrete material example has been supplied to the operator.
+
+The existing [browser contribution 13](https://github.com/dveyarangi/xuanxue-workshop/issues/13)
+owns the evidence and remaining scoped acceptance. The earlier proposal to close
+provider contributions separately and narrow reminder joint proof remains a
+proposal; these observations do not approve that separate amendment or establish
+native-content/reminder results. Existing source/CI proof remains credited.
+
 ## Cabinet channel routing and deployment continuity - reviewed 2026-11-04
 
 Cabinet main [e947db6](https://github.com/gregoryKot/xuanxue-cabinet/commit/e947db6fe1565755e9d49c144f32bd3bf8d9b2e7)

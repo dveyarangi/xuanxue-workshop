@@ -889,3 +889,16 @@ reminder runtime outcomes are not represented as completed by this policy and
 profile acceptance. Original issues retain their ownership and communication.
 This bounded changed-decision case exercises L9/L31 and is retained for operator
 grading; it does not establish general rule success.
+
+### Operator browser evidence credited — 2026-11-05
+
+Producer: Workshop session 01a19adb-c96e-7892-a4bc-d2e236109844; basis 999a98f
+with current L9/L31/L33/L34. The operator reported functioning Cabinet-mediated
+sign-in/sign-out, return navigation, material reading and refusal after sign-out.
+The [owning observation](../current-system.md#operator-browser-observation--reported-2026-11-05)
+credits that report without claiming an independently executed staging run or
+recording delivery. Remaining-work wording reuses these observed steps instead
+of asking for a repeated report. The requested recording example is identified
+from the existing content projection; no new field or playback test is assigned.
+The broader acceptance-reduction proposal remains separate and unapproved.
+This scoped case is retained for operator grading of L9/L31, not general success.
