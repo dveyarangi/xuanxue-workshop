@@ -38,8 +38,10 @@ bearer to Cabinet GET /api/auth/native/me before each protected native content r
 Cabinet remains the current session/account authority; ordinary users sharing
 Daychi's egress can read, with no prescribed numeric quota or grant counter. Daychi adds no
 reader membership, account replica or positive authorization cache. The
-[native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/native-content-session.md) owns exact wire,
-failure, compatibility and current common cases; implementation/joint proof remain work.
+[native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/8149678f4542a9d87cb916cdb57137394f32b2a2/docs/contracts/native-content-session.md) owns exact wire,
+failure, compatibility and common cases. Its
+[final operator acceptance](https://github.com/dveyarangi/xuanxue-workshop/blob/8149678f4542a9d87cb916cdb57137394f32b2a2/docs/contracts/native-content-session.md#final-operator-acceptance--2026-11-05)
+owns accepted implementation and disclosed live-proof limits; activation remains recipient-owned.
 
 Accepted browser-wiki target remains separate: shared Cabinet cookie, per-reader
 current validation, fixed matching production/staging authority, browser entry,

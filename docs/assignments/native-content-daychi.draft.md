@@ -42,8 +42,10 @@ current native grant/account decision is sufficient; no additional reader role,
 invitation, account replica or positive cache is used. Daychi owns explicit
 coexistence with legacy native transport, downstream protected delivery and
 failure/recovery. Ordinary shared-egress reads remain usable without a prescribed quota or counter.
-The [native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/3c6ff8a7136483b3d266786fa8267eab4f2d2828/docs/contracts/native-content-session.md) owns exact
-wire, compatibility and current common cases; activation and joint proof remain work.
+The [native content contract](https://github.com/dveyarangi/xuanxue-workshop/blob/8149678f4542a9d87cb916cdb57137394f32b2a2/docs/contracts/native-content-session.md) owns exact
+wire, failure, compatibility and common cases. Its
+[final operator acceptance](https://github.com/dveyarangi/xuanxue-workshop/blob/8149678f4542a9d87cb916cdb57137394f32b2a2/docs/contracts/native-content-session.md#final-operator-acceptance--2026-11-05)
+owns accepted implementation and disclosed live-proof limits; activation remains recipient-owned.
 
 Accepted browser-wiki target remains separate under the
 [web-wiki contract](https://github.com/dveyarangi/xuanxue-workshop/blob/a07f08747aa7d97e4d3496e87e1d8319db413698/docs/contracts/web-wiki-session.md): shared Cabinet browser cookie,

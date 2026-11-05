@@ -918,6 +918,22 @@ as circular conditions. No additional recipient task, code change or repeated
 account/CI run is issued. This case remains for operator grading; it establishes
 no general success of the consistency rules.
 
+### Native-content summary publication recovery — 2026-11-05
+
+Producer: Workshop session 01a19adb-c96e-7892-a4bc-d2e236109844; basis 1042d5a
+with current L9/L31/L33/L34. The operator requested fresh board news. All eighteen
+originals were read with their complete single-page timelines; no new issue reply
+or incoming request followed the accepted closure. Accessible Daychi timelines,
+main and PR20 diff/checks establish the source lifecycle change recorded in
+[current evidence](../current-system.md#architecture-and-document-agreement--inspected-2026-11-05).
+The retained periodic-review corrections for original 15/16 were reread against
+unchanged remote bodies, published and read back exactly with closed states and
+recipient labels preserved. Their copyable summaries now reference the same final
+acceptance as their bodies. Local publication copies were reconciled; this
+resolves the earlier runtime's access-limited publication follow-up without a new
+message, recipient assignment, acceptance criterion or live-proof request. It is
+repair of the existing partial-update recurrence, not general success of L9/L31.
+
 ### Closure-document consistency recurrence — 2026-11-05
 
 Producer: Workshop session 01a19adb-c96e-7892-a4bc-d2e236109844; basis 9191ed1

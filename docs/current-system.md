@@ -1529,11 +1529,19 @@ owns closure scope; the excluded live outcomes remain unconfirmed.
   owns the internal model. The inspected public projection retains class identity
   and the `groupLabel` field; the native account mapper is unchanged. This does
   not certify all changed Cabinet behavior or deployment.
-- Daychi main remains [c146326](https://github.com/sleontenko/daychi/tree/c146326c7ea552772d8c804b3a08ad5637ca5eb0).
-  [PR 18](https://github.com/sleontenko/daychi/pull/18) at bb7295f and
-  [PR 19](https://github.com/sleontenko/daychi/pull/19) at ea464ef remain draft,
-  open and unmerged. Their dated activation/release conditions are recipient-owned;
-  they neither establish deployed support nor reopen waived Workshop proof.
+- Daychi main is [d458d4a](https://github.com/sleontenko/daychi/commit/d458d4aa6953bd71f03e87c7231f370a7156a1bf),
+  merging [PR 20](https://github.com/sleontenko/daychi/pull/20) on 5 November at
+  08:44:35Z. The two-file date-key/regression change preserves YYYY-MM-DD school
+  dates with Gregorian/Latin `formatToParts`; all three backend/app/wiki checks
+  passed at head 0c22e8891e05e52aa167401d8ec46b5e878d30fa. No new device run or
+  TestFlight build is established by this source review.
+  [PR 18](https://github.com/sleontenko/daychi/pull/18#issuecomment-6652703353)
+  and [PR 19](https://github.com/sleontenko/daychi/pull/19#issuecomment-6652704198)
+  were closed unmerged at unchanged bb7295f/ea464ef. Their closing notes cite
+  Workshop closure; PR19 also cites the partner's changed lesson-binding model.
+  Those feature implementations remain outside main. The lifecycle change does
+  not establish native content delivery, shared saves, activation or release, and
+  does not reopen waived Workshop proof. Recipient release decisions remain local.
 - Knowledge main is [a717753](https://github.com/sleontenko/daychi-knowledge/tree/a7177536520a35f96fe80fdf72ef337c6f8ed9b9).
   The two commits since b9eb168 change README/work-plan documentation only.
   The [README](https://github.com/sleontenko/daychi-knowledge/blob/a7177536520a35f96fe80fdf72ef337c6f8ed9b9/README.md)

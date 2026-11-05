@@ -1,56 +1,64 @@
 # Board review
 
 - **record of** what happened
-- **Reviewed:** 2026-11-04T23:52:04.025923+00:00
+- **Reviewed:** 2026-11-05T18:56:33+00:00
 
 ## Reviewed scope
 
-Final operator acceptance and sequential closure of originals 12/15/13/16/17/11.
-Each original was reread before mutation and its final body, acknowledgement,
-closed/completed state and unchanged recipient labels read back exactly. Existing
-source/CI/synthetic evidence and the operator's browser observations were reused;
-no new authenticated run, deployment, configuration, account/data mutation or
-recipient suite was performed.
+Fresh operator-requested read of all eighteen Workshop originals: complete bodies
+and timelines, including closed issues. Every timeline fit one 100-event page;
+no remaining page was omitted. Relevant Daychi PR18/19/20 metadata and timelines,
+current main, PR20's two-file diff and three exact-head check outcomes were read.
+Existing acceptance and runtime evidence was reused; no recipient suite, device
+run, deployment, configuration or account/data mutation was performed.
 
 ## Results
 
-All six originals are closed as completed under
-[published final acceptance](boundaries.md#final-operator-acceptance--2026-11-05),
-revision 8149678. The [acceptance receipts](current-system.md#final-chain-acceptance--2026-11-05)
-retain the exact order and links. Local published assignment copies match their
-read-back final bodies. Browser login/logout/return/material/refusal uses operator
-evidence. Separate recording delivery, actual native reads and shared reminder/
-migration outcomes were excluded from closure and remain unconfirmed, not passed.
-The selected native backend's dated 404 remains disclosed. Shared behavior,
-access boundaries, data preservation and recipient release ownership remain.
+All eighteen Workshop issues remain closed. No new original-issue reply or incoming
+request followed the final integration closure. The six integration originals
+retain [final operator acceptance](boundaries.md#final-operator-acceptance--2026-11-05)
+and its disclosed live-proof exclusions.
 
-The completed [01-0009 web-wiki-cabinet-session](tickets/done/01-0009-web-wiki-cabinet-session.md)
-ticket and RFC are archived under that acceptance scope;
-the remaining-pass question is closed against the owning boundary decision.
-The remaining queue keeps [01-0020 telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
-No next delivery cycle was started. Public-pilot/account/article/teacher-mode
-acceptances remain unchanged; gateway/backend consolidation remain deferred.
+Daychi [PR20](https://github.com/sleontenko/daychi/pull/20) merged on 5 November at
+08:44:35Z; current main is d458d4aa6953bd71f03e87c7231f370a7156a1bf. The locale-independent
+schedule-date fix and regression test have three successful backend/app/wiki
+checks at head 0c22e889. A new mobile build is not established by this review.
 
-The [5 November architecture/document comparison](current-system.md#architecture-and-document-agreement--inspected-2026-11-05)
-records newer Cabinet/Knowledge source, unchanged Daychi main/draft consumers and
-repaired Workshop status/Telegram-authority drift. It is source-only evidence,
-not an additional runtime or full-estate synchronization certification.
+Daychi [PR18](https://github.com/sleontenko/daychi/pull/18#issuecomment-6652703353)
+and [PR19](https://github.com/sleontenko/daychi/pull/19#issuecomment-6652704198)
+were closed unmerged at unchanged source heads. Closing notes cite Workshop issue
+closure; PR19 also cites changed partner lesson binding. Native-reader and shared
+reminder feature code is therefore outside main. This does not demonstrate delivery
+or reopen waived proof. [Current evidence](current-system.md#architecture-and-document-agreement--inspected-2026-11-05)
+owns these source and release distinctions.
+
+The prepared copyable-summary corrections for
+[15](https://github.com/dveyarangi/xuanxue-workshop/issues/15) and
+[16](https://github.com/dveyarangi/xuanxue-workshop/issues/16) were published and
+read back exactly, preserving closed states, recipient labels and existing
+acceptance. Local publication copies now match the corrected remote bodies.
+The prior runtime's GitHub-edit access condition is resolved for this follow-up;
+no comment, recipient task or additional acceptance criterion was introduced.
 
 ## Open matters
 
+**Recipient-owned release work**
+
+No native-reader/reminder merge, activation or release is established. PR20's
+proposed next TestFlight build remains Daychi-owned; this review has no build receipt.
+These are source/release limits, not outstanding Workshop closure requirements.
+
 **Disclosed limits**
 
-The excluded live outcomes above are not independently verified capabilities.
-A concrete later defect returns to its owning original without a standing request
-to supply waived evidence or repeat accepted source work. Closure does not
-authorize recipient activation/release or account/data changes. Previously retained
-unpublished observations and unrelated mechanism work remain preserved. The known
-harness entry abbreviation mismatch remains separate; no clean harness-ref audit
-is claimed. No recipient action or operator decision remains for this accepted pass.
+Browser recording/environment details, actual native content reads and shared
+reminder saves/migration remain unconfirmed under the accepted exclusions. The
+selected native backend's dated 404 remains a historical availability observation.
+Cabinet collaboration documentation still describes superseded remaining proof;
+its recipient-owned text has not been changed. Unrelated unpublished local work
+and the known harness-entry abbreviation mismatch remain outside this scope.
 
-Cabinet collaboration documentation still describes superseded remaining proof
-without the final acceptance scope. Recipient documentation ownership remains
-with that project; no recipient code, release or new proof assignment is authorized.
+The queue retains [01-0020 telegram-workshop-access](tickets/01-0020-telegram-workshop-access.md).
+No next delivery cycle was started and no new operator decision is requested.
 
 ## Operations
 
